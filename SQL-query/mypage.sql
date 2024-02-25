@@ -76,7 +76,7 @@ FROM
       id,
       shared
     FROM
-      destinaion
+      destination
   ) share s
 WHERE
   b.content_id = s.id
@@ -248,7 +248,7 @@ FROM
       title,
       profile
     FROM
-      destinaion
+      destination
     WHERE
       member_id = ?
       AND shared = 1
