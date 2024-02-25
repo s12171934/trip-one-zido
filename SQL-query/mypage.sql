@@ -34,8 +34,15 @@ WHERE id IN
 
 #찜 숫자
 SELECT COUNT(*)
-FROM bookmark
-WHERE member_id = ?;
+FROM bookmark b,
+  (SELECT id, shared
+  FROM schedule
+  UNION
+  SELECT id, shared
+  FROM destinaion) share s
+WHERE b.content_id = s.id
+  AND s.shared = 1
+  AND member_id = ?;
 
 #찜 목록 - 관광지
 SELECT id, name, picture
@@ -49,9 +56,10 @@ WHERE id IN
 SELECT id, title, score,
   (SELECT COUNT(*)
   FROM bookmark
-  WHERE content_id = id)
+  WHERE content_id = id) bookmark_count
 FROM schedule
-WHERE id IN
+WHERE shared = 1
+  AND id IN
   (SELECT content_id 
   FROM bookmark
   WHERE member = ?);
@@ -60,9 +68,10 @@ WHERE id IN
 SELECT id, title, address,
   (SELECT COUNT(*)
   FROM bookmark
-  WHERE content_id = id)
-FROM schedule
-WHERE id IN
+  WHERE content_id = id) bookmark_count
+FROM destination
+WHERE shared = 1
+  AND id IN
   (SELECT content_id 
   FROM bookmark
   WHERE member = ?);
@@ -71,9 +80,13 @@ WHERE id IN
 SELECT id, title, score,
   (SELECT COUNT(*)
   FROM bookmark
-  WHERE content_id = id)
-FROM schedule
-WHERE id IN
+  WHERE content_id = id) bookmark_count
+FROM schedule s
+WHERE (shared = 1 OR id IN
+    (SELECT member_id
+    FROM owner
+    WHERE content_id = s.id))
+  AND id IN
   (SELECT content_id 
   FROM owner
   WHERE member_id = ?);
@@ -82,9 +95,13 @@ WHERE id IN
 SELECT id, title, address,
   (SELECT COUNT(*)
   FROM bookmark
-  WHERE content_id = id)
-FROM schedule
-WHERE id IN
+  WHERE content_id = id) bookmark_count
+FROM destination d
+WHERE (shared = 1 OR id IN
+    (SELECT member_id
+    FROM owner
+    WHERE content_id = d.id))
+  AND id IN
   (SELECT content_id 
   FROM owner
   WHERE member_id = ?);
@@ -94,11 +111,11 @@ SELECT conts.id, conts.title, conts.profile, o.open
 FROM open_content o,
   (SELECT id content_id, title, profile 
   FROM schedule 
-  WHERE member_id = ?
+  WHERE member_id = ? AND shared = 1
   UNION
   SELECT id, title, profile 
   FROM destinaion 
-  WHERE member_id = ?
+  WHERE member_id = ? AND shared = 1
   UNION
   SELECT id, title, picture
   FROM tour_info 
