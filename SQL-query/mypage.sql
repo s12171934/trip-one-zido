@@ -196,6 +196,16 @@ SELECT
       content_id = c.id
       AND good = 1
   ) good_count,
+  p.view_potint,
+  c.created_at,
+  (
+    SELECT
+      COUNT(*)
+    FROM
+      pin
+    WHERE
+      content_id = ?
+  ) pin
 FROM
   plan p,
   content c
@@ -220,6 +230,8 @@ WHERE
     WHERE
       member_id = ?
   )
+ORDER BY
+pin, created_at
 LIMIT
   6;
 
@@ -245,6 +257,16 @@ SELECT
       content_id = c.id
       AND good = 1
   ) good_count,
+  p.view_potint,
+  c.created_at,
+  (
+    SELECT
+      COUNT(*)
+    FROM
+      pin
+    WHERE
+      content_id = ?
+  ) pin
 FROM
   spot s,
   content c
@@ -269,10 +291,10 @@ WHERE
     WHERE
       member_id = ?
   )
+ORDER BY
+pin, created_at
 LIMIT
   6;
-
---정렬방식, 핀고정활용
 
 --최근 본 게시글 목록
 SELECT
