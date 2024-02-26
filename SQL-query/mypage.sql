@@ -80,7 +80,10 @@ FROM
   ) share s
 WHERE
   b.content_id = s.id
-  AND s.shared = 1
+  AND (
+    s.shared = 1
+    OR s.shared is NULL
+  )
   AND member_id = ?;
 
 --찜 목록 - 관광지
@@ -98,7 +101,7 @@ WHERE
       bookmark
     WHERE
       member = ?
-  );
+  );  
 
 --찜 목록 - 일정
 SELECT
@@ -124,9 +127,8 @@ WHERE
       bookmark
     WHERE
       member = ?
-  );
-
---찜 목록 - 장소
+  )
+UNION
 SELECT
   id,
   title,
@@ -151,6 +153,8 @@ WHERE
     WHERE
       member = ?
   );
+
+--찜목록에서 찜숫자표시 찜삭제  
 
 --게시물 목록 - 일정
 SELECT
@@ -223,6 +227,8 @@ WHERE
     WHERE
       member_id = ?
   );
+
+--정렬방식, 핀고정활용
 
 --최근 본 게시글 목록
 SELECT

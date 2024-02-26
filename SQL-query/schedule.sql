@@ -31,6 +31,8 @@ WHERE
       schedule_id = ?
   );
 
+--좋아요, 찜여부, 댓글
+
 --일정게시글 등록
 INSERT INTO
   content (type) VALUE ('schedule');
@@ -93,7 +95,10 @@ WHERE
 INSERT INTO
   schedule_destination (schedule_id, destination_id) VALUE (?, ?);
 
+
 --일정게시글 삭제
+--장소게시글 삭제과정 필요
+
 DELETE FROM schedule
 WHERE
   id = ?;

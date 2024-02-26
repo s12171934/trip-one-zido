@@ -1,6 +1,7 @@
---회원가입login_id
+--회원가입
+--아이디 중복확인
 SELECT
-  COUNT(id)
+  COUNT(*)
 FROM
   member
 WHERE
@@ -22,7 +23,9 @@ INSERT INTO
 
 --로그인
 SELECT
-  id
+  name,
+  login_id,
+  profile
 FROM
   member
 WHERE
@@ -39,6 +42,7 @@ WHERE
   AND email = ?;
 
 --비밀번호 찾기 / 재등록
+--보안질문 들어가기 전
 SELECT
   id
 FROM
@@ -48,6 +52,7 @@ WHERE
   AND name = ?
   AND email = ?;
 
+--보안질문 들어간 후
 SELECT
   question,
   answer

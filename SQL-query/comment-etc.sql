@@ -46,6 +46,12 @@ WHERE
   AND member_id = ?;
 
 --좋아요/싫어요
+UPDATE like_unlike
+SET
+  like = !like
+WHERE member_id = ?
+  AND content_id = ?;  
+
 DELETE FROM like_unlike
 WHERE
   content_id = ?

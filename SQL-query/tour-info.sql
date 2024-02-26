@@ -28,4 +28,8 @@ FROM
 SELECT
   *
 FROM
-  tour_info;
+  tour_info
+WHERE
+  id = ?;
+
+--API를 통한 관광정보 등록

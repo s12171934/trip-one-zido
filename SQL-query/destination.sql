@@ -21,6 +21,8 @@ FROM
 WHERE
   destination_id = ?;
 
+--좋아요, 찜여부, 댓글  
+
 --장소게시글 등록
 INSERT INTO
   content (type) VALUE ('destination');

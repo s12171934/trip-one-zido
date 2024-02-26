@@ -2,7 +2,8 @@
 SELECT
   c.id,
   c.title,
-  o.member_id writer,
+  o.member_id writer_id,
+  m.login_id writer
   c.deadline,
   c.view_point,
   c.recruitment,
@@ -17,9 +18,11 @@ SELECT
   ) recruitment_count
 FROM
   community c,
-  owner o
+  owner o,
+  member m
 WHERE
   c.id = o.content_id
+  AND o.member_id = m.id
   AND o.own = 'writer'
 LIMIT
   10;
@@ -66,7 +69,7 @@ INSERT INTO
   ) VALUE (AI_ID, ?, ?, ?, ?, ?, ?, ?);
 
 INSERT INTO
-  own (type, member_id, content_id) VALUE ('writer', ?, AI_ID);
+  owner (own, member_id, content_id) VALUE ('writer', ?, AI_ID);
 
 --커뮤니티 게시글 수정
 UPDATE community
@@ -84,10 +87,11 @@ WHERE
 --커뮤니티 게시글 삭제
 DELETE FROM community
 WHERE
-  id = ?
-  --커뮤니티 여행 참여/취소하기
+  id = ?;
+
+--커뮤니티 여행 참여/취소하기
 INSERT INTO
-  owner (type, member_id, content_id) VALUE ('participants', ?, ?);
+  owner (own, member_id, content_id) VALUE ('participants', ?, ?);
 
 DELETE FROM owner
 WHERE
