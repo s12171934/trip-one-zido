@@ -1,7 +1,7 @@
 --커뮤니티 게시글 조회
 SELECT
   c.id,
-  c.title,
+  con.title,
   o.member_id writer_id,
   m.login_id writer
   c.deadline,
@@ -19,21 +19,24 @@ SELECT
 FROM
   community c,
   owner o,
-  member m
+  member m,
+  content con
 WHERE
   c.id = o.content_id
   AND o.member_id = m.id
   AND o.own = 'writer'
+  AND con.id = c.id
 LIMIT
   10;
 
 --커뮤니티 게시글 상세 조회
 SELECT
-  *
+  c.*, con.title, con.created_at, con.modified_at 
 FROM
-  community
+  community c, content con
 WHERE
-  id = ?;
+  c.id = con.id
+  AND id = ?;
 
 SELECT
   o.member_id,
@@ -50,7 +53,10 @@ WHERE
 
 --커뮤니티 게시글 등록
 INSERT INTO
-  content (type) VALUE ('community');
+  content (
+    type,
+    title
+    ) VALUE ('community', ?);
 
 --INSERT 시 AI key 값 AI_ID에 저장
 SELECT
@@ -59,14 +65,13 @@ SELECT
 INSERT INTO
   community (
     id,
-    title,
     start_date,
     end_date,
     loc_category,
     notice,
     total,
     deadline
-  ) VALUE (AI_ID, ?, ?, ?, ?, ?, ?, ?);
+  ) VALUE (AI_ID, ?, ?, ?, ?, ?, ?);
 
 INSERT INTO
   owner (own, member_id, content_id) VALUE ('writer', ?, AI_ID);
