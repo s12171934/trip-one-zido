@@ -5,7 +5,7 @@
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
 --><html>
 	<head>
-		<title>Intensify by TEMPLATED</title>
+		<title>커뮤니티 | 게시글 목록</title>
 		<meta charset="utf-8">
 		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,12 +18,14 @@
 			<nav class="left">
 				<a href="#menu"><span>Menu</span></a>
 			</nav>
-				<a href="/html-css/index.html" class="logo">여행할지도</a>
+            <!-- 헤더로고 : 350 -->
+				<a href="/html-css/index.html"  class="logo"><img src="/html-css/images/여행한지도_로고.png" width="350"></a>
 			<nav class="right">
-				<a href="/html-css/sign/login.html" class="button alt">Log in</a>
-				<a href="/html-css/sign/signin.html" class="button alt">Sign in</a>
+            <!-- 프로필 -->
+				<span class="image round" style="margin: 15%" box-sha><a href="/html-css/sign/login.html"> <img src="/html-css/images/남자.png" width="75" height="75"></a></span>
 			</nav>	
 		</header>
+
 			<!-- Menu -->
 			<nav id="menu">
 				<ul class="links">
@@ -33,17 +35,15 @@
                     <li><a href="/html-css/main/zzim.html">찜목록</a></li>
                     <li><a href="/html-css/info/info.html">관광정보</a></li>
                     <li><a href="logout.html">로그아웃</a></li>
-				</ul>
-				<ul class="actions vertical">
-					<li><a href="#" class="button fit">로그아웃</a></li>
-				</ul>
+                </ul>
 			</nav>
             
-			<section id="main" class="wrapper">
-                <div style="text-align: left; margin-left: 90px;">
-                    <h1 style="color:#f6755e">커뮤니티(여행 멤버 모집)</h1>
+			<section id="main" class="wrapper" style= "margin-left: 5%; margin-right: 5%;">
+                <div style="text-align: left;">
+                    <h1 class="title" style="color:#ff928e">커뮤니티(여행 멤버 모집)</h1>
+                    <br>
                 </div>
-                <div class="table-wrapper" style="justify-content: center; margin-left: 90px; margin-right: 90px;">
+                <div class="table-wrapper" style="justify-content: center;" >
                     <table>
                         <thead>
                             <tr>
@@ -68,7 +68,7 @@
                             </tr>
                             <tr>
                                 <td>2</td>
-                                <td>부산 가실분><</td>
+                                <td>부산 가실분></td>
                                 <td>minsun</td>
                                 <td>24/02/14</td>
                                 <td>5</td>
@@ -105,6 +105,12 @@
                         </tbody>
                     </table>
                 </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">   
+                <a href="/html-css/community/communityAdd.html" class="button small">등록</a>
+            </div>
+
+
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
                       <li class="page-item disabled">
@@ -130,7 +136,7 @@
 			<!-- Footer -->
 			<footer id="footer">
 				<div class="inner">
-					<h2>Get In Touch</h2>
+					<h2>여행한 지도</h2>
 					<ul class="actions">
 						<li><span class="icon fa-phone"></span> <a href="#">(000) 000-0000</a></li>
 						<li><span class="icon fa-envelope"></span> <a href="#">information@untitled.tld</a></li>
@@ -149,3 +155,47 @@
 			<script src="/html-css/assets/js/main.js"></script>
 		</body>
 		</html>
+
+    <style>
+
+        @font-face {
+            font-family: 'Jalnan';
+            src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');
+        }
+
+        #header {
+            font-family: 'Jalnan';
+        }
+
+        head {
+            font-family: 'Jalnan';
+        }
+
+        #menu {
+            font-family: 'Jalnan';
+            font-size: 20px;
+        }
+
+        #footer {
+            font-family: 'Jalnan';
+            font-size: 10px;
+        }
+
+        .main {
+            font-family: 'Jalnan';
+        }
+
+        .inner {
+            font-family: 'Jalnan';
+        }
+
+        .title {
+            font-family: 'Jalnan';
+        }
+
+        body {
+            font-family: 'Jalnan';
+        }
+        
+
+    </style>
