@@ -1617,6 +1617,7 @@
 /* Type */
 
 	body, input, select, textarea {
+		/* 박스 안 글씨색 */
 		color: #767d85;
 		font-family: "Open Sans", Arial, Helvetica, sans-serif;
 		font-size: 13pt;
@@ -2677,7 +2678,7 @@
 		height: 6em;
 		left: 0;
 		line-height: 6em;
-		position: fixed;
+		position: absolute;
 		top: 0;
 		width: 100%;
 		z-index: 10001;
@@ -2797,7 +2798,7 @@
 		-ms-transition: -ms-transform 0.5s ease, visibility 0.5s;
 		transition: transform 0.5s ease, visibility 0.5s;
 		-webkit-overflow-scrolling: touch;
-		background: #25a2c3;
+		background: #F6B6B4;
 		color: #ffffff;
 		height: 100%;
 		max-width: 80%;
@@ -3139,13 +3140,13 @@
 
 	#footer {
 		padding: 6em 0 4em 0;
-		background: #25a2c3;
+		background: #ffeeee;
 		text-align: center;
-		color: #c8e7f0;
+		color: #747474;
 	}
 
 		#footer h2 {
-			color: #fff;
+			color: #6d6d6d;
 		}
 
 		#footer .icon {
@@ -3153,7 +3154,7 @@
 		}
 
 		#footer a {
-			color: #c8e7f0;
+			color: #747474;
 			text-decoration: none;
 		}
 
@@ -3163,7 +3164,7 @@
 
 		#footer .copyright {
 			display: inline-block;
-			color: #a7d9e7;
+			color: #ffffff;
 			font-size: 0.75em;
 			margin: 0 0 2em 0;
 			padding: 0;
@@ -3172,7 +3173,7 @@
 			padding: 2em 10em;
 		}
 .copyright {
-	background: #25a2c3;
+	background: #ff8783;
 	display: inline-block;
 	color: white;
 	font-size: 0.75em;
@@ -3227,3 +3228,7 @@
 				}
 
 		}
+
+.button-add {
+	
+}
