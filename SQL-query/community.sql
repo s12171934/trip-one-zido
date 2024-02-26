@@ -6,7 +6,7 @@ SELECT
   m.login_id writer
   c.deadline,
   c.view_point,
-  c.recruitment,
+  c.total,
   c.status,
   (
     SELECT
@@ -15,7 +15,7 @@ SELECT
       owner
     WHERE
       content_id = id
-  ) recruitment_count
+  ) total_count
 FROM
   community c,
   owner o,
@@ -64,7 +64,7 @@ INSERT INTO
     end_date,
     loc_category,
     notice,
-    recruitment,
+    total,
     deadline
   ) VALUE (AI_ID, ?, ?, ?, ?, ?, ?, ?);
 
@@ -74,18 +74,24 @@ INSERT INTO
 --커뮤니티 게시글 수정
 UPDATE community
 SET
-  title = ?,
   start_date = ?,
   end_date = ?,
   loc_category = ?,
   notice = ?,
-  recruitment = ?,
+  total = ?,
   deadline = ?
 WHERE
   id = ?;
 
+UPDATE content
+SET
+  title = ?
+WHERE
+  id = ?;
+
+
 --커뮤니티 게시글 삭제
-DELETE FROM community
+DELETE FROM content
 WHERE
   id = ?;
 
