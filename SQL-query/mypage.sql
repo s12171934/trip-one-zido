@@ -19,7 +19,6 @@ WHERE
 --팔로잉 목록
 SELECT
   id,
-  name,
   login_id,
   profile
 FROM
@@ -45,7 +44,6 @@ WHERE
 --팔로워 목록
 SELECT
   id,
-  name,
   login_id,
   profile
 FROM
@@ -65,210 +63,241 @@ SELECT
   COUNT(*)
 FROM
   bookmark b,
-  (
-    SELECT
-      id,
-      shared
-    FROM
-      schedule
-    UNION
-    SELECT
-      id,
-      shared
-    FROM
-      destination
-  ) share s
+  content c
 WHERE
-  b.content_id = s.id
-  AND (
-    s.shared = 1
-    OR s.shared is NULL
-  )
-  AND member_id = ?;
+  b.content_id = c.id
+  AND c.public = 1
+  AND b.member_id = ?;
 
 --찜 목록 - 관광지
 SELECT
-  id,
-  name,
-  picture
-FROM
-  tour_info
-WHERE
-  id IN (
-    SELECT
-      content_id
-    FROM
-      bookmark
-    WHERE
-      member = ?
-  );  
-
---찜 목록 - 일정
-SELECT
-  id,
-  title,
-  score,
+  t.id,
+  c.title,
+  t.picture,
   (
     SELECT
       COUNT(*)
     FROM
       bookmark
     WHERE
-      content_id = id
+      content_id = c.id
   ) bookmark_count
 FROM
-  schedule
+  tour_info t,
+  content c
 WHERE
-  shared = 1
-  AND id IN (
+  t.id = c.id
+  AND t.id IN (
     SELECT
       content_id
     FROM
       bookmark
     WHERE
-      member = ?
-  )
-UNION
-SELECT
-  id,
-  title,
-  address,
-  (
-    SELECT
-      COUNT(*)
-    FROM
-      bookmark
-    WHERE
-      content_id = id
-  ) bookmark_count
-FROM
-  destination
-WHERE
-  shared = 1
-  AND id IN (
-    SELECT
-      content_id
-    FROM
-      bookmark
-    WHERE
-      member = ?
+      member_id = ?
   );
 
---찜목록에서 찜숫자표시 찜삭제  
+--찜 목록 - 일정/장소
+SELECT
+  c.id,
+  c.title,
+  CASE
+    WHEN c.type = 'spot' THEN s.grade
+    WHEN c.type = 'plan' THEN p.grade
+    ELSE 0
+  END AS grade,
+  (
+    SELECT
+      COUNT(*)
+    FROM
+      bookmark
+    WHERE
+      content_id = c.id
+  ) bookmark_count,
+  (
+    SELECT
+      COUNT(*)
+    FROM
+      good
+    WHERE
+      content_id = c.id
+      AND good = 1
+  ) good_count,
+FROM
+  spot s,
+  plan p,
+  content c
+WHERE
+  s.id = c.id
+  AND p.id = c.id
+  AND (
+    c.public = 1
+    OR c.id IN (
+      SELECT
+        member_id
+      FROM
+        owner
+      WHERE
+        content_id = c.id
+    )
+  )
+  AND c.id IN (
+    SELECT
+      content_id
+    FROM
+      owner
+    WHERE
+      member_id = ?
+  )
+LIMIT
+  6;
+
+--찜목록 숫자표시 - 관광지
+SELECT
+  COUNT(*)
+FROM
+  bookmark b,
+  content c
+WHERE
+  b.content_id = c.id
+  AND c.type = 'tour'
+  AND b.member_id = ?;
+
+--찜목록 숫자표시 - 일정/장소
+SELECT
+  COUNT(*)
+FROM
+  bookmark b,
+  content c
+WHERE
+  b.content_id = c.id
+  AND c.public = 1
+  AND c.type != 'tour'
+  AND b.member_id = ?;
 
 --게시물 목록 - 일정
 SELECT
-  id,
-  title,
-  score,
+  c.id,
+  c.title,
+  p.grade,
   (
     SELECT
       COUNT(*)
     FROM
       bookmark
     WHERE
-      content_id = id
-  ) bookmark_count
-FROM
-  schedule s
-WHERE
+      content_id = c.id
+  ) bookmark_count,
   (
-    shared = 1
-    OR id IN (
+    SELECT
+      COUNT(*)
+    FROM
+      good
+    WHERE
+      content_id = c.id
+      AND good = 1
+  ) good_count,
+FROM
+  plan p,
+  content c
+WHERE
+  p.id = c.id
+  AND (
+    c.public = 1
+    OR c.id IN (
       SELECT
         member_id
       FROM
         owner
       WHERE
-        content_id = s.id
+        content_id = c.id
     )
   )
-  AND id IN (
+  AND c.id IN (
     SELECT
       content_id
     FROM
       owner
     WHERE
       member_id = ?
-  );
+  )
+LIMIT
+  6;
 
 --게시물 목록 - 장소
 SELECT
-  id,
-  title,
-  address,
+  c.id,
+  c.title,
+  s.grade,
   (
     SELECT
       COUNT(*)
     FROM
       bookmark
     WHERE
-      content_id = id
-  ) bookmark_count
-FROM
-  destination d
-WHERE
+      content_id = c.id
+  ) bookmark_count,
   (
-    shared = 1
-    OR id IN (
+    SELECT
+      COUNT(*)
+    FROM
+      good
+    WHERE
+      content_id = c.id
+      AND good = 1
+  ) good_count,
+FROM
+  spot s,
+  content c
+WHERE
+  s.id = c.id
+  AND (
+    c.public = 1
+    OR c.id IN (
       SELECT
         member_id
       FROM
         owner
       WHERE
-        content_id = d.id
+        content_id = c.id
     )
   )
-  AND id IN (
+  AND c.id IN (
     SELECT
       content_id
     FROM
       owner
     WHERE
       member_id = ?
-  );
+  )
+LIMIT
+  6;
 
 --정렬방식, 핀고정활용
 
 --최근 본 게시글 목록
 SELECT
-  conts.id,
-  conts.title,
-  conts.profile,
+  c.id,
+  c.title,
+  p.profile,
   o.open
 FROM
   open_content o,
-  (
-    SELECT
-      id content_id,
-      title,
-      profile
-    FROM
-      schedule
-    WHERE
-      member_id = ?
-      AND shared = 1
-    UNION
-    SELECT
-      id,
-      title,
-      profile
-    FROM
-      destination
-    WHERE
-      member_id = ?
-      AND shared = 1
-    UNION
-    SELECT
-      id,
-      title,
-      picture
-    FROM
-      tour_info
-    WHERE
-      member_id = ?
-  ) conts
+  content c,
+  photo p
 WHERE
-  o.content_id = conts.content_id
+  o.content_id = c.id
+  AND c.id = p.content_id
+  AND c.public = 1
+  AND (
+    c.type != 'spot'
+    OR p.id IN (
+      SELECT
+        profile_id
+      FROM
+        spot
+    )
+  )
 ORDER BY
-  open;
+  open
+LIMIT
+  12;

@@ -1,63 +1,72 @@
 --일정게시글 조회
 SELECT
-  *
+  p.*,
+  c.title,
+  c.public,
+  c.created_at
 FROM
-  schedule
+  plan p,
+  content c
 WHERE
-  id = ?;
+  p.id = c.id
+  AND id = ?;
 
 SELECT
-  own,
-  member_id
+  o.own,
+  m.id,
+  m.login_id,
+  m.profile
 FROM
-  owner
+  owner o,
+  member m
 WHERE
-  content_id = ?;
+  o.member_id = m.id
+  AND o.content_id = ?;
 
 SELECT
-  id,
-  title,
-  start_time,
-  end_time
+  c.id,
+  c.title,
+  s.start_time,
+  s.end_time
 FROM
-  destination
+  spot s,
+  content c
 WHERE
-  id in (
+  s.id = c.id
+  AND c.id in (
     SELECT
-      destination_id
+      spot_id
     FROM
-      schedule_destination
+      plan_spot
     WHERE
-      schedule_id = ?
+      plan_id = ?
   );
-
---좋아요, 찜여부, 댓글
 
 --일정게시글 등록
 INSERT INTO
-  content (type) VALUE ('schedule');
+  content (type, public, title) VALUE ('plan', ?, ?);
 
 --INSERT 시 AI key 값 AI_ID에 저장
 SELECT
   LAST_INSERT_ID ();
 
 INSERT INTO
-  schedule (
+  plan (
     id,
-    title,
     start_date,
     end_date,
     loc_category,
     review,
     status,
-    shared,
-    score,
-    profile
-  ) VALUE (AI_ID, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+    grade,
+  ) VALUE (AI_ID, ?, ?, ?, ?, ?, ?);
+
+INSERT INTO
+  photo (photo, content_id) VALUE (?, ?);
 
 --장소 등록 이후
 INSERT INTO
-  schedule_destination (schedule_id, destination_id) VALUE (?, ?);
+  plan_spot (plan_id, spot_id) VALUE (?, ?);
 
 INSERT INTO
   owner (own, member_id, content_id) VALUE ('writer', ?, ?);
@@ -66,19 +75,29 @@ INSERT INTO
   owner (own, member_id, content_id) VALUE ('with', ?, ?);
 
 --일정게시글 수정
-UPDATE schedule
+UPDATE content
 SET
   title = ?,
+  public = ?
+WHERE
+  id = ?;
+
+UPDATE plan
+SET
   start_date = ?,
   end_date = ?,
   loc_category = ?,
   review = ?,
   status = ?,
-  shared = ?,
-  score = ?,
-  profile = ?
+  grade = ?
 WHERE
   id = ?;
+
+UPDATE photo
+SET
+  photo = ?
+WHERE
+  content_id = ?;
 
 DELETE FROM owner
 WHERE
@@ -88,17 +107,25 @@ WHERE
 INSERT INTO
   owner (own, member_id, content_id) VALUE ('with', ?, ?);
 
-DELETE FROM destination
+DELETE FROM content
 WHERE
   id = ?;
 
 INSERT INTO
-  schedule_destination (schedule_id, destination_id) VALUE (?, ?);
-
+  plan_spot (plan_id, spot_id) VALUE (?, ?);
 
 --일정게시글 삭제
---장소게시글 삭제과정 필요
+DELETE FROM spot
+WHERE
+  id IN (
+    SELECT
+      spot_id
+    FROM
+      plan_spot
+    WHERE
+      plan_id = ?
+  );
 
-DELETE FROM schedule
+DELETE FROM content
 WHERE
   id = ?;

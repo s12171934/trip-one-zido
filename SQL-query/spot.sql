@@ -1,53 +1,54 @@
 --장소게시글 조회
 SELECT
-  *
+  s.*,
+  c.title,
+  c.public,
+  c.created_at
 FROM
-  destination
+  spot s,
+  content c
 WHERE
-  id = ?;
+  s.id = c.id
+  AND id = ?;
 
 SELECT
-  own,
-  member_id
+  o.own,
+  m.id,
+  m.login_id,
+  m.profile
 FROM
-  owner
+  owner o,
+  member m
 WHERE
-  content_id = ?;
+  o.member_id = m.id
+  AND o.content_id = ?;
 
-SELECT
-  picture
-FROM
-  picture
-WHERE
-  destination_id = ?;
-
---좋아요, 찜여부, 댓글  
+SELECT photo
+FROM photo
+WHERE content_id = ?;
 
 --장소게시글 등록
 INSERT INTO
-  content (type) VALUE ('destination');
+  content (type, public, title) VALUE ('plan', ?, ?);
 
 --INSERT 시 AI key 값 AI_ID에 저장
 SELECT
   LAST_INSERT_ID ();
 
 INSERT INTO
-  destination (
+  plan (
     id,
-    title,
     category,
     start_date,
     end_date,
     loc_category,
     address,
     review,
-    shared,
-    score,
-    profile
-  ) VALUE (AI_ID, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+    grade
+  ) VALUE (AI_ID, ?, ?, ?, ?, ?, ?, ?);
 
 INSERT INTO
-  picture (picture, destination_id) VALUE (?, ?);
+  photo (photo, content_id) VALUE (?, ?);
 
 INSERT INTO
   owner (own, member_id, content_id) VALUE ('writer', ?, ?);
@@ -56,20 +57,30 @@ INSERT INTO
   owner (own, member_id, content_id) VALUE ('with', ?, ?);
 
 --장소게시글 수정
-UPDATE destination
+UPDATE content
 SET
   title = ?,
+  public = ?
+WHERE
+  id = ?;
+
+UPDATE spot
+SET
   category = ?,
   start_date = ?,
   end_date = ?,
   loc_category = ?,
   address = ?,
   review = ?,
-  shared = ?,
-  score = ?,
-  profile = ?
+  grade = ?
 WHERE
   id = ?;
+
+UPDATE photo
+SET
+  photo = ?
+WHERE
+  content_id = ?;
 
 DELETE FROM owner
 WHERE
@@ -79,14 +90,14 @@ WHERE
 INSERT INTO
   owner (own, member_id, content_id) VALUE ('with', ?, ?);
 
-DELETE FROM picture
+DELETE FROM content
 WHERE
   id = ?;
 
 INSERT INTO
-  picture (picture, destination_id) VALUE (?, ?);
+  plan_spot (plan_id, spot_id) VALUE (?, ?);
 
 --장소게시글 삭제
-DELETE FROM destination
+DELETE FROM content
 WHERE
   id = ?;
