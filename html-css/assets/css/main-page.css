@@ -1617,7 +1617,6 @@
 /* Type */
 
 	body, input, select, textarea {
-		/* 박스 안 글씨색 */
 		color: #767d85;
 		font-family: "Open Sans", Arial, Helvetica, sans-serif;
 		font-size: 13pt;
@@ -2400,7 +2399,7 @@
 		-webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 		-ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
 		transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-		background-color: #F6B6B4;
+		background-color: #f6755e;
 		border-radius: 4px;
 		border: 0;
 		color: #ffffff;
@@ -2421,7 +2420,7 @@
 		input[type="button"]:hover,
 		button:hover,
 		.button:hover {
-			background-color: #F6B6B4;
+			background-color: #f78a76;
 		}
 
 		input[type="submit"]:active,
@@ -2429,7 +2428,7 @@
 		input[type="button"]:active,
 		button:active,
 		.button:active {
-			background-color: #F6B6B4;
+			background-color: #f56046;
 		}
 
 		input[type="submit"].icon,
@@ -2634,7 +2633,7 @@
 		}
 
 		.wrapper.style1 {
-			background: #F6B6B4;
+			background: #f6755e;
 			color: #fcdcd6;
 		}
 
@@ -2678,16 +2677,16 @@
 		height: 6em;
 		left: 0;
 		line-height: 6em;
-		position: absolute;
+		position: fixed;
 		top: 0;
 		width: 100%;
 		z-index: 10001;
-		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.075);
+		/* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.075); */
 		text-align: center;
 	}
 
 		#header .logo {
-			color: #F6B6B4;
+			color: #f6755e;
 			font-family: "Pacifico", cursive;
 			font-size: 2.5em;
 			letter-spacing: 2px;
@@ -2941,7 +2940,7 @@
 
 		#banner h1 {
 			font-size: 3em;
-			color: #F6B6B4;
+			color: #25a2c3;
 			line-height: 1em;
 			margin: 0 0 0.5em 0;
 			padding: 0;
@@ -3140,21 +3139,21 @@
 
 	#footer {
 		padding: 6em 0 4em 0;
-		background: #ffeeee;
+		background: #25a2c3;
 		text-align: center;
-		color: #747474;
+		color: #c8e7f0;
 	}
 
 		#footer h2 {
-			color: #6d6d6d;
+			color: #fff;
 		}
 
 		#footer .icon {
-			color: #F6B6B4;
+			color: #f6755e;
 		}
 
 		#footer a {
-			color: #747474;
+			color: #c8e7f0;
 			text-decoration: none;
 		}
 
@@ -3164,7 +3163,7 @@
 
 		#footer .copyright {
 			display: inline-block;
-			color: #ffffff;
+			color: #a7d9e7;
 			font-size: 0.75em;
 			margin: 0 0 2em 0;
 			padding: 0;
@@ -3173,7 +3172,7 @@
 			padding: 2em 10em;
 		}
 .copyright {
-	background: #F6B6B4;
+	background: #25a2c3;
 	display: inline-block;
 	color: white;
 	font-size: 0.75em;
