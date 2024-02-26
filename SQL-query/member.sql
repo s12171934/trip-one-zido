@@ -21,9 +21,10 @@ INSERT INTO
     gender
   ) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
+--sns 연동을 통한 회원가입
+
 --로그인
 SELECT
-  name,
   login_id,
   profile
 FROM
@@ -68,14 +69,6 @@ WHERE
   id = ?;
 
 --정보변경
-SELECT
-  id
-FROM
-  member
-WHERE
-  id = ?
-  AND password = ?;
-
 UPDATE member
 SET
   name = ?,
