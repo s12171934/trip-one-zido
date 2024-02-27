@@ -204,7 +204,8 @@ SELECT
     FROM
       pin
     WHERE
-      content_id = ?
+      member_id = ?
+      AND content_id = ?
   ) pin
 FROM
   plan p,
@@ -231,7 +232,8 @@ WHERE
       member_id = ?
   )
 ORDER BY
-pin, created_at
+  pin,
+  created_at
 LIMIT
   6;
 
@@ -265,7 +267,8 @@ SELECT
     FROM
       pin
     WHERE
-      content_id = ?
+      member_id = ?
+      AND content_id = ?
   ) pin
 FROM
   spot s,
@@ -292,9 +295,20 @@ WHERE
       member_id = ?
   )
 ORDER BY
-pin, created_at
+  pin,
+  created_at
 LIMIT
   6;
+
+--게시물 고정 등록
+INSERT INTO
+  pin (member_id, content_id) VALUE (?, ?);
+
+--게시물 고정 취소
+DELETE FROM pin
+WHERE
+  member_id = ?
+  AND content_id = ?;
 
 --최근 본 게시글 목록
 SELECT
