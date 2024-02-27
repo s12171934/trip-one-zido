@@ -1,7 +1,14 @@
 --회원가입
+--보안질문 응답
+SELECT
+  *
+FROM
+  security_questions;
+
 --아이디 중복확인
 SELECT
-  COUNT(*)
+  login_id,
+  password
 FROM
   member
 WHERE
@@ -24,6 +31,7 @@ INSERT INTO
 --sns 연동을 통한 회원가입
 --로그인
 SELECT
+  id,
   login_id,
   profile
 FROM
@@ -52,9 +60,18 @@ WHERE
   AND name = ?
   AND email = ?;
 
---보안질문 들어간 후
+--보안질문 들어갈 때
 SELECT
-  question,
+  q.question
+FROM
+  member m,
+  security_questions q
+WHERE
+  m.question = q.id
+  AND m.id = ?;
+
+--보안질문 응답할 때
+SELECT
   answer
 FROM
   member
@@ -88,14 +105,6 @@ WHERE
   id = ?;
 
 --비밀번호 변경
-SELECT
-  id
-FROM
-  member
-WHERE
-  id = ?
-  AND password = ?;
-
 UPDATE member
 SET
   password = ?
