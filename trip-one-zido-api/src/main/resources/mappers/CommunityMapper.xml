@@ -25,55 +25,77 @@
 
     </insert>
 
-    <insert id="entry" parameterType="com.example.triponezidoapi.dto.EntryCommunity">
-        INSERT INTO owner
-            (
-            own,
-            member_id,
-            content_id
-            )
-        VALUES
-            (
-            #{own},
-            #{memberId},
-            #{contentId}
-            )
-    </insert>
-
     <select id="getCommunities" parameterType="long" resultType="com.example.triponezidoapi.dto.CommunityTable">
         SELECT
-            c1.id,
-            c2.title,
-            o.member_id writer_id,
-            m.login_id writer,
-            c1.deadline,
-            c1.view_point,
-            c1.total,
-            c1.status,
+            content.id,
+            title,
+            deadline,
+            view_point,
+            total,
+            status,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                owner
+            WHERE
+                content_id = content.id
+            ) participants_count,
+            (
+            SELECT
+                login_id
+            FROM
+                member m,
+                owner o
+            WHERE
+                m.id = o.member_id AND
+                o.owm = 'writer' AND
+                o.content_id = content.id
+            ) writer
+        FROM
+            community,
+            content
+        WHERE
+            community.id = content.id
+        LIMIT
+            10;
+    </select>
+
+    <select id="getCommunitiesWithSearch" parameterType="com.example.triponezidoapi.dto.RequestSearch" resultType="com.example.triponezidoapi.dto.CommunityTable">
+        SELECT
+            content.id,
+            title,
+            deadline,
+            view_point,
+            total,
+            status,
             (
                 SELECT
                     COUNT(*)
                 FROM
                     owner
                 WHERE
-                    content_id = id
-            ) participants_count
+                    content_id = content.id
+            ) participants_count,
+            (
+                SELECT
+                    login_id
+                FROM
+                    member m,
+                    owner o
+                WHERE
+                    m.id = o.member_id AND
+                    o.owm = 'writer' AND
+                    o.content_id = content.id
+            ) writer
         FROM
-            community c1,
-            owner o,
-            member m,
-            content c2
+            community,
+            content
         WHERE
-            c1.id = o.content_id AND
-            o.member_id = m.id AND
-            o.own = 'writer' AND
-            c2.id = c1.id
+            community.id = content.id AND
+            #{type} = #{keyword}
         LIMIT
             10;
-    </select>
-
-    <select id="getCommunitiesWithSearch" parameterType="long" resultType="com.example.triponezidoapi.dto.CommunityTable">
-
     </select>
 
     <select id="getCommunity" parameterType="long" resultType="com.example.triponezidoapi.dto.CommunityDetail">
@@ -116,17 +138,4 @@
         WHERE
             id = #{id}
     </update>
-
-    <delete id="deleteCommunity" parameterType="com.example.triponezidoapi.dto.CommunityDetail">
-        DELETE FROM content
-        WHERE id = #{id}
-    </delete>
-
-    <delete id="departure" parameterType="com.example.triponezidoapi.dto.EntryCommunity">
-        DELETE FROM owner
-        WHERE
-            member_id = #{memberId} AND
-            content_id = #{contentId}
-    </delete>
-
 </mapper>

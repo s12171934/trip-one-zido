@@ -9,7 +9,6 @@ import java.util.List;
 public interface CommunityMapper {
     //insert
     void addCommunity(CommunityDetail communityDetail);
-    void entry(EntryCommunity entryCommunity);
 
     //select
     List<CommunityTable> getCommunities(long page);
@@ -19,8 +18,4 @@ public interface CommunityMapper {
 
     //update
     void updateCommunity(CommunityDetail communityDetail);
-
-    //delete
-    void deleteCommunity(long id);
-    void departure(EntryCommunity entryCommunity);
 }
