@@ -48,7 +48,7 @@ WHERE
     p1.id = c.id
     AND c.id = p2.content_id
     AND c.title LIKE ?
-    AND p.start_date BETWEEN SUBDATE(NOW(), ?) AND NOW()
+    AND MONTH(p.start_date) <= ? AND MONTH(p.end_date) >= ?
     AND s.loc_category = ?;
 
 -- 장소
@@ -61,7 +61,7 @@ FROM
 WHERE
     s.id = c.id
     AND c.title LIKE ?
-    AND s.start_date BETWEEN SUBDATE(NOW(), ?) AND NOW()
+    AND MONTH(s.start_date) <= ? AND MONTH(s.end_date) >= ?
     AND s.category = ?
     AND s.loc_category = ?;
 
