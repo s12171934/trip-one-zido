@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.triponezidoapi.mappers.ContentMapper">
+    <insert id="addContent" parameterType="com.example.triponezidoapi.dto.Content">
+        INSERT INTO content
+            (
+            type,
+            is_public,
+            title
+            )
+        VALUE
+            (
+            #{type},
+            #{isPublic},
+            #{title}
+            )
+        <selectKey keyProperty="id" resultType="long">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
+    </insert>
+</mapper>
