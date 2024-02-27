@@ -1,6 +1,6 @@
 --관광정보 전체 조회
 SELECT
-  id,
+  t.id,
   c.title,
   p.photo,
   address,
@@ -33,13 +33,13 @@ WHERE
 SELECT
   t.*,
   c.title,
-  p.photo,
+  p.photo
 FROM
   tour t,
   content c,
   photo p
 WHERE
-  id = ?
+  t.id = ?
   AND tour.id = content.id
   AND tour.id = photo.content_id;
 
@@ -55,4 +55,4 @@ INSERT INTO
   tour (id, loc_category, address, info) VALUE (AI_ID, ?, ?, ?);
 
 INSERT INTO
-  photo (photo, content_id) VALUE (?, ?);
+  photo (photo, content_id) VALUE (?, AI_ID);

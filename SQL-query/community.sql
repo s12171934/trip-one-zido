@@ -3,7 +3,8 @@ SELECT
   c1.id,
   c2.title,
   o.member_id writer_id,
-  m.login_id writer c1.deadline,
+  m.login_id writer,
+  c1.deadline,
   c1.view_point,
   c1.total,
   c1.status,
@@ -14,7 +15,7 @@ SELECT
       owner
     WHERE
       content_id = id
-  ) total_count
+  ) participants_count
 FROM
   community c1,
   owner o,
@@ -39,12 +40,11 @@ FROM
   content c2
 WHERE
   c1.id = c2.id
-  AND id = ?;
+  AND c1.id = ?;
 
 SELECT
   o.member_id,
   o.own,
-  m.name,
   m.login_id,
   m.profile
 FROM

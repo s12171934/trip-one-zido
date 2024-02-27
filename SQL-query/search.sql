@@ -76,7 +76,8 @@ WHERE
 SELECT
     c1.id,
     c2.title,
-    o.member_id m.login_id,
+    o.member_id,
+    m.login_id,
     c1.deadline,
     c1.view_point,
     (
@@ -105,7 +106,8 @@ WHERE
 SELECT
     c1.id,
     c2.title,
-    o.member_id m.login_id,
+    o.member_id,
+    m.login_id,
     c1.deadline,
     c1.view_point,
     (

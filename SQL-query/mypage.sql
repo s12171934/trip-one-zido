@@ -83,7 +83,7 @@ SELECT
       content_id = c.id
   ) bookmark_count
 FROM
-  tour_info t,
+  tour t,
   content c
 WHERE
   t.id = c.id
@@ -122,6 +122,7 @@ SELECT
       content_id = c.id
       AND good = 1
   ) good_count,
+  c.photo
 FROM
   spot s,
   plan p,
@@ -176,7 +177,7 @@ WHERE
 
 --게시물 목록 - 일정
 SELECT
-  c.id,
+  p.id,
   c.title,
   p.grade,
   (
@@ -206,7 +207,8 @@ SELECT
     WHERE
       member_id = ?
       AND content_id = ?
-  ) pin
+  ) pin,
+  c.photo
 FROM
   plan p,
   content c
@@ -239,7 +241,7 @@ LIMIT
 
 --게시물 목록 - 장소
 SELECT
-  c.id,
+  s.id,
   c.title,
   s.grade,
   (
@@ -269,7 +271,8 @@ SELECT
     WHERE
       member_id = ?
       AND content_id = ?
-  ) pin
+  ) pin,
+  s.profile_id
 FROM
   spot s,
   content c
@@ -314,8 +317,8 @@ WHERE
 SELECT
   c.id,
   c.title,
-  p.profile,
-  o.open
+  p.photo,
+  o.opened_at
 FROM
   open_content o,
   content c,
