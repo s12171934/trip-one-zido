@@ -3,226 +3,573 @@
 	Intensify by TEMPLATED
 	templated.co @templatedco
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
---><html>
-	<head>
-		<title>Intensify by TEMPLATED</title>
-		<meta charset="utf-8">
-		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="/html-css/assets/css/main.css">
-		<link rel="stylesheet" href="/html-css/main/zzim.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" 
-		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-	</head>
-	<body>
-		<!-- Header -->
-		<header id="header">
-			<nav class="left">
-				<a href="#menu"><span>Menu</span></a>
-			</nav>
-				<a href="/html-css/index.html" class="logo">여행할지도</a>
-			<nav class="right">
-				<a href="/html-css/sign/login.html" class="button alt">Log in</a>
-				<a href="/html-css/sign/signin.html" class="button alt">Sign in</a>
-			</nav>	
-		</header>
-			<!-- Menu -->
-			<nav id="menu">
-				<ul class="links">
-					<li><a href="/html-css/index.html">게시물등록</a></li>
-					<li><a href="/html-css/community/community.html">커뮤니티</a></li>
-					<li><a href="/html-css/config/config.html">최근기록</a></li>
-                    <li><a href="/html-css/main/zzim.html">찜목록</a></li>
-                    <li><a href="/html-css/info/info.html">관광정보</a></li>
-                    <li><a href="logout.html">로그아웃</a></li>
-				</ul>
-				<ul class="actions vertical">
-					<li><a href="#" class="button fit">로그아웃</a></li>
-				</ul>
-			</nav>
-            
-			<section id="main" class="wrapper" style= "margin-left: 5%; margin-right: 5%;">
-                <div style="text-align: left;">
-                    <div class="d-flex justify-content-between">
-                        <h1 style="color:#f6755e">찜한 게시글</h1>
-						<span></span>
-                        <span class="button alt icon fa-check" onclick="deleteimg()"> 찜편집하기 </span>
+-->
+<html>
+
+<head>
+    <title>Intensify by TEMPLATED</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/html-css/assets/css/main.css">
+    <link rel="stylesheet" href="/html-css/main/zzim.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Header -->
+    <header id="header">
+        <nav class="left">
+            <a href="#menu"><span>Menu</span></a>
+        </nav>
+        <a href="/html-css/index.html" class="logo">여행할지도</a>
+        <nav class="right">
+            <span class="image round" style="margin: 15%"><a href="/html-css/sign/login.html"> <img src="/html-css/images/pic01.jpg" width="75" height="75"></a></span>
+        </nav>
+    </header>
+    <!-- Menu -->
+    <nav id="menu">
+        <ul class="links">
+            <li><a href="/html-css/index.html">게시물등록</a></li>
+            <li><a href="/html-css/community/community.html">커뮤니티</a></li>
+            <li><a href="/html-css/config/config.html">최근기록</a></li>
+            <li><a href="/html-css/main/zzim.html">찜목록</a></li>
+            <li><a href="/html-css/info/info.html">관광정보</a></li>
+            <li><a href="logout.html">로그아웃</a></li>
+        </ul>
+        <ul class="actions vertical">
+            <li><a href="#" class="button fit">로그아웃</a></li>
+        </ul>
+    </nav>
+
+    <section id="main" class="wrapper" style="margin-left: 5%; margin-right: 5%;">
+        <div style="text-align: left;">
+            <div class="d-flex justify-content-between">
+                <h1 style="color:#f6755e">찜한 게시글</h1>
+                <span></span>
+                <span class="button alt icon fa-check" onclick="deleteimg()"> 찜편집하기 </span>
+            </div>
+        </div>
+
+        <div style="text-align: left;">
+            <div class="d-flex flex-row mb-6">
+                <h3 style="color:#f6755e">・모든 일정 & 장소 게시글 </h3>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <h3 style="color:rgb(80, 80, 80)">5</h3>
+            </div>
+        </div>
+
+        <div class="slide slide_wrap">
+            <div class="slide_item">
+                <div class="d-flex flex-row mb-6">
+                    <div class="p-2">
+                        <div class="minusbox">
+                            <img src="/html-css/images/minusbutton.png" width="25" height="25" class="minus">
+                        </div>
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan1.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">58</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">8.5</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">578</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>광안리</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
                     </div>
 
-                </div>
-				<div style="text-align: left;">
-                    <div class="d-flex flex-row mb-6">
-                        <h3 style="color:#f6755e">・모든 일정 & 장소 게시글 </h3>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <h3 style ="color:rgb(80, 80, 80)">5</h3>
+                    <div class="p-2">
+                        <div class="minusbox">
+                            <img src="/html-css/images/minusbutton.png" width="25" height="25" class="minus">
+                        </div>
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan2.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">78</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">7.5</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">158</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>광안대교</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+
+                    <div class="p-2">
+                        <div class="minusbox">
+                            <img src="/html-css/images/minusbutton.png" width="25" height="25" class="minus">
+                        </div>
+
+                        <a href="/html-css/info/detail.html" class="banner_img">
+                            <img src="/html-css/images/busan3.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">1,238</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">9.5</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">902</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>해동용궁사</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+
+                    <div class="p-2">
+                        <div class="minusbox">
+                            <img src="/html-css/images/minusbutton.png" width="25" height="25" class="minus">
+                        </div>
+
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan1.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">58</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">6.5</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">578</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>광안리</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                    <div class="p-2">
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan2.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">78</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">10</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">158</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>광안대교</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                    <div class="p-2">
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan3.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">1,238</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">9</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">902</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>해동용궁사</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
                     </div>
                 </div>
-				<div class="d-flex flex-row mb-6" style="overflow: scroll;">
-					<div class="p-2">
-					<a href="#;" class="banner_img">
-						<img src="/html-css/images/busan1.jpg" alt="" width="260" height="260" class="rounded-5">
-						<img src="/html-css/images/minusbutton.png" width="25" height="25" class="minus">
-						<p class="hover_text">
-							<span><img src="/html-css/images/zzim.png" width="25" height="25">58</span><br>
-							<span><img src="/html-css/images/star.png" width="25" height="25">1,921</span><br>
-							<span><img src="/html-css/images/like.png" width="25" height="25">578</span>
-						</p>
-					</a>
-					<p style="text-align: center;"><b>광안리</b><img src="/html-css/images/zzim.png" width="25" height="25" onclick="test()"></p>
-					</div>
-					<div class="p-2">
-						<a href="#;" class="banner_img">
-							<img src="/html-css/images/busan2.jpg" alt="" width="260" height="260" class="rounded-5">
-							<p class="hover_text">
-								<span><img src="/html-css/images/zzim.png" width="25" height="25">78</span><br>
-								<span><img src="/html-css/images/star.png" width="25" height="25">421</span><br>
-								<span><img src="/html-css/images/like.png" width="25" height="25">158</span>
-							</p>
-						</a>
-						<p style="text-align: center;"><b>광안대교</b><img src="/html-css/images/unzzim.png" width="25" height="25" onclick="test()"></p>
-					</div>
-					<div class="p-2">
-						<a href="#;" class="banner_img">
-							<img src="/html-css/images/busan3.jpg" alt="" width="260" height="260" class="rounded-5">
-							<p class="hover_text">
-								<span><img src="/html-css/images/zzim.png" width="25" height="25">1,238</span><br>
-								<span><img src="/html-css/images/star.png" width="25" height="25">21</span><br>
-								<span><img src="/html-css/images/like.png" width="25" height="25">902</span>
-							</p>
-						</a>
-						<p style="text-align: center;"><b>해동용궁사</b><img src="/html-css/images/unzzim.png" width="25" height="25" onclick="test()"></p>
-					</div>
-					<div class="p-2">
-						<a href="#;" class="banner_img">
-							<img src="/html-css/images/busan1.jpg" alt="" width="260" height="260" class="rounded-5">
-							<p class="hover_text">
-								<span><img src="/html-css/images/zzim.png" width="25" height="25">58</span><br>
-								<span><img src="/html-css/images/star.png" width="25" height="25">1,921</span><br>
-								<span><img src="/html-css/images/like.png" width="25" height="25">578</span>
-							</p>
-						</a>
-						<p style="text-align: center;"><b>광안리</b><img src="/html-css/images/zzim.png" width="25" height="25" onclick="test()"></p>
-						</div>
-						<div class="p-2">
-							<a href="#;" class="banner_img">
-								<img src="/html-css/images/busan2.jpg" alt="" width="260" height="260" class="rounded-5">
-								<p class="hover_text">
-									<span><img src="/html-css/images/zzim.png" width="25" height="25">78</span><br>
-									<span><img src="/html-css/images/star.png" width="25" height="25">421</span><br>
-									<span><img src="/html-css/images/like.png" width="25" height="25">158</span>
-								</p>
-							</a>
-							<p style="text-align: center;"><b>광안대교</b><img src="/html-css/images/unzzim.png" width="25" height="25" onclick="test()"></p>
-						</div>
-						<div class="p-2">
-							<a href="#;" class="banner_img">
-								<img src="/html-css/images/busan3.jpg" alt="" width="260" height="260" class="rounded-5">
-								<p class="hover_text">
-									<span><img src="/html-css/images/zzim.png" width="25" height="25">1,238</span><br>
-									<span><img src="/html-css/images/star.png" width="25" height="25">21</span><br>
-									<span><img src="/html-css/images/like.png" width="25" height="25">902</span>
-								</p>
-							</a>
-							<p style="text-align: center;"><b>해동용궁사</b><img src="/html-css/images/unzzim.png" width="25" height="25" onclick="test()"></p>
-						</div>
-				</div>
-                <div style="text-align: left;">
-                    <div class="d-flex flex-row mb-6">
-                        <h3 style="color:#f6755e">・모든 관광지 </h3>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <h3 style ="color:rgb(80, 80, 80)">25</h3>
+            </div>
+            <div class="slide_item">
+                <div class="d-flex flex-row mb-6">
+                    <div class="p-2">
+                        <div class="minusbox">
+                            <img src="/html-css/images/minusbutton.png" width="25" height="25" class="minus">
+                        </div>
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan1.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">58</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">8.5</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">578</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>광안리</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                    <div class="p-2">
+                        <div class="minusbox">
+                            <img src="/html-css/images/minusbutton.png" width="25" height="25" class="minus">
+                        </div>
+
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan2.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">78</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">7.5</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">158</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>광안대교</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                    <div class="p-2">
+                        <div class="minusbox">
+                            <img src="/html-css/images/minusbutton.png" width="25" height="25" class="minus">
+                        </div>
+
+                        <a href="/html-css/info/detail.html" class="banner_img">
+                            <img src="/html-css/images/busan3.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">1,238</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">9.5</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">902</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>해동용궁사</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                    <div class="p-2">
+                        <div class="minusbox">
+                            <img src="/html-css/images/minusbutton.png" width="25" height="25" class="minus">
+                        </div>
+
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan1.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">58</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">6.5</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">578</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>광안리</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                    <div class="p-2">
+
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan2.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">78</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">10</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">158</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>광안대교</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                    <div class="p-2">
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan3.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">1,238</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">9</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">902</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>해동용궁사</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
                     </div>
                 </div>
-				<div class="d-flex flex-row mb-6" style="overflow: scroll;">
-					<div class="p-2">
-					<a href="#;" class="banner_img">
-						<img src="/html-css/images/daejon1.jpg" alt="" width="260" height="260" class="rounded-5">
-						<p class="hover_text">
-							<span><img src="/html-css/images/zzim.png" width="25" height="25">58</span><br>
-							<span><img src="/html-css/images/star.png" width="25" height="25">1,921</span><br>
-							<span><img src="/html-css/images/like.png" width="25" height="25">578</span>
-						</p>
-					</a>
-					<p style="text-align: center;"><b>대전엑스포</b><img src="/html-css/images/zzim.png" width="25" height="25" onclick="test()"></p>
-					</div>
-					<div class="p-2">
-						<a href="#;" class="banner_img">
-							<img src="/html-css/images/daejon2.jpg" alt="" width="260" height="260" class="rounded-5">
-							<p class="hover_text">
-								<span><img src="/html-css/images/zzim.png" width="25" height="25">78</span><br>
-								<span><img src="/html-css/images/star.png" width="25" height="25">421</span><br>
-								<span><img src="/html-css/images/like.png" width="25" height="25">158</span>
-							</p>
-						</a>
-						<p style="text-align: center;"><b>성심당타워</b><img src="/html-css/images/unzzim.png" width="25" height="25" onclick="test()"></p>
-					</div>
-					<div class="p-2">
-						<a href="#;" class="banner_img">
-							<img src="/html-css/images/daejon3.jpg" alt="" width="260" height="260" class="rounded-5">
-							<p class="hover_text">
-								<span><img src="/html-css/images/zzim.png" width="25" height="25">1,238</span><br>
-								<span><img src="/html-css/images/star.png" width="25" height="25">21</span><br>
-								<span><img src="/html-css/images/like.png" width="25" height="25">902</span>
-							</p>
-						</a>
-						<p style="text-align: center;"><b>성심당본점</b><img src="/html-css/images/unzzim.png" width="25" height="25" onclick="test()"></p>
-					</div>
-					<div class="p-2">
-						<a href="#;" class="banner_img">
-							<img src="/html-css/images/daejon1.jpg" alt="" width="260" height="260" class="rounded-5">
-							<p class="hover_text">
-								<span><img src="/html-css/images/zzim.png" width="25" height="25">58</span><br>
-								<span><img src="/html-css/images/star.png" width="25" height="25">1,921</span><br>
-								<span><img src="/html-css/images/like.png" width="25" height="25">578</span>
-							</p>
-						</a>
-						<p style="text-align: center;"><b>대전엑스포</b><img src="/html-css/images/zzim.png" width="25" height="25" onclick="test()"></p>
-						</div>
-						<div class="p-2">
-							<a href="#;" class="banner_img">
-								<img src="/html-css/images/daejon2.jpg" alt="" width="260" height="260" class="rounded-5">
-								<p class="hover_text">
-									<span><img src="/html-css/images/zzim.png" width="25" height="25">78</span><br>
-									<span><img src="/html-css/images/star.png" width="25" height="25">421</span><br>
-									<span><img src="/html-css/images/like.png" width="25" height="25">158</span>
-								</p>
-							</a>
-							<p style="text-align: center;"><b>성심당타워</b><img src="/html-css/images/unzzim.png" width="25" height="25" onclick="test()"></p>
-						</div>
-						<div class="p-2">
-							<a href="#;" class="banner_img">
-								<img src="/html-css/images/daejon3.jpg" alt="" width="260" height="260" class="rounded-5">
-								<p class="hover_text">
-									<span><img src="/html-css/images/zzim.png" width="25" height="25">1,238</span><br>
-									<span><img src="/html-css/images/star.png" width="25" height="25">21</span><br>
-									<span><img src="/html-css/images/like.png" width="25" height="25">902</span>
-								</p>
-							</a>
-							<p style="text-align: center;"><b>성심당본점</b><img src="/html-css/images/unzzim.png" width="25" height="25" onclick="test()"></p>
-						</div>
-				</div>
-            </section>
-			
-			<!-- Footer -->
-			<footer id="footer">
-				<div class="inner">
-					<h2>Get In Touch</h2>
-					<ul class="actions">
-						<li><span class="icon fa-phone"></span> <a href="#">(000) 000-0000</a></li>
-						<li><span class="icon fa-envelope"></span> <a href="#">information@untitled.tld</a></li>
-						<li><span class="icon fa-map-marker"></span> 123 Somewhere Road, Nashville, TN 00000</li>
-					</ul>
-				</div>
-			</footer>
-			<div class="copyright">Powered by: 
-				<a href="https://templated.co/">TEMPLATED</a>.
-		</div>
-		<!-- Scripts -->
-		<script src="/html-css/assets/js/jquery.min.js"></script>
-		<script src="/html-css/assets/js/jquery.scrolly.min.js"></script>
-		<script src="/html-css/assets/js/skel.min.js"></script>
-		<script src="/html-css/assets/js/util.js"></script>
-		<script src="/html-css/assets/js/main.js"></script>
-		<script src="/html-css/assets/js/test.js"></script>
-	</body>
-	</html>
+            </div>
+            
+            <div class="slide_prev_button slide_button">◀</div>
+            <div class="slide_next_button slide_button">▶</div>
+            <ul class="slide_pagination"></ul>
+        </div>
+
+        <div style="text-align: left;">
+            <div class="d-flex flex-row mb-6">
+                <h3 style="color:#f6755e">・모든 관광지 </h3>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <h3 style ="color:rgb(80, 80, 80)">25</h3>
+            </div>
+        </div>
+
+        <div class="slide_bottom slide_wrap">
+            <div class="slide_item_bottom">
+                <div class="d-flex flex-row mb-6">
+                    <div class="p-2">
+                        <div class="minusbox">
+                            <img src="/html-css/images/minusbutton.png" width="25" height="25" class="minus">
+                        </div>
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan1.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">58</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">8.5</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">578</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>광안리</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+
+                    <div class="p-2">
+                        <div class="minusbox">
+                            <img src="/html-css/images/minusbutton.png" width="25" height="25" class="minus">
+                        </div>
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan2.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">78</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">7.5</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">158</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>광안대교</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+
+                    <div class="p-2">
+                        <div class="minusbox">
+                            <img src="/html-css/images/minusbutton.png" width="25" height="25" class="minus">
+                        </div>
+
+                        <a href="/html-css/info/detail.html" class="banner_img">
+                            <img src="/html-css/images/busan3.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">1,238</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">9.5</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">902</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>해동용궁사</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+
+                    <div class="p-2">
+                        <div class="minusbox">
+                            <img src="/html-css/images/minusbutton.png" width="25" height="25" class="minus">
+                        </div>
+
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan1.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">58</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">6.5</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">578</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>광안리</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                    <div class="p-2">
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan2.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">78</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">10</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">158</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>광안대교</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                    <div class="p-2">
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan3.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">1,238</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">9</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">902</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>해동용궁사</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide_item_bottom">
+                <div class="d-flex flex-row mb-6">
+                    <div class="p-2">
+                        <div class="minusbox">
+                            <img src="/html-css/images/minusbutton.png" width="25" height="25" class="minus">
+                        </div>
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan1.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">58</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">8.5</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">578</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>광안리</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                    <div class="p-2">
+                        <div class="minusbox">
+                            <img src="/html-css/images/minusbutton.png" width="25" height="25" class="minus">
+                        </div>
+
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan2.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">78</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">7.5</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">158</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>광안대교</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                    <div class="p-2">
+                        <div class="minusbox">
+                            <img src="/html-css/images/minusbutton.png" width="25" height="25" class="minus">
+                        </div>
+
+                        <a href="/html-css/info/detail.html" class="banner_img">
+                            <img src="/html-css/images/busan3.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">1,238</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">9.5</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">902</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>해동용궁사</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                    <div class="p-2">
+                        <div class="minusbox">
+                            <img src="/html-css/images/minusbutton.png" width="25" height="25" class="minus">
+                        </div>
+
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan1.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">58</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">6.5</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">578</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>광안리</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                    <div class="p-2">
+
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan2.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">78</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">10</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">158</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>광안대교</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                    <div class="p-2">
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan3.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">1,238</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">9</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">902</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>해동용궁사</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slide_item_bottom">
+                <div class="d-flex flex-row mb-6">
+                    <div class="p-2">
+                        <div class="minusbox">
+                            <img src="/html-css/images/minusbutton.png" width="25" height="25" class="minus">
+                        </div>
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/daejon2.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">58</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">8.5</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">578</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>성심당타워</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                    <div class="p-2">
+                        <div class="minusbox">
+                            <img src="/html-css/images/minusbutton.png" width="25" height="25" class="minus">
+                        </div>
+
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/daejon3.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">78</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">7.5</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">158</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>성심당본사</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                    <div class="p-2">
+                        <div class="minusbox">
+                            <img src="/html-css/images/minusbutton.png" width="25" height="25" class="minus">
+                        </div>
+
+                        <a href="/html-css/info/detail.html" class="banner_img">
+                            <img src="/html-css/images/busan3.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">1,238</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">9.5</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">902</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>해동용궁사</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                    <div class="p-2">
+                        <div class="minusbox">
+                            <img src="/html-css/images/minusbutton.png" width="25" height="25" class="minus">
+                        </div>
+
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/daejon1.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">58</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">6.5</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">578</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>성심당공장</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                    <div class="p-2">
+
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan2.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">78</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">10</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">158</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b>광안대교</b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                    <div class="p-2">
+                        <a href="#;" class="banner_img">
+                            <img src="/html-css/images/busan3.jpg" alt="" width="260" height="260" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img src="/html-css/images/zzim.png" width="25" height="25">1,238</span><br>
+                                <span><img src="/html-css/images/star.png" width="25" height="25">9</span><br>
+                                <span><img src="/html-css/images/like.png" width="25" height="25">902</span>
+                            </p>
+                        </a>
+                        <p style="text-align: center;"><b></b><img src="/html-css/images/zzim.png" width="25"
+                                height="25"></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="slide_prev_button_bottom slide_button">◀</div>
+            <div class="slide_next_button_bottom slide_button">▶</div>
+            <ul class="slide_pagination_bottom"></ul>
+        </div>
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="inner">
+            <h2>Get In Touch</h2>
+            <ul class="actions">
+                <li><span class="icon fa-phone"></span> <a href="#">(000) 000-0000</a></li>
+                <li><span class="icon fa-envelope"></span> <a href="#">information@untitled.tld</a></li>
+                <li><span class="icon fa-map-marker"></span> 123 Somewhere Road, Nashville, TN 00000</li>
+            </ul>
+        </div>
+    </footer>
+    <div class="copyright">Powered by:
+        <a href="https://templated.co/">TEMPLATED</a>.
+    </div>
+    <!-- Scripts -->
+    <script src="/html-css/assets/js/jquery.min.js"></script>
+    <script src="/html-css/assets/js/jquery.scrolly.min.js"></script>
+    <script src="/html-css/assets/js/skel.min.js"></script>
+    <script src="/html-css/assets/js/util.js"></script>
+    <script src="/html-css/assets/js/main.js"></script>
+    <script src="/html-css/assets/js/zzim.js"></script>
+</body>
+
+</html>
