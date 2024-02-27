@@ -1618,7 +1618,7 @@
 
 	body, input, select, textarea {
 		/* 박스 안 글씨색 */
-		color: #767d85;
+		color: #808080;
 		font-family: "Open Sans", Arial, Helvetica, sans-serif;
 		font-size: 13pt;
 		font-weight: 300;
@@ -1888,10 +1888,11 @@
 		input[type="email"]:focus,
 		input[type="tel"]:focus,
 		select:focus,
-		textarea:focus {
-			border-color: #25a2c3;
-			box-shadow: 0 0 0 1px #25a2c3;
-		}
+		/* 동현수정 */
+		/* textarea:focus {
+			border-color: rgb(80, 80, 80);
+			box-shadow: 0 0 0 1px #808080;
+		} */
 
 	.select-wrapper {
 		text-decoration: none;
@@ -2630,7 +2631,7 @@
 	}
 
 		.wrapper h1, .wrapper h2, .wrapper h3, .wrapper h4, .wrapper h5 {
-			color: #25a2c3;
+			color: #808080;
 		}
 
 		.wrapper.style1 {

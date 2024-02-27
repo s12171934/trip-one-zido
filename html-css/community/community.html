@@ -1,9 +1,5 @@
 <!DOCTYPE HTML>
-<!--
-	Intensify by TEMPLATED
-	templated.co @templatedco
-	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
---><html>
+<html>
 	<head>
 		<title>커뮤니티 | 게시글 목록</title>
 		<meta charset="utf-8">
@@ -21,8 +17,11 @@
             <!-- 헤더로고 : 350 -->
 				<a href="/html-css/index.html"  class="logo"><img src="/html-css/images/여행한지도_로고.png" width="350"></a>
 			<nav class="right">
-            <!-- 프로필 -->
-				<span class="image round" style="margin: 15%" box-sha><a href="/html-css/sign/login.html"> <img src="/html-css/images/남자.png" width="75" height="75"></a></span>
+            <!-- 프로필 -->             <!-- 검색창 -->
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top: 3%;">   
+                    <input type="text" required style="margin-top: 2%">
+                    <span class="image round"  box-sha><a href="/html-css/sign/login.html"> <img src="/html-css/images/남자.png" width="75" height="75"></a></span>
+                </div>
 			</nav>	
 		</header>
 
@@ -38,6 +37,7 @@
                 </ul>
 			</nav>
             
+
 			<section id="main" class="wrapper" style= "margin-left: 5%; margin-right: 5%;">
                 <div style="text-align: left;">
                     <h1 class="title" style="color:#ff928e">커뮤니티(여행 멤버 모집)</h1>
@@ -59,7 +59,8 @@
                         <tbody>
                             <tr>
                                 <td>1</td>
-                                <td>여수여행 가실분 모집합니다.</td>
+                                <td onClick="location.href='http://127.0.0.1:5500/html-css/community/communityDetailMy.html'">
+                                    여수여행 가실분 모집합니다.</td>
                                 <td>jisoo</td>
                                 <td>24/02/20</td>
                                 <td>3</td>
@@ -146,7 +147,7 @@
 			</footer>
 			<div class="copyright">Powered by: 
 				<a href="https://templated.co/">TEMPLATED</a>.
-		</div>
+		    </div>
 		<!-- Scripts -->
         <script src="/html-css/assets/js/jquery.min.js"></script>
 			<script src="/html-css/assets/js/jquery.scrolly.min.js"></script>
@@ -163,39 +164,18 @@
             src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');
         }
 
-        #header {
-            font-family: 'Jalnan';
-        }
-
-        head {
-            font-family: 'Jalnan';
-        }
-
-        #menu {
-            font-family: 'Jalnan';
-            font-size: 20px;
-        }
-
         #footer {
             font-family: 'Jalnan';
             font-size: 10px;
         }
 
-        .main {
-            font-family: 'Jalnan';
+		h1, h2, h3, h4, body, .button {
+			font-family: 'Jalnan';
+		}
+
+		#menu {
+            font-size: 20px;
         }
 
-        .inner {
-            font-family: 'Jalnan';
-        }
-
-        .title {
-            font-family: 'Jalnan';
-        }
-
-        body {
-            font-family: 'Jalnan';
-        }
         
-
     </style>

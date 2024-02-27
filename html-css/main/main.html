@@ -15,11 +15,7 @@
 			<nav class="left">
 				<a href="#menu"><span>Menu</span></a>
 			</nav>
-				<!-- <a href="/html-css/index.html" class="logo">여행할지도</a>
-			<nav class="right">
-				<a href="/html-css/sign/login.html" class="button alt">Log in</a>
-				<a href="/html-css/sign/signin.html" class="button alt">Sign in</a>
-			</nav>	 -->
+
 		</header>
 			<!-- Menu -->
 			<nav id="menu">
@@ -36,7 +32,7 @@
 				</ul>
 			</nav>
 
-    <section class="main-section">
+    <section class="main-section" style= "margin-left: 5%; margin-right: 5%;">
         <div class="logo-wrap">
             <a href="#"><img src="/html-css/images/여행한지도_로고.png"></a>
         </div>
@@ -44,22 +40,30 @@
         <!-- 로고 <-> 검색창 간 간격조정 -->
         <span style="line-height:500%"><br></span>
         
+        <form action="https://www.google.com/search" method="GET">
         <div class="searchbar-wrap">
+            <!-- <input class="search-input" type="text"/> -->
             <i class="fas fa-search"></i>
-            <input class="search-input" type="text"/>
+            <input name="q" type="text" class="search-input" placeholder="검색어를 입력해주세요"
+                aria-label="Recipient's username" aria-describedby="button-addon2">
             <i class="fas fa-keyboard"></i>
         </div> 
+        </form>
+
         <div class="buttons">
-            <button>마이페이지</button>
-            <button>커뮤니티</button>
-            <button>관광정보</button>
-            <button>찜</button>
+            <a href="/html-css/main/detail.html" class="button">마이페이지</a>
+            <a href="/html-css/community/community.html" class="button">커뮤니티</a>
+            <a href="/html-css/info/info.html" class="button">관광정보</a>
+            <a href="/html-css/main/zzim.html" class="button">찜</a>
         </div>
+
     </section>
     <footer>
         <div class="country">
-            <span>대한민국</span>
+            <span>여행한지도</span>
+            <span>@Trip One Zido</span>
         </div>
+        
     </footer>
 </body>
 		<!-- Scripts -->
@@ -72,8 +76,27 @@
 </html>
 <style>
 
+@font-face {
+            font-family: 'Jalnan';
+            src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');
+        }
+
+    #footer {
+        font-family: 'Jalnan';
+        font-size: 10px;
+    }
+
+    h1, h2, h3, h4, body, .buttons {
+        font-family: 'Jalnan';
+    }
+    
+    #menu {
+        font-size: 20px;
+    }
+
+        
 :root{
-    --gray-color :#717271;
+    --gray-color :#7a7e7a;
     --light-gray-color: #dee0e5;
     --midium-gray-color: #999fa6;
     --button-gray-color: #f0f1f0;
@@ -88,6 +111,7 @@
     margin: 0;
     font-family: var(--font-family);
 }
+
 
 .top-header{
     width: 100%;
@@ -173,9 +197,7 @@
     border: none;
     outline: none;
 }
-.main-section .buttons{
-    padding-top:30px
-}
+
 .main-section .buttons button{
     background-color:   var(  --button-gray-color);
     border:  0;
@@ -200,48 +222,12 @@ footer{
     color: var( --button-text-gray-color);
     font-size:15px;
 
-}
+    }
 footer .country{
     border-top: solid 1px var(--footer-border-color);
-    padding-left: 32px;
+    text-align: center;
     line-height: 40px;
     height: 40px;
-}
-footer .foot-links-wrap{
-    border-top: solid 1px var(--footer-border-color);
-    padding-left: 32px;
-    line-height: 40px;
-
-    height: 40px;
-    display: flex;
-    flex:auto;
-}
-footer .foot-links-wrap .foot-links-wrap-right{
-    width:50%
-}
-footer .foot-links-wrap .foot-links-wrap-right ul{
-    list-style: none;
-    display: flex;
-
-}
-footer .foot-links-wrap .foot-links-wrap-right  ul li a{
-    display: block;
-    padding-right: 28px;
-    text-decoration: none;
-
-}
-footer .foot-links-wrap .foot-links-wrap-left{
-    width: 50%;
-}
-footer .foot-links-wrap .foot-links-wrap-left ul{
-    list-style: none;
-    display: flex;
-    justify-content: flex-end;
-}
-footer .foot-links-wrap .foot-links-wrap-left ul li a{
-    display: block;
-    padding-right: 28px;
-    text-decoration: none;
 }
 
 </style>
