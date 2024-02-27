@@ -22,7 +22,7 @@ public interface MemberMapper {
     Member getMemberById(long id);
     int followerCount(long id);
     int followingCount(long id);
-    List<ProfileMember> follwerlist(long id);
+    List<ProfileMember> followerList(long id);
     List<ProfileMember> followingList(long id);
 
     //update
