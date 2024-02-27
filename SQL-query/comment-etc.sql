@@ -1,8 +1,11 @@
 --댓글조회
 SELECT
-  *
+  comment.*,
+  content.created_at
 FROM
-  comment;
+  comment
+WHERE
+  comment.id = content.id;
 
 --댓글등록
 INSERT INTO
@@ -23,21 +26,14 @@ WHERE
   id = ?;
 
 --댓글삭제
-DELETE FROM comment
+DELETE FROM content
 WHERE
   id = ?;
 
 --찜 등록하기
 --TYPE에 content의 종류 저장
-SELECT
-  type
-FROM
-  content
-WHERE
-  id = ?;
-
 INSERT INTO
-  bookmark (type, content_id, member_id) VALUE (TYPE, ?, ?);
+  bookmark (content_id, member_id) VALUE (?, ?);
 
 --찜 삭제하기
 DELETE FROM bookmark
@@ -46,16 +42,37 @@ WHERE
   AND member_id = ?;
 
 --좋아요/싫어요
-UPDATE like_unlike
+UPDATE good
 SET
-  like = !like
-WHERE member_id = ?
-  AND content_id = ?;  
+  good = NOT good
+WHERE
+  member_id = ?
+  AND content_id = ?;
 
-DELETE FROM like_unlike
+DELETE FROM good
 WHERE
   content_id = ?
   AND member_id = ?;
 
 INSERT INTO
-  like_unlike (like, member_id, content_id) VALUE (?, ?, ?);
+  good (good, member_id, content_id) VALUE (?, ?, ?);
+
+--좋아요 조회
+SELECT COUNT(*)
+FROM good
+WHERE
+  content_id = ?
+  AND good = 1;
+
+--찜횟수 조회
+SELECT COUNT(*)
+FROM bookmark
+WHERE
+  content_id = ?;
+
+--찜여부 조회
+SELECT COUNT(*)
+FROM bookmark
+WHERE
+  content_id = ?
+  AND member_id = ?;
