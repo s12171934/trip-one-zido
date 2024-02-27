@@ -22,7 +22,6 @@ INSERT INTO
   ) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
 --sns 연동을 통한 회원가입
-
 --로그인
 SELECT
   login_id,

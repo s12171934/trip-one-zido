@@ -3,8 +3,7 @@ SELECT
   c1.id,
   c2.title,
   o.member_id writer_id,
-  m.login_id writer
-  c1.deadline,
+  m.login_id writer c1.deadline,
   c1.view_point,
   c1.total,
   c1.status,
@@ -31,9 +30,13 @@ LIMIT
 
 --커뮤니티 게시글 상세 조회
 SELECT
-  c1.*, c2.title, c2.created_at, c2.modified_at 
+  c1.*,
+  c2.title,
+  c2.created_at,
+  c2.modified_at
 FROM
-  community c1, content c2
+  community c1,
+  content c2
 WHERE
   c1.id = c2.id
   AND id = ?;
@@ -53,10 +56,7 @@ WHERE
 
 --커뮤니티 게시글 등록
 INSERT INTO
-  content (
-    type,
-    title
-    ) VALUE ('community', ?);
+  content (type, title) VALUE ('community', ?);
 
 --INSERT 시 AI key 값 AI_ID에 저장
 SELECT
@@ -93,7 +93,6 @@ SET
   title = ?
 WHERE
   id = ?;
-
 
 --커뮤니티 게시글 삭제
 DELETE FROM content

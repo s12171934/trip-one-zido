@@ -58,21 +58,27 @@ INSERT INTO
   good (good, member_id, content_id) VALUE (?, ?, ?);
 
 --좋아요 조회
-SELECT COUNT(*)
-FROM good
+SELECT
+  COUNT(*)
+FROM
+  good
 WHERE
   content_id = ?
   AND good = 1;
 
 --찜횟수 조회
-SELECT COUNT(*)
-FROM bookmark
+SELECT
+  COUNT(*)
+FROM
+  bookmark
 WHERE
   content_id = ?;
 
 --찜여부 조회
-SELECT COUNT(*)
-FROM bookmark
+SELECT
+  COUNT(*)
+FROM
+  bookmark
 WHERE
   content_id = ?
   AND member_id = ?;

@@ -23,9 +23,12 @@ WHERE
   o.member_id = m.id
   AND o.content_id = ?;
 
-SELECT photo
-FROM photo
-WHERE content_id = ?;
+SELECT
+  photo
+FROM
+  photo
+WHERE
+  content_id = ?;
 
 --장소게시글 등록
 INSERT INTO
