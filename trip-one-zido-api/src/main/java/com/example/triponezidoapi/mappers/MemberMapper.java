@@ -9,22 +9,28 @@ import java.util.List;
 public interface MemberMapper {
     //insert
     void signUp(Member member);
+    void follow(Fallow fallow);
 
     //select
     List<ResponseQuestion> securityQuestions();
     LoginForm getLoginFormByLoginId(String loginId);
     LoginId getLoginIdByFind(RequestFind requestFind);
-    profileMember getLogin(LoginForm loginForm);
+    ProfileMember getLogin(LoginForm loginForm);
     long getId(RequestFind requestFind);
     String getSecurityQuestion(long id);
     String getSecurityAnswer(long id);
     Member getMemberById(long id);
+    int followerCount(long id);
+    int followingCount(long id);
+    List<ProfileMember> follwerlist(long id);
+    List<ProfileMember> followingList(long id);
 
     //update
     void updateMember(Member member);
     void updatePassword(Password password);
-    void updateProfile(profileMember profileMember);
+    void updateProfile(ProfileMember profileMember);
 
     //delete
     void deleteMember(long id);
+    void unFollow(Fallow fallow);
 }
