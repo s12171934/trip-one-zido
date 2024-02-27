@@ -1,7 +1,229 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.triponezidoapi.mappers.MemberMapper">
-    <select id="sel" resultType="long">
-        select count(*) from member
-    </select>
+  <insert id="signUp" parameterType="com.example.triponezidoapi.dto.Member">
+    INSERT INTO member
+      (
+      name,
+      login_id,
+      password,
+      question,
+      answer,
+      email,
+      phone_number,
+      address,
+      birth,
+      gender
+      )
+    VALUE
+      (
+      #{name},
+      #{login_id},
+      #{password},
+      #{question},
+      #{answer},
+      #{email},
+      #{phoneNumber},
+      #{address},
+      #{birth},
+      #{gender}
+      )
+  </insert>
+
+  <insert id="follow" parameterType="com.example.triponezidoapi.dto.Fallow">
+    INSERT INTO follow
+      (
+      follower,
+      following
+      )
+    VALUE
+      (
+      #{follower},
+      #{following}
+      )
+  </insert>
+
+  <select id="securityQuestions" resultType="com.example.triponezidoapi.dto.ResponseQuestion">
+    SELECT
+      *
+    FROM
+      security_questions
+  </select>
+
+  <select id="getLoginFormByLoginId" parameterType="string" resultType="com.example.triponezidoapi.dto.LoginForm">
+    SELECT
+      login_id,
+      password
+    FROM
+      member
+    WHERE
+      login_id = #{loginId}
+  </select>
+
+  <select id="getLoginIdByFind" parameterType="com.example.triponezidoapi.dto.RequestFind" resultType="com.example.triponezidoapi.dto.LoginId">
+    SELECT
+      login_id
+    FROM
+      member
+    WHERE
+      name = #{name} AND
+      email = #{email}
+
+  </select>
+
+  <select id="getLogin" parameterType="com.example.triponezidoapi.dto.LoginForm" resultType="com.example.triponezidoapi.dto.ProfileMember">
+    SELECT
+      id,
+      login_id,
+      profile
+    FROM
+      member
+    WHERE
+      login_id = #{loginId} AND
+      password = #{password}
+  </select>
+
+  <select id="getId" parameterType="com.example.triponezidoapi.dto.RequestFind" resultType="long">
+    SELECT
+      id
+    FROM
+      member
+    WHERE
+      login_id = #{loginId} AND
+      name = #{name} AND
+      email = #{email}
+  </select>
+
+  <select id="getSecurityQuestion" parameterType="long" resultType="string">
+    SELECT
+      q.question
+    FROM
+      member m,
+      security_questions q
+    WHERE
+      m.question = q.id AND
+      m.id = #{id}
+  </select>
+
+  <select id="getSecurityAnswer" parameterType="long" resultType="string">
+    SELECT
+      answer
+    FROM
+      member
+    WHERE
+      id = #{id}
+  </select>
+
+  <select id="getMemberById" parameterType="long" resultType="com.example.triponezidoapi.dto.Member">
+    SELECT
+      *
+    FROM
+      member
+    WHERE
+      id = #{id}
+  </select>
+
+  <select id="followerCount" parameterType="long" resultType="int">
+    SELECT
+      COUNT(*)
+    FROM
+      follow
+    WHERE
+      following = #{id}
+  </select>
+
+  <select id="followingCount" parameterType="long" resultType="int">
+    SELECT
+      COUNT(*)
+    FROM
+      follow
+    WHERE
+      follower = #{id}
+  </select>
+
+  <select id="followerList" parameterType="long" resultType="com.example.triponezidoapi.dto.ProfileMember">
+    SELECT
+      id,
+      login_id,
+      profile
+    FROM
+      member
+    WHERE
+      id IN
+        (
+        SELECT
+          following
+        FROM
+          follow
+        WHERE
+          following = #{id}
+        )
+  </select>
+
+  <select id="followingList" parameterType="long" resultType="com.example.triponezidoapi.dto.ProfileMember">
+    SELECT
+      id,
+      login_id,
+      profile
+    FROM
+      member
+    WHERE
+      id IN
+      (
+      SELECT
+        following
+      FROM
+        follow
+      WHERE
+        follower = #{id}
+      )
+  </select>
+
+  <update id="updateMember" parameterType="com.example.triponezidoapi.dto.Member">
+    UPDATE
+      member
+    SET
+      name = #{name},
+      question = #{question},
+      answer = #{answer},
+      email = #{email},
+      phone_number = #{phoneNumber},
+      address = #{address},
+      gender = #{gender}
+    WHERE
+      id = #{id}
+  </update>
+
+  <update id="updatePassword" parameterType="com.example.triponezidoapi.dto.Password">
+    UPDATE
+      member
+    SET
+      password = #{password}
+    WHERE
+      id = #{id}
+  </update>
+
+  <update id="updateProfile" parameterType="com.example.triponezidoapi.dto.ProfileMember">
+    UPDATE
+      member
+    SET
+      profile = #{profile}
+    WHERE
+      id = #{id}
+  </update>
+
+  <delete id="deleteMember" parameterType="long">
+    DELETE FROM
+      member
+    WHERE
+      id = #{id}
+  </delete>
+
+  <delete id="unFollow" parameterType="com.example.triponezidoapi.dto.Fallow">
+    DELETE FROM
+      follow
+    WHERE
+      follower = #{follower} AND
+      following = #{following}
+  </delete>
 </mapper>
