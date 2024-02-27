@@ -28,7 +28,6 @@ INSERT INTO
     gender
   ) VALUE (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 
---sns 연동을 통한 회원가입
 --로그인
 SELECT
   id,
@@ -97,6 +96,19 @@ SET
 WHERE
   id = ?;
 
+--회원탈퇴
+SELECT
+  id
+FROM
+  member
+WHERE
+  id = ?,
+  password = ?;
+
+DELETE FROM member
+WHERE
+  id = ?;
+
 --프로필사진 변경
 UPDATE member
 SET
@@ -111,15 +123,65 @@ SET
 WHERE
   id = ?;
 
---회원탈퇴
+--sns 연동을 통한 회원가입
+
+
+--팔로잉
+INSERT INTO
+  follow (follower, following) VALUE (?, ?);
+
+--언팔
+DELETE FROM follow
+WHERE
+  follower = ?
+  AND following = ?;
+
+--팔로잉 숫자
 SELECT
-  id
+  COUNT(*)
+FROM
+  follow
+WHERE
+  follower = ?;
+
+--팔로잉 목록
+SELECT
+  id,
+  login_id,
+  profile
 FROM
   member
 WHERE
-  id = ?,
-  password = ?;
+  id IN (
+    SELECT
+      following
+    FROM
+      follow
+    WHERE
+      follower = ?
+  );
 
-DELETE FROM member
+--팔로워 숫자
+SELECT
+  COUNT(*)
+FROM
+  follow
 WHERE
-  id = ?;
+  following = ?;
+
+--팔로워 목록
+SELECT
+  id,
+  login_id,
+  profile
+FROM
+  member
+WHERE
+  id IN (
+    SELECT
+      follower
+    FROM
+      follow
+    WHERE
+      following = ?
+  );

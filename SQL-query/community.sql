@@ -99,6 +99,67 @@ DELETE FROM content
 WHERE
   id = ?;
 
+--커뮤니티 게시글 검색
+-- 제목
+SELECT
+    c1.id,
+    c2.title,
+    o.member_id,
+    m.login_id,
+    c1.deadline,
+    c1.view_point,
+    (
+        SELECT
+            COUNT(*)
+        FROM
+            owner
+        WHERE
+            content_id = id
+    ) participants_count,
+    c1.total,
+    c1.status
+FROM
+    community c1,
+    content c2,
+    member m,
+    owner o
+WHERE
+    c1.id = o.content_id
+    AND o.member_id = m.id
+    AND o.own = 'writer'
+    AND c1.id = c2.id
+    AND c2.title LIKE ?;
+
+-- 작성자
+SELECT
+    c1.id,
+    c2.title,
+    o.member_id,
+    m.login_id,
+    c1.deadline,
+    c1.view_point,
+    (
+        SELECT
+            COUNT(*)
+        FROM
+            owner
+        WHERE
+            content_id = id
+    ) participants_count,
+    c1.total,
+    c1.status
+FROM
+    community c1,
+    content c2,
+    member m,
+    owner o
+WHERE
+    c1.id = o.content_id
+    AND o.member_id = m.id
+    AND o.own = 'writer'
+    AND c1.id = c2.id
+    AND m.login_id LIKE ?;
+
 --커뮤니티 여행 참여/취소하기
 INSERT INTO
   owner (own, member_id, content_id) VALUE ('participants', ?, ?);
