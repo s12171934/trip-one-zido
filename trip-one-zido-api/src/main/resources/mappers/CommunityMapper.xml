@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.triponezidoapi.mappers.CommunityMapper">
+    <insert id="addCommunity" parameterType="com.example.triponezidoapi.dto.CommunityDetail">
+        INSERT INTO community
+            (
+            id,
+            start_date,
+            end_date,
+            loc_category,
+            notice,
+            total,
+            deadline
+            )
+        VALUES
+            (
+            #{id},
+            #{startDate},
+            #{endDate},
+            #{locCategory},
+            #{notice},
+            #{total},
+            #{deadline}
+            );
+
+    </insert>
+
+    <insert id="entry" parameterType="com.example.triponezidoapi.dto.EntryCommunity">
+        INSERT INTO owner
+            (
+            own,
+            member_id,
+            content_id
+            )
+        VALUES
+            (
+            #{own},
+            #{memberId},
+            #{contentId}
+            )
+    </insert>
+
+    <select id="getCommunities" parameterType="long" resultType="com.example.triponezidoapi.dto.CommunityTable">
+        SELECT
+            c1.id,
+            c2.title,
+            o.member_id writer_id,
+            m.login_id writer,
+            c1.deadline,
+            c1.view_point,
+            c1.total,
+            c1.status,
+            (
+                SELECT
+                    COUNT(*)
+                FROM
+                    owner
+                WHERE
+                    content_id = id
+            ) participants_count
+        FROM
+            community c1,
+            owner o,
+            member m,
+            content c2
+        WHERE
+            c1.id = o.content_id AND
+            o.member_id = m.id AND
+            o.own = 'writer' AND
+            c2.id = c1.id
+        LIMIT
+            10;
+    </select>
+
+    <select id="getCommunitiesWithSearch" parameterType="long" resultType="com.example.triponezidoapi.dto.CommunityTable">
+
+    </select>
+
+    <select id="getCommunity" parameterType="long" resultType="com.example.triponezidoapi.dto.CommunityDetail">
+        SELECT
+            c1.*,
+            c2.title,
+            c2.created_at,
+            c2.modified_at
+        FROM
+            community c1,
+            content c2
+        WHERE
+            c1.id = c2.id AND
+            c1.id = #{id};
+    </select>
+
+    <select id="getMembers" parameterType="long" resultType="com.example.triponezidoapi.dto.ProfileMember">
+        SELECT
+            o.member_id,
+            o.own,
+            m.login_id,
+            m.profile
+        FROM
+            member m,
+            owner o
+        WHERE
+            m.id = o.member_id
+          AND o.content_id = #{id};
+    </select>
+
+    <update id="updateCommunity" parameterType="com.example.triponezidoapi.dto.CommunityDetail">
+        UPDATE community
+        SET
+            start_date = #{startDate},
+            end_date = #{endDate},
+            loc_category = #{locCategory},
+            notice = #{notice},
+            total = #{total},
+            deadline = #{deadline}
+        WHERE
+            id = #{id}
+    </update>
+
+    <delete id="deleteCommunity" parameterType="com.example.triponezidoapi.dto.CommunityDetail">
+        DELETE FROM content
+        WHERE id = #{id}
+    </delete>
+
+    <delete id="departure" parameterType="com.example.triponezidoapi.dto.EntryCommunity">
+        DELETE FROM owner
+        WHERE
+            member_id = #{memberId} AND
+            content_id = #{contentId}
+    </delete>
+
+</mapper>

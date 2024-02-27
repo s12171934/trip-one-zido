@@ -3,9 +3,8 @@ package com.example.triponezidoapi.dto;
 import lombok.Data;
 
 @Data
-public class ProfileMember {
-    long id;
-    String loginId;
+public class EntryCommunity {
     String own;
-    byte[] profile;
+    long memberId;
+    long contentId;
 }
