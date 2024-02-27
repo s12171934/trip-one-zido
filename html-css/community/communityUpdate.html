@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 	<html>
 	<head>
-		<title>커뮤니티 | 상세보기</title>
+		<title>커뮤니티 | 수정하기</title>
 		<meta charset="utf-8">
 		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -45,86 +45,88 @@
 			<!-- One -->
 			<section id="main" class="wrapper" style= "margin-left: 5%; margin-right: 5%;">
 				<div class="inner">
-					<h1 class="title" style="color:#ff928e">게시글 상세</h1>
+					<h1 class="title" style="color:#ff928e">게시글 수정하기</h1>
+
 					<br>
-					<br>
-					<div>  
-						<div class="d-grid gap-2 d-md-flex justify-content-md-end">   
-							<span class="button special disabled small" style="margin-right: 50%;">모집</span>
-							<a href="/html-css/community/community.html" class="button alt small">목록</a>
-							<a href="/html-css/community/community.html" class="button small">이전글</a>
-							<a href="/html-css/community/community.html" class="button small">다음글</a>
-						</div>
-					</div>
-				<br>
 					<form method="post" action="#">
 
 							<table class="border border-secondary-subtle" width = "600" border = "1" cellspacing = "0" cellpadding = "3" align = "center" >
 								
-								
-								<tr>
-									<td width = "200"> 제목 : </td>
-									<td colspan="2" width = "200">여수여행 가실분 모집합니다.</td>
-								</tr>
-
 							<tr>
 								<td width = "200"> 지역 : </td>
 									<td colspan="2" width = "200">
-								
-											<option value="1">서울특별시</option>			
+										<div class="select-wrapper" style="color:rgb(80, 80, 80)">
+										<select class ="local-select" name="category" id="security">
+											<option value="">지역 선택</option>
+											<option value="1" selected>서울특별시</option>
+											<option value="2">경기도</option>
+											<option value="3">강원도</option>
+											<option value="4">세종특별자치시시</option>
+											<option value="5">대구광역시</option>
+											<option value="6">울산광역시</option>
+											<option value="7">부산광역시</option>
+											<option value="8">제주특별자치도</option>
 										</select>
-								
-									</td>
+										</div>
+								</td>
 							</tr>
 
 							<tr>
 								<td> 모집 인원 : </td>
-								<td colspan="2" width = "200">4 명</td>
+								<td colspan="2" width = "200">
+								<div class="select-wrapper" style="color:rgb(80, 80, 80)">
+									<select class ="local-select" name="category" id="security">
+										<option value="">인원 선택</option>
+										<option value="2">2 명</option>
+										<option value="3">3 명</option>
+										<option value="4" selected>4 명</option>
+										<option value="5">5 명</option>
+										<option value="6">6 명</option>
+										<option value="7">7 명</option>
+										<option value="8">8 명</option>
+										<option value="9">9 명</option>
+										<option value="10">10 명</option>
+										<option value="11">11 명</option>
+										<option value="12">12 명</option>
+										<option value="13">13 명</option>
+										<option value="14">14 명</option>
+										<option value="15">15 명</option>
+										<option value="16">16 명</option>
+										<option value="17">17 명</option>
+										<option value="18">18 명</option>
+										<option value="19">19 명</option>
+										<option value="20">20 명</option>
+									</select>
+								</div>
+								</td>
 							</tr>
-
-
+							
 							<tr>
-								<td> 참여 인원 : </td>
-								<td colspan="2" width = "200">3 명</td>
+								<td width = "200"> 제목 :</td>
+								<td colspan="2" width = "200"><input style= "background-color: #fff;" type = "text" name="text" size = "100" maxlength = "100" value = "여수여행가실분 모집합니다."></td>
 							</tr>
-
+							
 							<tr>
 								<td>일정 : </td>
-								<td colspan="2" width = "200">2024-02-07 ~ 2020-02-14</td>
+								<td colspan="2" width = "200"><input type = "date"> ~ <input type = "date"></td>
 							</tr>
-
-							<tr>
-								<td>작성일 : </td>
-								<td colspan="2" width = "200">2024-02-01</td>
-							</tr>
-
-							<tr>
-								<td>모집 마감일 : </td>
-								<td colspan="2" width = "200">2024-02-05</td>
-							</tr>
-
-							<tr>
-								<td>조회수 : </td>
-								<td colspan="2" width = "200">3</td>
-							</tr>
-
 
 							<tr>						
-								<td width = "200">내용</td>
+								<td width = "200">내용 : </td>
 								<td colspan="2" width = "200">
-									<text rows="13" cols="50" class="form-control" id="content"> 여수여행 가실분 계신가요 ~~? 재밌게 놀아요 </textarea>
+									<textarea rows="13" cols="50" class="form-control" id="content" value="내용을 입력하세요">여수여행 가실분 계신가요 ~~? 재밌게 놀아요</textarea>
 								</td>
 							</tr> 
 	
 						</table>
-						<div class="d-grid gap-2 d-md-flex justify-content-md-center">   
-							<a href="/html-css/community/community.html" class="button small">참여 / 참여 취소</a>
+						<div class="d-grid gap-2 d-md-flex justify-content-md-end">   
+							<a href="/html-css/community/communityAdd.html" class="button small">등록하기</a>
+							<a href="/html-css/community/community.html" class="button alt small">취소하기</a>
 						</div>
 						</form>
 					</div>
 				</section>
-
-
+			<!-- Footer -->
 			<footer id="footer">
 				<div class="inner">
 					<h2>여행한 지도</h2>
@@ -173,5 +175,4 @@
 		#menu {
             font-size: 20px;
         }
-
 		</style>

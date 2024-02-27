@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 	<html>
 	<head>
-		<title>여행한지도 | 검색</title>
+		<title>여행한지도 | 상세검색</title>
 		<meta charset="utf-8">
 		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -43,27 +43,55 @@
 
 			<section id="main" class="wrapper" style= "margin-left: 5%; margin-right: 5%;">
 				<div style="text-align: left;">
-					<div class="d-flex flex-row mb-6" id="search">
-					<!-- 검색어 -->
-                    <h1> 12 건 </h1>
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<h1 class="title" style="color:#ff928e">의 검색 결과</h1>
+                    <h1 class="title" style="color:#ff928e">상세검색</h1>
                     <br>
+                </div>
+				<div style="text-align: left;">
+					<div id="search"> 
+					<!-- 검색어 -->
+                    <h5>기간 : <input type = "date"> ~ <input type = "date"></h5>
+					<br>
+					<h5>카테고리 : </h5>	
+					<div class="select-wrapper" style="color:rgb(80, 80, 80)">
+						<select class ="local-select" name="category" id="security">
+							<option value="" selected>카테고리 선택</option>
+							<option value="1">일정</option>
+							<option value="2">관광지</option>
+						</select>
+						</div>
+					<br>
+					<h5>지역 : </h5>
+					<div class="select-wrapper" style="color:rgb(80, 80, 80)">
+						<select class ="local-select" name="category" id="security">
+							<option value="" selected>지역 선택</option>
+							<option value="1">서울특별시</option>
+							<option value="2">경기도</option>
+							<option value="3">강원도</option>
+							<option value="4">세종특별자치시시</option>
+							<option value="5">대구광역시</option>
+							<option value="6">울산광역시</option>
+							<option value="7">부산광역시</option>
+							<option value="8">제주특별자치도</option>
+						</select>
+						</div>
                 	</div>
 				</div>
+				<br>
+				<form action="https://www.google.com/search" method="GET">
+					<h5>검색 : </h5>
+					<div class="searchbar-wrap">
+						<!-- <input class="search-input" type="text"/> -->
+						<input name="q" type="text" class="search-input" placeholder="검색어를 입력해주세요" 
+														aria-label="Recipient's username" aria-describedby="button-addon2">
+					</div> 
+				</form>
 				<br><br><br>
-				<div style="text-align: left; margin-left: 5%;">
-                    <div class="d-flex flex-row mb-6">
-                        <h3 style="color:#f6755e">계정</h3>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-                        <h5 style="margin-top: 0.5%;">2</h5>
-                    </div>
-                </div>
-				<div class="d-flex flex-row mb-6" style="margin-left: 5%; overflow: auto;">
-					<div class="p-2"><span class="image round"><img src="/html-css/images/유재석.png" alt="" width="330" height="330"></span><p style="text-align: center;">유재석</p></div>
-					<div class="p-2"><span class="image round"><img src="/html-css/images/조세호.png" alt="" width="330" height="330"></span><p style="text-align: center;">조세호</p></div>
-				  </div>
 
+				<div> 
+					'검색어' 와 관련된 검색결과
+				</div>
+
+				<hr>
 				<br><br><br>
 				<div style="text-align: left; margin-left: 5%;">
                     <div class="d-grid gap-3 d-md-flex justify-content-md">   
@@ -126,21 +154,18 @@
 	</body>
 	</html>
 	<style>
-        @font-face {
+			@font-face {
             font-family: 'Jalnan';
             src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');
         }
 
-        #footer {
-            font-family: 'Jalnan';
-            font-size: 10px;
-        }
-
-		h1, h2, h3, h4, body, .button {
+		h1, h2, h3, h4, h5, body {
 			font-family: 'Jalnan';
 		}
 
 		#menu {
             font-size: 20px;
         }
+
+	
 	</style>
