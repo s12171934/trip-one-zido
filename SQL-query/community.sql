@@ -40,12 +40,11 @@ FROM
   content c2
 WHERE
   c1.id = c2.id
-  AND id = ?;
+  AND c1.id = ?;
 
 SELECT
   o.member_id,
   o.own,
-  m.name,
   m.login_id,
   m.profile
 FROM

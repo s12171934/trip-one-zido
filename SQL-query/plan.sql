@@ -1,4 +1,5 @@
 --일정게시글 조회
+-- 일정
 SELECT
   p.*,
   c.title,
@@ -9,8 +10,9 @@ FROM
   content c
 WHERE
   p.id = c.id
-  AND id = ?;
+  AND p.id = ?;
 
+-- 동행인
 SELECT
   o.own,
   m.id,
@@ -23,8 +25,9 @@ WHERE
   o.member_id = m.id
   AND o.content_id = ?;
 
+-- 장소
 SELECT
-  c.id,
+  s.id,
   c.title,
   s.start_time,
   s.end_time
@@ -41,6 +44,7 @@ WHERE
     WHERE
       plan_id = ?
   );
+
 
 --일정게시글 등록
 INSERT INTO
@@ -62,7 +66,7 @@ INSERT INTO
   ) VALUE (AI_ID, ?, ?, ?, ?, ?, ?);
 
 INSERT INTO
-  photo (photo, content_id) VALUE (?, ?);
+  photo (photo, content_id) VALUE (?, AI_ID);
 
 --장소 등록 이후
 INSERT INTO
@@ -77,8 +81,8 @@ INSERT INTO
 --일정게시글 수정
 UPDATE content
 SET
-  title = ?,
-  public = ?
+  public = ?,
+  title = ?
 WHERE
   id = ?;
 

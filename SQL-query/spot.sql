@@ -9,7 +9,7 @@ FROM
   content c
 WHERE
   s.id = c.id
-  AND id = ?;
+  AND s.id = ?;
 
 SELECT
   o.own,
@@ -39,7 +39,7 @@ SELECT
   LAST_INSERT_ID ();
 
 INSERT INTO
-  plan (
+  spot (
     id,
     category,
     start_date,
@@ -62,8 +62,8 @@ INSERT INTO
 --장소게시글 수정
 UPDATE content
 SET
-  title = ?,
-  public = ?
+  public = ?,
+  title = ?
 WHERE
   id = ?;
 
@@ -92,13 +92,6 @@ WHERE
 
 INSERT INTO
   owner (own, member_id, content_id) VALUE ('with', ?, ?);
-
-DELETE FROM content
-WHERE
-  id = ?;
-
-INSERT INTO
-  plan_spot (plan_id, spot_id) VALUE (?, ?);
 
 --장소게시글 삭제
 DELETE FROM content
