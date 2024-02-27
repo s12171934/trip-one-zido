@@ -1,13 +1,13 @@
 --커뮤니티 게시글 조회
 SELECT
-  c.id,
-  c.title,
+  c1.id,
+  c2.title,
   o.member_id writer_id,
   m.login_id writer
-  c.deadline,
-  c.view_point,
-  c.recruitment,
-  c.status,
+  c1.deadline,
+  c1.view_point,
+  c1.total,
+  c1.status,
   (
     SELECT
       COUNT(*)
@@ -15,25 +15,28 @@ SELECT
       owner
     WHERE
       content_id = id
-  ) recruitment_count
+  ) total_count
 FROM
-  community c,
+  community c1,
   owner o,
-  member m
+  member m,
+  content c2
 WHERE
-  c.id = o.content_id
+  c1.id = o.content_id
   AND o.member_id = m.id
   AND o.own = 'writer'
+  AND c2.id = c1.id
 LIMIT
   10;
 
 --커뮤니티 게시글 상세 조회
 SELECT
-  *
+  c1.*, c2.title, c2.created_at, c2.modified_at 
 FROM
-  community
+  community c1, content c2
 WHERE
-  id = ?;
+  c1.id = c2.id
+  AND id = ?;
 
 SELECT
   o.member_id,
@@ -50,7 +53,10 @@ WHERE
 
 --커뮤니티 게시글 등록
 INSERT INTO
-  content (type) VALUE ('community');
+  content (
+    type,
+    title
+    ) VALUE ('community', ?);
 
 --INSERT 시 AI key 값 AI_ID에 저장
 SELECT
@@ -59,14 +65,13 @@ SELECT
 INSERT INTO
   community (
     id,
-    title,
     start_date,
     end_date,
     loc_category,
     notice,
-    recruitment,
+    total,
     deadline
-  ) VALUE (AI_ID, ?, ?, ?, ?, ?, ?, ?);
+  ) VALUE (AI_ID, ?, ?, ?, ?, ?, ?);
 
 INSERT INTO
   owner (own, member_id, content_id) VALUE ('writer', ?, AI_ID);
@@ -74,18 +79,24 @@ INSERT INTO
 --커뮤니티 게시글 수정
 UPDATE community
 SET
-  title = ?,
   start_date = ?,
   end_date = ?,
   loc_category = ?,
   notice = ?,
-  recruitment = ?,
+  total = ?,
   deadline = ?
 WHERE
   id = ?;
 
+UPDATE content
+SET
+  title = ?
+WHERE
+  id = ?;
+
+
 --커뮤니티 게시글 삭제
-DELETE FROM community
+DELETE FROM content
 WHERE
   id = ?;
 
