@@ -11,7 +11,7 @@ public class TourApiController {
         return new Tour();
     }
     @GetMapping("/{id}")
-    public Tour showTourDetail(){
+    public Tour showTourDetail(@PathVariable long id){
         return new Tour();
     }
     @PostMapping("/")
