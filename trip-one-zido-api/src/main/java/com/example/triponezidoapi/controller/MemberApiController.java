@@ -1,9 +1,6 @@
 package com.example.triponezidoapi.controller;
 
-import com.example.triponezidoapi.dto.LoginForm;
-import com.example.triponezidoapi.dto.Member;
-import com.example.triponezidoapi.dto.RequestFind;
-import com.example.triponezidoapi.dto.ResponseQuestion;
+import com.example.triponezidoapi.dto.*;
 import com.example.triponezidoapi.mappers.MemberMapper;
 import jakarta.validation.constraints.PastOrPresent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +36,16 @@ public class MemberApiController {
     public Long checkPw(@RequestBody RequestFind requestFind){
         return memberMapper.getLoginIdByFind(requestFind).getId();
     }
- /*   @GetMapping("/check/{id}")
-    public String checkQuestion(){
-        questionsInfo()
-    }*/
+    @GetMapping("/check/{id}")
+    public String checkQuestion(@PathVariable Long id){
+        memberMapper.getSecurityQuestion(id);
+        return memberMapper.getSecurityAnswer(id);
+    }
+    @PutMapping("/passwd/{id}")
+    public void changePassword(@PathVariable Long id, @RequestBody RequestPassword requestPassword){
+        Password password = new Password();
+        password.setId(id);
+        password.setPassword(requestPassword.getChangePassword());
+        memberMapper.updatePassword(password);
+    }
 }
