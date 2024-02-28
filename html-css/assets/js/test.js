@@ -1,14 +1,14 @@
 
 
 function zzim(){
-    alert("찜할꼬양?")
+    alert("zzim버튼 확인?")
 }
 
 function like(){
-    alert("좋은거니?")
+    alert("like버튼 확인?")
 }
 
 
 function deleteimg(){
-    alert("삭제할꺼닝?")
+    alert("delete버튼 확인?")
 }

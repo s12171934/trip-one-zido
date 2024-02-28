@@ -1,0 +1,12 @@
+/* 스크롤바 */
+div::-webkit-scrollbar{ /* 스크롤바 배경 */
+    height: 15px;
+    border-radius: 10px;
+    background: rgb(236, 236, 250);
+  }
+  div::-webkit-scrollbar-thumb{ /* 스크롤바 */
+    width: 15px;
+    border-radius: 10px;
+    background: pink;
+  }
+  
