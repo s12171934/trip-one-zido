@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+	<html>
+	<head>
+		<title>여행한지도 | 상세검색</title>
+		<meta charset="utf-8">
+		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="/html-css/assets/css/main.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	</head>
+	<body>
+		<!-- Header -->
+        <header id="header">
+			<nav class="left">
+				<a href="#menu"><span>Menu</span></a>
+			</nav>
+            <!-- 헤더로고 : 350 -->
+			<a href="/html-css/index.html"  class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
+			<nav class="right">
+            <!-- 프로필 -->             <!-- 검색창 -->
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top: 3%;">   
+                    <input type="text" required style="margin-top: 2%">
+                    <span class="image round"  box-sha><a href="/html-css/sign/login.html"> <img src="/html-css/images/남자.png" width="75" height="75"></a></span>
+                </div>
+			</nav>	
+		</header>
+
+			<!-- Menu -->
+			<nav id="menu">
+				<ul class="links">
+					<li><a href="/html-css/index.html">게시물등록</a></li>
+					<li><a href="/html-css/community/community.html">커뮤니티</a></li>
+					<li><a href="/html-css/config/config.html">최근기록</a></li>
+                    <li><a href="/html-css/main/zzim.html">찜목록</a></li>
+                    <li><a href="/html-css/info/info.html">관광정보</a></li>
+                    <li><a href="logout.html">로그아웃</a></li>
+				</ul>
+				<ul class="actions vertical">
+					<li><a href="#" class="button fit">로그아웃</a></li>
+				</ul>
+			</nav>
+            
+
+			<section id="main" class="wrapper" style="margin-left: 5%; margin-right: 5%;">
+
+				<div style="text-align: left;">
+					<h1 class="title" style="color:#ff928e">상세검색</h1>
+					<br>
+				</div>
+			
+				<div class="row"> <!-- Bootstrap 그리드 시스템 사용 -->
+			
+					<!-- 시작일 -->
+					<div class="col-md-3 mb-3">
+						<h5>일정 시작일 </h5>
+						<input type="date" class="form-control">
+						<br>
+					</div>
+			
+					<!-- 종료일 -->
+					<div class="col-md-3 mb-3">
+						<h5>일정 종료일 </h5>
+						<input type="date" class="form-control">
+						<br>
+					</div>
+			
+					<!-- 카테고리 -->
+					<div class="col-md-3 mb-3">
+						<h5>카테고리 </h5>
+						<div class="select-wrapper">
+							<select class ="local-select" name="category" id="security">
+								<option value="" selected>카테고리 선택</option>
+								<option value="1">일정</option>
+								<option value="2">관광지</option>
+							</select>
+						</div>
+						<br>
+					</div>
+			
+					<!-- 지역 -->
+					<div class="col-md-3 mb-3">
+						<h5>지역 </h5>
+						<div class="select-wrapper">
+							<select class ="local-select" name="category" id="security">
+								<option value="" selected>지역 선택</option>
+								<option value="1">서울특별시</option>
+								<option value="2">경기도</option>
+								<option value="3">강원도</option>
+								<option value="4">세종특별자치시시</option>
+								<option value="5">대구광역시</option>
+								<option value="6">울산광역시</option>
+								<option value="7">부산광역시</option>
+								<option value="8">제주특별자치도</option>
+							</select>
+						</div>
+						<br>
+					</div>
+			
+					<!-- 검색 -->
+					<div class="col-md-12 mb-3">
+						<h5>검색</h5>
+						<form action="https://www.google.com/search" method="GET" class="input-group">
+							<input name="q" type="text" class="form-control" placeholder="검색어를 입력해주세요" aria-label="Recipient's username" aria-describedby="button-addon2">
+							<button class="button alt" type="submit" id="more">검색</button>
+						</form>
+						<br><br><br>
+					</div>
+				</div>
+				<div>
+					'검색어' 와 관련된 검색결과
+				</div>
+
+				<hr>
+				<br><br><br>
+				<div style="text-align: left; margin-left: 5%;">
+                    <div class="d-grid gap-3 d-md-flex justify-content-md">   
+                        <h3 style="color:#f6755e">일정</h3>
+                        <h5 style="margin-top: 0.5%;">5</h5>
+						<div style="margin-left: auto">	
+						<a href="/html-css/community/communityAdd.html" class="button alt small" id="more">더보기</a>
+						</div>
+					</div>
+				</div>
+					
+				<div class="d-flex flex-row mb-6" style="margin-left: 5%; overflow: auto;" >
+					<div class="p-2"><img src="/html-css/images/서울특별시(경복궁).png" alt="" width="260" height="260" class="rounded-5"><p style="text-align: center;">서울</p></div>
+					<div class="p-2"><img src="/html-css/images/대구광역시(두류공원).jpg" alt="" width="260" height="260" class="rounded-5"><p style="text-align: center;">대구</p></div>
+					<div class="p-2"><img src="/html-css/images/전라남도 보성(녹차밭).png" alt="" width="260" height="260" class="rounded-5"><p style="text-align: center;">보성</p></div>
+					<div class="p-2"><img src="/html-css/images/울산광역시(대왕암공원).png" alt="" width="260" height="260" class="rounded-5"><p style="text-align: center;">울산</p></div>
+					<div class="p-2"><img src="/html-css/images/전라도 전주(한옥마을).png" alt="" width="260" height="260" class="rounded-5"><p style="text-align: center;">전주</p></div>
+				</div>
+
+				<br><br><br>
+				<div style="text-align: left; margin-left: 5%;">
+                    <div class="d-grid gap-3 d-md-flex justify-content-md">   
+                        <h3 style="color:#f6755e">장소</h3>
+                        <h5 style="margin-top: 0.5%;">5</h5>
+						<div style="margin-left: auto">	
+						<a href="/html-css/community/communityAdd.html" class="button alt small" id="more">더보기</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="d-flex flex-row mb-6" style="margin-left: 5%; overflow: auto;"  >
+					<div class="p-2"><img src="/html-css/images/daejon1.jpg" alt="" width="260" height="260" class="rounded-5"><p style="text-align: center;">대전엑스포</p></div>
+					<div class="p-2"><img src="/html-css/images/daejon2.jpg" alt="" width="260" height="260" class="rounded-5"><p style="text-align: center;">대전장소2</p></div>
+					<div class="p-2"><img src="/html-css/images/daejon3.jpg" alt="" width="260" height="260" class="rounded-5"><p style="text-align: center;">대전장소3</p></div>
+					<div class="p-2"><img src="/html-css/images/busan1.jpg" alt="" width="260" height="260" class="rounded-5"><p style="text-align: center;">부산장소1</p></div>
+					<div class="p-2"><img src="/html-css/images/busan2.jpg" alt="" width="260" height="260" class="rounded-5"><p style="text-align: center;">부산장소2</p></div>
+				</div>
+            </section>
+			
+			<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<h2>여행한 지도</h2>
+					<ul class="actions">
+						<li><span class="icon fa-phone"></span> <a href="#">(000) 000-0000</a></li>
+						<li><span class="icon fa-envelope"></span> <a href="#">information@untitled.tld</a></li>
+						<li><span class="icon fa-map-marker"></span> 123 Somewhere Road, Nashville, TN 00000</li>
+					</ul>
+				</div>
+			</footer>
+			<div class="copyright">Powered by: 
+				<a href="https://templated.co/">TEMPLATED</a>.
+		</div>
+		<!-- Scripts -->
+		<script src="/html-css/assets/js/jquery.min.js"></script>
+		<script src="/html-css/assets/js/jquery.scrolly.min.js"></script>
+		<script src="/html-css/assets/js/skel.min.js"></script>
+		<script src="/html-css/assets/js/util.js"></script>
+		<script src="/html-css/assets/js/main.js"></script>
+	</body>
+	</html>
+	<style>
+			@font-face {
+            font-family: 'Jalnan';
+            src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');
+        }
+
+		h1, h2, h3, h4, h5, body, #more {
+			font-family: 'Jalnan';
+		}
+
+		#menu {
+            font-size: 20px;
+        }
+
+		.form-control {
+			height: 50%;
+		}
+	</style>
