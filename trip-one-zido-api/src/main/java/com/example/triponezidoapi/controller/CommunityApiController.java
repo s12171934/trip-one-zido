@@ -1,8 +1,6 @@
 package com.example.triponezidoapi.controller;
 
-import com.example.triponezidoapi.dto.CommunityDetail;
-import com.example.triponezidoapi.dto.CommunityTable;
-import com.example.triponezidoapi.dto.ProfileMember;
+import com.example.triponezidoapi.dto.*;
 import com.example.triponezidoapi.dto.RequestSearch;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,8 +34,8 @@ public class CommunityApiController {
 
     }
     @GetMapping("/search/page={page}")
-    public RequestSearch searchCommunity(@RequestBody CommunityTable communityTable, @PathVariable int page){
-        return new RequestSearch();
+    public RequestCommunitySearch searchCommunity(@RequestBody CommunityTable communityTable, @PathVariable int page){
+        return new RequestCommunitySearch();
     }
     @PutMapping("entry/{id1}&{id2}")
     public void entryCommunity(@PathVariable long id1, @PathVariable long id2){
