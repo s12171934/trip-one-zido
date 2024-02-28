@@ -2,11 +2,8 @@ package com.example.triponezidoapi.controller;
 
 import com.example.triponezidoapi.dto.*;
 import com.example.triponezidoapi.mappers.MemberMapper;
-import jakarta.validation.constraints.PastOrPresent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -17,8 +14,7 @@ public class MemberApiController {
 
     @GetMapping("/questions")
     public List<ResponseQuestion> questionsInfo(){
-        List<ResponseQuestion> question = memberMapper.securityQuestions();
-        return question;
+        return memberMapper.securityQuestions();
     }
     @PostMapping("/signup")
     public void signupMember(@RequestBody Member member){
@@ -34,7 +30,7 @@ public class MemberApiController {
     }
     @PostMapping("/check/pw")
     public Long checkPw(@RequestBody RequestFind requestFind){
-        return memberMapper.getLoginIdByFind(requestFind).getId();
+        return memberMapper.getId(requestFind);
     }
     @GetMapping("/check/{id}")
     public String checkQuestion(@PathVariable Long id){
@@ -42,10 +38,69 @@ public class MemberApiController {
         return memberMapper.getSecurityAnswer(id);
     }
     @PutMapping("/passwd/{id}")
-    public void changePassword(@PathVariable Long id, @RequestBody RequestPassword requestPassword){
+    public void setNewPassword(@PathVariable Long id, @RequestBody RequestPassword requestPassword){
         Password password = new Password();
         password.setId(id);
         password.setPassword(requestPassword.getChangePassword());
         memberMapper.updatePassword(password);
     }
+    @GetMapping("/")
+    public Member showMember(Long id){
+        return memberMapper.getMemberById(id);
+    }
+    @PutMapping("/")
+    public void changeMember(@RequestBody Member member){
+        memberMapper.updateMember(member);
+    }
+    @DeleteMapping("/")
+    public void removeMember(Long id){
+        memberMapper.deleteMember(id);
+    }
+    @PutMapping("/profile")
+    public void changeProfile(@RequestBody ProfileMember profileMember, Long id){
+        profileMember.setId(id);
+        memberMapper.updateProfile(profileMember);
+    }
+    @PutMapping("/password")
+    public void changePassword(Long id, @RequestBody RequestPassword requestPassword){
+        Password password = new Password();
+        password.setId(id);
+        password.setPassword(requestPassword.getChangePassword());
+        memberMapper.updatePassword(password);
+    }
+/*    @PostMapping("/pairing")
+    public void pairingSignup(@RequestBody ){
+
+    }*/
+    @PostMapping("/follow/{id}")
+    public void followingMember(Long me, @PathVariable Long id){
+        Follow follow = new Follow();
+        follow.setFollower(me);
+        follow.setFollowing(id);
+        memberMapper.follow(follow);
+    }
+    @GetMapping("/following/{id}")
+    public int countFollowing(@PathVariable Long id){
+        return memberMapper.followingCount(id);
+    }
+    @GetMapping("/following/{id}/list")
+    public List<ProfileMember> listFollowing(@PathVariable Long id){
+        return memberMapper.followingList(id);
+    }
+    @GetMapping("/follower/{id}")
+    public int countFollower(@PathVariable Long id){
+        return memberMapper.followerCount(id);
+    }
+    @GetMapping("/follower/{id}/list")
+    public List<ProfileMember> listFollower(@PathVariable Long id){
+        return memberMapper.followerList(id);
+    }
+    @DeleteMapping("/unfollow/{id}")
+    public void unfollowMember(Long me, @PathVariable Long id){
+        Follow follow = new Follow();
+        follow.setFollower(me);
+        follow.setFollowing(id);
+        memberMapper.unFollow(follow);
+    }
+
 }

@@ -9,7 +9,7 @@ import java.util.List;
 public interface MemberMapper {
     //insert
     void signUp(Member member);
-    void follow(Fallow fallow);
+    void follow(Follow follow);
 
     //select
     List<ResponseQuestion> securityQuestions();
@@ -32,5 +32,5 @@ public interface MemberMapper {
 
     //delete
     void deleteMember(long id);
-    void unFollow(Fallow fallow);
+    void unFollow(Follow follow);
 }
