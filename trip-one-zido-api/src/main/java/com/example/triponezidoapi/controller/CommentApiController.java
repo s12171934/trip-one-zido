@@ -27,8 +27,4 @@ public class CommentApiController {
         comment.setId(id);
         commentMapper.updateComment(comment);
     }
-    @DeleteMapping("/{id}")
-    public void deleteComment(@PathVariable Long id){
-        commentMapper.deleteComment(id);
-    }
 }
