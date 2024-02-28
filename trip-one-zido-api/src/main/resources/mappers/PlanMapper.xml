@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.triponezidoapi.mappers.PlanMapper">
+    <select id="getPlanList" parameterType="long" resultType="com.example.triponezidoapi.dto.ResponseContentList">
 
+    </select>
+
+    <insert id="addPlan" parameterType="com.example.triponezidoapi.dto.Plan">
+
+    </insert>
+
+    <update id="updatePlan" parameterType="com.example.triponezidoapi.dto.Plan">
+
+    </update>
+
+    <insert id="addSpot" parameterType="com.example.triponezidoapi.dto.PlanSpotConnector">
+
+    </insert>
 </mapper>

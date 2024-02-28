@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.triponezidoapi.mappers.BookMarkMapper">
+<mapper namespace="com.example.triponezidoapi.mappers.BookmarkMapper">
+    <select id="bookmarkCount" parameterType="long" resultType="int">
 
+    </select>
+
+    <select id="tourBookmarkCount" parameterType="long" resultType="int">
+
+    </select>
+
+    <select id="planSpotBookmarkCount" parameterType="long" resultType="int">
+
+    </select>
+
+    <select id="getTourBookmark" parameterType="long" resultType="com.example.triponezidoapi.dto.ResponseContentList">
+
+    </select>
+
+    <select id="getPlanSpotBookmark" parameterType="long" resultType="com.example.triponezidoapi.dto.ResponseContentList">
+
+    </select>
+
+    <insert id="addBookmark" parameterType="com.example.triponezidoapi.dto.RequestOwner">
+
+    </insert>
+
+    <delete id="deleteBookmark" parameterType="com.example.triponezidoapi.dto.RequestOwner">
+
+    </delete>
 </mapper>
