@@ -12,7 +12,7 @@ public interface CommunityMapper {
 
     //select
     List<CommunityTable> getCommunities(long page);
-    List<CommunityTable> getCommunitiesWithSearch(RequestSearch requestSearch);
+    List<CommunityTable> getCommunitiesWithSearch(RequestCommunitySearch requestCommunitySearch);
     CommunityDetail getCommunity(long id);
     List<ProfileMember> getMembers(long id);
 

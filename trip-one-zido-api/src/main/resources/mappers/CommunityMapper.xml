@@ -61,7 +61,7 @@
             10;
     </select>
 
-    <select id="getCommunitiesWithSearch" parameterType="com.example.triponezidoapi.dto.RequestSearch" resultType="com.example.triponezidoapi.dto.CommunityTable">
+    <select id="getCommunitiesWithSearch" parameterType="com.example.triponezidoapi.dto.RequestCommunitySearch" resultType="com.example.triponezidoapi.dto.CommunityTable">
         SELECT
             content.id,
             title,

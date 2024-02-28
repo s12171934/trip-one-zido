@@ -90,4 +90,24 @@
         WHERE
             id = #{id}
     </update>
+
+    <insert id="addPin" parameterType="com.example.triponezidoapi.dto.RequestOwner">
+
+    </insert>
+
+    <delete id="deletePin" parameterType="com.example.triponezidoapi.dto.RequestOwner">
+
+    </delete>
+
+    <insert id="addLike" parameterType="com.example.triponezidoapi.dto.RequestOwner">
+
+    </insert>
+
+    <delete id="deleteLike" parameterType="com.example.triponezidoapi.dto.RequestOwner">
+
+    </delete>
+
+    <select id="getRecentView" resultType="com.example.triponezidoapi.dto.ResponseContentList">
+
+    </select>
 </mapper>
