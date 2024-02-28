@@ -29,23 +29,23 @@ public class MemberApiController {
         return memberMapper.getLoginIdByFind(requestFind).getLoginId();
     }
     @PostMapping("/check/pw")
-    public Long checkPw(@RequestBody RequestFind requestFind){
+    public long checkPw(@RequestBody RequestFind requestFind){
         return memberMapper.getId(requestFind);
     }
     @GetMapping("/check/{id}")
-    public String checkQuestion(@PathVariable Long id){
+    public String checkQuestion(@PathVariable long id){
         memberMapper.getSecurityQuestion(id);
         return memberMapper.getSecurityAnswer(id);
     }
     @PutMapping("/passwd/{id}")
-    public void setNewPassword(@PathVariable Long id, @RequestBody RequestPassword requestPassword){
+    public void setNewPassword(@PathVariable long id, @RequestBody RequestPassword requestPassword){
         Password password = new Password();
         password.setId(id);
         password.setPassword(requestPassword.getChangePassword());
         memberMapper.updatePassword(password);
     }
     @GetMapping("/")
-    public Member showMember(Long id){
+    public Member showMember(long id){
         return memberMapper.getMemberById(id);
     }
     @PutMapping("/")
@@ -53,16 +53,16 @@ public class MemberApiController {
         memberMapper.updateMember(member);
     }
     @DeleteMapping("/")
-    public void removeMember(Long id){
+    public void removeMember(long id){
         memberMapper.deleteMember(id);
     }
     @PutMapping("/profile")
-    public void changeProfile(@RequestBody ProfileMember profileMember, Long id){
+    public void changeProfile(@RequestBody ProfileMember profileMember, long id){
         profileMember.setId(id);
         memberMapper.updateProfile(profileMember);
     }
     @PutMapping("/password")
-    public void changePassword(Long id, @RequestBody RequestPassword requestPassword){
+    public void changePassword(long id, @RequestBody RequestPassword requestPassword){
         Password password = new Password();
         password.setId(id);
         password.setPassword(requestPassword.getChangePassword());
@@ -73,30 +73,30 @@ public class MemberApiController {
 
     }*/
     @PostMapping("/follow/{id}")
-    public void followingMember(Long me, @PathVariable Long id){
+    public void followingMember(long me, @PathVariable long id){
         Follow follow = new Follow();
         follow.setFollower(me);
         follow.setFollowing(id);
         memberMapper.follow(follow);
     }
     @GetMapping("/following/{id}")
-    public int countFollowing(@PathVariable Long id){
+    public int countFollowing(@PathVariable long id){
         return memberMapper.followingCount(id);
     }
     @GetMapping("/following/{id}/list")
-    public List<ProfileMember> listFollowing(@PathVariable Long id){
+    public List<ProfileMember> listFollowing(@PathVariable long id){
         return memberMapper.followingList(id);
     }
     @GetMapping("/follower/{id}")
-    public int countFollower(@PathVariable Long id){
+    public int countFollower(@PathVariable long id){
         return memberMapper.followerCount(id);
     }
     @GetMapping("/follower/{id}/list")
-    public List<ProfileMember> listFollower(@PathVariable Long id){
+    public List<ProfileMember> listFollower(@PathVariable long id){
         return memberMapper.followerList(id);
     }
     @DeleteMapping("/unfollow/{id}")
-    public void unfollowMember(Long me, @PathVariable Long id){
+    public void unfollowMember(long me, @PathVariable long id){
         Follow follow = new Follow();
         follow.setFollower(me);
         follow.setFollowing(id);

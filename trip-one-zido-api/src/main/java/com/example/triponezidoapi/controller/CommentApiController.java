@@ -14,16 +14,16 @@ public class CommentApiController {
     CommentMapper commentMapper;
 
     @GetMapping("/{id}")
-    public List<Comment> showComment(@PathVariable Long id){
+    public List<Comment> showComment(@PathVariable long id){
         return commentMapper.getComment(id);
     }
     @PostMapping("/")
-    public void addComment(@RequestBody Comment comment, Long id){
+    public void addComment(@RequestBody Comment comment, long id){
         comment.setMemberId(id);
         commentMapper.addComment(comment);
     }
     @PutMapping("/{id}")
-    public void updateComment(@PathVariable Long id, @RequestBody Comment comment){
+    public void updateComment(@PathVariable long id, @RequestBody Comment comment){
         comment.setId(id);
         commentMapper.updateComment(comment);
     }
