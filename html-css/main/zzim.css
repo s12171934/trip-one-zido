@@ -45,14 +45,6 @@ img {
     font-size: 20px;
   }
   
-  .minusbox {
-    margin-left: 92%;
-  }
-
-  .minus {
-    position: absolute;
-    z-index: 1;
-  }
 /* 스크롤바 */
 div::-webkit-scrollbar{ /* 스크롤바 배경 */
   height: 15px;
