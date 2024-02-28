@@ -1,7 +1,6 @@
 package com.example.triponezidoapi.controller;
 
 import com.example.triponezidoapi.dto.*;
-import com.example.triponezidoapi.dto.RequestSearch;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
