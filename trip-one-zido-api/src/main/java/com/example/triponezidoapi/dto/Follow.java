@@ -3,7 +3,7 @@ package com.example.triponezidoapi.dto;
 import lombok.Data;
 
 @Data
-public class Fallow {
+public class Follow {
     long follower;
     long following;
 }

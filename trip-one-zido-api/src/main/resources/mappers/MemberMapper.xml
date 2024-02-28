@@ -30,7 +30,7 @@
       )
   </insert>
 
-  <insert id="follow" parameterType="com.example.triponezidoapi.dto.Fallow">
+  <insert id="follow" parameterType="com.example.triponezidoapi.dto.Follow">
     INSERT INTO follow
       (
       follower,
@@ -219,7 +219,7 @@
       id = #{id}
   </delete>
 
-  <delete id="unFollow" parameterType="com.example.triponezidoapi.dto.Fallow">
+  <delete id="unFollow" parameterType="com.example.triponezidoapi.dto.Follow">
     DELETE FROM
       follow
     WHERE
