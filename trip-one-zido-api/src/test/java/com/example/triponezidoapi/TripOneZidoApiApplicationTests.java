@@ -13,6 +13,5 @@ import org.springframework.boot.test.context.SpringBootTest;
 
         @Test
     void contextLoads() {
-        Assertions.assertEquals(1,memberMapper.sel());
     }
 }

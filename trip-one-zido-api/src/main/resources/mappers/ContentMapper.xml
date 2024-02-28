@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.triponezidoapi.mappers.ContentMapper">
+    <insert id="addContent" parameterType="com.example.triponezidoapi.dto.Content">
+        INSERT INTO content
+            (
+            type,
+            is_public,
+            title
+            )
+        VALUES
+            (
+            #{type},
+            #{isPublic},
+            #{title}
+            )
+        <selectKey keyProperty="id" resultType="long">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
+    </insert>
+
+    <insert id="addOwner" parameterType="com.example.triponezidoapi.dto.RequestOwner">
+        INSERT INTO owner
+            (
+            own,
+            member_id,
+            content_id
+            )
+        VALUE
+            (
+            #{own},
+            #{memberId},
+            #{contentId}
+            )
+    </insert>
+
+    <delete id="deleteOwner" parameterType="com.example.triponezidoapi.dto.RequestOwner">
+        DELETE FROM owner
+        WHERE
+            member_id = #{memberId} AND
+            content_id = #{contentId}
+    </delete>
+
+    <delete id="deleteContent" parameterType="long">
+        DELETE FROM content
+        WHERE id = #{id}
+    </delete>
+
+    <select id="getContentMembers" parameterType="long" resultType="com.example.triponezidoapi.dto.ProfileMember">
+        SELECT
+            m.id,
+            m.login_id,
+            m.profile,
+            o.own
+        FROM
+            member m,
+            owner o
+        WHERE
+            m.id = o.member_id AND
+            o.content_id = #{id}
+    </select>
+
+    <select id="getWriter" parameterType="long" resultType="com.example.triponezidoapi.dto.ProfileMember">
+        SELECT
+            m.id,
+            m.login_id,
+            m.profile,
+            o.own
+        FROM
+            member m,
+            owner o
+        WHERE
+            m.id = o.member_id AND
+            o.content_id = #{id} AND
+            o.own = 'writer'
+    </select>
+
+    <update id="updateTitle" parameterType="com.example.triponezidoapi.dto.Content">
+        UPDATE content
+        SET
+            title = #{title}
+        WHERE
+            id = #{id}
+    </update>
+
+    <update id="updateIsPublic" parameterType="com.example.triponezidoapi.dto.Content">
+        UPDATE content
+        SET
+            is_public = #{isPublic}
+        WHERE
+            id = #{id}
+    </update>
+</mapper>
