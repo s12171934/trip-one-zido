@@ -1,0 +1,262 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>커뮤니티 | 게시글 목록</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/html-css/assets/css/main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Header -->
+    <header id="header">
+        <nav class="left">
+            <a href="#menu"><span>Menu</span></a>
+        </nav>
+        <!-- 헤더로고 : 350 -->
+        <a href="/html-css/index.html" class="logo"><img src="/html-css/images/여행한지도_로고.png" width="350"></a>
+        <nav class="right">
+            <!-- 프로필 -->
+            <span class="image round" style="margin: 15%" box-sha><a href="/html-css/sign/login.html"> <img
+                        src="/html-css/images/남자.png" width="75" height="75"></a></span>
+        </nav>
+
+        <style>
+        /* 별점주기 */
+        .rating {
+            unicode-bidi: bidi-override;
+            direction: rtl;
+            text-align: left;
+        }
+
+        .rating>span {
+            display: inline-block;
+            position: relative;
+            width: 1.1em;
+        }
+
+        .rating>span:hover:before,
+        .rating>span:hover~span:before {
+            content: "\2605";
+            position: absolute;
+        }
+        /* 화면 나누기 */
+        #split-container {
+        display: flex;
+        width: 100%;
+        }
+        #split-container > div {
+            width: 50%;
+            padding: 20px;
+        }
+        /* 지도 크기 설정 */
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+
+        body {
+            font-size: 24px;
+            color: #F6B6B4;
+        }
+        input {
+            color: #F6B6B4;
+        }
+        
+        </style>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <ul class="links">
+            <li><a href="/html-css/index.html">게시물등록</a></li>
+            <li><a href="/html-css/community/community.html">커뮤니티</a></li>
+            <li><a href="/html-css/config/config.html">최근기록</a></li>
+            <li><a href="/html-css/main/zzim.html">찜목록</a></li>
+            <li><a href="/html-css/info/info.html">관광정보</a></li>
+            <li><a href="logout.html">로그아웃</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main -->
+    <section id="main" class="wrapper" style= "margin-left: 5%; margin-right: 5%;">
+        <form id="split-container" class="d-flex flex-row" style="justify-content: center;">
+            <!-- 왼쪽 -->
+            <div class="p-2 d-flex flex-column border-end" style="justify-content: center;">
+                <div class="p-2 d-flex flex-row">내 일정 제목
+                    <input type="text" value="" style="margin-right: 10px; margin-left: 10px; width: 40%; height: 60%;">
+                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="height: 90%;">
+                        <input type="radio hidden" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                        <label class="btn btn-outline-primary" for="btnradio1">여행전</label>
+                        
+                        <input type="radio hidden" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio2">여행중</label>
+                        
+                        <input type="radio hidden" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio3">여행한</label>
+                        </div>
+                </div>
+
+                <div class="p-2 d-flex">기간
+                    <label for="start_date"></label>
+                    <input class="flex-fill" type="date" id="start_date" name="start_date" style="margin-right: 10px; margin-left: 10px;">
+                
+                    <label for="end_date"></label>
+                    <input class="flex-fill" type="date" id="end_date" name="end_date" style="margin-right: 10px; margin-left: 10px;">
+                </div>
+
+                <div class="p-2 d-flex border-bottom" style="justify-content: center;">동행인
+                    <input class="flex-fill" type="text" value="" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 90%;">
+                    <input class="flex-fill" type="text" value="" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 90%;">
+                    <input class="flex-fill" type="text" value="" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 90%;">
+                    <input class="flex-fill" type="text" value="" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 90%;">
+                </div>
+
+
+                <div class="p-2" style="justify-content: center;">지도 1일차?
+                    <!-- Google 지도를 삽입할 영역 -->
+                    <iframe
+                    id="map"
+                    width="600"
+                    height="450"
+                    frameborder="0" style="border:0"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3164.529575556133!2d127.02654691567728!3d37.497953624024396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca31a218db503%3A0x72a372df19cf7b95!2z7ISc7Jq47Yq567OE7IucIOyWtOyKpO2PrCDshozqs6DsiJzsnbTsiqTqtawg67Cg7J2067aAIDQwMC00MA!5e0!3m2!1sko!2skr!4v1645788148025!5m2!1sko!2skr"
+                    allowfullscreen>
+                    </iframe>
+                </div>
+
+                <div class="p-2 d-flex border-top">여행한 후기
+                    <div class="rating flex-fill" style="margin-right: 10px; margin-left: 100px;">
+                        <span onclick="rateStar(10)">☆</span>
+                        <span onclick="rateStar(8)">☆</span>
+                        <span onclick="rateStar(6)">☆</span>
+                        <span onclick="rateStar(4)">☆</span>
+                        <span onclick="rateStar(2)">☆</span>
+                    </div>
+                    <p class="flex-fill" id="ratingValue">별점을 선택하세요.</p>
+                    <script>
+                        function rateStar(stars) {
+                            document.getElementById('ratingValue').innerText = '별점: ' + stars + '점';
+                        }
+                    </script>
+                </div>
+
+                <div class="p-2">
+                    <input type="text" value="" style=" width: 100%; height: 500%;">
+                </div>
+            </div>
+
+            <!-- 오른쪽 -->
+            <div class="p-2 d-flex flex-column" style="justify-content: center;">
+                <div class="p-2 d-flex flex-row">여행 중 일정 및 장소
+                    <div class="dropdown" style="margin-left: 200px;">
+                        <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          지역분류
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#">서울</a></li>
+                          <li><a class="dropdown-item" href="#">부산</a></li>
+                          <li><a class="dropdown-item" href="#">광주</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="p-2 d-flex flex-row">테이블넣기 !!!
+                    <!-- <input type="text" value=""> -->
+                </div>
+
+                <div class="p-2 d-flex">
+                    <div class="dropdown" style="margin-right: 30px;">
+                        <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          지역분류
+                        </a>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#">서울</a></li>
+                          <li><a class="dropdown-item" href="#">부산</a></li>
+                          <li><a class="dropdown-item" href="#">광주</a></li>
+                        </ul>
+                    </div>
+                    <input class="btn btn-primary flex-fill" type="submit" value="등록" style="margin-right: 30px; margin-left: 0px; width: 20%; height: 70%;">
+                    <input class="btn btn-primary flex-fill" type="submit" value="수정" style="margin-right: 30px; margin-left: 0px; width: 20%; height: 70%;">
+                    <input class="btn btn-primary flex-fill" type="submit" value="삭제" style="margin-right: 30px; margin-left: 0px; width: 20%; height: 70%;">
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="inner">
+            <h2>여행한 지도</h2>
+            <ul class="actions">
+                <li><span class="icon fa-phone"></span> <a href="#">(000) 000-0000</a></li>
+                <li><span class="icon fa-envelope"></span> <a href="#">information@untitled.tld</a></li>
+                <li><span class="icon fa-map-marker"></span> 123 Somewhere Road, Nashville, TN 00000</li>
+            </ul>
+        </div>
+    </footer>
+    <div class="copyright">Powered by:
+        <a href="https://templated.co/">TEMPLATED</a>.
+    </div>
+    <!-- Scripts -->
+    <script src="/html-css/assets/js/jquery.min.js"></script>
+    <script src="/html-css/assets/js/jquery.scrolly.min.js"></script>
+    <script src="/html-css/assets/js/skel.min.js"></script>
+    <script src="/html-css/assets/js/util.js"></script>
+    <script src="/html-css/assets/js/main.js"></script>
+</body>
+
+</html>
+
+<style>
+    @font-face {
+        font-family: 'Jalnan';
+        src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');
+    }
+
+    #header {
+        font-family: 'Jalnan';
+    }
+
+    head {
+        font-family: 'Jalnan';
+    }
+
+    #menu {
+        font-family: 'Jalnan';
+        font-size: 20px;
+    }
+
+    #footer {
+        font-family: 'Jalnan';
+        font-size: 10px;
+    }
+
+    .main {
+        font-family: 'Jalnan';
+    }
+
+    .inner {
+        font-family: 'Jalnan';
+    }
+
+    .title {
+        font-family: 'Jalnan';
+    }
+
+    body {
+        font-family: 'Jalnan';
+    }
+
+    .button {
+        font-family: 'Jalnan';
+    }
+
+    H2 {
+        font-family: 'Jalnan';
+    }
+</style>
