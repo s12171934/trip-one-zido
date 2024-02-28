@@ -98,7 +98,7 @@ div::-webkit-scrollbar-thumb{ /* 스크롤바 */
   flex-shrink: 0;
 
   /* transition */
-  transition: left 0.15s;
+  transition: left 0.5s;
 }
 .slide_button {
   /* layout */
