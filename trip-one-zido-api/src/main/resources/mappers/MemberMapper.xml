@@ -68,7 +68,6 @@
     WHERE
       name = #{name} AND
       email = #{email}
-
   </select>
 
   <select id="getLogin" parameterType="com.example.triponezidoapi.dto.LoginForm" resultType="com.example.triponezidoapi.dto.ProfileMember">

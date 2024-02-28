@@ -7,7 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface PlanMapper {
-    List<ResponseContentList> getPlanList(long id);
+    List<ResponseContentList> getPlanList(RequestListInfo requestListInfo);
+    Plan getPlan(RequestOwner requestOwner);
     void addPlan(Plan plan);
     void updatePlan(Plan plan);
     void addSpot(PlanSpotConnector planSpotConnector);

@@ -16,7 +16,6 @@
 			#{contentId},
 			#{memberId}
 			)
-
 	</insert>
 
 	<select id="getComment" parameterType="long" resultType="com.example.triponezidoapi.dto.Comment">
@@ -29,7 +28,6 @@
 			content
 		WHERE
 			comment.id = content_id
-
 	</select>
 
 	<update id="updateComment" parameterType="com.example.triponezidoapi.dto.Comment">

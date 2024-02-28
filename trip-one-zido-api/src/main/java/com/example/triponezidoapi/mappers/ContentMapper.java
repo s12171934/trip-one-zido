@@ -1,9 +1,6 @@
 package com.example.triponezidoapi.mappers;
 
-import com.example.triponezidoapi.dto.Content;
-import com.example.triponezidoapi.dto.ProfileMember;
-import com.example.triponezidoapi.dto.RequestOwner;
-import com.example.triponezidoapi.dto.ResponseContentList;
+import com.example.triponezidoapi.dto.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -20,7 +17,7 @@ public interface ContentMapper {
     void updateIsPublic(Content content);
     void addPin(RequestOwner requestOwner);
     void deletePin(RequestOwner requestOwner);
-    void addLike(RequestOwner requestOwner);
-    void deleteLike(RequestOwner requestOwner);
-    List<ResponseContentList> getRecentView(long id);
+    void addGood(RequestOwner requestOwner);
+    void deleteGood(RequestOwner requestOwner);
+    List<ResponseContentList> getRecentView(RequestListInfo requestListInfo);
 }

@@ -92,22 +92,103 @@
     </update>
 
     <insert id="addPin" parameterType="com.example.triponezidoapi.dto.RequestOwner">
-
+        INSERT INTO pin
+            (
+            member_id,
+            content_id
+            )
+        VALUE
+            (
+            #{memberId},
+            #{contentId}
+            )
     </insert>
 
     <delete id="deletePin" parameterType="com.example.triponezidoapi.dto.RequestOwner">
-
+        DELETE FROM pin
+        WHERE
+            member_id = #{memberId} AND
+            content_id = #{contentId}
     </delete>
 
-    <insert id="addLike" parameterType="com.example.triponezidoapi.dto.RequestOwner">
-
+    <insert id="addGood" parameterType="com.example.triponezidoapi.dto.RequestOwner">
+        INSERT INTO good
+            (
+            good,
+            member_id,
+            content_id
+            )
+        VALUE
+            (
+            #{own},
+            #{memberId},
+            #{contentId}
+            )
     </insert>
 
-    <delete id="deleteLike" parameterType="com.example.triponezidoapi.dto.RequestOwner">
-
+    <delete id="deleteGood" parameterType="com.example.triponezidoapi.dto.RequestOwner">
+        DELETE FROM good
+        WHERE
+            content_id = #{contentId} AND
+            member_id = #{memberId}
     </delete>
 
-    <select id="getRecentView" resultType="com.example.triponezidoapi.dto.ResponseContentList">
-
+    <select id="getRecentView" parameterType="com.example.triponezidoapi.dto.RequestListInfo" resultType="com.example.triponezidoapi.dto.ResponseContentList">
+        SELECT
+            c.id,
+            c.title,
+            sp.grade,
+            (
+            SELECT
+                photo
+            FROM
+                photo
+            WHERE
+                content_id = c.id
+            ) photo,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                bookmark
+            WHERE
+                content_id = c.id
+            ) bookmark_count,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                bookmark
+            WHERE
+                content_id = c.id AND
+                member_id = #{myMemberId}
+            ) my_bookmark,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                good
+            WHERE
+                content_id = c.id
+            ) good_count
+        FROM
+            content c,
+            (
+            SELECT
+                id,
+                grade
+            FROM spot
+            UNION
+            SELECT
+                id,
+                grade
+            FROM plan
+            ) sp,
+            open_content o
+        WHERE
+            c.id = sp.id AND
+            c.id = o.content_id
+        ORDER BY
+            opened_at DESC
     </select>
 </mapper>

@@ -15,8 +15,9 @@ public class Plan {
     String review;
     int grade;
     int viewCount;
-    int likeCount;
+    int goodCount;
     int bookmarkCount;
+    int myBookmark;
     String title;
     String isPublic;
     LocalDateTime createdAt;

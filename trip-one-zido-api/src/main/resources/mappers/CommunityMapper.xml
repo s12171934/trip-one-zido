@@ -22,7 +22,6 @@
             #{total},
             #{deadline}
             );
-
     </insert>
 
     <select id="getCommunities" parameterType="long" resultType="com.example.triponezidoapi.dto.CommunityTable">
@@ -49,7 +48,7 @@
                 owner o
             WHERE
                 m.id = o.member_id AND
-                o.owm = 'writer' AND
+                o.own = 'writer' AND
                 o.content_id = content.id
             ) writer
         FROM
@@ -85,7 +84,7 @@
                     owner o
                 WHERE
                     m.id = o.member_id AND
-                    o.owm = 'writer' AND
+                    o.own = 'writer' AND
                     o.content_id = content.id
             ) writer
         FROM
@@ -122,8 +121,8 @@
             member m,
             owner o
         WHERE
-            m.id = o.member_id
-          AND o.content_id = #{id};
+            m.id = o.member_id AND
+            o.content_id = #{id};
     </select>
 
     <update id="updateCommunity" parameterType="com.example.triponezidoapi.dto.CommunityDetail">

@@ -1,23 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.triponezidoapi.mappers.SpotMapper">
-    <select id="getSpotList" parameterType="long" resultType="com.example.triponezidoapi.dto.ResponseContentList">
+    <select id="getSpotList" parameterType="com.example.triponezidoapi.dto.RequestListInfo" resultType="com.example.triponezidoapi.dto.ResponseContentList">
+        SELECT
+            c.id,
+            c.title,
+            s.grade,
+            (
+            SELECT
+                photo
+            FROM
+                photo
+            WHERE
+                content_id = c.id
+            ) photo,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                bookmark
+            WHERE
+                content_id = c.id
+            ) bookmark_count,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                bookmark
+            WHERE
+                content_id = c.id AND
+                member_id = #{myMemberId}
+            ) my_bookmark,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                good
+            WHERE
+                content_id = c.id
+            ) good_count
+        FROM
+            content c,
+            spot s
+        WHERE
+            c.id = s.id AND
+            c.id IN
+            (
+            SELECT
+                content_id
+            FROM
+                owner
+            WHERE
+                member_id = #{targetId}
+            )
+    </select>
 
+    <select id="getSpot" parameterType="com.example.triponezidoapi.dto.RequestOwner" resultType="com.example.triponezidoapi.dto.Spot">
+        SELECT
+            s.*,
+            c.title,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                bookmark
+            WHERE
+                content_id = c.id
+            ) bookmark_count,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                bookmark
+            WHERE
+                content_id = c.id AND
+                member_id = #{memberId}
+            ) my_bookmark,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                good
+            WHERE
+                content_id = c.id
+            ) good_count
+        FROM
+            spot s,
+            content c
+        WHERE
+            s.id = c.id AND
+            s.id = #{contentId}
     </select>
 
     <insert id="addSpot" parameterType="com.example.triponezidoapi.dto.Spot">
-
+        INSERT INTO spot
+            (
+            id,
+            category,
+            start_date,
+            end_date,
+            loc_category,
+            address,
+            review,
+            grade
+            )
+        VALUE
+            (
+            #{id},
+            #{category},
+            #{startDate},
+            #{endDate},
+            #{locCategory},
+            #{address},
+            #{review},
+            #{grade}
+            )
     </insert>
 
     <update id="updateSpot" parameterType="com.example.triponezidoapi.dto.Spot">
-
+        UPDATE spot
+        SET
+            category = #{category},
+            start_date = #{startDate},
+            end_date = #{endDate},
+            loc_category = #{locCategory},
+            address = #{address},
+            review = #{review},
+            grade = #{grade}
+        WHERE
+            id = #{id};
     </update>
 
     <insert id="addPhoto" parameterType="com.example.triponezidoapi.dto.Photo">
-
+        INSERT INTO
+            photo
+            (
+            photo,
+            content_id
+            )
+        VALUE
+            (
+            #{photo},
+            #{contentId}
+            )
     </insert>
-
-    <delete id="deletePhoto" parameterType="long">
-
-    </delete>
 </mapper>
