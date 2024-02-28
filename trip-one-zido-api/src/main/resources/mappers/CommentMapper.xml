@@ -39,4 +39,11 @@
 		WHERE
 			id = #{id}
 	</update>
+
+	<delete id="deleteComment" parameterType="long">
+		DELETE FROM
+			comment
+		WHERE
+			id = #{id}
+	</delete>
 </mapper>
