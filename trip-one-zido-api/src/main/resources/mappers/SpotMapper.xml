@@ -1,7 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.triponezidoapi.mappers.SpotMapper">
-    <select id="getSpotList" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
+    <insert id="addSpot" parameterType="com.example.triponezidoapi.dto.request.RequestSpot">
+        INSERT INTO spot
+            (
+            id,
+            category,
+            start_date,
+            end_date,
+            loc_category,
+            address,
+            review,
+            grade
+            )
+        VALUE
+            (
+            #{id},
+            #{category},
+            #{startDate},
+            #{endDate},
+            #{locCategory},
+            #{address},
+            #{review},
+            #{grade}
+            )
+    </insert>
+
+    <insert id="addPhoto" parameterType="com.example.triponezidoapi.dto.request.RequestPhoto">
+        INSERT INTO
+            photo
+            (
+            photo,
+            content_id
+            )
+        VALUE
+            (
+            #{photo},
+            #{contentId}
+            )
+    </insert>
+
+    <select id="getSpot" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseSpotDetail">
+        SELECT
+            s.*,
+            c.title,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                bookmark
+            WHERE
+                content_id = c.id
+            ) bookmark_count,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                bookmark
+            WHERE
+                content_id = c.id AND
+                member_id = #{memberId}
+            ) my_bookmark,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                good
+            WHERE
+                content_id = c.id
+            ) good_count
+        FROM
+            spot s,
+            content c
+        WHERE
+            s.id = c.id AND
+            s.id = #{contentId}
+    </select>
+
+    <select id="getSpotList" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
         SELECT
             c.id,
             c.title,
@@ -41,7 +117,7 @@
             ) good_count
         FROM
             content c,
-            responseSpotDetail s
+            spot s
         WHERE
             c.id = s.id AND
             c.id IN
@@ -53,72 +129,12 @@
             WHERE
                 member_id = #{targetId}
             )
+        LIMIT
+            #{page}
     </select>
 
-    <select id="getSpot" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner" resultType="com.example.triponezidoapi.dto.response.ResponseSpotDetail">
-        SELECT
-            s.*,
-            c.title,
-            (
-            SELECT
-                COUNT(*)
-            FROM
-                bookmark
-            WHERE
-                content_id = c.id
-            ) bookmark_count,
-            (
-            SELECT
-                COUNT(*)
-            FROM
-                bookmark
-            WHERE
-                content_id = c.id AND
-                member_id = #{memberId}
-            ) my_bookmark,
-            (
-            SELECT
-                COUNT(*)
-            FROM
-                good
-            WHERE
-                content_id = c.id
-            ) good_count
-        FROM
-            responseSpotDetail s,
-            content c
-        WHERE
-            s.id = c.id AND
-            s.id = #{contentId}
-    </select>
-
-    <insert id="addSpot" parameterType="com.example.triponezidoapi.dto.response.ResponseSpotDetail">
-        INSERT INTO responseSpotDetail
-            (
-            id,
-            category,
-            start_date,
-            end_date,
-            loc_category,
-            address,
-            review,
-            grade
-            )
-        VALUE
-            (
-            #{id},
-            #{category},
-            #{startDate},
-            #{endDate},
-            #{locCategory},
-            #{address},
-            #{review},
-            #{grade}
-            )
-    </insert>
-
-    <update id="updateSpot" parameterType="com.example.triponezidoapi.dto.response.ResponseSpotDetail">
-        UPDATE responseSpotDetail
+    <update id="updateSpot" parameterType="com.example.triponezidoapi.dto.request.RequestSpot">
+        UPDATE spot
         SET
             category = #{category},
             start_date = #{startDate},
@@ -130,18 +146,4 @@
         WHERE
             id = #{id};
     </update>
-
-    <insert id="addPhoto" parameterType="com.example.triponezidoapi.dto.beforeUse.Photo">
-        INSERT INTO
-            photo
-            (
-            photo,
-            content_id
-            )
-        VALUE
-            (
-            #{photo},
-            #{contentId}
-            )
-    </insert>
 </mapper>

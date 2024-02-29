@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.triponezidoapi.mappers.CommunityMapper">
-    <insert id="addCommunity" parameterType="com.example.triponezidoapi.dto.response.ResponseCommunityDetail">
+    <insert id="addCommunity" parameterType="com.example.triponezidoapi.dto.request.RequestCommunity">
         INSERT INTO community
             (
             id,
@@ -12,7 +12,7 @@
             total,
             deadline
             )
-        VALUES
+        VALUE
             (
             #{id},
             #{startDate},
@@ -24,7 +24,21 @@
             );
     </insert>
 
-    <select id="getCommunities" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseCommunity">
+    <select id="getCommunity" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseCommunityDetail">
+        SELECT
+            c1.*,
+            c2.title,
+            c2.created_at,
+            c2.modified_at
+        FROM
+            community c1,
+            content c2
+        WHERE
+            c1.id = c2.id AND
+            c1.id = #{id};
+    </select>
+
+    <select id="getCommunityList" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseCommunity">
         SELECT
             content.id,
             title,
@@ -57,10 +71,10 @@
         WHERE
             community.id = content.id
         LIMIT
-            10;
+            #{page};
     </select>
 
-    <select id="getCommunitiesWithSearch" parameterType="com.example.triponezidoapi.dto.request.RequestCommunitySearch" resultType="com.example.triponezidoapi.dto.response.ResponseCommunity">
+    <select id="getCommunityListWithSearch" parameterType="com.example.triponezidoapi.dto.request.RequestCommunitySearch" resultType="com.example.triponezidoapi.dto.response.ResponseCommunity">
         SELECT
             content.id,
             title,
@@ -94,21 +108,7 @@
             community.id = content.id AND
             #{type} = #{keyword}
         LIMIT
-            10;
-    </select>
-
-    <select id="getCommunity" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseCommunityDetail">
-        SELECT
-            c1.*,
-            c2.title,
-            c2.created_at,
-            c2.modified_at
-        FROM
-            community c1,
-            content c2
-        WHERE
-            c1.id = c2.id AND
-            c1.id = #{id};
+            #{page};
     </select>
 
     <select id="getMembers" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
@@ -125,7 +125,7 @@
             o.content_id = #{id};
     </select>
 
-    <update id="updateCommunity" parameterType="com.example.triponezidoapi.dto.response.ResponseCommunityDetail">
+    <update id="updateCommunity" parameterType="com.example.triponezidoapi.dto.request.RequestCommunity">
         UPDATE community
         SET
             start_date = #{startDate},

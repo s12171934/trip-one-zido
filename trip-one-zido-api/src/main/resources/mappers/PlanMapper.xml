@@ -1,7 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.triponezidoapi.mappers.PlanMapper">
-    <select id="getPlanList" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
+    <insert id="addPlan" parameterType="com.example.triponezidoapi.dto.request.RequestPlan">
+        INSERT INTO plan
+            (
+            id,
+            start_date,
+            end_date,
+            loc_category,
+            review,
+            status,
+            grade
+            )
+        VALUE
+            (
+            #{id},
+            #{startDate},
+            #{endDate},
+            #{locCategory},
+            #{review},
+            #{status},
+            #{grade}
+            )
+    </insert>
+
+    <insert id="addSpot" parameterType="com.example.triponezidoapi.dto.request.RequestPlanSpot">
+        INSERT INTO
+            plan_spot
+            (
+            plan_id,
+            spot_id
+            )
+        VALUE
+            (
+            #{planId},
+            #{spotId}
+            )
+    </insert>
+
+    <select id="getPlan" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponsePlanDetail">
+        SELECT
+            p.*,
+            c.title,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                bookmark
+            WHERE
+                content_id = c.id
+            ) bookmark_count,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                bookmark
+            WHERE
+                content_id = c.id AND
+                member_id = #{myMemberId}
+            ) my_bookmark,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                good
+            WHERE
+                content_id = c.id
+            ) good_count
+        FROM
+            plan p,
+            content c
+        WHERE
+            p.id = c.id AND
+            p.id = #{contentId}
+    </select>
+
+    <select id="getPlanList" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
         SELECT
             c.id,
             c.title,
@@ -41,7 +115,7 @@
             ) good_count
         FROM
             content c,
-            responsePlanDetail p
+            plan p
         WHERE
             c.id = p.id AND
             c.id IN
@@ -53,70 +127,12 @@
             WHERE
                 member_id = #{targetId}
             )
+        LIMIT
+            #{page}
     </select>
 
-    <select id="getPlan" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner" resultType="com.example.triponezidoapi.dto.response.ResponsePlanDetail">
-        SELECT
-            p.*,
-            c.title,
-            (
-            SELECT
-                COUNT(*)
-            FROM
-                bookmark
-            WHERE
-                content_id = c.id
-            ) bookmark_count,
-            (
-            SELECT
-                COUNT(*)
-            FROM
-                bookmark
-            WHERE
-                content_id = c.id AND
-                member_id = #{memberId}
-            ) my_bookmark,
-            (
-            SELECT
-                COUNT(*)
-            FROM
-                good
-            WHERE
-                content_id = c.id
-            ) good_count
-        FROM
-            responsePlanDetail p,
-            content c
-        WHERE
-            p.id = c.id AND
-            p.id = #{contentId}
-    </select>
-
-    <insert id="addPlan" parameterType="com.example.triponezidoapi.dto.response.ResponsePlanDetail">
-        INSERT INTO responsePlanDetail
-            (
-            id,
-            start_date,
-            end_date,
-            loc_category,
-            review,
-            status,
-            grade
-            )
-        VALUE
-            (
-            #{id},
-            #{startDate},
-            #{endDate},
-            #{locCategory},
-            #{review},
-            #{status},
-            #{grade}
-            )
-    </insert>
-
-    <update id="updatePlan" parameterType="com.example.triponezidoapi.dto.response.ResponsePlanDetail">
-        UPDATE responsePlanDetail
+    <update id="updatePlan" parameterType="com.example.triponezidoapi.dto.request.RequestPlan">
+        UPDATE plan
         SET
             start_date = #{startDate},
             end_date = #{endDate},
@@ -127,18 +143,4 @@
         WHERE
             id = #{id}
     </update>
-
-    <insert id="addSpot" parameterType="com.example.triponezidoapi.dto.beforeUse.PlanSpotConnector">
-        INSERT INTO
-            plan_spot
-            (
-            plan_id,
-            spot_id
-            )
-            VALUE
-            (
-            #{planId},
-            #{spotId}
-            )
-    </insert>
 </mapper>

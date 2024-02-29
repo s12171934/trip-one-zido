@@ -8,7 +8,7 @@ public class ResponseContentList {
     String title;
     byte[] photo;
     int bookmarkCount;
-    int likeCount;
+    int goodCount;
     int grade;
     int myBookmark;
 }

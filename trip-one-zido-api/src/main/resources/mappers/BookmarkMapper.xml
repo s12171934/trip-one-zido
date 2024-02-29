@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.triponezidoapi.mappers.BookmarkMapper">
+    <insert id="addBookmark" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
+        INSERT INTO bookmark
+            (
+            content_id,
+            member_id
+            )
+        VALUE
+            (
+            #{contentId},
+            #{memberId}
+            )
+    </insert>
+
     <select id="bookmarkCount" parameterType="long" resultType="int">
         SELECT
             COUNT(*)
@@ -10,7 +23,7 @@
         WHERE
             b.content_id = c.id AND
             c.is_public = 1 AND
-            b.member_id = #{id}
+            b.member_id = #{memberId}
 
     </select>
 
@@ -23,7 +36,7 @@
         WHERE
             b.content_id = c.id AND
             c.type = 'responseTour' AND
-            b.member_id = #{id}
+            b.member_id = #{memberId}
     </select>
 
     <select id="planSpotBookmarkCount" parameterType="long" resultType="int">
@@ -36,10 +49,10 @@
             b.content_id = c.id AND
             c.type != 'responseTour' AND
             c.is_public = 1 AND
-            b.member_id = #{id}
+            b.member_id = #{memberId}
     </select>
 
-    <select id="getTourBookmark" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
+    <select id="getTourBookmark" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseTour">
         SELECT
             id,
             title,
@@ -80,9 +93,11 @@
             WHERE
                 member_id = #{targetId}
             )
+        LIMIT
+            #{page}
     </select>
 
-    <select id="getPlanSpotBookmark" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
+    <select id="getPlanSpotBookmark" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
         SELECT
             c.id,
             c.title,
@@ -126,12 +141,12 @@
             SELECT
                 id,
                 grade
-            FROM responseSpotDetail
+            FROM spot
             UNION
             SELECT
                 id,
                 grade
-            FROM responsePlanDetail
+            FROM plan
             ) sp
         WHERE
             c.id = sp.id AND
@@ -146,20 +161,7 @@
             )
     </select>
 
-    <insert id="addBookmark" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner">
-        INSERT INTO bookmark
-            (
-            content_id,
-            member_id
-            )
-        VALUE
-            (
-            #{contentId},
-            #{memberId}
-            )
-    </insert>
-
-    <delete id="deleteBookmark" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner">
+    <delete id="deleteBookmark" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
         DELETE FROM bookmark
         WHERE
             content_id = #{contentId} AND
