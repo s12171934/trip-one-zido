@@ -14,51 +14,90 @@ public class MemberApiController {
         return null;
     }
     @PostMapping("/signup")
-    public void signupMember(@RequestBody Member member){
+    public void signupMember(
+            @RequestBody
+            Member member){
 
     }
     @PostMapping("/login")
-    public void loginMember(@RequestBody Login login){
+    public void loginMember(
+            @RequestBody
+            Login login){
 
     }
     @PostMapping("/check/id")
-    public String checkId(@RequestBody RequestFind requestFind){
+    public String checkId(
+            @RequestBody
+            RequestFind requestFind){
         return null;
     }
     @PostMapping("/check/pw")
-    public long checkPw(@RequestBody RequestFind requestFind){
+    public long checkPw(
+            @RequestBody
+            RequestFind requestFind){
         return 0;
     }
     @GetMapping("/check/{id}")
-    public String checkQuestion(@PathVariable long id){
+    public String checkQuestion(
+            @PathVariable
+            long id){
         return null;
     }
     @PostMapping("/chech/{id}")
-    public void answerQuestion(@PathVariable long id, @RequestParam String answer){
+    public void answerQuestion(
+            @PathVariable
+            long id,
+
+            @RequestParam
+            String answer){
 
     }
     @PutMapping("/passwd/{id}")
-    public void setNewPassword(@PathVariable long id, @RequestBody RequestNewPassword requestNewPassword){
+    public void setNewPassword(
+            @PathVariable
+            long id,
+
+            @RequestBody
+            RequestNewPassword requestNewPassword){
 
     }
     @GetMapping("/")
-    public Member showMemberInfo(@SessionAttribute(name="id") long id){
+    public Member showMemberInfo(
+            @SessionAttribute(name="id")
+            long id){
         return null;
     }
     @PutMapping("/")
-    public void updateMemberInfo(@SessionAttribute(name="id") long id, @RequestBody Member member){
+    public void updateMemberInfo(
+            @SessionAttribute(name="id")
+            long id,
+
+            @RequestBody
+            Member member){
 
     }
     @PutMapping("/profile")
-    public void updateProfile(@SessionAttribute(name="id") long id, @RequestParam byte[] profile){
+    public void updateProfile(
+            @SessionAttribute(name="id")
+            long id,
+
+            @RequestParam
+            byte[] profile){
 
     }
     @PutMapping("/password")
-    public void updatePassword(@SessionAttribute(name="id") long id, @RequestBody RequestNewPassword requestNewPassword){
+    public void updatePassword(
+            @SessionAttribute(name="id")
+            long id,
+
+            @RequestBody
+            RequestNewPassword requestNewPassword){
 
     }
     @DeleteMapping("/")
-    public void removeMember(@SessionAttribute(name="id") long id){
+    public void removeMember(
+            @SessionAttribute(name="id")
+            long id){
 
     }
 /*    @PostMapping("/pairing")

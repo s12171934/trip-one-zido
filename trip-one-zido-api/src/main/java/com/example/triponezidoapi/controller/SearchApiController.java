@@ -8,11 +8,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/search")
 public class SearchApiController {
     @GetMapping("/{keyword}")
-    public ResponseSearch searchKeyword(@PathVariable String keyword){
+    public ResponseSearch searchKeyword(
+            @PathVariable
+            String keyword){
         return null;
     }
     @GetMapping("/detail")
-    public ResponseSearch searchPlan(@RequestBody RequestDetailSearch detailSearch){
+    public ResponseSearch searchPlan(
+            @RequestBody
+            RequestDetailSearch detailSearch){
         return null;
     }
 }

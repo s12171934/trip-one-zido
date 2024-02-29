@@ -12,15 +12,24 @@ public class SpotApiController {
         return null;
     }
     @PostMapping("/")
-    public void addSpot(@RequestBody RequestSpot requestSpot, @SessionAttribute(name = "id") long id){
+    public void addSpot(
+            @RequestBody
+            RequestSpot requestSpot,
+
+            @SessionAttribute(name = "id")
+            long id){
 
     }
     @PutMapping("/")
-    public void updateSpot(@RequestBody RequestSpot requestSpot){
+    public void updateSpot(
+            @RequestBody
+            RequestSpot requestSpot){
 
     }
     @DeleteMapping("/{id}")
-    public void deleteSpot(@PathVariable long id){
+    public void deleteSpot(
+            @PathVariable
+            long id){
 
     }
 }

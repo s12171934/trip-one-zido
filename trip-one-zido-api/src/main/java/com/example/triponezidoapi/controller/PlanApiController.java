@@ -12,15 +12,27 @@ public class PlanApiController {
         return null;
     }
     @PostMapping("/")
-    public void addPlan(@SessionAttribute(name = "id") long id, @RequestBody RequestPlan requestPlan){
+    public void addPlan(
+            @SessionAttribute(name = "id")
+            long id,
+
+            @RequestBody
+            RequestPlan requestPlan){
 
     }
     @PutMapping("/{id}")
-    public void updatePlan(@PathVariable long id, @RequestBody RequestPlan requestPlan){
+    public void updatePlan(
+            @PathVariable
+            long id,
+
+            @RequestBody
+            RequestPlan requestPlan){
 
     }
     @DeleteMapping("/{id}")
-    public void deletePlan(@PathVariable long id){
+    public void deletePlan(
+            @PathVariable
+            long id){
 
     }
 }

@@ -9,34 +9,65 @@ import java.util.List;
 @RequestMapping("/community")
 public class CommunityApiController {
     @GetMapping("/list/{page}")
-    public List<ResponseCommunity> showCommunityAll(@PathVariable int page){
+    public List<ResponseCommunity> showCommunityAll(
+            @PathVariable
+            int page){
         return null;
     }
     @GetMapping("/{id}")
-    public ResponseCommunityDetail showCommunityDetail(@PathVariable long id){
+    public ResponseCommunityDetail showCommunityDetail(
+            @PathVariable
+            long id){
         return null;
     }
     @PostMapping("/")
-    public void addCommunity(@RequestBody RequestCommunity requestCommunity, @SessionAttribute(name = "id") long id){
+    public void addCommunity(
+            @RequestBody
+            RequestCommunity requestCommunity,
+
+            @SessionAttribute(name = "id")
+            long id){
     }
     @PutMapping("/{id}")
-    public void updateCommunity(@RequestBody RequestCommunity requestCommunity, @PathVariable long id){
+    public void updateCommunity(
+            @RequestBody
+            RequestCommunity requestCommunity,
+
+            @PathVariable
+            long id){
 
     }
     @DeleteMapping("/{id}")
-    public void deleteCommunity(@PathVariable long id){
+    public void deleteCommunity(
+            @PathVariable
+            long id){
 
     }
     @GetMapping("/search/{page}")
-    public List<RequestCommunity> searchCommunity(@RequestBody RequestCommunitySearch requestCommunitySearch, @PathVariable int page){
+    public List<RequestCommunity> searchCommunity(
+            @RequestBody
+            RequestCommunitySearch requestCommunitySearch,
+
+            @PathVariable
+            int page){
         return null;
     }
     @PostMapping("/member/{id}")
-    public void entryCommunity(@PathVariable long id, @SessionAttribute(name = "id") long sessionId){
+    public void entryCommunity(
+            @PathVariable
+            long id,
+
+            @SessionAttribute(name = "id")
+            long sessionId){
 
     }
     @DeleteMapping("/member/{id}")
-    public void departureCommunity(@PathVariable long id, @SessionAttribute(name = "id") long sessionId){
+    public void departureCommunity(
+            @PathVariable
+            long id,
+
+            @SessionAttribute(name = "id")
+            long sessionId){
 
     }
 }

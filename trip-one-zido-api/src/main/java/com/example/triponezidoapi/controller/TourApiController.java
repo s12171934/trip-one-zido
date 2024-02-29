@@ -13,11 +13,15 @@ public class TourApiController {
         return null;
     }
     @GetMapping("/{id}")
-    public ResponseTour showTourDetail(@PathVariable long id){
+    public ResponseTour showTourDetail(
+            @PathVariable
+            long id){
         return null;
     }
     @PostMapping("/")
-    public void addTour(@RequestBody RequestTour requestTour){
+    public void addTour(
+            @RequestBody
+            RequestTour requestTour){
 
     }
 }
