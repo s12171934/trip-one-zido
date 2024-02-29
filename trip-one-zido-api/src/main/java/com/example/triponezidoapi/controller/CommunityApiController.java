@@ -1,8 +1,6 @@
 package com.example.triponezidoapi.controller;
 
-import com.example.triponezidoapi.dto.Response.ResponseCommunityDetail;
-import com.example.triponezidoapi.dto.Response.ResponseCommunity;
-import com.example.triponezidoapi.dto.Response.ResponseMember;
+import com.example.triponezidoapi.dto.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,40 +8,35 @@ import java.util.List;
 @RestController
 @RequestMapping("/community")
 public class CommunityApiController {
-
-    @GetMapping("/page={page}")
-    public List<ResponseCommunity> showCommunityList(@PathVariable int page){
+    @GetMapping("/list/{page}")
+    public List<ResponseCommunity> showCommunityAll(@PathVariable int page){
         return null;
     }
     @GetMapping("/{id}")
     public ResponseCommunityDetail showCommunityDetail(@PathVariable long id){
-        return new ResponseCommunityDetail();
-    }
-    @GetMapping("/{id}/owner")
-    public ResponseMember showOwner(@PathVariable long id){
-        return new ResponseMember();
+        return null;
     }
     @PostMapping("/")
-    public void addCommunity(@RequestBody ResponseCommunityDetail responseCommunityDetail, long id){
+    public void addCommunity(@RequestBody RequestCommunity requestCommunity, long id){
     }
     @PutMapping("/{id}")
-    public void updateCommunity(@RequestBody ResponseCommunityDetail responseCommunityDetail, @PathVariable long id){
+    public void updateCommunity(@RequestBody RequestCommunity requestCommunity, @PathVariable long id){
 
     }
     @DeleteMapping("/{id}")
     public void deleteCommunity(@PathVariable long id){
 
     }
-    @GetMapping("/search/page={page}")
-    public List<ResponseCommunity> searchCommunity(@RequestBody ResponseCommunity responseCommunity, @PathVariable int page){
+    @GetMapping("/search/{page}")
+    public List<RequestCommunity> searchCommunity(@RequestBody RequestCommunitySearch requestCommunitySearch, @PathVariable int page){
         return null;
     }
-    @PutMapping("entry/{id1}&{id2}")
-    public void entryCommunity(@PathVariable long id1, @PathVariable long id2){
+    @PostMapping("/member/{id}")
+    public void entryCommunity(@PathVariable long id){
 
     }
-    @PutMapping("departure/{id1}&{id2}")
-    public void departureCommunity(@PathVariable long id1, @PathVariable long id2){
+    @DeleteMapping("/member/{id}")
+    public void departureCommunity(@PathVariable long id){
 
     }
 }
