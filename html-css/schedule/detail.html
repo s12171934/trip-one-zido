@@ -26,7 +26,7 @@
             <!-- 프로필 -->             <!-- 검색창 -->
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top: 3%;">   
                     <input type="text" required style="margin-top: 2%">
-                    <span class="image round"  box-sha><a href="/html-css/sign/login.html"> <img src="/html-css/images/남자.png" width="75" height="75"></a></span>
+                    <span class="image round"  box-sha><a href="/html-css/config/config.html"> <img src="/html-css/images/남자.png" width="75" height="75"></a></span>
                 </div>
 			</nav>	
 		</header>
@@ -34,9 +34,9 @@
 			<!-- Menu -->
 			<nav id="menu">
 				<ul class="links">
-					<li><a href="/html-css/index.html">게시물등록</a></li>
+                    <li><a href="/html-css/schedule/add.html">게시물등록</a></li>
 					<li><a href="/html-css/community/community.html">커뮤니티</a></li>
-					<li><a href="/html-css/config/config.html">최근기록</a></li>
+					<li><a href="/html-css/config/recent-view.html">최근기록</a></li>
                     <li><a href="/html-css/main/zzim.html">찜목록</a></li>
                     <li><a href="/html-css/info/info.html">관광정보</a></li>
                     <li><a href="logout.html">로그아웃</a></li>
@@ -44,17 +44,31 @@
 			</nav>
 
     <!-- Main -->
-    <section id="main" class="wrapper" style= "margin-left: 5%; margin-right: 5%;">
+    <section id="main" class="wrapper" style= "margin-left: 5%; margin-right: 5%; margin-top: 4%">
         <form id="split-container" class="d-flex flex-row">
             
             <!-- ★왼쪽 -->
-            
             <div class="p-2 d-flex flex-column border-end" style="margin-right: auto;">
-                
-                <div style="text-align: left;">
-                    <h1 class="title" style="color:#ff928e; margin-top:5%"><img src="/html-css/images/찜해제.png" width="20" height="20" style="margin-left: 3%; margin-right: 1%;" onclick="zzim()"><span><small></small></span>일정 조회</h1>
+                <div class="d-flex">
+                    <div style="text-align: left;">
+                    <h1 class="title" style="color:#ff928e">일정 조회</h1>
                     <br>
                 </div>
+                        <button class="btn btn-outline flex-shrink-0" type="button">
+                            <i class="bi-cart-fill me-1"></i>
+                            <img src="/html-css/images/unzzim.png" width="25" height="25" onclick="zzim()">
+                        </button>
+                        <button class="btn btn-outline flex-shrink-0" type="button">
+                            <i class="bi-cart-fill me-1"></i>
+                            <img src="/html-css/images/like.png" width="25" height="25" onclick="like()">
+                        </button>
+
+						<div class="d-grid gap-2 d-md-flex justify-content-md-center" style="margin-left: auto">   
+							<a href="/html-css/schedule/update.html" class="button alt small">수정</a>
+							<a href="/html-css/schedule/delete.html" class="button small">삭제</a>
+						</div>
+
+                    </div>
                 <div class="p-2 d-flex flex-row" id="blank"><h4>일정 제목</h4>&nbsp;
                     <input type="text" value="★ 맛집 투어 | 부산 ★" style="margin-right: 10px; margin-left: 10px; width: 40%; height: 60%;" readonly>
                     
@@ -130,10 +144,7 @@
 
             <!-- ★오른쪽 -->
             <div class="p-2 d-flex flex-column border-end" style= "margin-left: 3%;">
-                <div class="p-2 d-flex flex-row mt-4" style="margin-left: auto">
-                    <h6>해당 일정이 도움 되셨나요?<h6>
-                    <img src="/html-css/images/like.png" width="20" height="20" style="margin-left: 3%; margin-right: 1%;" onclick="like()"><span><small></small></span>
-                </div>
+ 
                 <div class="p-2 d-flex flex-row" style="align-items:center; margin-top:8%">
                     <h4>여행 중 일정 및 장소</h4>
                     &nbsp;&nbsp;
@@ -228,6 +239,7 @@
         <script src="/html-css/assets/js/skel.min.js"></script>
         <script src="/html-css/assets/js/util.js"></script>
         <script src="/html-css/assets/js/main.js"></script>
+        <script src="/html-css/assets/js/zzim.js"></script>
 </body>
 </html>
 
