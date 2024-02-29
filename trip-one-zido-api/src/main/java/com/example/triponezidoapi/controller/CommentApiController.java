@@ -10,22 +10,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/comment")
 public class CommentApiController {
-    @Autowired
-    CommentMapper commentMapper;
-
-    @GetMapping("/{id}")
-    public List<Comment> showComment(@PathVariable long id){
-        return commentMapper.getComment(id);
-    }
     @PostMapping("/")
-    public void addComment(@RequestBody Comment comment, long id){
-        comment.setMemberId(id);
-        commentMapper.addComment(comment);
+    public void addComment(long id, @RequestBody RequestComment requestComment){
+
     }
     @PutMapping("/{id}")
-    public void updateComment(@PathVariable long id, @RequestBody Comment comment){
-        comment.setId(id);
-        commentMapper.updateComment(comment);
+    public void updateComment(@PathVariable long id, @RequestBody RequestComment requestComment){
+
     }
     @DeleteMapping("/{id}")
     public void deleteComment(@PathVariable long id){

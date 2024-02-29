@@ -3,19 +3,21 @@ package com.example.triponezidoapi.controller;
 import com.example.triponezidoapi.dto.Tour;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/tour")
 public class TourApiController {
     @GetMapping("/")
-    public Tour showTourList(){
-        return new Tour();
+    public List<ResponseTour> showTourAll(){
+        return null;
     }
     @GetMapping("/{id}")
-    public Tour showTourDetail(@PathVariable long id){
-        return new Tour();
+    public ResponseTour showTourDetail(@PathVariable long id){
+        return null;
     }
     @PostMapping("/")
-    public void addTour(@RequestBody Tour tour){
+    public void addTour(@RequestBody RequestTour requestTour){
 
     }
 }

@@ -8,39 +8,19 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/spot")
 public class SpotApiController {
-    @GetMapping("/M{id}")
-    public Spot showSpotAll(){
-        return new Spot();
-    }
-    @GetMapping("/C{id}")
-    public Spot showSpotDetail(){
-        return new Spot();
+    @GetMapping("/{id}")
+    public ResponseSpotDetail showSpotDetail(){
+        return null;
     }
     @PostMapping("/")
-    public void addSpot(@RequestBody Spot spot){
+    public void addSpot(@RequestBody RequestSpot requestSpot, long id){
 
     }
     @PutMapping("/")
-    public void updateSpot(@RequestBody Spot spot){
+    public void updateSpot(@RequestBody RequestSpot requestSpot){
 
     }
-    @PostMapping("/owner")
-    public void addOwner(@RequestBody RequestOwner requestOwner){
-
-    }
-    @DeleteMapping("/owner/{id}")
-    public void deleteOwner(@PathVariable long id){
-
-    }
-    @PostMapping("/photo")
-    public void addPhoto(@RequestBody Photo photo){
-
-    }
-    @DeleteMapping("/photo/{id}")
-    public void deletePhoto(@PathVariable long id){
-
-    }
-    @DeleteMapping("/C{id}")
+    @DeleteMapping("/{id}")
     public void deleteSpot(@PathVariable long id){
 
     }
