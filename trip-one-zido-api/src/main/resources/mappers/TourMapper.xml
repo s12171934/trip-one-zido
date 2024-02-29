@@ -1,7 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.triponezidoapi.mappers.TourMapper">
-    <select id="getTourList" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
+
+
+    <insert id="addTour" parameterType="com.example.triponezidoapi.dto.request.RequestTour">
+        INSERT INTO tour
+            (
+            id,
+            loc_category,
+            address,
+            info
+            )
+        VALUE
+            (
+            #{id},
+            #{locCategory},
+            #{address},
+            #{info}
+            )
+    </insert>
+
+    <select id="getTour" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseTour">
+        SELECT
+            t.*,
+            c.title,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                bookmark
+            WHERE
+                content_id = c.id
+            ) bookmark_count,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                bookmark
+            WHERE
+                content_id = c.id AND
+                member_id = #{memberId}
+            ) my_bookmark
+        FROM
+            tour t,
+            content c
+        WHERE
+            t.id = c.id AND
+            t.id = #{contentId}
+    </select>
+
+    <select id="getTourList" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.request.RequestTour">
         SELECT
             id,
             title,
@@ -32,51 +80,7 @@
             ) my_bookmark
         FROM
             content c
+        LIMIT
+            #{page}
     </select>
-
-    <select id="getTourById" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner" resultType="com.example.triponezidoapi.dto.response.ResponseTour">
-        SELECT
-            t.*,
-            c.title,
-            (
-            SELECT
-                COUNT(*)
-            FROM
-                bookmark
-            WHERE
-                content_id = c.id
-            ) bookmark_count,
-            (
-                SELECT
-                    COUNT(*)
-                FROM
-                    bookmark
-                WHERE
-                    content_id = c.id AND
-                    member_id = #{memberId}
-            ) my_bookmark
-        FROM
-            tour t,
-            content c
-        WHERE
-            t.id = c.id AND
-            t.id = #{contentId}
-    </select>
-
-    <insert id="addTour" parameterType="com.example.triponezidoapi.dto.response.ResponseTour">
-        INSERT INTO tour
-            (
-            id,
-            loc_category,
-            address,
-            info
-            )
-            VALUE
-            (
-            #{id},
-            #{locCategory},
-            #{address},
-            #{info}
-            )
-    </insert>
 </mapper>

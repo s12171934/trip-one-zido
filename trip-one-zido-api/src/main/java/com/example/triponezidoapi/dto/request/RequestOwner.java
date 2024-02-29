@@ -1,4 +1,4 @@
-package com.example.triponezidoapi.dto.beforeUse;
+package com.example.triponezidoapi.dto.request;
 
 import lombok.Data;
 

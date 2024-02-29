@@ -1,9 +1,7 @@
 package com.example.triponezidoapi.mappers;
 
-import com.example.triponezidoapi.dto.request.RequestCommunitySearch;
-import com.example.triponezidoapi.dto.response.ResponseCommunity;
-import com.example.triponezidoapi.dto.response.ResponseCommunityDetail;
-import com.example.triponezidoapi.dto.response.ResponseMember;
+import com.example.triponezidoapi.dto.request.*;
+import com.example.triponezidoapi.dto.response.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -11,14 +9,14 @@ import java.util.List;
 @Mapper
 public interface CommunityMapper {
     //insert
-    void addCommunity(ResponseCommunityDetail responseCommunityDetail);
+    void addCommunity(RequestCommunity requestCommunity);
 
     //select
-    List<ResponseCommunity> getCommunities(long page);
-    List<ResponseCommunity> getCommunitiesWithSearch(RequestCommunitySearch requestCommunitySearch);
     ResponseCommunityDetail getCommunity(long id);
+    List<ResponseCommunity> getCommunityList(long page);
+    List<ResponseCommunity> getCommunityListWithSearch(RequestCommunitySearch requestCommunitySearch);
     List<ResponseMember> getMembers(long id);
 
     //update
-    void updateCommunity(ResponseCommunityDetail responseCommunityDetail);
+    void updateCommunity(RequestCommunity requestCommunity);
 }

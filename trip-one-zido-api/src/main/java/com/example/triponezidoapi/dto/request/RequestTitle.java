@@ -3,9 +3,7 @@ package com.example.triponezidoapi.dto.request;
 import lombok.Data;
 
 @Data
-public class RequestComment {
+public class RequestTitle {
     long id;
-    String comment;
-    long memberId;
-    long contentId;
+    String title;
 }

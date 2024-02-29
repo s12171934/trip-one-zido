@@ -27,7 +27,8 @@
 			comment,
 			content
 		WHERE
-			content.id = comment.content_id
+			content.id = comment.id AND
+			content_id = #{contentId}
 	</select>
 
 	<update id="updateComment" parameterType="com.example.triponezidoapi.dto.response.ResponseComment">

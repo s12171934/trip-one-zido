@@ -1,16 +1,17 @@
 package com.example.triponezidoapi.mappers;
 
-import com.example.triponezidoapi.dto.beforeUse.RequestListInfo;
-import com.example.triponezidoapi.dto.beforeUse.RequestOwner;
-import com.example.triponezidoapi.dto.response.ResponseContentList;
-import com.example.triponezidoapi.dto.response.ResponseTour;
+import com.example.triponezidoapi.dto.request.*;
+import com.example.triponezidoapi.dto.response.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
 public interface TourMapper {
-    List<ResponseContentList> getTourList(RequestListInfo requestListInfo);
-    ResponseTour getTourById(RequestOwner requestOwner);
-    void addTour(ResponseTour responseTour);
+    //insert
+    void addTour(RequestTour requestTour);
+
+    //select
+    ResponseTour getTour(RequestSessionTarget requestSessionTarget);
+    List<RequestTour> getTourList(RequestSessionTarget requestSessionTarget);
 }

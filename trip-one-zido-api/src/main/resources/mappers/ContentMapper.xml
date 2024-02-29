@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.triponezidoapi.mappers.ContentMapper">
-    <insert id="addContent" parameterType="com.example.triponezidoapi.dto.beforeUse.Content">
+    <insert id="addContent" parameterType="com.example.triponezidoapi.dto.request.RequestContent">
         INSERT INTO content
             (
             type,
             is_public,
             title
             )
-        VALUES
+        VALUE
             (
             #{type},
             #{isPublic},
@@ -19,7 +19,22 @@
         </selectKey>
     </insert>
 
-    <insert id="addOwner" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner">
+    <insert id="addGood" parameterType="com.example.triponezidoapi.dto.request.RequestGood">
+        INSERT INTO good
+            (
+            good,
+            member_id,
+            content_id
+            )
+        VALUE
+            (
+            #{own},
+            #{memberId},
+            #{contentId}
+            )
+    </insert>
+
+    <insert id="addOwner" parameterType="com.example.triponezidoapi.dto.request.RequestOwner">
         INSERT INTO owner
             (
             own,
@@ -34,19 +49,20 @@
             )
     </insert>
 
-    <delete id="deleteOwner" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner">
-        DELETE FROM owner
-        WHERE
-            member_id = #{memberId} AND
-            content_id = #{contentId}
-    </delete>
+    <insert id="addPin" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
+        INSERT INTO pin
+            (
+            member_id,
+            content_id
+            )
+        VALUE
+            (
+            #{memberId},
+            #{contentId}
+            )
+    </insert>
 
-    <delete id="deleteContent" parameterType="long">
-        DELETE FROM content
-        WHERE id = #{id}
-    </delete>
-
-    <select id="getContentMembers" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+    <select id="getOwner" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
         SELECT
             m.id,
             m.login_id,
@@ -75,65 +91,7 @@
             o.own = 'writer'
     </select>
 
-    <update id="updateTitle" parameterType="com.example.triponezidoapi.dto.beforeUse.Content">
-        UPDATE content
-        SET
-            title = #{title}
-        WHERE
-            id = #{id}
-    </update>
-
-    <update id="updateIsPublic" parameterType="com.example.triponezidoapi.dto.beforeUse.Content">
-        UPDATE content
-        SET
-            is_public = #{isPublic}
-        WHERE
-            id = #{id}
-    </update>
-
-    <insert id="addPin" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner">
-        INSERT INTO pin
-            (
-            member_id,
-            content_id
-            )
-        VALUE
-            (
-            #{memberId},
-            #{contentId}
-            )
-    </insert>
-
-    <delete id="deletePin" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner">
-        DELETE FROM pin
-        WHERE
-            member_id = #{memberId} AND
-            content_id = #{contentId}
-    </delete>
-
-    <insert id="addGood" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner">
-        INSERT INTO good
-            (
-            good,
-            member_id,
-            content_id
-            )
-        VALUE
-            (
-            #{own},
-            #{memberId},
-            #{contentId}
-            )
-    </insert>
-
-    <delete id="deleteGood" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner">
-        DELETE FROM good
-        WHERE
-            content_id = #{contentId} AND
-            member_id = #{memberId}
-    </delete>
-
-    <select id="getRecentView" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
+    <select id="getRecentView" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
         SELECT
             c.id,
             c.title,
@@ -190,5 +148,49 @@
             c.id = o.content_id
         ORDER BY
             opened_at DESC
+        LIMIT
+            #{page}
     </select>
+
+    <update id="updateIsPublic" parameterType="com.example.triponezidoapi.dto.request.RequestIsPublic">
+        UPDATE content
+        SET
+            is_public = #{isPublic}
+        WHERE
+            id = #{id}
+    </update>
+
+    <update id="updateTitle" parameterType="com.example.triponezidoapi.dto.request.RequestTitle">
+        UPDATE content
+        SET
+            title = #{title}
+        WHERE
+            id = #{id}
+    </update>
+
+    <delete id="deleteContent" parameterType="long">
+        DELETE FROM content
+        WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteGood" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
+        DELETE FROM good
+        WHERE
+            content_id = #{contentId} AND
+            member_id = #{memberId}
+    </delete>
+
+    <delete id="deleteOwner" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
+        DELETE FROM owner
+        WHERE
+            member_id = #{memberId} AND
+            content_id = #{contentId}
+    </delete>
+
+    <delete id="deletePin" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
+        DELETE FROM pin
+        WHERE
+            member_id = #{memberId} AND
+            content_id = #{contentId}
+    </delete>
 </mapper>

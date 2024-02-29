@@ -12,7 +12,7 @@
             login_id LIKE #{keyword}
     </select>
 
-    <select id="searchSpot" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
+    <select id="searchSpot" parameterType="com.example.triponezidoapi.dto.request.RequestSearch" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
         SELECT
             c.id,
             c.title,
@@ -58,7 +58,7 @@
             c.title LIKE #{keyword}
     </select>
 
-    <select id="searchPlan" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
+    <select id="searchPlan" parameterType="com.example.triponezidoapi.dto.request.RequestSearch" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
         SELECT
             c.id,
             c.title,

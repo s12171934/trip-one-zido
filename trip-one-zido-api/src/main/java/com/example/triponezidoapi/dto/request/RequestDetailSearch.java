@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class RequestDetailSearch {
+    long myMemberId;
     String keyword;
     String locCategory;
     String category;
