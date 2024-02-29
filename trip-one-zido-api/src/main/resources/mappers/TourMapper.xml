@@ -56,7 +56,7 @@
                     member_id = #{memberId}
             ) my_bookmark
         FROM
-            responseTour t,
+            tour t,
             content c
         WHERE
             t.id = c.id AND
@@ -64,7 +64,7 @@
     </select>
 
     <insert id="addTour" parameterType="com.example.triponezidoapi.dto.response.ResponseTour">
-        INSERT INTO responseTour
+        INSERT INTO tour
             (
             id,
             loc_category,

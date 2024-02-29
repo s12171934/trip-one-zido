@@ -126,12 +126,12 @@
             SELECT
                 id,
                 grade
-            FROM responseSpotDetail
+            FROM spot
             UNION
             SELECT
                 id,
                 grade
-            FROM responsePlanDetail
+            FROM plan
             ) sp
         WHERE
             c.id = sp.id AND

@@ -177,12 +177,12 @@
             SELECT
                 id,
                 grade
-            FROM responseSpotDetail
+            FROM spot
             UNION
             SELECT
                 id,
                 grade
-            FROM responsePlanDetail
+            FROM plan
             ) sp,
             open_content o
         WHERE

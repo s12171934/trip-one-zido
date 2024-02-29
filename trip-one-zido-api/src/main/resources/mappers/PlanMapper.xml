@@ -41,7 +41,7 @@
             ) good_count
         FROM
             content c,
-            responsePlanDetail p
+            plan p
         WHERE
             c.id = p.id AND
             c.id IN
@@ -85,7 +85,7 @@
                 content_id = c.id
             ) good_count
         FROM
-            responsePlanDetail p,
+            plan p,
             content c
         WHERE
             p.id = c.id AND
@@ -93,7 +93,7 @@
     </select>
 
     <insert id="addPlan" parameterType="com.example.triponezidoapi.dto.response.ResponsePlanDetail">
-        INSERT INTO responsePlanDetail
+        INSERT INTO plan
             (
             id,
             start_date,
@@ -116,7 +116,7 @@
     </insert>
 
     <update id="updatePlan" parameterType="com.example.triponezidoapi.dto.response.ResponsePlanDetail">
-        UPDATE responsePlanDetail
+        UPDATE plan
         SET
             start_date = #{startDate},
             end_date = #{endDate},

@@ -52,7 +52,7 @@
             ) good_count
         FROM
             content c,
-            responseSpotDetail s
+            spot s
         WHERE
             c.id = s.id AND
             c.title LIKE #{keyword}
@@ -98,7 +98,7 @@
             ) good_count
         FROM
             content c,
-            responsePlanDetail p
+            plan p
         WHERE
             c.id = p.id AND
             c.title LIKE #{keyword}
@@ -144,7 +144,7 @@
             ) good_count
         FROM
             content c,
-            responseSpotDetail s
+            spot s
         WHERE
             c.id = s.id AND
             c.title LIKE #{keyword} AND
@@ -196,7 +196,7 @@
             ) good_count
         FROM
             content c,
-            responsePlanDetail p
+            plan p
         WHERE
             c.id = p.id AND
             c.title LIKE #{keyword} AND

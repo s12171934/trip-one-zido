@@ -41,7 +41,7 @@
             ) good_count
         FROM
             content c,
-            responseSpotDetail s
+            spot s
         WHERE
             c.id = s.id AND
             c.id IN
@@ -85,7 +85,7 @@
                 content_id = c.id
             ) good_count
         FROM
-            responseSpotDetail s,
+            spot s,
             content c
         WHERE
             s.id = c.id AND
@@ -93,7 +93,7 @@
     </select>
 
     <insert id="addSpot" parameterType="com.example.triponezidoapi.dto.response.ResponseSpotDetail">
-        INSERT INTO responseSpotDetail
+        INSERT INTO spot
             (
             id,
             category,
@@ -118,7 +118,7 @@
     </insert>
 
     <update id="updateSpot" parameterType="com.example.triponezidoapi.dto.response.ResponseSpotDetail">
-        UPDATE responseSpotDetail
+        UPDATE spot
         SET
             category = #{category},
             start_date = #{startDate},
