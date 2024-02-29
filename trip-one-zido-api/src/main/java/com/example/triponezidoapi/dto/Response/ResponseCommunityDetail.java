@@ -1,10 +1,12 @@
-package com.example.triponezidoapi.dto;
+package com.example.triponezidoapi.dto.Response;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 @Data
-public class CommunityDetail {
+public class ResponseCommunityDetail {
     long id;
     LocalDateTime startDate;
     LocalDateTime endDate;
@@ -17,4 +19,5 @@ public class CommunityDetail {
     String title;
     LocalDateTime createdAt;
     LocalDateTime modifiedAt;
+    List<ResponseMember> members;
 }

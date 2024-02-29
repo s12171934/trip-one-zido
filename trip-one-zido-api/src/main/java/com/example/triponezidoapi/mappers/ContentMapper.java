@@ -1,6 +1,10 @@
 package com.example.triponezidoapi.mappers;
 
-import com.example.triponezidoapi.dto.*;
+import com.example.triponezidoapi.dto.beforeUse.RequestListInfo;
+import com.example.triponezidoapi.dto.beforeUse.RequestOwner;
+import com.example.triponezidoapi.dto.Response.ResponseContentList;
+import com.example.triponezidoapi.dto.Response.ResponseMember;
+import com.example.triponezidoapi.dto.beforeUse.Content;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -11,8 +15,8 @@ public interface ContentMapper {
     void addOwner(RequestOwner requestOwner);
     void deleteOwner(RequestOwner requestOwner);
     void deleteContent(long id);
-    List<ProfileMember> getContentMembers(long id);
-    ProfileMember getWriter(long id);
+    List<ResponseMember> getContentMembers(long id);
+    ResponseMember getWriter(long id);
     void updateTitle(Content content);
     void updateIsPublic(Content content);
     void addPin(RequestOwner requestOwner);

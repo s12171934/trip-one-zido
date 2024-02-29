@@ -1,11 +1,11 @@
-package com.example.triponezidoapi.dto;
+package com.example.triponezidoapi.dto.Response;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-public class Comment {
+public class ResponseComment {
     long id;
     String comment;
     long memberId;

@@ -1,6 +1,13 @@
 package com.example.triponezidoapi.controller;
 
 import com.example.triponezidoapi.dto.*;
+import com.example.triponezidoapi.dto.Request.RequestFind;
+import com.example.triponezidoapi.dto.Request.RequestLogin;
+import com.example.triponezidoapi.dto.Request.RequestPassword;
+import com.example.triponezidoapi.dto.Response.ResponseMember;
+import com.example.triponezidoapi.dto.Response.ResponseQuestions;
+import com.example.triponezidoapi.dto.beforeUse.Follow;
+import com.example.triponezidoapi.dto.beforeUse.Password;
 import com.example.triponezidoapi.mappers.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +20,7 @@ public class MemberApiController {
     MemberMapper memberMapper;
 
     @GetMapping("/questions")
-    public List<ResponseQuestion> questionsInfo(){
+    public List<ResponseQuestions> questionsInfo(){
         return memberMapper.securityQuestions();
     }
     @PostMapping("/signup")
@@ -21,8 +28,8 @@ public class MemberApiController {
         memberMapper.signUp(member);
     }
     @PostMapping("/login")
-    public void loginMember(@RequestBody LoginForm loginForm){
-        memberMapper.getLogin(loginForm);
+    public void loginMember(@RequestBody RequestLogin requestLogin){
+        memberMapper.getLogin(requestLogin);
     }
     @PostMapping("/check/id")
     public String checkId(@RequestBody RequestFind requestFind){
@@ -57,9 +64,9 @@ public class MemberApiController {
         memberMapper.deleteMember(id);
     }
     @PutMapping("/profile")
-    public void changeProfile(@RequestBody ProfileMember profileMember, long id){
-        profileMember.setId(id);
-        memberMapper.updateProfile(profileMember);
+    public void changeProfile(@RequestBody ResponseMember responseMember, long id){
+        responseMember.setId(id);
+        memberMapper.updateProfile(responseMember);
     }
     @PutMapping("/password")
     public void changePassword(long id, @RequestBody RequestPassword requestPassword){
@@ -84,7 +91,7 @@ public class MemberApiController {
         return memberMapper.followingCount(id);
     }
     @GetMapping("/following/{id}/list")
-    public List<ProfileMember> listFollowing(@PathVariable long id){
+    public List<ResponseMember> listFollowing(@PathVariable long id){
         return memberMapper.followingList(id);
     }
     @GetMapping("/follower/{id}")
@@ -92,7 +99,7 @@ public class MemberApiController {
         return memberMapper.followerCount(id);
     }
     @GetMapping("/follower/{id}/list")
-    public List<ProfileMember> listFollower(@PathVariable long id){
+    public List<ResponseMember> listFollower(@PathVariable long id){
         return memberMapper.followerList(id);
     }
     @DeleteMapping("/unfollow/{id}")

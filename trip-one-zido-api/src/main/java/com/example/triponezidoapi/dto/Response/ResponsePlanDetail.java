@@ -1,28 +1,28 @@
-package com.example.triponezidoapi.dto;
+package com.example.triponezidoapi.dto.Response;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 
 @Data
-public class Spot {
+public class ResponsePlanDetail {
     long id;
-    String category;
     LocalDateTime startDate;
     LocalDateTime endDate;
     String locCategory;
-    String address;
+    String status;
     String review;
     int grade;
     int viewCount;
     int goodCount;
+    int myGood;
     int bookmarkCount;
     int myBookmark;
     String title;
     String isPublic;
     LocalDateTime createdAt;
-    ArrayList<byte[]> photos;
-    ArrayList<ProfileMember> members;
-    byte[] profile;
+    List<ResponseSpotDetail> responseSpotDetails;
+    List<ResponseMember> members;
+    List<ResponseComment> comments;
 }

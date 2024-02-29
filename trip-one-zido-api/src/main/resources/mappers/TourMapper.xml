@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.triponezidoapi.mappers.TourMapper">
-    <select id="getTourList" parameterType="com.example.triponezidoapi.dto.RequestListInfo" resultType="com.example.triponezidoapi.dto.ResponseContentList">
+    <select id="getTourList" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.Response.ResponseContentList">
         SELECT
             id,
             title,
@@ -34,7 +34,7 @@
             content c
     </select>
 
-    <select id="getTourById" parameterType="com.example.triponezidoapi.dto.RequestOwner" resultType="com.example.triponezidoapi.dto.Tour">
+    <select id="getTourById" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner" resultType="com.example.triponezidoapi.dto.Response.ResponseTour">
         SELECT
             t.*,
             c.title,
@@ -56,15 +56,15 @@
                     member_id = #{memberId}
             ) my_bookmark
         FROM
-            tour t,
+            responseTour t,
             content c
         WHERE
             t.id = c.id AND
             t.id = #{contentId}
     </select>
 
-    <insert id="addTour" parameterType="com.example.triponezidoapi.dto.Tour">
-        INSERT INTO tour
+    <insert id="addTour" parameterType="com.example.triponezidoapi.dto.Response.ResponseTour">
+        INSERT INTO responseTour
             (
             id,
             loc_category,

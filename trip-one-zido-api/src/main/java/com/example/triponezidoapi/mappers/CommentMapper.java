@@ -1,6 +1,6 @@
 package com.example.triponezidoapi.mappers;
 
-import com.example.triponezidoapi.dto.Comment;
+import com.example.triponezidoapi.dto.Response.ResponseComment;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -8,11 +8,11 @@ import java.util.List;
 @Mapper
 public interface CommentMapper {
     //insert
-    void addComment(Comment comment);
+    void addComment(ResponseComment responseComment);
 
     //select
-    List<Comment> getComment(long id);
+    List<ResponseComment> getComment(long id);
 
     //update
-    void updateComment(Comment comment);
+    void updateComment(ResponseComment responseComment);
 }

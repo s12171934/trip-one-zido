@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.triponezidoapi.mappers.SearchMapper">
-    <select id="searchMember" parameterType="string" resultType="com.example.triponezidoapi.dto.ProfileMember">
+    <select id="searchMember" parameterType="string" resultType="com.example.triponezidoapi.dto.Response.ResponseMember">
         SELECT
             id,
             login_id,
@@ -12,7 +12,7 @@
             login_id LIKE #{keyword}
     </select>
 
-    <select id="searchSpot" parameterType="com.example.triponezidoapi.dto.RequestListInfo" resultType="com.example.triponezidoapi.dto.ResponseContentList">
+    <select id="searchSpot" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.Response.ResponseContentList">
         SELECT
             c.id,
             c.title,
@@ -52,13 +52,13 @@
             ) good_count
         FROM
             content c,
-            spot s
+            responseSpotDetail s
         WHERE
             c.id = s.id AND
             c.title LIKE #{keyword}
     </select>
 
-    <select id="searchPlan" parameterType="com.example.triponezidoapi.dto.RequestListInfo" resultType="com.example.triponezidoapi.dto.ResponseContentList">
+    <select id="searchPlan" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.Response.ResponseContentList">
         SELECT
             c.id,
             c.title,
@@ -98,13 +98,13 @@
             ) good_count
         FROM
             content c,
-            plan p
+            responsePlanDetail p
         WHERE
             c.id = p.id AND
             c.title LIKE #{keyword}
     </select>
 
-    <select id="detailSearchSpot" parameterType="com.example.triponezidoapi.dto.RequestDetailSearch" resultType="com.example.triponezidoapi.dto.ResponseContentList">
+    <select id="detailSearchSpot" parameterType="com.example.triponezidoapi.dto.Request.RequestDetailSearch" resultType="com.example.triponezidoapi.dto.Response.ResponseContentList">
         SELECT
             c.id,
             c.title,
@@ -144,7 +144,7 @@
             ) good_count
         FROM
             content c,
-            spot s
+            responseSpotDetail s
         WHERE
             c.id = s.id AND
             c.title LIKE #{keyword} AND
@@ -156,7 +156,7 @@
             )
     </select>
 
-    <select id="detailSearchPlan" parameterType="com.example.triponezidoapi.dto.RequestDetailSearch" resultType="com.example.triponezidoapi.dto.ResponseContentList">
+    <select id="detailSearchPlan" parameterType="com.example.triponezidoapi.dto.Request.RequestDetailSearch" resultType="com.example.triponezidoapi.dto.Response.ResponseContentList">
         SELECT
             c.id,
             c.title,
@@ -196,7 +196,7 @@
             ) good_count
         FROM
             content c,
-            plan p
+            responsePlanDetail p
         WHERE
             c.id = p.id AND
             c.title LIKE #{keyword} AND

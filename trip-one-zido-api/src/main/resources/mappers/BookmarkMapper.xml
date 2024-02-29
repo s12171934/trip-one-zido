@@ -22,7 +22,7 @@
             content c
         WHERE
             b.content_id = c.id AND
-            c.type = 'tour' AND
+            c.type = 'responseTour' AND
             b.member_id = #{id}
     </select>
 
@@ -34,12 +34,12 @@
             content c
         WHERE
             b.content_id = c.id AND
-            c.type != 'tour' AND
+            c.type != 'responseTour' AND
             c.is_public = 1 AND
             b.member_id = #{id}
     </select>
 
-    <select id="getTourBookmark" parameterType="com.example.triponezidoapi.dto.RequestListInfo" resultType="com.example.triponezidoapi.dto.ResponseContentList">
+    <select id="getTourBookmark" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.Response.ResponseContentList">
         SELECT
             id,
             title,
@@ -82,7 +82,7 @@
             )
     </select>
 
-    <select id="getPlanSpotBookmark" parameterType="com.example.triponezidoapi.dto.RequestListInfo" resultType="com.example.triponezidoapi.dto.ResponseContentList">
+    <select id="getPlanSpotBookmark" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.Response.ResponseContentList">
         SELECT
             c.id,
             c.title,
@@ -126,12 +126,12 @@
             SELECT
                 id,
                 grade
-            FROM spot
+            FROM responseSpotDetail
             UNION
             SELECT
                 id,
                 grade
-            FROM plan
+            FROM responsePlanDetail
             ) sp
         WHERE
             c.id = sp.id AND
@@ -146,7 +146,7 @@
             )
     </select>
 
-    <insert id="addBookmark" parameterType="com.example.triponezidoapi.dto.RequestOwner">
+    <insert id="addBookmark" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner">
         INSERT INTO bookmark
             (
             content_id,
@@ -159,7 +159,7 @@
             )
     </insert>
 
-    <delete id="deleteBookmark" parameterType="com.example.triponezidoapi.dto.RequestOwner">
+    <delete id="deleteBookmark" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner">
         DELETE FROM bookmark
         WHERE
             content_id = #{contentId} AND

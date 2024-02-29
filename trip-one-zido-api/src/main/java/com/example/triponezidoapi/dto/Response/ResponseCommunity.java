@@ -1,10 +1,10 @@
-package com.example.triponezidoapi.dto;
+package com.example.triponezidoapi.dto.Response;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
 @Data
-public class CommunityTable {
+public class ResponseCommunity {
     long id;
     String title;
     String writer;
