@@ -18,6 +18,7 @@ public interface MemberMapper {
     int followingCount(long id);
     List<ResponseMember> followerList(long id);
     List<ResponseMember> followingList(long id);
+    int postCount(long id);
     long getId(RequestFind requestFind);
     ResponseMember getLogin(Login login);
     Login getLoginFormByLoginId(String loginId);
