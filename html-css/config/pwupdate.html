@@ -3,115 +3,164 @@
 	Intensify by TEMPLATED
 	templated.co @templatedco
 	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
---><html>
-	<head>
-		<title>Intensify by TEMPLATED</title>
-		<meta charset="utf-8">
-		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="/html-css/assets/css/main.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" 
+-->
+<html>
+
+<head>
+	<title>Intensify by TEMPLATED</title>
+	<meta charset="utf-8">
+	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/html-css/assets/css/main.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
-	</head>
-	<body>
-		<!-- Header -->
-		<header id="header">
-			<nav class="left">
-				<a href="#menu"><span>Menu</span></a>
-			</nav>
-			<a href="/html-css/index.html"  class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
-			<nav class="right">
-				<span class="image round" style="margin: 15%"><a href="/html-css/sign/login.html"> <img src="/html-css/images/pic01.jpg" width="75" height="75"></a></span>
-			</nav>	
-		</header>
-			<!-- Menu -->
-			<nav id="menu">
-				<ul class="links">
-					<li><a href="/html-css/index.html">게시물등록</a></li>
-					<li><a href="/html-css/community/community.html">커뮤니티</a></li>
-					<li><a href="/html-css/config/config.html">최근기록</a></li>
-                    <li><a href="/html-css/main/zzim.html">찜목록</a></li>
-                    <li><a href="/html-css/info/info.html">관광정보</a></li>
-                    <li><a href="logout.html">로그아웃</a></li>
+</head>
+
+<body>
+	<!-- Header -->
+	<header id="header">
+		<nav class="left">
+			<a href="#menu"><span>Menu</span></a>
+		</nav>
+		<a href="/html-css/index.html" class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
+		<nav class="right">
+			<div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top: 3%;">
+				<form action="/html-css/search/search.html"><input type="text" required style="margin-top: 2%"></form>
+				<span class="image round" box-sha><a href="/html-css/sign/login.html"> <img
+							src="/html-css/images/남자.png" width="75" height="75"></a></span>
+			</div>
+		</nav>
+	</header>
+	<!-- Menu -->
+	<nav id="menu">
+		<ul class="links">
+			<li><a href="/html-css/index.html">게시물등록</a></li>
+			<li><a href="/html-css/community/community.html">커뮤니티</a></li>
+			<li><a href="/html-css/config/config.html">최근기록</a></li>
+			<li><a href="/html-css/main/zzim.html">찜목록</a></li>
+			<li><a href="/html-css/info/info.html">관광정보</a></li>
+			<li><a href="logout.html">로그아웃</a></li>
+		</ul>
+		<ul class="actions vertical">
+			<li><a href="#" class="button fit">Login</a></li>
+		</ul>
+	</nav>
+	<!-- One -->
+
+	<section id="main" class="wrapper" style="margin-left: 5%; margin-right: 5%;">
+		<div class="inner">
+			<h1 style="color:#f6755e">비밀번호 변경</h1>
+
+			<form method="post" action="#">
+				<table class="border border-secondary-subtle" width="600" border="1" cellspacing="0" cellpadding="3"
+					align="center">
+					<tr>
+						<td colspan="2" style="width: 200" height="39" align="center"><b>
+								<h3 style="color:#767d85">비밀번호 변경하기</h3>
+							</b></td>
+					</tr>
+
+					<tr>
+						<td width="200">현재 비밀번호 입력</td>
+						<td width="400"><input type="password" name="passwd" size="10" maxlength="10"
+								value="testtest123"></td>
+					</tr>
+
+					<tr style="background-color: white;">
+						<td width="200">변경 비밀번호 입력</td>
+						<td width="400"><input type="password" name="changepasswd" size="10" maxlength="10"
+								value="testtest123"></td>
+					</tr>
+
+					<tr>
+						<td width="200">변경 비밀번호 확인</td>
+						<td width="400"><input type="password" name="changepasswdChk" size="10" maxlength="10"
+								value="testtest123"></td>
+					</tr>
+
+				</table>
+				<ul class="actions">
+					<li style="margin-left: 40%;"><input type="submit" value="비밀번호 변경하기"></li>
 				</ul>
-				<ul class="actions vertical">
-					<li><a href="#" class="button fit">Login</a></li>
-				</ul>
-			</nav>
-			<!-- One -->
+			</form>
+			<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+				비밀번호변경 모달
+			</button>
+			<!-- Modal -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+				aria-hidden="true">
+				<!-- Vertically centered scrollable modal -->
+				<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+					<div class="modal-content">
+						<div class="modal-header border border-0">
+							<!-- <h1 class="modal-title fs-5" id="exampleModalLabel">타이틀 없애고</h1> -->
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
 
-			<section id="main" class="wrapper" style= "margin-left: 5%; margin-right: 5%;">
-			<div class="inner">
-                <h1 style="color:#f6755e">비밀번호 변경</h1>
-				
-                <form method="post" action="#">
-                    <table class="border border-secondary-subtle" width = "600" border = "1" cellspacing = "0" cellpadding = "3" align = "center" >
-                        <tr>
-                            <td colspan = "2" style="width: 200" height = "39" align = "center"><b><h3 style="color:#767d85">비밀번호 변경하기</h3></b></td>
-                        </tr>
-                      
-                        <tr>
-                            <td width = "200">현재 비밀번호 입력</td>
-                            <td width = "400"><input type = "password" name="passwd" size = "10" maxlength = "10" value = "testtest123"></td>
-                        </tr>
+						<div class="m-5 modal-body border rounded-3" style="background-color: #D9D9D9;">
+							<h3>비밀번호 수정이</h3>
+							<h3>완료되었습니다</h3>
+						</div>
 
-                        <tr style="background-color: white;">
-                            <td width = "200">변경 비밀번호 입력</td>
-                            <td width = "400"><input type = "password" name="changepasswd" size = "10" maxlength = "10" value = "testtest123"></td>
-                        </tr>
-
-                        <tr>
-                            <td width = "200">변경 비밀번호 확인</td>
-                            <td width = "400"><input type = "password" name="changepasswdChk" size = "10" maxlength = "10" value = "testtest123"></td>
-                        </tr>
-
-                    </table>
-                    <ul class="actions">
-                        <li style="margin-left: 40%;"><input type = "submit" value = "비밀번호 변경하기"></li>
-                    </ul>
-                    </form>
-			    </div>
-			</section>
-			
-			<!-- Footer -->
-			<footer id="footer">
-				<div class="inner">
-					<h2>Get In Touch</h2>
-					<ul class="actions">
-						<li><span class="icon fa-phone"></span> <a href="#">(000) 000-0000</a></li>
-						<li><span class="icon fa-envelope"></span> <a href="#">information@untitled.tld</a></li>
-						<li><span class="icon fa-map-marker"></span> 123 Somewhere Road, Nashville, TN 00000</li>
-					</ul>
+						<div class="modal-footer border border-0">
+							<button type="button" class="rounded-3" style="color: aliceblue; background-color:#ff928e;"
+								onclick="location.href='/html-css/config/config.html'" data-bs-dismiss="modal">회원정보
+								페이지로</button>
+						</div>
+					</div>
 				</div>
-			</footer>
-			<div class="copyright">Powered by: 
-				<a href="https://templated.co/">TEMPLATED</a>.
+			</div>
 		</div>
-		<!-- Scripts -->
-			<script src="/html-css/assets/js/jquery.min.js"></script>
-			<script src="/html-css/assets/js/jquery.scrolly.min.js"></script>
-			<script src="/html-css/assets/js/skel.min.js"></script>
-			<script src="/html-css/assets/js/util.js"></script>
-			<script src="/html-css/assets/js/main.js"></script>
-		</body>
-		</html>
-		<style>
-			@font-face {
-				font-family: 'Jalnan';
-				src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');
-			}
-		
-			#footer {
-				font-family: 'Jalnan';
-				font-size: 10px;
-			}
-		
-			h1, h2, h3, h4, body, .button {
-				font-family: 'Jalnan';
-			}
-		
-			#menu {
-				font-size: 20px;
-			}
-		</style>
+	</section>
+
+	<!-- Footer -->
+	<footer id="footer">
+		<div class="inner">
+			<h2>Get In Touch</h2>
+			<ul class="actions">
+				<li><span class="icon fa-phone"></span> <a href="#">(000) 000-0000</a></li>
+				<li><span class="icon fa-envelope"></span> <a href="#">information@untitled.tld</a></li>
+				<li><span class="icon fa-map-marker"></span> 123 Somewhere Road, Nashville, TN 00000</li>
+			</ul>
+		</div>
+	</footer>
+	<div class="copyright">Powered by:
+		<a href="https://templated.co/">TEMPLATED</a>.
+	</div>
+	<!-- Scripts -->
+	<script src="/html-css/assets/js/jquery.min.js"></script>
+	<script src="/html-css/assets/js/jquery.scrolly.min.js"></script>
+	<script src="/html-css/assets/js/skel.min.js"></script>
+	<script src="/html-css/assets/js/util.js"></script>
+	<script src="/html-css/assets/js/main.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+<style>
+	@font-face {
+		font-family: 'Jalnan';
+		src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');
+	}
+
+	#footer {
+		font-family: 'Jalnan';
+		font-size: 10px;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	body,
+	.button {
+		font-family: 'Jalnan';
+	}
+
+	#menu {
+		font-size: 20px;
+	}
+</style>
