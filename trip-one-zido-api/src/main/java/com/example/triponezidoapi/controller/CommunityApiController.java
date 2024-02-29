@@ -19,7 +19,7 @@ public class CommunityApiController {
         return null;
     }
     @PostMapping("/")
-    public void addCommunity(@RequestBody RequestCommunity requestCommunity, long id){
+    public void addCommunity(@RequestBody RequestCommunity requestCommunity, @SessionAttribute(name = "id") long id){
     }
     @PutMapping("/{id}")
     public void updateCommunity(@RequestBody RequestCommunity requestCommunity, @PathVariable long id){
@@ -34,11 +34,11 @@ public class CommunityApiController {
         return null;
     }
     @PostMapping("/member/{id}")
-    public void entryCommunity(@PathVariable long id){
+    public void entryCommunity(@PathVariable long id, @SessionAttribute(name = "id") long sessionId){
 
     }
     @DeleteMapping("/member/{id}")
-    public void departureCommunity(@PathVariable long id){
+    public void departureCommunity(@PathVariable long id, @SessionAttribute(name = "id") long sessionId){
 
     }
 }

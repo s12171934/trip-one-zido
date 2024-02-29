@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/comment")
 public class CommentApiController {
     @PostMapping("/")
-    public void addComment(long id, @RequestBody RequestComment requestComment){
+    public void addComment(@SessionAttribute(name = "id") long id, @RequestBody RequestComment requestComment){
 
     }
     @PutMapping("/{id}")

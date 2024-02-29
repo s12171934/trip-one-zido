@@ -12,7 +12,7 @@ public class PlanApiController {
         return null;
     }
     @PostMapping("/")
-    public void addPlan(@RequestBody RequestPlan requestPlan, long id){
+    public void addPlan(@SessionAttribute(name = "id") long id, @RequestBody RequestPlan requestPlan){
 
     }
     @PutMapping("/{id}")

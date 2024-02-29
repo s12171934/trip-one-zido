@@ -12,7 +12,7 @@ public class SpotApiController {
         return null;
     }
     @PostMapping("/")
-    public void addSpot(@RequestBody RequestSpot requestSpot, long id){
+    public void addSpot(@RequestBody RequestSpot requestSpot, @SessionAttribute(name = "id") long id){
 
     }
     @PutMapping("/")
