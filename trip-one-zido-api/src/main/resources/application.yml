@@ -16,6 +16,8 @@ springdoc:
     groups-order: DESC
     tags-sorter: alpha
     operations-sorter: method
+    doc-expansion: none
+    
 
   api-docs:
     path: /api-docs
