@@ -13,21 +13,25 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="/html-css/assets/css/main.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">	
 </head>
 
 <body>
+	
 	<!-- Header -->
 	<header id="header">
-		<nav class="left">
-			<a href="#menu"><span>Menu</span></a>
-		</nav>
-		<a href="/html-css/index.html"  class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
-		<nav class="right">
-			<span class="image round" style="margin: 15%"><a href="/html-css/sign/login.html"> <img
-						src="/html-css/images/pic01.jpg" width="75" height="75"></a></span>
-		</nav>
-	</header>
+        <nav class="left">
+            <a href="#menu"><span>Menu</span></a>
+        </nav>
+        <a href="/html-css/index.html" class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
+        <nav class="right">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top: 3%;">   
+                <form action="/html-css/search/search.html"><input type="text" required style="margin-top: 2%"></form>
+                <span class="image round"  box-sha><a href="/html-css/sign/login.html"> <img src="/html-css/images/남자.png" width="75" height="75"></a></span>
+            </div>
+        </nav>
+    </header>
+	
 	<!-- Menu -->
 	<nav id="menu">
 		<ul class="links">
@@ -42,7 +46,7 @@
 			<li><a href="#" class="button fit">로그아웃</a></li>
 		</ul>
 	</nav>
-
+	
 	<section id="main" class="wrapper" style="margin-left: 5%; margin-right: 5%;">
 		<div style="text-align: left;">
 			<h1 style="color:#f6755e">설정페이지</h1>
