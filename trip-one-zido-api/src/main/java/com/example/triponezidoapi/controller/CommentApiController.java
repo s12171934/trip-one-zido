@@ -1,6 +1,6 @@
 package com.example.triponezidoapi.controller;
 
-import com.example.triponezidoapi.dto.request.RequestComment;
+import com.example.triponezidoapi.dto.request.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

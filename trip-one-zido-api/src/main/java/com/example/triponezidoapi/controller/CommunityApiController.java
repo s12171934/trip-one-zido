@@ -1,9 +1,7 @@
 package com.example.triponezidoapi.controller;
 
-import com.example.triponezidoapi.dto.request.RequestCommunity;
-import com.example.triponezidoapi.dto.request.RequestCommunitySearch;
-import com.example.triponezidoapi.dto.response.ResponseCommunity;
-import com.example.triponezidoapi.dto.response.ResponseCommunityDetail;
+import com.example.triponezidoapi.dto.request.*;
+import com.example.triponezidoapi.dto.response.*;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 

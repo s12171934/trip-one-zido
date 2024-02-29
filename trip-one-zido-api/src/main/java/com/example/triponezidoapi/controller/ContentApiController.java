@@ -1,6 +1,6 @@
 package com.example.triponezidoapi.controller;
 
-import com.example.triponezidoapi.dto.response.ResponseContentList;
+import com.example.triponezidoapi.dto.response.*;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 

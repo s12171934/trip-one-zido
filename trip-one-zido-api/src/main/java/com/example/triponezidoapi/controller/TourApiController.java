@@ -1,7 +1,7 @@
 package com.example.triponezidoapi.controller;
 
-import com.example.triponezidoapi.dto.response.ResponseTour;
-import com.example.triponezidoapi.dto.request.RequestTour;
+import com.example.triponezidoapi.dto.response.*;
+import com.example.triponezidoapi.dto.request.*;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 

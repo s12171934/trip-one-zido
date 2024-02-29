@@ -1,10 +1,8 @@
 package com.example.triponezidoapi.controller;
 
 import com.example.triponezidoapi.dto.*;
-import com.example.triponezidoapi.dto.request.RequestFind;
-import com.example.triponezidoapi.dto.Login;
-import com.example.triponezidoapi.dto.request.RequestNewPassword;
-import com.example.triponezidoapi.dto.response.ResponseQuestions;
+import com.example.triponezidoapi.dto.request.*;
+import com.example.triponezidoapi.dto.response.*;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -56,7 +54,7 @@ public class MemberApiController {
 
     }
     @PutMapping("/password")
-    public void updatePassword(@SessionAttribute(name="id") long id, @RequestBody RequestPassword requestNewPassword){
+    public void updatePassword(@SessionAttribute(name="id") long id, @RequestBody RequestNewPassword requestNewPassword){
 
     }
     @DeleteMapping("/")
