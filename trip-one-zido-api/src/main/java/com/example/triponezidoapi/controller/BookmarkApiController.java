@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/bookmark")
 public class BookmarkApiController {
     @GetMapping("/{id}")
-    public ResponseBookmark showBookmarkAll(@PathVariable long id, long sessionId){
+    public ResponseBookmark showBookmarkAll(@PathVariable(required = false) long id,@SessionAttribute(name = "id") long sessionId){
         return null;
     }
     @PostMapping("/{id}")
-    public void addBookmark(@PathVariable long id, long sessionId){
+    public void addBookmark(@PathVariable long id, @SessionAttribute(name = "id") long sessionId){
 
     }
     @DeleteMapping("/{id}")

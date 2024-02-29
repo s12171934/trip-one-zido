@@ -44,23 +44,23 @@ public class MemberApiController {
 
     }
     @GetMapping("/")
-    public Member showMemberInfo(long id){
+    public Member showMemberInfo(@SessionAttribute(name="id") long id){
         return null;
     }
     @PutMapping("/")
-    public void updateMemberInfo(long id, @RequestBody Member member){
+    public void updateMemberInfo(@SessionAttribute(name="id") long id, @RequestBody Member member){
 
     }
     @PutMapping("/profile")
-    public void updateProfile(long id, @RequestParam byte[] profile){
+    public void updateProfile(@SessionAttribute(name="id") long id, @RequestParam byte[] profile){
 
     }
     @PutMapping("/password")
-    public void updatePassword(long id, @RequestBody RequestPassword requestPassword){
+    public void updatePassword(@SessionAttribute(name="id") long id, @RequestBody RequestPassword requestPassword){
 
     }
     @DeleteMapping("/")
-    public void removeMember(long id){
+    public void removeMember(@SessionAttribute(name="id") long id){
 
     }
 /*    @PostMapping("/pairing")

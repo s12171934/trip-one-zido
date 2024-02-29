@@ -8,7 +8,7 @@ import java.util.List;
 @RequestMapping("/content")
 public class ContentApiController {
     @PostMapping("/pin/{id}")
-    public void addPin(long id){
+    public void addPin(@SessionAttribute(name = "id") long id){
 
     }
     @DeleteMapping("/pin/{id}")
@@ -16,11 +16,11 @@ public class ContentApiController {
 
     }
     @PostMapping("/like/{id}")
-    public void addLike(@PathVariable long id, long sessionId){
+    public void addLike(@PathVariable long id, @SessionAttribute(name = "id") long sessionId){
 
     }
     @GetMapping("/recent-view")
-    public List<ResponseContentList> showRecentView(long id){
+    public List<ResponseContentList> showRecentView(@SessionAttribute(name = "id") long id){
         return null;
     }
 }
