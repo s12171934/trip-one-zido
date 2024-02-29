@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>여행한지도 | 일정 조회</title>
+    <title>여행한지도 | 일정 등록</title>
     <meta charset="utf-8">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -48,51 +48,50 @@
         <form id="split-container" class="d-flex flex-row">
             
             <!-- ★왼쪽 -->
-            
             <div class="p-2 d-flex flex-column border-end" style="margin-right: auto;">
-                
                 <div style="text-align: left;">
-                    <h1 class="title" style="color:#ff928e; margin-top:5%"><img src="/html-css/images/찜해제.png" width="20" height="20" style="margin-left: 3%; margin-right: 1%;" onclick="zzim()"><span><small></small></span>일정 조회</h1>
+                    <h1 class="title" style="color:#ff928e; margin-top:5%">일정 등록</h1>
                     <br>
                 </div>
-                <div class="p-2 d-flex flex-row" id="blank"><h4>일정 제목</h4>&nbsp;
-                    <input type="text" value="★ 맛집 투어 | 부산 ★" style="margin-right: 10px; margin-left: 10px; width: 40%; height: 60%;" readonly>
-                    
+                <div class="p-2 d-flex flex-row" id="blank"><h4>일정 제목</h4>
+                    <input type="text" value="" style="margin-right: 10px; margin-left: 10px; width: 40%; height: 60%;">
                         <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="height: 90%;">
                         <input type="radio hidden" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
                         <label class="btn btn-outline-primary" for="btnradio1">여행전</label>
                         
                         <input type="radio hidden" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                        <label class="btn btn-primary" for="btnradio2">여행중</label>
+                        <label class="btn btn-outline-primary" for="btnradio2">여행중</label>
                         
                         <input type="radio hidden" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
                         <label class="btn btn-outline-primary" for="btnradio3">여행한</label>
                         </div>
                 </div>
 
-                <div class="p-2 d-flex" id="blank"><h4>기간</h4>&nbsp;&nbsp;
+                <div class="p-2 d-flex" id="blank"><h4>기간</h4>
                     <label for="start_date"></label>
-                    <input class="flex-fill" type="date" id="start_date" name="start_date" value="2024-02-10" style="margin-right: 10px; margin-left: 10px;" readonly>
+                    <input class="flex-fill" type="date" id="start_date" name="start_date" style="margin-right: 10px; margin-left: 10px;">
                     <h4>~</h4>
                     <label for="end_date"></label>
-                    <input class="flex-fill" type="date" id="end_date" name="end_date" value="2024-02-14" style="margin-right: 10px; margin-left: 10px;" readonly>
+                    <input class="flex-fill" type="date" id="end_date" name="end_date" style="margin-right: 10px; margin-left: 10px;">
                 </div>
 
-                <div class="p-2 d-flex border-bottom" style="justify-content: center;" id="blank"><h4>동행인</h4>&nbsp;&nbsp; 
+                <div class="p-2 d-flex border-bottom" style="justify-content: center;"><h4>동행인</h4>
                     <!-- <form action="send_email.php" method="POST"> -->
                     <label for="email1" style="height: 50px"></label>
-                    <input class="flex-fill" type="email" id="email1" name="email1" value="윤지수" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 50%;" readonly><br><br>
+                    <input class="flex-fill" type="email" id="email1" name="email1" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 50%;"><br><br>
 
                     <label for="email2"></label>
-                    <input class="flex-fill" type="email" id="email2" name="email2" value="문성기" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 50%;" readonly><br><br>
+                    <input class="flex-fill" type="email" id="email2" name="email2" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 50%;"><br><br>
 
                     <label for="email3"></label>
-                    <input class="flex-fill" type="email" id="email3" name="email3" value="한희주" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 50%;" readonly><br><br>
+                    <input class="flex-fill" type="email" id="email3" name="email3" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 50%;"><br><br>
                     <!-- 필요한 만큼 이메일 주소 입력 필드를 추가할 수 있음 -->
                     <!-- </form> -->
+                    <div class="actions vertical small">
+                        <button style="background-color: white;"><img src="/html-css/images/plusbutton.png" width="25" height="25"></button>
+                    </div>
                 </div>
-
-
+    
                 <div class="p-2" style="justify-content: center;"><h4> 지도 </h4>
                     <!-- Google 지도를 삽입할 영역 -->
                     <iframe
@@ -100,7 +99,7 @@
                     width="600"
                     height="300"
                     frameborder="0" style="border:0"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26097.096481087745!2d129.09806643943534!3d35.15320239534059!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3568ed2f27c70ec7%3A0xff6df0e14d9216fb!2z6rSR7JWI66as7ZW07IiY7JqV7J6l!5e0!3m2!1sko!2skr!4v1709173272511!5m2!1sko!2skr"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3164.529575556133!2d127.02654691567728!3d37.497953624024396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca31a218db503%3A0x72a372df19cf7b95!2z7ISc7Jq47Yq567OE7IucIOyWtOyKpO2PrCDshozqs6DsiJzsnbTsiqTqtawg67Cg7J2067aAIDQwMC00MA!5e0!3m2!1sko!2skr!4v1645788148025!5m2!1sko!2skr"
                     allowfullscreen>
                     </iframe>
                 </div>
@@ -123,88 +122,55 @@
                 <!-- 여행후기 -->
                 <div class="p-2">
                     <!-- <form action="submit_post.php" method="POST">             -->
-                        <textarea id="content" name="content" rows="5" cols="50">1일차 : 부산 광안리 너무 재밌다 !~!</textarea><br><br>
+                        <textarea id="content" name="content" rows="5" cols="50"></textarea><br><br>
                     <!-- </form> -->
                 </div>
             </div>
 
             <!-- ★오른쪽 -->
             <div class="p-2 d-flex flex-column border-end" style= "margin-left: 3%;">
-                <div class="p-2 d-flex flex-row mt-4" style="margin-left: auto">
-                    <h6>해당 일정이 도움 되셨나요?<h6>
-                    <img src="/html-css/images/like.png" width="20" height="20" style="margin-left: 3%; margin-right: 1%;" onclick="like()"><span><small></small></span>
-                </div>
-                <div class="p-2 d-flex flex-row" style="align-items:center; margin-top:8%">
+                <div class="p-2 d-flex flex-row" style="align-items:center; margin-top: 15%">
                     <h4>여행 중 일정 및 장소</h4>
                     &nbsp;&nbsp;
-                    <input type="text" value="부산광역시" id="blank" style="margin-right: 10px; margin-left: 10px; width: 30%; height: 120%;" readonly>
+                        <div class="select-wrapper" >
+							<select class ="local-select" name="category" id="security">
+								<option value="" selected>지역 선택</option>
+								<option value="1">서울특별시</option>
+								<option value="2">경기도</option>
+								<option value="3">강원도</option>
+								<option value="4">세종특별자치시시</option>
+								<option value="5">대구광역시</option>
+								<option value="6">울산광역시</option>
+								<option value="7">부산광역시</option>
+								<option value="8">제주특별자치도</option>
+							</select>
+						</div>
                     <br>
                 </div>
 
-                <div id='calendar'></div>
-
-                <!-- ★댓글창  -->
-                <section class="mb-5" style="width: 95%;">
-                    <div class="card bg-light">
-                        <div class="card-body">
-                                <form class="input-group" style="display: flex; align-items: center; justify-content: center;">
-                                    <div class="d-flex flex-row-reverse">
-                                        <button class="button alt" type="submit" id="more">댓글</button>
-                                        <input name="comment" type="text" class="form-control" placeholder="댓글 추가하기" aria-label="Recipient's username" aria-describedby="button-addon2" style="margin-right: 10px;">
-                                    </div>
-                                </form>
-                            <!-- Comment with nested comments-->
-                            <div class="d-flex mb-4">
-                                <!-- Parent comment-->
-                                <div class="flex-shrink-0">
-                                    <br>
-                                    <img class="rounded-circle" src="/html-css/images/유재석.png" alt="..." width="50" height="50"/></div>
-                                <div class="ms-3">                                  
-                                    <br>
-                                    <div class="fw-bold">유재석</div>
-                                    부산 먹거리가 너무많네요 ~
-                                    <small><a href="#" style="color:darkgray; text-decoration:none">답글</a></small>
-                                    <div><small><a href="#" style="text-decoration:none">▼답글 2개</a></small></div>
-                                    <!-- Child comment 1-->
-                                    <div class="d-flex mt-4">
-                                        <div class="flex-shrink-0"><a href="/html-css/main/detail.html"><img class="rounded-circle" src="/html-css/images/남자.png" alt="..." width="50" height="50"/></a></div>
-                                        <div class="ms-3" style="width: 200%;">
-                                            <div class="fw-bold">대댓글 단사람1
-                                                <a href="#" style="color:darkgray; text-decoration:none">수정</a>
-                                                <a href="#" style="color:darkgray; text-decoration:none">삭제
-                                                </a>
-                                            </div>
-                                            광안리 주변 횟집추천드려요!
-                                        </div>
-                                    </div>
-                                    <!-- Child comment 2-->
-                                    <div class="d-flex mt-4">
-                                        <div class="flex-shrink-0"><img class="rounded-circle" src="/html-css/images/여자.png" alt="..." width="50" height="50"/></div>
-                                        <div class="ms-3">
-                                            <div class="fw-bold">대댓글 단사람2</div>
-                                            거기도 맛있고~ 부산집도 맛있어요
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Single comment-->
-                            <div class="d-flex mb-4">
-                                <div class="flex-shrink-0"><img class="rounded-circle" src="/html-css/images/조세호.png" alt="..." width="50" height="50"/></div>
-                                <div class="ms-3">
-                                    <div class="fw-bold">조세호</div>
-                                    ㅎㅎ
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-            </div>
-                            
+                
+                    <!-- <input type="text" value=""> -->
+                    <div id='calendar'></div>
                 
 
+                <div class="p-2 d-flex flex-row">
+                    <div class="select-wrapper" style="width: 15%">
+                        <select class ="local-select" name="category" id="security">
+                            <option value="" selected>공개 설정</option>
+                            <option value="1">공개</option>
+                            <option value="2">비공개</option>
+                        </select>
+                    </div>
+                    <div style="margin-left: auto">
+                        <input id="input" class="button small" type="submit" value="등록" >
+                        <input id="input" class="button alt small" type="submit" value="수정">
+                        <input id="input" class="button alt small" type="submit" value="삭제">
+                    </div>
+                </div>
+                    
 
-
+                </div>
+            
         </form>
     </section>
 
@@ -242,7 +208,7 @@
         font-size: 10px;
     }
 
-    h1, h2, h3, h4, h5, h6, body, .button, #security, .rating, #ratingValue, #blank {
+    h1, h2, h3, h4, h5, body, .button, #security, .rating, #ratingValue {
         font-family: 'Jalnan';
     }
 
