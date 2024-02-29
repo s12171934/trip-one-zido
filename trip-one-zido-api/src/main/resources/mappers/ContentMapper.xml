@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.triponezidoapi.mappers.ContentMapper">
-    <insert id="addContent" parameterType="com.example.triponezidoapi.dto.Content">
+    <insert id="addContent" parameterType="com.example.triponezidoapi.dto.beforeUse.Content">
         INSERT INTO content
             (
             type,
@@ -19,7 +19,7 @@
         </selectKey>
     </insert>
 
-    <insert id="addOwner" parameterType="com.example.triponezidoapi.dto.RequestOwner">
+    <insert id="addOwner" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner">
         INSERT INTO owner
             (
             own,
@@ -34,7 +34,7 @@
             )
     </insert>
 
-    <delete id="deleteOwner" parameterType="com.example.triponezidoapi.dto.RequestOwner">
+    <delete id="deleteOwner" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner">
         DELETE FROM owner
         WHERE
             member_id = #{memberId} AND
@@ -46,7 +46,7 @@
         WHERE id = #{id}
     </delete>
 
-    <select id="getContentMembers" parameterType="long" resultType="com.example.triponezidoapi.dto.ProfileMember">
+    <select id="getContentMembers" parameterType="long" resultType="com.example.triponezidoapi.dto.Response.ResponseMember">
         SELECT
             m.id,
             m.login_id,
@@ -60,7 +60,7 @@
             o.content_id = #{id}
     </select>
 
-    <select id="getWriter" parameterType="long" resultType="com.example.triponezidoapi.dto.ProfileMember">
+    <select id="getWriter" parameterType="long" resultType="com.example.triponezidoapi.dto.Response.ResponseMember">
         SELECT
             m.id,
             m.login_id,
@@ -75,7 +75,7 @@
             o.own = 'writer'
     </select>
 
-    <update id="updateTitle" parameterType="com.example.triponezidoapi.dto.Content">
+    <update id="updateTitle" parameterType="com.example.triponezidoapi.dto.beforeUse.Content">
         UPDATE content
         SET
             title = #{title}
@@ -83,7 +83,7 @@
             id = #{id}
     </update>
 
-    <update id="updateIsPublic" parameterType="com.example.triponezidoapi.dto.Content">
+    <update id="updateIsPublic" parameterType="com.example.triponezidoapi.dto.beforeUse.Content">
         UPDATE content
         SET
             is_public = #{isPublic}
@@ -91,23 +91,104 @@
             id = #{id}
     </update>
 
-    <insert id="addPin" parameterType="com.example.triponezidoapi.dto.RequestOwner">
-
+    <insert id="addPin" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner">
+        INSERT INTO pin
+            (
+            member_id,
+            content_id
+            )
+        VALUE
+            (
+            #{memberId},
+            #{contentId}
+            )
     </insert>
 
-    <delete id="deletePin" parameterType="com.example.triponezidoapi.dto.RequestOwner">
-
+    <delete id="deletePin" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner">
+        DELETE FROM pin
+        WHERE
+            member_id = #{memberId} AND
+            content_id = #{contentId}
     </delete>
 
-    <insert id="addLike" parameterType="com.example.triponezidoapi.dto.RequestOwner">
-
+    <insert id="addGood" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner">
+        INSERT INTO good
+            (
+            good,
+            member_id,
+            content_id
+            )
+        VALUE
+            (
+            #{own},
+            #{memberId},
+            #{contentId}
+            )
     </insert>
 
-    <delete id="deleteLike" parameterType="com.example.triponezidoapi.dto.RequestOwner">
-
+    <delete id="deleteGood" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner">
+        DELETE FROM good
+        WHERE
+            content_id = #{contentId} AND
+            member_id = #{memberId}
     </delete>
 
-    <select id="getRecentView" resultType="com.example.triponezidoapi.dto.ResponseContentList">
-
+    <select id="getRecentView" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.Response.ResponseContentList">
+        SELECT
+            c.id,
+            c.title,
+            sp.grade,
+            (
+            SELECT
+                photo
+            FROM
+                photo
+            WHERE
+                content_id = c.id
+            ) photo,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                bookmark
+            WHERE
+                content_id = c.id
+            ) bookmark_count,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                bookmark
+            WHERE
+                content_id = c.id AND
+                member_id = #{myMemberId}
+            ) my_bookmark,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                good
+            WHERE
+                content_id = c.id
+            ) good_count
+        FROM
+            content c,
+            (
+            SELECT
+                id,
+                grade
+            FROM responseSpotDetail
+            UNION
+            SELECT
+                id,
+                grade
+            FROM responsePlanDetail
+            ) sp,
+            open_content o
+        WHERE
+            c.id = sp.id AND
+            c.id = o.content_id
+        ORDER BY
+            opened_at DESC
     </select>
 </mapper>

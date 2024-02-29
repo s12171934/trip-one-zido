@@ -1,9 +1,8 @@
 package com.example.triponezidoapi.controller;
 
-import com.example.triponezidoapi.dto.CommunityDetail;
-import com.example.triponezidoapi.dto.CommunityTable;
-import com.example.triponezidoapi.dto.ProfileMember;
-import com.example.triponezidoapi.dto.RequestSearch;
+import com.example.triponezidoapi.dto.Response.ResponseCommunityDetail;
+import com.example.triponezidoapi.dto.Response.ResponseCommunity;
+import com.example.triponezidoapi.dto.Response.ResponseMember;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,22 +12,22 @@ import java.util.List;
 public class CommunityApiController {
 
     @GetMapping("/page={page}")
-    public List<CommunityTable> showCommunityList(@PathVariable int page){
+    public List<ResponseCommunity> showCommunityList(@PathVariable int page){
         return null;
     }
     @GetMapping("/{id}")
-    public CommunityDetail showCommunityDetail(@PathVariable long id){
-        return new CommunityDetail();
+    public ResponseCommunityDetail showCommunityDetail(@PathVariable long id){
+        return new ResponseCommunityDetail();
     }
     @GetMapping("/{id}/owner")
-    public ProfileMember showOwner(@PathVariable long id){
-        return new ProfileMember();
+    public ResponseMember showOwner(@PathVariable long id){
+        return new ResponseMember();
     }
     @PostMapping("/")
-    public void addCommunity(@RequestBody CommunityDetail communityDetail, long id){
+    public void addCommunity(@RequestBody ResponseCommunityDetail responseCommunityDetail, long id){
     }
     @PutMapping("/{id}")
-    public void updateCommunity(@RequestBody CommunityDetail communityDetail, @PathVariable long id){
+    public void updateCommunity(@RequestBody ResponseCommunityDetail responseCommunityDetail, @PathVariable long id){
 
     }
     @DeleteMapping("/{id}")
@@ -36,8 +35,8 @@ public class CommunityApiController {
 
     }
     @GetMapping("/search/page={page}")
-    public RequestSearch searchCommunity(@RequestBody CommunityTable communityTable, @PathVariable int page){
-        return new RequestSearch();
+    public List<ResponseCommunity> searchCommunity(@RequestBody ResponseCommunity responseCommunity, @PathVariable int page){
+        return null;
     }
     @PutMapping("entry/{id1}&{id2}")
     public void entryCommunity(@PathVariable long id1, @PathVariable long id2){

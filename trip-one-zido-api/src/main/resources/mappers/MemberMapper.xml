@@ -30,7 +30,7 @@
       )
   </insert>
 
-  <insert id="follow" parameterType="com.example.triponezidoapi.dto.Follow">
+  <insert id="follow" parameterType="com.example.triponezidoapi.dto.beforeUse.Follow">
     INSERT INTO follow
       (
       follower,
@@ -43,14 +43,14 @@
       )
   </insert>
 
-  <select id="securityQuestions" resultType="com.example.triponezidoapi.dto.ResponseQuestion">
+  <select id="securityQuestions" resultType="com.example.triponezidoapi.dto.Response.ResponseQuestions">
     SELECT
       *
     FROM
       security_questions
   </select>
 
-  <select id="getLoginFormByLoginId" parameterType="string" resultType="com.example.triponezidoapi.dto.LoginForm">
+  <select id="getLoginFormByLoginId" parameterType="string" resultType="com.example.triponezidoapi.dto.Request.RequestLogin">
     SELECT
       login_id,
       password
@@ -60,7 +60,7 @@
       login_id = #{loginId}
   </select>
 
-  <select id="getLoginIdByFind" parameterType="com.example.triponezidoapi.dto.RequestFind" resultType="com.example.triponezidoapi.dto.LoginId">
+  <select id="getLoginIdByFind" parameterType="com.example.triponezidoapi.dto.Request.RequestFind" resultType="com.example.triponezidoapi.dto.beforeUse.LoginId">
     SELECT
       login_id
     FROM
@@ -68,10 +68,9 @@
     WHERE
       name = #{name} AND
       email = #{email}
-
   </select>
 
-  <select id="getLogin" parameterType="com.example.triponezidoapi.dto.LoginForm" resultType="com.example.triponezidoapi.dto.ProfileMember">
+  <select id="getLogin" parameterType="com.example.triponezidoapi.dto.Request.RequestLogin" resultType="com.example.triponezidoapi.dto.Response.ResponseMember">
     SELECT
       id,
       login_id,
@@ -83,7 +82,7 @@
       password = #{password}
   </select>
 
-  <select id="getId" parameterType="com.example.triponezidoapi.dto.RequestFind" resultType="long">
+  <select id="getId" parameterType="com.example.triponezidoapi.dto.Request.RequestFind" resultType="long">
     SELECT
       id
     FROM
@@ -141,7 +140,7 @@
       follower = #{id}
   </select>
 
-  <select id="followerList" parameterType="long" resultType="com.example.triponezidoapi.dto.ProfileMember">
+  <select id="followerList" parameterType="long" resultType="com.example.triponezidoapi.dto.Response.ResponseMember">
     SELECT
       id,
       login_id,
@@ -160,7 +159,7 @@
         )
   </select>
 
-  <select id="followingList" parameterType="long" resultType="com.example.triponezidoapi.dto.ProfileMember">
+  <select id="followingList" parameterType="long" resultType="com.example.triponezidoapi.dto.Response.ResponseMember">
     SELECT
       id,
       login_id,
@@ -194,7 +193,7 @@
       id = #{id}
   </update>
 
-  <update id="updatePassword" parameterType="com.example.triponezidoapi.dto.Password">
+  <update id="updatePassword" parameterType="com.example.triponezidoapi.dto.beforeUse.Password">
     UPDATE
       member
     SET
@@ -203,7 +202,7 @@
       id = #{id}
   </update>
 
-  <update id="updateProfile" parameterType="com.example.triponezidoapi.dto.ProfileMember">
+  <update id="updateProfile" parameterType="com.example.triponezidoapi.dto.Response.ResponseMember">
     UPDATE
       member
     SET
@@ -219,7 +218,7 @@
       id = #{id}
   </delete>
 
-  <delete id="unFollow" parameterType="com.example.triponezidoapi.dto.Follow">
+  <delete id="unFollow" parameterType="com.example.triponezidoapi.dto.beforeUse.Follow">
     DELETE FROM
       follow
     WHERE

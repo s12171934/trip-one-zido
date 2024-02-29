@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.triponezidoapi.mappers.CommunityMapper">
-    <insert id="addCommunity" parameterType="com.example.triponezidoapi.dto.CommunityDetail">
+    <insert id="addCommunity" parameterType="com.example.triponezidoapi.dto.Response.ResponseCommunityDetail">
         INSERT INTO community
             (
             id,
@@ -22,10 +22,9 @@
             #{total},
             #{deadline}
             );
-
     </insert>
 
-    <select id="getCommunities" parameterType="long" resultType="com.example.triponezidoapi.dto.CommunityTable">
+    <select id="getCommunities" parameterType="long" resultType="com.example.triponezidoapi.dto.Response.ResponseCommunity">
         SELECT
             content.id,
             title,
@@ -49,7 +48,7 @@
                 owner o
             WHERE
                 m.id = o.member_id AND
-                o.owm = 'writer' AND
+                o.own = 'writer' AND
                 o.content_id = content.id
             ) writer
         FROM
@@ -61,7 +60,7 @@
             10;
     </select>
 
-    <select id="getCommunitiesWithSearch" parameterType="com.example.triponezidoapi.dto.RequestCommunitySearch" resultType="com.example.triponezidoapi.dto.CommunityTable">
+    <select id="getCommunitiesWithSearch" parameterType="com.example.triponezidoapi.dto.Request.RequestCommunitySearch" resultType="com.example.triponezidoapi.dto.Response.ResponseCommunity">
         SELECT
             content.id,
             title,
@@ -85,7 +84,7 @@
                     owner o
                 WHERE
                     m.id = o.member_id AND
-                    o.owm = 'writer' AND
+                    o.own = 'writer' AND
                     o.content_id = content.id
             ) writer
         FROM
@@ -98,7 +97,7 @@
             10;
     </select>
 
-    <select id="getCommunity" parameterType="long" resultType="com.example.triponezidoapi.dto.CommunityDetail">
+    <select id="getCommunity" parameterType="long" resultType="com.example.triponezidoapi.dto.Response.ResponseCommunityDetail">
         SELECT
             c1.*,
             c2.title,
@@ -112,7 +111,7 @@
             c1.id = #{id};
     </select>
 
-    <select id="getMembers" parameterType="long" resultType="com.example.triponezidoapi.dto.ProfileMember">
+    <select id="getMembers" parameterType="long" resultType="com.example.triponezidoapi.dto.Response.ResponseMember">
         SELECT
             o.member_id,
             o.own,
@@ -122,11 +121,11 @@
             member m,
             owner o
         WHERE
-            m.id = o.member_id
-          AND o.content_id = #{id};
+            m.id = o.member_id AND
+            o.content_id = #{id};
     </select>
 
-    <update id="updateCommunity" parameterType="com.example.triponezidoapi.dto.CommunityDetail">
+    <update id="updateCommunity" parameterType="com.example.triponezidoapi.dto.Response.ResponseCommunityDetail">
         UPDATE community
         SET
             start_date = #{startDate},
