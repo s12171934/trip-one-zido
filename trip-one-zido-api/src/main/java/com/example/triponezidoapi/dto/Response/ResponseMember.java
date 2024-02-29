@@ -1,9 +1,9 @@
-package com.example.triponezidoapi.dto;
+package com.example.triponezidoapi.dto.Response;
 
 import lombok.Data;
 
 @Data
-public class ProfileMember {
+public class ResponseMember {
     long id;
     String loginId;
     String own;

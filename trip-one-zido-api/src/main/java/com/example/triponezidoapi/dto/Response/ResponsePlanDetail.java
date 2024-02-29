@@ -1,12 +1,12 @@
-package com.example.triponezidoapi.dto;
+package com.example.triponezidoapi.dto.Response;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 
 @Data
-public class Plan {
+public class ResponsePlanDetail {
     long id;
     LocalDateTime startDate;
     LocalDateTime endDate;
@@ -15,12 +15,14 @@ public class Plan {
     String review;
     int grade;
     int viewCount;
-    int likeCount;
+    int goodCount;
+    int myGood;
     int bookmarkCount;
+    int myBookmark;
     String title;
     String isPublic;
     LocalDateTime createdAt;
-    ArrayList<Spot> spots;
-    ArrayList<ProfileMember> members;
-    byte[] profile;
+    List<ResponseSpotDetail> responseSpotDetails;
+    List<ResponseMember> members;
+    List<ResponseComment> comments;
 }

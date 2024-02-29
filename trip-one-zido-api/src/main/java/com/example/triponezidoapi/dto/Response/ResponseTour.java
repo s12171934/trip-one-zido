@@ -1,9 +1,9 @@
-package com.example.triponezidoapi.dto;
+package com.example.triponezidoapi.dto.Response;
 
 import lombok.Data;
 
 @Data
-public class Tour {
+public class ResponseTour {
     long id;
     String title;
     String address;

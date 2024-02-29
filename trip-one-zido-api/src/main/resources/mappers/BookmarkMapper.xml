@@ -2,30 +2,167 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.triponezidoapi.mappers.BookmarkMapper">
     <select id="bookmarkCount" parameterType="long" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            bookmark b,
+            content c
+        WHERE
+            b.content_id = c.id AND
+            c.is_public = 1 AND
+            b.member_id = #{id}
 
     </select>
 
     <select id="tourBookmarkCount" parameterType="long" resultType="int">
-
+        SELECT
+            COUNT(*)
+        FROM
+            bookmark b,
+            content c
+        WHERE
+            b.content_id = c.id AND
+            c.type = 'responseTour' AND
+            b.member_id = #{id}
     </select>
 
     <select id="planSpotBookmarkCount" parameterType="long" resultType="int">
-
+        SELECT
+            COUNT(*)
+        FROM
+            bookmark b,
+            content c
+        WHERE
+            b.content_id = c.id AND
+            c.type != 'responseTour' AND
+            c.is_public = 1 AND
+            b.member_id = #{id}
     </select>
 
-    <select id="getTourBookmark" parameterType="long" resultType="com.example.triponezidoapi.dto.ResponseContentList">
-
+    <select id="getTourBookmark" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.Response.ResponseContentList">
+        SELECT
+            id,
+            title,
+            (
+            SELECT
+                photo
+            FROM
+                photo
+            WHERE
+                content_id = c.id
+            ) photo,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                bookmark
+            WHERE
+                content_id = c.id
+            ) bookmark_count,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                bookmark
+            WHERE
+                content_id = c.id AND
+                member_id = #{myMemberId}
+            ) my_bookmark
+        FROM
+            content c
+        WHERE
+            id IN
+            (
+            SELECT
+                content_id
+            FROM
+                bookmark
+            WHERE
+                member_id = #{targetId}
+            )
     </select>
 
-    <select id="getPlanSpotBookmark" parameterType="long" resultType="com.example.triponezidoapi.dto.ResponseContentList">
-
+    <select id="getPlanSpotBookmark" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.Response.ResponseContentList">
+        SELECT
+            c.id,
+            c.title,
+            sp.grade,
+            (
+                SELECT
+                    photo
+                FROM
+                    photo
+                WHERE
+                    content_id = c.id
+            ) photo,
+            (
+                SELECT
+                    COUNT(*)
+                FROM
+                    bookmark
+                WHERE
+                    content_id = c.id
+            ) bookmark_count,
+            (
+                SELECT
+                    COUNT(*)
+                FROM
+                    bookmark
+                WHERE
+                    content_id = c.id AND
+                    member_id = #{myMemberId}
+            ) my_bookmark,
+            (
+                SELECT
+                    COUNT(*)
+                FROM
+                    good
+                WHERE
+                    content_id = c.id
+            ) good_count
+        FROM
+            content c,
+            (
+            SELECT
+                id,
+                grade
+            FROM responseSpotDetail
+            UNION
+            SELECT
+                id,
+                grade
+            FROM responsePlanDetail
+            ) sp
+        WHERE
+            c.id = sp.id AND
+            c.id IN
+            (
+            SELECT
+                content_id
+            FROM
+                bookmark
+            WHERE
+                member_id = #{targetId}
+            )
     </select>
 
-    <insert id="addBookmark" parameterType="com.example.triponezidoapi.dto.RequestOwner">
-
+    <insert id="addBookmark" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner">
+        INSERT INTO bookmark
+            (
+            content_id,
+            member_id
+            )
+        VALUE
+            (
+            #{contentId},
+            #{memberId}
+            )
     </insert>
 
-    <delete id="deleteBookmark" parameterType="com.example.triponezidoapi.dto.RequestOwner">
-
+    <delete id="deleteBookmark" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner">
+        DELETE FROM bookmark
+        WHERE
+            content_id = #{contentId} AND
+            member_id = #{memberId}
     </delete>
 </mapper>

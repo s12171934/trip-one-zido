@@ -17,7 +17,7 @@ public class MemberApiController {
     }
     @PostMapping("/login")
     public void loginMember(@RequestBody RequestLogin requestLogin){
-
+        memberMapper.getLogin(requestLogin);
     }
     @PostMapping("/check/id")
     public String checkId(@RequestBody RequestFind requestFind){

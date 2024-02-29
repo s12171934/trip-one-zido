@@ -1,17 +1,19 @@
 package com.example.triponezidoapi.mappers;
 
-import com.example.triponezidoapi.dto.Photo;
-import com.example.triponezidoapi.dto.ResponseContentList;
-import com.example.triponezidoapi.dto.Spot;
+import com.example.triponezidoapi.dto.beforeUse.RequestListInfo;
+import com.example.triponezidoapi.dto.beforeUse.RequestOwner;
+import com.example.triponezidoapi.dto.Response.ResponseContentList;
+import com.example.triponezidoapi.dto.Response.ResponseSpotDetail;
+import com.example.triponezidoapi.dto.beforeUse.Photo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
 public interface SpotMapper {
-    List<ResponseContentList> getSpotList(long id);
-    void addSpot(Spot spot);
-    void updateSpot(Spot spot);
+    List<ResponseContentList> getSpotList(RequestListInfo requestListInfo);
+    ResponseSpotDetail getSpot(RequestOwner requestOwner);
+    void addSpot(ResponseSpotDetail responseSpotDetail);
+    void updateSpot(ResponseSpotDetail responseSpotDetail);
     void addPhoto(Photo photo);
-    void deletePhoto(long id);
 }

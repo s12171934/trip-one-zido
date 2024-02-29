@@ -1,6 +1,6 @@
 package com.example.triponezidoapi.controller;
 
-import com.example.triponezidoapi.dto.Comment;
+import com.example.triponezidoapi.dto.Response.ResponseComment;
 import com.example.triponezidoapi.mappers.CommentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +20,5 @@ public class CommentApiController {
     }
     @DeleteMapping("/{id}")
     public void deleteComment(@PathVariable long id){
-        
     }
 }

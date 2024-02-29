@@ -1,41 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.triponezidoapi.mappers.CommentMapper">
-	<insert id="addComment" parameterType="com.example.triponezidoapi.dto.Comment">
-		INSERT INTO comment
+	<insert id="addComment" parameterType="com.example.triponezidoapi.dto.Response.ResponseComment">
+		INSERT INTO responseComment
 			(
 			id,
-			comment,
+			responseComment,
 			content_id,
 			member_id
 			)
 		VALUE
 			(
 			#{id},
-			#{comment},
+			#{responseComment},
 			#{contentId},
 			#{memberId}
 			)
-
 	</insert>
 
-	<select id="getComment" parameterType="long" resultType="com.example.triponezidoapi.dto.Comment">
+	<select id="getComment" parameterType="long" resultType="com.example.triponezidoapi.dto.Response.ResponseComment">
 		SELECT
-			comment.*,
+			responseComment.*,
 			content.created_at,
 			content.type
 		FROM
-			comment,
+			responseComment,
 			content
 		WHERE
-			comment.id = content_id
-
+			responseComment.id = content_id
 	</select>
 
-	<update id="updateComment" parameterType="com.example.triponezidoapi.dto.Comment">
-		UPDATE comment
+	<update id="updateComment" parameterType="com.example.triponezidoapi.dto.Response.ResponseComment">
+		UPDATE responseComment
 		SET
-			comment = #{comment}
+			responseComment = #{responseComment}
 		WHERE
 			id = #{id}
 	</update>
