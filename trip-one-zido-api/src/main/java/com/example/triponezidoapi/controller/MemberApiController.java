@@ -1,6 +1,10 @@
 package com.example.triponezidoapi.controller;
 
 import com.example.triponezidoapi.dto.*;
+import com.example.triponezidoapi.dto.request.RequestFind;
+import com.example.triponezidoapi.dto.request.RequestLogin;
+import com.example.triponezidoapi.dto.request.RequestPassword;
+import com.example.triponezidoapi.dto.response.ResponseQuestions;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -8,7 +12,7 @@ import java.util.List;
 @RequestMapping("/member")
 public class MemberApiController {
     @GetMapping("/signup")
-    public List<ResponseQuestion> questionsInfo(){
+    public List<ResponseQuestions> questionsInfo(){
         return null;
     }
     @PostMapping("/signup")
@@ -17,7 +21,7 @@ public class MemberApiController {
     }
     @PostMapping("/login")
     public void loginMember(@RequestBody RequestLogin requestLogin){
-        memberMapper.getLogin(requestLogin);
+
     }
     @PostMapping("/check/id")
     public String checkId(@RequestBody RequestFind requestFind){

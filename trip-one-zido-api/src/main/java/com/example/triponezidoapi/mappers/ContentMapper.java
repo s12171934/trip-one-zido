@@ -2,8 +2,8 @@ package com.example.triponezidoapi.mappers;
 
 import com.example.triponezidoapi.dto.beforeUse.RequestListInfo;
 import com.example.triponezidoapi.dto.beforeUse.RequestOwner;
-import com.example.triponezidoapi.dto.Response.ResponseContentList;
-import com.example.triponezidoapi.dto.Response.ResponseMember;
+import com.example.triponezidoapi.dto.response.ResponseContentList;
+import com.example.triponezidoapi.dto.response.ResponseMember;
 import com.example.triponezidoapi.dto.beforeUse.Content;
 import org.apache.ibatis.annotations.Mapper;
 

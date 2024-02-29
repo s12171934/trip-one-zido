@@ -1,9 +1,7 @@
 package com.example.triponezidoapi.controller;
 
-import com.example.triponezidoapi.dto.Plan;
-import com.example.triponezidoapi.dto.ProfileMember;
-import com.example.triponezidoapi.dto.RequestDetailSearch;
-import com.example.triponezidoapi.dto.Spot;
+import com.example.triponezidoapi.dto.request.RequestDetailSearch;
+import com.example.triponezidoapi.dto.response.ResponseSearch;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,7 +12,7 @@ public class SearchApiController {
         return null;
     }
     @GetMapping("/detail")
-    public ResponseSearchDetail searchPlan(@RequestBody RequestDetailSearch detailSearch){
+    public ResponseSearch searchPlan(@RequestBody RequestDetailSearch detailSearch){
         return null;
     }
 }

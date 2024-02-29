@@ -1,8 +1,7 @@
 package com.example.triponezidoapi.controller;
 
-import com.example.triponezidoapi.dto.Photo;
-import com.example.triponezidoapi.dto.Plan;
-import com.example.triponezidoapi.dto.RequestOwner;
+import com.example.triponezidoapi.dto.request.RequestPlan;
+import com.example.triponezidoapi.dto.response.ResponsePlanDetail;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

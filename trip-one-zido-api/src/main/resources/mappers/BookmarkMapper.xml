@@ -39,7 +39,7 @@
             b.member_id = #{id}
     </select>
 
-    <select id="getTourBookmark" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.Response.ResponseContentList">
+    <select id="getTourBookmark" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
         SELECT
             id,
             title,
@@ -82,7 +82,7 @@
             )
     </select>
 
-    <select id="getPlanSpotBookmark" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.Response.ResponseContentList">
+    <select id="getPlanSpotBookmark" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
         SELECT
             c.id,
             c.title,

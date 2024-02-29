@@ -1,8 +1,8 @@
 package com.example.triponezidoapi.controller;
 
-import com.example.triponezidoapi.dto.Tour;
+import com.example.triponezidoapi.dto.response.ResponseTour;
+import com.example.triponezidoapi.dto.request.RequestTour;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController

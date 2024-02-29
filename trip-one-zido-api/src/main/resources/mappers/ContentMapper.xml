@@ -46,7 +46,7 @@
         WHERE id = #{id}
     </delete>
 
-    <select id="getContentMembers" parameterType="long" resultType="com.example.triponezidoapi.dto.Response.ResponseMember">
+    <select id="getContentMembers" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
         SELECT
             m.id,
             m.login_id,
@@ -60,7 +60,7 @@
             o.content_id = #{id}
     </select>
 
-    <select id="getWriter" parameterType="long" resultType="com.example.triponezidoapi.dto.Response.ResponseMember">
+    <select id="getWriter" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
         SELECT
             m.id,
             m.login_id,
@@ -133,7 +133,7 @@
             member_id = #{memberId}
     </delete>
 
-    <select id="getRecentView" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.Response.ResponseContentList">
+    <select id="getRecentView" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
         SELECT
             c.id,
             c.title,

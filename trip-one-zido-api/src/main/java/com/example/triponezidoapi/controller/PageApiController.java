@@ -1,9 +1,8 @@
 package com.example.triponezidoapi.controller;
 
-import com.example.triponezidoapi.dto.ProfileMember;
+import com.example.triponezidoapi.dto.response.ResponseMember;
+import com.example.triponezidoapi.dto.response.ResponseMemberPage;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/page")

@@ -1,9 +1,9 @@
 package com.example.triponezidoapi.mappers;
 
-import com.example.triponezidoapi.dto.Request.RequestCommunitySearch;
-import com.example.triponezidoapi.dto.Response.ResponseCommunity;
-import com.example.triponezidoapi.dto.Response.ResponseCommunityDetail;
-import com.example.triponezidoapi.dto.Response.ResponseMember;
+import com.example.triponezidoapi.dto.request.RequestCommunitySearch;
+import com.example.triponezidoapi.dto.response.ResponseCommunity;
+import com.example.triponezidoapi.dto.response.ResponseCommunityDetail;
+import com.example.triponezidoapi.dto.response.ResponseMember;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

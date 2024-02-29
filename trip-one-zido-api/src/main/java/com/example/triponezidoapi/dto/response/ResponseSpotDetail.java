@@ -1,4 +1,4 @@
-package com.example.triponezidoapi.dto.Response;
+package com.example.triponezidoapi.dto.response;
 
 import lombok.Data;
 
@@ -6,12 +6,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-public class ResponsePlanDetail {
+public class ResponseSpotDetail {
     long id;
+    String category;
     LocalDateTime startDate;
     LocalDateTime endDate;
     String locCategory;
-    String status;
+    String address;
     String review;
     int grade;
     int viewCount;
@@ -22,7 +23,9 @@ public class ResponsePlanDetail {
     String title;
     String isPublic;
     LocalDateTime createdAt;
-    List<ResponseSpotDetail> responseSpotDetails;
+    byte[] profile;
+    List<byte[]> photos;
     List<ResponseMember> members;
-    List<ResponseComment> comments;
+    List<ResponseComment> responseComments;
+
 }

@@ -1,8 +1,6 @@
 package com.example.triponezidoapi.controller;
 
-import com.example.triponezidoapi.dto.ResponseContentList;
-import com.example.triponezidoapi.dto.Tour;
-import jakarta.validation.GroupSequence;
+import com.example.triponezidoapi.dto.response.ResponseBookmark;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

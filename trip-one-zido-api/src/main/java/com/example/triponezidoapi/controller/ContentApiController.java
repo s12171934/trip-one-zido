@@ -1,8 +1,7 @@
 package com.example.triponezidoapi.controller;
 
-import com.example.triponezidoapi.dto.ResponseContentList;
+import com.example.triponezidoapi.dto.response.ResponseContentList;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -22,6 +21,6 @@ public class ContentApiController {
     }
     @GetMapping("/recent-view")
     public List<ResponseContentList> showRecentView(long id){
-
+        return null;
     }
 }

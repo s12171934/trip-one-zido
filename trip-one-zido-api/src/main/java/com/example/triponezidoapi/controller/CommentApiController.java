@@ -1,11 +1,7 @@
 package com.example.triponezidoapi.controller;
 
-import com.example.triponezidoapi.dto.Response.ResponseComment;
-import com.example.triponezidoapi.mappers.CommentMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.triponezidoapi.dto.request.RequestComment;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/comment")

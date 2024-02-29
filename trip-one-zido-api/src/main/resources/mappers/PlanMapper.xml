@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.triponezidoapi.mappers.PlanMapper">
-    <select id="getPlanList" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.Response.ResponseContentList">
+    <select id="getPlanList" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestListInfo" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
         SELECT
             c.id,
             c.title,
@@ -55,7 +55,7 @@
             )
     </select>
 
-    <select id="getPlan" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner" resultType="com.example.triponezidoapi.dto.Response.ResponsePlanDetail">
+    <select id="getPlan" parameterType="com.example.triponezidoapi.dto.beforeUse.RequestOwner" resultType="com.example.triponezidoapi.dto.response.ResponsePlanDetail">
         SELECT
             p.*,
             c.title,
@@ -92,7 +92,7 @@
             p.id = #{contentId}
     </select>
 
-    <insert id="addPlan" parameterType="com.example.triponezidoapi.dto.Response.ResponsePlanDetail">
+    <insert id="addPlan" parameterType="com.example.triponezidoapi.dto.response.ResponsePlanDetail">
         INSERT INTO responsePlanDetail
             (
             id,
@@ -115,7 +115,7 @@
             )
     </insert>
 
-    <update id="updatePlan" parameterType="com.example.triponezidoapi.dto.Response.ResponsePlanDetail">
+    <update id="updatePlan" parameterType="com.example.triponezidoapi.dto.response.ResponsePlanDetail">
         UPDATE responsePlanDetail
         SET
             start_date = #{startDate},

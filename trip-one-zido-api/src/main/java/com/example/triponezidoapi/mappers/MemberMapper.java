@@ -1,10 +1,10 @@
 package com.example.triponezidoapi.mappers;
 
 import com.example.triponezidoapi.dto.*;
-import com.example.triponezidoapi.dto.Request.RequestFind;
-import com.example.triponezidoapi.dto.Request.RequestLogin;
-import com.example.triponezidoapi.dto.Response.ResponseMember;
-import com.example.triponezidoapi.dto.Response.ResponseQuestions;
+import com.example.triponezidoapi.dto.request.RequestFind;
+import com.example.triponezidoapi.dto.request.RequestLogin;
+import com.example.triponezidoapi.dto.response.ResponseMember;
+import com.example.triponezidoapi.dto.response.ResponseQuestions;
 import com.example.triponezidoapi.dto.beforeUse.Follow;
 import com.example.triponezidoapi.dto.beforeUse.LoginId;
 import com.example.triponezidoapi.dto.beforeUse.Password;

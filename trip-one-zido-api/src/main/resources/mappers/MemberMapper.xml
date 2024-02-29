@@ -43,14 +43,14 @@
       )
   </insert>
 
-  <select id="securityQuestions" resultType="com.example.triponezidoapi.dto.Response.ResponseQuestions">
+  <select id="securityQuestions" resultType="com.example.triponezidoapi.dto.response.ResponseQuestions">
     SELECT
       *
     FROM
       security_questions
   </select>
 
-  <select id="getLoginFormByLoginId" parameterType="string" resultType="com.example.triponezidoapi.dto.Request.RequestLogin">
+  <select id="getLoginFormByLoginId" parameterType="string" resultType="com.example.triponezidoapi.dto.request.RequestLogin">
     SELECT
       login_id,
       password
@@ -60,7 +60,7 @@
       login_id = #{loginId}
   </select>
 
-  <select id="getLoginIdByFind" parameterType="com.example.triponezidoapi.dto.Request.RequestFind" resultType="com.example.triponezidoapi.dto.beforeUse.LoginId">
+  <select id="getLoginIdByFind" parameterType="com.example.triponezidoapi.dto.request.RequestFind" resultType="com.example.triponezidoapi.dto.beforeUse.LoginId">
     SELECT
       login_id
     FROM
@@ -70,7 +70,7 @@
       email = #{email}
   </select>
 
-  <select id="getLogin" parameterType="com.example.triponezidoapi.dto.Request.RequestLogin" resultType="com.example.triponezidoapi.dto.Response.ResponseMember">
+  <select id="getLogin" parameterType="com.example.triponezidoapi.dto.request.RequestLogin" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
     SELECT
       id,
       login_id,
@@ -82,7 +82,7 @@
       password = #{password}
   </select>
 
-  <select id="getId" parameterType="com.example.triponezidoapi.dto.Request.RequestFind" resultType="long">
+  <select id="getId" parameterType="com.example.triponezidoapi.dto.request.RequestFind" resultType="long">
     SELECT
       id
     FROM
@@ -140,7 +140,7 @@
       follower = #{id}
   </select>
 
-  <select id="followerList" parameterType="long" resultType="com.example.triponezidoapi.dto.Response.ResponseMember">
+  <select id="followerList" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
     SELECT
       id,
       login_id,
@@ -159,7 +159,7 @@
         )
   </select>
 
-  <select id="followingList" parameterType="long" resultType="com.example.triponezidoapi.dto.Response.ResponseMember">
+  <select id="followingList" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
     SELECT
       id,
       login_id,
@@ -202,7 +202,7 @@
       id = #{id}
   </update>
 
-  <update id="updateProfile" parameterType="com.example.triponezidoapi.dto.Response.ResponseMember">
+  <update id="updateProfile" parameterType="com.example.triponezidoapi.dto.response.ResponseMember">
     UPDATE
       member
     SET
