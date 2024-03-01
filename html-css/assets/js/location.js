@@ -5,6 +5,10 @@ function zzim(){
   function like(){
     alert("like버튼 확인?")
   }
+
+  function unlike(){
+    alert("unlike버튼 확인?")
+  }
   
   
   function deleteimg(){

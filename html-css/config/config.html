@@ -12,6 +12,7 @@
 	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="/html-css/assets/css/main.css">
+	<link rel="stylesheet" href="/html-css/config/config.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
@@ -19,7 +20,7 @@
 <body>
 
 	<!-- Header -->
-	<header id="header">
+  <header id="header">
 		<nav class="left">
 			<a href="#menu"><span>Menu</span></a>
 		</nav>
@@ -27,8 +28,7 @@
 		<nav class="right">
 			<div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top: 3%;">
 				<form action="/html-css/search/search.html"><input type="text" required style="margin-top: 2%"></form>
-				<span class="image round" box-sha><a href="/html-css/sign/login.html"> <img
-							src="/html-css/images/남자.png" width="75" height="75"></a></span>
+				<span class="image round" box-sha><a href="/html-css/main/detail.html"> <img src="/html-css/images/남자.png" width="75" height="75"></a></span>
 			</div>
 		</nav>
 	</header>
@@ -36,17 +36,15 @@
 	<!-- Menu -->
 	<nav id="menu">
 		<ul class="links">
-			<li><a href="/html-css/index.html">게시물등록</a></li>
+			<li><a href="/html-css/schedule/add.html">게시물등록</a></li>
 			<li><a href="/html-css/community/community.html">커뮤니티</a></li>
-			<li><a href="/html-css/config/config.html">최근기록</a></li>
+			<li><a href="/html-css/config/recent-view.html">최근기록</a></li>
 			<li><a href="/html-css/main/zzim.html">찜목록</a></li>
 			<li><a href="/html-css/info/info.html">관광정보</a></li>
 			<li><a href="logout.html">로그아웃</a></li>
 		</ul>
-		<ul class="actions vertical">
-			<li><a href="#" class="button fit">로그아웃</a></li>
-		</ul>
 	</nav>
+
 
 	<section id="main" class="wrapper" style="margin-left: 5%; margin-right: 5%;">
 		<div style="text-align: left;">
@@ -54,19 +52,20 @@
 		</div>
 		<div style="text-align: left;">
 			<p>
-				<a href="/html-css/main/detail.html"><img src="/html-css/images/pic01.jpg" alt="" width="260"
-						height="260" class="rounded-circle"></a>
+				<a href="/html-css/main/detail.html" style="text-decoration: none;"><img
+						src="/html-css/images/pic01.jpg" alt="" width="260" height="260" class="rounded-circle">
+				</a>
+
+				<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#updatepic">
+					사진 수정
+				</button>
 				<sapn style="font-size: 25px; margin-left: 10%;"><b>여행자님!</b></sapn>
 
 			</p>
 			<!-- 모달 -->
-			<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-				사진 수정 모달
-			</button>
 
 			<!-- Modal -->
-			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-				aria-hidden="true">
+			<div class="modal fade" id="updatepic" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<!-- Vertically centered scrollable modal -->
 				<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 					<div class="modal-content">
@@ -75,13 +74,17 @@
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
 
-						<div class="m-5 modal-body border rounded-3" style="background-color: #D9D9D9; display:flex; justify-content: center;">
+						<div class="m-5 modal-body border rounded-3"
+							style="background-color: #D9D9D9; display:flex; justify-content: center;">
 							<img src="/html-css/images/조세호.png" alt="" width="360" height="330">
 						</div>
 
 						<div class="modal-footer border border-0">
-							<button type="button" class="rounded-3" style="color: aliceblue; background-color:#ff928e;">사진 변경</button>
-							<form><button type="button" class="rounded-3" style="color: aliceblue; background-color:#ff928e;" data-bs-dismiss="modal">사진등록</button></form>
+							<button type="button" class="rounded-3"
+								style="color: aliceblue; background-color:#ff928e;">사진 변경</button>
+							<form><button type="button" class="rounded-3"
+									style="color: aliceblue; background-color:#ff928e;"
+									data-bs-dismiss="modal">사진등록</button></form>
 						</div>
 					</div>
 				</div>
@@ -94,15 +97,238 @@
 			</div>
 			<div class="p-2" style="margin: 2%;">
 				<h3 style="color:rgb(80, 80, 80)">255</h3>
-				<h3 style="color:rgb(80, 80, 80)">팔로워</h3>
+				<h3 style="color:rgb(80, 80, 80)" data-bs-toggle="modal" data-bs-target="#exampleModal">팔로워</h3>
+				<!-- Modal -->
+				<!-- <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">팔로워</button> -->
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+					aria-hidden="true">
+					<!-- Vertically centered scrollable modal -->
+					<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+						<div class="modal-content">
+							<div class="modal-header border border-0">
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="m-4 modal-body border rounded-3"
+								style="background-color: #D9D9D9; overflow: hidden;">
+								<input type="text" required placeholder="팔로우 아이디 찾기!">
+							</div>
+
+							<div class="m-4 modal-body border rounded-3"
+								style="background-color: #D9D9D9; overflow: hidden;">
+								<div class="d-flex">
+									<a href="./detail_other.html"><img class="rounded-circle"
+											src="/html-css/images/유재석.png" alt="..." width="75" height="75" /></a>
+
+									<div class="d-flex flex-column" style="margin-left: 5%;">
+										<div class="fw-bold">
+											<h3>팔로우 요청하기</h3>
+										</div>
+										<div class="fw-bold">아이디
+											<span style="margin-left: 200px;"><button class="btn btn-sm"
+													style="position:relative;">요청</button></span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="m-4 modal-body border rounded-3"
+								style="background-color: #D9D9D9; overflow: auto;">
+								<div class="d-flex">
+									<a href="./detail.html"><img class="rounded-circle" src="/html-css/images/유재석.png"
+											alt="..." width="75" height="75" /></a>
+
+									<div class="d-flex flex-column" style="margin-left: 5%;">
+										<div class="fw-bold">
+											<h3>유재석</h3>
+										</div>
+										<div class="fw-bold">아이디
+											<span style="margin-left: 200px;"><button
+													class="btn btn-sm">삭제</button></span>
+										</div>
+									</div>
+								</div>
+
+								<div class="d-flex">
+									<a href="./detail.html"><img class="rounded-circle" src="/html-css/images/조세호.png"
+											alt="..." width="75" height="75" /></a>
+									<div class="d-flex flex-column" style="margin-left: 5%;">
+										<div class="fw-bold">
+											<h3>조세호</h3>
+										</div>
+										<div class="fw-bold">아이디
+											<span style="margin-left: 200px;"><button
+													class="btn btn-sm">삭제</button></span>
+										</div>
+									</div>
+								</div>
+
+								<div class="d-flex">
+									<a href="./detail.html"><img class="rounded-circle" src="/html-css/images/여자.png"
+											alt="..." width="75" height="75" /></a>
+									<div class="d-flex flex-column" style="margin-left: 5%;">
+										<div class="fw-bold">
+											<h3>여자</h3>
+										</div>
+										<div class="fw-bold">아이디
+											<span style="margin-left: 200px;"><button
+													class="btn btn-sm">삭제</button></span>
+										</div>
+									</div>
+								</div>
+
+								<div class="d-flex">
+									<a href="./detail.html"><img class="rounded-circle" src="/html-css/images/남자.png"
+											alt="..." width="75" height="75" /></a>
+									<div class="d-flex flex-column" style="margin-left: 5%;">
+										<div class="fw-bold">
+											<h3>남자</h3>
+										</div>
+										<div class="fw-bold">아이디
+											<span style="margin-left: 200px;"><button
+													class="btn btn-sm">삭제</button></span>
+										</div>
+									</div>
+								</div>
+
+								<div class="d-flex">
+									<a href="./detail.html"><img class="rounded-circle" src="/html-css/images/남자.png"
+											alt="..." width="75" height="75" /></a>
+									<div class="d-flex flex-column" style="margin-left: 5%;">
+										<div class="fw-bold">
+											<h3>남자</h3>
+										</div>
+										<div class="fw-bold">아이디
+											<span style="margin-left: 200px;"><button
+													class="btn btn-sm">삭제</button></span>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="p-2" style="margin: 2%;">
 				<h3 style="color:rgb(80, 80, 80)">37</h3>
-				<h3 style="color:rgb(80, 80, 80)">팔로잉</h3>
+				<h3 style="color:rgb(80, 80, 80)" data-bs-toggle="modal" data-bs-target="#exampleModal_follow">팔로잉</h3>
+				<!-- <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal_follow">팔로잉</button> -->
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModal_follow" tabindex="-1" aria-labelledby="exampleModalLabel"
+					aria-hidden="true">
+					<!-- Vertically centered scrollable modal -->
+					<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+						<div class="modal-content">
+							<div class="modal-header border border-0">
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="m-4 modal-body border rounded-3"
+								style="background-color: #D9D9D9; overflow: hidden;">
+								<input type="text" required placeholder="팔로잉 아이디 찾기!">
+							</div>
+
+							<div class="m-4 modal-body border rounded-3"
+								style="background-color: #D9D9D9; overflow: hidden;">
+								<div class="d-flex">
+									<a href="./detail.html"><img class="rounded-circle" src="/html-css/images/유재석.png"
+											alt="..." width="75" height="75" /></a>
+									<div class="d-flex flex-column" style="margin-left: 5%;">
+										<div class="fw-bold">
+											<h3>유재석</h3>
+										</div>
+										<div class="fw-bold">아이디
+											<span style="margin-left: 1px;"><button class="btn btn-sm">팔로잉
+													중</button></span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="m-4 modal-body border rounded-3"
+								style="background-color: #D9D9D9; overflow: auto;">
+
+								<div class="d-flex">
+									<a href="./detail.html"><img class="rounded-circle" src="/html-css/images/유재석.png"
+											alt="..." width="75" height="75" /></a>
+									<div class="d-flex flex-column" style="margin-left: 5%;">
+										<div class="fw-bold">
+											<h3>유재석</h3>
+										</div>
+										<div class="fw-bold">아이디
+											<span style="margin-left: 180px;"><button
+													class="btn btn-sm">팔로잉</button></span>
+										</div>
+									</div>
+								</div>
+
+								<div class="d-flex">
+									<a href="./detail.html"><img class="rounded-circle" src="/html-css/images/조세호.png"
+											alt="..." width="75" height="75" /></a>
+									<div class="d-flex flex-column" style="margin-left: 5%;">
+										<div class="fw-bold">
+											<h3>조세호</h3>
+										</div>
+										<div class="fw-bold">아이디
+											<span style="margin-left: 180px;"><button
+													class="btn btn-sm">팔로잉</button></span>
+										</div>
+									</div>
+								</div>
+
+								<div class="d-flex">
+									<a href="./detail.html"><img class="rounded-circle" src="/html-css/images/여자.png"
+											alt="..." width="75" height="75" /></a>
+									<div class="d-flex flex-column" style="margin-left: 5%;">
+										<div class="fw-bold">
+											<h3>여자</h3>
+										</div>
+										<div class="fw-bold">아이디
+											<span style="margin-left: 180px;"><button
+													class="btn btn-sm">팔로잉</button></span>
+										</div>
+									</div>
+								</div>
+
+								<div class="d-flex">
+									<a href="./detail.html"><img class="rounded-circle" src="/html-css/images/남자.png"
+											alt="..." width="75" height="75" /></a>
+									<div class="d-flex flex-column" style="margin-left: 5%;">
+										<div class="fw-bold">
+											<h3>남자</h3>
+										</div>
+										<div class="fw-bold">아이디
+											<span style="margin-left: 180px;"><button
+													class="btn btn-sm">팔로잉</button></span>
+										</div>
+									</div>
+								</div>
+
+								<div class="d-flex">
+									<a href="./detail.html"><img class="rounded-circle" src="/html-css/images/남자.png"
+											alt="..." width="75" height="75" /></a>
+									<div class="d-flex flex-column" style="margin-left: 5%;">
+										<div class="fw-bold">
+											<h3>남자</h3>
+										</div>
+										<div class="fw-bold">아이디
+											<span style="margin-left: 180px;"><button
+													class="btn btn-sm">팔로잉</button></span>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="p-2" style="margin: 2%;">
 				<h3 style="color:rgb(80, 80, 80)">999</h3>
-				<h3 style="color:rgb(80, 80, 80)">찜</h3>
+				<h3 style="color:rgb(80, 80, 80)"><a href="/html-css/main/zzim.html">찜</a></h3>
 			</div>
 		</div>
 		<h1 style="text-align: right; margin-right: 10%; color:rgb(80, 80, 80);"> 내 정보 </h1>
@@ -139,9 +365,8 @@
 	<script src="/html-css/assets/js/util.js"></script>
 	<script src="/html-css/assets/js/main.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-	crossorigin="anonymous"
-	></script>
+		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+		crossorigin="anonymous"></script>
 </body>
 
 </html>
