@@ -45,7 +45,7 @@
 
     <!-- Main -->
     <section id="main" class="wrapper" style= "margin-left: 5%; margin-right: 5%;">
-        <form id="split-container" class="d-flex flex-row">
+        <form id="split-container" class="d-flex flex-row" action="/html-css/schedule/detail.html">
             
             <!-- ★왼쪽 -->
             <div class="p-2 d-flex flex-column border-end" style="margin-right: auto;">
@@ -78,13 +78,13 @@
                 <div class="p-2 d-flex border-bottom" style="justify-content: center;"><h4>동행인</h4>
                     <!-- <form action="send_email.php" method="POST"> -->
                     <label for="email1" style="height: 50px"></label>
-                    <input class="flex-fill" type="email" id="email1" name="email1" value="윤지수" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 50%;"><br><br>
+                    <input class="flex-fill" type="text" id="email1" name="email1" value="윤지수" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 50%;"><br><br>
 
                     <label for="email2"></label>
-                    <input class="flex-fill" type="email" id="email2" name="email2" value="문성기" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 50%;"><br><br>
+                    <input class="flex-fill" type="text" id="email2" name="email2" value="문성기" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 50%;"><br><br>
 
                     <label for="email3"></label>
-                    <input class="flex-fill" type="email" id="email3" name="email3" value="한희주" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 50%;"><br><br>
+                    <input class="flex-fill" type="text" id="email3" name="email3" value="한희주" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 50%;"><br><br>
                     <!-- 필요한 만큼 이메일 주소 입력 필드를 추가할 수 있음 -->
                     <!-- </form> -->
                     <div class="actions vertical small">
@@ -162,12 +162,10 @@
                         </select>
                     </div>
                     <div style="margin-left: auto">
-                        <input id="input" class="button small" type="submit" value="등록">
-                        <input id="input" class="button alt small" type="submit" value="취소">
+                        <input id="input" class="button small" type="submit" value="수정">
+                        <a href="/html-css/main/detail.html" class="button alt small"> 취소 </a>
                     </div>
                 </div>
-                    
-
                 </div>
             
         </form>
