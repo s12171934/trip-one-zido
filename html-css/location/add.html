@@ -39,32 +39,29 @@
         <ul class="links">
             <li><a href="/html-css/index.html">게시물등록</a></li>
             <li><a href="/html-css/community/community.html">커뮤니티</a></li>
-            <li><a href="/html-css/config/config.html">최근기록</a></li>
+            <li><a href="/html-css/config/recent-view.html">최근기록</a></li>
             <li><a href="/html-css/main/zzim.html">찜목록</a></li>
             <li><a href="/html-css/info/info.html">관광정보</a></li>
-            <li><a href="/html-css/logout.html">로그아웃</a></li>
-        </ul>
-        <ul class="actions vertical">
-            <li><a href="#" class="button fit">Login</a></li>
+            <li><a href="/html-css/index.html">로그아웃</a></li>
         </ul>
     </nav>
 
     <section id="main" class="wrapper" style="margin-left: 5%; margin-right: 5%;">
-        <div>
-            <div class="d-flex flex-row mb-2 justify-content-between">
-                <div class="d-flex flex-column mb-2" style="margin-right: 10px;">
-                    <div class="d-flex flex-row" style="overflow:scroll; overflow-y: hidden; height: 125%;">
-                        <div class="d-inline-flex p-2">
-                            <img class="img-fluid rounded" src="/html-css/images/dragoncastle.jpg" alt="" width="75%" height="100%"
-                                style="margin-right: 1%;">
-                            <img class="img-fluid rounded" src="/html-css/images/busan3.jpg" alt="" width="75%" height="100%">
-                            <button style="background-color: white; margin-top: 20%;">
-                                <img src="/html-css/images/plusbutton.png" alt="" width="45" height="45"
-                                    class="rounded-5">
-                            </button>
-                        </div>
+        <form action="/html-css/location/detail.html">
+        <div class="d-flex flex-row mb-2 justify-content-between">
+            <div class="d-flex flex-column mb-2" style="margin-right: 10px;">
+                <div class="d-flex flex-row" style="overflow:scroll; overflow-y: hidden; height: 125%;">
+                    <div class="d-inline-flex p-2">
+                        <img class="img-fluid rounded" src="/html-css/images/dragoncastle.jpg" alt="" width="75%"
+                            height="100%" style="margin-right: 1%;">
+                        <img class="img-fluid rounded" src="/html-css/images/busan3.jpg" alt="" width="75%"
+                            height="100%">
+                        <button style="background-color: white; margin-top: 20%;">
+                            <img src="/html-css/images/plusbutton.png" alt="" width="45" height="45" class="rounded-5">
+                        </button>
                     </div>
-
+                </div>
+               
                     <div class="d-inline-flex p-2 justify-content-end">
                         <ul class="actions small">
                             <li>
@@ -76,86 +73,87 @@
                                     </select>
                                 </div>
                             </li>
-                            <li><input type="submit" class="button small" value="등록"></li>
-                            <li><a href="#" class="button alt small"> 취소 </a></li>
+                            <li><button type="submit" class="button small">등록</button></li>
+                            <li><a href="/html-css/main/detail.html" class="button alt small"> 취소 </a></li>
                         </ul>
                     </div>
-                </div>
-                </form>
-                <div class="p-2 flex-fill" style="width: 50%;">
-
-                    <h3 style="color:#f6755e">장소후기</h3>
-                    <div class="p-2 d-flex" style="font-size: 20px;">여행한 후기
-                        <div class="rating flex-fill" style="margin-right: 10px; margin-left: 10%; color: #F6B6B4;">
-                            <span onclick="rateStar(10)">☆</span>
-                            <span onclick="rateStar(8)">☆</span>
-                            <span onclick="rateStar(6)">☆</span>
-                            <span onclick="rateStar(4)">☆</span>
-                            <span onclick="rateStar(2)">☆</span>
-                        </div>
-                        <p class="flex-fill" id="ratingValue">별점을 선택하세요.</p>
-                        <!-- 별점 스크립트 / 별점 스타일 -->
-                        <script>
-                            function rateStar(stars) {
-                                document.getElementById('ratingValue').innerText = '별점: ' + stars + '점';
-                            }
-                        </script>
-                        <style>
-                            .rating {
-                                unicode-bidi: bidi-override;
-                                direction: rtl;
-                                text-align: left;
-                            }
-
-                            .rating>span {
-                                display: inline-block;
-                                position: relative;
-                                width: 1.1em;
-                            }
-
-                            .rating>span:hover:before,
-                            .rating>span:hover~span:before {
-                                content: "\2605";
-                                position: absolute;
-                            }
-                        </style>
-                    </div>
-
-                    <div class="d-flex justify-content-end" style="margin: 1%;">
-                        <div class="select-wrapper 4u">
-                            <select class="button alt icon fa-check" name="category" id="category">
-                                <option value="" selected>장소 카테고리</option>
-                                <option value="0">관광지</option>
-                                <option value="1">음식점</option>
-                            </select>
-                        </div>
-                    </div>
-                    <form method="post" action="#">
-                        <table class="table table-sm-borderless responsvie" width="400" border="1" cellspacing="0"
-                            cellpadding="3" align="center">
-                            <tr style="background-color: white;">
-                                <td width="100">장소 : </td>
-                                <td width="300"><input type="text" name="location" size="10" maxlength="10"
-                                        value="testtest123"></td>
-                            </tr>
-
-                            <tr style="background-color: white;">
-                                <td width="100">주소 : </td>
-                                <td width="300"><input type="text" name="address" size="10" maxlength="10"
-                                        value="testtest123"></td>
-                            </tr>
-
-                            <tr style="background-color: white;">
-                                <td width="100">일정 : </td>
-                                <td width="300"><input type="text" name="schedule" size="10" maxlength="10"
-                                        value="testtest123"></td>
-                            </tr>
-                        </table>
-                        <p>후기</p>
-                        <textarea name="message" id="message" placeholder="후기를 작성해주세요!" rows="7" data-gramm="false"
-                            wt-ignore-input="true" style="resize: none;"></textarea>
-                </div>
             </div>
+
+            <div class="p-2 flex-fill" style="width: 50%;">
+
+                <h3 style="color:#f6755e">장소후기</h3>
+                <div class="p-2 d-flex" style="font-size: 20px;">여행한 후기
+                    <div class="rating flex-fill" style="margin-right: 10px; margin-left: 10%; color: #F6B6B4;">
+                        <span onclick="rateStar(10)">☆</span>
+                        <span onclick="rateStar(8)">☆</span>
+                        <span onclick="rateStar(6)">☆</span>
+                        <span onclick="rateStar(4)">☆</span>
+                        <span onclick="rateStar(2)">☆</span>
+                    </div>
+                    <p class="flex-fill" id="ratingValue">별점을 선택하세요.</p>
+                    <!-- 별점 스크립트 / 별점 스타일 -->
+                    <script>
+                        function rateStar(stars) {
+                            document.getElementById('ratingValue').innerText = '별점: ' + stars + '점';
+                        }
+                    </script>
+                    <style>
+                        .rating {
+                            unicode-bidi: bidi-override;
+                            direction: rtl;
+                            text-align: left;
+                        }
+
+                        .rating>span {
+                            display: inline-block;
+                            position: relative;
+                            width: 1.1em;
+                        }
+
+                        .rating>span:hover:before,
+                        .rating>span:hover~span:before {
+                            content: "\2605";
+                            position: absolute;
+                        }
+                    </style>
+                </div>
+
+                <div class="d-flex justify-content-end" style="margin: 1%;">
+                    <div class="select-wrapper 4u">
+                        <select class="button alt icon fa-check" name="category" id="category">
+                            <option value="" selected>장소 카테고리</option>
+                            <option value="0">관광지</option>
+                            <option value="1">음식점</option>
+                        </select>
+                    </div>
+                </div>
+
+                <table class="table table-sm-borderless responsvie" width="400" border="1" cellspacing="0"
+                    cellpadding="3" align="center">
+                    <tr style="background-color: white;">
+                        <td width="100">장소 : </td>
+                        <td width="300"><input type="text" name="location" size="10" maxlength="10" value="testtest123">
+                        </td>
+                    </tr>
+
+                    <tr style="background-color: white;">
+                        <td width="100">주소 : </td>
+                        <td width="300"><input type="text" name="address" size="10" maxlength="10" value="testtest123">
+                        </td>
+                    </tr>
+
+                    <tr style="background-color: white;">
+                        <td width="100">일정 : </td>
+                        <td width="300"><input type="text" name="schedule" size="10" maxlength="10" value="testtest123">
+                        </td>
+                    </tr>
+                </table>
+                <p>후기</p>
+                <textarea name="message" id="message" placeholder="후기를 작성해주세요!" rows="7" data-gramm="false"
+                    wt-ignore-input="true" style="resize: none;"></textarea>
+            </div>
+        </div>
+        </form>
     </section>
 
 
