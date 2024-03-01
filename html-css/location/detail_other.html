@@ -49,7 +49,19 @@
                     <div class="d-flex justify-content-start">
                         <h1 class="fw-bolder mb-1">부산 해동 용궁사</h1>
                         <ul class="actions" style="margin-left: 1%;">
-                            <li><button class="badge bg-secondary text-decoration-none link-light" >관광지</button></li>
+                            <li>
+                                <button class="badge bg-secondary text-decoration-none link-light">관광지</button>
+                                <button class="badge bg-secondary text-decoration-none link-light" id="openPopup">위치
+                                    보기</button>
+                                <script>
+                                    // 참조 주소: https://velog.io/@bami/%ED%8C%9D%EC%97%85%EC%B0%BD-%EB%A7%8C%EB%93%A4%EA%B8%B0
+                                    const openPopUp = document.getElementById('openPopup');
+    
+                                    openPopUp.addEventListener('click', () => {
+                                        window.open('./popup.html', 'popup', 'width=850, height=600, left=500, top=100');
+                                    });
+                                </script>
+                            </li>
                         </ul>
                         <h6 style="margin: 1%;">2024 02.20 14:30</h6>
                     </div>
