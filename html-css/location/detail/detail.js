@@ -1,19 +1,28 @@
+// 참조 주소: https://velog.io/@bami/%ED%8C%9D%EC%97%85%EC%B0%BD-%EB%A7%8C%EB%93%A4%EA%B8%B0
+const openPopUp = document.getElementById('openPopup');
+
+openPopUp.addEventListener('click', () => {
+    window.open('/html-css/location/popup.html', 'popup', 'width=850, height=600, left=500, top=100');
+});
+
 function zzim(){
-  alert("zzim버튼 확인?")
-}
+    alert("zzim버튼 확인?")
+  }
+  
+  function like(){
+    alert("like버튼 확인?")
+  }
 
-function like(){
-  alert("like버튼 확인?")
-}
+  function unlike(){
+    alert("unlike버튼 확인?")
+  }
+  
+  
+  function deleteimg(){
+    alert("delete버튼 확인?")
+  }
 
-
-function deleteimg(){
-  alert("delete버튼 확인?")
-}
-
-// 참조처
-// https://devinus.tistory.com/45
-// 슬라이크 전체 크기(width 구하기)
+// 슬라이드 전체 크기(width 구하기)
 const slide = document.querySelector(".slide");
 let slideWidth = slide.clientWidth;
 
@@ -99,71 +108,5 @@ for (let i = 0; i < maxSlide; i++) {
     // 슬라이드 이동 시 현재 활성화된 pagination 변경
     paginationItems.forEach((i) => i.classList.remove("active"));
     paginationItems[currSlide - 1].classList.add("active");
-  });
-}
-
-//모든 관광지용 슬라이드 slide_bottom
-const slide_bottom = document.querySelector(".slide_bottom");
-let slideWidth_bottom = slide_bottom.clientWidth;
-
-const prevBtn_bottom = document.querySelector(".slide_prev_button_bottom");
-const nextBtn_bottom = document.querySelector(".slide_next_button_bottom");
-
-const slideItems_bottom = document.querySelectorAll(".slide_item_bottom");
-
-const maxSlide_bottom = slideItems_bottom.length;
-
-let currSlide_bottom = 1;
-
-const pagination_bottom = document.querySelector(".slide_pagination_bottom");
-
-for (let i = 0; i < maxSlide_bottom; i++) {
-  if (i === 0) pagination_bottom.innerHTML += `<li class="active">•</li>`;
-  else pagination_bottom.innerHTML += `<li>•</li>`;
-}
-
-const paginationItems_bottom = document.querySelectorAll(".slide_pagination_bottom > li");
-
-nextBtn_bottom.addEventListener("click", () => {
-  currSlide_bottom++;
-  if (currSlide_bottom <= maxSlide_bottom) {
-    const offset_bottom = slideWidth_bottom * (currSlide_bottom - 1);
-    slideItems_bottom.forEach((i) => {
-      i.setAttribute("style", `left: ${-offset_bottom}px`);
-    });
-    paginationItems_bottom.forEach((i) => i.classList.remove("active"));
-    paginationItems_bottom[currSlide_bottom - 1].classList.add("active");
-  } else {
-    currSlide_bottom--;
-  }
-});
-
-prevBtn_bottom.addEventListener("click", () => {
-  currSlide_bottom--;
-  if (currSlide_bottom > 0) {
-    const offset_bottom = slideWidth_bottom * (currSlide_bottom - 1);
-    slideItems_bottom.forEach((i) => {
-      i.setAttribute("style", `left: ${-offset_bottom}px`);
-    });
-    paginationItems_bottom.forEach((i) => i.classList.remove("active"));
-    paginationItems_bottom[currSlide_bottom - 1].classList.add("active");
-  } else {
-    currSlide_bottom++;
-  }
-});
-
-window.addEventListener("resize", () => {
-  slideWidth_bottom = slide_bottom.clientWidth;
-});
-
-for (let i = 0; i < maxSlide_bottom; i++) {
-  paginationItems_bottom[i].addEventListener("click", () => {
-    currSlide_bottom = i + 1;
-    const offset_bottom = slideWidth_bottom * (currSlide_bottom - 1);
-    slideItems_bottom.forEach((i) => {
-      i.setAttribute("style", `left: ${-offset_bottom}px`);
-    });
-    paginationItems_bottom.forEach((i) => i.classList.remove("active"));
-    paginationItems_bottom[currSlide_bottom - 1].classList.add("active");
   });
 }

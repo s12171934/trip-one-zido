@@ -2,17 +2,17 @@
 <html>
 
 <head>
-    <title>여행한지도 | 일정 등록</title>
+    <title>여행한지도 | 장소 수정</title>
     <meta charset="utf-8">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/html-css/assets/css/main.css">
-    <link rel="stylesheet" href="/html-css/location/location.css">
+    <link rel="stylesheet" href="./update.css">
+    <link rel="stylesheet" href="/html-css/common/common.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <!-- script 연결 -->
     <script src="/html-css/schedule/schedule.js"></script> 
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 </head>
 
 <body>
@@ -21,18 +21,15 @@
 			<nav class="left">
 				<a href="#menu"><span>Menu</span></a>
 			</nav>
-            <!-- 헤더로고 : 350 -->
 				<a href="/html-css/index.html"  class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
 			<nav class="right">
-            <!-- 프로필 -->             <!-- 검색창 -->
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top: 3%;">   
                     <input type="text" required style="margin-top: 2%">
-                    <span class="image round"  box-sha><a href="/html-css/config/config.html"> <img src="/html-css/images/남자.png" width="75" height="75"></a></span>
+                    <span class="image round"  box-sha><a href="/html-css/config/config/config.html"> <img src="/html-css/images/남자.png" width="75" height="75"></a></span>
                 </div>
 			</nav>	
 		</header>
 
-			<!-- Menu -->
 			<nav id="menu">
 				<ul class="links">
 					<li><a href="/html-css/schedule/add.html">게시물등록</a></li>
@@ -45,25 +42,23 @@
 			</nav>
 
     <!-- Main -->
-    <section id="main" class="wrapper" style= "margin-left: 5%; margin-right: 5%; margin-top: 2.5%;">
-        <form id="split-container" class="d-flex flex-row" action="/html-css/location/detail.html">
+    <section id="main" class="wrapper">
+        <form id="split-container" class="d-flex flex-row" action="/html-css/location/detail/detail.html">
             
             <!-- ★왼쪽 -->
-            <div class="p-2 d-flex flex-column border-end" style="margin-right: auto;">
-                <div style="text-align: left;">
-                    <h1 class="title" style="color:#ff928e; margin-top:5%">장소 수정</h1>
+            <div class="p-2 d-flex flex-column border-end" id="leftSide">
+                <div id="mainTitle">
+                    <h1 class="title">장소 수정</h1>
                     <br>
                 </div>
     
-                <div class="p-2" style="justify-content: center;"><h4> 사진 등록 </h4>
-                    <div class="d-flex flex-row" style="overflow:scroll; overflow-y: hidden; height: 125%;">
+                <div class="p-2" id="picContainer"><h4> 사진 등록 </h4>
+                    <div class="d-flex flex-row" id="addPic">
                         <div class="d-inline-flex p-2">
-                            <img class="img-fluid rounded" src="/html-css/images/dragoncastle.jpg" alt="" width="75%"
-                                height="100%" style="margin-right: 1%;">
-                            <img class="img-fluid rounded" src="/html-css/images/busan3.jpg" alt="" width="75%"
-                                height="100%">
-                            <button style="background-color: white; margin-top: 20%;">
-                                <img src="/html-css/images/plusbutton.png" alt="" width="45" height="45" class="rounded-5">
+                            <img class="img-fluid rounded" id="selectedPic" src="/html-css/images/dragoncastle.jpg" alt="" >
+                            <img class="img-fluid rounded" id="selectedPic" src="/html-css/images/busan3.jpg" alt="" >
+                            <button id="plusPic">
+                                <img src="/html-css/images/plusbutton.png" alt="" class="rounded-5">
                             </button>
                         </div>
                     </div>
@@ -71,41 +66,39 @@
             </div>
 
             <!-- ★오른쪽 -->
-            <div class="p-2 d-flex flex-column border-end" style= "margin-left: 3%; margin-top: 3%;">
+            <div class="p-2 d-flex flex-column border-end" id="rightSide">
                 <div class="p-2 d-flex flex-row" id="blank"><h4>장소 제목</h4>
-                    <input type="text" value="" style="margin-right: 10px; margin-left: 10px; width: 40%; height: 60%;">
+                    <input type="text" id="locationTitle" value="화동용궁사">
                 </div>
 
                 <div class="p-2 d-flex" id="blank"><h4>시간</h4>
                     <label for="start_date"></label>
-                    <input class="flex-fill" type="time" id="start_date" name="start_date" style="margin-right: 10px; margin-left: 10px;">
+                    <input class="flex-fill" type="time" id="start_date" name="start_date" >
                     <h4>~</h4>
                     <label for="end_date"></label>
-                    <input class="flex-fill" type="time" id="end_date" name="end_date" style="margin-right: 10px; margin-left: 10px;">
+                    <input class="flex-fill" type="time" id="end_date" name="end_date">
                 </div>
 
-                <div class="p-2 d-flex border-bottom" style="justify-content: center;"><h4>동행인</h4>
-                    <!-- <form action="send_email.php" method="POST"> -->
-                    <label for="email1" style="height: 50px"></label>
-                    <input class="flex-fill" type="text" id="email1" name="email1" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 50%;"><br><br>
+                <div class="p-2 d-flex border-bottom" id="locationPeople" ><h4>동행인</h4>
+                    <label for="otherName1"></label>
+                    <input class="flex-fill" type="text" id="otherName" name="otherName1" value="윤지수"></input<br><br>
 
-                    <label for="email2"></label>
-                    <input class="flex-fill" type="text" id="email2" name="email2" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 50%;"><br><br>
+                    <label for="otherName2"></label>
+                    <input class="flex-fill" type="text" id="otherName" name="otherName2" value="문성기"><br><br>
 
-                    <label for="email3"></label>
-                    <input class="flex-fill" type="text" id="email3" name="email3" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 50%;"><br><br>
-                    <!-- 필요한 만큼 이메일 주소 입력 필드를 추가할 수 있음 -->
-                    <!-- </form> -->
+                    <label for="otherName3"></label>
+                    <input class="flex-fill" type="text" id="otherName" name="otherName3" value="한희주"><br><br>
+
                     <div class="actions vertical small">
-                        <button style="background-color: white;"><img src="/html-css/images/plusbutton.png" width="25" height="25"></button>
+                        <button id="buttonBackground" ><img src="/html-css/images/plusbutton.png" width="25" height="25"></button>
                     </div>
                 </div>
-                <div class="p-2 d-flex flex-row" style="align-items:center;">
-                    <h4>여행 중 일정 및 장소</h4>
+                <div class="p-2 d-flex flex-row" id="picLocation">
+                    <h4>사진 장소</h4>
                     &nbsp;&nbsp;
                     <div class="d-flex flex-row mb-3">
                         <div class="p-2">
-                            <select class="btn btn-sm border border-danger-subtle rounded-3" name="category" id="paldo" style="width: 200px;">
+                            <select class="btn btn-sm border border-danger-subtle rounded-3" name="category" id="paldo">
                                 <option value="" selected>도 선택 ▼</option>
                                 <option value="1">서울특별시</option>
                                 <option value="2">경기도</option>
@@ -120,7 +113,7 @@
                             </select>
                         </div>
                         <div class="p-2">
-                            <select class="btn btn-sm border border-danger-subtle rounded-3" name="category" id="city" style="width: 200px;">
+                            <select class="btn btn-sm border border-danger-subtle rounded-3" name="category" id="city">
                                 <option value="" selected>카테고리 ▼</option>
                                 <option value="1">관광지</option>
                                 <option value="2">음식점</option>
@@ -132,7 +125,7 @@
 
                 
                 <div class="p-2 d-flex border-top" ><h4>여행한 후기</h4>
-                    <div class="rating flex-fill" style="margin-right: 10px; margin-left: 100px;">
+                    <div class="rating flex-fill" id="rateStar">
                         <span onclick="rateStar(10)">☆</span>
                         <span onclick="rateStar(8)">☆</span>
                         <span onclick="rateStar(6)">☆</span>
@@ -140,28 +133,21 @@
                         <span onclick="rateStar(2)">☆</span>
                     </div>
                     <p class="flex-fill" id="ratingValue">별점을 선택하세요.</p>
-                    <script>
-                        function rateStar(stars) {
-                            document.getElementById('ratingValue').innerText = '별점: ' + stars + '점';
-                        }
-                    </script>
                 </div>
                 <!-- 여행후기 -->
                 <div class="p-2">
-                    <!-- <form action="submit_post.php" method="POST">             -->
-                        <textarea id="content" name="content" rows="5" cols="50"></textarea><br><br>
-                    <!-- </form> -->
+                        <textarea id="content" name="content" rows="5" cols="50">너무좋았어요!!!!!</textarea><br><br>
                 </div>
                 
                 <div class="p-2 d-flex flex-row">
-                    <div class="select-wrapper" style="width: 15%">
+                    <div class="select-wrapper" >
                         <select class ="local-select" name="category" id="security">
-                            <option value="" selected>공개 설정</option>
-                            <option value="1">공개</option>
+                            <option value="">공개 설정</option>
+                            <option value="1" selecetd>공개</option>
                             <option value="2">비공개</option>
                         </select>
                     </div>
-                    <div style="margin-left: auto">
+                    <div id="formButton">
                         <input id="input" class="button small" type="submit" value="수정">
                         <input id="input" class="button alt small" type="button" value="취소"
                         onclick="location.href='/html-css/main/detail/detail.html'">
@@ -171,7 +157,6 @@
             </div>
         </form>
     </section>
-
     <!-- Footer -->
     <footer id="footer">
         <div class="inner">
@@ -192,103 +177,9 @@
         <script src="/html-css/assets/js/skel.min.js"></script>
         <script src="/html-css/assets/js/util.js"></script>
         <script src="/html-css/assets/js/main.js"></script>
+        <script src="/html-css/common/common.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
 </body>
 </html>
-
-<style>
-    @font-face {
-        font-family: 'Jalnan';
-        src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');
-    }
-
-    #footer {
-        font-family: 'Jalnan';
-        font-size: 10px;
-    }
-
-    h1, h2, h3, h4, h5, body, .button, #security, .rating, #ratingValue {
-        font-family: 'Jalnan';
-    }
-
-    #menu {
-        font-family: 'Jalnan';
-        font-size: 20px;
-    }
-
-    .select-wrapper {
-        font-size: small;
-    }
-
-    /* 달력 */
-    html, body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-        /* font-size: 14px; */
-    }
-
-    #calendar {
-        width: 90%;
-        max-width: 1100px;
-        margin: 40px auto;
-    }
-
-    /* 별점주기 */
-    .rating {
-        unicode-bidi: bidi-override;
-        direction: rtl;
-        text-align: left;
-    }
-
-    .rating>span {
-        display: inline-block;
-        position: relative;
-        width: 1.1em;
-    }
-
-    .rating>span:hover:before,
-    .rating>span:hover~span:before {
-        content: "\2605";
-        position: absolute;
-    }
-    /* 화면 나누기 */
-    #split-container {
-    display: flex;
-    width: 100%;
-    }
-    #split-container > div {
-        width: 50%;
-        padding: 20px;
-    }
-    /* 지도 크기 설정 */
-    #map {
-        height: 400px;
-        width: 100%;
-    }
-
-
-    #input {
-        color:white;
-        font-family: 'Jalnan';
-        text-align: center;
-        margin-right: 10px; 
-        margin-left: 10px; 
-        margin-bottom: 10px;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-    .flex-fill {
-        color: #f6755e;
-    }
-
-    #start_date, #end_date {
-        color: black;
-    }
-
-    textarea{
-			resize: none;
-    }
-</style>

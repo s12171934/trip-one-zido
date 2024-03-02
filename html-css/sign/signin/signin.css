@@ -25,10 +25,25 @@
 #actions {
     font-family: 'Jalnan';
     font-size: 25px;
+    color: aliceblue;
+  background-color: #ff928e;
 }
 option, select, div {
     color: #bcbcbc;
 }
+
+#leftPosition {
+    text-align: left;
+}
+
+#centerPosition {
+    text-align: center;
+}
+
+#gender {
+    color: #bcbcbc;
+}
+
 @font-face {
 	font-family: 'Jalnan';
 	src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');

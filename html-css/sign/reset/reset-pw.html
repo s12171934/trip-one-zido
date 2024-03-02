@@ -6,7 +6,8 @@
 	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="/html-css/assets/css/main.css">
-	<link rel="stylesheet" href="/html-css/sign/reset-pw.css">
+	<link rel="stylesheet" href="./reset-pw.css">
+	<link rel="stylesheet" href="/html-css/common/common.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" 
 	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
@@ -18,20 +19,20 @@
 	<a href="/html-css/index.html"  class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
 	<nav class="right">
 	<!-- 로그인 로그아웃버튼 -->
-		<a href="/html-css/sign/login.html" id="button" class="button alt">로그인</a>
-		<a href="/html-css/sign/signin.html" id="button" class="button alt">회원가입</a>
+	<a href="/html-css/sign/login/login.html" id="button" class="button alt">로그인</a>
+	<a href="/html-css/sign/signin/signin.html" id="button" class="button alt">회원가입</a>
 	</nav>	
 </header>
 
 <!-- One -->
-<section id="main" class="wrapper" style= "margin-left: 5%; margin-right: 5%;">
+<section id="main" class="wrapper">
 <div class="inner">
 	<h1>비밀번호 재설정</h1>
 	<br>
 
 	<form method="post" action="#">
 		<table class="border border-secondary-subtle" width = "600" border = "1" cellspacing = "0" cellpadding = "3" align = "center" >
-			<tr style="background-color: white;">
+			<tr id="trHeader">
 				<td width = "200">새로운 비밀번호</td>
 				<td width = "400"><input type = "password" name="changepasswd" size = "10" maxlength = "10" value = "testtest123"></td>
 			</tr>
@@ -44,13 +45,13 @@
 		</table>
 
 		<ul class="actions">
-			<li style="margin-left: 40%;">
+			<li id="changeBox">
 				<button type="button" class="rounded-3" onclick="location.href='/html-css/sign/login.html'">변경하기</button>
 			</li>
 		</ul>
 
 		<!-- Break1 -->
-		<div class="12u$" style="text-align: center;">
+		<div class="12u$" id="centerPosition">
 			<ul class="actions">
 			<!-- Button trigger modal -->
 			<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -67,7 +68,7 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
 
-						<div class="m-5 modal-body border rounded-3" style="background-color: #D9D9D9;">
+						<div class="m-5 modal-body border rounded-3" id="modalBox">
 						<h3>비밀번호와 </h3>
 						<h3>비밀번호확인이 </h3>
 						<h3>다릅니다</h3>
@@ -83,7 +84,7 @@
 			</ul>
 		</div>
 		<!-- Break2 -->
-		<div class="12u$" style="text-align: center;">
+		<div class="12u$" id="centerPosition">
 			<ul class="actions">
 			<!-- Button trigger modal -->
 			<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
@@ -100,7 +101,7 @@
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						</div>
 
-						<div class="m-5 modal-body border rounded-3" style="background-color: #D9D9D9;">
+						<div class="m-5 modal-body border rounded-3" id="modalBox">
 						<h3>비밀번호가 </h3>
 						<h3>변경되었습니다 </h3>
 						</div>

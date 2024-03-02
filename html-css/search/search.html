@@ -6,6 +6,8 @@
 		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="/html-css/assets/css/main.css">
+		<link rel="stylesheet" href="/html-css/common/common.css">
+		<link rel="stylesheet" href="/html-css/search/search.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 	</head>
 	<body>
@@ -28,89 +30,94 @@
 			<!-- Menu -->
 			<nav id="menu">
 				<ul class="links">
-					<li><a href="/html-css/index.html">게시물등록</a></li>
-					<li><a href="/html-css/community/community.html">커뮤니티</a></li>
-					<li><a href="/html-css/config/config.html">최근기록</a></li>
-                    <li><a href="/html-css/main/zzim.html">찜목록</a></li>
-                    <li><a href="/html-css/info/info.html">관광정보</a></li>
-                    <li><a href="logout.html">로그아웃</a></li>
+					<li><a href="/html-css/schedule/add.html">게시물등록</a></li>
+                    <li><a href="/html-css/community/community.html">커뮤니티</a></li>
+                    <li><a href="/html-css/config/recent/recent-view.html">최근기록</a></li>
+                    <li><a href="/html-css/main/zzim/zzim.html">찜목록</a></li>
+                    <li><a href="/html-css/info/info/info.html">관광정보</a></li>
+                    <li><a href="/html-css/index.html">로그아웃</a></li>
 				</ul>
 				<ul class="actions vertical">
 					<li><a href="#" class="button fit">로그아웃</a></li>
 				</ul>
 			</nav>
             
-
-			<section id="main" class="wrapper" style= "margin-left: 5%; margin-right: 5%;">	
-				<div style="display: flex; justify-content: center;">
-				<form action="#" method="GET" class="input-group" style="width: 70%;">
+			<section id="main" class="wrapper">	
+				<div id="searchBar">
+				<form action="#" method="GET" class="input-group">
 						<input name="q" type="text" class="form-control" placeholder="검색어를 입력해주세요" aria-label="Recipient's username" aria-describedby="button-addon2">
 						<button class="button alt" type="submit" id="more">검색</button>
 						<button class="button alt" type="button" id="more" onclick="location.href='/html-css/search/searchDetail.html'">일정 & 장소 상세검색으로</button>
 					</form>
 				</div>
-				<div style="text-align: left;">
+				<div id="mainTitle">
 					<div class="d-flex flex-row mb-6" id="search">
 					<!-- 검색어 -->
                     <h1> 12 건 </h1>
 					&nbsp;&nbsp;&nbsp;&nbsp;
-					<h1 class="title" style="color:#ff928e">의 검색 결과</h1>
+					<h1 class="title">의 검색 결과</h1>
                     <br>
                 	</div>
 				</div>
 				<br><br><br>
-				<div style="text-align: left; margin-left: 5%;">
+				<div id="searchTitle">
                     <div class="d-flex flex-row mb-6">
-                        <h3 style="color:#f6755e">계정</h3>
+                        <h3 id="searchResult" >계정</h3>
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <h5 style="margin-top: 0.5%;">2</h5>
+                        <h5>2</h5>
                     </div>
                 </div>
-				<div class="d-flex flex-row mb-6" style="margin-left: 5%; overflow: auto;">
-					<div class="p-2"><span class="image round"><a href="/html-css/main/detail_other.html"><img src="/html-css/images/유재석.png" alt="" width="330" height="330"></a></span><p style="text-align: center;">유재석</p></div>
-					<div class="p-2"><span class="image round"><img src="/html-css/images/조세호.png" alt="" width="330" height="330"></span><p style="text-align: center;">조세호</p></div>
+				<div class="d-flex flex-row mb-6" id="searchUser">
+					<div class="p-2">
+						<span class="image round"><a href="/html-css/main/detail/detail_other.html"><img id="userPic" src="/html-css/images/유재석.png" alt=""></a></span>
+						<p id="listTitle">유재석</p></div>
+					<div class="p-2">
+						<span class="image round"><img id="userPic" src="/html-css/images/조세호.png" alt="" ></span><p id="listTitle">조세호</p></div>
 				  </div>
 
 				<br><br><br>
-				<div style="text-align: left; margin-left: 5%;">
+				<div id="searchTitle">
                     <div class="d-grid gap-3 d-md-flex justify-content-md">   
-                        <h3 style="color:#f6755e">일정</h3>
-                        <h5 style="margin-top: 0.5%;">5</h5>
-						<div style="margin-left: auto">	
+                        <h3 id="searchResult">일정</h3>
+                        <h5>5</h5>
+						<!-- <div style="margin-left: auto">	 -->
 						<!-- <a href="/html-css/search/searchDetail.html" class="button alt small">더보기</a> -->
-						</div>
+						<!-- </div> -->
 					</div>
 				</div>
 					
-				<div class="d-flex flex-row mb-6" style="margin-left: 5%; overflow: auto;" >
-					<div class="p-2"><a href="/html-css/schedule/detail.html"><img src="/html-css/images/서울특별시(경복궁).png" alt="" width="260" height="260" class="rounded-5"></a>
-						<p style="text-align: center;">일정조회</p></div>
-					<div class="p-2"><a href="/html-css/schedule/detail_other.html"><img src="/html-css/images/대구광역시(두류공원).jpg" alt="" width="260" height="260" class="rounded-5"></a>
-						<p style="text-align: center;">일정조회(타인)</p></div>
-					<div class="p-2"><img src="/html-css/images/전라남도 보성(녹차밭).png" alt="" width="260" height="260" class="rounded-5"><p style="text-align: center;">보성</p></div>
-					<div class="p-2"><img src="/html-css/images/울산광역시(대왕암공원).png" alt="" width="260" height="260" class="rounded-5"><p style="text-align: center;">울산</p></div>
-					<div class="p-2"><img src="/html-css/images/전라도 전주(한옥마을).png" alt="" width="260" height="260" class="rounded-5"><p style="text-align: center;">전주</p></div>
+				<div class="d-flex flex-row mb-6" id="searchSchedule" >
+					<div class="p-2"><a href="/html-css/schedule/detail.html"><img src="/html-css/images/서울특별시(경복궁).png" alt="" id="searchPic" class="rounded-5"></a>
+						<p id="listTitle">일정조회</p></div>
+					<div class="p-2"><a href="/html-css/schedule/detail_other.html"><img src="/html-css/images/대구광역시(두류공원).jpg" alt="" id="searchPic" class="rounded-5"></a>
+						<p id="listTitle">일정조회(타인)</p></div>
+					<div class="p-2"><img src="/html-css/images/전라남도 보성(녹차밭).png" alt="" id="searchPic" class="rounded-5">
+						<p id="listTitle">보성</p></div>
+					<div class="p-2"><img src="/html-css/images/울산광역시(대왕암공원).png" alt="" id="searchPic" class="rounded-5">
+						<p id="listTitle">울산</p></div>
+					<div class="p-2"><img src="/html-css/images/전라도 전주(한옥마을).png" alt="" id="searchPic" class="rounded-5">
+						<p id="listTitle">전주</p></div>
 				</div>
 
 				<br><br><br>
-				<div style="text-align: left; margin-left: 5%;">
+				<div id="searchTitle">
                     <div class="d-grid gap-3 d-md-flex justify-content-md">   
-                        <h3 style="color:#f6755e">장소</h3>
-                        <h5 style="margin-top: 0.5%;">5</h5>
-						<div style="margin-left: auto">	
+                        <h3 id="searchResult">장소</h3>
+                        <h5>5</h5>
+						<!-- <div style="margin-left: auto">	 -->
 						<!-- <a href="/html-css/search/searchDetail.html" class="button alt small">더보기</a> -->
-						</div>
+						<!-- </div> -->
 					</div>
 				</div>
 				
-				<div class="d-flex flex-row mb-6" style="margin-left: 5%; overflow: auto;"  >
-					<div class="p-2"><a href="/html-css/location/detail.html"><img src="/html-css/images/경상북도 경주(동궁과 월지).png" alt="" width="260" height="260" class="rounded-5"></a>
-						<p style="text-align: center;">장소조회</p></div>
-						<div class="p-2"><a href="/html-css/location/detail_other.html"><img src="/html-css/images/dragoncastle.jpg" alt="" width="260" height="260" class="rounded-5"></a>
-							<p style="text-align: center;">장소조회(타인)</p></div>
-					<div class="p-2"><img src="/html-css/images/daejon3.jpg" alt="" width="260" height="260" class="rounded-5"><p style="text-align: center;">대전장소3</p></div>
-					<div class="p-2"><img src="/html-css/images/busan1.jpg" alt="" width="260" height="260" class="rounded-5"><p style="text-align: center;">부산장소1</p></div>
-					<div class="p-2"><img src="/html-css/images/busan2.jpg" alt="" width="260" height="260" class="rounded-5"><p style="text-align: center;">부산장소2</p></div>
+				<div class="d-flex flex-row mb-6" id="searchLocation"  >
+					<div class="p-2"><a href="/html-css/location/detail.html"><img src="/html-css/images/경상북도 경주(동궁과 월지).png" alt="" id="searchPic" class="rounded-5"></a>
+						<p id="listTitle">장소조회</p></div>
+						<div class="p-2"><a href="/html-css/location/detail_other.html"><img src="/html-css/images/dragoncastle.jpg" alt="" id="searchPic" class="rounded-5"></a>
+							<p id="listTitle">장소조회(타인)</p></div>
+					<div class="p-2"><img src="/html-css/images/daejon3.jpg" alt="" id="searchPic" class="rounded-5"><p id="listTitle">대전장소3</p></div>
+					<div class="p-2"><img src="/html-css/images/busan1.jpg" alt="" id="searchPic" class="rounded-5"><p id="listTitle">부산장소1</p></div>
+					<div class="p-2"><img src="/html-css/images/busan2.jpg" alt="" id="searchPic" class="rounded-5"><p id="listTitle">부산장소2</p></div>
 				</div>
             </section>
 			
@@ -136,22 +143,3 @@
 		<script src="/html-css/assets/js/main.js"></script>
 	</body>
 	</html>
-	<style>
-        @font-face {
-            font-family: 'Jalnan';
-            src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');
-        }
-
-        #footer {
-            font-family: 'Jalnan';
-            font-size: 10px;
-        }
-
-		h1, h2, h3, h4, body, .button {
-			font-family: 'Jalnan';
-		}
-
-		#menu {
-            font-size: 20px;
-        }
-	</style>
