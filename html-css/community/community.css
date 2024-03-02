@@ -1,0 +1,38 @@
+@font-face {
+    font-family: 'Jalnan';
+    src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');
+}
+#footer {
+    font-family: 'Jalnan';
+    font-size: 10px;
+}
+h1, h2, h3, h4, body, .button, section {
+    font-family: 'Jalnan';
+}
+h1 {
+    color: #ff928e !important;
+}
+#menu {
+    font-family: 'Jalnan';
+    font-size: 20px;
+}
+thead {
+    font-size: 15px;
+    color: #929292;
+}
+.wrapper {
+    margin-left: 5% !important; 
+    margin-right: 5% !important;
+}
+#button {
+    color: aliceblue !important; 
+    background-color:#ff928e !important;
+    font-size: 15px;
+}
+#table {
+    font-size: 15px !important;
+    color: #929292 !important;
+}
+#black {
+    color: black !important;
+}
