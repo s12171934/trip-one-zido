@@ -1,0 +1,478 @@
+<!DOCTYPE HTML>
+<!--
+	Intensify by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+
+<head>
+    <title>Intensify by TEMPLATED</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/html-css/assets/css/main.css">
+    <link rel="stylesheet" href="/html-css/main/detail/detail.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Header -->
+    <header id="header">
+        <nav class="left">
+            <a href="#menu"><span>Menu</span></a>
+        </nav>
+        <a href="/html-css/index.html" class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
+        <nav class="right">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top: 3%;">
+                <form action="/html-css/search/search.html"><input type="text" required style="margin-top: 2%"></form>
+                <span class="image round" box-sha><a href="/html-css/config/config.html"> <img
+                            src="/html-css/images/남자.png" width="75" height="75"></a></span>
+
+            </div>
+        </nav>
+    </header>
+    <!-- Menu -->
+    <nav id="menu">
+        <ul class="links">
+            <li><a href="/html-css/schedule/add.html">게시물등록</a></li>
+            <li><a href="/html-css/community/community.html">커뮤니티</a></li>
+            <li><a href="/html-css/config/recent-view.html">최근기록</a></li>
+            <li><a href="/html-css/main/zzim.html">찜목록</a></li>
+            <li><a href="/html-css/info/info.html">관광정보</a></li>
+            <li><a href="/html-css/index.html">로그아웃</a></li>
+        </ul>
+    </nav>
+
+    <section id="main" class="wrapper">
+        <div class="d-flex flex-row mb-2">
+            <div class="d-flex flex-column mb-2" id="leftSide">
+                <div class="p-2">
+                    <div id="mainTitle">
+                        <p>
+                            <img id="userPic" src="/html-css/images/pic01.jpg" alt="" class="rounded-circle">
+                            <sapn id="userName">여행자님!</sapn>
+                        </p>
+                    </div>
+                    <ul class="actions fit">
+                        <li><a href="/html-css/config/config.html" class="button special fit rounded-5">프로필 편집</a></li>
+                    </ul>
+                    <hr>
+                    <div class="d-flex flex-row mb-3">
+                        <div class="p-2" id="p-2">
+                            <h3>12</h3>
+                            <h3>게시물</h3>
+                        </div>
+                        <div class="p-2" id="p-2">
+                            <h3>255</h3>
+                            <h3 data-bs-toggle="modal" data-bs-target="#exampleModal">팔로워</h3>
+                            <!-- Modal -->
+                            <!-- <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">팔로워</button> -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <!-- Vertically centered scrollable modal -->
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header border border-0">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="m-4 modal-body border rounded-3" id="followSearch">
+                                            <input type="text" required placeholder="팔로우 아이디 찾기!">
+                                        </div>
+
+                                        <div class="m-4 modal-body border rounded-3" id="searchResult">
+                                            <div class="d-flex">
+                                                <a href="/html-css/main/detail/detail_other.html"><img class="rounded-circle" id="followPic" src="/html-css/images/유재석.png" alt="..." /></a>
+
+                                                <div class="d-flex flex-column" id="followRequest">
+                                                    <div class="fw-bold"> <h4>팔로우 요청하기</h4>
+                                                    </div>
+                                                    <div class="fw-bold">아이디 <span id="followButton"><button class="btn btn-sm">요청</button></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="m-4 modal-body border rounded-3" id="followList">
+                                            <div class="d-flex">
+                                                <a href="/html-css/main/detail/detail_other.html"><img class="rounded-circle" id="followPic" src="/html-css/images/유재석.png" alt="..." /></a>
+
+                                                <div class="d-flex flex-column" id="followRequest">
+                                                    <div class="fw-bold"> <h4>유재석</h4>
+                                                    </div>
+                                                    <div class="fw-bold">아이디 <span id="followButton"><button class="btn btn-sm">삭제</button></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex">
+                                                <a href="/html-css/main/detail/detail_other.html"><img class="rounded-circle" id="followPic" src="/html-css/images/조세호.png" alt="..." /></a>
+                                                <div class="d-flex flex-column" id="followRequest">
+                                                    <div class="fw-bold"> <h4>조세호</h4>
+                                                    </div>
+                                                    <div class="fw-bold">아이디 <span id="followButton"><button class="btn btn-sm">삭제</button></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex">
+                                                <a href="/html-css/main/detail/detail_other.html"><img class="rounded-circle" id="followPic" src="/html-css/images/여자.png" alt="..." /></a>
+                                                <div class="d-flex flex-column" id="followRequest">
+                                                    <div class="fw-bold"> <h4>여자<h4>
+                                                    </div>
+                                                    <div class="fw-bold">아이디 <span id="followButton"><button class="btn btn-sm">삭제</button></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex">
+                                                <a href="/html-css/main/detail/detail_other.html"><img class="rounded-circle" id="followPic" src="/html-css/images/남자.png" alt="..." /></a>
+                                                <div class="d-flex flex-column" id="followRequest">
+                                                    <div class="fw-bold"> <h4>남자</h4>
+                                                    </div>
+                                                    <div class="fw-bold">아이디 <span id="followButton"><button class="btn btn-sm">삭제</button></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex">
+                                                <a href="/html-css/main/detail/detail_other.html"><img class="rounded-circle" id="followPic" src="/html-css/images/남자.png" alt="..." /></a>
+                                                <div class="d-flex flex-column" id="followRequest">
+                                                    <div class="fw-bold"> <h4>남자</h4>
+                                                    </div>
+                                                    <div class="fw-bold">아이디 <span id="followButton"><button class="btn btn-sm">삭제</button></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-2" id="p-2">
+                            <h3>37</h3>
+                            <h3 data-bs-toggle="modal" data-bs-target="#exampleModal_follow">팔로잉</h3>
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal_follow" tabindex="-1"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <!-- Vertically centered scrollable modal -->
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header border border-0">
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="m-4 modal-body border rounded-3" id="followingSearch">
+                                            <input type="text" required placeholder="팔로잉 아이디 찾기!">
+                                        </div>
+
+                                        <div class="m-4 modal-body border rounded-3" id="searchResult">
+                                            <div class="d-flex">
+                                                <a href="/html-css/main/detail/detail_other.html"><img class="rounded-circle" id="followPic" src="/html-css/images/유재석.png" alt="..." /></a>
+                                                <div class="d-flex flex-column" id="searchResult">
+                                                    <div class="fw-bold"> <h4>유재석</h4>
+                                                    </div>
+                                                    <div class="fw-bold">아이디 <span id="followingButton"><button class="btn btn-sm">팔로잉 중</button></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="m-4 modal-body border rounded-3" id="followingList">
+                                            <div class="d-flex">
+                                                <a href="/html-css/main/detail/detail_other.html"><img class="rounded-circle" id="followPic" src="/html-css/images/유재석.png" alt="..." /></a>
+                                                <div class="d-flex flex-column" id="followingStatus">
+                                                    <div class="fw-bold"> <h4>유재석</h4>
+                                                    </div>
+                                                    <div class="fw-bold">아이디 <span id="followingButton"><button class="btn btn-sm">팔로잉</button></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex">
+                                                <a href="/html-css/main/detail/detail_other.html"><img class="rounded-circle" id="followPic" src="/html-css/images/조세호.png" alt="..." /></a>
+                                                <div class="d-flex flex-column" id="followingStatus">
+                                                    <div class="fw-bold"> <h4>조세호</h4>
+                                                    </div>
+                                                    <div class="fw-bold">아이디 <span id="followingButton"><button class="btn btn-sm">팔로잉</button></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex">
+                                                <a href="/html-css/main/detail/detail_other.html"><img class="rounded-circle" id="followPic" src="/html-css/images/여자.png" alt="..." /></a>
+                                                <div class="d-flex flex-column" id="followingStatus">
+                                                    <div class="fw-bold"> <h4>여자</h4>
+                                                    </div>
+                                                    <div class="fw-bold">아이디 <span id="followingButton"><button class="btn btn-sm">팔로잉</button></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex">
+                                                <a href="/html-css/main/detail/detail_other.html"><img class="rounded-circle" id="followPic" src="/html-css/images/남자.png" alt="..." /></a>
+                                                <div class="d-flex flex-column" id="followingStatus">
+                                                    <div class="fw-bold"> <h4>남자</h4>
+                                                    </div>
+                                                    <div class="fw-bold">아이디 <span id="followingButton"><button class="btn btn-sm">팔로잉</button></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex">
+                                                <a href="/html-css/main/detail/detail_other.html"><img class="rounded-circle" id="followPic" src="/html-css/images/남자.png" alt="..." /></a>
+                                                <div class="d-flex flex-column" id="followingStatus">
+                                                    <div class="fw-bold"> <h4>남자</h4>
+                                                    </div>
+                                                    <div class="fw-bold">아이디 <span id="followingButton"><button class="btn btn-sm">팔로잉</button></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-2" id="p-2">
+                            <h3>999</h3>
+                            <h3><a href="/html-css/main/zzim.html">찜</a></h3>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="p-2">
+                    <div class="fs-5 mb-5" id=googleMap >
+                        <iframe class="rounded-5"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3260.7271121845406!2d129.2207447762419!3d35.18835345689094!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35688c1bbbdea6c1%3A0xa141406d6f112e5c!2z7ZW064-Z7Jqp6raB7IKs!5e0!3m2!1sko!2skr!4v1708994953688!5m2!1sko!2skr"
+                            style="border:0;" allowfullscreen="" loading="lazy" width="100%" height="250"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="p-2"> -->
+            <div class="d-flex flex-column mb-2" id="rightSide">
+                <div>
+                    <div class="d-flex flex-row mb-3">
+                        <h1>일정 게시물</h1>
+                        <div id="viewOrder">
+                            <ul class="actions">
+                                <li>
+                                    <select class="button alt small rounded-4" name="category" id="category">
+                                        <option value="">정렬기준▼</option>
+                                        <option value="1">조회순</option>
+                                        <option value="2">최신순</option>
+                                        <option value="3">가나다순</option>
+                                        <option value="4">핀꽃기</option>
+                                    </select>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div id="addBoardList">
+                            <ul class="actions vertical small">
+                                <li>
+                                    <select class="button alt small rounded-4" name="mySelect" id="mySelect">
+                                        <option value="">게시글 작성</option>
+                                        <option value="/html-css/schedule/add.html">일정 게시글</option>
+                                        <option value="/html-css/location/add.html">장소 게시글</option>
+                                    </select>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex flex-row mb-6" id="lists">
+                    <div class="p-2">
+                        <a href="/html-css/schedule/schedule.html" class="banner_img">
+                            <img id="schedulePic" src="/html-css/images/busan1.jpg" alt="" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img id="zzim" src="/html-css/images/zzim.png">58</span><br>
+                                <span><img id="star" src="/html-css/images/star.png" >8.5</span><br>
+                                <span><img id="like" src="/html-css/images/like.png">578</span>
+                            </p>
+                        </a>
+                        <p id="scheduleTitle">일정조회<img id="zzim" src="/html-css/images/zzim.png" onclick="zzim()"></p>
+                    </div>
+                    <div class="p-2">
+                        <a href="#;" class="banner_img">
+                            <img id="schedulePic" src="/html-css/images/busan2.jpg" alt="" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img id="zzim" src="/html-css/images/zzim.png">78</span><br>
+                                <span><img id="star" src="/html-css/images/star.png">5.5</span><br>
+                                <span><img id="like" src="/html-css/images/like.png">158</span>
+                            </p>
+                        </a>
+                        <p id="scheduleTitle">광안대교<img id="unzzim" src="/html-css/images/unzzim.png" onclick="zzim()"></p>
+                    </div>
+                    <div class="p-2">
+                        <a href="/html-css/info/detail.html" class="banner_img">
+                            <img id="schedulePic" src="/html-css/images/busan3.jpg" alt="" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img id="zzim" src="/html-css/images/zzim.png">1,238</span><br>
+                                <span><img id="star" src="/html-css/images/star.png">9</span><br>
+                                <span><img id="like" src="/html-css/images/like.png">902</span>
+                            </p>
+                        </a>
+                        <p id="scheduleTitle">해동용궁사<img id="unzzim" src="/html-css/images/unzzim.png" onclick="zzim()"></p>
+                    </div>
+                    <div class="p-2">
+                        <a href="#" class="banner_img">
+                            <img id="schedulePic" src="/html-css/images/busan1.jpg" alt="" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img id="zzim" src="/html-css/images/zzim.png">58</span><br>
+                                <span><img id="star" src="/html-css/images/star.png">7.5</span><br>
+                                <span><img id="like" src="/html-css/images/like.png">578</span>
+                            </p>
+                        </a>
+                        <p id="scheduleTitle">광안리<img id="zzim" src="/html-css/images/zzim.png" onclick="zzim()"></p>
+                    </div>
+                    <div class="p-2">
+                        <a href="#;" class="banner_img">
+                            <img id="schedulePic" src="/html-css/images/busan2.jpg" alt="" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img id="zzim" src="/html-css/images/zzim.png">78</span><br>
+                                <span><img id="star" src="/html-css/images/star.png">0.5</span><br>
+                                <span><img id="like" src="/html-css/images/like.png">158</span>
+                            </p>
+                        </a>
+                        <p id="scheduleTitle">광안대교<img id="unzzim" src="/html-css/images/unzzim.png" onclick="zzim()"></p>
+                    </div>
+                    <div class="p-2">
+                        <a href="#;" class="banner_img">
+                            <img id="schedulePic" src="/html-css/images/busan3.jpg" alt="" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img id="zzim" src="/html-css/images/zzim.png">1,238</span><br>
+                                <span><img id="star" src="/html-css/images/star.png">5</span><br>
+                                <span><img id="like" src="/html-css/images/like.png">902</span>
+                            </p>
+                        </a>
+                        <p id="scheduleTitle">해동용궁사<img id="unzzim" src="/html-css/images/unzzim.png" onclick="zzim()"></p>
+                    </div>
+                </div>
+                <div class="p-2">
+                    <div class="d-flex flex-row mb-3">
+                        <h1>장소 게시물</h1>
+                        <div id="viewOrder">
+                            <ul class="actions">
+                                <li>
+                                    <select class="button alt small rounded-4" name="category" id="category">
+                                        <option value="">정렬기준▼</option>
+                                        <option value="1">조회순</option>
+                                        <option value="2">최신순</option>
+                                        <option value="3">가나다순</option>
+                                        <option value="4">핀꽃기</option>
+                                    </select>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex flex-row mb-6" id="lists">
+                    <div class="p-2">
+                        <a href="/html-css/location/detail.html" class="banner_img">
+                            <img id="locationPic" src="/html-css/images/경상북도 경주(동궁과 월지).png" alt=""
+                                class="rounded-5">
+                            <p class="hover_text">
+                                <span><img id="zzim" src="/html-css/images/zzim.png">58</span><br>
+                                <span><img id="star" src="/html-css/images/star.png">8.5</span><br>
+                                <span><img id="like" src="/html-css/images/like.png">578</span>
+                            </p>
+                        </a>
+                        <p id="locationTitle">장소조회<img id="zzim" src="/html-css/images/zzim.png" onclick="zzimi()"></p>
+                    </div>
+                    <div class="p-2">
+                        <a href="/html-css/location/detail_other.html" class="banner_img">
+                            <img id="locationPic" src="/html-css/images/busan2.jpg" alt="" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img id="zzim" src="/html-css/images/zzim.png">78</span><br>
+                                <span><img id="star" src="/html-css/images/star.png">5.5</span><br>
+                                <span><img id="like" src="/html-css/images/like.png">158</span>
+                            </p>
+                        </a>
+                        <p id="locationTitle">장소조회(타인)<img id="unzzim" src="/html-css/images/unzzim.png" onclick="zzim()"></p>
+                    </div>
+                    <div class="p-2">
+                        <a href="/html-css/info/detail.html" class="banner_img">
+                            <img id="locationPic" src="/html-css/images/busan3.jpg" alt="" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img id="zzim" src="/html-css/images/zzim.png">1,238</span><br>
+                                <span><img id="star" src="/html-css/images/star.png">9</span><br>
+                                <span><img id="like" src="/html-css/images/like.png">902</span>
+                            </p>
+                        </a>
+                        <p id="locationTitle">해동용궁사<img id="unzzim" src="/html-css/images/unzzim.png" onclick="zzim()"></p>
+                    </div>
+                    <div class="p-2">
+                        <a href="#" class="banner_img">
+                            <img id="locationPic" src="/html-css/images/busan1.jpg" alt="" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img id="zzim" src="/html-css/images/zzim.png">58</span><br>
+                                <span><img id="star" src="/html-css/images/star.png">7.5</span><br>
+                                <span><img id="like" src="/html-css/images/like.png">578</span>
+                            </p>
+                        </a>
+                        <p id="locationTitle">광안리<img id="zzim" src="/html-css/images/zzim.png" onclick="zzim()"></p>
+                    </div>
+                    <div class="p-2">
+                        <a href="#;" class="banner_img">
+                            <img id="locationPic" src="/html-css/images/busan2.jpg" alt="" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img id="zzim" src="/html-css/images/zzim.png">78</span><br>
+                                <span><img id="star" src="/html-css/images/star.png">0.5</span><br>
+                                <span><img id="like" src="/html-css/images/like.png">158</span>
+                            </p>
+                        </a>
+                        <p id="locationTitle">광안대교<img id="unzzim" src="/html-css/images/unzzim.png" onclick="zzim()"></p>
+                    </div>
+                    <div class="p-2">
+                        <a href="#;" class="banner_img">
+                            <img id="locationPic" src="/html-css/images/busan3.jpg" alt="" class="rounded-5">
+                            <p class="hover_text">
+                                <span><img id="zzim" src="/html-css/images/zzim.png">1,238</span><br>
+                                <span><img id="star" src="/html-css/images/star.png">5</span><br>
+                                <span><img id="like" src="/html-css/images/like.png">902</span>
+                            </p>
+                        </a>
+                        <p id="locationTitle">해동용궁사<img id="unzzim" src="/html-css/images/unzzim.png" onclick="zzim()"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="inner">
+            <h2>Get In Touch</h2>
+            <ul class="actions">
+                <li><span class="icon fa-phone"></span> <a href="#">(000) 000-0000</a></li>
+                <li><span class="icon fa-envelope"></span> <a href="#">information@untitled.tld</a></li>
+                <li><span class="icon fa-map-marker"></span> 123 Somewhere Road, Nashville, TN 00000</li>
+            </ul>
+        </div>
+    </footer>
+    <div class="copyright">Powered by:
+        <a href="https://templated.co/">TEMPLATED</a>.
+    </div>
+    <!-- Scripts -->
+    <script src="/html-css/assets/js/jquery.min.js"></script>
+    <script src="/html-css/assets/js/jquery.scrolly.min.js"></script>
+    <script src="/html-css/assets/js/skel.min.js"></script>
+    <script src="/html-css/assets/js/util.js"></script>
+    <script src="/html-css/assets/js/main.js"></script>
+    <script src="/html-css/main/detail/detail.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
