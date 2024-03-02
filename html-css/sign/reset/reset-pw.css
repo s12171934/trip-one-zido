@@ -8,6 +8,10 @@ button {
     background-color:#ff928e;
 }
 
+#id {
+    margin-left: 5%; margin-right: 5%;
+}
+
 h1 {
     color: #ff928e !important;
 }
@@ -15,6 +19,20 @@ h1 {
     font-family: 'Jalnan';
     font-size: 20px;
 }
+
+#trHeader{
+    background-color: white;
+}
+
+
+#changeBox {
+    margin-left: 40%;
+}
+
+#centerPosition {
+    text-align: center;
+}
+
 @font-face {
 	font-family: 'Jalnan';
 	src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');

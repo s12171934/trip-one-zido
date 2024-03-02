@@ -88,16 +88,6 @@ h3 {
   margin-left: auto
 }
 
-#modalButton {
-  color: aliceblue;
-  background-color: #ff928e;
-}
-
-#modalBox {
-  background-color: #D9D9D9;
-}
-
-
 @font-face {
   font-family: 'Jalnan';
   src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');
