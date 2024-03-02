@@ -1,3 +1,93 @@
+#main {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+#mainTitle {
+  text-align: left;
+}
+
+#leftSide {
+  width: 50%;
+}
+
+#actions{
+  margin-left: 1%;
+}
+
+#icon{
+  width: 50px;
+  height: 50px;
+  margin-left: 1%; 
+  margin-right: 1%;
+}
+
+#createdAt{
+  margin: 1%;
+}
+
+#rightSide{
+  width: 50%;
+}
+
+#formButton{
+  background-color:#ff8783;
+}
+
+#formButton > a{
+  color: aliceblue; text-decoration-line: none;
+}
+
+#deleteButton{
+  color: aliceblue; background-color:#ff8783;
+}
+
+#afterStory{
+  margin-top: 6%;
+}
+
+#afterStory > textarea{
+  resize: none; width:75%;
+}
+
+#commentBody {
+  width: 75%; margin-top: 3%;
+}
+
+.card-body > form {
+  display: flex; align-items: center; justify-content: center;
+}
+
+#comment > input{
+  margin-right: 10px;
+}
+
+#plusComment {
+  color:darkgray; text-decoration:none
+}
+
+#addedComment {
+  text-decoration:none
+}
+
+#commentUpdate,#commentDelete {
+  color:darkgray; text-decoration:none
+}
+
+.ms-3 {
+  width: 150%;
+}
+
+#modalButton {
+  color: aliceblue;
+  background-color: #ff928e;
+}
+
+#modalBox {
+  background-color: #D9D9D9;
+}
+
+
 /* 스크롤바 */
 div::-webkit-scrollbar{ /* 스크롤바 배경 */
     height: 15px;
