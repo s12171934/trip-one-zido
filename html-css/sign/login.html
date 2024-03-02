@@ -1,274 +1,187 @@
 <!DOCTYPE HTML>
 <html lang="ko">
-	<head>
-		<title>Intensify by TEMPLATED</title>
-		<meta charset="utf-8">
-		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="/html-css/assets/css/main.css">
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" 
-		integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<head>
+	<title>Intensify by TEMPLATED</title>
+	<meta charset="utf-8">
+	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="/html-css/assets/css/main.css">
+	<link rel="stylesheet" href="/html-css/sign/login.css">	
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" 
+	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
-		<!-- 네이버 로그인 API 호출을 위한 스크립트 -->
-		<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" type="text/javascript"></script>
-    	<!-- 카카오 로그인 API 호출을 위한 스크립트 -->
-    	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-	</head>
+	<!-- 네이버 로그인 API 호출을 위한 스크립트 -->
+	<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" type="text/javascript"></script>
+	<!-- 카카오 로그인 API 호출을 위한 스크립트 -->
+	<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+</head>
 
-	<body>
-		<!-- Header -->
-        <header id="header">
-            <!-- 헤더로고 : 350 -->
-			<a href="/html-css/index.html"  class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
-			<nav class="right">
-            <!-- 로그인 로그아웃버튼 -->
-				<a href="/html-css/sign/login.html" id="button" class="button alt">로그인</a>
-				<a href="/html-css/sign/signin.html" id="button" class="button alt">회원가입</a>
-			</nav>
+<body>
+<!-- Header -->
+<header id="header">
+	<!-- 헤더로고 : 350 -->
+	<a href="/html-css/index.html"  class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
+	<nav class="right">
+	<!-- 로그인 로그아웃버튼 -->
+		<a href="/html-css/sign/login.html" id="button" class="button alt">로그인</a>
+		<a href="/html-css/sign/signin.html" id="button" class="button alt">회원가입</a>
+	</nav>
+</header>
 
-            <style>
-                #button {
-				    border-radius: 30px;
-                    font-size: 17px;
-			    }
-				H1 {
-					font-family: 'Jalnan';
-				}
-				#input {
-					font-family: 'Jalnan';
-					font-size: 17px;
-				}
-				.wrapper {
-					padding-left: 100px;
-					padding-right: 100px;
-					background-color: #D9D9D9;
-					border-radius: 50px;
-					margin-inline: 500px;
-					margin-top: 3%;
-					margin-bottom: 3%;
-				}
-				#box {
-					background-color: white;
-					border-radius: 50px;
-				}
-				h3 {
-					font-family: 'Jalnan';
-				}
-
-            </style>
-		</header>
-
-		<!-- One -->
-		<section id="main" class="wrapper d-flex flex-row justify-content-center border" >
-			<div id="box" class="inner d-flex flex-column justify-content-evenly align-items-center border p-5">
+<!-- One -->
+<section class="wrapper d-flex flex-row justify-content-center" >
+	<div id="box" class="d-flex flex-column justify-content-evenly align-items-center border">
+	<form method="post" action="#" class="border border-5">
+		<h1>로그인</h1>
+		<div class="row uniform">
+			<div class="12u$">
+				<input type="text" name="userid" id="userid" value="" placeholder="아이디">
+			</div>
+			<!-- 비밀번호 -->
+			<div class="12u$">
+				<input type="password" name="pw" id="pw" value="" placeholder="비밀번호">
+			</div>
 			
-			<form method="post" action="#" class="border border-5 p-3">
-				<h1 style="color:#ff928e; text-align: center;">로그인</h1>
-				<div class="row uniform ">
-					<div class="12u$">
-						<input type="text" name="userid" id="userid" value="" placeholder="아이디">
-					</div>
-					<!-- 비밀번호 -->
-					<div class="12u$">
-						<input type="password" name="pw" id="pw" value="" placeholder="비밀번호">
-					</div>
-					
-					<div class="d-flex flex-row justify-content-cente p-4">
-						<div class="6u$ 12u$(small)" style="text-align: left;">
-							<input type="checkbox" id="idsave" name="idsave">
-							<label for="idsave">아이디 저장</label>
-						</div>
-						<div class="6u$ 12u$(small)" style="text-align: center;">
-							<input type="checkbox" id="autologin" name="autologin" checked>
-							<label for="autologin">자동 로그인</label>
-						</div>
-						<div class="6u$ 12u$(small)" style="text-align: right; font-size: 14px;" >
-							<a href="/html-css/sign/find.html" style="color: #ff928e;">아이디 / 비밀번호 찾기</a>
-						</div>
-					</div>
+			<div class="d-flex flex-row justify-content-cente">
+				<div class="6u$ 12u$(small)" style="text-align: left;">
+					<input type="checkbox" id="idsave" name="idsave">
+					<label for="idsave">아이디 저장</label>
+				</div>
+				<div class="6u$ 12u$(small)" style="text-align: center;">
+					<input type="checkbox" id="autologin" name="autologin" checked>
+					<label for="autologin">자동 로그인</label>
+				</div>
+				<div class="6u$ 12u$(small)" style="text-align: right; font-size: 14px;" >
+					<a href="/html-css/sign/find.html" style="color: #ff928e;">아이디 / 비밀번호 찾기</a>
+				</div>
+			</div>
+			
+			<!-- Break -->
+			<div class="12u$" style="text-align: center;">
+				<div class="d-grid gap-2 d-md-flex justify-content-md-center">   
+					<a href="/html-css/main/main.html" class="button small">로그인</a>
+					<button type="button" class="button alt small" data-bs-toggle="modal" data-bs-target="#exampleModal">
+						로그인 실패 모달
+					</button>
+				</div>
+				<!-- Button trigger modal -->
 
-
-					
-					<!-- Break -->
-					<div class="12u$" style="text-align: center;">
-							<div class="d-grid gap-2 d-md-flex justify-content-md-center">   
-								<a href="/html-css/main/main.html" class="button small">로그인</a>
-								<button type="button" class="button alt small" data-bs-toggle="modal" data-bs-target="#exampleModal">
-									로그인 실패 모달
-								</button>
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<!-- Vertically centered scrollable modal -->
+					<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+						<div class="modal-content">
+							<div class="modal-header border border-0">
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
-							<!-- Button trigger modal -->
-							
 
-							<!-- Modal -->
-							<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-								<!-- Vertically centered scrollable modal -->
-								<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-									<div class="modal-content">
-										<div class="modal-header border border-0">
-											<!-- <h1 class="modal-title fs-5" id="exampleModalLabel">타이틀 없애고</h1> -->
-											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-										</div>
-
-										<div class="m-5 modal-body border rounded-3" style="background-color: #D9D9D9;">
-											<h3>아이디와 비밀번호를</h3>
-											<h3>확인해주세요</h3>
-										</div>
-
-										<div class="modal-footer border border-0">
-											<!-- <button type="button" class="btn btn-secondary" >로그인하러가기</button> -->
-											<button type="button" class="rounded-3" style="color: aliceblue; background-color:#ff928e;" data-bs-dismiss="modal">로그인하러가기</button>
-										</div>
-									</div>
-								</div>
+							<div class="m-5 modal-body border rounded-3" style="background-color: #D9D9D9;">
+								<h3>아이디와 비밀번호를</h3>
+								<h3>확인해주세요</h3>
 							</div>
-							<!-- </li> -->
-						</ul>
+
+							<div class="modal-footer border border-0">
+								<!-- <button type="button" class="btn btn-secondary" >로그인하러가기</button> -->
+								<button type="button" class="rounded-3" style="color: aliceblue; background-color:#ff928e;" data-bs-dismiss="modal">로그인하러가기</button>
+							</div>
+						</div>
 					</div>
 				</div>
-			</form>
+			</div>
+		</div>
+	</form>
 
-			<div class="d-flex flex-column p-3">
-				<h1 style="color:#ff928e; text-align: center;" >SNS 연동하기</h1>
-				<div class="d-flex flex-row">
-										<!-- 네이버 로그인 버튼 -->
-				<div id="naverIdLogin"></div>
+	<div class="d-flex flex-column p-3">
+		<h1>SNS 연동하기</h1>
+		<div class="d-flex flex-row">
+		<!-- 네이버 로그인 버튼 -->
+		<div id="naverIdLogin"></div>
 
-				<script type="text/javascript">
-					// 네이버 로그인 설정
-					var naverLogin = new naver.LoginWithNaverId({
-						clientId: '네이버에서 발급받은 클라이언트 ID',
-						callbackUrl: 'http://YOUR_DOMAIN/auth/naver/callback',
-						isPopup: false,
-						loginButton: {color: 'green', type: 3, height: 60},
-						callbackHandle: true
-					});
-					// 네이버 로그인 버튼 생성
-					naverLogin.init();
-				</script>
+		<script type="text/javascript">
+			// 네이버 로그인 설정
+			var naverLogin = new naver.LoginWithNaverId({
+				clientId: '네이버에서 발급받은 클라이언트 ID',
+				callbackUrl: 'http://YOUR_DOMAIN/auth/naver/callback',
+				isPopup: false,
+				loginButton: {color: 'green', type: 3, height: 60},
+				callbackHandle: true
+			});
+			// 네이버 로그인 버튼 생성
+			naverLogin.init();
+		</script>
 
-				<!-- 카카오톡 아이디로 로그인 버튼 -->
-				<a href="#" id="kakao-login-btn">
-					<img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" alt="카카오톡 아이디로 로그인">
-				</a>
+		<!-- 카카오톡 아이디로 로그인 버튼 -->
+		<a href="#" id="kakao-login-btn">
+			<img src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" alt="카카오톡 아이디로 로그인">
+		</a>
 
-				<script>
-					// 카카오 로그인 설정
-					Kakao.init('발급받은 클라이언트 ID');
+		<script>
+			// 카카오 로그인 설정
+			Kakao.init('발급받은 클라이언트 ID');
 
-					// 카카오톡 아이디로 로그인 버튼 이벤트 처리
-					document.getElementById('kakao-login-btn').addEventListener('click', function() {
-						Kakao.Auth.login({
-							success: function(authObj) {
-								// 로그인 성공 시 처리할 작업을 여기에 작성
-								console.log(authObj);
-								// 사용자 정보 받아오기
-								Kakao.API.request({
-									url: '/v2/user/me',
-									success: function(response) {
-										// 사용자 정보 출력
-										console.log(response);
-										// 카카오톡 아이디 출력
-										console.log("카카오톡 아이디:", response.kakao_account.profile.nickname);
-									},
-									fail: function(error) {
-										console.error(error);
-									}
-								});
+			// 카카오톡 아이디로 로그인 버튼 이벤트 처리
+			document.getElementById('kakao-login-btn').addEventListener('click', function() {
+				Kakao.Auth.login({
+					success: function(authObj) {
+						// 로그인 성공 시 처리할 작업을 여기에 작성
+						console.log(authObj);
+						// 사용자 정보 받아오기
+						Kakao.API.request({
+							url: '/v2/user/me',
+							success: function(response) {
+								// 사용자 정보 출력
+								console.log(response);
+								// 카카오톡 아이디 출력
+								console.log("카카오톡 아이디:", response.kakao_account.profile.nickname);
 							},
-							fail: function(err) {
-								// 로그인 실패 시 처리할 작업을 여기에 작성
-								console.error(err);
+							fail: function(error) {
+								console.error(error);
 							}
 						});
-					});
-				</script>
-				</div>
-			</div>
-
-			<div class="d-flex flex-column p-2">
-				<h1 style="color:#ff928e">아직 회원이 아니시라면?</h1>
-				<div class="12u$" style="text-align: center;">
-					<ul class="actions">
-						<li><input id="input" type="submit" value="회원가입하러 가기" onclick="location.href='/html-css/sign/signin.html'"></li>
-					</ul>
-				</div>
-			</div>
-		</section>
-
-		<!-- Footer -->
-		<footer id="footer">
-			<div class="inner">
-				<h2>여행한 지도</h2>
-				<ul class="actions">
-					<li><span class="icon fa-phone"></span> <a href="#">(000) 000-0000</a></li>
-					<li><span class="icon fa-envelope"></span> <a href="#">information@untitled.tld</a></li>
-					<li><span class="icon fa-map-marker"></span> 123 Somewhere Road, Nashville, TN 00000</li>
-				</ul>
-			</div>
-		</footer>
-		<div class="copyright">Powered by: 
-			<a href="https://templated.co/">TEMPLATED</a>.
+					},
+					fail: function(err) {
+						// 로그인 실패 시 처리할 작업을 여기에 작성
+						console.error(err);
+					}
+				});
+			});
+		</script>
 		</div>
-		<!-- Scripts -->
-		<script src="/html-css/assets/js/jquery.min.js"></script>
-		<script src="/html-css/assets/js/jquery.scrolly.min.js"></script>
-		<script src="/html-css/assets/js/skel.min.js"></script>
-		<script src="/html-css/assets/js/util.js"></script>
-		<script src="/html-css/assets/js/main.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-		crossorigin="anonymous"
-		></script>
-	</body>
+	</div>
+
+	<div class="d-flex flex-column p-2">
+		<h1>아직 회원이 아니시라면?</h1>
+		<div class="12u$" style="text-align: center;">
+			<ul class="actions">
+				<li><input id="input" type="submit" value="회원가입하러 가기" onclick="location.href='/html-css/sign/signin.html'"></li>
+			</ul>
+		</div>
+	</div>
+</section>
+
+<!-- Footer -->
+<footer id="footer">
+	<div class="inner">
+		<h2>여행한 지도</h2>
+		<ul class="actions">
+			<li><span class="icon fa-phone"></span> <a href="#">(000) 000-0000</a></li>
+			<li><span class="icon fa-envelope"></span> <a href="#">information@untitled.tld</a></li>
+			<li><span class="icon fa-map-marker"></span> 123 Somewhere Road, Nashville, TN 00000</li>
+		</ul>
+	</div>
+</footer>
+<div class="copyright">Powered by: 
+	<a href="https://templated.co/">TEMPLATED</a>.
+</div>
+<!-- Scripts -->
+<script src="/html-css/assets/js/jquery.min.js"></script>
+<script src="/html-css/assets/js/jquery.scrolly.min.js"></script>
+<script src="/html-css/assets/js/skel.min.js"></script>
+<script src="/html-css/assets/js/util.js"></script>
+<script src="/html-css/assets/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+crossorigin="anonymous"
+></script>
+</body>
 </html>
-
-<style>
-@font-face {
-	font-family: 'Jalnan';
-	src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');
-}
-
-#header {
-	font-family: 'Jalnan';
-}
-
-head {
-	font-family: 'Jalnan';
-}
-
-#menu {
-	font-family: 'Jalnan';
-	font-size: 20px;
-}
-
-#footer {
-	font-family: 'Jalnan';
-	font-size: 10px;
-}
-
-.main {
-	font-family: 'Jalnan';
-}
-
-.inner {
-	font-family: 'Jalnan';
-}
-
-.title {
-	font-family: 'Jalnan';
-}
-
-body {
-	font-family: 'Jalnan';
-}
-.button{
-	font-family: 'Jalnan';
-}
-H2{
-	font-family: 'Jalnan';
-}
-.text-center {
-	font-family: 'Jalnan';
-}
-</style>
