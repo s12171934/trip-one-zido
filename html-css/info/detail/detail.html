@@ -47,7 +47,7 @@
     <section id="main" class="wrapper">
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0 rounded-5" src="/html-css/images/busan3.jpg"
-                    alt="..." width="1000" height="680" /></div>
+                    alt="..." width="1000" height="670" /></div>
             <div class="col-md-6">
                 <div class="d-flex justify-content-end">
                     <ul class="actions">
@@ -60,16 +60,16 @@
                     <h1 class="display-5 fw-bolder">해동용궁사</h1>
                     <button class="btn btn-outline flex-shrink-0" type="button">
                         <i class="bi-cart-fill me-1"></i>
-                        <img src="/html-css/images/unzzim.png" width="25" height="25" onclick="zzim()">
+                        <img id="icon" src="/html-css/images/unzzim.png" onclick="zzim()">
                     </button>
                     <button class="btn btn-outline flex-shrink-0" type="button">
                         <i class="bi-cart-fill me-1"></i>
-                        <img src="/html-css/images/like.png" width="25" height="25" onclick="like()">
+                        <img id="icon" src="/html-css/images/like.png" onclick="like()">
                     </button>
                 </div>
                 <div class="fs-5 mb-5">
                     <span>・관광지 한줄 설명</span>
-                    <p style="margin-left: 3%;">부산광역시 기장군 기장읍 시랑리에 있는 대한불교조계종 제19교구 본사 화엄사 소속 사찰.</p>
+                    <p id="explanation">부산광역시 기장군 기장읍 시랑리에 있는 대한불교조계종 제19교구 본사 화엄사 소속 사찰.</p>
                 </div>
                 <div class="fs-5 mb-5">
                     <span>・장소 주소</span>
@@ -90,13 +90,12 @@
             <div class="row row-cols-x6 justify-content-center">
                 <div class="col mb-5">
                     <div class="card h-100">
-                        <img class="card-img-top" src="/html-css/images/전라남도 순천(순천만).png" alt="..." width="450"
-                            height="175" />
+                        <img class="card-img-top" src="/html-css/images/전라남도 순천(순천만).png" alt="..." width="450" height="175" />
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <h5 class="fw-bolder">순천만</h5>
-                                <img src="/html-css/images/unzzim.png" width="25" height="25" onclick="zzim()">
-                                <img src="/html-css/images/like.png" width="25" height="25" onclick="like()">
+                                <img id="icon" src="/html-css/images/unzzim.png" onclick="zzim()">
+                                <img id="icon" src="/html-css/images/like.png" onclick="like()">
                             </div>
                         </div>
 
@@ -108,13 +107,12 @@
                 </div>
                 <div class="col mb-5">
                     <div class="card h-100">
-                        <img class="card-img-top" src="/html-css/images/daejon2.jpg" alt="..." width="450"
-                            height="175" />
+                        <img class="card-img-top" src="/html-css/images/daejon2.jpg" alt="..." width="450" height="175" />
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <h5 class="fw-bolder">성심당타워</h5>
-                                <img src="/html-css/images/unzzim.png" width="25" height="25" onclick="zzim()">
-                                <img src="/html-css/images/like.png" width="25" height="25" onclick="like()">
+                                <img id="icon" src="/html-css/images/unzzim.png" onclick="zzim()">
+                                <img id="icon" src="/html-css/images/like.png" onclick="like()">
                             </div>
                         </div>
 
@@ -126,13 +124,12 @@
                 </div>
                 <div class="col mb-5">
                     <div class="card h-100">
-                        <img class="card-img-top" src="/html-css/images/busan3.jpg" alt="..." width="450"
-                            height="175" />
+                        <img class="card-img-top" src="/html-css/images/busan3.jpg" alt="..." width="450" height="175" />
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <h5 class="fw-bolder">해동용궁사</h5>
-                                <img src="/html-css/images/unzzim.png" width="25" height="25" onclick="zzim()">
-                                <img src="/html-css/images/like.png" width="25" height="25" onclick="like()">
+                                <img id="icon" src="/html-css/images/unzzim.png" onclick="zzim()">
+                                <img id="icon" src="/html-css/images/like.png" onclick="like()">
                             </div>
                         </div>
 
@@ -144,13 +141,12 @@
                 </div>
                 <div class="col mb-5">
                     <div class="card h-100">
-                        <img class="card-img-top" src="/html-css/images/서울특별시(창덕궁).png" alt="..." width="450"
-                            height="175" />
+                        <img class="card-img-top" src="/html-css/images/서울특별시(창덕궁).png" alt="..." width="450" height="175" />
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <h5 class="fw-bolder">창덕궁</h5>
-                                <img src="/html-css/images/zzim.png" width="25" height="25" onclick="zzim()">
-                                <img src="/html-css/images/like.png" width="25" height="25" onclick="like()">
+                                <img id="icon" src="/html-css/images/zzim.png" onclick="zzim()">
+                                <img id="icon" src="/html-css/images/like.png" onclick="like()">
                             </div>
                         </div>
 
@@ -162,13 +158,12 @@
                 </div>
                 <div class="col mb-5">
                     <div class="card h-100">
-                        <img class="card-img-top" src="/html-css/images/대구광역시(두류공원).jpg" alt="..." width="450"
-                            height="175" />
+                        <img class="card-img-top" src="/html-css/images/대구광역시(두류공원).jpg" alt="..." width="450" height="175" />
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <h5 class="fw-bolder">두류공원</h5>
-                                <img src="/html-css/images/unzzim.png" width="25" height="25" onclick="zzim()">
-                                <img src="/html-css/images/like.png" width="25" height="25" onclick="like()">
+                                <img id="icon"src="/html-css/images/unzzim.png" onclick="zzim()">
+                                <img id="icon" src="/html-css/images/like.png" onclick="like()">
                             </div>
                         </div>
 
@@ -180,13 +175,12 @@
                 </div>
                 <div class="col mb-5">
                     <div class="card h-100">
-                        <img class="card-img-top" src="/html-css/images/daejon1.jpg" alt="..." width="450"
-                            height="175" />
+                        <img class="card-img-top" src="/html-css/images/daejon1.jpg" alt="..." width="450" height="175" />
                         <div class="card-body p-4">
                             <div class="text-center">
                                 <h5 class="fw-bolder">엑스포타워</h5>
-                                <img src="/html-css/images/zzim.png" width="25" height="25" onclick="zzim()">
-                                <img src="/html-css/images/like.png" width="25" height="25" onclick="like()">
+                                <img id="icon" src="/html-css/images/zzim.png" onclick="zzim()">
+                                <img id="icon" src="/html-css/images/like.png" onclick="like()">
                             </div>
                         </div>
 
@@ -220,6 +214,6 @@
     <script src="/html-css/assets/js/skel.min.js"></script>
     <script src="/html-css/assets/js/util.js"></script>
     <script src="/html-css/assets/js/main.js"></script>
-    <script src="/html-css/assets/js/test.js"></script>
+    <script src="/html-css/common/common.js"></script>
 </body>
 </html>

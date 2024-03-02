@@ -23,12 +23,18 @@ h1 {
   height:260px;
 }
 
+#explanation{
+  margin-left: 3%;
+}
 
 #listTitle {
   text-align: center;
 }
 
-
+#spotInfoPic{
+  width:850px; 
+  height:690px;
+}
 
 img {
   vertical-align: top;
@@ -95,15 +101,18 @@ img {
   font-size: 10px;
 }
 
+
 h1,
 h2,
 h3,
 h4,
 body,
-.button {
+.button,
+#main {
   font-family: 'Jalnan';
 }
 
 #menu {
   font-size: 20px;
+  font-family: 'Jalnan';
 }
