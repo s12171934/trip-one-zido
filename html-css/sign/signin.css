@@ -1,0 +1,60 @@
+#button {
+    font-family: 'Jalnan';
+    border-radius: 30px;
+    font-size: 17px;
+}
+#input {
+    font-family: 'Jalnan';
+    font-size: 10px;
+    padding: 1%;
+}
+.wrapper {
+    padding-left: 5%;
+    padding-right: 5%;
+    background-color: #D9D9D9;
+    border-radius: 50px;
+    margin-inline: 10%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+#box {
+    background-color: white;
+    border-radius: 50px;
+    padding: 10%;
+}
+#actions {
+    font-family: 'Jalnan';
+    font-size: 25px;
+}
+option, select, div {
+    color: #bcbcbc;
+}
+@font-face {
+	font-family: 'Jalnan';
+	src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');
+}
+
+#header, section, h1, h2, h3{
+	font-family: 'Jalnan';
+}
+
+head {
+	font-family: 'Jalnan';
+}
+
+#menu {
+	font-family: 'Jalnan';
+	font-size: 20px;
+}
+
+#footer {
+	font-family: 'Jalnan';
+	font-size: 10px;
+}
+form {
+    border-radius: 30px;
+}
+button {
+    color: aliceblue !important; 
+    background-color:#ff928e !important;
+}
