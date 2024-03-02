@@ -113,7 +113,9 @@ h2,
 h3,
 h4,
 body,
-.button {
+p,
+.button,
+.main {
   font-family: 'Jalnan';
 }
 
