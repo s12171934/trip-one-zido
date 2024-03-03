@@ -12,6 +12,7 @@
 	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 	<!-- Daum 우편번호 서비스 API 스크립트 -->
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="./signin.js"></script>
 </head>
 
 <body>
@@ -103,17 +104,6 @@
 				<input type="text" id="detailAddress" name="detailAddress" value="" placeholder="상세한 주소">
 			</div>
 
-			<script>
-				function searchAddress() {
-					new daum.Postcode({
-						oncomplete: function(data) {
-							document.getElementById('zipcode').value = data.zonecode; // 우편번호 입력란에 우편번호 넣기
-							document.getElementById('address').value = data.address; // 주소 입력란에 주소 넣기
-						}
-					}).open();
-				}
-			</script>
-			
 			<!-- 생년월일 -->
 			<div class="d-flex">
 				<div class="flex-fill 5u 12u$(xsmall)" id="leftPosition">
@@ -194,7 +184,7 @@
 							</div>
 
 							<div class="modal-footer border border-0">
-							<button type="button" class="rounded-3" id="modalButton" onclick="location.href='/html-css/sign/login.html'">로그인하러가기</button>
+							<button type="button" class="rounded-3" id="modalButton" onclick="location.href='/html-css/sign/login/login.html'">로그인하러가기</button>
 							<!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="location.href='/html-css/sign/login.html'">로그인하러가기</button> -->
 							</div>
 						</div>
@@ -293,7 +283,6 @@
 <script src="/html-css/assets/js/skel.min.js"></script>
 <script src="/html-css/assets/js/util.js"></script>
 <script src="/html-css/assets/js/main.js"></script>
-<script src="./signin.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
 crossorigin="anonymous"

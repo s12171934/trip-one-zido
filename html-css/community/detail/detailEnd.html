@@ -6,29 +6,31 @@
 	<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="/html-css/assets/css/main.css">
-	<link rel="stylesheet" href="/html-css/community/community.css">
+	<link rel="stylesheet" href="./detail.css">
+	<link rel="stylesheet" href="/html-css/common/common.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
 
 <body>
 <!-- Header -->
 <header id="header">
-<nav class="left">
-	<a href="#menu"><span>Menu</span></a>
-</nav>
-	<a href="/html-css/index.html"  class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
-<nav class="right">
-	<div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top: 3%;">   
-		<input type="text" required style="margin-top: 2%">
-		<span class="image round"  box-sha><a href="/html-css/sign/login.html"> <img src="/html-css/images/남자.png" width="75" height="75"></a></span>
-	</div>
-</nav>	
+	<nav class="left">
+		<a href="#menu"><span>Menu</span></a>
+	</nav>
+	<a href="/html-css/index.html" class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
+	<nav class="right">
+		<div class="d-grid gap-2 d-md-flex justify-content-md-end" id="headerProfile">
+			<input type="text" required id="headerSearchBar">
+			<span class="image round" box-sha><a href="/html-css/sign/login.html"> <img
+						src="/html-css/images/남자.png" width="75" height="75"></a></span>
+		</div>
+	</nav>
 </header>
 
 <nav id="menu">
 	<ul class="links">
-		<li><a href="/html-css/schedule/add.html">게시물등록</a></li>
-		<li><a href="/html-css/community/community.html">커뮤니티</a></li>
+		<li><a href="/html-css/schedule/add/add.html">게시물등록</a></li>
+		<li><a href="/html-css/community/board/community.html">커뮤니티</a></li>
 		<li><a href="/html-css/config/recent/recent-view.html">최근기록</a></li>
 		<li><a href="/html-css/main/zzim/zzim.html">찜목록</a></li>
 		<li><a href="/html-css/info/info/info.html">관광정보</a></li>
@@ -42,20 +44,20 @@
 	<h1>게시글 상세</h1>
 	<br>
 	<div class="d-grid gap-2 d-md-flex justify-content-md-end">   
-		<span class="button alt small" style="margin-right: auto; cursor: default;">마감</span>
-		<a href="/html-css/community/community.html" class="button alt small">목록</a>
-		<a href="/html-css/community/communityDetail.html" class="button small">이전글</a>
-		<a href="/html-css/community/communityDetailEnd.html" class="button small">다음글</a>
+		<span class="button alt small" id="mouseHover">마감</span>
+		<a href="/html-css/community/board/community.html" class="button alt small">목록</a>
+		<a href="/html-css/community/detail/detail.html" class="button small">이전글</a>
+		<a href="/html-css/community/detail/detailEnd.html" class="button small">다음글</a>
 	</div>
 	<br>
 	<form method="post" action="#">
 	<!-- 테이블 -->
 	<table id="table" class="border">
 	<tr>
-		<td style="width: 15%;"> 제목 : </td>
-		<td style="width: 35%;" id="black">부산 가실분?</td>
-		<td style="width: 15%;" class="border-start"> 작성자 : </td>
-		<td style="width: 35%;" id="black">윤지수</td>
+		<td id="tdTitle"> 제목 : </td>
+		<td id="black">부산 가실분?</td>
+		<td id="tdTitle" class="border-start"> 작성자 : </td>
+		<td id="black">윤지수</td>
 	</tr>
 		
 	<tr>

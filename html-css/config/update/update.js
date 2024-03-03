@@ -1,4 +1,4 @@
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+// <!-- Daum 우편번호 서비스 API 스크립트 -->
 
 function searchAddress() {
     new daum.Postcode({
