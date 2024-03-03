@@ -1,0 +1,175 @@
+.select-wrapper {
+    font-size: small;
+}
+
+/* 달력 */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+    /* font-size: 14px; */
+}
+
+#calendar {
+    width: 90%;
+    max-width: 1100px;
+    margin: 40px auto;
+}
+
+/* 별점주기 */
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: left;
+}
+
+.rating>span {
+    display: inline-block;
+    position: relative;
+    width: 1.1em;
+}
+
+.rating>span:hover:before,
+.rating>span:hover~span:before {
+    content: "\2605";
+    position: absolute;
+}
+/* 화면 나누기 */
+#split-container {
+display: flex;
+width: 100%;
+}
+#split-container > div {
+    width: 50%;
+    padding: 20px;
+}
+/* 지도 크기 설정 */
+#map {
+    height: 400px;
+    width: 100%;
+}
+
+
+#input {
+    color:white;
+    font-family: 'Jalnan';
+    text-align: center;
+    margin-right: 10px; 
+    margin-left: 10px; 
+    margin-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.flex-fill {
+    color: #f6755e;
+}
+
+#start_date, #end_date {
+    color: black;
+    margin-right: 10px; margin-left: 10px;
+}
+
+
+#content{
+        resize: none;
+}
+
+
+/* refactoring */
+
+#main {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 2.5%;
+}
+
+#leftSide {
+    margin-right: auto;
+}
+
+#leftSide .title {
+    color:#ff928e;
+}
+
+#detail-title {
+    margin-right: 10px; 
+    margin-left: 10px;
+    width: 40%;
+    height: 60%;
+}
+
+#email {
+    margin-right: 5px; 
+    margin-left: 5px; 
+    width: 20%; 
+    height: 70%;
+}
+
+
+#buttonBackground {
+    background-color: white;
+}
+
+#map {
+    border: 0;
+}
+
+#trip-review {
+    margin-right: 10%; 
+}
+
+#rightSide {
+  
+    margin-top:8%
+}
+
+#rightSide #title {
+    margin-top: 15%
+}
+
+#rightSide #title2 {
+    margin-top: 2%;
+}
+
+.select-wrapper {
+    width: 20%
+}
+
+
+#with {
+    margin-top: 2%
+}
+
+#star {
+    margin-right: 10px;
+    margin-left: 100px;
+}
+
+#rightSide-margin {
+    margin-left: 3%;
+}
+
+
+#blank-city {
+    margin-right: 10px; 
+    margin-left: 10px; 
+    width: 30%;
+    height: 90%;
+}
+
+
+#commentBody {
+    width: 95%; margin-top: 3%;
+  }
+
+#plusComment {
+color:darkgray; text-decoration:none
+}
+
+#addedComment {
+text-decoration:none
+}
+
+#commentUpdate,#commentDelete {
+color:darkgray; text-decoration:none
+}
