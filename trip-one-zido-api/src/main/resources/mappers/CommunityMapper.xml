@@ -111,20 +111,6 @@
             #{page};
     </select>
 
-    <select id="getMembers" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
-        SELECT
-            o.member_id,
-            o.own,
-            m.login_id,
-            m.profile
-        FROM
-            member m,
-            owner o
-        WHERE
-            m.id = o.member_id AND
-            o.content_id = #{id};
-    </select>
-
     <update id="updateCommunity" parameterType="com.example.triponezidoapi.dto.request.RequestCommunity">
         UPDATE community
         SET

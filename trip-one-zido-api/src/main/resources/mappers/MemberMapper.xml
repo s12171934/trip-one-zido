@@ -99,6 +99,15 @@
       )
   </select>
 
+  <select id="postCount" parameterType="long" resultType="int">
+    SELECT
+      COUNT(*)
+    FROM
+      owner
+    where
+      member_id = #{id}
+  </select>
+
   <select id="getId" parameterType="com.example.triponezidoapi.dto.request.RequestFind" resultType="long">
     SELECT
       id

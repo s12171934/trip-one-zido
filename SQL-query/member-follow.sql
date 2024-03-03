@@ -185,3 +185,11 @@ WHERE
     WHERE
       following = ?
   );
+
+--게시물 총 수
+SELECT
+    COUNT(*)
+FROM
+    owner
+where
+    member_id = ?;

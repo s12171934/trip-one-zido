@@ -75,6 +75,27 @@
             p.id = #{contentId}
     </select>
 
+    <select id="getSpot" parameterMap="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseSpotPlan">
+        SELECT
+            s.id,
+            c.title,
+            s.start_time,
+            s.end_time
+        FROM
+            spot s,
+            content c
+        WHERE
+            s.id = c.id
+          AND c.id in (
+            SELECT
+                spot_id
+            FROM
+                plan_spot
+            WHERE
+                plan_id = #{contentId}
+        )
+    </select>
+
     <select id="getPlanList" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
         SELECT
             c.id,
@@ -112,7 +133,16 @@
                 good
             WHERE
                 content_id = c.id
-            ) good_count
+            ) good_count,
+            (
+                SELECT
+                    COUNT(*)
+                FROM
+                    pin
+                WHERE
+                    member_id = ?
+                  AND content_id = ?
+            ) pin
         FROM
             content c,
             plan p
