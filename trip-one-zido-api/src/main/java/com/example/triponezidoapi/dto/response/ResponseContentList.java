@@ -11,4 +11,5 @@ public class ResponseContentList {
     int goodCount;
     int grade;
     int myBookmark;
+    int pin;
 }
