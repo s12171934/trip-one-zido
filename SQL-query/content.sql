@@ -169,6 +169,14 @@ WHERE
   content_id = ?
   AND good = 1;
 
+--내 좋아요 여부
+SELECT
+    good
+FROM
+    good
+WHERE
+    content_id = ?
+    AND member_id = ?
 
 --게시물 고정 등록
 INSERT INTO
