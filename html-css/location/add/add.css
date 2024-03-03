@@ -84,6 +84,17 @@ h3 {
   width: 15%
 }
 
+#addressArea {
+  width: 90%;
+  height: 85%;
+  margin-top: 2%;
+}
+
+#category {
+  height: 85%;
+  margin-top: 3%;
+}
+
 #formButton {
   margin-left: auto
 }
