@@ -83,4 +83,47 @@
         LIMIT
             #{page}
     </select>
+
+    <select id="getNextId" parameterType="long" resultType="long">
+        <![CDATA[
+        SELECT
+            id
+        FROM
+            tour
+        WHERE
+                id = (
+                SELECT
+                    id
+                FROM
+                    tour
+                WHERE
+                    id > #{id}
+                LIMIT
+                    1
+            )
+        ]]>
+    </select>
+
+    <select id="getPrevId" parameterType="long" resultType="long">
+        <![CDATA[
+        SELECT
+            id
+        FROM
+            tour
+        WHERE
+                id = (
+                SELECT
+                    id
+                FROM
+                    tour
+                WHERE
+                    id < #{id}
+                ORDER BY
+                    id DESC
+                LIMIT
+                    1
+            )
+        ]]>
+    </select>
+
 </mapper>

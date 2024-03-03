@@ -21,4 +21,6 @@ public class ResponseCommunityDetail {
     LocalDateTime modifiedAt;
     List<ResponseMember> members;
     boolean isMine;
+    long nextId;
+    long prevId;
 }
