@@ -25,22 +25,23 @@
 <body>
     <!-- Header -->
     <header id="header">
-        <nav class="left">
-            <a href="#menu"><span>Menu</span></a>
-        </nav>
-        <a href="/html-css/index.html" class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
-        <nav class="right">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top: 3%;">   
-                <form action="/html-css/search/search.html"><input type="text" required style="margin-top: 2%"></form>
-                <span class="image round"  box-sha><a href="/html-css/config/config/config.html"> <img src="/html-css/images/남자.png" width="75" height="75"></a></span>
-            </div>
-        </nav>
-    </header>
+		<nav class="left">
+			<a href="#menu"><span>Menu</span></a>
+		</nav>
+		<a href="/html-css/index.html" class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
+		<nav class="right">
+			<div class="d-grid gap-2 d-md-flex justify-content-md-end" id="headerProfile">
+				<input type="text" required id="headerSearchBar">
+				<span class="image round" box-sha><a href="/html-css/sign/login.html"> <img
+							src="/html-css/images/남자.png" width="75" height="75"></a></span>
+			</div>
+		</nav>
+	</header>
     <!-- Menu -->
     <nav id="menu">
         <ul class="links">
-            <li><a href="/html-css/schedule/add.html">게시물등록</a></li>
-            	<li><a href="/html-css/community/community.html">커뮤니티</a></li>
+            <li><a href="/html-css/schedule/add/add.html">게시물등록</a></li>
+            	<li><a href="/html-css/community/board/community.html">커뮤니티</a></li>
             	<li><a href="/html-css/config/recent/recent-view.html">최근기록</a></li>
             	<li><a href="/html-css/main/zzim/zzim.html">찜목록</a></li>
             	<li><a href="/html-css/info/info/info.html">관광정보</a></li>
@@ -53,7 +54,7 @@
         <div class="inner">
             <h1>회원 정보 수정</h1>
 
-            <form action="/html-css/config/config.html">
+            <form action="/html-css/config/config/config.html">
                 <table class="border border-secondary-subtle" width="600" border="1" cellspacing="0" cellpadding="3"
                     align="center">
                     <tr id="trHeader">
@@ -72,7 +73,7 @@
                                 value="testtest123"></td>
                         <td>
                             <ul class="actions">
-                                <li><a href="/html-css/config/pwupdate.html" class="button small">비밀번호 변경하기</a></li>
+                                <li><a href="/html-css/config//update/pwupdate.html" class="button small">비밀번호 변경하기</a></li>
                             </ul>
                         </td>
                     </tr>
@@ -155,9 +156,9 @@
                     </tr>
                 </table>
                 <ul class="actions">
-                    <li><a href="/html-css/config/resign.html" class="button alt">회원 탈퇴하기</a></li>
+                    <li><a href="/html-css/config/resign/resign.html" class="button alt">회원 탈퇴하기</a></li>
                     <li id="formButton"><button type="submit" >수정하기</button></li>
-                    <li><a href="/html-css/config/config.html" class="button alt">취소하기</a></li>
+                    <li><a href="/html-css/config/config/config.html" class="button alt">취소하기</a></li>
                 </ul>
 
                 <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -180,7 +181,7 @@
                             </div>
 
                             <div class="modal-footer border border-0">
-                                <button type="button" class="rounded-3" id="modalButton" onclick="location.href='/html-css/config/config.html'" data-bs-dismiss="modal">회원정보
+                                <button type="button" class="rounded-3" id="modalButton" onclick="location.href='/html-css/config/config/config.html'" data-bs-dismiss="modal">회원정보
                                     페이지로</button>
                             </div>
                         </div>

@@ -7,6 +7,14 @@
   background-color: #D9D9D9;
 }
 
+#headerProfile {
+  margin-top: 3%;
+}
+
+#headerSearchBar {
+  margin-top: 2%
+}
+
 @font-face {
     font-family: 'Jalnan';
     src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');
