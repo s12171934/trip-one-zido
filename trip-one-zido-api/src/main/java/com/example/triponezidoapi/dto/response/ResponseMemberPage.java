@@ -13,4 +13,5 @@ public class ResponseMemberPage {
     int bookmarkCount;
     int followingCount;
     int followerCount;
+    boolean isMine;
 }

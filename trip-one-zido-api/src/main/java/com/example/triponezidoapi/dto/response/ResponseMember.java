@@ -8,4 +8,5 @@ public class ResponseMember {
     String loginId;
     String own;
     byte[] profile;
+    boolean isFollow;
 }
