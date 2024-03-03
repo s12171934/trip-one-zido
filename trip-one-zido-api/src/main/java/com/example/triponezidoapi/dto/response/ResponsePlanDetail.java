@@ -25,4 +25,5 @@ public class ResponsePlanDetail {
     List<ResponseSpotDetail> responseSpotDetails;
     List<ResponseMember> members;
     List<ResponseComment> comments;
+    boolean isMine;
 }

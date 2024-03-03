@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/page")
 public class PageApiController {
@@ -22,6 +24,34 @@ public class PageApiController {
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 번호")
             long sessionId
+    ){
+        return null;
+    }
+    @GetMapping("/{id}/plan/{page}")
+    @Tag(name = "Plan")
+    @Operation(summary = "회원 페이지 일정 게시물 더보기 조회")
+    public List<ResponseContentList> showPlanListByPage(
+            @PathVariable
+            @Parameter(description = "페이지 소유 회원 번호")
+            long id,
+
+            @PathVariable
+            @Parameter(description = "페이징 번호")
+            long page
+    ){
+        return null;
+    }
+    @GetMapping("/{id}/spot/{page}")
+    @Tag(name = "Spot")
+    @Operation(summary = "회원 페이지 장소 게시물 더보기 조회")
+    public List<ResponseContentList> showSpotListByPage(
+            @PathVariable
+            @Parameter(description = "페이지 소유 회원 번호")
+            long id,
+
+            @PathVariable
+            @Parameter(description = "페이징 번호")
+            long page
     ){
         return null;
     }

@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/bookmark")
 @Tag(name = "Bookmark", description = "Bookmark API")
@@ -22,6 +24,34 @@ public class BookmarkApiController {
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 번호")
             long sessionId
+    ){
+        return null;
+    }
+    @GetMapping("/{id}/SpotPlan/{page}")
+    @Tag(name = "Plan")
+    @Operation(summary = "찜목록 일정 장소 더보기 조회")
+    public List<ResponseContentList> showSpotPlanListByPage(
+            @PathVariable
+            @Parameter(description = "찜 목록 소유 회원 번호")
+            long id,
+
+            @PathVariable
+            @Parameter(description = "페이징 번호")
+            long page
+    ){
+        return null;
+    }
+    @GetMapping("/{id}/tour/{page}")
+    @Tag(name = "Plan")
+    @Operation(summary = "찜목록 관광지 더보기 조회")
+    public List<ResponseContentList> showTourListByPage(
+            @PathVariable
+            @Parameter(description = "찜 목록 소유 회원 번호")
+            long id,
+
+            @PathVariable
+            @Parameter(description = "페이징 번호")
+            long page
     ){
         return null;
     }

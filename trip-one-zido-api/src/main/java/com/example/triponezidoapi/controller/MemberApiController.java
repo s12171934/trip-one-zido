@@ -27,6 +27,15 @@ public class MemberApiController {
     ){
 
     }
+    @PostMapping("/signup/{loginId}")
+    @Operation(summary = "아이디 중복확인")
+    public void signupCheckLoginId(
+            @PathVariable
+            @Parameter(description = "작성한 아이디")
+            String loginId
+    ){
+
+    }
     @PostMapping("/login")
     @Operation(summary = "로그인")
     public void loginMember(

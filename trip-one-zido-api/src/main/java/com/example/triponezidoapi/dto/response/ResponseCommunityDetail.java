@@ -20,4 +20,5 @@ public class ResponseCommunityDetail {
     LocalDateTime createdAt;
     LocalDateTime modifiedAt;
     List<ResponseMember> members;
+    boolean isMine;
 }

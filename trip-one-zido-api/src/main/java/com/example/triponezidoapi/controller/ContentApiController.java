@@ -3,6 +3,7 @@ package com.example.triponezidoapi.controller;
 import com.example.triponezidoapi.dto.response.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -52,13 +53,18 @@ public class ContentApiController {
     ){
 
     }
-    @GetMapping("/recent-view")
+    @GetMapping("/recent-view/{page}")
     @Tag(name = "Content", description = "Content API")
     @Operation(summary = "최근 본 게시물 조회")
     public List<ResponseContentList> showRecentView(
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 정보")
-            long sessionId
+            long sessionId,
+
+            @PathVariable(required = false)
+            @Schema(nullable = true)
+            @Parameter(description = "페이징 번호")
+            long page
     ){
         return null;
     }

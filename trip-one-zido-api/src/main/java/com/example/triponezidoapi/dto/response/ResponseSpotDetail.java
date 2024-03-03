@@ -27,5 +27,5 @@ public class ResponseSpotDetail {
     List<byte[]> photos;
     List<ResponseMember> members;
     List<ResponseComment> responseComments;
-
+    boolean isMine;
 }
