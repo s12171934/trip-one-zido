@@ -1,3 +1,5 @@
+// <!-- Daum 우편번호 서비스 API 스크립트 -->
+
 function searchAddress() {
     new daum.Postcode({
         oncomplete: function(data) {
