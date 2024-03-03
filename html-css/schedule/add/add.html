@@ -7,8 +7,12 @@
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/html-css/assets/css/main.css">
+    <link rel="stylesheet" href="/html-css/common/common.css">
+    <link rel="stylesheet" href="/html-css/schedule/add/add.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+
     <!-- script 연결 -->
     <script src="/html-css/schedule/schedule.js"></script> 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
@@ -17,45 +21,44 @@
 <body>
 		<!-- Header -->
         <header id="header">
-			<nav class="left">
-				<a href="#menu"><span>Menu</span></a>
-			</nav>
-            <!-- 헤더로고 : 350 -->
-				<a href="/html-css/index.html"  class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
-			<nav class="right">
-            <!-- 프로필 -->             <!-- 검색창 -->
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="margin-top: 3%;">   
-                    <input type="text" required style="margin-top: 2%">
-                    <span class="image round"  box-sha><a href="/html-css/config/config.html"> <img src="/html-css/images/남자.png" width="75" height="75"></a></span>
-                </div>
-			</nav>	
-		</header>
-
-			<!-- Menu -->
-			<nav id="menu">
-				<ul class="links">
-					<li><a href="/html-css/schedule/add.html">게시물등록</a></li>
-					<li><a href="/html-css/community/community.html">커뮤니티</a></li>
-					<li><a href="/html-css/config/recent-view.html">최근기록</a></li>
-                    <li><a href="/html-css/main/zzim.html">찜목록</a></li>
-                    <li><a href="/html-css/info/info.html">관광정보</a></li>
-                    <li><a href="logout.html">로그아웃</a></li>
-                </ul>
-			</nav>
+            <nav class="left">
+               <a href="#menu"><span>Menu</span></a>
+            </nav>
+            <a href="/html-css/index.html" class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
+            <nav class="right">
+               <div class="d-grid gap-2 d-md-flex justify-content-md-end" id="headerProfile">
+                  <input type="text" required id="headerSearchBar">
+                  <span class="image round" box-sha><a href="/html-css/sign/login.html"> <img
+                           src="/html-css/images/남자.png" width="75" height="75"></a></span>
+               </div>
+            </nav>
+         </header>
+          <!-- Menu -->
+          <nav id="menu">
+              <ul class="links">
+                  <li><a href="/html-css/schedule/add.html">게시물등록</a></li>
+                  <li><a href="/html-css/community/board/community.html">커뮤니티</a></li>
+                  <li><a href="/html-css/config/recent/recent-view.html">최근기록</a></li>
+                  <li><a href="/html-css/main/zzim/zzim.html">찜목록</a></li>
+                  <li><a href="/html-css/info/info/info.html">관광정보</a></li>
+                  <li><a href="/html-css/index.html">로그아웃</a></li>
+              </ul>
+          </nav>
 
     <!-- Main -->
-    <section id="main" class="wrapper" style= "margin-left: 5%; margin-right: 5%;">
+    <section id="main" class="wrapper">
         <form id="split-container" class="d-flex flex-row">
             
             <!-- ★왼쪽 -->
-            <div class="p-2 d-flex flex-column border-end" style="margin-right: auto;">
-                <div style="text-align: left;">
-                    <h1 class="title" style="color:#ff928e; margin-top:5%">일정 등록</h1>
+            <div class="p-2 d-flex flex-column border-end" id="leftSide">
+                <!-- <div style="text-align: left;"> -->
+                <div>
+                    <h1 class="title" id="title">일정 등록</h1>
                     <br>
                 </div>
                 <div class="p-2 d-flex flex-row" id="blank"><h4>일정 제목</h4>
-                    <input type="text" value="" style="margin-right: 10px; margin-left: 10px; width: 40%; height: 60%;">
-                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group" style="height: 90%;">
+                    <input type="text" value="" id="trip-state-button">
+                        <div class="btn-group" id="trip-state-button-group" role="group" aria-label="Basic radio toggle button group">
                         <input type="radio hidden" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
                         <label class="btn btn-outline-primary" for="btnradio1">여행전</label>
                         
@@ -69,43 +72,43 @@
 
                 <div class="p-2 d-flex" id="blank"><h4>기간</h4>
                     <label for="start_date"></label>
-                    <input class="flex-fill" type="date" id="start_date" name="start_date" style="margin-right: 10px; margin-left: 10px;">
+                    <input class="flex-fill" type="date" id="start_date" name="start_date">
                     <h4>~</h4>
                     <label for="end_date"></label>
-                    <input class="flex-fill" type="date" id="end_date" name="end_date" style="margin-right: 10px; margin-left: 10px;">
+                    <input class="flex-fill" type="date" id="end_date" name="end_date">
                 </div>
 
-                <div class="p-2 d-flex border-bottom" style="justify-content: center;"><h4>동행인</h4>
+                <div class="p-2 d-flex border-bottom"><h4 id="with">동행인</h4>
                     <!-- <form action="send_email.php" method="POST"> -->
-                    <label for="email1" style="height: 50px"></label>
-                    <input class="flex-fill" type="email" id="email1" name="email1" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 50%;"><br><br>
+                    <label for="email1"></label>
+                    <input class="flex-fill" type="email" id="email" name="email1"><br><br>
 
                     <label for="email2"></label>
-                    <input class="flex-fill" type="email" id="email2" name="email2" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 50%;"><br><br>
+                    <input class="flex-fill" type="email" id="email" name="email2"><br><br>
 
                     <label for="email3"></label>
-                    <input class="flex-fill" type="email" id="email3" name="email3" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 50%;"><br><br>
+                    <input class="flex-fill" type="email" id="email" name="email3"><br><br>
                     <!-- 필요한 만큼 이메일 주소 입력 필드를 추가할 수 있음 -->
                     <!-- </form> -->
-                    <div class="actions vertical small">
-                        <button style="background-color: white;"><img src="/html-css/images/plusbutton.png" width="25" height="25"></button>
+                    <div class="actions vertical small" id="plusButton">
+                        <button id ="buttonBackground"><img src="/html-css/images/plusbutton.png" width="25" height="25"></button>
                     </div>
                 </div>
     
-                <div class="p-2" style="justify-content: center;"><h4> 지도 </h4>
+                <div class="p-2"><h4> 지도 </h4>
                     <!-- Google 지도를 삽입할 영역 -->
                     <iframe
                     id="map"
                     width="600"
                     height="300"
-                    frameborder="0" style="border:0"
+                    frameborder="0"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3164.529575556133!2d127.02654691567728!3d37.497953624024396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca31a218db503%3A0x72a372df19cf7b95!2z7ISc7Jq47Yq567OE7IucIOyWtOyKpO2PrCDshozqs6DsiJzsnbTsiqTqtawg67Cg7J2067aAIDQwMC00MA!5e0!3m2!1sko!2skr!4v1645788148025!5m2!1sko!2skr"
                     allowfullscreen>
                     </iframe>
                 </div>
 
-                <div class="p-2 d-flex border-top" ><h4>여행한 후기</h4>
-                    <div class="rating flex-fill" style="margin-right: 10px; margin-left: 100px;">
+                <div class="p-2 d-flex border-top" id="trip-review"><h4>여행한 후기</h4> 
+                    <div class="rating flex-fill" id="star">
                         <span onclick="rateStar(10)">☆</span>
                         <span onclick="rateStar(8)">☆</span>
                         <span onclick="rateStar(6)">☆</span>
@@ -113,11 +116,6 @@
                         <span onclick="rateStar(2)">☆</span>
                     </div>
                     <p class="flex-fill" id="ratingValue">별점을 선택하세요.</p>
-                    <script>
-                        function rateStar(stars) {
-                            document.getElementById('ratingValue').innerText = '별점: ' + stars + '점';
-                        }
-                    </script>
                 </div>
                 <!-- 여행후기 -->
                 <div class="p-2">
@@ -128,9 +126,9 @@
             </div>
 
             <!-- ★오른쪽 -->
-            <div class="p-2 d-flex flex-column border-end" style= "margin-left: 3%;">
-                <div class="p-2 d-flex flex-row" style="align-items:center; margin-top: 15%">
-                    <h4>여행 중 일정 및 장소</h4>
+            <div class="p-2 d-flex flex-column border-end" id="rightSide">
+                <div class="p-2 d-flex flex-row" id="title">
+                    <h4 id="title2">여행 중 일정 및 장소</h4>
                     &nbsp;&nbsp;
                         <div class="select-wrapper" >
 							<select class ="local-select" name="category" id="security">
@@ -154,23 +152,22 @@
                 
 
                 <div class="p-2 d-flex flex-row">
-                    <div class="select-wrapper" style="width: 15%">
+                    <div class="select-wrapper">
                         <select class ="local-select" name="category" id="security">
                             <option value="" selected>공개 설정</option>
                             <option value="1">공개</option>
                             <option value="2">비공개</option>
                         </select>
                     </div>
-                    <div style="margin-left: auto">
+                    <div class="input-add-cancle">
                         <input id="input" class="button small" type="submit" value="등록">
                         <input id="input" class="button alt small" type="button" value="취소"
                         onclick="location.href='/html-css/main/detail.html'">
-                        
                     </div>
                 </div>
                     
                 <!-- Break1 -->
-				<div class="p-1 12u$" style="text-align: center;">
+				<div class="p-1 12u$">
 					<ul class="actions">
 					<!-- Button trigger modal -->
 					<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -187,15 +184,15 @@
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 								</div>
 
-								<div class="m-5 modal-body border rounded-3" style="background-color: #D9D9D9;">
+								<div class="m-5 modal-body border rounded-3" id="modalBox">
 								<h3>게시물 등록이</h3>
 								<h3>완료되었습니다</h3>
 								</div>
 
 								<div class="modal-footer border border-0">
 								<!-- <button type="button" class="btn btn-secondary" >로그인하러가기</button> -->
-								<button type="button" class="rounded-3" style="color: aliceblue; background-color:#ff928e;" 
-                                    onclick="location.href='/html-css/schedule/detail.html'">목록가기</button>
+								<button type="button" class="rounded-3" id="modalButton" 
+                                    onclick="location.href='/html-css/schedule/detail/detail.html'">목록가기</button>
 								</div>
 							</div>
 						</div>
@@ -233,98 +230,3 @@
         crossorigin="anonymous"></script>
 </body>
 </html>
-
-<style>
-    @font-face {
-        font-family: 'Jalnan';
-        src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');
-    }
-
-    #footer {
-        font-family: 'Jalnan';
-        font-size: 10px;
-    }
-
-    h1, h2, h3, h4, h5, body, .button, #security, .rating, #ratingValue {
-        font-family: 'Jalnan';
-    }
-
-    #menu {
-        font-family: 'Jalnan';
-        font-size: 20px;
-    }
-
-    .select-wrapper {
-        font-size: small;
-    }
-
-    /* 달력 */
-    html, body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-        /* font-size: 14px; */
-    }
-
-    #calendar {
-        width: 90%;
-        max-width: 1100px;
-        margin: 40px auto;
-    }
-
-    /* 별점주기 */
-    .rating {
-        unicode-bidi: bidi-override;
-        direction: rtl;
-        text-align: left;
-    }
-
-    .rating>span {
-        display: inline-block;
-        position: relative;
-        width: 1.1em;
-    }
-
-    .rating>span:hover:before,
-    .rating>span:hover~span:before {
-        content: "\2605";
-        position: absolute;
-    }
-    /* 화면 나누기 */
-    #split-container {
-    display: flex;
-    width: 100%;
-    }
-    #split-container > div {
-        width: 50%;
-        padding: 20px;
-    }
-    /* 지도 크기 설정 */
-    #map {
-        height: 400px;
-        width: 100%;
-    }
-
-
-    #input {
-        color:white;
-        font-family: 'Jalnan';
-        text-align: center;
-        margin-right: 10px; 
-        margin-left: 10px; 
-        margin-bottom: 10px;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-    .flex-fill {
-        color: #f6755e;
-    }
-
-    #start_date, #end_date {
-        color: black;
-    }
-
-    textarea{
-			resize: none;
-    }
-</style>
