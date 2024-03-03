@@ -2,6 +2,10 @@
     font-size: small;
 }
 
+#leftPosition {
+    text-align: left;
+}
+
 /* 달력 */
 html, body {
     margin: 0;

@@ -15,6 +15,11 @@
   margin-top: 2%
 }
 
+#icon {
+  width: 25px;
+  height: 25px;
+}
+
 @font-face {
     font-family: 'Jalnan';
     src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');

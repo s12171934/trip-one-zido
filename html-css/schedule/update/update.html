@@ -35,7 +35,7 @@
           <!-- Menu -->
           <nav id="menu">
               <ul class="links">
-                  <li><a href="/html-css/schedule/add.html">게시물등록</a></li>
+                  <li><a href="/html-css/schedule/add/add.html">게시물등록</a></li>
                   <li><a href="/html-css/community/board/community.html">커뮤니티</a></li>
                   <li><a href="/html-css/config/recent/recent-view.html">최근기록</a></li>
                   <li><a href="/html-css/main/zzim/zzim.html">찜목록</a></li>
@@ -79,13 +79,13 @@
                 <div class="p-2 d-flex border-bottom"><h4 id="with">동행인</h4>
                     <!-- <form action="send_email.php" method="POST"> -->
                     <label for="email1"></label>
-                    <input class="flex-fill" type="text" id="email" name="email1" value="윤지수" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 50%;"><br><br>
+                    <input class="flex-fill" type="text" id="email" name="email1" value="윤지수" ><br><br>
 
                     <label for="email2"></label>
-                    <input class="flex-fill" type="text" id="email" name="email2" value="문성기" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 50%;"><br><br>
+                    <input class="flex-fill" type="text" id="email" name="email2" value="문성기" ><br><br>
 
                     <label for="email3"></label>
-                    <input class="flex-fill" type="text" id="email" name="email3" value="한희주" style="margin-right: 5px; margin-left: 5px; width: 20%; height: 50%;"><br><br>
+                    <input class="flex-fill" type="text" id="email" name="email3" value="한희주" ><br><br>
                     <!-- 필요한 만큼 이메일 주소 입력 필드를 추가할 수 있음 -->
                     <!-- </form> -->
                     <div class="actions vertical small">
@@ -189,98 +189,3 @@
         <script src="/html-css/assets/js/main.js"></script>
 </body>
 </html>
-
-<style>
-    @font-face {
-        font-family: 'Jalnan';
-        src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');
-    }
-
-    #footer {
-        font-family: 'Jalnan';
-        font-size: 10px;
-    }
-
-    h1, h2, h3, h4, h5, body, .button, #security, .rating, #ratingValue, #blank {
-        font-family: 'Jalnan';
-    }
-
-    #menu {
-        font-family: 'Jalnan';
-        font-size: 20px;
-    }
-
-    .select-wrapper {
-        font-size: small;
-    }
-
-    /* 달력 */
-    html, body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-        /* font-size: 14px; */
-    }
-
-    #calendar {
-        width: 90%;
-        max-width: 1100px;
-        margin: 40px auto;
-    }
-
-    /* 별점주기 */
-    .rating {
-        unicode-bidi: bidi-override;
-        direction: rtl;
-        text-align: left;
-    }
-
-    .rating>span {
-        display: inline-block;
-        position: relative;
-        width: 1.1em;
-    }
-
-    .rating>span:hover:before,
-    .rating>span:hover~span:before {
-        content: "\2605";
-        position: absolute;
-    }
-    /* 화면 나누기 */
-    #split-container {
-    display: flex;
-    width: 100%;
-    }
-    #split-container > div {
-        width: 50%;
-        padding: 20px;
-    }
-    /* 지도 크기 설정 */
-    #map {
-        height: 400px;
-        width: 100%;
-    }
-
-
-    #input {
-        color:white;
-        font-family: 'Jalnan';
-        text-align: center;
-        margin-right: 10px; 
-        margin-left: 10px; 
-        margin-bottom: 10px;
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-    .flex-fill {
-        color: #f6755e;
-    }
-
-    #start_date, #end_date {
-        color: black;
-    }
-
-    textarea{
-			resize: none;
-    }
-</style>
