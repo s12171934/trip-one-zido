@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/content")
+@RequestMapping("/api/content")
 public class ContentApiController {
     @PostMapping("/pin/{id}")
     @Tag(name = "Pin", description = "Pin API")

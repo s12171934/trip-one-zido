@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/page")
+@RequestMapping("/api/page")
 public class PageApiController {
     @GetMapping("/{id}")
     @Tag(name = "Member")

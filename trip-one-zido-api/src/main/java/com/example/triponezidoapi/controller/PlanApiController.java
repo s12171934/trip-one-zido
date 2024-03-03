@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/plan")
+@RequestMapping("/api/plan")
 @Tag(name = "Content")
 public class PlanApiController {
     @GetMapping("/{id}")

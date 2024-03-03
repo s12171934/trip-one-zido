@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/community")
+@RequestMapping("/api/community")
 @Tag(name = "Community", description = "Community API")
 public class CommunityApiController {
     @GetMapping("/list/{page}")

@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/search")
+@RequestMapping("/api/search")
 @Tag(name = "Search", description = "Search API")
 public class SearchApiController {
     @GetMapping("/{keyword}")
