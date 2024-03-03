@@ -14,7 +14,7 @@ public interface PlanMapper {
 
     //select
     ResponsePlanDetail getPlan(RequestSessionTarget requestSessionTarget);
-    ResponseSpotPlan getSpot(RequestSessionTarget requestSessionTarget);
+    long getSpot(RequestSessionTarget requestSessionTarget);
     List<ResponseContentList> getPlanList(RequestSessionTarget requestSessionTarget);
 
     //update
