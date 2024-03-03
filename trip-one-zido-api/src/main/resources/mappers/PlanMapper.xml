@@ -75,7 +75,7 @@
             p.id = #{contentId}
     </select>
 
-    <select id="getSpot" parameterMap="long" resultType="com.example.triponezidoapi.dto.response.ResponseSpotPlan">
+    <select id="getSpot" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseSpotPlan">
         SELECT
             s.id,
             c.title,
