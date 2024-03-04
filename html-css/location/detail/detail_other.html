@@ -20,18 +20,18 @@
 <body>
     <!-- Header -->
     <header id="header">
-		<nav class="left">
-			<a href="#menu"><span>Menu</span></a>
-		</nav>
-		<a href="/html-css/index.html" class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
-		<nav class="right">
-			<div class="d-grid gap-2 d-md-flex justify-content-md-end" id="headerProfile">
-				<input type="text" required id="headerSearchBar">
-				<span class="image round" box-sha><a href="/html-css/sign/login.html"> <img
-							src="/html-css/images/남자.png" width="75" height="75"></a></span>
-			</div>
-		</nav>
-	</header>
+        <nav class="left">
+            <a href="#menu"><span>Menu</span></a>
+        </nav>
+        <a href="/html-css/index.html" class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
+        <nav class="right">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end" id="headerProfile">
+                <input type="text" required id="headerSearchBar">
+                <span class="image round" box-sha><a href="/html-css/sign/login.html"> <img
+                            src="/html-css/images/남자.png" width="75" height="75"></a></span>
+            </div>
+        </nav>
+    </header>
     <!-- Menu -->
     <nav id="menu">
         <ul class="links">
@@ -61,45 +61,54 @@
                     <h6 id="createdAt">2024 02.20 14:30</h6>
                 </div>
                 <div class="text-muted fst-italic mb-2">2024/02/19 08:00 ~ 2024/02/19 19:00</div>
-                <div class="slide slide_wrap">
-                    <div class="slide_item">
-                        <div class="p-2">
-                            <figure><img class="img-fluid rounded" src="/html-css/images/dragoncastle.jpg" alt="..."
-                                    width="800" height="600" /></figure>
-                        </div>
+                <div class="d-flex flex-row mb-6" id="recentViewBox">
+                    <div class="p-2">
+                        <img src="/html-css/images/busan1.jpg" alt="" class="rounded-5" width="800" height="600">
                     </div>
-                    <div class="slide_item">
-                        <div class="p-2">
-                            <figure><img class="img-fluid rounded" src="/html-css/images/대구광역시(두류공원).jpg" alt="..."
-                                    width="800" height="600" /></figure>
-                        </div>
+        
+                    <div class="p-2">
+                        <img src="/html-css/images/busan2.jpg" alt="" class="rounded-5" width="800" height="600">
                     </div>
-                    <div class="slide_item">
-                        <div class="p-2">
-                            <figure><img class="img-fluid rounded" src="/html-css/images/전라도 전주(한옥마을).png" alt="..."
-                                    width="800" height="600" /></figure>
-                        </div>
+        
+                    <div class="p-2">
+                        <img src="/html-css/images/busan3.jpg" alt="" class="rounded-5" width="800" height="600">
                     </div>
-                    <div class="slide_item">
-                        <div class="p-2">
-                            <figure><img class="img-fluid rounded" src="/html-css/images/전라남도 순천(순천만).png" alt="..."
-                                    width="800" height="600" /></figure>
-                        </div>
+        
+                    <div class="p-2">
+                        <img src="/html-css/images/전라남도 보성(녹차밭).png" alt="" class="rounded-5" width="800" height="600">
                     </div>
-                    <div class="slide_item">
-                        <div class="p-2">
-                            <figure><img class="img-fluid rounded" src="/html-css/images/울산광역시(대왕암공원).png" alt="..."
-                                    width="800" height="600" /></figure>
-                        </div>
+                    <div class="p-2">
+                        <img src="/html-css/images/전라남도 순천(순천만).png" alt="" class="rounded-5" width="800" height="600">
+                    </div>
+                    <div class="p-2">
+                        <img src="/html-css/images/전라도 전주(한옥마을).png" alt="" class="rounded-5" width="800" height="600">
+                    </div>
+                    
+                </div>
+                <!-- <div style="overflow: auto; overflow-y: hidden;">
+                    <div class="p-2">
+                        <figure><img class="img-fluid rounded" src="/html-css/images/dragoncastle.jpg" alt="..."
+                                width="800" height="600" /></figure>
                     </div>
 
-                    <div class="slide_prev_button slide_button">◀</div>
-                    <div class="slide_next_button slide_button">▶</div>
-                </div>
-                <div>
-                    <ul class="slide_pagination"></ul>
-                </div>
+                    <div class="p-2">
+                        <figure><img class="img-fluid rounded" src="/html-css/images/대구광역시(두류공원).jpg" alt="..."
+                                width="800" height="600" /></figure>
+                    </div>
+                    <div class="p-2">
+                        <figure><img class="img-fluid rounded" src="/html-css/images/전라도 전주(한옥마을).png" alt="..."
+                                width="800" height="600" /></figure>
+                    </div>
+                    <div class="p-2">
+                        <figure><img class="img-fluid rounded" src="/html-css/images/전라남도 순천(순천만).png" alt="..."
+                                width="800" height="600" /></figure>
+                    </div>
 
+                    <div class="p-2">
+                        <figure><img class="img-fluid rounded" src="/html-css/images/울산광역시(대왕암공원).png" alt="..."
+                                width="800" height="600" /></figure>
+                    </div>
+                </div> -->
             </div>
 
             <!-- 오른쪽 영역 -->
@@ -108,7 +117,7 @@
                     <span><small>작성자 : jisoo</small></span>
                     <span><small>조회수 : 341,245</small></span>
                     <img id="icon" src="/html-css/images/찜해제.png" onclick="zzim()"><span><small>1,241</small></span>
-                    <img id="icon" src="/html-css/images/star.png" ><span><small>10점</small></span>
+                    <img id="icon" src="/html-css/images/star.png"><span><small>10점</small></span>
                     <img id="icon" src="/html-css/images/like.png" onclick="like()"><span><small>955</small></span>
                     <img id="icon" src="/html-css/images/unlike.png" onclick="unlike()"><span><small>127</small></span>
                 </div>
@@ -136,8 +145,8 @@
                                     <div class="ms-3">
                                         <div class="fw-bold">유재석</div>
                                         조세호랑 촬영차 왔습니다!
-                                        <small><a href="#" id="plusComment" >답글</a></small>
-                                        <div><small><a href="#" id="addedComment" >▼답글 2개</a></small></div>
+                                        <small><a href="#" id="plusComment">답글</a></small>
+                                        <div><small><a href="#" id="addedComment">▼답글 2개</a></small></div>
                                         <!-- Child comment 1-->
                                         <div class="d-flex mt-4">
                                             <div class="flex-shrink-0"><a href="/html-css/main/detail.html"><img
@@ -204,4 +213,5 @@
     <script src="/html-css/assets/js/main.js"></script>
     <script src="/html-css/location/detail/detail.js"></script>
 </body>
+
 </html>
