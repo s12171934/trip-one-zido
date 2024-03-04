@@ -1,7 +1,122 @@
 import { createWebHistory, createRouter } from "vue-router";
+import MainPage from "../components/MainPage.vue";
+import Community from "../components/community/Community.vue";
+import CommunityDetail from "../components/community/CommunityDetail.vue";
+import EditCommunity from "../components/community/EditCommunity.vue";
+import Bookmark from "../components/member/Bookmark.vue";
+import Config from "../components/member/Config.vue";
+import Find from "../components/member/Find.vue";
+import Login from "../components/member/Login.vue";
+import MemberInfo from "../components/member/MemberInfo.vue";
+import MemberPage from "../components/member/MemberPage.vue";
+import RecentView from "../components/member/RecentView.vue";
+import ResetPassword from "../components/member/ResetPassword.vue";
+import Resign from "../components/member/Resign.vue";
+import SignUp from "../components/member/SignUp.vue";
+import EditPlan from "../components/plan/EditPlan.vue";
+import PlanDetail from "../components/plan/PlanDetail.vue";
+import DetailSearch from "../components/search/DetailSearch.vue";
+import Search from "../components/search/Search.vue";
+import EditSpot from "../components/spot/EditSpot.vue";
+import SpotDetail from "../components/spot/SpotDetail.vue";
+import TourDetail from "../components/tour/TourDetail.vue";
+import TourPage from "../components/tour/TourPage.vue";
 
 const routes = [
-
+  {
+    path: "/",
+    component: MainPage
+  },
+  //community
+  {
+    path: "/Community/page=:page",
+    component: Community
+  },
+  {
+    path: "/Community/:id",
+    component: CommunityDetail
+  },
+  {
+    path: "/Community/:id/:mode",
+    component: EditCommunity
+  },
+  //member
+  {
+    path: "/bookmark/:id",
+    component: Bookmark
+  },
+  {
+    path: "/config",
+    component: Config
+  },
+  {
+    path: "/find",
+    component: Find
+  },
+  {
+    path: "/login",
+    component: Login
+  },
+  {
+    path: "/member-info",
+    component: MemberInfo
+  },
+  {
+    path: "/:id",
+    component: MemberPage
+  },
+  {
+    path: "/recent-view",
+    component: RecentView
+  },
+  {
+    path: "/reset-pw",
+    component: ResetPassword
+  },
+  {
+    path: "/Resign",
+    component: Resign
+  },
+  {
+    path: "/sign-up",
+    component: SignUp
+  },
+  //plan
+  {
+    path: "/plan/:id/:mode",
+    component: EditPlan
+  },
+  {
+    path: "/plan/:id",
+    component: PlanDetail
+  },
+  //search
+  {
+    path: "/search",
+    component: Search
+  },
+  {
+    path: "/search/detail",
+    component: DetailSearch
+  },
+  //spot
+  {
+    path: "/spot/:id/:mode",
+    component: EditSpot
+  },
+  {
+    path: "/spot/:id",
+    component: SpotDetail
+  },
+  //tour
+  {
+    path: "/tour/loc/:locCategory",
+    component: TourPage
+  },
+  {
+    path: "/tour/:id",
+    component: TourDetail
+  },
 ];
 
 const router = createRouter({
