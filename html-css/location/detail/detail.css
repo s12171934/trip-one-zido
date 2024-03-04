@@ -3,6 +3,10 @@
   margin-right: 5%;
 }
 
+h1 {
+  color: #ff928e !important;
+}
+
 #mainTitle {
   text-align: left;
 }

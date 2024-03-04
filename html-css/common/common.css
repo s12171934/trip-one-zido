@@ -20,7 +20,6 @@
   height: 25px;
 }
 
-
 /* 스크롤바 */
 div::-webkit-scrollbar{ /* 스크롤바 배경 */
   height: 15px;
