@@ -43,6 +43,15 @@
       )
   </insert>
 
+  <select id="isFollow" parameterType="com.example.triponezidoapi.dto.request.RequestFollow" resultType="int">
+    SELECT
+      COUNT(*)
+    FROM
+      follow
+    WHERE
+      follower = #{follower} AND following = #{following}
+  </select>
+
   <select id="followerCount" parameterType="long" resultType="int">
     SELECT
       COUNT(*)
