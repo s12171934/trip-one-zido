@@ -32,8 +32,8 @@ h5 {
 }
 
 #userPic {
-    width: 330px;
-    height: 330px;
+    width: 260px;
+    height: 260px;
 }
 
 #searchPic {
@@ -45,7 +45,8 @@ h5 {
 #searchSchedule,
 #searchLocation {
     margin-left: 5%;
-    overflow: auto;
+    overflow:auto;
+    overflow-y: hidden;
 }
 
 #listTitle {
@@ -53,6 +54,5 @@ h5 {
 }
 
 #buttonBackground {
-    margin-top: 50%;
     background-color: white;
 }
