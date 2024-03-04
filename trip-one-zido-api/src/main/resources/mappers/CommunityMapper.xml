@@ -71,7 +71,7 @@
         WHERE
             community.id = content.id
         LIMIT
-            #{page};
+            #{page}, 6
     </select>
 
     <select id="getCommunityListWithSearch" parameterType="com.example.triponezidoapi.dto.request.RequestCommunitySearch" resultType="com.example.triponezidoapi.dto.response.ResponseCommunity">
@@ -108,7 +108,7 @@
             community.id = content.id AND
             #{type} = #{keyword}
         LIMIT
-            #{page};
+            #{page}, 6
     </select>
 
     <select id="getNextId" parameterType="long" resultType="long">

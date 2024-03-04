@@ -149,7 +149,7 @@
         ORDER BY
             opened_at DESC
         LIMIT
-            #{page}
+            #{page}, 6
     </select>
 
     <select id="isGood" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember" resultType="boolean">
