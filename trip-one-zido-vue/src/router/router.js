@@ -37,7 +37,7 @@ const routes = [
     component: CommunityDetail
   },
   {
-    path: "/Community/:id/:mode",
+    path: "/Community/:mode/:id?",
     component: EditCommunity
   },
   //member
@@ -83,7 +83,7 @@ const routes = [
   },
   //plan
   {
-    path: "/plan/:id/:mode",
+    path: "/plan/:mode/:id?",
     component: EditPlan
   },
   {
@@ -101,7 +101,7 @@ const routes = [
   },
   //spot
   {
-    path: "/spot/:id/:mode",
+    path: "/spot/:mode/:id?",
     component: EditSpot
   },
   {
@@ -110,7 +110,7 @@ const routes = [
   },
   //tour
   {
-    path: "/tour/loc/:locCategory",
+    path: "/tour/loc/:locCategory?",
     component: TourPage
   },
   {
