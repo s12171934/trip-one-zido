@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> 여행한지도 | 나만의 국내여행 일정, 장소 리뷰 </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/html-css/main/main/main.css">
+    <link rel="stylesheet" href="/html-css/common/common.css">
+    <script src="https://kit.fontawesome.com/51db22a717.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/html-css/assets/css/main-page.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header id="header">
+        <nav class="left">
+            <a href="#menu"><span>Menu</span></a>
+        </nav>
+
+    </header>
+    <!-- Menu -->
+    <nav id="menu">
+        <ul class="links">
+            <li><a href="/html-css/schedule/add/add.html">게시물등록</a></li>
+            <li><a href="/html-css/community/board/community.html">커뮤니티</a></li>
+            <li><a href="/html-css/config/recent/recent-view.html">최근기록</a></li>
+            <li><a href="/html-css/main/zzim/zzim.html">찜목록</a></li>
+            <li><a href="/html-css/info/info/info.html">관광정보</a></li>
+            <li><a href="/html-css/index.html">로그아웃</a></li>
+        </ul>
+    </nav>
+
+    <section class="main-section">
+        <div class="logo-wrap">
+            <a href="#"><img src="/html-css/images/여행한지도_로고.png"></a>
+        </div>
+
+        <!-- 로고 <-> 검색창 간 간격조정 -->
+        <span id="lineControll"><br></span>
+
+        <form action="/html-css/search/search.html">
+            <div class="searchbar-wrap">
+                <!-- <input class="search-input" type="text"/> -->
+                <i class="fas fa-search"></i>
+                <input name="q" type="text" class="search-input" placeholder="검색어를 입력해주세요"
+                    aria-label="Recipient's username" aria-describedby="button-addon2">
+                <i class="fas fa-keyboard"></i>
+            </div>
+        </form>
+        
+        <div class="buttons">
+            <a href="/html-css/main/detail/detail.html" class="button" id="buttons">마이페이지</a>
+            <a href="/html-css/community/board/community.html" class="button" id="buttons">커뮤니티</a>
+            <a href="/html-css/info/info/info.html" class="button" id="buttons">관광정보</a>
+            <a href="/html-css/main/zzim/zzim.html" class="button" id="buttons">찜</a>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="inner">
+            <h2>여행한 지도</h2>
+            <ul class="actions">
+                <li><span class="icon fa-phone"></span> <a href="#">(000) 000-0000</a></li>
+                <li><span class="icon fa-envelope"></span> <a href="#">information@untitled.tld</a></li>
+                <li><span class="icon fa-map-marker"></span> 123 Somewhere Road, Nashville, TN 00000</li>
+            </ul>
+        </div>
+    </footer>
+    <div class="copyright">Powered by: 
+        <a href="https://templated.co/">TEMPLATED</a>.
+    </div>
+
+    <!-- Scripts -->
+    <script src="/html-css/assets/js/jquery.min.js"></script>
+        <script src="/html-css/assets/js/jquery.scrolly.min.js"></script>
+        <script src="/html-css/assets/js/skel.min.js"></script>
+        <script src="/html-css/assets/js/util.js"></script>
+        <script src="/html-css/assets/js/main.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE HTML>
+<!--
+	Intensify by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+
+<head>
+    <title>여행한 지도 | 회원 정보 수정</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/html-css/assets/css/main.css">
+    <link rel="stylesheet" href="/html-css/common/common.css">
+    <link rel="stylesheet" href="/html-css/config/update/update.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <!-- Daum 우편번호 서비스 API 스크립트 -->
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="/html-css/config/update/update.js"></script>
+
+</head>
+
+<body>
+    <!-- Header -->
+	<header id="header">
+		<nav class="left">
+			<a href="#menu"><span>Menu</span></a>
+		</nav>
+		<a href="/html-css/index.html" class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
+		<nav class="right">
+			<div class="d-grid gap-2 d-md-flex justify-content-md-end" id="headerProfile">
+				<form action="/html-css/search/search.html">
+					<input type="text" required id="headerSearchBar">
+				</form>
+				<span class="image round" box-sha><a href="/html-css/main/detail/detail.html"> <img
+							src="/html-css/images/남자.png" width="75" height="75"></a></span>
+			</div>
+		</nav>
+	</header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <ul class="links">
+            <li><a href="/html-css/schedule/add/add.html">게시물등록</a></li>
+            	<li><a href="/html-css/community/board/community.html">커뮤니티</a></li>
+            	<li><a href="/html-css/config/recent/recent-view.html">최근기록</a></li>
+            	<li><a href="/html-css/main/zzim/zzim.html">찜목록</a></li>
+            	<li><a href="/html-css/info/info/info.html">관광정보</a></li>
+            	<li><a href="/html-css/index.html">로그아웃</a></li>
+        </ul>
+    </nav>
+    
+    <!-- One -->
+    <section id="main" class="wrapper" >
+        <div class="inner">
+            <h1>회원 정보 수정</h1>
+
+            <form action="/html-css/config/config/config.html">
+                <table class="border border-secondary-subtle" width="600" border="1" cellspacing="0" cellpadding="3"
+                    align="center">
+                    <tr id="trHeader">
+                        <td colspan="3" id="updateTdSet"><b>
+                                <h3 id="trTitle">아이디 & 비밀번호</h3>
+                            </b></td>
+                    </tr>
+                    <tr id="updateArea">
+                        <td width="200">아이디 (변경불가) :</td>
+                        <td colspan="2" width="200">kitritest</td>
+                    </tr>
+
+                    <tr id="updateArea">
+                        <td width="200">비밀번호 (변경가능) :</td>
+                        <td width="200"><input type="password" name="passwd" size="10" maxlength="10"
+                                value="testtest123"></td>
+                        <td>
+                            <ul class="actions">
+                                <li><a href="/html-css/config//update/pwupdate.html" class="button small" id="button">비밀번호 변경하기</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr id="trHeader">
+                        <td colspan="3" width="600" align="center"><b>
+                                <h3 id="trTitle">개인정보</h3>
+                            </b></td>
+                    </tr>
+                    <tr id="updateArea">
+                        <td width="200">이름 (변경가능) :</td>
+                        <td colspan="2" width="200"><input type="text" name="name" size="15" maxlength="20" value="키트리">
+                        </td>
+                    </tr>
+                    <tr id="updateArea">
+                        <td width="200">주소 :</td>
+                        <td width="200">
+                            <input type="text" name="address" size="70" value="08378">
+                        </td>
+                        <td>
+                            <div class="d-flex flex-row">
+                                <input type="text" name="address" size="70" value="서울 구로구 디지털로 34길 43">
+                                <ul class="actions">
+                                    <li><button type="button" class="button special icon fa-search"
+                                            onclick="searchAddress()" id="button">주소 검색 </button></li>
+                                </ul>
+                            </div>  
+                            <input type="text" name="address" size="70" value="4층 406호 kitri">
+                        </td>
+                    </tr>
+
+                    <tr id="updateArea">
+                        <td width="200">보안질문 (변경가능) :</td>
+                        <td colspan="2" width="200">
+                            <div class="select-wrapper">
+                                <select name="category" id="security">
+                                    <option value="">보안질문</option>
+                                    <option value="1" selected>당신이 태어난 곳은?</option>
+                                    <option value="2">졸업한 초등학교명은?</option>
+                                    <option value="3">당신의 별명은?</option>
+                                    <option value="4">처음으로 국내여행 가본 곳은?</option>
+                                    <option value="5">처음으로 해외여행 가본 국가는?</option>
+                                    <option value="6">직접 작성</option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id="updateArea">
+                        <td width="200">보안질문답 :</td>
+                        <td colspan="2" width="200"><input type="text" name="security" size="15" maxlength="20"
+                                value="대한민국"></td>
+                    </tr>
+                    <tr id="updateArea">
+                        <td width="200">생년월일 (변경불가) :</td>
+                        <td colspan="2" width="200"><input type="text" name="birthday" size="15" maxlength="20"
+                                value="1999-01-01" disabled></td>
+                    </tr>
+                    <tr id="updateArea">
+                        <td width="200">성별 (변경가능) :</td>
+                        <td colspan="2">
+                            <input type="radio" id="male" name="gender" checked><label for="male">남성</label>
+                            <input type="radio" id="female" name="gender"><label for="female">여성</label>
+                        </td>
+                    </tr>
+                    <tr id="updateArea">
+                        <td width="200">전화번호 (변경가능) :</td>
+                        <td width="200"><input type="text" name="phonenumber" size="15" maxlength="20"
+                                value="010-9999-1111"></td>
+                        <td>( - 는 제외하고 입력하세요)</td>
+                    </tr>
+                    <tr id="updateArea">
+                        <td width="200">이메일 (변경가능) :</td>
+                        <td colspan="2" width="200"><input type="text" name="email" size="15" maxlength="20"
+                                value="kitri@kitri"></td>
+                    </tr>
+                </table>
+                <ul class="actions">
+                    <li><a href="/html-css/config/resign/resign.html" class="button alt">회원 탈퇴하기</a></li>
+                    <li id="formButton"><button type="submit" id="button">수정하기</button></li>
+                    <li><a href="/html-css/config/config/config.html" class="button alt">취소하기</a></li>
+                </ul>
+
+                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    정보변경 모달
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <!-- Vertically centered scrollable modal -->
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header border border-0">
+                                <!-- <h1 class="modal-title fs-5" id="exampleModalLabel">타이틀 없애고</h1> -->
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+
+                            <div class="m-5 modal-body border rounded-3" id="modalBox">
+                                <h3>회원정보 수정이</h3>
+                                <h3>완료되었습니다</h3>
+                            </div>
+
+                            <div class="modal-footer border border-0">
+                                <button type="button" class="rounded-3" id="modalButton" onclick="location.href='/html-css/config/config/config.html'" data-bs-dismiss="modal">회원정보
+                                    페이지로</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="inner">
+            <h2>Get In Touch</h2>
+            <ul class="actions">
+                <li><span class="icon fa-phone"></span> <a href="#">(000) 000-0000</a></li>
+                <li><span class="icon fa-envelope"></span> <a href="#">information@untitled.tld</a></li>
+                <li><span class="icon fa-map-marker"></span> 123 Somewhere Road, Nashville, TN 00000</li>
+            </ul>
+        </div>
+    </footer>
+    <div class="copyright">Powered by:
+        <a href="https://templated.co/">TEMPLATED</a>.
+    </div>
+    <!-- Scripts -->
+    <script src="/html-css/assets/js/jquery.min.js"></script>
+    <script src="/html-css/assets/js/jquery.scrolly.min.js"></script>
+    <script src="/html-css/assets/js/skel.min.js"></script>
+    <script src="/html-css/assets/js/util.js"></script>
+    <script src="/html-css/assets/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+#modalButton, #button {
+  color: aliceblue !important;
+  background-color: #ff928e !important;
+}
+
+#modalBox {
+  background-color: #D9D9D9;
+}
+
+h4 {
+  color: black !important;
+}
+
+/* 헤더 프로필 사진 및 검색창 */
+#headerProfile {
+  margin-top: 3%;
+}
+#headerSearchBar {
+  margin-top: 2%
+}
+
+/* 팔로워, 팔로우 , 코멘트 프로필 사진 */
+#followPic, #commentProfilePic{
+  width: 75px;
+  height: 75px;
+}
+
+/* 아이콘 크기 */
+#icon {
+  width: 25px;
+  height: 25px;
+}
+
+/* 스크롤바 */
+div::-webkit-scrollbar{ /* 스크롤바 배경 */
+  height: 15px;
+  border-radius: 10px;
+  background: rgb(236, 236, 250);
+}
+div::-webkit-scrollbar-thumb{ /* 스크롤바 */
+  width: 15px;
+  border-radius: 10px;
+  background: pink;
+}
+
+
+@font-face {
+  font-family: 'Jalnan';
+  src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');
+}
+
+#headerSearchBar {
+  font-family: 'Jalnan';
+}
+
+
+#footer {
+  font-family: 'Jalnan';
+  font-size: 10px;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+body,
+section,
+.button,
+#main {
+  font-family: 'Jalnan';
+}
+
+#menu {
+  font-size: 20px;
+  font-family: 'Jalnan';
+}

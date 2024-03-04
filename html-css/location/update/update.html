@@ -1,0 +1,211 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>여행한지도 | 장소 수정</title>
+    <meta charset="utf-8">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/html-css/assets/css/main.css">
+    <link rel="stylesheet" href="./update.css">
+    <link rel="stylesheet" href="/html-css/common/common.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <!-- script 연결 -->
+    <script src="/html-css/schedule/schedule.js"></script> 
+</head>
+
+<body>
+    <!-- Header -->
+    <header id="header">
+        <nav class="left">
+            <a href="#menu"><span>Menu</span></a>
+        </nav>
+        <a href="/html-css/index.html" class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
+        <nav class="right">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end" id="headerProfile">
+                <form action="/html-css/search/search.html">
+                    <input type="text" required id="headerSearchBar">
+                </form>
+                <span class="image round" box-sha><a href="/html-css/main/detail/detail.html"> <img
+                            src="/html-css/images/남자.png" width="75" height="75"></a></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Menu -->
+    <nav id="menu">
+        <ul class="links">
+            <li><a href="/html-css/schedule/add/add.html">게시물등록</a></li>
+            <li><a href="/html-css/community/board/community.html">커뮤니티</a></li>
+            <li><a href="/html-css/config/recent/recent-view.html">최근기록</a></li>
+            <li><a href="/html-css/main/zzim/zzim.html">찜목록</a></li>
+            <li><a href="/html-css/info/info/info.html">관광정보</a></li>
+            <li><a href="/html-css/index.html">로그아웃</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main -->
+    <section id="main" class="wrapper">
+        <form id="split-container" class="d-flex flex-row" action="/html-css/location/detail/detail.html">
+            
+            <!-- ★왼쪽 -->
+            <div class="p-2 d-flex flex-column border-end" id="leftSide">
+                <div id="mainTitle">
+                    <h1 class="title">장소 수정</h1>
+                    <br>
+                </div>
+    
+                <div class="p-2" id="picContainer"><h4> 사진 등록 </h4>
+                    <div class="d-flex flex-row" id="addPic">
+                        <div class="d-inline-flex p-2">
+                            <img class="img-fluid rounded" id="selectedPic" src="/html-css/images/dragoncastle.jpg" alt="" >
+                            <img class="img-fluid rounded" id="selectedPic" src="/html-css/images/busan3.jpg" alt="" >
+                            <button id="plusPic">
+                                <img src="/html-css/images/plusbutton.png" alt="" class="rounded-5">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ★오른쪽 -->
+            <div class="p-2 d-flex flex-column border-end" id="rightSide">
+                <div class="p-2 d-flex flex-row" id="blank"><h4>장소 제목</h4>
+                    <input type="text" id="locationTitle" value="화동용궁사">
+                </div>
+
+                <div class="p-2 d-flex" id="blank"><h4>시간</h4>
+                    <label for="start_date"></label>
+                    <input class="flex-fill" type="time" id="start_date" name="start_date" >
+                    <h4>~</h4>
+                    <label for="end_date"></label>
+                    <input class="flex-fill" type="time" id="end_date" name="end_date">
+                </div>
+
+                <div class="p-2 d-flex border-bottom" id="locationPeople" ><h4>동행인</h4>
+                    <label for="otherName1"></label>
+                    <input class="flex-fill" type="text" id="otherName" name="otherName1" value="윤지수"></input<br><br>
+
+                    <label for="otherName2"></label>
+                    <input class="flex-fill" type="text" id="otherName" name="otherName2" value="문성기"><br><br>
+
+                    <label for="otherName3"></label>
+                    <input class="flex-fill" type="text" id="otherName" name="otherName3" value="한희주"><br><br>
+
+                    <div class="actions vertical small">
+                        <button id="buttonBackground" ><img src="/html-css/images/plusbutton.png" width="25" height="25"></button>
+                    </div>
+                </div>
+                <div class="p-2 d-flex flex-row" id="picLocation">
+                    <h4>사진 장소</h4>
+                    &nbsp;&nbsp;
+                    <div class="d-flex flex-row mb-3">
+                        <div class="p-2">
+                            <input type="text" id="addressArea" placeholder="위치를 입력해주세요~!" value="부산 해동용궁사">
+                        </div>
+                        <div class="p-2">
+                            <select class="btn btn-sm border rounded-3" name="category" id="category">
+                                <option value="" selected>카테고리 ▼</option>
+                                <option value="1">관광지</option>
+                                <option value="2">음식점</option>
+                            </select>
+                        </div>
+                    </div>	
+                    <br>
+                </div>
+
+                
+                <div class="p-2 d-flex border-top" ><h4>여행한 후기</h4>
+                    <div class="rating flex-fill" id="rateStar">
+                        <span onclick="rateStar(10)">☆</span>
+                        <span onclick="rateStar(8)">☆</span>
+                        <span onclick="rateStar(6)">☆</span>
+                        <span onclick="rateStar(4)">☆</span>
+                        <span onclick="rateStar(2)">☆</span>
+                    </div>
+                    <p class="flex-fill" id="ratingValue">별점을 선택하세요.</p>
+                </div>
+                <!-- 여행후기 -->
+                <div class="p-2">
+                        <textarea id="content" name="content" rows="5" cols="50">너무좋았어요!!!!!</textarea><br><br>
+                </div>
+                
+                <div class="p-2 d-flex flex-row">
+                    <div class="select-wrapper" >
+                        <select class ="local-select" name="category" id="security">
+                            <option value="">공개 설정</option>
+                            <option value="1" selecetd>공개</option>
+                            <option value="2">비공개</option>
+                        </select>
+                    </div>
+                    <div id="formButton">
+                        <input id="input" class="button small" type="submit" value="수정">
+                        <input class="button alt small" type="button" value="취소"
+                        onclick="location.href='/html-css/main/detail/detail.html'">
+                    </div>
+                </div>
+
+                                    
+                <!-- Break1 -->
+				<div class="p-1 12u$">
+					<ul class="actions">
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+						게시글수정 모달
+					</button>
+
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<!-- Vertically centered scrollable modal -->
+						<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+							<div class="modal-content">
+								<div class="modal-header border border-0">
+								<!-- <h1 class="modal-title fs-5" id="exampleModalLabel">타이틀 없애고</h1> -->
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+
+								<div class="m-5 modal-body border rounded-3" id="modalBox">
+								    <h3>게시물 수정이</h3>
+								    <h3>완료되었습니다</h3>
+								</div>
+
+								<div class="modal-footer border border-0">
+								<!-- <button type="button" class="btn btn-secondary" >로그인하러가기</button> -->
+								<button type="button" class="rounded-3" id="modalButton" 
+                                    onclick="location.href='/html-css/location/detail.html'">목록가기</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					</ul>
+				</div>
+            </div>
+        </form>
+    </section>
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="inner">
+            <h2>여행한 지도</h2>
+            <ul class="actions">
+                <li><span class="icon fa-phone"></span> <a href="#">(000) 000-0000</a></li>
+                <li><span class="icon fa-envelope"></span> <a href="#">information@untitled.tld</a></li>
+                <li><span class="icon fa-map-marker"></span> 123 Somewhere Road, Nashville, TN 00000</li>
+            </ul>
+        </div>
+    </footer>
+    <div class="copyright">Powered by: 
+        <a href="https://templated.co/">TEMPLATED</a>.
+    </div>
+    <!-- Scripts -->
+    <script src="/html-css/assets/js/jquery.min.js"></script>
+        <script src="/html-css/assets/js/jquery.scrolly.min.js"></script>
+        <script src="/html-css/assets/js/skel.min.js"></script>
+        <script src="/html-css/assets/js/util.js"></script>
+        <script src="/html-css/assets/js/main.js"></script>
+        <script src="/html-css/common/common.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+</body>
+</html>

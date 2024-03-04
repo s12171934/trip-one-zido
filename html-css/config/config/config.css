@@ -1,0 +1,124 @@
+/* 스크롤바 */
+div::-webkit-scrollbar{ /* 스크롤바 배경 */
+    height: 15px;
+    border-radius: 10px;
+    background: rgb(236, 236, 250);
+  }
+  div::-webkit-scrollbar-thumb{ /* 스크롤바 */
+    width: 15px;
+    border-radius: 10px;
+    background: pink;
+  }
+
+#main {
+  margin-left: 5%; 
+  margin-right: 5%;
+}
+
+h1 {
+  color:#ff928e !important;
+}
+
+h3 {
+  color:rgb(80, 80, 80) !important;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+#mainTitle {
+  text-align: left;
+}
+
+#configPic {
+  width:260px;
+  height:260px;
+}
+
+#configName {
+  font-size: 25px; 
+  margin-left: 10%;
+}
+
+#configPicUpdate {
+  width:360px;
+  height:330px;
+}
+
+#picBox {
+  background-color: #D9D9D9; 
+  display:flex; 
+  justify-content: center;
+}
+
+#modalButton, .btn {
+  color: aliceblue !important; 
+  background-color:#ff928e !important;
+}
+
+#followSearch,#followingSearch {
+  background-color: #D9D9D9; 
+  overflow: hidden;
+}
+
+#searchResult,#followList,#followingList {
+  background-color: #D9D9D9; 
+  overflow: auto;
+}
+
+#followPic {
+  width: 75px;
+   height: 75px;
+}
+
+#followRequest,#followingDrop {
+  margin-left: 5%;
+}
+
+#followButton {
+  margin-left: 200px;
+}
+
+#followingButton {
+  margin-left: 180px;
+}
+
+#configInfo {
+  text-align: right; 
+  margin-right: 10%;
+}
+
+#configInfoLine {
+  width: 90%;
+}
+
+#p-2 {
+  margin: 2%;
+}
+
+/* 폰트 */
+@font-face {
+  font-family: 'Jalnan';
+  src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');
+}
+
+#footer {
+  font-family: 'Jalnan';
+  font-size: 10px;
+}
+
+h1,
+h2,
+h3,
+h4,
+body,
+p,
+.button,
+.main {
+  font-family: 'Jalnan';
+}
+
+#menu {
+  font-size: 20px;
+}
