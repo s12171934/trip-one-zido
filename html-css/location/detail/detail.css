@@ -191,3 +191,13 @@ ul,li {
   /* 현재 슬라이드 색상은 투명도 없이 */
   color: #f6755e;
 }
+#button {
+  background-color: white !important;
+  color: black !important;
+  box-shadow : none;
+}
+#openPopup {
+  color: aliceblue !important;
+  background-color: #ff928e !important;
+  border-radius: 10px !important;
+}

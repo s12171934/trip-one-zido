@@ -52,9 +52,9 @@ a {
   justify-content: center;
 }
 
-#modalButton {
-  color: aliceblue; 
-  background-color:#ff928e;
+#modalButton, .btn {
+  color: aliceblue !important; 
+  background-color:#ff928e !important;
 }
 
 #followSearch,#followingSearch {
