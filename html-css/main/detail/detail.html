@@ -79,20 +79,7 @@
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="m-4 modal-body border rounded-3" id="followSearch">
-                                            <input type="text" required placeholder="팔로우 아이디 찾기!">
-                                        </div>
-
-                                        <div class="m-4 modal-body border rounded-3" id="searchResult">
-                                            <div class="d-flex">
-                                                <a href="/html-css/main/detail/detail_other.html"><img class="rounded-circle" id="followPic" src="/html-css/images/유재석.png" alt="..." /></a>
-
-                                                <div class="d-flex flex-column" id="followRequest">
-                                                    <div class="fw-bold"> <h4>팔로우 요청하기</h4>
-                                                    </div>
-                                                    <div class="fw-bold">아이디 <span id="followButton"><button class="btn btn-sm">요청</button></span>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <h4>팔로워 목록</h4>
                                         </div>
 
                                         <div class="m-4 modal-body border rounded-3" id="followList">
@@ -167,19 +154,7 @@
                                                 aria-label="Close"></button>
                                         </div>
                                         <div class="m-4 modal-body border rounded-3" id="followingSearch">
-                                            <input type="text" required placeholder="팔로잉 아이디 찾기!">
-                                        </div>
-
-                                        <div class="m-4 modal-body border rounded-3" id="searchResult">
-                                            <div class="d-flex">
-                                                <a href="/html-css/main/detail/detail_other.html"><img class="rounded-circle" id="followPic" src="/html-css/images/유재석.png" alt="..." /></a>
-                                                <div class="d-flex flex-column" id="searchResult">
-                                                    <div class="fw-bold"> <h4>유재석</h4>
-                                                    </div>
-                                                    <div class="fw-bold">아이디 <span id="followingButton"><button class="btn btn-sm">팔로잉 중</button></span>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <h4>팔로잉 목록</h4>
                                         </div>
 
                                         <div class="m-4 modal-body border rounded-3" id="followingList">
@@ -289,7 +264,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex flex-row mb-6" id="lists">
+                <div class="d-flex flex-row mb-6" id="recentViewBox">
                     <div class="p-2">
                         <a href="/html-css/schedule/detail/detail.html" class="banner_img">
                             <img id="schedulePic" src="/html-css/images/busan1.jpg" alt="" class="rounded-5">
@@ -356,7 +331,11 @@
                         </a>
                         <p id="scheduleTitle">해동용궁사<img id="unzzim" src="/html-css/images/unzzim.png" onclick="zzim()"></p>
                     </div>
+                    <div class="actions vertical small">
+                        <button id="buttonBackground"><img id="plusbutton" src="/html-css/images/plusbutton.png" width="260" height="260"></button>
+                    </div>
                 </div>
+
                 <div class="p-2">
                     <div class="d-flex flex-row mb-3">
                         <h1>장소 게시물</h1>
@@ -375,7 +354,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="d-flex flex-row mb-6" id="lists">
+                <div class="d-flex flex-row mb-6" id="recentViewBox">
                     <div class="p-2">
                         <a href="/html-css/location//detail/detail.html" class="banner_img">
                             <img id="locationPic" src="/html-css/images/경상북도 경주(동궁과 월지).png" alt=""
@@ -442,6 +421,9 @@
                             </p>
                         </a>
                         <p id="locationTitle">해동용궁사<img id="unzzim" src="/html-css/images/unzzim.png" onclick="zzim()"></p>
+                    </div>
+                    <div class="actions vertical small">
+                        <button id="buttonBackground"><img id="plusbutton" src="/html-css/images/plusbutton.png" width="260" height="260"></button>
                     </div>
                 </div>
             </div>

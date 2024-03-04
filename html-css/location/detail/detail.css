@@ -3,6 +3,10 @@
   margin-right: 5%;
 }
 
+h1 {
+  color: #ff928e !important;
+}
+
 #mainTitle {
   text-align: left;
 }
@@ -28,6 +32,11 @@
 
 #rightSide{
   width: 50%;
+}
+
+#recentViewBox{
+  overflow: auto;
+  overflow-y: hidden;
 }
 
 #formButton{

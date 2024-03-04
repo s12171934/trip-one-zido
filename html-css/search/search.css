@@ -8,19 +8,22 @@
 }
 
 
-h1,#searchResult {
+h1,
+#searchResult {
     color: #ff928e !important;
 }
 
 #searchTitle {
-    text-align: left; margin-left: 5%;
+    text-align: left;
+    margin-left: 5%;
 }
 
 #searchBar {
-    display: flex; justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
-#searchBar > form {
+#searchBar>form {
     width: 70%;
 }
 
@@ -28,20 +31,28 @@ h5 {
     margin-top: 0.25%;
 }
 
-#userPic{
+#userPic {
     width: 330px;
     height: 330px;
 }
 
-#searchPic{
+#searchPic {
     width: 260px;
     height: 260px;
 }
 
-#searchUser,#searchSchedule,#searchLocation{
-    margin-left: 5%; overflow: auto;
+#searchUser,
+#searchSchedule,
+#searchLocation {
+    margin-left: 5%;
+    overflow: auto;
 }
 
 #listTitle {
     text-align: center;
-  }
+}
+
+#buttonBackground {
+    margin-top: 50%;
+    background-color: white;
+}
