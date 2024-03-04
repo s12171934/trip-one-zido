@@ -1,9 +1,24 @@
 <template>
+  <Header :url="url" />
   <router-view />
+  <Footer />
 </template>
 
 <script>
+import Header from './components/public/Header.vue';
+import Footer from './components/public/Footer.vue';
+
 export default {
+  components : {
+    Header,
+    Footer,
+  },
+
+  data(){
+    return{
+      url : window.location.pathname === "/"
+    }
+  }
 }
 </script>
 
