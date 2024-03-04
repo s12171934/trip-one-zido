@@ -52,8 +52,11 @@ thead {
 }
 #table {
     font-size: 15px !important;
-    color: #929292 !important;
-}
-#black {
     color: black !important;
 }
+#black, input {
+    color: black !important;
+}
+table tbody tr {
+    background-color: white !important;
+} 

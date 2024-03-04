@@ -49,11 +49,18 @@ thead {
     background-color:#ff928e !important;
     font-size: 15px;
 }
+#mouseHover, #button2 {
+    color: aliceblue !important; 
+    background-color:#ff928e !important;
+}
 #table {
     font-size: 15px !important;
-    color: #929292 !important;
+    color: black !important;
 }
 #black {
     width: 35%;
     color: black !important;
 }
+table tbody tr {
+    background-color: white !important;
+} 

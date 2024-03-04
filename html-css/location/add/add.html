@@ -53,7 +53,7 @@
                     <br>
                 </div>
     
-                <div class="p-2" id="picContainer"><h4> 사진 등록 </h4>
+                <div class="p-2" id="picContainer"><h4> 사진 등록</h4>
                     <div class="d-flex flex-row" id="addPic">
                         <div class="d-inline-flex p-2">
                             <img class="img-fluid rounded" id="selectedPic" src="/html-css/images/dragoncastle.jpg" alt="" >
@@ -68,11 +68,11 @@
 
             <!-- ★오른쪽 -->
             <div class="p-2 d-flex flex-column border-end" id="rightSide">
-                <div class="p-2 d-flex flex-row" id="blank"><h4>장소 제목</h4>
+                <div class="p-2 d-flex flex-row" id="blank"><h4>장소 제목 :</h4>
                     <input type="text" value="" id="locationTitle" >
                 </div>
 
-                <div class="p-2 d-flex" id="blank"><h4>시간</h4>
+                <div class="p-2 d-flex" id="blank"><h4>시간 :</h4>
                     <label for="start_date"></label>
                     <input class="flex-fill" type="time" id="start_date" name="start_date" >
                     <h4>~</h4>
@@ -80,7 +80,7 @@
                     <input class="flex-fill" type="time" id="end_date" name="end_date">
                 </div>
 
-                <div class="p-2 d-flex border-bottom" id="locationPeople" ><h4>동행인</h4>
+                <div class="p-2 d-flex border-bottom" id="locationPeople" ><h4>동행인 :</h4>
                     <label for="otherName1"></label>
                     <input class="flex-fill" type="text" id="otherName" name="otherName1" ><br><br>
 
@@ -95,14 +95,14 @@
                     </div>
                 </div>
                 <div class="p-2 d-flex flex-row" id="picLocation">
-                    <h4>사진 장소</h4>
+                    <h4>사진 장소 :</h4>
                     &nbsp;&nbsp;
                     <div class="d-flex flex-row mb-3">
                         <div class="p-2">
                             <input type="text" id="addressArea" placeholder="위치를 입력해주세요~!">
                         </div>
                         <div class="p-2">
-                            <select class="btn btn-sm border border-danger-subtle rounded-3" name="category" id="category">
+                            <select class="btn btn-sm border rounded-3" name="category" id="category">
                                 <option value="" selected>카테고리 ▼</option>
                                 <option value="1">관광지</option>
                                 <option value="2">음식점</option>
@@ -138,9 +138,8 @@
                     </div>
                     <div id="formButton">
                         <input id="input" class="button small" type="submit" value="등록">
-                        <input id="input" class="button alt small" type="button" value="취소"
+                        <input class="button alt small" type="button" value="취소"
                         onclick="location.href='/html-css/main/detail/detail.html'">
-                        
                     </div>
                 </div>
                     

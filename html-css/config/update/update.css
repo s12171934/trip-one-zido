@@ -18,20 +18,24 @@ h1 {
 }
 
 #trHeader {
-    background-color: rgba(144, 144, 144, 0.075)
+    background-color: rgba(144, 144, 144, 0.075);
 }
 
 #trTitle {
-    color: #767d85
+    color: #767d85;
 }
 
 #updateArea {
     background-color: white;
 }
 
-#modalButton {
-    color: aliceblue;
-    background-color: #ff928e;
+#modalButton, #button {
+
+    color: aliceblue !important;
+    background-color: #ff928e !important;
+    border-radius: 10px !important;
+    padding-left: 50px !important;
+    margin-left: 10px;
 }
 
 #modalBox {
@@ -40,4 +44,14 @@ h1 {
 
 #formButton{
     margin-left: 40%;
+}
+h3 {
+    margin-top: 5px !important;
+    margin-bottom: 0 !important;
+}
+label { 
+    color: black !important;
+}
+.button {
+    border-radius: 10px !important;
 }

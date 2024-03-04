@@ -1,6 +1,6 @@
-#modalButton {
-  color: aliceblue;
-  background-color: #ff928e;
+#modalButton, #button {
+  color: aliceblue !important;
+  background-color: #ff928e !important;
 }
 
 #modalBox {

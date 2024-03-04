@@ -53,15 +53,9 @@ width: 100%;
 #input {
     color:white;
     font-family: 'Jalnan';
-    text-align: center;
-    margin-right: 10px; 
-    margin-left: 10px; 
-    margin-bottom: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
 }
 .flex-fill {
-    color: #f6755e;
+    color: #ff928e;
 }
 
 #start_date, #end_date {
