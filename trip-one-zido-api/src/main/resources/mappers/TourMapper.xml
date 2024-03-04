@@ -81,7 +81,7 @@
         FROM
             content c
         LIMIT
-            #{page}
+            #{page}, 6
     </select>
 
     <select id="getNextId" parameterType="long" resultType="long">

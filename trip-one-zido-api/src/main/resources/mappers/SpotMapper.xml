@@ -139,7 +139,7 @@
                 member_id = #{targetId}
             )
         LIMIT
-            #{page}
+            #{page}, 6
     </select>
 
     <update id="updateSpot" parameterType="com.example.triponezidoapi.dto.request.RequestSpot">

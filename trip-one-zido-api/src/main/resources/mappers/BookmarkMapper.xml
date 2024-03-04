@@ -24,7 +24,6 @@
             b.content_id = c.id AND
             c.is_public = 1 AND
             b.member_id = #{memberId}
-
     </select>
 
     <select id="tourBookmarkCount" parameterType="long" resultType="int">
@@ -94,7 +93,7 @@
                 member_id = #{targetId}
             )
         LIMIT
-            #{page}
+            #{page}, 6
     </select>
 
     <select id="getPlanSpotBookmark" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
@@ -159,6 +158,8 @@
             WHERE
                 member_id = #{targetId}
             )
+        LIMIT
+            #{page}, 6
     </select>
 
     <delete id="deleteBookmark" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
