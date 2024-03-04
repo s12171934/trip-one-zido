@@ -152,6 +152,16 @@
             #{page}
     </select>
 
+    <select id="isGood" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember" resultType="boolean">
+        SELECT
+            good
+        FROM
+            good
+        WHERE
+            content_id = #{contentId}
+          AND member_id = #{memberId}
+    </select>
+
     <update id="updateIsPublic" parameterType="com.example.triponezidoapi.dto.request.RequestIsPublic">
         UPDATE content
         SET

@@ -14,6 +14,7 @@ public interface MemberMapper {
     void signUp(Member member);
 
     //select
+    int isFollow(RequestFollow requestFollow);
     int followerCount(long id);
     int followingCount(long id);
     List<ResponseMember> followerList(long id);

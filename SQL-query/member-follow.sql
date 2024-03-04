@@ -186,10 +186,18 @@ WHERE
       following = ?
   );
 
+--팔로우 여부
+SELECT
+    COUNT(*)
+FROM
+    follow
+WHERE
+    follower = ? AND following = ?
+
 --게시물 총 수
 SELECT
     COUNT(*)
 FROM
     owner
-where
+WHERE
     member_id = ?;
