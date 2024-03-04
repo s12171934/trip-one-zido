@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.triponezidoapi.mappers.CommunityMapper">
+    <insert id="addCommunity" parameterType="com.example.triponezidoapi.dto.request.RequestCommunity">
+        INSERT INTO community
+            (
+            id,
+            start_date,
+            end_date,
+            loc_category,
+            notice,
+            total,
+            deadline
+            )
+        VALUE
+            (
+            #{id},
+            #{startDate},
+            #{endDate},
+            #{locCategory},
+            #{notice},
+            #{total},
+            #{deadline}
+            );
+    </insert>
+
+    <select id="getCommunity" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseCommunityDetail">
+        SELECT
+            c1.*,
+            c2.title,
+            c2.created_at,
+            c2.modified_at
+        FROM
+            community c1,
+            content c2
+        WHERE
+            c1.id = c2.id AND
+            c1.id = #{id};
+    </select>
+
+    <select id="getCommunityList" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseCommunity">
+        SELECT
+            content.id,
+            title,
+            deadline,
+            view_point,
+            total,
+            status,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                owner
+            WHERE
+                content_id = content.id
+            ) participants_count,
+            (
+            SELECT
+                login_id
+            FROM
+                member m,
+                owner o
+            WHERE
+                m.id = o.member_id AND
+                o.own = 'writer' AND
+                o.content_id = content.id
+            ) writer
+        FROM
+            community,
+            content
+        WHERE
+            community.id = content.id
+        LIMIT
+            #{page}, 6
+    </select>
+
+    <select id="getCommunityListWithSearch" parameterType="com.example.triponezidoapi.dto.request.RequestCommunitySearch" resultType="com.example.triponezidoapi.dto.response.ResponseCommunity">
+        SELECT
+            content.id,
+            title,
+            deadline,
+            view_point,
+            total,
+            status,
+            (
+                SELECT
+                    COUNT(*)
+                FROM
+                    owner
+                WHERE
+                    content_id = content.id
+            ) participants_count,
+            (
+                SELECT
+                    login_id
+                FROM
+                    member m,
+                    owner o
+                WHERE
+                    m.id = o.member_id AND
+                    o.own = 'writer' AND
+                    o.content_id = content.id
+            ) writer
+        FROM
+            community,
+            content
+        WHERE
+            community.id = content.id AND
+            #{type} = #{keyword}
+        LIMIT
+            #{page}, 6
+    </select>
+
+    <select id="getNextId" parameterType="long" resultType="long">
+        <![CDATA[
+        SELECT
+            id
+        FROM
+            community
+        WHERE
+            id = (
+                SELECT
+                    id
+                FROM
+                    community
+                WHERE
+                    id > #{id}
+                LIMIT
+                    1
+                )
+        ]]>
+    </select>
+
+    <select id="getPrevId" parameterType="long" resultType="long">
+        <![CDATA[
+        SELECT
+            id
+        FROM
+            community
+        WHERE
+                id = (
+                SELECT
+                    id
+                FROM
+                    community
+                WHERE
+                    id < #{id}
+                ORDER BY
+                    id DESC
+                LIMIT
+                    1
+            )
+        ]]>
+    </select>
+
+    <update id="updateCommunity" parameterType="com.example.triponezidoapi.dto.request.RequestCommunity">
+        UPDATE community
+        SET
+            start_date = #{startDate},
+            end_date = #{endDate},
+            loc_category = #{locCategory},
+            notice = #{notice},
+            total = #{total},
+            deadline = #{deadline}
+        WHERE
+            id = #{id}
+    </update>
+</mapper>

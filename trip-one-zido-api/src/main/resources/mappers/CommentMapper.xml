@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.triponezidoapi.mappers.CommentMapper">
+	<insert id="addComment" parameterType="com.example.triponezidoapi.dto.response.ResponseComment">
+		INSERT INTO comment
+			(
+			id,
+			comment,
+			content_id,
+			member_id
+			)
+		VALUE
+			(
+			#{id},
+			#{comment},
+			#{contentId},
+			#{memberId}
+			)
+	</insert>
+
+	<select id="getComment" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseComment">
+		SELECT
+			comment.*,
+			content.created_at,
+			content.type
+		FROM
+			comment,
+			content
+		WHERE
+			content.id = comment.id AND
+			content_id = #{contentId}
+	</select>
+
+	<update id="updateComment" parameterType="com.example.triponezidoapi.dto.response.ResponseComment">
+		UPDATE comment
+		SET
+			comment = #{comment}
+		WHERE
+			id = #{id}
+	</update>
+</mapper>

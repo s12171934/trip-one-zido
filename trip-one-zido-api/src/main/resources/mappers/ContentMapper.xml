@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.triponezidoapi.mappers.ContentMapper">
+    <insert id="addContent" parameterType="com.example.triponezidoapi.dto.request.RequestContent">
+        INSERT INTO content
+            (
+            type,
+            is_public,
+            title
+            )
+        VALUE
+            (
+            #{type},
+            #{isPublic},
+            #{title}
+            )
+        <selectKey keyProperty="id" resultType="long">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
+    </insert>
+
+    <insert id="addGood" parameterType="com.example.triponezidoapi.dto.request.RequestGood">
+        INSERT INTO good
+            (
+            good,
+            member_id,
+            content_id
+            )
+        VALUE
+            (
+            #{own},
+            #{memberId},
+            #{contentId}
+            )
+    </insert>
+
+    <insert id="addOwner" parameterType="com.example.triponezidoapi.dto.request.RequestOwner">
+        INSERT INTO owner
+            (
+            own,
+            member_id,
+            content_id
+            )
+        VALUE
+            (
+            #{own},
+            #{memberId},
+            #{contentId}
+            )
+    </insert>
+
+    <insert id="addPin" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
+        INSERT INTO pin
+            (
+            member_id,
+            content_id
+            )
+        VALUE
+            (
+            #{memberId},
+            #{contentId}
+            )
+    </insert>
+
+    <select id="getOwner" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+        SELECT
+            m.id,
+            m.login_id,
+            m.profile,
+            o.own
+        FROM
+            member m,
+            owner o
+        WHERE
+            m.id = o.member_id AND
+            o.content_id = #{id}
+    </select>
+
+    <select id="getWriter" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+        SELECT
+            m.id,
+            m.login_id,
+            m.profile,
+            o.own
+        FROM
+            member m,
+            owner o
+        WHERE
+            m.id = o.member_id AND
+            o.content_id = #{id} AND
+            o.own = 'writer'
+    </select>
+
+    <select id="getRecentView" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
+        SELECT
+            c.id,
+            c.title,
+            sp.grade,
+            (
+            SELECT
+                photo
+            FROM
+                photo
+            WHERE
+                content_id = c.id
+            ) photo,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                bookmark
+            WHERE
+                content_id = c.id
+            ) bookmark_count,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                bookmark
+            WHERE
+                content_id = c.id AND
+                member_id = #{myMemberId}
+            ) my_bookmark,
+            (
+            SELECT
+                COUNT(*)
+            FROM
+                good
+            WHERE
+                content_id = c.id
+            ) good_count
+        FROM
+            content c,
+            (
+            SELECT
+                id,
+                grade
+            FROM spot
+            UNION
+            SELECT
+                id,
+                grade
+            FROM plan
+            ) sp,
+            open_content o
+        WHERE
+            c.id = sp.id AND
+            c.id = o.content_id
+        ORDER BY
+            opened_at DESC
+        LIMIT
+            #{page}, 6
+    </select>
+
+    <select id="isGood" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember" resultType="boolean">
+        SELECT
+            good
+        FROM
+            good
+        WHERE
+            content_id = #{contentId}
+          AND member_id = #{memberId}
+    </select>
+
+    <update id="updateIsPublic" parameterType="com.example.triponezidoapi.dto.request.RequestIsPublic">
+        UPDATE content
+        SET
+            is_public = #{isPublic}
+        WHERE
+            id = #{id}
+    </update>
+
+    <update id="updateTitle" parameterType="com.example.triponezidoapi.dto.request.RequestTitle">
+        UPDATE content
+        SET
+            title = #{title}
+        WHERE
+            id = #{id}
+    </update>
+
+    <delete id="deleteContent" parameterType="long">
+        DELETE FROM content
+        WHERE id = #{id}
+    </delete>
+
+    <delete id="deleteGood" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
+        DELETE FROM good
+        WHERE
+            content_id = #{contentId} AND
+            member_id = #{memberId}
+    </delete>
+
+    <delete id="deleteOwner" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
+        DELETE FROM owner
+        WHERE
+            member_id = #{memberId} AND
+            content_id = #{contentId}
+    </delete>
+
+    <delete id="deletePin" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
+        DELETE FROM pin
+        WHERE
+            member_id = #{memberId} AND
+            content_id = #{contentId}
+    </delete>
+</mapper>

@@ -1,13 +1,17 @@
 package com.example.triponezidoapi;
 
+import com.example.triponezidoapi.mappers.MemberMapper;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class TripOneZidoApiApplicationTests {
+    @SpringBootTest
+    class TripOneZidoApiApplicationTests {
+        @Autowired
+        MemberMapper memberMapper;
 
-    @Test
+        @Test
     void contextLoads() {
     }
-
 }
