@@ -3,6 +3,10 @@
   margin-right: 5%;
 }
 
+h1 {
+  color: #ff928e !important;
+}
+
 #mainTitle {
   text-align: left;
 }
@@ -28,6 +32,11 @@
 
 #rightSide{
   width: 50%;
+}
+
+#recentViewBox{
+  overflow: auto;
+  overflow-y: hidden;
 }
 
 #formButton{
@@ -181,4 +190,14 @@ ul,li {
 .slide_pagination > li.active, .slide_pagination_bottom > li.active {
   /* 현재 슬라이드 색상은 투명도 없이 */
   color: #f6755e;
+}
+#button {
+  background-color: white !important;
+  color: black !important;
+  box-shadow : none;
+}
+#openPopup {
+  color: aliceblue !important;
+  background-color: #ff928e !important;
+  border-radius: 10px !important;
 }

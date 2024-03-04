@@ -35,6 +35,15 @@ h3 {
 }
 
 
+#buttonBackground {
+  background-color: white;
+}
+
+#recentViewBox{
+  overflow: auto;
+  margin-bottom: 15px;
+}
+
 img {
   vertical-align: top;
 }
@@ -105,8 +114,6 @@ div::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background: pink;
 }
-
-
 
 /* 테스트용 */
 .slide,

@@ -21,18 +21,18 @@
 <body>
     <!-- Header -->
     <header id="header">
-		<nav class="left">
-			<a href="#menu"><span>Menu</span></a>
-		</nav>
-		<a href="/html-css/index.html" class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
-		<nav class="right">
-			<div class="d-grid gap-2 d-md-flex justify-content-md-end" id="headerProfile">
-				<input type="text" required id="headerSearchBar">
-				<span class="image round" box-sha><a href="/html-css/sign/login.html"> <img
-							src="/html-css/images/남자.png" width="75" height="75"></a></span>
-			</div>
-		</nav>
-	</header>
+        <nav class="left">
+            <a href="#menu"><span>Menu</span></a>
+        </nav>
+        <a href="/html-css/index.html" class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
+        <nav class="right">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end" id="headerProfile">
+                <input type="text" required id="headerSearchBar">
+                <span class="image round" box-sha><a href="/html-css/sign/login.html"> <img
+                            src="/html-css/images/남자.png" width="75" height="75"></a></span>
+            </div>
+        </nav>
+    </header>
     <!-- Menu -->
     <nav id="menu">
         <ul class="links">
@@ -63,386 +63,162 @@
             </div>
         </div>
 
-        <div class="slide slide_wrap">
-            <div class="slide_item">
-                <div class="d-flex flex-row mb-6">
-                    <div class="p-2">
-                        <a href="/html-css/schedule/detail/detail.html" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/busan1.jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">58</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">8.5</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">578</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">일정조회<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-
-                    <div class="p-2">
-                        <a href="/html-css/location/detail/detail.html" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/busan2.jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">78</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">7.5</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">158</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">장소조회<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-
-                    <div class="p-2">
-                        <a href="/html-css/info/detail/detail.html" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/busan3.jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">1,238</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">9.5</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">902</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">관광정보조회<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-
-                    <div class="p-2">
-                        <a href="/html-css/location/detail/detail_other.html" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/전라남도 보성(녹차밭).png" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">58</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">6.5</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">578</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">장소조회(타인)<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                    <div class="p-2">
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/전라남도 순천(순천만).png" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">78</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">10</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">158</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">순천만<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                    <div class="p-2">
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/전라도 전주(한옥마을).png" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">1,238</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">9</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">902</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">전주한옥마을<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                </div>
+        <div class="d-flex flex-row mb-6" id="recentViewBox">
+            <div class="p-2">
+                <a href="/html-css/schedule/detail/detail.html" class="banner_img">
+                    <img id="titlePic" src="/html-css/images/busan1.jpg" alt="" class="rounded-5">
+                    <p class="hover_text">
+                        <span><img id="icon" src="/html-css/images/zzim.png">58</span><br>
+                        <span><img id="icon" src="/html-css/images/star.png">8.5</span><br>
+                        <span><img id="icon" src="/html-css/images/like.png">578</span>
+                    </p>
+                </a>
+                <p id="listTitle">일정조회<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
             </div>
-            <div class="slide_item">
-                <div class="d-flex flex-row mb-6">
-                    <div class="p-2">
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/busan1.jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">58</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">8.5</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">578</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">광안리<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                    <div class="p-2">
 
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/busan2.jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">78</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">7.5</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">158</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">광안대교<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                    <div class="p-2">
-                        <a href="#" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/busan3.jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">1,238</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">9.5</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">902</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">해동용궁사<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                    <div class="p-2">
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/busan1.jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">58</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">6.5</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">578</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">광안리<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                    <div class="p-2">
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/busan2.jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">78</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">10</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">158</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">광안대교<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                    <div class="p-2">
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/busan3.jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">1,238</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">9</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">902</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">해동용궁사<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                </div>
+            <div class="p-2">
+                <a href="/html-css/location/detail/detail.html" class="banner_img">
+                    <img id="titlePic" src="/html-css/images/busan2.jpg" alt="" class="rounded-5">
+                    <p class="hover_text">
+                        <span><img id="icon" src="/html-css/images/zzim.png">78</span><br>
+                        <span><img id="icon" src="/html-css/images/star.png">7.5</span><br>
+                        <span><img id="icon" src="/html-css/images/like.png">158</span>
+                    </p>
+                </a>
+                <p id="listTitle">장소조회<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
             </div>
-            
-            <div class="slide_prev_button slide_button">◀</div>
-            <div class="slide_next_button slide_button">▶</div>
-            <ul class="slide_pagination"></ul>
+
+            <div class="p-2">
+                <a href="/html-css/info/detail/detail.html" class="banner_img">
+                    <img id="titlePic" src="/html-css/images/busan3.jpg" alt="" class="rounded-5">
+                    <p class="hover_text">
+                        <span><img id="icon" src="/html-css/images/zzim.png">1,238</span><br>
+                        <span><img id="icon" src="/html-css/images/star.png">9.5</span><br>
+                        <span><img id="icon" src="/html-css/images/like.png">902</span>
+                    </p>
+                </a>
+                <p id="listTitle">관광정보조회<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
+            </div>
+
+            <div class="p-2">
+                <a href="/html-css/location/detail/detail_other.html" class="banner_img">
+                    <img id="titlePic" src="/html-css/images/전라남도 보성(녹차밭).png" alt="" class="rounded-5">
+                    <p class="hover_text">
+                        <span><img id="icon" src="/html-css/images/zzim.png">58</span><br>
+                        <span><img id="icon" src="/html-css/images/star.png">6.5</span><br>
+                        <span><img id="icon" src="/html-css/images/like.png">578</span>
+                    </p>
+                </a>
+                <p id="listTitle">장소조회(타인)<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
+            </div>
+            <div class="p-2">
+                <a href="#;" class="banner_img">
+                    <img id="titlePic" src="/html-css/images/전라남도 순천(순천만).png" alt="" class="rounded-5">
+                    <p class="hover_text">
+                        <span><img id="icon" src="/html-css/images/zzim.png">78</span><br>
+                        <span><img id="icon" src="/html-css/images/star.png">10</span><br>
+                        <span><img id="icon" src="/html-css/images/like.png">158</span>
+                    </p>
+                </a>
+                <p id="listTitle">순천만<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
+            </div>
+            <div class="p-2">
+                <a href="#;" class="banner_img">
+                    <img id="titlePic" src="/html-css/images/전라도 전주(한옥마을).png" alt="" class="rounded-5">
+                    <p class="hover_text">
+                        <span><img id="icon" src="/html-css/images/zzim.png">1,238</span><br>
+                        <span><img id="icon" src="/html-css/images/star.png">9</span><br>
+                        <span><img id="icon" src="/html-css/images/like.png">902</span>
+                    </p>
+                </a>
+                <p id="listTitle">전주한옥마을<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
+            </div>
+            <div class="actions vertical small">
+                <button id="buttonBackground"><img src="/html-css/images/plusbutton.png" width="260" height="260"></button>
+            </div>
         </div>
 
         <div id="mainTitle">
             <div class="d-flex flex-row mb-6">
                 <h3 id="subTitle">・모든 관광지 </h3>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <h3>25</h3>
+                <h3 id="subNumber">25</h3>
             </div>
         </div>
 
-        <div class="slide_bottom slide_wrap">
-            <div class="slide_item_bottom">
-                <div class="d-flex flex-row mb-6">
-                    <div class="p-2">
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/경상북도 경주(동궁과 월지).png" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">58</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">8.5</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">578</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">동궁과 월지<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-
-                    <div class="p-2">
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/대구광역시(두류공원).jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">78</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">7.5</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">158</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">두류공원<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-
-                    <div class="p-2">
-                        <a href="/html-css/info/detail.html" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/서울특별시(경복궁).png" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">1,238</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">9.5</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">902</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">경복궁<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-
-                    <div class="p-2">
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/서울특별시(북촌 한옥마을).png" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">58</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">6.5</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">578</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">북촌한옥마을<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                    <div class="p-2">
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/서울특별시(창덕궁).png" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">78</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">10</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">158</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">창덕궁<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                    <div class="p-2">
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/울산광역시(대왕암공원).png" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">1,238</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">9</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">902</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">대왕암공원<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                </div>
+        <div class="d-flex flex-row mb-6" id="recentViewBox">
+            <div class="p-2">
+                <a href="/html-css/schedule/detail/detail.html" class="banner_img">
+                    <img id="titlePic" src="/html-css/images/busan1.jpg" alt="" class="rounded-5">
+                    <p class="hover_text">
+                        <span><img id="icon" src="/html-css/images/zzim.png">58</span><br>
+                        <span><img id="icon" src="/html-css/images/star.png">8.5</span><br>
+                        <span><img id="icon" src="/html-css/images/like.png">578</span>
+                    </p>
+                </a>
+                <p id="listTitle">일정조회<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
             </div>
 
-            <div class="slide_item_bottom">
-                <div class="d-flex flex-row mb-6">
-                    <div class="p-2">
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/busan1.jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">58</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">8.5</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">578</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">광안리<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                    <div class="p-2">
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/busan2.jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">78</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">7.5</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">158</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">광안대교<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                    <div class="p-2">
-                        <a href="/html-css/info/detail.html" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/busan3.jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">1,238</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">9.5</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">902</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">해동용궁사<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                    <div class="p-2">
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/busan1.jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">58</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">6.5</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">578</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">광안리<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                    <div class="p-2">
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/busan2.jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">78</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">10</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">158</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">광안대교<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                    <div class="p-2">
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/busan3.jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">1,238</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">9</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">902</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">해동용궁사<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                </div>
+            <div class="p-2">
+                <a href="/html-css/location/detail/detail.html" class="banner_img">
+                    <img id="titlePic" src="/html-css/images/busan2.jpg" alt="" class="rounded-5">
+                    <p class="hover_text">
+                        <span><img id="icon" src="/html-css/images/zzim.png">78</span><br>
+                        <span><img id="icon" src="/html-css/images/star.png">7.5</span><br>
+                        <span><img id="icon" src="/html-css/images/like.png">158</span>
+                    </p>
+                </a>
+                <p id="listTitle">장소조회<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
             </div>
 
-            <div class="slide_item_bottom">
-                <div class="d-flex flex-row mb-6">
-                    <div class="p-2">
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/daejon2.jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">58</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">8.5</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">578</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">성심당타워<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                    <div class="p-2">
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/daejon3.jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">78</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">7.5</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">158</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">성심당본사<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                    <div class="p-2">
-                        <a href="/html-css/info/detail.html" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/busan3.jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">1,238</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">9.5</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">902</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">해동용궁사<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                    <div class="p-2">
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/daejon1.jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">58</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">6.5</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">578</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">성심당공장<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                    <div class="p-2">
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/busan2.jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">78</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">10</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">158</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">광안대교<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                    <div class="p-2">
-                        <a href="#;" class="banner_img">
-                            <img id="titlePic" src="/html-css/images/busan3.jpg" alt="" class="rounded-5">
-                            <p class="hover_text">
-                                <span><img id="icon" src="/html-css/images/zzim.png">1,238</span><br>
-                                <span><img id="icon" src="/html-css/images/star.png">9</span><br>
-                                <span><img id="icon" src="/html-css/images/like.png">902</span>
-                            </p>
-                        </a>
-                        <p id="listTitle">테스트<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
-                    </div>
-                </div>
+            <div class="p-2">
+                <a href="/html-css/info/detail/detail.html" class="banner_img">
+                    <img id="titlePic" src="/html-css/images/busan3.jpg" alt="" class="rounded-5">
+                    <p class="hover_text">
+                        <span><img id="icon" src="/html-css/images/zzim.png">1,238</span><br>
+                        <span><img id="icon" src="/html-css/images/star.png">9.5</span><br>
+                        <span><img id="icon" src="/html-css/images/like.png">902</span>
+                    </p>
+                </a>
+                <p id="listTitle">관광정보조회<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
             </div>
-            
-            <div class="slide_prev_button_bottom slide_button">◀</div>
-            <div class="slide_next_button_bottom slide_button">▶</div>
-            <ul class="slide_pagination_bottom"></ul>
-        </div>
+
+            <div class="p-2">
+                <a href="/html-css/location/detail/detail_other.html" class="banner_img">
+                    <img id="titlePic" src="/html-css/images/전라남도 보성(녹차밭).png" alt="" class="rounded-5">
+                    <p class="hover_text">
+                        <span><img id="icon" src="/html-css/images/zzim.png">58</span><br>
+                        <span><img id="icon" src="/html-css/images/star.png">6.5</span><br>
+                        <span><img id="icon" src="/html-css/images/like.png">578</span>
+                    </p>
+                </a>
+                <p id="listTitle">장소조회(타인)<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
+            </div>
+            <div class="p-2">
+                <a href="#;" class="banner_img">
+                    <img id="titlePic" src="/html-css/images/전라남도 순천(순천만).png" alt="" class="rounded-5">
+                    <p class="hover_text">
+                        <span><img id="icon" src="/html-css/images/zzim.png">78</span><br>
+                        <span><img id="icon" src="/html-css/images/star.png">10</span><br>
+                        <span><img id="icon" src="/html-css/images/like.png">158</span>
+                    </p>
+                </a>
+                <p id="listTitle">순천만<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
+            </div>
+            <div class="p-2">
+                <a href="#;" class="banner_img">
+                    <img id="titlePic" src="/html-css/images/전라도 전주(한옥마을).png" alt="" class="rounded-5">
+                    <p class="hover_text">
+                        <span><img id="icon" src="/html-css/images/zzim.png">1,238</span><br>
+                        <span><img id="icon" src="/html-css/images/star.png">9</span><br>
+                        <span><img id="icon" src="/html-css/images/like.png">902</span>
+                    </p>
+                </a>
+                <p id="listTitle">전주한옥마을<img id="icon" src="/html-css/images/zzim.png" onclick="zzim()"></p>
+            </div>
+            <div class="actions vertical small">
+                <button id="buttonBackground"><img id="plusbutton" src="/html-css/images/plusbutton.png" width="260" height="260"></button>
+            </div>
         </div>
 
     </section>
@@ -469,4 +245,5 @@
     <script src="/html-css/assets/js/main.js"></script>
     <script src="/html-css/main/zzim/zzim.js"></script>
 </body>
+
 </html>

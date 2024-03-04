@@ -53,57 +53,39 @@
             <!-- 왼쪽 영역 -->
             <div class="d-flex flex-column mb-2" id="leftSide">
                 <div class="d-flex justify-content-start">
-                    <h1 class="fw-bolder mb-1">부산 해동 용궁사</h1>
+                    <h1 class="mb-1">부산 해동 용궁사</h1>
                     <ul class="actions" id="actions">
                         <li>
-                            <button class="badge bg-secondary text-decoration-none link-light">관광지</button>
-                            <button class="badge bg-secondary text-decoration-none link-light" id="openPopup">위치
-                                보기</button>
+                            <button class="btn btn-outline-secondary btn-sm rounded-3" id="button" disabled>관광지</button>
+                            <button class="btn btn-sm" id="openPopup">위치보기</button>
                         </li>
                     </ul>
                     <h6 id="createdAt">2024 02.20 14:30</h6>
-                    
                 </div>
                 <div class="text-muted fst-italic mb-2">2024/02/19 08:00 ~ 2024/02/19 19:00</div>
-                <div class="slide slide_wrap">
-                    <div class="slide_item">
-                        <div class="p-2">
-                            <figure><img class="img-fluid rounded" src="/html-css/images/경상북도 경주(동궁과 월지).png" alt="..."
-                                    width="800" height="600" /></figure>
-                        </div>
+                <div class="d-flex flex-row mb-6" id="recentViewBox">
+                    <div class="p-2">
+                        <img src="/html-css/images/busan1.jpg" alt="" class="rounded-5" width="800" height="600">
                     </div>
-                    <div class="slide_item">
-                        <div class="p-2">
-                            <figure><img class="img-fluid rounded" src="/html-css/images/대구광역시(두류공원).jpg" alt="..."
-                                    width="800" height="600" /></figure>
-                        </div>
+        
+                    <div class="p-2">
+                        <img src="/html-css/images/busan2.jpg" alt="" class="rounded-5" width="800" height="600">
                     </div>
-                    <div class="slide_item">
-                        <div class="p-2">
-                            <figure><img class="img-fluid rounded" src="/html-css/images/전라도 전주(한옥마을).png" alt="..."
-                                    width="800" height="600" /></figure>
-                        </div>
+        
+                    <div class="p-2">
+                        <img src="/html-css/images/busan3.jpg" alt="" class="rounded-5" width="800" height="600">
                     </div>
-                    <div class="slide_item">
-                        <div class="p-2">
-                            <figure><img class="img-fluid rounded" src="/html-css/images/전라남도 순천(순천만).png" alt="..."
-                                    width="800" height="600" /></figure>
-                        </div>
+        
+                    <div class="p-2">
+                        <img src="/html-css/images/전라남도 보성(녹차밭).png" alt="" class="rounded-5" width="800" height="600">
                     </div>
-                    <div class="slide_item">
-                        <div class="p-2">
-                            <figure><img class="img-fluid rounded" src="/html-css/images/울산광역시(대왕암공원).png" alt="..."
-                                    width="800" height="600" /></figure>
-                        </div>
+                    <div class="p-2">
+                        <img src="/html-css/images/전라남도 순천(순천만).png" alt="" class="rounded-5" width="800" height="600">
                     </div>
-
-                    <div class="slide_prev_button slide_button">◀</div>
-                    <div class="slide_next_button slide_button">▶</div>
+                    <div class="p-2">
+                        <img src="/html-css/images/전라도 전주(한옥마을).png" alt="" class="rounded-5" width="800" height="600">
+                    </div>
                 </div>
-                <div>
-                    <ul class="slide_pagination"></ul>
-                </div>
-
             </div>
 
             <!-- 오른쪽 영역 -->
@@ -165,8 +147,7 @@
                                 <!-- Comment with nested comments-->
                                 <div class="d-flex mb-4">
                                     <!-- Parent comment-->
-                                    <div class="flex-shrink-0"><img class="rounded-circle"
-                                            src="/html-css/images/유재석.png" alt="..." width="50" height="50" /></div>
+                                    <div class="flex-shrink-0"><img class="rounded-circle" src="/html-css/images/유재석.png" alt="..." id="commentProfilePic"/></div>
                                     <div class="ms-3">
                                         <div class="fw-bold">유재석</div>
                                         조세호랑 촬영차 왔습니다!
@@ -174,9 +155,7 @@
                                         <div><small><a href="#" id="addedComment" >▼답글 2개</a></small></div>
                                         <!-- Child comment 1-->
                                         <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><a href="/html-css/main/detail.html"><img
-                                                        class="rounded-circle" src="/html-css/images/남자.png" alt="..."
-                                                        width="50" height="50" /></a></div>
+                                            <div class="flex-shrink-0"><img class="rounded-circle" src="/html-css/images/남자.png" alt="..." id="commentProfilePic" /></div>
                                             <div class="ms-3">
                                                 <div class="fw-bold">대댓글 단사람1
                                                     <small><a href="#" id="commentUpdate">수정</a></small>
@@ -187,9 +166,7 @@
                                         </div>
                                         <!-- Child comment 2-->
                                         <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle"
-                                                    src="/html-css/images/여자.png" alt="..." width="50" height="50" />
-                                            </div>
+                                            <div class="flex-shrink-0"><img class="rounded-circle" src="/html-css/images/여자.png" alt="..." id="commentProfilePic" /></div>
                                             <div class="ms-3">
                                                 <div class="fw-bold">대댓글 단사람2</div>
                                                 박명수 오빠가 더 재밌어요!
@@ -199,8 +176,7 @@
                                 </div>
                                 <!-- Single comment-->
                                 <div class="d-flex mb-4">
-                                    <div class="flex-shrink-0"><img class="rounded-circle"
-                                            src="/html-css/images/조세호.png" alt="..." width="50" height="50" /></div>
+                                    <div class="flex-shrink-0"><img class="rounded-circle" src="/html-css/images/조세호.png" alt="..." id="commentProfilePic" /></div>
                                     <div class="ms-3">
                                         <div class="fw-bold">조세호</div>
                                         형님이랑 좋은 시간 보냈습니다

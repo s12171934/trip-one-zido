@@ -6,10 +6,6 @@
     text-align: center;
 }
 
-.select-wrapper {
-    color:rgb(80, 80, 80)
-}
-
 #searchBar {
     margin: auto;
 }
@@ -34,7 +30,7 @@ h1 {
 }
 thead {
     font-size: 15px;
-    color: #929292;
+    color: black;
 }
 .wrapper {
     margin-left: 5% !important; 
@@ -50,5 +46,14 @@ thead {
     color: #929292 !important;
 }
 #black {
+    color: black !important;
+}
+table tbody tr {
+    background-color: white !important;
+}
+#more {
+    color: black !important;
+}
+.page-link {
     color: black !important;
 }

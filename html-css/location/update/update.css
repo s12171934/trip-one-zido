@@ -46,8 +46,8 @@ h3 {
 }
 
 #plusPic > img {
-  width: 45px;
-  height: 45px;
+  width: 260px;
+  height: 260px;
 }
 
 #locationTitle {
@@ -172,19 +172,15 @@ width: 100%;
   padding: 20px;
 }
 
-
+input{
+  font-family: 'Jalnan' !important;
+}
 #input {
   color:white;
-  font-family: 'Jalnan';
-  text-align: center;
-  margin-right: 10px; 
-  margin-left: 10px; 
-  margin-bottom: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
+  background-color: #ff928e;
 }
 .flex-fill {
-  color: #f6755e;
+  color: #ff928e;
 }
 
 #start_date, #end_date {

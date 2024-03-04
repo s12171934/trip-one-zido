@@ -39,7 +39,7 @@ h1 {
 }
 thead {
     font-size: 15px;
-    color: #929292;
+    color: black;
 }
 .wrapper {
     margin-left: 5% !important; 
@@ -52,8 +52,11 @@ thead {
 }
 #table {
     font-size: 15px !important;
-    color: #929292 !important;
-}
-#black {
     color: black !important;
 }
+input {
+    color: black !important;
+}
+table tbody tr {
+    background-color: white !important;
+} 

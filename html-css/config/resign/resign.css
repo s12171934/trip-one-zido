@@ -71,3 +71,7 @@ h3 {
 #leftPosition {
     text-align: left;
 }
+#button {
+    color: aliceblue !important; 
+    background-color:#ff928e !important;
+}

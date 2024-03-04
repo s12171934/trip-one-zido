@@ -16,8 +16,8 @@
 }
 
 h1 {
-    color:#ff928e !important;
-  }
+    color: #ff928e !important;
+}
 
 h3 {
     color: rgb(80, 80, 80) !important;
@@ -77,28 +77,41 @@ h3 {
     margin-left: 2%;
 }
 
+
 #addBoardList{
     margin-left: auto;
 }
 
-#zzim, #unzzim,#star,#like,#unlike {
+#zzim,
+#unzzim,
+#star,
+#like,
+#unlike {
     width: 25px;
     height: 25px;
 }
 
-#scheduleTitle, #locationTitle {
+#scheduleTitle,
+#locationTitle {
     text-align: center;
 }
 
-#schedulePic, #locationPic{
-    width:260px;
-    height:260px;
+#schedulePic,
+#locationPic {
+    width: 260px;
+    height: 260px;
 }
 
-#lists {
-    overflow:scroll;
+
+#buttonBackground {
+    background-color: white;
+}
+
+#recentViewBox {
+    overflow: auto;
     overflow-y: hidden
 }
+
 
 img {
     vertical-align: top;
