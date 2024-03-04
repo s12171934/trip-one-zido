@@ -11,14 +11,21 @@ h4 {
   color: rgb(80, 80, 80) !important;
 }
 
+/* 헤더 프로필 사진 및 검색창 */
 #headerProfile {
   margin-top: 3%;
 }
-
 #headerSearchBar {
   margin-top: 2%
 }
 
+/* 팔로워, 팔로우 , 코멘트 프로필 사진 */
+#followPic, #commentProfilePic{
+  width: 75px;
+  height: 75px;
+}
+
+/* 아이콘 크기 */
 #icon {
   width: 25px;
   height: 25px;
@@ -35,7 +42,6 @@ div::-webkit-scrollbar-thumb{ /* 스크롤바 */
   border-radius: 10px;
   background: pink;
 }
-
 
 
 @font-face {
