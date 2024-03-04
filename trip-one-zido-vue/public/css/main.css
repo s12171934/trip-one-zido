@@ -2762,8 +2762,7 @@
       }
 
          #header .logo {
-            font-size: 1.25em;
-            text-align: center;
+            width: 160px;
          }
 
          #header nav a[href="#menu"] {
@@ -2774,8 +2773,8 @@
             left: 1em;
          }
 
-         #header nav.right {
-            display: none;
+         #header div nav.right {
+            display: none !important;
          }
 
    }
