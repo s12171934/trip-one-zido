@@ -78,7 +78,7 @@ h3 {
 }
 
 #addBoardList{
-    margin-left: 50%;
+    margin-left: auto;
 }
 
 #zzim, #unzzim,#star,#like,#unlike {
@@ -96,7 +96,7 @@ h3 {
 }
 
 #lists {
-    overflow:scroll; 
+    overflow:scroll;
     overflow-y: hidden
 }
 
@@ -300,4 +300,12 @@ body,
 
 #menu {
     font-size: 20px;
+}
+
+#category-width {
+    width: 130%;
+}
+
+#category, #mySelect {
+    font-size: 80%;
 }
