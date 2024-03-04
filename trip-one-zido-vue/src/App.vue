@@ -31,4 +31,6 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+@import url(/public/css/main.css);
+@import url(https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css);
 </style>
