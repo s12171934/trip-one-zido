@@ -22,7 +22,10 @@ h2,
 h3,
 h4,
 body,
-.buttons {
+.country,
+.search-input,
+.inner h2,
+#buttons {
     font-family: 'Jalnan';
 }
 
@@ -107,10 +110,11 @@ body,
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    /* width: 120%; */
 }
 
 .main-section .logo-wrap {
-    height: 233px;
+    height: 250px;
 }
 
 .main-section .logo-wrap a {
@@ -165,7 +169,7 @@ body,
 
 footer {
     position: fixed;
-    bottom: 0;
+    bottom: 3%;
     width: 100%;
     background: var(--footer-back-color);
     color: var(--button-text-gray-color);
@@ -178,4 +182,11 @@ footer .country {
     text-align: center;
     line-height: 40px;
     height: 40px;
+}
+
+.copyright {
+    
+    bottom: 0%;
+    position: absolute;
+    height: 3%;
 }

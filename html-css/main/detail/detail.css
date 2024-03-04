@@ -77,8 +77,9 @@ h3 {
     margin-left: 2%;
 }
 
-#addBoardList {
-    margin-left: 50%;
+
+#addBoardList{
+    margin-left: auto;
 }
 
 #zzim,
@@ -100,6 +101,7 @@ h3 {
     width: 260px;
     height: 260px;
 }
+
 
 #buttonBackground {
     background-color: white;
@@ -311,4 +313,12 @@ body,
 
 #menu {
     font-size: 20px;
+}
+
+#category-width {
+    width: 130%;
+}
+
+#category, #mySelect {
+    font-size: 80%;
 }
