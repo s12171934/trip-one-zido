@@ -16,7 +16,7 @@ export default {
 
   data(){
     return{
-      url : window.location.pathname === "/"
+      url : window.location.pathname
     }
   }
 }
