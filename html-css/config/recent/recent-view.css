@@ -93,6 +93,14 @@ img {
   font-size: 20px;
 }
 
+#buttonBackground {
+  background-color: white;
+}
+
+#recentViewBox{
+  overflow: auto;
+}
+
 @font-face {
   font-family: 'Jalnan';
   src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');

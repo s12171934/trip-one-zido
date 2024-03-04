@@ -20,10 +20,30 @@
   height: 25px;
 }
 
+
+/* 스크롤바 */
+div::-webkit-scrollbar{ /* 스크롤바 배경 */
+  height: 15px;
+  border-radius: 10px;
+  background: rgb(236, 236, 250);
+}
+div::-webkit-scrollbar-thumb{ /* 스크롤바 */
+  width: 15px;
+  border-radius: 10px;
+  background: pink;
+}
+
+
+
 @font-face {
   font-family: 'Jalnan';
   src: url('/html-css/assets/fonts/Jalnan2TTF.ttf') format('truetype');
 }
+
+#headerSearchBar {
+  font-family: 'Jalnan';
+}
+
 
 #footer {
   font-family: 'Jalnan';
