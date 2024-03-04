@@ -12,4 +12,6 @@ public class ResponseTour {
     byte[] photo;
     int bookmarkCount;
     int myBookmark;
+    long nextId;
+    long prevId;
 }
