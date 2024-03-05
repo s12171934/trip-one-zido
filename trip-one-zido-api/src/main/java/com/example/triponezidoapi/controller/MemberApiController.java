@@ -130,7 +130,7 @@ public class MemberApiController {
     }
     @PutMapping("/profile")
     @Operation(summary = "프로필 사진 변경")
-    public void updateProfile(
+    public void PutProfile(
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 번호")
             long sessionId,
