@@ -2,6 +2,7 @@ package com.example.triponezidoapi.service;
 
 import com.example.triponezidoapi.dto.request.RequestContentMember;
 import com.example.triponezidoapi.dto.request.RequestSessionTarget;
+import com.example.triponezidoapi.dto.response.ResponseBookmark;
 import com.example.triponezidoapi.dto.response.ResponseContentList;
 import com.example.triponezidoapi.dto.response.ResponseTour;
 import com.example.triponezidoapi.mappers.BookmarkMapper;
@@ -15,6 +16,17 @@ public class BookmarkService {
 
     @Autowired
     BookmarkMapper bookmarkMapper;
+
+    public ResponseBookmark getAllBookmark(long id, long sessionId){
+        ResponseBookmark responseBookmark = new ResponseBookmark();
+
+        responseBookmark.setTourBookmarkCount(tourBookmarkCount(id));
+        responseBookmark.setPlanSpotBookMarkCount(planSpotBookmarkCount(id));
+        responseBookmark.setTourList(getTourBookmark(id,0));
+        responseBookmark.setContentList(getPlanSpotBookmark(id,0));
+        
+        return responseBookmark;
+    }
 
     //insert
     public void addBookMark(long id, long sessionId){
