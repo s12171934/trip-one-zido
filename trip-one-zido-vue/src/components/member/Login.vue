@@ -56,7 +56,6 @@
       <div class="d-flex gap-2 flex-row justify-content-center mb-4">
         <a href="#" id="naver-login-btn">
           <img
-            @click="naverLogin"
             src="\images\btnG_아이콘사각.png"
             alt="네이버 아이디로 로그인"
             height="70px"
@@ -80,18 +79,7 @@
 </template>
 
 <script>
-export default {
-  methods : {
-    naverLogin(){
-      const url = `https://nid.naver.com/oauth2.0/authorize`;
-
-            console.log("==================url====================");
-            console.log(url);
-
-            window.location.href=url;
-    }
-  }
-};
+export default {};
 </script>
 
 <style scoped>
