@@ -9,7 +9,7 @@ public class ResponseMemberPage {
     List<ResponseContentList> planLists;
     List<ResponseContentList> spotLists;
     ResponseMember responseMember;
-    int boardCount;
+    int postCount;
     int bookmarkCount;
     int followingCount;
     int followerCount;

@@ -1,8 +1,7 @@
 package com.example.triponezidoapi.service;
 
 import com.example.triponezidoapi.dto.request.*;
-import com.example.triponezidoapi.dto.response.ResponseContentList;
-import com.example.triponezidoapi.dto.response.ResponseMember;
+import com.example.triponezidoapi.dto.request.*;
 import com.example.triponezidoapi.mappers.ContentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +39,25 @@ public class ContentService {
         requestContentMember.setMemberId(sessionId);
         requestContentMember.setContentId(id);
         contentMapper.deletePin(requestContentMember);
+    }
+
+    //삭제
+    public void deleteContent(Long id){
+        contentMapper.deleteContent(id);
+    }
+    public void addOwner(long id, long sessionId){
+        RequestOwner requestOwner = new RequestOwner();
+        requestOwner.setOwn("join");
+        requestOwner.setContentId(id);
+        requestOwner.setMemberId(sessionId);
+        contentMapper.addOwner(requestOwner);
+    }
+
+    public void deleteOwner(long id, long sessionId){
+        RequestContentMember requestContentMember = new RequestContentMember();
+        requestContentMember.setContentId(id);
+        requestContentMember.setMemberId(sessionId);
+        contentMapper.deleteOwner(requestContentMember);
     }
 
 }
