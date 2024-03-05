@@ -2,8 +2,7 @@ package com.example.triponezidoapi.controller;
 
 import com.example.triponezidoapi.dto.request.*;
 import com.example.triponezidoapi.dto.response.*;
-import com.example.triponezidoapi.service.ContentService;
-import com.example.triponezidoapi.service.SpotService;
+import com.example.triponezidoapi.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -17,9 +16,6 @@ public class SpotApiController {
 
     @Autowired
     SpotService spotService;
-
-    @Autowired
-    ContentService contentService;
 
     @GetMapping("/{id}")
     @Operation(summary = "장소 게시물 조회")
@@ -37,7 +33,7 @@ public class SpotApiController {
     }
     @PostMapping("/")
     @Operation(summary = "장소 게시물 등록")
-    public void addSpot(
+    public void postSpot(
             @RequestBody
             @Parameter(description = "장소 게시물 정보")
             RequestSpot requestSpot,
@@ -50,7 +46,7 @@ public class SpotApiController {
     }
     @PutMapping("/{id}")
     @Operation(summary = "장소 게시물 수정")
-    public void updateSpot(
+    public void putSpot(
             @PathVariable
             @Parameter(description = "장소 게시물 번호")
             long id,
@@ -68,6 +64,6 @@ public class SpotApiController {
             @Parameter(description = "장소 게시물 번호")
             long id
     ){
-        contentService.deleteContent(id);
+        spotService.deleteSpot(id);
     }
 }
