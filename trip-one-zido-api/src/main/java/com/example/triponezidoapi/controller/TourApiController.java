@@ -26,7 +26,8 @@ public class TourApiController {
              long sessionId,
             @PathVariable
             @Parameter(description = "페이지 번호")
-            long page){
+            long page
+    ){
         return tourService.getTourList(sessionId, page);
     }
     @GetMapping("/{id}")
@@ -34,15 +35,17 @@ public class TourApiController {
     public ResponseTour showTourDetail(
             @PathVariable
             @Parameter(description = "관광지 게시물 번호")
-            long id){
+            long id
+    ){
         return tourService.getTour(id);
     }
     @PostMapping("/")
     @Operation(summary = "관광지 등록")
-    public void addTour(
+    public void postTour(
             @RequestBody
             @Parameter(description = "관광지 정보")
-            RequestTour requestTour){
+            RequestTour requestTour
+    ){
         tourService.addTour(requestTour);
     }
 }

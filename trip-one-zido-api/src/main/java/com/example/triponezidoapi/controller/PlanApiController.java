@@ -34,7 +34,7 @@ public class PlanApiController {
     }
     @PostMapping("/")
     @Operation(summary = "일정 게시물 등록")
-    public void addPlan(
+    public void postPlan(
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 정보")
             long sessionId,
@@ -47,7 +47,7 @@ public class PlanApiController {
     }
     @PutMapping("/{id}")
     @Operation(summary = "일정 게시물 수정")
-    public void updatePlan(
+    public void putPlan(
             @PathVariable
             @Parameter(description = "일정 게시물 번호")
             long id,
@@ -65,6 +65,6 @@ public class PlanApiController {
             @Parameter(description = "일정 게시물 번호")
             long id
     ){
-
+        planService.deletePlan(id);
     }
 }

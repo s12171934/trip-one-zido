@@ -20,7 +20,7 @@ public class ContentApiController {
     @PostMapping("/pin/{id}")
     @Tag(name = "Pin", description = "Pin API")
     @Operation(summary = "게시물 고정하기")
-    public void addPin(
+    public void postPin(
             @PathVariable
             @Parameter(description = "고정 게시물 번호")
             long id,
@@ -48,7 +48,7 @@ public class ContentApiController {
     @PostMapping("/good/{id}")
     @Tag(name = "Good", description = "Good API")
     @Operation(summary = "좋아요 등록/수정/취소")
-    public void addLike(
+    public void postLike(
             @PathVariable
             @Parameter(description = "좋아요 게시물 번호")
             long id,
