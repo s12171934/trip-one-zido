@@ -1,9 +1,7 @@
 package com.example.triponezidoapi.controller;
 
 import com.example.triponezidoapi.dto.request.*;
-import com.example.triponezidoapi.dto.response.ResponseComment;
 import com.example.triponezidoapi.service.CommentService;
-import com.example.triponezidoapi.service.ContentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -18,12 +16,9 @@ public class CommentApiController {
     @Autowired
     CommentService commentService;
 
-    @Autowired
-    ContentService contentService;
-
     @PostMapping("/")
     @Operation(summary = "댓글 등록")
-    public void addComment(
+    public void postComment(
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 번호")
             long sessionId,
@@ -36,7 +31,7 @@ public class CommentApiController {
     }
     @PutMapping("/{id}")
     @Operation(summary = "댓글 수정")
-    public void updateComment(
+    public void putComment(
             @PathVariable
             @Parameter(description = "수정할 댓글 번호")
             long id,
@@ -54,7 +49,6 @@ public class CommentApiController {
             @Parameter(description = "삭제할 댓글 번호")
             long id
     ){
-        //컨텐트에서 삭제
-        contentService.deleteContent(id);
+        commentService.deleteComment(id);
     }
 }
