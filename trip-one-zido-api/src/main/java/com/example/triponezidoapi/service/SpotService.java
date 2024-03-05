@@ -14,7 +14,7 @@ import java.util.List;
 public class SpotService {
 
     //사용할 매퍼 지정
-    SpotMapper spotMapper;
+    static SpotMapper spotMapper;
 
     //매퍼 insert
     public void addSpot(RequestSpot requestSpot){
@@ -26,7 +26,7 @@ public class SpotService {
     }
 
     //매퍼 select
-    public ResponseSpotDetail spotDetail(RequestSessionTarget requestSessionTarget){
+    public static ResponseSpotDetail spotDetail(RequestSessionTarget requestSessionTarget){
         ResponseSpotDetail responseSpotDetail = spotMapper.getSpot(requestSessionTarget);
         return responseSpotDetail;
     }
