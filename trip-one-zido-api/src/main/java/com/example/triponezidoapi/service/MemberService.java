@@ -17,6 +17,7 @@ public class MemberService {
     static MemberMapper memberMapper;
 
     public static List<ResponseQuestions> getSecurityQuestions(){
+
         return memberMapper.getSecurityQuestionList();
     }
 
@@ -26,6 +27,7 @@ public class MemberService {
     }
 
     public static void isUsingMemberId(String memberId){
+
         memberMapper.getLoginFormByLoginId(memberId);
     }
 
