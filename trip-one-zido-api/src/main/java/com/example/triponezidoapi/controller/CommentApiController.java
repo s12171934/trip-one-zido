@@ -7,12 +7,20 @@ import com.example.triponezidoapi.service.ContentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/comment")
 @Tag(name = "Comment", description = "Comment API")
 public class CommentApiController {
+
+    @Autowired
+    CommentService commentService;
+
+    @Autowired
+    ContentService contentService;
+
     @PostMapping("/")
     @Operation(summary = "댓글 등록")
     public void addComment(
@@ -24,7 +32,7 @@ public class CommentApiController {
             @Parameter(description = "댓글 등록 정보")
             RequestComment requestComment
     ){
-        CommentService.addComment(requestComment);
+        commentService.addComment(sessionId, requestComment);
     }
     @PutMapping("/{id}")
     @Operation(summary = "댓글 수정")
@@ -37,7 +45,7 @@ public class CommentApiController {
             @Parameter(description = "수정 내용")
             RequestComment requestComment
     ){
-        CommentService.updateComment(requestComment);
+        commentService.updateComment(id, requestComment);
     }
     @DeleteMapping("/{id}")
     @Operation(summary = "댓글 삭제")
@@ -47,6 +55,6 @@ public class CommentApiController {
             long id
     ){
         //컨텐트에서 삭제
-        ContentService.deleteContent(id);
+        contentService.deleteContent(id);
     }
 }

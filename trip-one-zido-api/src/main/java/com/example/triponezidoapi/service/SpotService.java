@@ -8,16 +8,20 @@ import com.example.triponezidoapi.dto.response.ResponseSpotDetail;
 import com.example.triponezidoapi.mappers.BookmarkMapper;
 import com.example.triponezidoapi.mappers.SpotMapper;
 import org.apache.coyote.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class SpotService {
 
-    //사용할 매퍼 지정
-    static SpotMapper spotMapper;
+    @Autowired
+    SpotMapper spotMapper;
 
-    //매퍼 insert
-    public void addSpot(RequestSpot requestSpot){
+    //insert
+    public void addSpot(RequestSpot requestSpot, long sessionId){
+        requestSpot.setProfile(sessionId);
         spotMapper.addSpot(requestSpot);
     }
 
@@ -25,10 +29,12 @@ public class SpotService {
         spotMapper.addPhoto(requestPhoto);
     }
 
-    //매퍼 select
-    public static ResponseSpotDetail spotDetail(RequestSessionTarget requestSessionTarget){
-        ResponseSpotDetail responseSpotDetail = spotMapper.getSpot(requestSessionTarget);
-        return responseSpotDetail;
+    //select
+    public ResponseSpotDetail spotDetail(long id, long sessionId){
+        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
+        requestSessionTarget.setTargetId(id);
+        requestSessionTarget.setMyMemberId(sessionId);
+        return spotMapper.getSpot(requestSessionTarget);
     }
 
     public List<ResponseContentList> getSpotList(RequestSessionTarget requestSessionTarget){
@@ -36,8 +42,9 @@ public class SpotService {
         return spotList;
     }
 
-    //매퍼 update
-    public void updateSpot(RequestSpot requestSpot){
+    //update
+    public void updateSpot(long id, RequestSpot requestSpot){
+        requestSpot.setId(id);
         spotMapper.updateSpot(requestSpot);
     }
 }

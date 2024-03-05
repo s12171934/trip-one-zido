@@ -11,21 +11,23 @@ import java.util.List;
 @Service
 public class CommentService {
     @Autowired
-    static CommentMapper commentMapper;
+    CommentMapper commentMapper;
 
     //insert
-    public static void addComment(RequestComment requestComment){
+    public void addComment(long sessionId, RequestComment requestComment){
+        requestComment.setId(sessionId);
         commentMapper.addComment(requestComment);
     }
 
     //select
-    public static List<ResponseComment> getComment(long id){
+    public List<ResponseComment> getComment(long id){
         List<ResponseComment> responseComments =  commentMapper.getComment(id);
         return responseComments;
     }
 
     //update
-    public static void updateComment(RequestComment requestComment){
+    public void updateComment(long id, RequestComment requestComment){
+        requestComment.setId(id);
         commentMapper.updateComment(requestComment);
     }
 
