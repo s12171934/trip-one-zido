@@ -1,10 +1,12 @@
 package com.example.triponezidoapi.controller;
 
 import com.example.triponezidoapi.dto.response.*;
+import com.example.triponezidoapi.service.PageService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +14,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/page")
 public class PageApiController {
+    @Autowired
+    PageService pageService;
+
     @GetMapping("/{id}")
     @Tag(name = "Member")
     @Operation(summary = "회원 페이지 조회")
@@ -25,7 +30,7 @@ public class PageApiController {
             @Parameter(description = "로그인 회원 번호")
             long sessionId
     ){
-        return null;
+        return pageService.getMemberPage(id, sessionId);
     }
     @GetMapping("/{id}/plan/{page}")
     @Tag(name = "Plan")
@@ -39,7 +44,7 @@ public class PageApiController {
             @Parameter(description = "페이징 번호")
             long page
     ){
-        return null;
+        return pageService.getPlanListByPage(id, page);
     }
     @GetMapping("/{id}/spot/{page}")
     @Tag(name = "Spot")
@@ -53,12 +58,12 @@ public class PageApiController {
             @Parameter(description = "페이징 번호")
             long page
     ){
-        return null;
+        return pageService.getSpotListByPage(id, page);
     }
     @GetMapping("/following/{id}")
     @Tag(name = "Follow", description = "Follow API")
     @Operation(summary = "팔로잉 명단")
-    public ResponseMember listFollowing(
+    public List<ResponseMember> listFollowing(
             @PathVariable(required = false)
             @Schema(nullable = true)
             @Parameter(description = "대상 회원 번호")
@@ -68,12 +73,12 @@ public class PageApiController {
             @Parameter(description = "로그인 회원 번호")
             long sessionId
     ){
-        return null;
+        return pageService.getFollowingList(id, sessionId);
     }
     @GetMapping("/follower/{id}")
     @Tag(name = "Follow")
     @Operation(summary = "팔로워 명단")
-    public ResponseMember listFollower(
+    public List<ResponseMember> listFollower(
             @PathVariable(required = false)
             @Schema(nullable = true)
             @Parameter(description = "대상 회원 번호")
@@ -83,7 +88,7 @@ public class PageApiController {
             @Parameter(description = "로그인 회원 번호")
             long sessionId
     ){
-        return null;
+        return pageService.getFollowerList(id, sessionId);
     }
     @PostMapping("/follow/{id}")
     @Tag(name = "Follow")
@@ -97,7 +102,7 @@ public class PageApiController {
             @Parameter(description = "로그인 회원 번호")
             long sessionId
     ){
-
+        pageService.follow(id, sessionId);
     }
     @DeleteMapping("/follow/{id}")
     @Tag(name = "Follow")
@@ -111,6 +116,6 @@ public class PageApiController {
             @Parameter(description = "로그인 회원 번호")
             long sessionId
     ){
-
+        pageService.unFollow(id, sessionId);
     }
 }
