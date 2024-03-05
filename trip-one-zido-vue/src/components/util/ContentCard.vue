@@ -1,9 +1,13 @@
 <template>
-  <div @click="pushDetail" :id="content.id" class="container">
-    <div class="image">
+  <div :id="content.id" class="container">
+    <div @click.stop="this.$emit('plus')" class="image">
       <img :src="content.imgSrc" class="img" />
     </div>
-    <div v-if="content.type != null" class="hover-effect flex-column">
+    <div
+      v-if="content.type != null"
+      @click.stop="pushDetail"
+      class="hover-effect flex-column"
+    >
       <span
         ><img id="bookmark" src="/images/zzim.png" />&nbsp;{{
           content.bookmarkCount
@@ -34,12 +38,7 @@ export default {
   },
   methods: {
     pushDetail() {
-      if(this.content.type != null){
-        this.$router.push({ path: `/${this.content.type}/${this.content.id}` });
-      } else{
-        this.$emit('plus')
-      }
-      
+      this.$router.push({ path: `/${this.content.type}/${this.content.id}` });
     },
   },
 };
@@ -70,7 +69,8 @@ export default {
   width: 260px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: left;
+  padding-left: 95px;
   background-color: black;
   opacity: 0;
 }
