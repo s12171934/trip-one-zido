@@ -80,6 +80,9 @@ export default {
 </script>
 
 <style scoped>
+a {
+  font-family: "Jalnan";
+}
 input {
   font-family: "Jalnan";
   font-size: 17px;
