@@ -16,6 +16,7 @@ public class MemberService {
     @Autowired
     MemberMapper memberMapper;
 
+
     public List<ResponseQuestions> getSecurityQuestions(){
         return memberMapper.getSecurityQuestionList();
     }
@@ -24,6 +25,7 @@ public class MemberService {
         // 회원 가입 제약 조건 추가
         memberMapper.signUp(member);
     }
+
 
     public void isUsingMemberId(String memberId){
         memberMapper.getLoginFormByLoginId(memberId);

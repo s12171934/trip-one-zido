@@ -1,16 +1,22 @@
 package com.example.triponezidoapi.controller;
 
 import com.example.triponezidoapi.dto.response.*;
+import com.example.triponezidoapi.service.ContentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/content")
 public class ContentApiController {
+
+    @Autowired
+    ContentService contentService;
+
     @PostMapping("/pin/{id}")
     @Tag(name = "Pin", description = "Pin API")
     @Operation(summary = "게시물 고정하기")
@@ -23,7 +29,7 @@ public class ContentApiController {
             @Parameter(description = "로그인 회원 번호")
             long sessionId
     ){
-
+        contentService.addPin(id, sessionId);
     }
     @DeleteMapping("/pin/{id}")
     @Tag(name = "Pin")
@@ -37,7 +43,7 @@ public class ContentApiController {
             @Parameter(description = "로그인 회원 번호")
             long sessionId
     ){
-
+        contentService.deletePin(id, sessionId);
     }
     @PostMapping("/good/{id}")
     @Tag(name = "Good", description = "Good API")
@@ -51,7 +57,7 @@ public class ContentApiController {
             @Parameter(description = "로그인 회원 정보")
             long sessionId
     ){
-
+        contentService.addGood(id, sessionId);
     }
     @GetMapping("/recent-view/{page}")
     @Tag(name = "Content", description = "Content API")
@@ -66,6 +72,6 @@ public class ContentApiController {
             @Parameter(description = "페이징 번호")
             long page
     ){
-        return null;
+        return contentService.getRecentView(sessionId, page);
     }
 }
