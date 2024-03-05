@@ -1,8 +1,7 @@
 package com.example.triponezidoapi.service;
 
-import com.example.triponezidoapi.dto.request.RequestDetailSearch;
-import com.example.triponezidoapi.dto.request.RequestSearch;
-import com.example.triponezidoapi.dto.response.ResponseSearch;
+import com.example.triponezidoapi.dto.request.*;
+import com.example.triponezidoapi.dto.response.*;
 import com.example.triponezidoapi.mappers.SearchMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

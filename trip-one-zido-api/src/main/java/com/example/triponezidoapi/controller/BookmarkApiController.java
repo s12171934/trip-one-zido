@@ -15,7 +15,6 @@ import java.util.List;
 @RequestMapping("/api/bookmark")
 @Tag(name = "Bookmark", description = "Bookmark API")
 public class BookmarkApiController {
-
     @Autowired
     BookmarkService bookmarkService;
 

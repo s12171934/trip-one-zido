@@ -9,7 +9,6 @@ import java.util.List;
 
 @Service
 public class CommunityService {
-
     @Autowired
     CommunityMapper communityMapper;
     @Autowired
