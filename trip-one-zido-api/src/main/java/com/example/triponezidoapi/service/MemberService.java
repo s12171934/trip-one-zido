@@ -34,7 +34,7 @@ public class MemberService {
         // 세션에 회원번호, 아아디, 프로필사진 저장
         // 해당 회원번호 찾기 -> 그 회원의 비밀번호가 서로 같은지 확인
 
-        if(login.getLoginId() != null && login.getPassword().equals(memberMapper.getLoginFormByLoginId(login.getLoginId()).getPassword())){
+        if(memberMapper.getLoginFormByLoginId(login.getLoginId()) != null && login.getPassword().equals(memberMapper.getLoginFormByLoginId(login.getLoginId()).getPassword())){
             ResponseMember member = memberMapper.getLogin(login);
             HttpSession session = request.getSession();
             session.setAttribute("id", member);
