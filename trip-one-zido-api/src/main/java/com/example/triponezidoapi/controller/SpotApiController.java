@@ -2,6 +2,7 @@ package com.example.triponezidoapi.controller;
 
 import com.example.triponezidoapi.dto.request.*;
 import com.example.triponezidoapi.dto.response.*;
+import com.example.triponezidoapi.service.SpotService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,7 +22,20 @@ public class SpotApiController {
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 번호")
             long sessionId
+
     ){
+        // 매퍼 getSpotList에 필요한 파라메타 타입에 맞추어, id, sessionId 를 요청객체로 생성
+//        RequestSessionTarget reqSessionTarget = new RequestSessionTarget(0,id,sessionId);
+//
+//        //요청객체를 서비스로 전달 하여 서비스의 리턴값을 받음
+//        SpotService spotService;
+//
+//        ResponseSpotDetail responseSpotDetail = spotService.spotDetail(reqSessionTarget);
+//
+//        //서비스에서 매퍼로 가고 매퍼의 리턴이 true라면
+//
+//        //그 값을 spotDetail로 리턴
+//        return responseSpotDetail;
         return null;
     }
     @PostMapping("/")
