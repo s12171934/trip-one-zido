@@ -322,3 +322,9 @@ body,
 #category, #mySelect {
     font-size: 80%;
 }
+
+#edit-profile {
+    background-color: #ff928e;
+    width: 100%;
+    /* font-size: 1; */
+}

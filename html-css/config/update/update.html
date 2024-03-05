@@ -67,17 +67,19 @@
                             </b></td>
                     </tr>
                     <tr id="updateArea">
-                        <td width="200">아이디 (변경불가) :</td>
+                        <td width="200">아이디 :</td>
                         <td colspan="2" width="200">kitritest</td>
                     </tr>
 
                     <tr id="updateArea">
-                        <td width="200">비밀번호 (변경가능) :</td>
-                        <td width="200"><input type="password" name="passwd" size="10" maxlength="10"
-                                value="testtest123"></td>
+                        <td width="200">비밀번호 :</td>
+                        
                         <td>
                             <ul class="actions">
-                                <li><a href="/html-css/config//update/pwupdate.html" class="button small" id="button">비밀번호 변경하기</a></li>
+                                <li>
+                                   <button class="button" id="duplication-check"><a href="/html-css/config//update/pwupdate.html" id="duplication-check">비밀번호 변경 </a></button>
+                                    <!-- <input id="input" type="submit" value="아이디 중복체크"> -->
+                                </li>
                             </ul>
                         </td>
                     </tr>
@@ -87,7 +89,7 @@
                             </b></td>
                     </tr>
                     <tr id="updateArea">
-                        <td width="200">이름 (변경가능) :</td>
+                        <td width="200">이름 :</td>
                         <td colspan="2" width="200"><input type="text" name="name" size="15" maxlength="20" value="키트리">
                         </td>
                     </tr>
@@ -109,7 +111,7 @@
                     </tr>
 
                     <tr id="updateArea">
-                        <td width="200">보안질문 (변경가능) :</td>
+                        <td width="200">보안질문 :</td>
                         <td colspan="2" width="200">
                             <div class="select-wrapper">
                                 <select name="category" id="security">
@@ -130,38 +132,43 @@
                                 value="대한민국"></td>
                     </tr>
                     <tr id="updateArea">
-                        <td width="200">생년월일 (변경불가) :</td>
+                        <td width="200">생년월일 :</td>
                         <td colspan="2" width="200"><input type="text" name="birthday" size="15" maxlength="20"
                                 value="1999-01-01" disabled></td>
                     </tr>
                     <tr id="updateArea">
-                        <td width="200">성별 (변경가능) :</td>
+                        <td width="200">성별 :</td>
                         <td colspan="2">
                             <input type="radio" id="male" name="gender" checked><label for="male">남성</label>
                             <input type="radio" id="female" name="gender"><label for="female">여성</label>
                         </td>
                     </tr>
                     <tr id="updateArea">
-                        <td width="200">전화번호 (변경가능) :</td>
+                        <td width="200">전화번호 :</td>
                         <td width="200"><input type="text" name="phonenumber" size="15" maxlength="20"
                                 value="010-9999-1111"></td>
                         <td>( - 는 제외하고 입력하세요)</td>
                     </tr>
                     <tr id="updateArea">
-                        <td width="200">이메일 (변경가능) :</td>
+                        <td width="200">이메일 :</td>
                         <td colspan="2" width="200"><input type="text" name="email" size="15" maxlength="20"
                                 value="kitri@kitri"></td>
                     </tr>
                 </table>
-                <ul class="actions">
-                    <li><a href="/html-css/config/resign/resign.html" class="button alt">회원 탈퇴하기</a></li>
-                    <li id="formButton"><button type="submit" id="button">수정하기</button></li>
-                    <li><a href="/html-css/config/config/config.html" class="button alt">취소하기</a></li>
+                <!-- <ul class="actions"> -->
+                    
+				<div class="d-grid gap-2 d-md-flex">
+                    <a href="/html-css/config/resign/resign.html" class="button alt" id="withdrawal">회원 탈퇴</a></li>
+                    <button type="submit" id="button">수정</button>
+                    <a href="/html-css/config/config/config.html" class="button alt">취소</a>
                 </ul>
+                </div>
 
+                <div class="d-grid gap-2 d-md-flex justify-content-center">
                 <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     정보변경 모달
                 </button>
+                </div>
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
