@@ -47,7 +47,7 @@ const routes = [
   },
   //member
   {
-    path: "/bookmark/:id",
+    path: "/bookmark/:id?",
     component: Bookmark
   },
   {
