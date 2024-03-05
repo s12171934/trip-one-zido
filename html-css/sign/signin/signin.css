@@ -25,7 +25,7 @@
 #actions {
     font-family: 'Jalnan';
     font-size: 25px;
-    color: aliceblue;
+    color: rgb(255, 255, 255);
   background-color: #ff928e;
 }
 option, select, div {
@@ -70,6 +70,18 @@ form {
     border-radius: 30px;
 }
 button {
-    color: aliceblue !important; 
+    color: rgb(255, 255, 255) !important; 
     background-color:#ff928e !important;
+}
+
+#duplication-check {
+    margin-top: 1%;
+    margin-right: 5%;
+    margin-left: 1%;
+}
+
+#search-adress {
+    /* margin-top: 1%; */
+    /* margin-right: 5%; */
+    margin-left: 1%;
 }

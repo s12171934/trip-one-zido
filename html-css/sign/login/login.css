@@ -81,8 +81,12 @@ form {
 
 .button {
     font-family: 'Jalnan';
-    color: aliceblue;
+    color: rgb(255, 255, 255);
     background-color: #ff928e;
     border-radius: 10px;
+    /* font-size: 15px !important; */
+}
+
+#login-button, #login-fail-button {
     font-size: 15px !important;
 }

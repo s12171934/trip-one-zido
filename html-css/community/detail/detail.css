@@ -45,12 +45,12 @@ thead {
     margin-right: 5% !important;
 }
 #button {
-    color: aliceblue !important; 
+    color: rgb(255, 255, 255) !important; 
     background-color:#ff928e !important;
     font-size: 15px;
 }
 #mouseHover, #button2 {
-    color: aliceblue !important; 
+    color: rgb(255, 255, 255) !important; 
     background-color:#ff928e !important;
 }
 #table {

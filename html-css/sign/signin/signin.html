@@ -22,8 +22,8 @@
 	<a href="/html-css/index.html"  class="logo"><img src="/html-css/images/여행한지도_로고.png" width="325"></a>
 	<nav class="right">
 	<!-- 로그인 로그아웃버튼 -->
-		<a href="/html-css/sign/login/login.html" class="button alt rounded-5">로그인</a>
-		<a href="/html-css/sign/signin/signin.html" class="button alt rounded-5">회원가입</a>
+		<a href="/html-css/sign/login/login.html" id="login" class="button alt rounded-5">로그인</a>
+		<a href="/html-css/sign/signin/signin.html" id="signin" class="button alt rounded-5">회원가입</a>
 	</nav>
 </header>
 
@@ -38,10 +38,10 @@
 					<input type="text" name="name" id="name" value="" placeholder="사용할 아이디">
 				</div>
 				<!-- 아이디중복체크 -->
-				<div class="12u$(xsmall)">
+				<div class="12u$(xsmall)" id="duplication-check">
 					<ul class="actions">
 						<li>
-							<button class="btn btn-sm rounded-3">아이디중복체크</button>
+							<button class="btn btn-sm rounded-3" id="duplication-check-font">아이디중복체크</button>
 							<!-- <input id="input" type="submit" value="아이디 중복체크"> -->
 						</li>
 					</ul>
@@ -70,7 +70,6 @@
 						<option value="3">당신의 별명은?</option>
 						<option value="4">처음으로 국내여행 가본 곳은?</option>
 						<option value="5">처음으로 해외여행 가본 국가는?</option>
-						<option value="6">직접 작성</option>
 					</select>
 				</div>
 			</div>
@@ -96,7 +95,7 @@
 				<div class="flex-fill 12u$" for="address">
 					<input type="text" id="address" name="address" readonly value="" placeholder="주소">
 				</div>
-				<div class="flex-fill">
+				<div class="flex-fill" id="search-adress">
 					<button class="rounded-3" type="button" onclick="searchAddress()"><scirpt> </scirpt>주소 검색</button><br>
 				</div>
 			</div>
