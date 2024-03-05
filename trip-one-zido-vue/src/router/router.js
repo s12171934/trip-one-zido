@@ -1,4 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
+import Welcome from "../components/Welcome.vue";
 import MainPage from "../components/MainPage.vue";
 import Community from "../components/community/Community.vue";
 import CommunityDetail from "../components/community/CommunityDetail.vue";
@@ -23,6 +24,10 @@ import TourDetail from "../components/tour/TourDetail.vue";
 import TourPage from "../components/tour/TourPage.vue";
 
 const routes = [
+  {
+    path: "/welcome",
+    component: Welcome
+  },
   {
     path: "/",
     component: MainPage

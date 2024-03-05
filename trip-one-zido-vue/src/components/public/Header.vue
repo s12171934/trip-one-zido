@@ -1,10 +1,10 @@
 <template>
-  <header id="header" :style="url != '/' ? '' : 'box-shadow: none'">
+  <header id="header" :style="url ? 'box-shadow: none' : ''">
     <nav v-if="isLogin(url)" class="left">
       <a href="#menu" @click="toggleMenu"><span>Menu</span></a>
     </nav>
 
-    <div v-if="url != '/'" class="h-100">
+    <div v-if="!url" class="h-100">
       <a href="/html-css/index.html">
         <img src="/images/여행한지도_로고.png" class="logo" width="325" />
       </a>
@@ -15,7 +15,7 @@
         </form>
         <span class="image round d-flex h-100 align-items-center" box-sha>
           <a href="/html-css/main/detail/detail.html">
-            <img src="/images/남자.png" width="75" height="75" />
+            <img src="/images/남자.png" height="75" />
           </a>
         </span>
       </nav>
@@ -53,7 +53,7 @@
 <script>
 export default {
   props: {
-    url: String,
+    url: Boolean,
   },
   data() {
     return {
@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     isLogin(url) {
-      if (url === "/login") {
+      if (url === url) {
         return true;
       } else {
         return false;

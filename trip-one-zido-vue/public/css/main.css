@@ -2750,6 +2750,12 @@
                   margin: 0 0.5em 0 0;
                }
 
+   @media screen and (max-width: 1180px) {
+      #headerSearchBar {
+         display: none !important;
+      }
+   }
+
    @media screen and (max-width: 980px) {
 
       body {
