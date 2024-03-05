@@ -1,4 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
+import Welcome from "../components/Welcome.vue";
 import MainPage from "../components/MainPage.vue";
 import Community from "../components/community/Community.vue";
 import CommunityDetail from "../components/community/CommunityDetail.vue";
@@ -24,6 +25,10 @@ import TourPage from "../components/tour/TourPage.vue";
 
 const routes = [
   {
+    path: "/welcome",
+    component: Welcome
+  },
+  {
     path: "/",
     component: MainPage
   },
@@ -37,7 +42,7 @@ const routes = [
     component: CommunityDetail
   },
   {
-    path: "/Community/:id/:mode",
+    path: "/Community/:mode/:id?",
     component: EditCommunity
   },
   //member
@@ -83,7 +88,7 @@ const routes = [
   },
   //plan
   {
-    path: "/plan/:id/:mode",
+    path: "/plan/:mode/:id?",
     component: EditPlan
   },
   {
@@ -101,7 +106,7 @@ const routes = [
   },
   //spot
   {
-    path: "/spot/:id/:mode",
+    path: "/spot/:mode/:id?",
     component: EditSpot
   },
   {
@@ -110,7 +115,7 @@ const routes = [
   },
   //tour
   {
-    path: "/tour/loc/:locCategory",
+    path: "/tour/loc/:locCategory?",
     component: TourPage
   },
   {
@@ -123,5 +128,11 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
+//로그인 안하면 welcome 페이지로 리다이렉트
+// router.beforeEach((to, from, next) => {
+//   if(to.fullPath != '/welcome') next({path: '/welcome'});
+//   next();
+// })
 
 export { router };

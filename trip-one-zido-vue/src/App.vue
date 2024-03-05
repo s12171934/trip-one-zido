@@ -16,21 +16,18 @@ export default {
 
   data(){
     return{
-      url : window.location.pathname === "/"
+      url : window.location.pathname === "/" ? true : false
     }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+@font-face {
+    font-family: 'Jalnan';
+    src: url('/public/fonts/Jalnan2TTF.ttf') format('truetype');
 }
+@import url(/public/css/font-awesome.min.css);
 @import url(/public/css/main.css);
 @import url(https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css);
 </style>

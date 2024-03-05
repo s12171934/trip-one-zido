@@ -2750,6 +2750,12 @@
                   margin: 0 0.5em 0 0;
                }
 
+   @media screen and (max-width: 1180px) {
+      #headerSearchBar {
+         display: none !important;
+      }
+   }
+
    @media screen and (max-width: 980px) {
 
       body {
@@ -2762,8 +2768,7 @@
       }
 
          #header .logo {
-            font-size: 1.25em;
-            text-align: center;
+            width: 160px;
          }
 
          #header nav a[href="#menu"] {
@@ -2774,8 +2779,8 @@
             left: 1em;
          }
 
-         #header nav.right {
-            display: none;
+         #header div nav.right {
+            display: none !important;
          }
 
    }
