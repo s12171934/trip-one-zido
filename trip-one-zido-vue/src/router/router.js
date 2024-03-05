@@ -129,4 +129,10 @@ const router = createRouter({
   routes,
 });
 
+//로그인 안하면 welcome 페이지로 리다이렉트
+// router.beforeEach((to, from, next) => {
+//   if(to.fullPath != '/welcome') next({path: '/welcome'});
+//   next();
+// })
+
 export { router };

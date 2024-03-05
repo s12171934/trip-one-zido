@@ -5,7 +5,7 @@
     </nav>
 
     <div v-if="!url" class="h-100">
-      <a href="/html-css/index.html">
+      <a href="/">
         <img src="/images/여행한지도_로고.png" class="logo" width="325" />
       </a>
 
