@@ -28,6 +28,7 @@ public interface MemberMapper {
     String getSecurityQuestion(long id);
     List<ResponseQuestions> getSecurityQuestionList();
     Member getMemberById(long id);
+    ResponseMember getMemberProfile(long id);
 
     //update
     void updateMember(Member member);

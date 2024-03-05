@@ -196,6 +196,17 @@
       security_questions
   </select>
 
+  <select id="getMemberProfile" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+    SELECT
+      id,
+      login_id,
+      profile
+    FROM
+      member
+    WHERE
+      id = #{id}
+  </select>
+
   <update id="updateMember" parameterType="com.example.triponezidoapi.dto.Member">
     UPDATE
       member
