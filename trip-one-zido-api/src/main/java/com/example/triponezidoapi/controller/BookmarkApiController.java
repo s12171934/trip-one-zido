@@ -31,17 +31,7 @@ public class BookmarkApiController {
             @Parameter(description = "로그인 회원 번호")
             long sessionId
     ){
-        //id가 비어있다면 세션정보 이용
-//        if(id < 0L){
-//            id = sessionId;
-//        }
-
-        ResponseBookmark responseBookmark = new ResponseBookmark();
-        responseBookmark.setTourBookmarkCount(bookmarkService.tourBookmarkCount(id));
-        responseBookmark.setPlanSpotBookMarkCount(bookmarkService.planSpotBookmarkCount(id));
-        responseBookmark.setTourList(bookmarkService.getTourBookmark(id,0));
-        responseBookmark.setContentList(bookmarkService.getPlanSpotBookmark(id,0));
-        return responseBookmark;
+        return bookmarkService.getAllBookmark(id,sessionId);
     }
     @GetMapping("/{id}/SpotPlan/{page}")
     @Tag(name = "Plan")
@@ -73,7 +63,7 @@ public class BookmarkApiController {
     }
     @PostMapping("/{id}")
     @Operation(summary = "찜 등록")
-    public void addBookmark(
+    public void postBookmark(
             @PathVariable
             @Parameter(description = "찜 등록할 게시물 번호")
             long id,

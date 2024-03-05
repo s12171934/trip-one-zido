@@ -6,6 +6,7 @@ import com.example.triponezidoapi.dto.request.RequestSessionTarget;
 import com.example.triponezidoapi.dto.response.ResponseContentList;
 import com.example.triponezidoapi.dto.response.ResponsePlanDetail;
 import com.example.triponezidoapi.dto.response.ResponseSpotPlan;
+import com.example.triponezidoapi.mappers.ContentMapper;
 import com.example.triponezidoapi.mappers.PlanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,10 @@ import java.util.List;
 @Service
 public class PlanService {
     @Autowired // 자동생성자
-    static PlanMapper planMapper;
+    PlanMapper planMapper;
+
+    @Autowired // 자동생성자
+    ContentMapper contentMapper;
 
     public List<ResponseContentList> getPlanList(long id, long sessionId) {
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
@@ -32,8 +36,8 @@ public class PlanService {
         requestPlan.setId(id);
         planMapper.updatePlan(requestPlan);
     }
-    //insert
 
+    //insert
     public void addSpot(RequestPlanSpot requestPlanSpot) {
         planMapper.addSpot(requestPlanSpot);
     }
@@ -46,4 +50,7 @@ public class PlanService {
         return planMapper.getSpot(contentId);
     }
 
+    public void deletePlan(long id){
+        contentMapper.deleteContent(id);
+    }
 }
