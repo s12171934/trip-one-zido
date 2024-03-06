@@ -15,7 +15,7 @@ public class RequestPlan {
     String review;
     int grade;
     String title;
-    String isPublic;
+    boolean isPublic;
     LocalDateTime createdAt;
     byte[] profile;
     List<Long> spots;
