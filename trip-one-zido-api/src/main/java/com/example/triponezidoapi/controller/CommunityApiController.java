@@ -31,9 +31,13 @@ public class CommunityApiController {
     public ResponseCommunityDetail showCommunityDetail(
             @PathVariable
             @Parameter(description = "커뮤니티 게시물 번호")
-            Long id
+            Long id,
+
+            @SessionAttribute(name = "id")
+            @Parameter(description = "로그인 회원 정보")
+            Long sessionId
     ){
-        return communityService.getCommunity(id);
+        return communityService.getCommunity(id,sessionId);
     }
     @PostMapping("/")
     @Operation(summary = "커뮤니티 게시물 등록")
