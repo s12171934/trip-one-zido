@@ -34,15 +34,19 @@ const routes = [
   },
   //community
   {
-    path: "/Community/page=:page",
+    path: "/community/page=:page",
     component: Community
   },
   {
-    path: "/Community/:id",
+    path: "/community",
+    component: Community
+  },
+  {
+    path: "/community/:id",
     component: CommunityDetail
   },
   {
-    path: "/Community/:mode/:id?",
+    path: "/community/:mode/:id?",
     component: EditCommunity
   },
   //member
