@@ -30,8 +30,8 @@
                     </tr>
 
                     <tr>
-                        <td>2</td>
-                        <td>부산 가실분</td>
+                        <td >2</td>
+                        <td onclick="location.href='/community/detail'">부산 가실분</td>
                         <td>minsun</td>
                         <td>24/02/14</td>
                         <td>5</td>
@@ -189,7 +189,7 @@ table tbody tr {
     color: black !important;
 }
 .select-wrapper {
-    width: 10%;
+    width: 15%;
     font-size: 15px;
 }
 .select-wrapper #category {

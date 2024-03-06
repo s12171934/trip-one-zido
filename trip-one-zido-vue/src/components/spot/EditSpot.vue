@@ -4,18 +4,18 @@
             
             <!-- ★왼쪽 -->
             <div class="p-2 d-flex flex-column border-end" id="leftSide">
-                <div id="mainTitle">
+                  <div>
                     <h1 class="title">장소 등록</h1>
                     <br>
                 </div>
     
-                <div class="p-2" id="picContainer"><h4> 사진 등록</h4>
+                <div class="p-2" id="picContainer"><h4 id="font-vertical">사진 등록</h4>
                     <div class="d-flex flex-row" id="addPic">
                         <div class="d-inline-flex p-2">
                             <img class="img-fluid rounded" id="selectedPic" src="/images/dragoncastle.jpg" alt="" >
                             <img class="img-fluid rounded" id="selectedPic" src="/images/busan3.jpg" alt="" >
                             <button id="plusPic">
-                                <img src="/images/plusbutton.png" alt="" class="rounded-5">
+                                <img src="/images/plusbutton.png" alt="" class="rounded-5"사지>
                             </button>
                         </div>
                     </div>
@@ -24,11 +24,11 @@
 
             <!-- ★오른쪽 -->
             <div class="p-2 d-flex flex-column border-end" id="rightSide">
-                <div class="p-2 d-flex flex-row" id="blank"><h4>장소 제목 :</h4>
+                <div class="p-2 d-flex flex-row mb-3" id="blank-title"><h4 id="font-vertical">장소 제목</h4>&nbsp;&nbsp;
                     <input type="text" value="" id="locationTitle" >
                 </div>
 
-                <div class="p-2 d-flex" id="blank"><h4>시간 :</h4>
+                <div class="p-2 d-flex mb-3" id="blank"><h4 id="font-vertical">시간</h4>&nbsp;&nbsp;
                     <label for="start_date"></label>
                     <input class="flex-fill" type="time" id="start_date" name="start_date" >
                     <h4>~</h4>
@@ -36,45 +36,46 @@
                     <input class="flex-fill" type="time" id="end_date" name="end_date">
                 </div>
 
-                <div class="p-2 d-flex border-bottom" id="locationPeople" ><h4>동행인 :</h4>
-                    <label for="otherName1"></label>
-                    <input class="flex-fill" type="text" id="otherName" name="otherName1" ><br><br>
+                <div class="p-2 d-flex border-bottom"><h4 id="font-vertical">동행인</h4>&nbsp;&nbsp;
+                    <!-- <form action="send_email.php" method="POST"> -->
+                    <label for="email1"></label>
+                    <input class="flex-fill" type="email" id="email" name="email1"><br><br>
 
-                    <label for="otherName2"></label>
-                    <input class="flex-fill" type="text" id="otherName" name="otherName2" ><br><br>
+                    <label for="email2"></label>
+                    <input class="flex-fill" type="email" id="email" name="email2"><br><br>
 
-                    <label for="otherName3"></label>
-                    <input class="flex-fill" type="text" id="otherName" name="otherName3" ><br><br>
-
-                    <div class="actions vertical small">
-                        <button id="buttonBackground" ><img src="/images/plusbutton.png" width="25" height="25"></button>
+                    <label for="email3"></label>
+                    <input class="flex-fill" type="email" id="email" name="email3"><br><br>
+                    <!-- 필요한 만큼 이메일 주소 입력 필드를 추가할 수 있음 -->
+                    <!-- </form> -->
+                    <div class="actions vertical small mb-4" id="plusButton">
+                        <button id ="buttonBackground"><img src="/images/plusbutton.png" width="25" height="25"></button>
                     </div>
                 </div>
-                <div class="p-2 d-flex flex-row" id="picLocation">
-                    <h4>사진 장소 :</h4>
-                    &nbsp;&nbsp;
-                  
-                        <div>
-                            <input type="text" id="addressArea" placeholder="위치를 입력해주세요~!">
-                        </div>
+                    
+                <div class="p-2 d-flex flex-row mb-3" id="picLocation">
+                    <h4 id="font-vertical">사진 장소</h4>&nbsp;&nbsp;
 
-                        <div>
-                          <div class="select-wrapper">
-                            <select class ="local-select" name="category" id="category">
+                      <div class="p-2 d-flex flex-row">
+                        <div class="select-wrapper">
+                          <select class ="local-select" name="category">
                                 <option value="" selected>카테고리</option>
                                 <option value="1">음식점</option>
                                 <option value="2">여가(관람/체험/스포츠)</option>
-                                <option value="3">관광지(산, 바다, 계곡, 해변)</option>
+                                <option value="3">관광지(산/바다/계곡/해변)</option>
                                 <option value="4">테마파크</option>
                                 <option value="5">기타</option>
                             </select>
+                          </div>
                         </div>
-                      </div>	
+                        <div>
+                          <input type="text" id="addressArea" placeholder="위치를 입력해주세요~!">
+                        </div>
 
                     <br>
                 </div>
 
-                <div class="p-2 d-flex border-top" ><h4>여행한 후기</h4>
+                <div class="p-2 d-flex border-top mb-3" ><h4>여행한 후기</h4>
                     <div class="rating flex-fill" id="rateStar">
                         <span onclick="rateStar(10)">☆</span>
                         <span onclick="rateStar(8)">☆</span>
@@ -91,8 +92,8 @@
                 </div>
                 
                 <div class="p-2 d-flex flex-row">
-                    <div class="select-wrapper" >
-                        <select class ="local-select" name="category" id="security">
+                    <div class="select-wrapper" id="security">
+                        <select class ="local-select" name="category">
                             <option value="" selected>공개 설정</option>
                             <option value="1">공개</option>
                             <option value="2">비공개</option>
@@ -157,7 +158,7 @@ export default {
 #main {
   margin-left: 5%;
   margin-right: 5%;
-  margin-top: 0%;
+  margin-top: -5%;
 }
 
 #mainTitle {
@@ -165,11 +166,12 @@ export default {
 }
 
 #leftSide {
+  margin-top: 3%;
   margin-right: auto;
 }
 
 #rightSide {
-  /* margin-left: 3%; margin-top: 3%; */
+  margin-left: 3%; margin-top: 3%;
 }
 
 h1 {
@@ -180,9 +182,17 @@ h3 {
   color: rgb(80, 80, 80) !important;
 }
 
-h4 {
+h4, #email {
   color: rgb(0, 0, 0) !important;
 }
+
+#email {
+    margin-right: 5px; 
+    margin-left: 5px; 
+    width: 20%; 
+    height: 60%;
+}
+
 
 #picContainer{
   justify-content: center;
@@ -214,7 +224,7 @@ h4 {
   margin-right: 10px; 
   margin-left: 10px; 
   width: 40%; 
-  height:80%;
+  height: 100%;
 }
 
 #locationPeople{
@@ -224,7 +234,7 @@ h4 {
 #otherName {
   margin-right: 5px; 
   margin-left: 5px; 
-  width: 20%; 
+  width: 50%; 
   height: 50%;
 }
 
@@ -233,20 +243,20 @@ h4 {
 }
 
 #picLocation{
-  /* align-items:center; */
+  align-items:center;
 }
 
 .p-2 > select {
   width: 200px; 
 }
 
-.select-wrapper{
-  /* width: % */
+#select-category {
+  width: 100%;
 }
 
 #addressArea {
   width: 100%;
-  height: 100%;
+  /* height: 130%; */
 }
 
 #category {
@@ -281,9 +291,6 @@ h1, h2, h3, h4, h5, body, .button, #security, .rating, #ratingValue {
   font-size: 20px;
 }
 
-.select-wrapper {
-  font-size: small;
-}
 
 /* 달력 */
 html, body {
@@ -458,6 +465,14 @@ ul,li {
 .slide_pagination > li.active, .slide_pagination_bottom > li.active {
   /* 현재 슬라이드 색상은 투명도 없이 */
   color: #f6755e;
+}
+
+#font-vertical {
+  margin-top: 1%
+}
+
+#security {
+  width: 15%;
 }
 
 </style>

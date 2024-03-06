@@ -55,7 +55,6 @@
                     <!-- </form> -->
                 </div>
 
-
                 <div class="p-2"><h4> 지도 </h4>
                     <!-- Google 지도를 삽입할 영역 -->
                     <iframe
@@ -166,7 +165,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .select-wrapper {
     font-size: small;
 }
@@ -187,30 +186,31 @@ html, body {
     /* font-size: 14px; */
 }
 
-#calendar {
-    width: 90%;
-    max-width: 1100px;
-    margin: 40px auto;
-}
+        #calendar {
+            width: 90%;
+            max-width: 1100px;
+            margin: 40px auto;
+        }
 
-/* 별점주기 */
-.rating {
-    unicode-bidi: bidi-override;
-    direction: rtl;
-    text-align: left;
-}
+        /* 별점주기 */
+        .rating {
+            unicode-bidi: bidi-override;
+            direction: rtl;
+            text-align: left;
+        }
 
-.rating>span {
-    display: inline-block;
-    position: relative;
-    width: 1.1em;
-}
+        .rating>span {
+            display: inline-block;
+            position: relative;
+            width: 1.1em;
+        }
 
-.rating>span:hover:before,
-.rating>span:hover~span:before {
-    content: "\2605";
-    position: absolute;
-}
+        .rating>span:hover:before,
+        .rating>span:hover~span:before {
+            content: "\2605";
+            position: absolute;
+        }
+
 /* 화면 나누기 */
 #split-container {
 display: flex;
@@ -220,6 +220,7 @@ width: 100%;
     width: 50%;
     padding: 20px;
 }
+
 /* 지도 크기 설정 */
 #map {
     height: 400px;
@@ -257,7 +258,7 @@ width: 100%;
 #main {
     margin-left: 5%;
     margin-right: 5%;
-    margin-top: 2.5%;
+    margin-top: -3%;
 }
 
 #leftSide {

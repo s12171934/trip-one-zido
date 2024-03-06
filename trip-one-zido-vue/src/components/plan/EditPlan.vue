@@ -31,7 +31,7 @@
                     <input class="flex-fill" type="date" id="end_date" name="end_date">
                 </div>
 
-                <div class="p-2 d-flex border-bottom"><h4 id="with">동행인</h4>
+                <div class="p-2 d-flex border-bottom"><h4 id="with">동행인</h4> &nbsp;&nbsp;
                     <!-- <form action="send_email.php" method="POST"> -->
                     <label for="email1"></label>
                     <input class="flex-fill" type="email" id="email" name="email1"><br><br>
@@ -44,11 +44,11 @@
                     <!-- 필요한 만큼 이메일 주소 입력 필드를 추가할 수 있음 -->
                     <!-- </form> -->
                     <div class="actions vertical small" id="plusButton">
-                        <button id ="buttonBackground"><img src="/html-css/images/plusbutton.png" width="25" height="25"></button>
+                        <button id ="buttonBackground"><img src="/images/plusbutton.png" width="25" height="25"></button>
                     </div>
                 </div>
     
-                <div class="p-2"><h4> 지도 </h4>
+                <div class="p-2 mt-3 border-bottom"><h4> 지도 </h4>
                     <!-- Google 지도를 삽입할 영역 -->
                     <iframe
                     id="map"
@@ -60,7 +60,7 @@
                     </iframe>
                 </div>
 
-                <div class="p-2 d-flex border-top" id="trip-review"><h4>여행한 후기</h4> 
+                <div class="p-2 d-flex mt-3" id="trip-review"><h4>여행한 후기</h4> 
                     <div class="rating flex-fill" id="star">
                         <span onclick="rateStar(10)">☆</span>
                         <span onclick="rateStar(8)">☆</span>
@@ -73,7 +73,7 @@
                 <!-- 여행후기 -->
                 <div class="p-2">
                     <!-- <form action="submit_post.php" method="POST">             -->
-                        <textarea id="content" name="content" rows="5" cols="50"></textarea><br><br>
+                        <textarea id="content" name="content" rows="5" cols="50"></textarea>
                     <!-- </form> -->
                 </div>
             </div>
@@ -85,15 +85,24 @@
                     &nbsp;&nbsp;
                         <div class="select-wrapper" >
 							<select class ="local-select" name="category" id="security">
-								<option value="" selected>지역 선택</option>
-								<option value="1">서울특별시</option>
-								<option value="2">경기도</option>
-								<option value="3">강원도</option>
-								<option value="4">세종특별자치시시</option>
-								<option value="5">대구광역시</option>
-								<option value="6">울산광역시</option>
-								<option value="7">부산광역시</option>
-								<option value="8">제주특별자치도</option>
+                                <option value="" selected>지역 선택</option>
+									<option value="1">서울특별시</option>
+									<option value="2">부산광역시</option>
+									<option value="3">대구광역시</option>
+									<option value="4">인천광역시</option>
+									<option value="5">광주광역시</option>
+									<option value="6">대전광역시</option>
+									<option value="7">울산광역시</option>
+									<option value="8">세종특별자치시</option>
+									<option value="9">경기도</option>
+									<option value="10">강원특별자치도</option>
+									<option value="11">충청북도</option>
+									<option value="12">충청남도</option>
+									<option value="13">전북특별자치도</option>
+									<option value="14">전라남도</option>
+									<option value="15">경상북도</option>
+									<option value="16">경상남도</option>
+									<option value="17">제주특별자치도</option>
 							</select>
 						</div>
                     <br>
@@ -101,8 +110,11 @@
 
                 
                     <!-- <input type="text" value=""> -->
-                    <div id='calendar'></div>
-                
+                    <!-- <div id='calendar'></div> -->
+                <template>
+                <FullCalendar :options='calendarOptions' />
+                </template>
+
 
                 <div class="p-2 d-flex flex-row">
                     <div class="select-wrapper">
@@ -145,7 +157,7 @@
 								<div class="modal-footer border border-0">
 								<!-- <button type="button" class="btn btn-secondary" >로그인하러가기</button> -->
 								<button type="button" class="rounded-3" id="modalButton" 
-                                    onclick="location.href='/html-css/schedule/detail/detail.html'">목록가기</button>
+                                    onclick="location.href='/schedule/detail/detail.html'">목록가기</button>
 								</div>
 							</div>
 						</div>
@@ -166,13 +178,20 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
 .select-wrapper {
     font-size: small;
 }
-h1, h2, h3, h4, body, .button, section {
-    font-family: 'Jalnan';
+
+h1, h2, h3, h4, h5, body, .button, #security, .rating, #ratingValue {
+  font-family: 'Jalnan';
 }
+
+h4, #email {
+  color: rgb(0, 0, 0) !important;
+}
+
 
 /* 달력 */
 html, body {
@@ -224,6 +243,7 @@ width: 100%;
 input{
     font-family: 'Jalnan' !important;
 }
+
 #input {
     color:white !important;
     background-color: #ff928e !important;
@@ -247,7 +267,7 @@ input{
 #main {
     margin-left: 5%;
     margin-right: 5%;
-    margin-top: 2.5%;
+    margin-top: -3%;
 }
 
 #leftSide {
@@ -256,21 +276,21 @@ input{
 
 #leftSide #title {
     color:#ff928e;
-    margin-top:5%
+    /* margin-top:5% */
 }
 
 #trip-state-button {
     margin-right: 10px; 
     margin-left: 10px;
     width: 40%;
-    height: 60%;
+    height: 70%;
 }
 
 #email {
     margin-right: 5px; 
     margin-left: 5px; 
     width: 20%; 
-    height: 60%;
+    height: 70%;
     margin-top: 2%
 }
 
@@ -309,5 +329,9 @@ input{
 #star {
     margin-right: 10px;
     margin-left: 100px;
+}
+
+#trip-review {
+    margin-bottom:-1%
 }
 </style>
