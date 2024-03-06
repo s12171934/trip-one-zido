@@ -19,7 +19,7 @@ public class PlanApiController {
 
     @GetMapping("/{id}")
     @Operation(summary = "일정 게시물 세부 조회")
-    public List<ResponseContentList> showPlanDetail(
+    public ResponsePlanDetail showPlanDetail(
             @PathVariable
             @Parameter(description = "일정 게시물 번호")
             long id,

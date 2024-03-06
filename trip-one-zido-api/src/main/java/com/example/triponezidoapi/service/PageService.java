@@ -20,6 +20,8 @@ public class PageService {
     BookmarkMapper bookmarkMapper;
 
     public ResponseMemberPage getMemberPage(long id, long sessionId){
+        //id가 null일때 세션정보를 이용한다
+
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setTargetId(id);
         requestSessionTarget.setMyMemberId(sessionId);
@@ -58,14 +60,20 @@ public class PageService {
     }
 
     public List<ResponseMember> getFollowingList(long id, long page){
+        // followlist pagenation, isfollow 추가 (쿼리)
+
         return memberMapper.followingList(id);
     }
 
     public List<ResponseMember> getFollowerList(long id, long page){
+        // followlist pagenation, isfollow 추가 (쿼리)
+
         return memberMapper.followerList(id);
     }
 
     public void follow(long id, long sessionId){
+        //id가 null일때 세션정보를 이용한다
+
         RequestFollow requestFollow = new RequestFollow();
         requestFollow.setFollower(sessionId);
         requestFollow.setFollowing(id);
@@ -73,6 +81,8 @@ public class PageService {
     }
 
     public void unFollow(long id, long sessionId){
+        //id가 null일때 세션정보를 이용한다
+
         RequestFollow requestFollow = new RequestFollow();
         requestFollow.setFollower(sessionId);
         requestFollow.setFollowing(id);

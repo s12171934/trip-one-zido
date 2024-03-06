@@ -27,6 +27,7 @@ public class TourService {
     }
 
     public void addTour(RequestTour requestTour) {
+//        addContent
         tourMapper.addTour(requestTour);
     }
 

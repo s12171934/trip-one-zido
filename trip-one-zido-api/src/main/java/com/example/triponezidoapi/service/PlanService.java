@@ -14,18 +14,29 @@ public class PlanService {
     @Autowired // 자동생성자
     ContentMapper contentMapper;
 
-    public List<ResponseContentList> getPlanList(long id, long sessionId) {
+    public ResponsePlanDetail getPlanList(long id, long sessionId) {
+
+//        getPlan, getSpot
+//        getOwner,getComment
+
+
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(id);
         requestSessionTarget.setTargetId(sessionId);
-        return planMapper.getPlanList(requestSessionTarget);
+        planMapper.getPlan(requestSessionTarget);
+
+        return null;
     }
 
     public void addPlan(long sessionId, RequestPlan requestPlan) {
+        //addContent, addPlan, addSpot ,addOwner
+
         planMapper.addPlan(requestPlan);
     }
 
     public void updatePlan(long id, RequestPlan requestPlan) {
+//        updatePlan,updatePublic,updateTitle, deleteOwner, addOwner
+
         requestPlan.setId(id);
         planMapper.updatePlan(requestPlan);
     }

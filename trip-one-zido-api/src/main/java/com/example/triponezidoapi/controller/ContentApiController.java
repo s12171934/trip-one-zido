@@ -45,6 +45,8 @@ public class ContentApiController {
     ){
         contentService.deletePin(id, sessionId);
     }
+
+    // getMapping /good/{id}
     @PostMapping("/good/{id}")
     @Tag(name = "Good", description = "Good API")
     @Operation(summary = "좋아요 등록/수정/취소")

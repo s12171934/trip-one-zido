@@ -13,7 +13,7 @@ public class CommentService {
     ContentMapper contentMapper;
 
     public void addComment(long sessionId, RequestComment requestComment){
-        requestComment.setId(sessionId);
+        requestComment.setMemberId(sessionId);
         commentMapper.addComment(requestComment);
     }
 

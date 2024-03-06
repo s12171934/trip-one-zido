@@ -13,6 +13,7 @@ public class BookmarkService {
     BookmarkMapper bookmarkMapper;
 
     public ResponseBookmark getAllBookmark(long id, long sessionId){
+        //id가 null일때 세션정보를 이용한다
         ResponseBookmark responseBookmark = new ResponseBookmark();
 
         responseBookmark.setTourBookmarkCount(bookmarkMapper.tourBookmarkCount(id));

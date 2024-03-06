@@ -14,6 +14,8 @@ public class SpotService {
     ContentMapper contentMapper;
 
     public ResponseSpotDetail spotDetail(long id, long sessionId){
+//        getSpot,getComment,getOwner
+
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setTargetId(id);
         requestSessionTarget.setMyMemberId(sessionId);
@@ -21,11 +23,14 @@ public class SpotService {
     }
 
     public void addSpot(RequestSpot requestSpot, long sessionId){
+//        addContent,addSpot, addPhoto,addOwner
+
         requestSpot.setProfile(sessionId);
         spotMapper.addSpot(requestSpot);
     }
 
     public void updateSpot(long id, RequestSpot requestSpot){
+//        updateSpot,updatePublic,updateTitle,deleteOwner,addOwner
         requestSpot.setId(id);
         spotMapper.updateSpot(requestSpot);
     }

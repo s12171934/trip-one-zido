@@ -79,7 +79,7 @@ public class CommunityApiController {
 
             @PathVariable
             @Parameter(description = "페이지 번호")
-            int page
+            long page
     ){
         return communityService.getCommunityListWithSearch(requestCommunitySearch,page);
     }

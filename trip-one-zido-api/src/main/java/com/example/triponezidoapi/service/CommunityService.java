@@ -18,15 +18,25 @@ public class CommunityService {
         return communityMapper.getCommunityList(page);
     }
     public ResponseCommunityDetail getCommunity(long id){
+        //컨텐트 매퍼에서 getOwner 가져오기
         return communityMapper.getCommunity(id);
     }
 
     public void addCommunity(RequestCommunity requestCommunity, long sessionId){
-        //세션 아이디가 없다면?
+        //컨텐트 매퍼에서 addContent 가져오기
+
+        RequestOwner requestOwner = new RequestOwner();
+        requestOwner.setOwn("writer");
+        requestOwner.setContentId(requestCommunity.getId());
+        requestOwner.setMemberId(sessionId);
+
+        contentMapper.addOwner(requestOwner);
         communityMapper.addCommunity(requestCommunity);
     }
 
     public void updateCommunity(RequestCommunity requestCommunity, long id){
+        //updateTitle이 필요
+
         requestCommunity.setId(id);
         communityMapper.updateCommunity(requestCommunity);
     }
@@ -35,14 +45,14 @@ public class CommunityService {
         contentMapper.deleteContent(id);
     }
 
-    public List<ResponseCommunity> getCommunityListWithSearch(RequestCommunitySearch requestCommunitySearch,int page){
+    public List<ResponseCommunity> getCommunityListWithSearch(RequestCommunitySearch requestCommunitySearch,long page){
         requestCommunitySearch.setPage(page);
         return communityMapper.getCommunityListWithSearch(requestCommunitySearch);
     }
 
     public void addOwner(long id, long sessionId){
         RequestOwner requestOwner = new RequestOwner();
-        requestOwner.setOwn("join");
+        requestOwner.setOwn("participants");
         requestOwner.setContentId(id);
         requestOwner.setMemberId(sessionId);
         contentMapper.addOwner(requestOwner);
