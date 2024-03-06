@@ -70,11 +70,12 @@
       follower = #{id}
   </select>
 
-  <select id="followerList" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+  <select id="followerList" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
     SELECT
       id,
       login_id,
-      profile
+      profile,
+      isFollow
     FROM
       member
     WHERE
@@ -85,15 +86,18 @@
       FROM
         follow
       WHERE
-        following = #{id}
+        following = #{myMemberId}
       )
+    LIMIT
+      #{page}, 6
   </select>
 
-  <select id="followingList" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+  <select id="followingList" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
     SELECT
       id,
       login_id,
-      profile
+      profile,
+      isFollow
     FROM
       member
     WHERE
@@ -104,8 +108,10 @@
       FROM
         follow
       WHERE
-        follower = #{id}
+        follower = #{myMemberId}
       )
+    LIMIT
+      #{page}, 6
   </select>
 
   <select id="postCount" parameterType="long" resultType="int">
