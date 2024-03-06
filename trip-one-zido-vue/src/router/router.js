@@ -127,10 +127,6 @@ const routes = [
     path: "/tour/:id",
     component: TourDetail
   },
-  {
-    path: "/modal",
-    component: AlertModal
-  }
 ];
 
 const router = createRouter({
