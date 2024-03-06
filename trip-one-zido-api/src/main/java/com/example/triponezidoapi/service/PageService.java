@@ -22,12 +22,11 @@ public class PageService {
     public ResponseMemberPage getMemberPage(Long id, Long sessionId){
         //id가 null일때 세션정보를 이용한다
         if(id == null){
-
+            id = sessionId;
         }
 
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setTargetId(id);
-        requestSessionTarget.setMyMemberId(sessionId);
+        requestSessionTarget.setMyMemberId(id);
 
         ResponseMember member = new ResponseMember();
         member.setId(id);
@@ -43,6 +42,7 @@ public class PageService {
         memberPage.setFollowerCount(memberMapper.followerCount(id));
         memberPage.setFollowingCount(memberMapper.followingCount(id));
 
+        // memberPage.setMine();
         return memberPage;
     }
 
@@ -62,7 +62,7 @@ public class PageService {
         return spotMapper.getSpotList(requestSessionTarget);
     }
 
-    public List<ResponseMember> getFollowingList(long id, long page){
+    public List<ResponseMember> getFollowingList(Long id, long page){
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(id);
         requestSessionTarget.setPage(page);
@@ -70,7 +70,7 @@ public class PageService {
         return memberMapper.followingList(requestSessionTarget);
     }
 
-    public List<ResponseMember> getFollowerList(long id, long page){
+    public List<ResponseMember> getFollowerList(Long id, long page){
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(id);
         requestSessionTarget.setPage(page);
@@ -79,8 +79,6 @@ public class PageService {
     }
 
     public void follow(Long id, Long sessionId){
-        //id가 null일때 세션정보를 이용한다
-
         RequestFollow requestFollow = new RequestFollow();
         requestFollow.setFollower(sessionId);
         requestFollow.setFollowing(id);
@@ -88,8 +86,6 @@ public class PageService {
     }
 
     public void unFollow(Long id, Long sessionId){
-        //id가 null일때 세션정보를 이용한다
-
         RequestFollow requestFollow = new RequestFollow();
         requestFollow.setFollower(sessionId);
         requestFollow.setFollowing(id);
