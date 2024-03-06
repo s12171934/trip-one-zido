@@ -21,6 +21,9 @@ public class PageService {
 
     public ResponseMemberPage getMemberPage(Long id, Long sessionId){
         //id가 null일때 세션정보를 이용한다
+        if(id == null){
+
+        }
 
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setTargetId(id);
@@ -59,16 +62,20 @@ public class PageService {
         return spotMapper.getSpotList(requestSessionTarget);
     }
 
-    public List<ResponseMember> getFollowingList(Long id, long page){
-        // followlist pagenation, isfollow 추가 (쿼리)
+    public List<ResponseMember> getFollowingList(long id, long page){
+        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
+        requestSessionTarget.setMyMemberId(id);
+        requestSessionTarget.setPage(page);
 
-        return memberMapper.followingList(id);
+        return memberMapper.followingList(requestSessionTarget);
     }
 
-    public List<ResponseMember> getFollowerList(Long id, long page){
-        // followlist pagenation, isfollow 추가 (쿼리)
+    public List<ResponseMember> getFollowerList(long id, long page){
+        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
+        requestSessionTarget.setMyMemberId(id);
+        requestSessionTarget.setPage(page);
 
-        return memberMapper.followerList(id);
+        return memberMapper.followerList(requestSessionTarget);
     }
 
     public void follow(Long id, Long sessionId){
