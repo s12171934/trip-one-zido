@@ -162,6 +162,16 @@
           AND member_id = #{memberId}
     </select>
 
+    <select id="isMine" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            owner
+        WHERE
+            content_id = #{contentId} AND
+            member_id = #{memberId}
+    </select>
+
     <update id="updateIsPublic" parameterType="com.example.triponezidoapi.dto.request.RequestIsPublic">
         UPDATE content
         SET

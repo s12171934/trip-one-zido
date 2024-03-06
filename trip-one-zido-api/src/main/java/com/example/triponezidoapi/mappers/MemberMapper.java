@@ -17,8 +17,8 @@ public interface MemberMapper {
     int isFollow(RequestFollow requestFollow);
     int followerCount(long id);
     int followingCount(long id);
-    List<ResponseMember> followerList(long id);
-    List<ResponseMember> followingList(long id);
+    List<ResponseMember> followerList(RequestSessionTarget requestSessionTarget);
+    List<ResponseMember> followingList(RequestSessionTarget requestSessionTarget);
     int postCount(long id);
     long getId(RequestFind requestFind);
     ResponseMember getLogin(Login login);
