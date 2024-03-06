@@ -15,11 +15,12 @@ public interface MemberMapper {
 
     //select
     int isFollow(RequestFollow requestFollow);
-    int followerCount(Long id);
-    int followingCount(Long id);
-    List<ResponseMember> followerList(Long id);
-    List<ResponseMember> followingList(Long id);
-    int postCount(Long id);
+    int followerCount(long id);
+    int followingCount(long id);
+    List<ResponseMember> followerList(RequestSessionTarget requestSessionTarget);
+    List<ResponseMember> followingList(RequestSessionTarget requestSessionTarget);
+    int postCount(long id);
+
     long getId(RequestFind requestFind);
     ResponseMember getLogin(Login login);
     Login getLoginFormByLoginId(String loginId);
