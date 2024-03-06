@@ -19,6 +19,7 @@ public interface ContentMapper {
     ResponseMember getWriter(long id);
     List<ResponseContentList> getRecentView(RequestSessionTarget requestSessionTarget);
     boolean isGood(RequestContentMember requestContentMember);
+    int isMine(RequestContentMember requestContentMember);
 
     //update
     void updateIsPublic(RequestIsPublic requestIsPublic);
