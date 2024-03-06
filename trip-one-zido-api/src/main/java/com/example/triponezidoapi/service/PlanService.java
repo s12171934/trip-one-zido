@@ -13,32 +13,67 @@ public class PlanService {
     PlanMapper planMapper;
     @Autowired // 자동생성자
     ContentMapper contentMapper;
+    @Autowired
+    SpotMapper spotMapper;
+    @Autowired
+    CommentMapper commentMapper;
 
-    public ResponsePlanDetail getPlanList(Long id, Long sessionId) {
 
-//        getPlan, getSpot
-//        getOwner,getComment
-
-
+    public ResponsePlanDetail getPlanList(long id, long sessionId) {
+        // getPlan
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(id);
         requestSessionTarget.setTargetId(sessionId);
-        planMapper.getPlan(requestSessionTarget);
+        ResponsePlanDetail responsePlanDetail = planMapper.getPlan(requestSessionTarget);
 
-        return null;
+        // getSpot
+        responsePlanDetail.setResponseSpotPlans(planMapper.getSpot(id));
+
+        // getOwner
+        responsePlanDetail.setMembers(contentMapper.getOwner(id));
+
+        // getComment
+        responsePlanDetail.setComments(commentMapper.getComment(id));
+
+        return responsePlanDetail;
     }
 
     public void addPlan(Long sessionId, RequestPlan requestPlan) {
         //addContent, addPlan, addSpot ,addOwner
-
+        RequestContent requestContent = new RequestContent();
+        requestContent.setType("plan");
+        requestContent.setTitle(requestContent.getTitle());
+        contentMapper.addContent(requestContent);
+        RequestOwner requestOwner = new RequestOwner();
+        requestOwner.setOwn("writer");
+        requestOwner.setMemberId(sessionId);
+        requestOwner.setContentId(requestOwner.getContentId());
+        contentMapper.addOwner(requestOwner);
+        RequestSpot requestSpot = new RequestSpot();
+        requestSpot.setProfile(sessionId);
+        spotMapper.addSpot(requestSpot);
         planMapper.addPlan(requestPlan);
     }
 
-    public void updatePlan(Long id, RequestPlan requestPlan) {
-//        updatePlan,updatePublic,updateTitle, deleteOwner, addOwner
+
+    public void updatePlan(long id, RequestPlan requestPlan) {
+//       updatePlan, updateisPublic,updateTitle, deleteOwner,addOwner
 
         requestPlan.setId(id);
         planMapper.updatePlan(requestPlan);
+
+        RequestIsPublic requestIsPublic = new RequestIsPublic();
+        contentMapper.updateIsPublic(requestIsPublic);
+
+        RequestTitle requestTitle = new RequestTitle();
+        contentMapper.updateTitle(requestTitle);
+
+        RequestContentMember requestContentMember = new RequestContentMember();
+        contentMapper.deleteOwner(requestContentMember);
+
+        RequestOwner requestOwner = new RequestOwner();
+        contentMapper.addOwner(requestOwner);
+
     }
 
     public void deletePlan(Long id){
