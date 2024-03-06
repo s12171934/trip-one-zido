@@ -44,9 +44,7 @@
           <!-- Break -->
           <div class="12u$" id="loginPosition">
             <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-              <a href="/html-css/main/main/main.html" class="button small"
-                >로그인</a
-              >
+              <a @click="login" class="button small">로그인</a>
             </div>
           </div>
         </div>
@@ -76,10 +74,36 @@
       </div>
     </div>
   </section>
+
+  <AlertModal
+    @modal="$emit('modal')"
+    :modalShown="modalShown"
+    url="/login"
+    message="아이디와 비밀번호를<br />확인해주세요."
+    buttonMessage="다시 로그인 하기"
+  />
 </template>
 
 <script>
-export default {};
+import AlertModal from "../util/modal/AlertModal.vue";
+
+export default {
+  components: {
+    AlertModal,
+  },
+  props: {
+    modalShown: Boolean,
+  },
+  methods: {
+    login() {
+      if (false) {
+        this.$router.push("/");
+      } else {
+        this.$emit("modal");
+      }
+    },
+  },
+};
 </script>
 
 <style scoped>

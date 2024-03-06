@@ -15,6 +15,7 @@
         </a>
 
         <button
+        @click="$emit('modal')"
           type="button"
           class="btn rounded-3"
           data-bs-toggle="modal"
@@ -60,10 +61,21 @@
       <a href="/html-css/config/resign/resign.html"> 회원탈퇴 </a>
     </h3>
   </section>
+
+  <EditProfileModal :modalShown="modalShown" @modal="$emit('modal')"/>
 </template>
 
 <script>
-export default {};
+import EditProfileModal from "../util/modal/EditProfileModal.vue"
+
+export default {
+  components: {
+    EditProfileModal
+  },
+  props: {
+    modalShown: Boolean
+  }
+};
 </script>
 
 <style scoped>
