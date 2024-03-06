@@ -4,45 +4,40 @@
       <div class="d-flex flex-column mb-2" id="leftSide">
         <div class="p-2">
           <div id="mainTitle">
-            <p>
+            <p class="d-flex align-items-center">
               <img
                 id="userPic"
-                src="/images/pic01.jpg"
+                :src="userData.imgSrc"
                 alt=""
                 class="rounded-circle"
               />
-              <sapn id="userName">여행자님!</sapn>
+              <span id="userName">{{ userData.loginId }}</span>
             </p>
           </div>
-          <ul class="actions fit" id="edit">
-            <li>
-              <a
-                href="/html-css/config/config/config.html"
-                class="button rounded-5"
-                id="edit-profile"
-                >프로필 편집</a
-              >
-            </li>
-          </ul>
+          <button
+            @click="followOrConfig"
+            @mouseover="hover = true"
+            @mouseleave="hover = false"
+            class="button rounded-5"
+            id="edit-profile"
+          >
+            {{
+              userData.id == 1 || userData.id == null
+                ? "프로필 편집"
+                : userData.isFollow
+                ? hover
+                  ? "언 팔로우"
+                  : "팔로잉 중"
+                : "팔로우"
+            }}
+          </button>
           <hr />
-          <div class="d-flex flex-row mb-3">
-            <div class="p-2" id="p-2">
-              <h3>12</h3>
-              <h3>게시글</h3>
-            </div>
-            <div @click="$emit('modal')" class="p-2" id="p-2">
-              <h3>255</h3>
-              <h3>팔로워</h3>
-            </div>
-            <div @click="$emit('modal')" class="p-2" id="p-2">
-              <h3>37</h3>
-              <h3>팔로잉</h3>
-            </div>
-            <div class="p-2" id="p-2">
-              <h3>999</h3>
-              <h3><a href="/html-css/main/zzim/zzim.html">찜</a></h3>
-            </div>
-          </div>
+          <NumberSummary
+            @modal="$emit('modal')"
+            @follower="followType = 'follower'"
+            @following="followType = 'following'"
+            @bookmark="goToBookmark"
+          />
         </div>
         <div class="p-2">
           <div class="fs-5 mb-5" id="googleMap">
@@ -141,21 +136,61 @@
     </div>
   </section>
 
-  <FollowModal :modalShown="modalShown" @modal="$emit('modal')" />
+  <FollowModal
+    :modalShown="modalShown"
+    :type="followType"
+    @modal="$emit('modal')"
+  />
 </template>
 
 <script>
 import ContentList from "../util/ContentList.vue";
-import FollowModal from "../util/modal/FollowModal.vue"
+import FollowModal from "../util/modal/FollowModal.vue";
+import NumberSummary from "../util/NumberSummary.vue";
+import data from "/src/assets/data.js";
 
 export default {
   components: {
     ContentList,
-    FollowModal
+    FollowModal,
+    NumberSummary,
   },
   props: {
-    modalShown: Boolean
-  }
+    modalShown: Boolean,
+  },
+  data() {
+    return {
+      followType: "",
+      userData: {
+        imgSrc: "/images/남자.png",
+        loginId: "남자",
+      },
+      hover: false,
+    };
+  },
+  methods: {
+    goToBookmark() {
+      location.href = `/bookmark/${this.$route.params.id}`;
+    },
+    getUserData() {
+      for (let profile of data.userProfiles) {
+        console.log(profile);
+        if (profile.id == this.$route.params.id) {
+          this.userData = profile;
+        }
+      }
+    },
+    followOrConfig() {
+      if (this.userData.id == 1 || this.userData.id == null) {
+        this.$router.push("/config");
+      } else {
+        this.userData.isFollow = !this.userData.isFollow;
+      }
+    },
+  },
+  mounted() {
+    this.getUserData();
+  },
 };
 </script>
 
@@ -478,5 +513,9 @@ body,
   background-color: #ff928e;
   width: 100%;
   /* font-size: 1; */
+}
+
+#edit-profile:hover {
+  background-color: grey;
 }
 </style>
