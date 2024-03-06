@@ -52,7 +52,7 @@
       follower = #{follower} AND following = #{following}
   </select>
 
-  <select id="followerCount" parameterType="long" resultType="int">
+  <select id="followerCount" parameterType="Long" resultType="int">
     SELECT
       COUNT(*)
     FROM
@@ -61,7 +61,7 @@
       following = #{id}
   </select>
 
-  <select id="followingCount" parameterType="long" resultType="int">
+  <select id="followingCount" parameterType="Long" resultType="int">
     SELECT
       COUNT(*)
     FROM
@@ -70,7 +70,7 @@
       follower = #{id}
   </select>
 
-  <select id="followerList" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+  <select id="followerList" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
     SELECT
       id,
       login_id,
@@ -89,7 +89,7 @@
       )
   </select>
 
-  <select id="followingList" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+  <select id="followingList" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
     SELECT
       id,
       login_id,
@@ -108,7 +108,7 @@
       )
   </select>
 
-  <select id="postCount" parameterType="long" resultType="int">
+  <select id="postCount" parameterType="Long" resultType="int">
     SELECT
       COUNT(*)
     FROM
@@ -160,7 +160,7 @@
       email = #{email}
   </select>
 
-  <select id="getMemberById" parameterType="long" resultType="com.example.triponezidoapi.dto.Member">
+  <select id="getMemberById" parameterType="Long" resultType="com.example.triponezidoapi.dto.Member">
     SELECT
       *
     FROM
@@ -169,7 +169,7 @@
       id = #{id}
   </select>
 
-  <select id="getSecurityAnswer" parameterType="long" resultType="string">
+  <select id="getSecurityAnswer" parameterType="Long" resultType="string">
     SELECT
       answer
     FROM
@@ -178,7 +178,7 @@
       id = #{id}
   </select>
 
-  <select id="getSecurityQuestion" parameterType="long" resultType="string">
+  <select id="getSecurityQuestion" parameterType="Long" resultType="string">
     SELECT
       q.question
     FROM
@@ -196,7 +196,7 @@
       security_questions
   </select>
 
-  <select id="getMemberProfile" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+  <select id="getMemberProfile" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
     SELECT
       id,
       login_id,

@@ -21,7 +21,7 @@ public class SearchApiController {
     public ResponseSearch searchKeyword(
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 번호")
-            long sessionId,
+            Long sessionId,
             @PathVariable
             @Parameter(description = "검색어")
             String keyword){

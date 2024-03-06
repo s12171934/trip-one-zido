@@ -24,11 +24,11 @@ public class PageApiController {
             @PathVariable(required = false)
             @Schema(nullable = true)
             @Parameter(description = "페이지 소유 회원 번호")
-            long id,
+            Long id,
 
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 번호")
-            long sessionId
+            Long sessionId
     ){
         return pageService.getMemberPage(id, sessionId);
     }
@@ -38,7 +38,7 @@ public class PageApiController {
     public List<ResponseContentList> showPlanListByPage(
             @PathVariable
             @Parameter(description = "페이지 소유 회원 번호")
-            long id,
+            Long id,
 
             @PathVariable
             @Parameter(description = "페이징 번호")
@@ -52,7 +52,7 @@ public class PageApiController {
     public List<ResponseContentList> showSpotListByPage(
             @PathVariable
             @Parameter(description = "페이지 소유 회원 번호")
-            long id,
+            Long id,
 
             @PathVariable
             @Parameter(description = "페이징 번호")
@@ -67,11 +67,11 @@ public class PageApiController {
             @PathVariable(required = false)
             @Schema(nullable = true)
             @Parameter(description = "대상 회원 번호")
-            long id,
+            Long id,
 
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 번호")
-            long sessionId
+            Long sessionId
     ){
         return pageService.getFollowingList(id, sessionId);
     }
@@ -82,11 +82,11 @@ public class PageApiController {
             @PathVariable(required = false)
             @Schema(nullable = true)
             @Parameter(description = "대상 회원 번호")
-            long id,
+            Long id,
 
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 번호")
-            long sessionId
+            Long sessionId
     ){
         return pageService.getFollowerList(id, sessionId);
     }
@@ -96,11 +96,11 @@ public class PageApiController {
     public void followingMember(
             @PathVariable(required = false)
             @Parameter(description = "대상 회원 번호")
-            long id,
+            Long id,
 
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 번호")
-            long sessionId
+            Long sessionId
     ){
         pageService.follow(id, sessionId);
     }
@@ -110,11 +110,11 @@ public class PageApiController {
     public void unfollowMember(
             @PathVariable(required = false)
             @Parameter(description = "대상 회원 번호")
-            long id,
+            Long id,
 
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 번호")
-            long sessionId
+            Long sessionId
     ){
         pageService.unFollow(id, sessionId);
     }

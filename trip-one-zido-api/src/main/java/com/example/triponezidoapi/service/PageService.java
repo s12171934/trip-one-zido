@@ -19,7 +19,7 @@ public class PageService {
     @Autowired
     BookmarkMapper bookmarkMapper;
 
-    public ResponseMemberPage getMemberPage(long id, long sessionId){
+    public ResponseMemberPage getMemberPage(Long id, Long sessionId){
         //id가 null일때 세션정보를 이용한다
 
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
@@ -43,7 +43,7 @@ public class PageService {
         return memberPage;
     }
 
-    public List<ResponseContentList> getPlanListByPage(long id, long page){
+    public List<ResponseContentList> getPlanListByPage(Long id, long page){
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setTargetId(id);
         requestSessionTarget.setPage(page);
@@ -51,7 +51,7 @@ public class PageService {
         return planMapper.getPlanList(requestSessionTarget);
     }
 
-    public List<ResponseContentList> getSpotListByPage(long id, long page) {
+    public List<ResponseContentList> getSpotListByPage(Long id, long page) {
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setTargetId(id);
         requestSessionTarget.setPage(page);
@@ -59,19 +59,19 @@ public class PageService {
         return spotMapper.getSpotList(requestSessionTarget);
     }
 
-    public List<ResponseMember> getFollowingList(long id, long page){
+    public List<ResponseMember> getFollowingList(Long id, long page){
         // followlist pagenation, isfollow 추가 (쿼리)
 
         return memberMapper.followingList(id);
     }
 
-    public List<ResponseMember> getFollowerList(long id, long page){
+    public List<ResponseMember> getFollowerList(Long id, long page){
         // followlist pagenation, isfollow 추가 (쿼리)
 
         return memberMapper.followerList(id);
     }
 
-    public void follow(long id, long sessionId){
+    public void follow(Long id, Long sessionId){
         //id가 null일때 세션정보를 이용한다
 
         RequestFollow requestFollow = new RequestFollow();
@@ -80,7 +80,7 @@ public class PageService {
         memberMapper.follow(requestFollow);
     }
 
-    public void unFollow(long id, long sessionId){
+    public void unFollow(Long id, Long sessionId){
         //id가 null일때 세션정보를 이용한다
 
         RequestFollow requestFollow = new RequestFollow();

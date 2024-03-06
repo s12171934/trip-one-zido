@@ -12,17 +12,17 @@ public class CommentService {
     @Autowired
     ContentMapper contentMapper;
 
-    public void addComment(long sessionId, RequestComment requestComment){
+    public void addComment(Long sessionId, RequestComment requestComment){
         requestComment.setMemberId(sessionId);
         commentMapper.addComment(requestComment);
     }
 
-    public void updateComment(long id, RequestComment requestComment){
+    public void updateComment(Long id, RequestComment requestComment){
         requestComment.setId(id);
         commentMapper.updateComment(requestComment);
     }
 
-    public void deleteComment(long id){
+    public void deleteComment(Long id){
         contentMapper.deleteContent(id);
     }
 }

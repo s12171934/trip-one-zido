@@ -22,11 +22,11 @@ public class PlanApiController {
     public ResponsePlanDetail showPlanDetail(
             @PathVariable
             @Parameter(description = "일정 게시물 번호")
-            long id,
+            Long id,
 
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 정보")
-            long sessionId
+            Long sessionId
     ){
         return planService.getPlanList(id, sessionId);
     }
@@ -35,7 +35,7 @@ public class PlanApiController {
     public void postPlan(
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 정보")
-            long sessionId,
+            Long sessionId,
 
             @RequestBody
             @Parameter(description = "일정 게시물 정보")
@@ -48,7 +48,7 @@ public class PlanApiController {
     public void putPlan(
             @PathVariable
             @Parameter(description = "일정 게시물 번호")
-            long id,
+            Long id,
 
             @RequestBody
             @Parameter(description = "일정 게시물 정보")
@@ -61,7 +61,7 @@ public class PlanApiController {
     public void deletePlan(
             @PathVariable
             @Parameter(description = "일정 게시물 번호")
-            long id
+            Long id
     ){
         planService.deletePlan(id);
     }

@@ -15,8 +15,8 @@ public interface ContentMapper {
     void addPin(RequestContentMember requestContentMember);
 
     //select
-    List<ResponseMember> getOwner(long id);
-    ResponseMember getWriter(long id);
+    List<ResponseMember> getOwner(Long id);
+    ResponseMember getWriter(Long id);
     List<ResponseContentList> getRecentView(RequestSessionTarget requestSessionTarget);
     boolean isGood(RequestContentMember requestContentMember);
 
@@ -25,7 +25,7 @@ public interface ContentMapper {
     void updateTitle(RequestTitle requestTitle);
 
     //delete
-    void deleteContent(long id);
+    void deleteContent(Long id);
     void deleteGood(RequestContentMember requestContentMember);
     void deleteOwner(RequestContentMember requestContentMember);
     void deletePin(RequestContentMember requestContentMember);

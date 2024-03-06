@@ -22,7 +22,7 @@ public class TourApiController {
     public List<RequestTour> showTourAll(
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 정보")
-             long sessionId,
+            Long sessionId,
             @PathVariable
             @Parameter(description = "페이지 번호")
             long page
@@ -34,7 +34,7 @@ public class TourApiController {
     public ResponseTour showTourDetail(
             @PathVariable
             @Parameter(description = "관광지 게시물 번호")
-            long id
+            Long id
     ){
         return tourService.getTour(id);
     }
