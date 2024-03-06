@@ -33,11 +33,11 @@
   <nav id="menu" :class="menu ? 'visible' : ''">
     <ul class="links">
       <li>
-        <a @click="toggleAddMenu">게시물등록</a>
+        <a @click="toggleAddMenu">게시글 등록</a>
         <ul id="add" v-if="addMenu">
-          <li><a href="/plan/add">일정 게시물 등록</a></li>
-          <li><a href="/spot/add">장소 게시물 등록</a></li>
-          <li><a href="/community/add">커뮤니티 게시물 등록</a></li>
+          <li><a href="/plan/add">일정 게시글 등록</a></li>
+          <li><a href="/spot/add">장소 게시글 등록</a></li>
+          <li><a href="/community/add">커뮤니티 게시글 등록</a></li>
         </ul>
       </li>
       <li><a href="/community">커뮤니티</a></li>
