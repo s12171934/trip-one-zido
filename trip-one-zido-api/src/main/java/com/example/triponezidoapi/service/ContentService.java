@@ -13,25 +13,25 @@ public class ContentService {
     @Autowired
      ContentMapper contentMapper;
 
-    public void addPin(long id, long sessionId) {
+    public void addPin(Long id, Long sessionId) {
         RequestContentMember requestContentMember = new RequestContentMember();
         requestContentMember.setContentId(id);
         requestContentMember.setMemberId(sessionId);
         contentMapper.addPin(requestContentMember);
     }
-    public void deletePin(long id, long sessionId) {
+    public void deletePin(Long id, Long sessionId) {
         RequestContentMember requestContentMember = new RequestContentMember();
         requestContentMember.setMemberId(sessionId);
         requestContentMember.setContentId(id);
         contentMapper.deletePin(requestContentMember);
     }
-    public void addGood(long id, long sessionId) {
+    public void addGood(Long id, Long sessionId) {
         RequestGood requestGood = new RequestGood();
         requestGood.setMemberId(sessionId);
         requestGood.setContentId(id);
         contentMapper.addGood(requestGood);
     }
-    public List<ResponseContentList> getRecentView(long sessionId, long page) {
+    public List<ResponseContentList> getRecentView(Long sessionId, long page) {
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(sessionId);
         requestSessionTarget.setPage(page);

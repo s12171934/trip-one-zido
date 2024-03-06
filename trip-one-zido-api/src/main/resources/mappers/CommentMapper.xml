@@ -18,7 +18,7 @@
 			)
 	</insert>
 
-	<select id="getComment" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseComment">
+	<select id="getComment" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseComment">
 		SELECT
 			comment.*,
 			content.created_at,

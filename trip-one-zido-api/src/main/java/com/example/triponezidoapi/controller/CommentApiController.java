@@ -21,7 +21,7 @@ public class CommentApiController {
     public void postComment(
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 번호")
-            long sessionId,
+            Long sessionId,
 
             @RequestBody
             @Parameter(description = "댓글 등록 정보")
@@ -34,7 +34,7 @@ public class CommentApiController {
     public void putComment(
             @PathVariable
             @Parameter(description = "수정할 댓글 번호")
-            long id,
+            Long id,
 
             @RequestBody
             @Parameter(description = "수정 내용")
@@ -47,7 +47,7 @@ public class CommentApiController {
     public void deleteComment(
             @PathVariable
             @Parameter(description = "삭제할 댓글 번호")
-            long id
+            Long id
     ){
         commentService.deleteComment(id);
     }

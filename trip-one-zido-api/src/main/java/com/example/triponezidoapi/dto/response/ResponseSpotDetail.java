@@ -21,7 +21,7 @@ public class ResponseSpotDetail {
     int bookmarkCount;
     int myBookmark;
     String title;
-    String isPublic;
+    boolean isPublic;
     LocalDateTime createdAt;
     byte[] profile;
     List<byte[]> photos;

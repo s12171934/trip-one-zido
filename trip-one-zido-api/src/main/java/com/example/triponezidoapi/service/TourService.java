@@ -16,14 +16,14 @@ public class TourService {
     @Autowired
     ContentMapper contentMapper;
 
-    public List<RequestTour> getTourList(long sessionId, long page){
+    public List<RequestTour> getTourList(Long sessionId, long page){
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(sessionId);
         requestSessionTarget.setPage(page);
         return tourMapper.getTourList(requestSessionTarget);
     }
 
-    public ResponseTour getTour(long id){
+    public ResponseTour getTour(Long id){
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(id);
         return tourMapper.getTour(requestSessionTarget);

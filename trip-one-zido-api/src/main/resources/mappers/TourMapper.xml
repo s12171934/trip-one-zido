@@ -84,7 +84,7 @@
             #{page}, 6
     </select>
 
-    <select id="getNextId" parameterType="long" resultType="long">
+    <select id="getNextId" parameterType="Long" resultType="long">
         <![CDATA[
         SELECT
             id
@@ -104,7 +104,7 @@
         ]]>
     </select>
 
-    <select id="getPrevId" parameterType="long" resultType="long">
+    <select id="getPrevId" parameterType="Long" resultType="long">
         <![CDATA[
         SELECT
             id

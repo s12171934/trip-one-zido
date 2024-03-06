@@ -17,31 +17,54 @@ public class CommunityService {
     public List<ResponseCommunity> getCommunityList(long page){
         return communityMapper.getCommunityList(page);
     }
-    public ResponseCommunityDetail getCommunity(long id){
-        //컨텐트 매퍼에서 getOwner 가져오기
-        return communityMapper.getCommunity(id);
+    public ResponseCommunityDetail getCommunity(Long id, Long sessionId){
+        //getCommunity 기본
+        ResponseCommunityDetail responseCommunityDetail = communityMapper.getCommunity(id);
+        //members
+        responseCommunityDetail.setMembers(contentMapper.getOwner(id));
+        //isMine
+        RequestContentMember contentMember = new RequestContentMember();
+        contentMember.setMemberId(sessionId);
+        contentMember.setContentId(id);
+        responseCommunityDetail.setMine(contentMapper.isMine(contentMember));
+        //NextId, PrevId
+        responseCommunityDetail.setNextId(communityMapper.getNextId(id));
+        responseCommunityDetail.setPrevId(communityMapper.getPrevId(id));
+
+        return responseCommunityDetail;
     }
 
-    public void addCommunity(RequestCommunity requestCommunity, long sessionId){
-        //컨텐트 매퍼에서 addContent 가져오기
-
+    public void addCommunity(RequestCommunity requestCommunity, Long sessionId){
+        //addOwner
         RequestOwner requestOwner = new RequestOwner();
         requestOwner.setOwn("writer");
         requestOwner.setContentId(requestCommunity.getId());
         requestOwner.setMemberId(sessionId);
-
         contentMapper.addOwner(requestOwner);
+
+        //addContent
+        RequestContent requestContent = new RequestContent();
+        requestContent.setType("community");
+        requestContent.setTitle(requestCommunity.getTitle());
+        contentMapper.addContent(requestContent);
+
+        //addCommunity
         communityMapper.addCommunity(requestCommunity);
     }
 
-    public void updateCommunity(RequestCommunity requestCommunity, long id){
-        //updateTitle이 필요
+    public void updateCommunity(RequestCommunity requestCommunity, Long id){
+        //updateTitle
+        RequestTitle requestTitle = new RequestTitle();
+        requestTitle.setId(requestCommunity.getId());
+        requestTitle.setTitle(requestCommunity.getTitle());
+        contentMapper.updateTitle(requestTitle);
 
+        //updateCommunity
         requestCommunity.setId(id);
         communityMapper.updateCommunity(requestCommunity);
     }
 
-    public void deleteCommunity(long id){
+    public void deleteCommunity(Long id){
         contentMapper.deleteContent(id);
     }
 
@@ -50,7 +73,7 @@ public class CommunityService {
         return communityMapper.getCommunityListWithSearch(requestCommunitySearch);
     }
 
-    public void addOwner(long id, long sessionId){
+    public void addOwner(Long id, Long sessionId){
         RequestOwner requestOwner = new RequestOwner();
         requestOwner.setOwn("participants");
         requestOwner.setContentId(id);
@@ -58,7 +81,7 @@ public class CommunityService {
         contentMapper.addOwner(requestOwner);
     }
 
-    public void deleteOwner(long id, long sessionId){
+    public void deleteOwner(Long id, Long sessionId){
         RequestContentMember requestContentMember = new RequestContentMember();
         requestContentMember.setContentId(id);
         requestContentMember.setMemberId(sessionId);

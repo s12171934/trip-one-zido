@@ -21,11 +21,11 @@ public class SpotApiController {
     public ResponseSpotDetail showSpotDetail(
             @PathVariable
             @Parameter(description = "장소 게시물 번호")
-            long id,
+            Long id,
 
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 번호")
-            long sessionId
+            Long sessionId
 
     ){
         return spotService.spotDetail(id, sessionId);
@@ -39,7 +39,7 @@ public class SpotApiController {
 
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 번호")
-            long sessionId
+            Long sessionId
     ){
         spotService.addSpot(requestSpot, sessionId);
     }
@@ -48,7 +48,7 @@ public class SpotApiController {
     public void putSpot(
             @PathVariable
             @Parameter(description = "장소 게시물 번호")
-            long id,
+            Long id,
 
             @RequestBody
             @Parameter(description = "장소 게시물 정보")
@@ -61,7 +61,7 @@ public class SpotApiController {
     public void deleteSpot(
             @PathVariable
             @Parameter(description = "장소 게시물 번호")
-            long id
+            Long id
     ){
         spotService.deleteSpot(id);
     }

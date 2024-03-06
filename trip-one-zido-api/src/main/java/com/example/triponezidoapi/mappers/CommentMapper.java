@@ -12,7 +12,7 @@ public interface CommentMapper {
     void addComment(RequestComment requestComment);
 
     //select
-    List<ResponseComment> getComment(long id);
+    List<ResponseComment> getComment(Long id);
 
     //update
     void updateComment(RequestComment requestComment);

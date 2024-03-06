@@ -16,7 +16,7 @@ public class RequestSpot {
     String review;
     int grade;
     String title;
-    String isPublic;
+    boolean isPublic;
     long profile;
     List<byte[]> photos;
     List<Long> members;

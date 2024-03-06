@@ -12,7 +12,7 @@ public class BookmarkService {
     @Autowired
     BookmarkMapper bookmarkMapper;
 
-    public ResponseBookmark getAllBookmark(long id, long sessionId){
+    public ResponseBookmark getAllBookmark(Long id, Long sessionId){
         //id가 null일때 세션정보를 이용한다
         ResponseBookmark responseBookmark = new ResponseBookmark();
 
@@ -23,14 +23,14 @@ public class BookmarkService {
         
         return responseBookmark;
     }
-    public List<ResponseContentList> getPlanSpotBookmark(long id, long page){
+    public List<ResponseContentList> getPlanSpotBookmark(Long id, long page){
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(id);
         requestSessionTarget.setPage(page);
         List<ResponseContentList> responseContentLists = bookmarkMapper.getPlanSpotBookmark(requestSessionTarget);
         return responseContentLists;
     }
-    public List<ResponseTour> getTourBookmark(long id, long page){
+    public List<ResponseTour> getTourBookmark(Long id, long page){
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(id);
         requestSessionTarget.setPage(page);
@@ -38,13 +38,13 @@ public class BookmarkService {
         return responseTours;
     }
 
-    public void addBookMark(long id, long sessionId){
+    public void addBookMark(Long id, Long sessionId){
         RequestContentMember requestContentMember = new RequestContentMember();
         requestContentMember.setContentId(id);
         requestContentMember.setMemberId(sessionId);
         bookmarkMapper.addBookmark(requestContentMember);
     }
-    public void deleteBookmark(long id, long sessionId){
+    public void deleteBookmark(Long id, Long sessionId){
         RequestContentMember requestContentMember = new RequestContentMember();
         requestContentMember.setContentId(id);
         requestContentMember.setMemberId(sessionId);

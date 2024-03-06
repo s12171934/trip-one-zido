@@ -51,11 +51,11 @@ public class MemberService {
         return memberMapper.getId(requestFind);
     }
 
-    public String getQuestion(long id){
+    public String getQuestion(Long id){
         return memberMapper.getSecurityQuestion(id);
     }
 
-    public boolean checkAnswer(long id, String myAnswer){
+    public boolean checkAnswer(Long id, String myAnswer){
        String answer = memberMapper.getSecurityAnswer(id);
        // 보안질문이 맞는지 확인
        if(myAnswer.equals(answer)){
@@ -64,7 +64,7 @@ public class MemberService {
        return false;
     }
 
-    public void updatePw(long id, RequestNewPassword requestNewPassword){
+    public void updatePw(Long id, RequestNewPassword requestNewPassword){
         // requestNewPassword 에서 비밀번호 제약조건 확인 후 requestPassword에 넣어서 전송
         RequestPassword requestPassword = new RequestPassword();
         requestPassword.setId(id);
@@ -72,16 +72,16 @@ public class MemberService {
         memberMapper.updatePassword(requestPassword);
     }
 
-    public Member getMember(long id){
+    public Member getMember(Long id){
         return memberMapper.getMemberById(id);
     }
 
-    public void updateMember(long id, Member member){
+    public void updateMember(Long id, Member member){
         member.setId(id);
         memberMapper.updateMember(member);
     }
 
-    public void updateProfile(long id, byte[] profile){
+    public void updateProfile(Long id, byte[] profile){
         // 받은 아이디와 프로필을 requestPhoto에 저장 후 매퍼로 전송
         RequestPhoto requestPhoto = new RequestPhoto();
         requestPhoto.setContentId(id);
@@ -89,7 +89,7 @@ public class MemberService {
         memberMapper.updateProfile(requestPhoto);
     }
 
-    public void deleteMember(long id){
+    public void deleteMember(Long id){
         memberMapper.deleteMember(id);
     }
 

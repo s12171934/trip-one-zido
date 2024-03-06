@@ -18,6 +18,7 @@ public class PlanService {
     @Autowired
     CommentMapper commentMapper;
 
+
     public ResponsePlanDetail getPlanList(long id, long sessionId) {
         // getPlan
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
@@ -37,7 +38,7 @@ public class PlanService {
         return responsePlanDetail;
     }
 
-    public void addPlan(long sessionId, RequestPlan requestPlan) {
+    public void addPlan(Long sessionId, RequestPlan requestPlan) {
         //addContent, addPlan, addSpot ,addOwner
         RequestContent requestContent = new RequestContent();
         requestContent.setType("plan");
@@ -54,8 +55,10 @@ public class PlanService {
         planMapper.addPlan(requestPlan);
     }
 
+
     public void updatePlan(long id, RequestPlan requestPlan) {
 //       updatePlan, updateisPublic,updateTitle, deleteOwner,addOwner
+
         requestPlan.setId(id);
         planMapper.updatePlan(requestPlan);
 
@@ -73,7 +76,7 @@ public class PlanService {
 
     }
 
-    public void deletePlan(long id){
+    public void deletePlan(Long id){
         contentMapper.deleteContent(id);
     }
 }

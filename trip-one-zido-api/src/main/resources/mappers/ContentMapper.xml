@@ -62,7 +62,7 @@
             )
     </insert>
 
-    <select id="getOwner" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+    <select id="getOwner" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
         SELECT
             m.id,
             m.login_id,
@@ -76,7 +76,7 @@
             o.content_id = #{id}
     </select>
 
-    <select id="getWriter" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+    <select id="getWriter" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
         SELECT
             m.id,
             m.login_id,
@@ -162,6 +162,18 @@
           AND member_id = #{memberId}
     </select>
 
+    <select id="isMine" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember" resultType="boolean">
+        SELECT CASE
+            WHEN COUNT(*) > 0 THEN TRUE
+            ELSE FALSE
+            END AS result
+        FROM
+            owner
+        WHERE
+            content_id = #{contentId} AND
+            member_id = #{memberId}
+    </select>
+
     <update id="updateIsPublic" parameterType="com.example.triponezidoapi.dto.request.RequestIsPublic">
         UPDATE content
         SET
@@ -178,7 +190,7 @@
             id = #{id}
     </update>
 
-    <delete id="deleteContent" parameterType="long">
+    <delete id="deleteContent" parameterType="Long">
         DELETE FROM content
         WHERE id = #{id}
     </delete>

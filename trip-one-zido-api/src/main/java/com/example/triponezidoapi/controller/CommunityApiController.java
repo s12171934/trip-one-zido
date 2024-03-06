@@ -31,9 +31,13 @@ public class CommunityApiController {
     public ResponseCommunityDetail showCommunityDetail(
             @PathVariable
             @Parameter(description = "커뮤니티 게시물 번호")
-            long id
+            Long id,
+
+            @SessionAttribute(name = "id")
+            @Parameter(description = "로그인 회원 정보")
+            Long sessionId
     ){
-        return communityService.getCommunity(id);
+        return communityService.getCommunity(id,sessionId);
     }
     @PostMapping("/")
     @Operation(summary = "커뮤니티 게시물 등록")
@@ -44,7 +48,7 @@ public class CommunityApiController {
 
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 정보")
-            long  sessionId
+            Long sessionId
     ){
         communityService.addCommunity(requestCommunity,sessionId);
     }
@@ -57,7 +61,7 @@ public class CommunityApiController {
 
             @PathVariable
             @Parameter(description = "커뮤니티 게시물 번호")
-            long id
+            Long id
     ){
         communityService.updateCommunity(requestCommunity,id);
     }
@@ -66,7 +70,7 @@ public class CommunityApiController {
     public void deleteCommunity(
             @PathVariable
             @Parameter(description = "커뮤니티 게시물 번호")
-            long id
+            Long id
     ){
         communityService.deleteCommunity(id);
     }
@@ -88,11 +92,11 @@ public class CommunityApiController {
     public void entryCommunity(
             @PathVariable
             @Parameter(description = "커뮤니티 게시물 번호")
-            long id,
+            Long id,
 
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 번호")
-            long sessionId
+            Long sessionId
     ){
         communityService.addOwner(id,sessionId);
     }
@@ -101,11 +105,11 @@ public class CommunityApiController {
     public void departureCommunity(
             @PathVariable
             @Parameter(description = "커뮤니티 게시물 번호")
-            long id,
+            Long id,
 
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 번호")
-            long sessionId
+            Long sessionId
     ){
         communityService.deleteOwner(id,sessionId);
     }

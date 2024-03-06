@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class RequestIsPublic {
     long id;
-    int isPublic;
+    boolean isPublic;
 }
