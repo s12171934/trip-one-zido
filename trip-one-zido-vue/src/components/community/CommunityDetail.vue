@@ -5,7 +5,8 @@
 	<br>
 	<div class="d-grid gap-2 d-md-flex justify-content-md-end">   
 		<span class="button small rounded-3" id="mouseHover">모집중</span>
-		<a href="/html-css/community/board/community.html" class="button alt small rounded-3">목록</a>
+		<a href="/community" class="button alt small rounded-3">목록</a>
+		<!-- 현재 id-1 : 이전글 / 현재 id+1 : 다음글   -->
 		<a href="/html-css/community/detail/detail.html" id="button2" class="button small rounded-3">이전글</a>
 		<a href="/html-css/community/detail/detailEnd.html" id="button2" class="button small rounded-3">다음글</a>
 	</div>

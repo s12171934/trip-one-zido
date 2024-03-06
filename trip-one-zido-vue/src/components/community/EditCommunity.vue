@@ -9,8 +9,8 @@
 					<tr>
 						<td id="tdTitle">지역</td>
 						<td id="tdSelect">
-							<div class="select-wrapper">
-								<select id="table" class="local-select" name="category">
+							<div class="select-wrapper"  id="table-select">
+								<select class="local-select" name="category">
 									<option value="" selected>지역 선택</option>
 									<option value="1">서울특별시</option>
 									<option value="2">부산광역시</option>
@@ -32,15 +32,15 @@
 								</select>
 							</div>
 						</td>
-						<td id="tdTitle">여행 일정</td>
+						<td id="tdTitle" class="border-start">여행 일정</td>
 						<td id="tdSelect"><input type="date"> ~ <input type="date"></td>
 					</tr>
 
 					<tr>
 						<td>모집 인원</td>
 						<td>
-							<div class="select-wrapper">
-								<select id="table" class="local-select" name="category">
+							<div class="select-wrapper" id="table-select">
+								<select class="local-select" name="category">
 									<option value="" selected>인원 선택</option>
 									<option value="2">2 명</option>
 									<option value="3">3 명</option>
@@ -64,7 +64,7 @@
 								</select>
 							</div>
 						</td>
-						<td>모집 마감일 </td>
+						<td class="border-start">모집 마감일 </td>
 						<td><input type="date"></td>
 					</tr>
 
@@ -82,8 +82,8 @@
 				</table>
 
 				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					<a href="/html-css/community/board/community.html" id="button" class="button small rounded-3">등록</a>
-					<a href="/html-css/community/board/community.html" id="button" class="button small rounded-3">취소</a>
+					<a href="/community" id="button" class="button small rounded-3">등록</a>
+					<a href="/community" id="button" class="button small rounded-3">취소</a>
 				</div>
 			</form>
 
@@ -191,4 +191,8 @@ input {
 table tbody tr {
     background-color: white !important;
 } 
+
+#table-select {
+	width: 80%
+}
 </style>
