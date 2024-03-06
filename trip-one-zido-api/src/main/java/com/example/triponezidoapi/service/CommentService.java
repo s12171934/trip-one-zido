@@ -13,6 +13,15 @@ public class CommentService {
     ContentMapper contentMapper;
 
     public void addComment(long sessionId, RequestComment requestComment){
+        RequestContent requestContent = new RequestContent();
+        requestContent.setType("comment");
+        requestContent.setTitle(null);
+        contentMapper.addContent(requestContent);
+        RequestOwner requestOwner = new RequestOwner();
+        requestOwner.setOwn("writer");
+        requestOwner.setMemberId(sessionId);
+        requestOwner.setContentId(requestComment.getContentId());
+        contentMapper.addOwner(requestOwner);
         requestComment.setMemberId(sessionId);
         commentMapper.addComment(requestComment);
     }

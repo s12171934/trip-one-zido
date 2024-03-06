@@ -22,7 +22,7 @@ public class ResponsePlanDetail {
     String title;
     String isPublic;
     LocalDateTime createdAt;
-    List<ResponseSpotDetail> responseSpotDetails;
+    List<ResponseSpotPlan> responseSpotPlans;
     List<ResponseMember> members;
     List<ResponseComment> comments;
     boolean isMine;
