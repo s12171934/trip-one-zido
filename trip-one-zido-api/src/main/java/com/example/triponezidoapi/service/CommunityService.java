@@ -17,19 +17,16 @@ public class CommunityService {
     public List<ResponseCommunity> getCommunityList(long page){
         return communityMapper.getCommunityList(page);
     }
-    public ResponseCommunityDetail getCommunity(Long id){
-
-
+    public ResponseCommunityDetail getCommunity(Long id, Long sessionId){
         //getCommunity 기본
         ResponseCommunityDetail responseCommunityDetail = communityMapper.getCommunity(id);
         //members
         responseCommunityDetail.setMembers(contentMapper.getOwner(id));
         //isMine
-        Long myId = responseCommunityDetail.getId();
-
-
-
-        responseCommunityDetail.setMine(true);
+        RequestContentMember contentMember = new RequestContentMember();
+        contentMember.setMemberId(sessionId);
+        contentMember.setContentId(id);
+        responseCommunityDetail.setMine(contentMapper.isMine(contentMember));
         //NextId, PrevId
         responseCommunityDetail.setNextId(communityMapper.getNextId(id));
         responseCommunityDetail.setPrevId(communityMapper.getPrevId(id));
