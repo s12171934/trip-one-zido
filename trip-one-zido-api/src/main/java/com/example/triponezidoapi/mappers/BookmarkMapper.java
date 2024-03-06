@@ -12,9 +12,9 @@ public interface BookmarkMapper {
     void addBookmark(RequestContentMember requestContentMember);
 
     //select
-    int bookmarkCount(long id);
-    int tourBookmarkCount(long id);
-    int planSpotBookmarkCount(long id);
+    int bookmarkCount(Long id);
+    int tourBookmarkCount(Long id);
+    int planSpotBookmarkCount(Long id);
     List<ResponseTour> getTourBookmark(RequestSessionTarget requestSessionTarget);
     List<ResponseContentList> getPlanSpotBookmark(RequestSessionTarget requestSessionTarget);
 

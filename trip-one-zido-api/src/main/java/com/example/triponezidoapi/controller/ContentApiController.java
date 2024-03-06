@@ -23,11 +23,11 @@ public class ContentApiController {
     public void postPin(
             @PathVariable
             @Parameter(description = "고정 게시물 번호")
-            long id,
+            Long id,
 
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 번호")
-            long sessionId
+            Long sessionId
     ){
         contentService.addPin(id, sessionId);
     }
@@ -37,11 +37,11 @@ public class ContentApiController {
     public void deletePin(
             @PathVariable
             @Parameter(description = "고정 게시물 번호")
-            long id,
+            Long id,
 
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 번호")
-            long sessionId
+            Long sessionId
     ){
         contentService.deletePin(id, sessionId);
     }
@@ -53,11 +53,11 @@ public class ContentApiController {
     public void postLike(
             @PathVariable
             @Parameter(description = "좋아요 게시물 번호")
-            long id,
+            Long id,
 
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 정보")
-            long sessionId
+            Long sessionId
     ){
         contentService.addGood(id, sessionId);
     }
@@ -67,7 +67,7 @@ public class ContentApiController {
     public List<ResponseContentList> showRecentView(
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 정보")
-            long sessionId,
+            Long sessionId,
 
             @PathVariable(required = false)
             @Schema(nullable = true)

@@ -11,7 +11,7 @@ public class SearchService {
     @Autowired
     SearchMapper searchMapper;
 
-    public ResponseSearch searchByKeyword(long id, String keyword){
+    public ResponseSearch searchByKeyword(Long id, String keyword){
         RequestSearch requestSearch = new RequestSearch();
         requestSearch.setMyMemberId(id);
         requestSearch.setKeyword(keyword);

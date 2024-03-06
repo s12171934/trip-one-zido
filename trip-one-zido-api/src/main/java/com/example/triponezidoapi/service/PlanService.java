@@ -14,7 +14,7 @@ public class PlanService {
     @Autowired // 자동생성자
     ContentMapper contentMapper;
 
-    public ResponsePlanDetail getPlanList(long id, long sessionId) {
+    public ResponsePlanDetail getPlanList(Long id, Long sessionId) {
 
 //        getPlan, getSpot
 //        getOwner,getComment
@@ -28,20 +28,20 @@ public class PlanService {
         return null;
     }
 
-    public void addPlan(long sessionId, RequestPlan requestPlan) {
+    public void addPlan(Long sessionId, RequestPlan requestPlan) {
         //addContent, addPlan, addSpot ,addOwner
 
         planMapper.addPlan(requestPlan);
     }
 
-    public void updatePlan(long id, RequestPlan requestPlan) {
+    public void updatePlan(Long id, RequestPlan requestPlan) {
 //        updatePlan,updatePublic,updateTitle, deleteOwner, addOwner
 
         requestPlan.setId(id);
         planMapper.updatePlan(requestPlan);
     }
 
-    public void deletePlan(long id){
+    public void deletePlan(Long id){
         contentMapper.deleteContent(id);
     }
 }

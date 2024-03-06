@@ -76,7 +76,7 @@ public class MemberApiController {
     public String checkQuestion(
             @PathVariable
             @Parameter(description = "회원 번호")
-            long id
+            Long id
     ){
         return memberService.getQuestion(id);
     }
@@ -85,7 +85,7 @@ public class MemberApiController {
     public boolean answerQuestion(
             @PathVariable
             @Parameter(description = "회원 번호")
-            long id,
+            Long id,
 
             @RequestParam
             @Parameter(description = "보안 답변")
@@ -98,7 +98,7 @@ public class MemberApiController {
     public void setNewPassword(
             @PathVariable
             @Parameter(description = "회원 번호")
-            long id,
+            Long id,
 
             @RequestBody
             @Parameter(description = "새로운 비밀번호")
@@ -111,7 +111,7 @@ public class MemberApiController {
     public Member showMemberInfo(
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 번호")
-            long SessionId
+            Long SessionId
     ){
         return memberService.getMember(SessionId);
     }
@@ -120,7 +120,7 @@ public class MemberApiController {
     public void updateMemberInfo(
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 번호")
-            long sessionId,
+            Long sessionId,
 
             @RequestBody
             @Parameter(description = "수정할 회원 정보")
@@ -133,7 +133,7 @@ public class MemberApiController {
     public void PutProfile(
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 번호")
-            long sessionId,
+            Long sessionId,
 
             @RequestParam
             @Parameter(description = "프로필 사진")
@@ -146,7 +146,7 @@ public class MemberApiController {
     public void updatePassword(
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 정보")
-            long sessionId,
+            Long sessionId,
 
             @RequestBody
             @Parameter(description = "변경할 비밀번호")
@@ -159,7 +159,7 @@ public class MemberApiController {
     public void removeMember(
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 정보")
-            long id
+            Long id
     ){
         memberService.deleteMember(id);
     }

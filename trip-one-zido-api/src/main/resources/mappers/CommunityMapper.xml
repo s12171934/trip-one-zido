@@ -24,7 +24,7 @@
             );
     </insert>
 
-    <select id="getCommunity" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseCommunityDetail">
+    <select id="getCommunity" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseCommunityDetail">
         SELECT
             c1.*,
             c2.title,
@@ -111,7 +111,7 @@
             #{page}, 6
     </select>
 
-    <select id="getNextId" parameterType="long" resultType="long">
+    <select id="getNextId" parameterType="Long" resultType="long">
         <![CDATA[
         SELECT
             id
@@ -131,7 +131,7 @@
         ]]>
     </select>
 
-    <select id="getPrevId" parameterType="long" resultType="long">
+    <select id="getPrevId" parameterType="Long" resultType="long">
         <![CDATA[
         SELECT
             id

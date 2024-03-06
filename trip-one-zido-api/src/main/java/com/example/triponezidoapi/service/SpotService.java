@@ -13,7 +13,7 @@ public class SpotService {
     @Autowired
     ContentMapper contentMapper;
 
-    public ResponseSpotDetail spotDetail(long id, long sessionId){
+    public ResponseSpotDetail spotDetail(Long id, Long sessionId){
 //        getSpot,getComment,getOwner
 
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
@@ -22,20 +22,20 @@ public class SpotService {
         return spotMapper.getSpot(requestSessionTarget);
     }
 
-    public void addSpot(RequestSpot requestSpot, long sessionId){
+    public void addSpot(RequestSpot requestSpot, Long sessionId){
 //        addContent,addSpot, addPhoto,addOwner
 
         requestSpot.setProfile(sessionId);
         spotMapper.addSpot(requestSpot);
     }
 
-    public void updateSpot(long id, RequestSpot requestSpot){
+    public void updateSpot(Long id, RequestSpot requestSpot){
 //        updateSpot,updatePublic,updateTitle,deleteOwner,addOwner
         requestSpot.setId(id);
         spotMapper.updateSpot(requestSpot);
     }
 
-    public void deleteSpot(long id){
+    public void deleteSpot(Long id){
         contentMapper.deleteContent(id);
     }
 }

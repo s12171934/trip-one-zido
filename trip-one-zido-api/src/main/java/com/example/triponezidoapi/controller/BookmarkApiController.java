@@ -24,11 +24,11 @@ public class BookmarkApiController {
             @PathVariable(required = false)
             @Schema(nullable = true)
             @Parameter(description = "찜 목록 소유 회원 번호")
-            long id,
+            Long id,
 
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 번호")
-            long sessionId
+            Long sessionId
     ){
         return bookmarkService.getAllBookmark(id,sessionId);
     }
@@ -38,7 +38,7 @@ public class BookmarkApiController {
     public List<ResponseContentList> showSpotPlanListByPage(
             @PathVariable
             @Parameter(description = "찜 목록 소유 회원 번호")
-            long id,
+            Long id,
 
             @PathVariable
             @Parameter(description = "페이징 번호")
@@ -52,7 +52,7 @@ public class BookmarkApiController {
     public List<ResponseTour> showTourListByPage(
             @PathVariable
             @Parameter(description = "찜 목록 소유 회원 번호")
-            long id,
+            Long id,
 
             @PathVariable
             @Parameter(description = "페이징 번호")
@@ -65,11 +65,11 @@ public class BookmarkApiController {
     public void postBookmark(
             @PathVariable
             @Parameter(description = "찜 등록할 게시물 번호")
-            long id,
+            Long id,
 
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 번호")
-            long sessionId
+            Long sessionId
     ){
         bookmarkService.addBookMark(id,sessionId);
     }
@@ -78,11 +78,11 @@ public class BookmarkApiController {
     public void deleteBookmark(
             @PathVariable
             @Parameter(description = "찜 삭제할 게시물 번호")
-            long id,
+            Long id,
 
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 번호")
-            long sessionId
+            Long sessionId
     ){
         bookmarkService.deleteBookmark(id,sessionId);
     }

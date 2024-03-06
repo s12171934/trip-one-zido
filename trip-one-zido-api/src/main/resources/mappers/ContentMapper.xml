@@ -62,7 +62,7 @@
             )
     </insert>
 
-    <select id="getOwner" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+    <select id="getOwner" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
         SELECT
             m.id,
             m.login_id,
@@ -76,7 +76,7 @@
             o.content_id = #{id}
     </select>
 
-    <select id="getWriter" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+    <select id="getWriter" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
         SELECT
             m.id,
             m.login_id,
@@ -188,7 +188,7 @@
             id = #{id}
     </update>
 
-    <delete id="deleteContent" parameterType="long">
+    <delete id="deleteContent" parameterType="Long">
         DELETE FROM content
         WHERE id = #{id}
     </delete>
