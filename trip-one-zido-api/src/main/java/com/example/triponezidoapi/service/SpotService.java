@@ -43,12 +43,7 @@ public class SpotService {
         RequestContent requestContent = new RequestContent();
         requestContent.setType("spot");
         requestContent.setTitle(requestSpot.getTitle());
-
-        if(requestSpot.getIsPublic() == null){
-            requestContent.setPublic(true);
-        } else {
-            requestContent.setPublic(false);
-        }
+        requestContent.setPublic(requestSpot.isPublic());
         contentMapper.addContent(requestContent);
 
         //addSpot
@@ -56,11 +51,14 @@ public class SpotService {
         spotMapper.addSpot(requestSpot);
 
         //addPhoto
-        for (RequestPhoto photos :  requestSpot.getPhotos()) {
-            spotMapper.addPhoto(photos);
+        List<byte[]> photos = requestSpot.getPhotos();
+        RequestPhoto requestPhoto = new RequestPhoto();
+        for (byte[] photo : photos) {
+            requestPhoto.setPhoto(photo);
+            spotMapper.addPhoto(requestPhoto);
         }
 
-        //addOwner
+        //addOwner 아래 for문 수정 가능성 높음
         RequestOwner requestOwner = new RequestOwner();
         requestOwner.setOwn("writer");
         requestOwner.setMemberId(sessionId);
@@ -68,9 +66,7 @@ public class SpotService {
         contentMapper.addOwner(requestOwner);
     }
 
-    public void updateSpot(Long id, RequestSpot requestSpot){
-//        updateSpot,updatePublic,updateTitle,deleteOwner,addOwner
-
+    public void updateSpot(Long id, RequestSpot requestSpot, Long sessionId){
         //updateSpot
         requestSpot.setId(id);
         spotMapper.updateSpot(requestSpot);
@@ -78,8 +74,31 @@ public class SpotService {
         //updatePublic
         RequestIsPublic requestIsPublic = new RequestIsPublic();
         requestIsPublic.setId(id);
-        requestIsPublic.setIsPublic(requestSpot.getIsPublic());
-        contentMapper.updateIsPublic();
+        requestIsPublic.setPublic(requestSpot.isPublic());
+        contentMapper.updateIsPublic(requestIsPublic);
+
+        //updateTitle
+        RequestTitle requestTitle = new RequestTitle();
+        requestTitle.setId(requestSpot.getId());
+        requestTitle.setTitle(requestSpot.getTitle());
+        contentMapper.updateTitle(requestTitle);
+
+        //deleteOwner
+        RequestContentMember requestContentMember = new RequestContentMember();
+        requestContentMember.setMemberId(sessionId);
+        requestContentMember.setContentId(id);
+        contentMapper.deleteOwner(requestContentMember);
+
+        //addOwner 아래 for문 수정 가능성 높음
+        RequestOwner requestOwner = new RequestOwner();
+
+        List<ResponseMember> addmembers =contentMapper.getOwner(id);
+        for (ResponseMember memberId : addmembers) {
+            requestOwner.setOwn(memberId.getOwn());
+            requestOwner.setMemberId(Long.parseLong(memberId.getLoginId()));
+            requestOwner.setContentId(id);
+            contentMapper.addOwner(requestOwner);
+        }
     }
 
     public void deleteSpot(Long id){

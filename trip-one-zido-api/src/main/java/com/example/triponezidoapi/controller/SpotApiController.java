@@ -52,9 +52,13 @@ public class SpotApiController {
 
             @RequestBody
             @Parameter(description = "장소 게시물 정보")
-            RequestSpot requestSpot
+            RequestSpot requestSpot,
+
+            @SessionAttribute(name = "id")
+            @Parameter(description = "로그인 회원 번호")
+            Long sessionId
     ){
-        spotService.updateSpot(id,requestSpot);
+        spotService.updateSpot(id,requestSpot,sessionId);
     }
     @DeleteMapping("/{id}")
     @Operation(summary = "장소 게시물 삭제")
