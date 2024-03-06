@@ -25,20 +25,25 @@ public class PageService {
             id = sessionId;
         }
 
+        ResponseMemberPage memberPage = new ResponseMemberPage();
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(id);
 
+        //planLists
+        memberPage.setPlanLists(planMapper.getPlanList(requestSessionTarget));
+        //spotLists
+        memberPage.setSpotLists(spotMapper.getSpotList(requestSessionTarget));
+        //member
         ResponseMember member = new ResponseMember();
         member.setId(id);
         member.setLoginId(memberMapper.getMemberProfile(id).getLoginId());
         member.setProfile(memberMapper.getMemberProfile(id).getProfile());
-
-        ResponseMemberPage memberPage = new ResponseMemberPage();
-        memberPage.setPlanLists(planMapper.getPlanList(requestSessionTarget));
-        memberPage.setSpotLists(spotMapper.getSpotList(requestSessionTarget));
         memberPage.setResponseMember(member);
+        //post count
         memberPage.setPostCount(memberMapper.postCount(id));
+        //bookmark count
         memberPage.setBookmarkCount(bookmarkMapper.bookmarkCount(id));
+        //follower, following count
         memberPage.setFollowerCount(memberMapper.followerCount(id));
         memberPage.setFollowingCount(memberMapper.followingCount(id));
 
@@ -48,16 +53,18 @@ public class PageService {
 
     public List<ResponseContentList> getPlanListByPage(Long id, long page){
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setTargetId(id);
+        requestSessionTarget.setMyMemberId(id);
         requestSessionTarget.setPage(page);
+        // contentid?
 
         return planMapper.getPlanList(requestSessionTarget);
     }
 
     public List<ResponseContentList> getSpotListByPage(Long id, long page) {
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setTargetId(id);
+        requestSessionTarget.setMyMemberId(id);
         requestSessionTarget.setPage(page);
+        // contentid?
 
         return spotMapper.getSpotList(requestSessionTarget);
     }
