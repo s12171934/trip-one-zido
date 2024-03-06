@@ -162,9 +162,11 @@
           AND member_id = #{memberId}
     </select>
 
-    <select id="isMine" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember" resultType="int">
-        SELECT
-            COUNT(*)
+    <select id="isMine" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember" resultType="boolean">
+        SELECT CASE
+            WHEN COUNT(*) > 0 THEN TRUE
+            ELSE FALSE
+            END AS result
         FROM
             owner
         WHERE

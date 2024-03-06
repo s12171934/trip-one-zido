@@ -43,9 +43,11 @@
       )
   </insert>
 
-  <select id="isFollow" parameterType="com.example.triponezidoapi.dto.request.RequestFollow" resultType="int">
-    SELECT
-      COUNT(*)
+  <select id="isFollow" parameterType="com.example.triponezidoapi.dto.request.RequestFollow" resultType="boolean">
+    SELECT CASE
+        WHEN COUNT(*) > 0 THEN TRUE
+        ELSE FALSE
+        END AS result
     FROM
       follow
     WHERE
