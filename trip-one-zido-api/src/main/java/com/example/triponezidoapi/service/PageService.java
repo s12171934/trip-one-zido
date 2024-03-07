@@ -86,6 +86,7 @@ public class PageService {
         requestSessionTarget.setMyMemberId(id);
         requestSessionTarget.setPage(page);
 
+        // idFollow 응답해주기
         return memberMapper.followingList(requestSessionTarget);
     }
 
@@ -99,6 +100,7 @@ public class PageService {
         requestSessionTarget.setMyMemberId(id);
         requestSessionTarget.setPage(page);
 
+        // isFollow 응답해주기
         return memberMapper.followerList(requestSessionTarget);
     }
 

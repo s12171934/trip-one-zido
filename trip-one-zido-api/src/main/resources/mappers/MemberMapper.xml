@@ -77,15 +77,14 @@
     SELECT
       id,
       login_id,
-      profile,
-      isFollow
+      profile
     FROM
       member
     WHERE
       id IN
       (
       SELECT
-        following
+        follower
       FROM
         follow
       WHERE
@@ -99,8 +98,7 @@
     SELECT
       id,
       login_id,
-      profile,
-      isFollow
+      profile
     FROM
       member
     WHERE
