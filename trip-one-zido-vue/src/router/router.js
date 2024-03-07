@@ -51,7 +51,7 @@ const routes = [
     component: CommunityDetail
   },
   {
-    path: "/community/:mode/:id?",
+    path: "/:mode/community/:id?",
     component: EditCommunity
   },
   //member
