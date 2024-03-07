@@ -71,7 +71,12 @@ public class PageService {
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(sessionId);
         requestSessionTarget.setTargetId(id);
-        requestSessionTarget.setPage(page);
+        //페이지 카운트 처리
+        if(page == 0){
+            requestSessionTarget.setPage(0);
+        } else {
+            requestSessionTarget.setPage(page * 6);
+        }
 
         return spotMapper.getSpotList(requestSessionTarget);
     }
