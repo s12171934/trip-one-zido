@@ -20,7 +20,7 @@ public class CommunityService {
     public ResponseCommunityDetail getCommunity(Long id, Long sessionId){
         //getCommunity 기본
         ResponseCommunityDetail responseCommunityDetail = communityMapper.getCommunity(id);
-        //members
+        //members(getOwner)
         responseCommunityDetail.setMembers(contentMapper.getOwner(id));
         //isMine
         RequestContentMember contentMember = new RequestContentMember();
