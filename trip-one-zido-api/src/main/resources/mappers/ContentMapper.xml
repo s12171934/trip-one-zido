@@ -28,7 +28,7 @@
             )
         VALUE
             (
-            #{own},
+            #{good},
             #{memberId},
             #{contentId}
             )

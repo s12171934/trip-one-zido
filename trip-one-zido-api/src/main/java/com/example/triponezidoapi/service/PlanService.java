@@ -5,26 +5,24 @@ import com.example.triponezidoapi.dto.response.*;
 import com.example.triponezidoapi.mappers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service
 public class PlanService {
-    @Autowired // 자동생성자
-    PlanMapper planMapper;
-    @Autowired // 자동생성자
-    ContentMapper contentMapper;
     @Autowired
-    SpotMapper spotMapper;
+    PlanMapper planMapper;
+    @Autowired
+    ContentMapper contentMapper;
     @Autowired
     CommentMapper commentMapper;
 
+    public ResponsePlanDetail getPlan(long id, long sessionId) {
+        ResponsePlanDetail responsePlanDetail = new ResponsePlanDetail();
 
-    public ResponsePlanDetail getPlanList(long id, long sessionId) {
         // getPlan
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(id);
-        requestSessionTarget.setTargetId(sessionId);
-        ResponsePlanDetail responsePlanDetail = planMapper.getPlan(requestSessionTarget);
+        requestSessionTarget.setTargetId(id);
+        requestSessionTarget.setMyMemberId(sessionId);
+        planMapper.getPlan(requestSessionTarget);
 
         // getSpot
         responsePlanDetail.setResponseSpotPlans(planMapper.getSpot(id));
@@ -35,45 +33,75 @@ public class PlanService {
         // getComment
         responsePlanDetail.setComments(commentMapper.getComment(id));
 
+        // isMine
+        RequestContentMember requestContentMember = new RequestContentMember();
+        requestContentMember.setContentId(id);
+        requestContentMember.setMemberId(sessionId);
+        responsePlanDetail.setMine(contentMapper.isMine(requestContentMember));
+
         return responsePlanDetail;
     }
 
     public void addPlan(Long sessionId, RequestPlan requestPlan) {
-        //addContent, addPlan, addSpot ,addOwner
+        // addContent
         RequestContent requestContent = new RequestContent();
         requestContent.setType("plan");
-        requestContent.setTitle(requestContent.getTitle());
+        requestContent.setPublic(requestPlan.isPublic());
+        requestContent.setTitle(requestPlan.getTitle());
         contentMapper.addContent(requestContent);
+
+        // addPlan
+        planMapper.addPlan(requestPlan);
+
+        // addSpot - 장소게시글 번호만 plan_spot에 등록
+        for (int i = 0; i < requestPlan.getSpots().size(); i++) {
+            RequestPlanSpot requestPlanSpot = new RequestPlanSpot();
+            requestPlanSpot.setPlanId(requestPlan.getId());
+            requestPlanSpot.setSpotId(requestPlan.getSpots().get(i));
+            planMapper.addSpot(requestPlanSpot);
+        }
+
+        // addOwner
         RequestOwner requestOwner = new RequestOwner();
         requestOwner.setOwn("writer");
         requestOwner.setMemberId(sessionId);
-        requestOwner.setContentId(requestOwner.getContentId());
+        requestOwner.setContentId(requestPlan.getId());
         contentMapper.addOwner(requestOwner);
-        RequestSpot requestSpot = new RequestSpot();
-        requestSpot.setProfile(sessionId);
-        spotMapper.addSpot(requestSpot);
-        planMapper.addPlan(requestPlan);
     }
 
-
     public void updatePlan(long id, RequestPlan requestPlan) {
-//       updatePlan, updateisPublic,updateTitle, deleteOwner,addOwner
-
+        // updatePlan
         requestPlan.setId(id);
         planMapper.updatePlan(requestPlan);
 
+        //updateIsPublic
         RequestIsPublic requestIsPublic = new RequestIsPublic();
+        requestIsPublic.setId(id);
+        requestIsPublic.setPublic(!requestPlan.isPublic());
         contentMapper.updateIsPublic(requestIsPublic);
 
+        //updateTitle
         RequestTitle requestTitle = new RequestTitle();
+        requestTitle.setId(id);
+        requestTitle.setTitle(requestPlan.getTitle());
         contentMapper.updateTitle(requestTitle);
 
-        RequestContentMember requestContentMember = new RequestContentMember();
-        contentMapper.deleteOwner(requestContentMember);
+        // deleteOwner - 이전에 등록된 동행인(해당 게시글의 동행인 조회) 삭제
+        for (int i = 0; i < requestPlan.getMembers().size(); i++) {
+            RequestContentMember requestContentMember = new RequestContentMember();
+            requestContentMember.setMemberId(contentMapper.getOwner(id).get(i).getId());
+            requestContentMember.setContentId(id);
+            contentMapper.deleteOwner(requestContentMember);
+        }
 
-        RequestOwner requestOwner = new RequestOwner();
-        contentMapper.addOwner(requestOwner);
-
+        //addOwner
+        for (int i = 0; i < requestPlan.getMembers().size(); i++) {
+            RequestOwner requestOwner = new RequestOwner();
+            requestOwner.setOwn("participants");
+            requestOwner.setContentId(id);
+            requestOwner.setMemberId(requestPlan.getMembers().get(i));
+            contentMapper.addOwner(requestOwner);
+        }
     }
 
     public void deletePlan(Long id){

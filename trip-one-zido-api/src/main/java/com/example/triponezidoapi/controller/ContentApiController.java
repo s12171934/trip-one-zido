@@ -1,5 +1,7 @@
 package com.example.triponezidoapi.controller;
 
+import com.example.triponezidoapi.dto.request.RequestGood;
+import com.example.triponezidoapi.dto.request.RequestPlan;
 import com.example.triponezidoapi.dto.response.*;
 import com.example.triponezidoapi.service.ContentService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -47,10 +49,10 @@ public class ContentApiController {
     }
 
     // getMapping /good/{id}
-    @PostMapping("/good/{id}")
+    @GetMapping("/good/{id}")
     @Tag(name = "Good", description = "Good API")
-    @Operation(summary = "좋아요 등록/수정/취소")
-    public void postLike(
+    @Operation(summary = "좋아요 여부 조회")
+    public Boolean getGood(
             @PathVariable
             @Parameter(description = "좋아요 게시물 번호")
             Long id,
@@ -59,7 +61,26 @@ public class ContentApiController {
             @Parameter(description = "로그인 회원 정보")
             Long sessionId
     ){
-        contentService.addGood(id, sessionId);
+        return contentService.isGood(id, sessionId);
+    }
+
+    @PostMapping("/good/{id}")
+    @Tag(name = "Good")
+    @Operation(summary = "좋아요 등록/수정/취소")
+    public void postGood(
+            @PathVariable
+            @Parameter(description = "좋아요 게시물 번호")
+            Long id,
+
+            @SessionAttribute(name = "id")
+            @Parameter(description = "로그인 회원 정보")
+            Long sessionId,
+
+            @RequestBody
+            @Parameter(description = "좋아요")
+            RequestGood requestGood
+    ){
+        contentService.addGood(id, sessionId, requestGood);
     }
     @GetMapping("/recent-view/{page}")
     @Tag(name = "Content", description = "Content API")

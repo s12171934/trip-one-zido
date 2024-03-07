@@ -18,22 +18,26 @@ public class TourService {
 
     public List<RequestTour> getTourList(Long sessionId, long page){
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(sessionId);
         requestSessionTarget.setPage(page);
+        requestSessionTarget.setMyMemberId(sessionId);
         return tourMapper.getTourList(requestSessionTarget);
     }
 
-    public ResponseTour getTour(Long id){
+    public ResponseTour getTour(Long sessionId, Long id){
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(id);
+        requestSessionTarget.setTargetId(id);
+        requestSessionTarget.setMyMemberId(sessionId);
         return tourMapper.getTour(requestSessionTarget);
     }
 
     public void addTour(RequestTour requestTour) {
+        // addContent
         RequestContent requestContent = new RequestContent();
         requestContent.setType("tour");
         requestContent.setTitle(requestTour.getTitle());
         contentMapper.addContent(requestContent);
+
+        // addTour
         tourMapper.addTour(requestTour);
     }
 

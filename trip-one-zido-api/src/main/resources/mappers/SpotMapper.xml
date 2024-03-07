@@ -74,7 +74,7 @@
             content c
         WHERE
             s.id = c.id AND
-            s.id = #{contentId}
+            s.id = #{targetId}
     </select>
 
     <select id="getSpotList" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
@@ -121,8 +121,8 @@
                 FROM
                     pin
                 WHERE
-                    member_id = ?
-                  AND content_id = ?
+                    member_id = #{myMemberId}
+                  AND content_id = #{targetId}
             ) pin
         FROM
             content c,
