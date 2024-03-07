@@ -33,7 +33,7 @@ public class PlanApiController {
     @PostMapping("/")
     @Operation(summary = "일정 게시물 등록")
     public void postPlan(
-            @SessionAttribute(name = "id")
+//            @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 정보")
             Long sessionId,
 

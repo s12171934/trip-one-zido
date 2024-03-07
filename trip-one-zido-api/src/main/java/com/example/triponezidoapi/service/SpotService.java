@@ -46,8 +46,11 @@ public class SpotService {
         requestContent.setTitle(requestSpot.getTitle());
         requestContent.setPublic(requestSpot.isPublic());
         contentMapper.addContent(requestContent);
+        //Content 테이블에 추가한 이후에 생성된 id를 가져옴
+        long generatedId = requestContent.getId();
 
         //addSpot
+        requestSpot.setId(generatedId);
         requestSpot.setProfile(sessionId);
         spotMapper.addSpot(requestSpot);
 
@@ -57,15 +60,17 @@ public class SpotService {
              RequestPhoto requestPhoto = new RequestPhoto();
              for (byte[] photo : photos) {
                  requestPhoto.setPhoto(photo);
+                 requestPhoto.setContentId(generatedId);
                  spotMapper.addPhoto(requestPhoto);
              }
          }
 
-        //addOwner 아래 for문 수정 가능성 높음
+
+        //addOwner
         RequestOwner requestOwner = new RequestOwner();
         requestOwner.setOwn("writer");
         requestOwner.setMemberId(sessionId);
-        requestOwner.setContentId(requestSpot.getId());
+        requestOwner.setContentId(generatedId);
         contentMapper.addOwner(requestOwner);
     }
 
