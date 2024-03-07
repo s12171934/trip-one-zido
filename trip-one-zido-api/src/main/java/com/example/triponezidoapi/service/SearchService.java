@@ -17,19 +17,28 @@ public class SearchService {
         requestSearch.setKeyword(keyword);
 
         ResponseSearch responseSearch = new ResponseSearch();
+        //searchMember
         responseSearch.setMemberList(searchMapper.searchMember(keyword));
+        //searchPlan
         responseSearch.setPlanList(searchMapper.searchPlan(requestSearch));
+        //searchSpot
         responseSearch.setSpotList(searchMapper.searchSpot(requestSearch));
         responseSearch.setKeyword(keyword);
 
         return responseSearch;
     }
 
-    public ResponseSearch searchByDetail(RequestDetailSearch detailSearch){
+    public ResponseSearch searchByDetail(Long id, RequestDetailSearch detailSearch){
+        //detailSearchPlan 및 detailSearchSpot 에 필요한 MyMemberId 값 추가
+        detailSearch.setMyMemberId(id);
+
         ResponseSearch responseSearch = new ResponseSearch();
 
+        //detailSearchPlan
         responseSearch.setPlanList(searchMapper.detailSearchPlan(detailSearch));
+        //detailSearchSpot
         responseSearch.setSpotList(searchMapper.detailSearchSpot(detailSearch));
+
         responseSearch.setKeyword(detailSearch.getKeyword());
         responseSearch.setStartDuration(detailSearch.getStartDate());
         responseSearch.setEndDuration(detailSearch.getEndDate());

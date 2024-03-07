@@ -14,16 +14,21 @@ public class CommentService {
 
 
     public void addComment(long sessionId, RequestComment requestComment){
+        //addContent
         RequestContent requestContent = new RequestContent();
         requestContent.setType("comment");
+        //댓글은 제목이 없으므로 null
         requestContent.setTitle(null);
         contentMapper.addContent(requestContent);
+
+        //addOwner
         RequestOwner requestOwner = new RequestOwner();
         requestOwner.setOwn("writer");
         requestOwner.setMemberId(sessionId);
         requestOwner.setContentId(requestComment.getContentId());
         contentMapper.addOwner(requestOwner);
-  
+
+        //addComment
         requestComment.setMemberId(sessionId);
         commentMapper.addComment(requestComment);
     }
