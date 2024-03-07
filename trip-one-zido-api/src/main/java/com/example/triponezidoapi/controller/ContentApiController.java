@@ -86,7 +86,7 @@ public class ContentApiController {
     @Tag(name = "Content", description = "Content API")
     @Operation(summary = "최근 본 게시물 조회")
     public List<ResponseContentList> showRecentView(
-            @SessionAttribute(name = "id")
+//            @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 정보")
             Long sessionId,
 

@@ -37,7 +37,12 @@ public class ContentService {
     }
     public List<ResponseContentList> getRecentView(Long sessionId, long page) {
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setPage(page);
+        //페이지 카운트 처리
+        if(page == 0){
+            requestSessionTarget.setPage(0);
+        } else {
+            requestSessionTarget.setPage(page * 6);
+        }
         requestSessionTarget.setMyMemberId(sessionId);
         return contentMapper.getRecentView(requestSessionTarget);
     }

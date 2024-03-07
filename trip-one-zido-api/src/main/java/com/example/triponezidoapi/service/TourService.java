@@ -45,6 +45,7 @@ public class TourService {
         contentMapper.addContent(requestContent);
 
         // addTour
+        requestTour.setId();
         tourMapper.addTour(requestTour);
     }
 
