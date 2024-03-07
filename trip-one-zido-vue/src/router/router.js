@@ -76,7 +76,7 @@ const routes = [
     component: MemberInfo
   },
   {
-    path: "/:id",
+    path: "/member-page/:id?",
     component: MemberPage
   },
   {
