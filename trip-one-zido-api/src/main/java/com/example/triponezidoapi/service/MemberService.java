@@ -24,8 +24,11 @@ public class MemberService {
         memberMapper.signUp(member);
     }
 
-    public void isUsingMemberId(String memberId){
-        memberMapper.getLoginFormByLoginId(memberId);
+    public boolean isUsingMemberId(String memberId){
+       if(memberMapper.getLoginFormByLoginId(memberId) != null){
+           return true;
+       }
+       return false;
     }
 
     public boolean login(Login login, HttpServletRequest request){
@@ -75,6 +78,13 @@ public class MemberService {
         } else {
             // 새로운 비밀번호와 새로운 비밀번호 확인이 일치하는 경우
             // requestNewPassword 에서 비밀번호 제약조건 확인 후 requestPassword에 넣어서 전송
+
+            // 현재 비밀번호가 맞는지 확인
+            if(requestNewPassword.getNowPassword() != null){
+                if(!memberMapper.getPasswordById(id).equals(requestNewPassword.getNowPassword())){
+                    return false;
+                }
+            }
             RequestPassword requestPassword = new RequestPassword();
             requestPassword.setId(id);
             requestPassword.setPassword(requestNewPassword.getChangePassword());

@@ -18,7 +18,8 @@ public class SpotService {
     CommentMapper commentMapper;
 
     public ResponseSpotDetail spotDetail(Long id, Long sessionId){
-        //spotDetail 기본
+        //spotDetail 기본 (getSpot)
+
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setTargetId(id);
         requestSessionTarget.setMyMemberId(sessionId);
@@ -54,15 +55,16 @@ public class SpotService {
         spotMapper.addSpot(requestSpot);
 
         //addPhoto
-        if(!requestSpot.getPhotos().isEmpty()){
-            List<byte[]> photos = requestSpot.getPhotos();
-            RequestPhoto requestPhoto = new RequestPhoto();
-            for (byte[] photo : photos) {
-                requestPhoto.setPhoto(photo);
-                requestPhoto.setContentId(generatedId);
-                spotMapper.addPhoto(requestPhoto);
-            }
-        }
+        List<byte[]> photos = requestSpot.getPhotos();
+         if (photos != null && !photos.isEmpty()) {
+             RequestPhoto requestPhoto = new RequestPhoto();
+             for (byte[] photo : photos) {
+                 requestPhoto.setPhoto(photo);
+                 requestPhoto.setContentId(generatedId);
+                 spotMapper.addPhoto(requestPhoto);
+             }
+         }
+
 
         //addOwner
         RequestOwner requestOwner = new RequestOwner();
@@ -99,12 +101,14 @@ public class SpotService {
         RequestOwner requestOwner = new RequestOwner();
 
         List<ResponseMember> addmembers =contentMapper.getOwner(id);
-        for (ResponseMember memberId : addmembers) {
-            requestOwner.setOwn(memberId.getOwn());
-            requestOwner.setMemberId(Long.parseLong(memberId.getLoginId()));
-            requestOwner.setContentId(id);
-            contentMapper.addOwner(requestOwner);
-        }
+         if (addmembers != null && !addmembers.isEmpty()) {
+             for (ResponseMember memberId : addmembers) {
+                 requestOwner.setOwn(memberId.getOwn());
+                 requestOwner.setMemberId(Long.parseLong(memberId.getLoginId()));
+                 requestOwner.setContentId(id);
+                 contentMapper.addOwner(requestOwner);
+             }
+         }
     }
 
     public void deleteSpot(Long id){

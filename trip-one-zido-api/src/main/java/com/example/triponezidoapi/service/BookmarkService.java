@@ -12,8 +12,11 @@ public class BookmarkService {
     @Autowired
     BookmarkMapper bookmarkMapper;
 
+    // tourBookmarkCount,
+    // planSpotBookmarkCount,
     public ResponseBookmark getAllBookmark(Long id, Long sessionId){
         //id가 null일때 세션정보를 이용한다
+
         if(id == null){
             id = sessionId;
         }
@@ -58,6 +61,7 @@ public class BookmarkService {
         requestContentMember.setMemberId(sessionId);
         bookmarkMapper.addBookmark(requestContentMember);
     }
+
     public void deleteBookmark(Long id, Long sessionId){
         RequestContentMember requestContentMember = new RequestContentMember();
         requestContentMember.setContentId(id);
