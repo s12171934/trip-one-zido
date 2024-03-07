@@ -36,12 +36,12 @@ public class MemberApiController {
 
     @PostMapping("/signup/{loginId}")
     @Operation(summary = "아이디 중복확인")
-    public void signupCheckLoginId(
+    public boolean signupCheckLoginId(
             @PathVariable
             @Parameter(description = "작성한 아이디")
             String loginId
     ){
-        memberService.isUsingMemberId(loginId);
+        return memberService.isUsingMemberId(loginId);
     }
     @PostMapping("/login")
     @Operation(summary = "로그인")
@@ -119,7 +119,7 @@ public class MemberApiController {
     @PutMapping("/")
     @Operation(summary = "회원 정보 수정")
     public void updateMemberInfo(
-            @SessionAttribute(name="id")
+            /*@SessionAttribute(name="id")*/
             @Parameter(description = "로그인 회원 번호")
             Long sessionId,
 
@@ -153,6 +153,7 @@ public class MemberApiController {
             @Parameter(description = "변경할 비밀번호")
             RequestNewPassword requestNewPassword
     ){
+        // 현재 비밀번호 확인
         return memberService.updatePw(sessionId, requestNewPassword);
     }
     @DeleteMapping("/")

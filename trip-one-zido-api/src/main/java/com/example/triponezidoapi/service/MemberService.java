@@ -24,8 +24,11 @@ public class MemberService {
         memberMapper.signUp(member);
     }
 
-    public void isUsingMemberId(String memberId){
-        memberMapper.getLoginFormByLoginId(memberId);
+    public boolean isUsingMemberId(String memberId){
+       if(memberMapper.getLoginFormByLoginId(memberId) != null){
+           return true;
+       }
+       return false;
     }
 
     public boolean login(Login login, HttpServletRequest request){
