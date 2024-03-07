@@ -9,17 +9,18 @@
                     <h1 class="title" id="title">일정 등록</h1>
                     <br>
                 </div>
-                <div class="p-2 d-flex flex-row" id="blank"><h4>일정 제목</h4>
+                <div class="p-2 d-flex flex-row" id="blank">
+                    <h4>일정 제목</h4>
                     <input type="text" value="" id="trip-state-button">
                         <div class="btn-group" id="trip-state-button-group" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio hidden" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                        <label class="btn btn-outline-primary" for="btnradio1">여행전</label>
-                        
-                        <input type="radio hidden" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btnradio2">여행중</label>
-                        
-                        <input type="radio hidden" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btnradio3">여행한</label>
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                            <label class="btn btn-outline-primary" for="btnradio1">여행전</label>
+                            
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio2">여행중</label>
+                            
+                            <input type="radio" class="btn-check visually-hidden" name="btnradio" id="btnradio3" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio3">여행한</label>
                         </div>
                 </div>
 
@@ -93,16 +94,15 @@
 									<option value="5">광주광역시</option>
 									<option value="6">대전광역시</option>
 									<option value="7">울산광역시</option>
-									<option value="8">세종특별자치시</option>
-									<option value="9">경기도</option>
-									<option value="10">강원특별자치도</option>
-									<option value="11">충청북도</option>
-									<option value="12">충청남도</option>
-									<option value="13">전북특별자치도</option>
-									<option value="14">전라남도</option>
-									<option value="15">경상북도</option>
-									<option value="16">경상남도</option>
-									<option value="17">제주특별자치도</option>
+									<option value="8">경기도</option>
+									<option value="9">강원특별자치도</option>
+									<option value="10">충청북도</option>
+									<option value="11">충청남도</option>
+									<option value="12">전북특별자치도</option>
+									<option value="13">전라남도</option>
+									<option value="14">경상북도</option>
+									<option value="15">경상남도</option>
+									<option value="16">제주특별자치도</option>
 							</select>
 						</div>
                     <br>
@@ -111,9 +111,7 @@
                 
                     <!-- <input type="text" value=""> -->
                     <!-- <div id='calendar'></div> -->
-                <template>
-                <FullCalendar :options='calendarOptions' />
-                </template>
+              <div id='calendar'></div>
 
 
                 <div class="p-2 d-flex flex-row">
@@ -175,7 +173,53 @@
 <script>
 export default {
 
+
 }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var buttons = document.querySelectorAll('.btn-outline-primary');
+        buttons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                // Remove the 'active' class from all buttons
+                buttons.forEach(function (btn) {
+                    btn.classList.remove('active');
+                });
+
+                // Add the 'active' class to the clicked button
+                button.classList.add('active');
+            });
+        });
+    });
+
+
+// document.addEventListener('DOMContentLoaded', function() {
+//   var calendarEl = document.getElementById('calendar');
+
+//   var calendar = new FullCalendar.Calendar(calendarEl, {
+//     timeZone: 'UTC',
+//     initialView: 'resourceTimeGridFourDay',
+//     headerToolbar: {
+//       left: 'prev,next',
+//       center: 'title',
+//       right: 'resourceTimeGridDay,resourceTimeGridFourDay'
+//     },
+//     views: {
+//       resourceTimeGridFourDay: {
+//         type: 'resourceTimeGrid',
+//         duration: { days: 4 },
+//         buttonText: '4 days'
+//       }
+//     },
+//     resources: [
+//       { id: 'a', title: 'Room A' },
+//       { id: 'b', title: 'Room B' }
+//     ],
+//     events: 'https://fullcalendar.io/api/demo-feeds/events.json?with-resources=2'
+//   });
+
+//   calendar.render();
+// });
+
 </script>
 
 <style scoped>
@@ -334,4 +378,16 @@ input{
 #trip-review {
     margin-bottom:-1%
 }
+
+/* .btn-check:checked {
+    color :#ff928e ;
+} */
+
+.btn-check:checked + .btn-outline-primary::before {
+    background-color: #ff928e;
+}
+.btn-check:checked + .btn-outline-primary:focus {
+    border-color:#ff928e;
+}
+
 </style>
