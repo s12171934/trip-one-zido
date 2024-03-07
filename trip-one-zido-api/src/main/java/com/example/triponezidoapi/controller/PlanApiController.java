@@ -28,7 +28,7 @@ public class PlanApiController {
             @Parameter(description = "로그인 회원 정보")
             Long sessionId
     ){
-        return planService.getPlanList(id, sessionId);
+        return planService.getPlan(id, sessionId);
     }
     @PostMapping("/")
     @Operation(summary = "일정 게시물 등록")
