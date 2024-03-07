@@ -32,11 +32,14 @@ public class TourApiController {
     @GetMapping("/{id}")
     @Operation(summary = "관광지 상세 조회")
     public ResponseTour showTourDetail(
+            @SessionAttribute(name="id")
+            @Parameter(description = "로그인 회원 정보")
+            Long sessionId,
             @PathVariable
             @Parameter(description = "관광지 게시물 번호")
             Long id
     ){
-        return tourService.getTour(id);
+        return tourService.getTour(sessionId, id);
     }
     @PostMapping("/")
     @Operation(summary = "관광지 등록")
