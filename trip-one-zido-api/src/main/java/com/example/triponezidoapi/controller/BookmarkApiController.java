@@ -46,13 +46,10 @@ public class BookmarkApiController {
 
             @PathVariable
             @Parameter(description = "페이징 번호")
-            long page,
+            long page
 
-            @SessionAttribute(name = "id")
-            @Parameter(description = "로그인 회원 번호")
-            Long sessionId
     ){
-        return bookmarkService.getPlanSpotBookmark(id,page,sessionId);
+        return bookmarkService.getPlanSpotBookmark(id,sessionId, page);
     }
     @GetMapping("/{id}/tour/{page}")
     @Tag(name = "Plan")
@@ -63,18 +60,14 @@ public class BookmarkApiController {
             Long id,
 
             @SessionAttribute(name = "id")
-            @Parameter(description = "로그인 회원 번호")
+            @Parameter(description = "로그인 회원번호")
             Long sessionId,
 
             @PathVariable
             @Parameter(description = "페이징 번호")
-            long page,
-
-            @SessionAttribute(name = "id")
-            @Parameter(description = "로그인 회원번호")
-            Long sessionId
+            long page
     ){
-        return bookmarkService.getTourBookmark(id,page,sessionId);
+        return bookmarkService.getTourBookmark(id,sessionId,page);
     }
     @PostMapping("/{id}")
     @Operation(summary = "찜 등록")

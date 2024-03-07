@@ -58,7 +58,7 @@ public class PageApiController {
             @Parameter(description = "페이지 소유 회원 번호")
             Long id,
 
-            @SessionAttribute(name="id")
+//            @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 번호")
             Long sessionId,
 
