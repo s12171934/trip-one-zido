@@ -203,6 +203,12 @@
       security_questions
   </select>
 
+  <select id="getPasswordById" parameterType="Long" resultType="String">
+    SELECT password
+    FROM member
+    WHERE id = #{id}
+  </select>
+
   <select id="getMemberProfile" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
     SELECT
       id,
