@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class RequestGood {
-    boolean good = false;
+    boolean good;
     long memberId;
     long contentId;
 }

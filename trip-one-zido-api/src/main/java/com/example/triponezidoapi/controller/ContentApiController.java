@@ -1,5 +1,7 @@
 package com.example.triponezidoapi.controller;
 
+import com.example.triponezidoapi.dto.request.RequestGood;
+import com.example.triponezidoapi.dto.request.RequestPlan;
 import com.example.triponezidoapi.dto.response.*;
 import com.example.triponezidoapi.service.ContentService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -72,9 +74,13 @@ public class ContentApiController {
 
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 정보")
-            Long sessionId
+            Long sessionId,
+
+            @RequestBody
+            @Parameter(description = "좋아요")
+            RequestGood requestGood
     ){
-        contentService.addGood(id, sessionId);
+        contentService.addGood(id, sessionId, requestGood);
     }
     @GetMapping("/recent-view/{page}")
     @Tag(name = "Content", description = "Content API")

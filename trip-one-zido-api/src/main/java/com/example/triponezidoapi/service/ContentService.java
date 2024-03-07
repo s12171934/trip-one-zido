@@ -30,9 +30,7 @@ public class ContentService {
         requestContentMember.setMemberId(sessionId);
         return contentMapper.isGood(requestContentMember);
     }
-    public void addGood(Long id, Long sessionId) {
-        RequestGood requestGood = new RequestGood();
-        requestGood.setGood(!requestGood.isGood());
+    public void addGood(Long id, Long sessionId, RequestGood requestGood) {
         requestGood.setMemberId(sessionId);
         requestGood.setContentId(id);
         contentMapper.addGood(requestGood);
