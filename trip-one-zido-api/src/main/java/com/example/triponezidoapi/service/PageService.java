@@ -58,18 +58,18 @@ public class PageService {
         return memberPage;
     }
 
-    public List<ResponseContentList> getPlanListByPage(Long id,long page){
+    public List<ResponseContentList> getPlanListByPage(Long id, Long sessionId, long page){
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(id);
+        requestSessionTarget.setMyMemberId(sessionId);
         requestSessionTarget.setTargetId(id);
         requestSessionTarget.setPage(page);
 
         return planMapper.getPlanList(requestSessionTarget);
     }
 
-    public List<ResponseContentList> getSpotListByPage(Long id, long page) {
+    public List<ResponseContentList> getSpotListByPage(Long id, Long sessionId, long page) {
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(id);
+        requestSessionTarget.setMyMemberId(sessionId);
         requestSessionTarget.setTargetId(id);
         requestSessionTarget.setPage(page);
 

@@ -48,7 +48,7 @@ public class PageApiController {
             @Parameter(description = "페이징 번호")
             long page
     ){
-        return pageService.getPlanListByPage(id, page);
+        return pageService.getPlanListByPage(id, sessionId, page);
     }
     @GetMapping("/{id}/spot/{page}")
     @Tag(name = "Spot")
@@ -58,11 +58,15 @@ public class PageApiController {
             @Parameter(description = "페이지 소유 회원 번호")
             Long id,
 
+            @SessionAttribute(name="id")
+            @Parameter(description = "로그인 회원 번호")
+            Long sessionId,
+
             @PathVariable
             @Parameter(description = "페이징 번호")
             long page
     ){
-        return pageService.getSpotListByPage(id, page);
+        return pageService.getSpotListByPage(id, sessionId, page);
     }
     @GetMapping("/following/{id}/{page}")
     @Tag(name = "Follow", description = "Follow API")
