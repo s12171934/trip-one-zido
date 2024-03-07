@@ -11,50 +11,52 @@
 		<a href="/html-css/community/detail/detailEnd.html" id="button2" class="button small rounded-3">다음글</a>
 	</div>
 	<br>
-	<form method="post" action="#">
+	<form method="get" action="#">
 	<!-- 테이블 -->
-	<table id="table" class="border">
-	<tr>
-		<td id="tdTitle"> 제목 : </td>
-		<td id="black">부산 가실분?</td>
-		<td id="tdTitle" class="border-start"> 작성자 : </td>
-		<td id="black">윤지수</td>
-	</tr>
-		
-	<tr>
-		<td> 지역 : </td>
-		<td><option value="1" id="black">부산광역시</option></td>
-		<td class="border-start"> 모집 인원 : </td>
-		<td id="black">3/4 명</td>
-	</tr>
+	<table id="table" class="border" 
+		v-for="detail in communityDetail" :key="detail.content_id">
 
-	<tr>
-		<td> 참여 인원 : </td>
-		<td colspan="3" id="black">윤지수 , 문성기 , 한희주 </td>
-	</tr>
+		<tr>
+			<td id="tdTitle"> 제목 : </td>
+			<td id="black">{{ detail.title }}</td>
+			<td id="tdTitle" class="border-start"> 작성자 : </td>
+			<td id="black">{{ detail.login_id }}</td>
+		</tr>
+			
+		<tr>
+			<td> 지역 : </td>
+			<td><option value="1" id="black">{{ detail.local }}</option></td>
+			<td class="border-start"> 모집 인원 : </td>
+			<td id="black">{{ detail.withCount }}/{{ detail.total }} 명</td>
+		</tr>
 
-	<tr>
-		<td>일정 : </td>
-		<td id="black">2024-02-07 ~ 2020-02-14</td>
-		<td class="border-start">모집 마감일 : </td>
-		<td id="black">2024-02-05</td>
-	</tr>
+		<tr>
+			<td> 참여 인원 : </td>
+			<td colspan="3" id="black"> {{ detail.with1 }} {{ detail.with2 }} {{ detail.with3 }} </td>
+		</tr>
 
-	<tr>
-		<td>작성일 : </td>
-		<td id="black">2024-02-01</td>
-		<td class="border-start">조회수 : </td>
-		<td id="black">5</td>
-	</tr>
+		<tr>
+			<td>일정 : </td>
+			<td id="black">{{ detail.start_date }} ~ {{ detail.end_date }}</td>
+			<td class="border-start">모집 마감일 : </td>
+			<td id="black">{{ detail.deadLine }}</td>
+		</tr>
 
-	<tr>						
-		<td>내용</td>
-		<td colspan="3">
-			<textarea class="form-control" id="content"> 부산여행 갑시다! </textarea>
-		</td>
-	</tr> 
+		<tr>
+			<td>작성일 : </td>
+			<td id="black">{{ detail.created_at }}</td>
+			<td class="border-start">조회수 : </td>
+			<td id="black">{{ detail.viewCount }}</td>
+		</tr>
 
+		<tr>						
+			<td>내용</td>
+			<td colspan="3">
+				<textarea class="form-control" rows="5" cols="50" id="content" readonly> {{ detail.content }} </textarea>
+			</td>
+		</tr> 
 	</table>
+
 	<div class="d-grid gap-2 d-md-flex justify-content-md-center">   
 		<a href="/html-css/community/board/community.html" id="button" class="button small rounded-3">참여 / 참여 취소</a>
 	</div>
@@ -124,9 +126,41 @@
 </template>
 
 <script>
+
+import data from "/src/assets/data.js";
+
 export default {
 
-}
+	data() {
+    return {
+        communityDetail: data.communityDetail
+        }
+    },
+
+	methods: {
+	checkContentId() {
+		// // 현재 경로의 파라미터에서 content_id 가져오기
+		// const currentContentId = this.$route.params.id;
+
+		// // 클릭한 게시글의 content_id
+		// const clickedContentId = /* 여기에 클릭한 게시글의 content_id 가져오는 코드 작성 */;
+
+		// // 현재 경로의 content_id와 클릭한 게시글의 content_id 비교
+		// if (currentContentId === clickedContentId) {
+		// // content_id가 일치하는 경우 해당 게시글을 반환하거나, 원하는 작업을 수행
+		// const selectedPost = this.communityDetail.find(
+		// 	(post) => post.content_id == currentContentId
+		// );
+
+		// // 반환된 게시글을 활용하거나, 필요한 작업을 수행
+		// console.log(selectedPost);
+		// } else {
+		// // content_id가 일치하지 않는 경우에 대한 처리
+		// console.log("Content IDs do not match.");
+		// }
+		},
+	},
+};
 </script>
 
 <style scoped>
@@ -192,4 +226,7 @@ thead {
 table tbody tr {
     background-color: white !important;
 } 
+#content{
+        resize: none;
+}
 </style>

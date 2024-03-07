@@ -19,42 +19,16 @@
                     </tr>
                 </thead>
                 <tbody>
-
-                    <tr v-for="(row, idx) in list" :key="idx">
-                        <td>{{ row.id }}</td>
-                        <td>{{ row.title }}</td>
-                        <td>{{ row.login_id }}</td>
-                        <td>{{ row.deadline }}</td>
-                        <td>{{ row.total }}</td>
-                        <td>{{ row.status }}</td>
-                    </tr>
-
-                    <tr>
-                        <td >2</td>
-                        <td onclick="location.href='/community/detail'">부산 가실분</td>
-                        <td>minsun</td>
-                        <td>24/02/14</td>
-                        <td>5</td>
-                        <td>2/4</td>
-                        <td>모집</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>서울이 처음인데 같이 남산 가실분!!</td>
-                        <td>hyuno</td>
-                        <td>24/02/13</td>
-                        <td>6</td>
-                        <td>4/5</td>
-                        <td>모집</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>안녕하세요 제주도에 놀만한 곳</td>
-                        <td>sungsil</td>
-                        <td>24/02/11</td>
-                        <td>6</td>
-                        <td>4/4</td>
-                        <td>마감</td>
+                    <!-- location.href="/community/"`${this.list.id}` -->
+                    <tr v-for="list in communityList" :value="list" id="tdList">
+                        <td>{{ list.content_id }}</td>
+                        <td @click="goToCommunityDetail(list.content_id)" id="cursor">{{ list.title }}</td>
+                        <td>{{ list.login_id }}</td>
+                        <td>{{ list.deadLine }}</td>
+                        <td>{{ list.viewCount }}</td>
+                        <td>{{ list.withCount }} / {{ list.total }}</td>
+                        <td>{{ list.status }}</td>
+                        <!-- <td><a v-on:click="`/community/${list.content_id}`">{{ list.title }}</a></td> -->
                     </tr>
 
                 </tbody>
@@ -62,7 +36,7 @@
         </div>
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a href="/community/EditCommunity" id="button" class="button small rounded-3">등록</a>
+            <a href="/:mode/community/id?" class="button small rounded-3" id="button">등록</a>
         </div>
 
         <nav aria-label="Page navigation example">
@@ -106,30 +80,52 @@
 </template>
 
 <script>
+
+import data from "/src/assets/data.js";
+
 export default {
 
-    // 1. 페이지 네이션
-    data () {
-        return {
-            posts: [], // 게시글 데이터
-            currentPage: 1, // 현재 페이지 번호
-            postsPerPage: 10, // 한 페이지에 보여줄 게시글의 수
-        };
+    data() {
+    return {
+        communityList: data.communityList,
+        
+        }
     },
+    
+  methods : {
 
-    computed: {
-        displayedPosts() {
-            // 현재 페이지에 해당하는 게시글 목록을 반환하는 computed 속성
-            const startIndex = (this.currentPage -1) * this.postsPerPage;
-            const endIndex = startIndex + this.postsPerPage;
-            return this.posts.slice (startIndex, endIndex)
-        }    
-    }
-    // mode : add id 필요 x
-    // mode : update id 필요 o
-
-
+    status() {
+        if(this.communityList.with == this.communityList.total) {
+            this.communityList.status = "마감"
+        } else {
+            this.communityList.status = "모집"
+        }
+    },
+    
+    goToCommunityDetail(id) {
+        this.currentContentId = id;
+        this.$router.push({ path: `/community/${id}` })
+      },
+  }
 }
+    // // 1. 페이지 네이션
+    // data () {
+    //     return {
+    //         posts: [], // 게시글 데이터
+    //         currentPage: 1, // 현재 페이지 번호
+    //         postsPerPage: 10, // 한 페이지에 보여줄 게시글의 수
+    //     };
+    // },
+
+    // computed: {
+    //     displayedPosts() {
+    //         // 현재 페이지에 해당하는 게시글 목록을 반환하는 computed 속성
+    //         const startIndex = (this.currentPage -1) * this.postsPerPage;
+    //         const endIndex = startIndex + this.postsPerPage;
+    //         return this.posts.slice (startIndex, endIndex)
+    //     }    
+    // },
+
 </script>
 
 <style scoped>
@@ -195,6 +191,8 @@ table tbody tr {
 .select-wrapper #category {
     height: 100%;
     justify-content: right;
-    
+}
+#cursor {
+    cursor: pointer;
 }
 </style>
