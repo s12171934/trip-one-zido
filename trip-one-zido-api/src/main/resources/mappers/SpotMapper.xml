@@ -11,7 +11,8 @@
             loc_category,
             address,
             review,
-            grade
+            grade,
+            profile_id
             )
         VALUE
             (
@@ -22,7 +23,8 @@
             #{locCategory},
             #{address},
             #{review},
-            #{grade}
+            #{grade},
+            #{profile}
             )
     </insert>
 

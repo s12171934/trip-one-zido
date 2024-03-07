@@ -43,9 +43,11 @@ public class TourService {
         requestContent.setType("tour");
         requestContent.setTitle(requestTour.getTitle());
         contentMapper.addContent(requestContent);
+        //Content 테이블에 추가한 이후에 생성된 id를 가져옴
+        long generatedId = requestContent.getId();
 
         // addTour
-        requestTour.setId();
+        requestTour.setId(generatedId);
         tourMapper.addTour(requestTour);
     }
 

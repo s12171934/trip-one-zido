@@ -168,7 +168,7 @@
             end_date = #{endDate},
             loc_category = #{locCategory},
             review = #{review},
-            status = #{startDate},
+            status = #{status},
             grade = #{grade}
         WHERE
             id = #{id}
