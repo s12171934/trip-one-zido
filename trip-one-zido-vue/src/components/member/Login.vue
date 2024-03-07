@@ -1,57 +1,29 @@
 <template>
   <section class="wrapper d-flex flex-row justify-content-center">
-    <div
-      id="box"
-      class="d-flex flex-column justify-content-evenly align-items-center border"
-    >
-      <form class="border border-5">
-        <h1>로그인</h1>
-        <div class="row uniform">
-          <div class="12u$">
-            <input
-              type="text"
-              name="userid"
-              id="userid"
-              value=""
-              placeholder="아이디"
-            />
-          </div>
-          <!-- 비밀번호 -->
-          <div class="12u$">
-            <input
-              type="password"
-              name="pw"
-              id="pw"
-              value=""
-              placeholder="비밀번호"
-            />
-          </div>
+    <div id="box" class="flex-column">
+      <h1>로그인</h1>
+      <form @submit.prevent class="d-flex flex-column border border-5 gap-4">
+        
+        <input type="text" v-model="loginId" placeholder="아이디" />
+        <input type="password" v-model="password" placeholder="비밀번호" />
 
-          <div class="d-flex flex-row justify-content-cente">
-            <div class="6u$ 12u$(small)" id="idsavePosition">
-              <input type="checkbox" id="idsave" name="idsave" />
-              <label for="idsave">아이디 저장</label>
-            </div>
-            <div class="6u$ 12u$(small)" id="autologinPosition">
-              <input type="checkbox" id="autologin" name="autologin" checked />
-              <label for="autologin">자동 로그인</label>
-            </div>
-            <div class="6u$ 12u$(small)" id="idpwPosition">
-              <a href="/html-css/sign/find/find.html">아이디 / 비밀번호 찾기</a>
-            </div>
-          </div>
+        <div class="d-flex justify-content-between">
+          <input type="checkbox" id="idsave" name="idsave" />
+          <label for="idsave">아이디 저장</label>
 
-          <!-- Break -->
-          <div class="12u$" id="loginPosition">
-            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-              <a @click="login" class="button small">로그인</a>
-            </div>
-          </div>
+          <input type="checkbox" id="autologin" name="autologin" />
+          <label for="autologin">자동 로그인</label>
+
+          <a href="/find">아이디 / 비밀번호 찾기</a>
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <a @click="login" class="button small">로그인</a>
         </div>
       </form>
 
       <h1>SNS 연동하기</h1>
-      <div class="d-flex gap-2 flex-row justify-content-center mb-4">
+      <div class="d-flex gap-2 justify-content-center mb-4">
         <a href="#" id="naver-login-btn">
           <img
             src="\images\btnG_아이콘사각.png"
@@ -68,9 +40,9 @@
         </a>
       </div>
 
-      <h1>아직 회원이 아니시라면?</h1>
-      <div class="12u$" id="signinPosition">
-        <input id="input" type="submit" value="회원가입하러 가기" />
+      <h3>아직 회원이 아니시라면?</h3>
+      <div class="d-flex justify-content-center">
+        <a href="/sign-up" class="button small">회원가입</a>
       </div>
     </div>
   </section>
@@ -108,8 +80,7 @@ export default {
 
 <style scoped>
 .wrapper {
-  padding-left: 10%;
-  padding-right: 10%;
+  padding: 5%;
   background-color: #d9d9d9;
   border-radius: 50px;
   margin-inline: 20%;
@@ -117,26 +88,19 @@ export default {
   margin-bottom: 3%;
 }
 
-#header,
 h1,
-h2,
 h3,
-head,
 section {
   font-family: "Jalnan";
 }
 
-h1 {
+h1,
+h3 {
   color: #ff928e !important;
   text-align: center;
 }
 
-#button {
-  border-radius: 30px !important;
-  font-size: 17px !important;
-}
-
-#input {
+input {
   border-radius: 15px;
   font-family: "Jalnan";
   font-size: 20px;
@@ -147,35 +111,15 @@ h1 {
   background-color: white;
   border-radius: 50px;
   padding: 5%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
 }
 
 form {
   border-radius: 50px;
   padding: 5%;
-}
-
-#idsavePosition {
-  text-align: left;
-}
-
-#autuloginPosition,
-#loginPosition,
-#signinPosition {
-  text-align: center;
-}
-
-#idpwPosition {
-  text-align: right;
-  font-size: 14px;
-}
-
-#idpwPosition > a {
-  color: #ff928e;
-}
-
-#menu {
-  font-family: "Jalnan";
-  font-size: 20px;
 }
 
 .button {
@@ -184,5 +128,10 @@ form {
   background-color: #ff928e;
   border-radius: 10px;
   font-size: 15px !important;
+}
+
+a {
+  text-decoration: none;
+  color: #ff928e;
 }
 </style>

@@ -1,108 +1,32 @@
 <template>
   <section>
-    <form method="post" id="mainbox" class="d-flex flex-row">
-      <!-- 왼쪽창 -->
-      <div
-        id="box"
-        class="d-flex flex-column justify-content-evenly align-items-center"
-      >
-        <h1 class="text-center">아이디 찾기</h1>
-
-        <div
-          id="boxin"
-          class="d-flex flex-column justify-content-evenly align-items-center border border-5"
-        >
-          <div class="12u$">
-            <input
-              type="text"
-              name="name"
-              id="name"
-              v-model="loginIdName"
-              placeholder="이름"
-            />
-          </div>
-          <hr />
-          <div class="12u$">
-            <input
-              type="email"
-              name="email"
-              v-model="loginIdEmail"
-              placeholder="이메일 주소"
-            />
-          </div>
+    <div @submit.prevent id="mainbox" class="d-flex">
+      <div id="box" class="flex-column gap-5 p-5">
+        <h1>아이디 찾기</h1>
+        <div id="boxin" class="flex-column border border-5 gap-2">
+          <input type="text" v-model="loginIdName" placeholder="이름" />
+          <input
+            type="email"
+            v-model="loginIdEmail"
+            placeholder="이메일 주소"
+          />
         </div>
-        <!-- Break -->
-        <div class="12u$ p-5" id="centerPosition">
-          <ul class="actions">
-            <li>
-              <a
-                @click="loginIdModal"
-                id="input"
-                class="button small rounded-3"
-              >
-                아이디 찾기
-              </a>
-            </li>
-          </ul>
-        </div>
+        <a @click="loginIdModal" id="input" class="button small rounded-3">
+          아이디 찾기
+        </a>
       </div>
-
-      <!-- 오른쪽창 -->
-      <div
-        id="box"
-        class="d-flex flex-column justify-content-evenly align-items-center"
-      >
-        <h1 class="text-center pt-4 pb-2">비밀번호 찾기</h1>
-
-        <div
-          id="boxin"
-          class="d-flex flex-column justify-content-evenly align-items-center border border-5"
+      <div id="box" class="flex-column gap-5 p-5">
+        <h1>비밀번호 찾기</h1>
+        <div id="boxin" class="flex-column border border-5 gap-2">
+          <input type="text" v-model="pwLoginId" placeholder="아이디" />
+          <input type="text" v-model="pwName" placeholder="이름" />
+          <input type="email" v-model="pwEmail" placeholder="이메일 주소" />
+        </div>
+        <a @click="securityModal" id="input" class="button small rounded-3"
+          >비밀번호 변경하기</a
         >
-          <div class="12u$">
-            <input
-              type="text"
-              name="login_id"
-              id="login_id"
-              v-model="pwLoginId"
-              placeholder="아이디"
-            />
-          </div>
-          <hr />
-          <div class="12u$">
-            <input
-              type="text"
-              name="name"
-              id="name"
-              v-model="pwName"
-              placeholder="이름"
-            />
-          </div>
-          <hr />
-          <div class="12u$">
-            <input
-              type="email"
-              name="email"
-              v-model="pwEmail"
-              placeholder="이메일 주소"
-            />
-          </div>
-        </div>
-
-        <!-- Break -->
-        <div class="12u$ p-5" id="centerPosition">
-          <ul class="actions">
-            <li>
-              <a
-                @click="securityModal"
-                id="input"
-                class="button small rounded-3"
-                >비밀번호 변경하기</a
-              >
-            </li>
-          </ul>
-        </div>
       </div>
-    </form>
+    </div>
   </section>
 
   <AlertModal
@@ -173,14 +97,14 @@ export default {
       }
       this.$emit("modal");
     },
-    securityFail(){
+    securityFail() {
       this.security = false;
       this.modalData = {
         url: "/find",
-          message: "올바르지 않는 보안질문 입니다",
-          buttonMessage: "재시도",
-      }
-    }
+        message: "올바르지 않는 보안질문 입니다",
+        buttonMessage: "재시도",
+      };
+    },
   },
 };
 </script>
@@ -190,19 +114,28 @@ export default {
   border-radius: 50px;
   background-color: #d9d9d9;
   margin: 5%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 #box {
   border-radius: 40px;
   background-color: white;
   margin: 5%;
   width: 50% !important;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 #boxin {
   border-radius: 30px;
   padding: 4%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
-#input {
-  background-color: #ff928e;
+input,
+a {
   font-family: "Jalnan";
   font-size: 20px;
 }
@@ -212,33 +145,9 @@ export default {
   font-size: 17px;
 }
 
-#leftPosition {
-  text-align: left;
-}
-
-#centerPosition {
-  text-align: center;
-}
-
-#header,
-section,
-h1,
-h3 {
-  font-family: "Jalnan";
-}
-
-#menu {
-  font-size: 20px;
-}
-
-#footer {
-  font-size: 10px;
-}
-
 h1 {
+  font-family: "Jalnan";
   color: #ff928e !important;
-}
-select {
-  color: #bcbcbc;
+  text-align: center;
 }
 </style>

@@ -34,5 +34,11 @@ export default {
   selectCategories: [
     "음식점",
     "관광지",
+  ],
+  sortMenu: [
+    "조회순",
+    "최신순",
+    "가나다순",
+    "사용자 정의순",
   ]
 };

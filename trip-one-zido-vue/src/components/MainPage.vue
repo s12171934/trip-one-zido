@@ -7,7 +7,7 @@
     <form action="/html-css/search/search.html">
       <div class="searchbar-wrap">
         <!-- <input class="search-input" type="text"/> -->
-        <i class="fas fa-search"></i>
+        <i class="icon fa-search"></i>
         <input
           name="q"
           type="text"
@@ -21,7 +21,7 @@
     </form>
 
     <div class="buttons">
-      <a href="/memberPage" class="button" id="buttons"
+      <a href="/member-page" class="button" id="buttons"
         >마이페이지</a
       >
       <a

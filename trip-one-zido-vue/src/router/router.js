@@ -84,7 +84,7 @@ const routes = [
     component: RecentView
   },
   {
-    path: "/reset-pw",
+    path: "/reset-pw/:id?",
     component: ResetPassword
   },
   {
@@ -97,7 +97,7 @@ const routes = [
   },
   //plan
   {
-    path: "/plan/:mode/:id?",
+    path: "/:mode/plan/:id?",
     component: EditPlan
   },
   {
@@ -115,7 +115,7 @@ const routes = [
   },
   //spot
   {
-    path: "/spot/:mode/:id?",
+    path: "/:mode/spot/:id?",
     component: EditSpot
   },
   {
