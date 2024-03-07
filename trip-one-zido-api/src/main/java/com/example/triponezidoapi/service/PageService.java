@@ -18,16 +18,18 @@ public class PageService {
     MemberMapper memberMapper;
     @Autowired
     BookmarkMapper bookmarkMapper;
+    @Autowired
+    ContentMapper contentMapper;
 
     public ResponseMemberPage getMemberPage(Long id, Long sessionId){
         //id가 null일때 세션정보를 이용한다
         if(id == null){
             id = sessionId;
         }
-
         ResponseMemberPage memberPage = new ResponseMemberPage();
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(id);
+        requestSessionTarget.setMyMemberId(sessionId);
+        requestSessionTarget.setTargetId(id);
 
         //planLists
         memberPage.setPlanLists(planMapper.getPlanList(requestSessionTarget));
@@ -48,14 +50,19 @@ public class PageService {
         memberPage.setFollowingCount(memberMapper.followingCount(id));
 
         // memberPage.setMine();
+        //RequestContentMember requestContentMember = new RequestContentMember();
+        //requestContentMember.setMemberId(id);
+        //contentId 가져오지 못한다
+        //requestContentMember.setContentId();
+        //memberPage.setMine(contentMapper.isMine(requestContentMember));
         return memberPage;
     }
 
-    public List<ResponseContentList> getPlanListByPage(Long id, long page){
+    public List<ResponseContentList> getPlanListByPage(Long id,long page){
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(id);
+        requestSessionTarget.setTargetId(id);
         requestSessionTarget.setPage(page);
-        // contentid?
 
         return planMapper.getPlanList(requestSessionTarget);
     }
@@ -63,13 +70,18 @@ public class PageService {
     public List<ResponseContentList> getSpotListByPage(Long id, long page) {
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(id);
+        requestSessionTarget.setTargetId(id);
         requestSessionTarget.setPage(page);
-        // contentid?
 
         return spotMapper.getSpotList(requestSessionTarget);
     }
 
-    public List<ResponseMember> getFollowingList(Long id, long page){
+    public List<ResponseMember> getFollowingList(Long id, Long sessionId, long page){
+        //id가 null일때 세션정보를 이용한다
+        if(id == null){
+            id = sessionId;
+        }
+
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(id);
         requestSessionTarget.setPage(page);
@@ -77,7 +89,12 @@ public class PageService {
         return memberMapper.followingList(requestSessionTarget);
     }
 
-    public List<ResponseMember> getFollowerList(Long id, long page){
+    public List<ResponseMember> getFollowerList(Long id, Long sessionId, long page){
+        //id가 null일때 세션정보를 이용한다
+        if(id == null){
+            id = sessionId;
+        }
+
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(id);
         requestSessionTarget.setPage(page);
