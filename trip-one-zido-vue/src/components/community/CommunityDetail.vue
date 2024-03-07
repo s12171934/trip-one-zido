@@ -7,13 +7,15 @@
 		<span class="button small rounded-3" id="mouseHover">모집중</span>
 		<a href="/community" class="button alt small rounded-3">목록</a>
 		<!-- 현재 id-1 : 이전글 / 현재 id+1 : 다음글   -->
-		<a href="/html-css/community/detail/detail.html" id="button2" class="button small rounded-3">이전글</a>
-		<a href="/html-css/community/detail/detailEnd.html" id="button2" class="button small rounded-3">다음글</a>
+		<!-- <a href="/html-css/community/detail/detail.html" id="button2" class="button small rounded-3">이전글</a> -->
+		<a @click="goToPreviousPost" class="button small rounded-3">이전글</a>
+		<a @click="goToNextPost" class="button small rounded-3">다음글</a>
 	</div>
 	<br>
 	<form method="get" action="#">
 	<!-- 테이블 -->
 	<table id="table" class="border" 
+	
 		v-for="detail in communityDetail" :key="detail.content_id">
 
 		<tr>
@@ -130,36 +132,65 @@
 import data from "/src/assets/data.js";
 
 export default {
-
 	data() {
-    return {
-        communityDetail: data.communityDetail
-        }
+        return {
+            communityDetail: [],
+        };
     },
 
-	methods: {
-	checkContentId() {
-		// // 현재 경로의 파라미터에서 content_id 가져오기
-		// const currentContentId = this.$route.params.id;
+    created() {
+        this.fetchCommunityDetail();
+    },
 
-		// // 클릭한 게시글의 content_id
-		// const clickedContentId = /* 여기에 클릭한 게시글의 content_id 가져오는 코드 작성 */;
+    methods: {
+        fetchCommunityDetail() {
+            // 라우트 매개변수에서 content_id를 가져옵니다.
+            const currentContentId = this.$route.params.id;
 
-		// // 현재 경로의 content_id와 클릭한 게시글의 content_id 비교
-		// if (currentContentId === clickedContentId) {
-		// // content_id가 일치하는 경우 해당 게시글을 반환하거나, 원하는 작업을 수행
-		// const selectedPost = this.communityDetail.find(
-		// 	(post) => post.content_id == currentContentId
-		// );
+            // 지정된 content_id에 대한 데이터만 필터링합니다.
+            const selectedPost = data.communityDetail.find(
+                (post) => post.content_id == currentContentId
+            );
 
-		// // 반환된 게시글을 활용하거나, 필요한 작업을 수행
-		// console.log(selectedPost);
-		// } else {
-		// // content_id가 일치하지 않는 경우에 대한 처리
-		// console.log("Content IDs do not match.");
-		// }
-		},
-	},
+            // communityDetail 배열을 선택된 게시물 데이터로 업데이트합니다.
+            if (selectedPost) {
+                this.communityDetail = [selectedPost];
+            } else {
+                // 지정된 content_id에 대한 게시물이 없는 경우 처리
+                console.error("content_id에 해당하는 게시물을 찾을 수 없습니다:", currentContentId);
+            }
+        },
+
+		goToPreviousPost() {
+            const currentContentId = this.$route.params.id;
+            const currentIndex = data.communityDetail.findIndex(
+                (post) => post.content_id == currentContentId
+            );
+
+            if (currentIndex > 0) {
+                const previousPostId = data.communityDetail[currentIndex - 1].content_id;
+                this.$router.push(`/community/${previousPostId}`);
+            } else {
+                console.log("이전 글이 없습니다.");
+                // 이전 글이 없을 경우에 대한 처리 추가
+            }
+        },
+
+		goToNextPost() {
+            const currentContentId = this.$route.params.id;
+            const currentIndex = data.communityDetail.findIndex(
+                (post) => post.content_id == currentContentId
+            );
+
+            if (currentIndex < data.communityDetail.length - 1) {
+                const nextPostId = data.communityDetail[currentIndex + 1].content_id;
+                this.$router.push(`/community/${nextPostId}`);
+            } else {
+                console.log("다음 글이 없습니다.");
+                // 다음 글이 없을 경우에 대한 처리 추가
+            }
+        },
+    },
 };
 </script>
 
