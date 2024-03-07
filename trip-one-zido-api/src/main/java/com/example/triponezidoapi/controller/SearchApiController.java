@@ -30,9 +30,13 @@ public class SearchApiController {
     @GetMapping("/detail")
     @Operation(summary = "상세 검색")
     public ResponseSearch searchDetail(
+            @SessionAttribute(name="id")
+            @Parameter(description = "로그인 회원 번호")
+            Long sessionId,
+
             @RequestBody
             @Parameter(description = "상세 검색 조건")
             RequestDetailSearch detailSearch){
-        return searchService.searchByDetail(detailSearch);
+        return searchService.searchByDetail(sessionId,detailSearch);
     }
 }
