@@ -86,8 +86,16 @@ public class PageService {
         requestSessionTarget.setMyMemberId(id);
         requestSessionTarget.setPage(page);
 
-        // idFollow 응답해주기
-        return memberMapper.followingList(requestSessionTarget);
+        List<ResponseMember> followingList = memberMapper.followingList(requestSessionTarget);
+        // 팔로잉 여부 확인
+        for (int i = 0; i < followingList.size(); i++) {
+            RequestFollow requestFollow = new RequestFollow();
+            requestFollow.setFollower(sessionId);
+            requestFollow.setFollowing(followingList.get(i).getId());
+            followingList.get(i).setFollow(memberMapper.isFollow(requestFollow));
+        }
+
+        return followingList;
     }
 
     public List<ResponseMember> getFollowerList(Long id, Long sessionId, long page){
@@ -100,8 +108,16 @@ public class PageService {
         requestSessionTarget.setMyMemberId(id);
         requestSessionTarget.setPage(page);
 
-        // isFollow 응답해주기
-        return memberMapper.followerList(requestSessionTarget);
+        List<ResponseMember> followerList = memberMapper.followerList(requestSessionTarget);
+        // 팔로잉 여부 확인
+        for (int i = 0; i < followerList.size(); i++) {
+            RequestFollow requestFollow = new RequestFollow();
+            requestFollow.setFollower(sessionId);
+            requestFollow.setFollowing(followerList.get(i).getId());
+            followerList.get(i).setFollow(memberMapper.isFollow(requestFollow));
+        }
+
+        return followerList;
     }
 
     public void follow(Long id, Long sessionId){
