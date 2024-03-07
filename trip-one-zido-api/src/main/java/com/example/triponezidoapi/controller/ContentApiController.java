@@ -47,10 +47,25 @@ public class ContentApiController {
     }
 
     // getMapping /good/{id}
-    @PostMapping("/good/{id}")
+    @GetMapping("/good/{id}")
     @Tag(name = "Good", description = "Good API")
+    @Operation(summary = "좋아요 여부 조회")
+    public Boolean getGood(
+            @PathVariable
+            @Parameter(description = "좋아요 게시물 번호")
+            Long id,
+
+            @SessionAttribute(name = "id")
+            @Parameter(description = "로그인 회원 정보")
+            Long sessionId
+    ){
+        return contentService.isGood(id, sessionId);
+    }
+
+    @PostMapping("/good/{id}")
+    @Tag(name = "Good")
     @Operation(summary = "좋아요 등록/수정/취소")
-    public void postLike(
+    public void postGood(
             @PathVariable
             @Parameter(description = "좋아요 게시물 번호")
             Long id,
