@@ -14,9 +14,9 @@
             #{isPublic},
             #{title}
             )
-        <selectKey keyProperty="id" resultType="long">
-            SELECT LAST_INSERT_ID();
-        </selectKey>
+<!--        <selectKey keyProperty="id" resultType="long">-->
+<!--            SELECT LAST_INSERT_ID();-->
+<!--        </selectKey>-->
     </insert>
 
     <insert id="addGood" parameterType="com.example.triponezidoapi.dto.request.RequestGood">

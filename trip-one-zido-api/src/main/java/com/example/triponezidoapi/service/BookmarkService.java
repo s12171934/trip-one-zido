@@ -14,26 +14,40 @@ public class BookmarkService {
 
     public ResponseBookmark getAllBookmark(Long id, Long sessionId){
         //id가 null일때 세션정보를 이용한다
+        if(id == null){
+            id = sessionId;
+        }
         ResponseBookmark responseBookmark = new ResponseBookmark();
-
         responseBookmark.setTourBookmarkCount(bookmarkMapper.tourBookmarkCount(id));
         responseBookmark.setPlanSpotBookMarkCount(bookmarkMapper.planSpotBookmarkCount(id));
-        responseBookmark.setTourList(getTourBookmark(id,0));
-        responseBookmark.setContentList(getPlanSpotBookmark(id,0));
+        responseBookmark.setTourList(getTourBookmark(id,sessionId,0));
+        responseBookmark.setContentList(getPlanSpotBookmark(id,sessionId,0));
         
         return responseBookmark;
     }
-    public List<ResponseContentList> getPlanSpotBookmark(Long id, long page){
+    public List<ResponseContentList> getPlanSpotBookmark(Long id, Long sessionId, long page){
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(id);
-        requestSessionTarget.setPage(page);
+        requestSessionTarget.setMyMemberId(sessionId);
+        requestSessionTarget.setTargetId(id);
+        //페이지 카운트 처리
+        if(page == 0){
+            requestSessionTarget.setPage(0);
+        } else {
+            requestSessionTarget.setPage(page * 6);
+        }
         List<ResponseContentList> responseContentLists = bookmarkMapper.getPlanSpotBookmark(requestSessionTarget);
         return responseContentLists;
     }
-    public List<ResponseTour> getTourBookmark(Long id, long page){
+    public List<ResponseTour> getTourBookmark(Long id, Long sessionId, long page){
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(id);
-        requestSessionTarget.setPage(page);
+        requestSessionTarget.setMyMemberId(sessionId);
+        requestSessionTarget.setTargetId(id);
+        //페이지 카운트 처리
+        if(page == 0){
+            requestSessionTarget.setPage(0);
+        } else {
+            requestSessionTarget.setPage(page * 6);
+        }
         List<ResponseTour> responseTours = bookmarkMapper.getTourBookmark(requestSessionTarget);
         return responseTours;
     }
