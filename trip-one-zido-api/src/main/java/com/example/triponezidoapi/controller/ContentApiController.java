@@ -27,7 +27,7 @@ public class ContentApiController {
             @Parameter(description = "고정 게시물 번호")
             Long id,
 
-            @SessionAttribute(name = "id")
+//            @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 번호")
             Long sessionId
     ){
