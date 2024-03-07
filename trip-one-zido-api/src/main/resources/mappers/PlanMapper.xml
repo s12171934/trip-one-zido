@@ -79,8 +79,8 @@
         SELECT
             s.id,
             c.title,
-            s.start_time,
-            s.end_time
+            s.start_date,
+            s.end_date
         FROM
             spot s,
             content c

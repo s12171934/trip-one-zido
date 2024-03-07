@@ -39,17 +39,17 @@
                 bookmark
             WHERE
                 content_id = c.id AND
-                member_id = #{memberId}
+                member_id = #{myMemberId}
             ) my_bookmark
         FROM
             tour t,
             content c
         WHERE
             t.id = c.id AND
-            t.id = #{contentId}
+            t.id = #{targetId}
     </select>
 
-    <select id="getTourList" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.request.RequestTour">
+    <select id="getTourList" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseTour">
         SELECT
             id,
             title,

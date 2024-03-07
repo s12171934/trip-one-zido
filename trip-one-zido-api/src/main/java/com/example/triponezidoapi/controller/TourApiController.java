@@ -17,13 +17,13 @@ public class TourApiController {
     @Autowired
     TourService tourService;
 
-    @GetMapping("/")
+    @GetMapping("/list/{page}")
     @Operation(summary = "관광지 목록 조회")
-    public List<RequestTour> showTourAll(
+    public List<ResponseTour> showTourAll(
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 정보")
             Long sessionId,
-            @PathVariable
+            @PathVariable("page")
             @Parameter(description = "페이지 번호")
             long page
     ){
@@ -32,7 +32,7 @@ public class TourApiController {
     @GetMapping("/{id}")
     @Operation(summary = "관광지 상세 조회")
     public ResponseTour showTourDetail(
-            @SessionAttribute(name="id")
+//            @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 정보")
             Long sessionId,
             @PathVariable

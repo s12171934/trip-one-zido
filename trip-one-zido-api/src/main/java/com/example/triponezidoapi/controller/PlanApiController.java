@@ -24,7 +24,7 @@ public class PlanApiController {
             @Parameter(description = "일정 게시물 번호")
             Long id,
 
-            @SessionAttribute(name = "id")
+//            @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 정보")
             Long sessionId
     ){

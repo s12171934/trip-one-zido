@@ -15,7 +15,7 @@ public class PlanService {
     @Autowired
     CommentMapper commentMapper;
 
-    public ResponsePlanDetail getPlan(long id, long sessionId) {
+    public ResponsePlanDetail getPlan(Long id, long sessionId) {
         ResponsePlanDetail responsePlanDetail = new ResponsePlanDetail();
 
         // getPlan
