@@ -18,7 +18,8 @@ public class SpotService {
     CommentMapper commentMapper;
 
     public ResponseSpotDetail spotDetail(Long id, Long sessionId){
-        //spotDetail 기본
+        //spotDetail 기본 (getSpot)
+
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setTargetId(id);
         requestSessionTarget.setMyMemberId(sessionId);
@@ -52,11 +53,13 @@ public class SpotService {
 
         //addPhoto
         List<byte[]> photos = requestSpot.getPhotos();
-        RequestPhoto requestPhoto = new RequestPhoto();
-        for (byte[] photo : photos) {
-            requestPhoto.setPhoto(photo);
-            spotMapper.addPhoto(requestPhoto);
-        }
+         if (photos != null && !photos.isEmpty()) {
+             RequestPhoto requestPhoto = new RequestPhoto();
+             for (byte[] photo : photos) {
+                 requestPhoto.setPhoto(photo);
+                 spotMapper.addPhoto(requestPhoto);
+             }
+         }
 
         //addOwner 아래 for문 수정 가능성 높음
         RequestOwner requestOwner = new RequestOwner();
@@ -93,12 +96,14 @@ public class SpotService {
         RequestOwner requestOwner = new RequestOwner();
 
         List<ResponseMember> addmembers =contentMapper.getOwner(id);
-        for (ResponseMember memberId : addmembers) {
-            requestOwner.setOwn(memberId.getOwn());
-            requestOwner.setMemberId(Long.parseLong(memberId.getLoginId()));
-            requestOwner.setContentId(id);
-            contentMapper.addOwner(requestOwner);
-        }
+         if (addmembers != null && !addmembers.isEmpty()) {
+             for (ResponseMember memberId : addmembers) {
+                 requestOwner.setOwn(memberId.getOwn());
+                 requestOwner.setMemberId(Long.parseLong(memberId.getLoginId()));
+                 requestOwner.setContentId(id);
+                 contentMapper.addOwner(requestOwner);
+             }
+         }
     }
 
     public void deleteSpot(Long id){
