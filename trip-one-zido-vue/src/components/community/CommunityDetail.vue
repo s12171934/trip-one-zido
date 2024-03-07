@@ -7,54 +7,58 @@
 		<span class="button small rounded-3" id="mouseHover">모집중</span>
 		<a href="/community" class="button alt small rounded-3">목록</a>
 		<!-- 현재 id-1 : 이전글 / 현재 id+1 : 다음글   -->
-		<a href="/html-css/community/detail/detail.html" id="button2" class="button small rounded-3">이전글</a>
-		<a href="/html-css/community/detail/detailEnd.html" id="button2" class="button small rounded-3">다음글</a>
+		<!-- <a href="/html-css/community/detail/detail.html" id="button2" class="button small rounded-3">이전글</a> -->
+		<a @click="goToPreviousPost" class="button small rounded-3">이전글</a>
+		<a @click="goToNextPost" class="button small rounded-3">다음글</a>
 	</div>
 	<br>
-	<form method="post" action="#">
+	<form method="get" action="#">
 	<!-- 테이블 -->
-	<table id="table" class="border">
-	<tr>
-		<td id="tdTitle"> 제목 : </td>
-		<td id="black">부산 가실분?</td>
-		<td id="tdTitle" class="border-start"> 작성자 : </td>
-		<td id="black">윤지수</td>
-	</tr>
-		
-	<tr>
-		<td> 지역 : </td>
-		<td><option value="1" id="black">부산광역시</option></td>
-		<td class="border-start"> 모집 인원 : </td>
-		<td id="black">3/4 명</td>
-	</tr>
+	<table id="table" class="border" 
+	
+		v-for="detail in communityDetail" :key="detail.content_id">
 
-	<tr>
-		<td> 참여 인원 : </td>
-		<td colspan="3" id="black">윤지수 , 문성기 , 한희주 </td>
-	</tr>
+		<tr>
+			<td id="tdTitle"> 제목 : </td>
+			<td id="black">{{ detail.title }}</td>
+			<td id="tdTitle" class="border-start"> 작성자 : </td>
+			<td id="black">{{ detail.login_id }}</td>
+		</tr>
+			
+		<tr>
+			<td> 지역 : </td>
+			<td><option value="1" id="black">{{ detail.local }}</option></td>
+			<td class="border-start"> 모집 인원 : </td>
+			<td id="black">{{ detail.withCount }}/{{ detail.total }} 명</td>
+		</tr>
 
-	<tr>
-		<td>일정 : </td>
-		<td id="black">2024-02-07 ~ 2020-02-14</td>
-		<td class="border-start">모집 마감일 : </td>
-		<td id="black">2024-02-05</td>
-	</tr>
+		<tr>
+			<td> 참여 인원 : </td>
+			<td colspan="3" id="black"> {{ detail.with1 }} {{ detail.with2 }} {{ detail.with3 }} </td>
+		</tr>
 
-	<tr>
-		<td>작성일 : </td>
-		<td id="black">2024-02-01</td>
-		<td class="border-start">조회수 : </td>
-		<td id="black">5</td>
-	</tr>
+		<tr>
+			<td>일정 : </td>
+			<td id="black">{{ detail.start_date }} ~ {{ detail.end_date }}</td>
+			<td class="border-start">모집 마감일 : </td>
+			<td id="black">{{ detail.deadLine }}</td>
+		</tr>
 
-	<tr>						
-		<td>내용</td>
-		<td colspan="3">
-			<textarea class="form-control" id="content"> 부산여행 갑시다! </textarea>
-		</td>
-	</tr> 
+		<tr>
+			<td>작성일 : </td>
+			<td id="black">{{ detail.created_at }}</td>
+			<td class="border-start">조회수 : </td>
+			<td id="black">{{ detail.viewCount }}</td>
+		</tr>
 
+		<tr>						
+			<td>내용</td>
+			<td colspan="3">
+				<textarea class="form-control" rows="5" cols="50" id="content" readonly> {{ detail.content }} </textarea>
+			</td>
+		</tr> 
 	</table>
+
 	<div class="d-grid gap-2 d-md-flex justify-content-md-center">   
 		<a href="/html-css/community/board/community.html" id="button" class="button small rounded-3">참여 / 참여 취소</a>
 	</div>
@@ -124,9 +128,70 @@
 </template>
 
 <script>
-export default {
 
-}
+import data from "/src/assets/data.js";
+
+export default {
+	data() {
+        return {
+            communityDetail: [],
+        };
+    },
+
+    created() {
+        this.fetchCommunityDetail();
+    },
+
+    methods: {
+        fetchCommunityDetail() {
+            // 라우트 매개변수에서 content_id를 가져옵니다.
+            const currentContentId = this.$route.params.id;
+
+            // 지정된 content_id에 대한 데이터만 필터링합니다.
+            const selectedPost = data.communityDetail.find(
+                (post) => post.content_id == currentContentId
+            );
+
+            // communityDetail 배열을 선택된 게시물 데이터로 업데이트합니다.
+            if (selectedPost) {
+                this.communityDetail = [selectedPost];
+            } else {
+                // 지정된 content_id에 대한 게시물이 없는 경우 처리
+                console.error("content_id에 해당하는 게시물을 찾을 수 없습니다:", currentContentId);
+            }
+        },
+
+		goToPreviousPost() {
+            const currentContentId = this.$route.params.id;
+            const currentIndex = data.communityDetail.findIndex(
+                (post) => post.content_id == currentContentId
+            );
+
+            if (currentIndex > 0) {
+                const previousPostId = data.communityDetail[currentIndex - 1].content_id;
+                this.$router.push(`/community/${previousPostId}`);
+            } else {
+                console.log("이전 글이 없습니다.");
+                // 이전 글이 없을 경우에 대한 처리 추가
+            }
+        },
+
+		goToNextPost() {
+            const currentContentId = this.$route.params.id;
+            const currentIndex = data.communityDetail.findIndex(
+                (post) => post.content_id == currentContentId
+            );
+
+            if (currentIndex < data.communityDetail.length - 1) {
+                const nextPostId = data.communityDetail[currentIndex + 1].content_id;
+                this.$router.push(`/community/${nextPostId}`);
+            } else {
+                console.log("다음 글이 없습니다.");
+                // 다음 글이 없을 경우에 대한 처리 추가
+            }
+        },
+    },
+};
 </script>
 
 <style scoped>
@@ -192,4 +257,7 @@ thead {
 table tbody tr {
     background-color: white !important;
 } 
+#content{
+        resize: none;
+}
 </style>

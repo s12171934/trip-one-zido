@@ -324,4 +324,9 @@ ul,li {
   background-color: #ff928e !important;
   border-radius: 10px !important;
 }
+
+#commentProfilePic {
+    width: 75px;
+    height: 75px;
+}
 </style>

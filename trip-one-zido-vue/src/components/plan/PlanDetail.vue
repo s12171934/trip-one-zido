@@ -11,7 +11,7 @@
                 </div>
                         <button class="btn btn-outline flex-shrink-0" type="button">
                             <i class="bi-cart-fill me-1"></i>
-                            <img id="icon" src="/unzzim.png" onclick="zzim()">
+                            <img id="icon" src="/images/unzzim.png" onclick="zzim()">
                         </button>
                         <button class="btn btn-outline flex-shrink-0" type="button">
                             <i class="bi-cart-fill me-1"></i>
@@ -134,7 +134,7 @@
                                     </div>
                                     <!-- Child comment 2-->
                                     <div class="d-flex mt-4">
-                                        <div class="flex-shrink-0"><img class="rounded-circle" src="images/여자.png" alt="..." id="commentProfilePic"/></div>
+                                        <div class="flex-shrink-0"><img class="rounded-circle" src="/images/여자.png" alt="..." id="commentProfilePic"/></div>
                                         <div class="ms-3">
                                             <div class="fw-bold">대댓글 단사람2</div>
                                             거기도 맛있고~ 부산집도 맛있어요
@@ -144,7 +144,7 @@
                             </div>
                             <!-- Single comment-->
                             <div class="d-flex mb-4">
-                                <div class="flex-shrink-0"><img class="rounded-circle" src="images/조세호.png" alt="..." id="commentProfilePic"/></div>
+                                <div class="flex-shrink-0"><img class="rounded-circle" src="/images/조세호.png" alt="..." id="commentProfilePic"/></div>
                                 <div class="ms-3">
                                     <div class="fw-bold">조세호</div>
                                     ㅎㅎ
@@ -350,5 +350,10 @@ text-decoration:none
 
 #commentUpdate,#commentDelete {
 color:darkgray; text-decoration:none
+}
+
+#commentProfilePic {
+    width: 75px;
+    height: 75px;
 }
 </style>
