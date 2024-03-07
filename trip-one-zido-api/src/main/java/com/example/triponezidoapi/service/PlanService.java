@@ -97,7 +97,7 @@ public class PlanService {
         //addOwner
         for (int i = 0; i < requestPlan.getMembers().size(); i++) {
             RequestOwner requestOwner = new RequestOwner();
-            requestOwner.setOwn("participants");
+            requestOwner.setOwn("with");
             requestOwner.setContentId(id);
             requestOwner.setMemberId(requestPlan.getMembers().get(i));
             contentMapper.addOwner(requestOwner);

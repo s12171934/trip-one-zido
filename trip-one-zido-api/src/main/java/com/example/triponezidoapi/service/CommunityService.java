@@ -75,7 +75,7 @@ public class CommunityService {
 
     public void addOwner(Long id, Long sessionId){
         RequestOwner requestOwner = new RequestOwner();
-        requestOwner.setOwn("participants");
+        requestOwner.setOwn("with");
         requestOwner.setContentId(id);
         requestOwner.setMemberId(sessionId);
         contentMapper.addOwner(requestOwner);
