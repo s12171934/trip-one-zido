@@ -64,12 +64,23 @@ public class MemberService {
        return false;
     }
 
-    public void updatePw(Long id, RequestNewPassword requestNewPassword){
-        // requestNewPassword 에서 비밀번호 제약조건 확인 후 requestPassword에 넣어서 전송
-        RequestPassword requestPassword = new RequestPassword();
-        requestPassword.setId(id);
-        requestPassword.setPassword(requestNewPassword.getNowPassword());
-        memberMapper.updatePassword(requestPassword);
+    public boolean updatePw(Long id, RequestNewPassword requestNewPassword){
+        // requestNewPassword의 changePassword, changePasswordCheck를 체크
+        String changePassword = requestNewPassword.getChangePassword();
+        String chkPassword = requestNewPassword.getChangePasswordCheck();
+
+        //새로운 비밀번호와 새로운 비밀번호 확인이 불일치 하는 경우
+        if(!changePassword.equals(chkPassword)){
+            return false;
+        } else {
+            // 새로운 비밀번호와 새로운 비밀번호 확인이 일치하는 경우
+            // requestNewPassword 에서 비밀번호 제약조건 확인 후 requestPassword에 넣어서 전송
+            RequestPassword requestPassword = new RequestPassword();
+            requestPassword.setId(id);
+            requestPassword.setPassword(requestNewPassword.getChangePassword());
+            memberMapper.updatePassword(requestPassword);
+            return true;
+        }
     }
 
     public Member getMember(Long id){
