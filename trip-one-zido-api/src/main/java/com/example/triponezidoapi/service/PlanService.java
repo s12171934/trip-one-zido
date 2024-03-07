@@ -5,7 +5,6 @@ import com.example.triponezidoapi.dto.response.*;
 import com.example.triponezidoapi.mappers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service
 public class PlanService {
@@ -47,6 +46,7 @@ public class PlanService {
         // addContent
         RequestContent requestContent = new RequestContent();
         requestContent.setType("plan");
+        requestContent.setPublic(requestPlan.isPublic());
         requestContent.setTitle(requestPlan.getTitle());
         contentMapper.addContent(requestContent);
 
