@@ -40,5 +40,39 @@ export default {
     "최신순",
     "가나다순",
     "사용자 정의순",
-  ]
+  ],
+  tourCount: 20,
+  spotPlanCount: 14,
+  tourList: [
+    {
+      id: 1,
+      imgSrc: "/images/busan2.jpg",
+      title: "더미",
+      bookmarkCount: 3000,
+      myBookmark: true,
+      type: "tour",
+    },
+  ],
+  spotPlanList: [
+    {
+      id: 1,
+      imgSrc: "/images/busan2.jpg",
+      title: "더미",
+      bookmarkCount: 3000,
+      grade: 10,
+      like: 300,
+      myBookmark: true,
+      type: "plan",
+    },
+    {
+      id: 1,
+      imgSrc: "/images/busan2.jpg",
+      title: "더미",
+      bookmarkCount: 3000,
+      grade: 10,
+      like: 300,
+      myBookmark: true,
+      type: "spot",
+    },
+  ],
 };

@@ -1,6 +1,6 @@
 <template>
-  <Header :url="url" />
-  <router-view :modalShown="modalShown" @modal="modal" />
+  <Header :main="main" :isLogin="isLogin" />
+  <router-view :modalShown="modalShown" @modal="modal" @meta="meta" />
   <Footer />
   <div id="modal-back" v-if="modalShown"></div>
 </template>
@@ -17,14 +17,18 @@ export default {
 
   data() {
     return {
-      url: window.location.pathname === "/" ? true : false,
+      main: window.location.pathname === "/" ? true : false,
       modalShown: false,
+      isLogin: false
     };
   },
   methods: {
     modal() {
       this.modalShown = !this.modalShown;
     },
+    meta(isLogin){
+      this.isLogin = isLogin;
+    }
   },
 };
 </script>

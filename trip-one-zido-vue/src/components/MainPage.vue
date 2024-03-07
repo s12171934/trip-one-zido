@@ -39,7 +39,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+  mounted(){
+    this.$emit("meta",this.$route.matched[0].meta.isLogin);
+  }
+};
 </script>
 
 <style scoped>

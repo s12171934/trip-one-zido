@@ -1,15 +1,15 @@
 <template>
-  <header id="header" :style="url ? 'box-shadow: none' : ''">
-    <nav v-if="isLogin(url)" class="left">
+  <header id="header" :style="main ? 'box-shadow: none' : ''">
+    <nav v-if="isLogin" class="left">
       <a href="#menu" @click="toggleMenu"><span>Menu</span></a>
     </nav>
 
-    <div v-if="!url" class="h-100">
+    <div v-if="!main" class="h-100">
       <a href="/">
         <img src="/images/여행한지도_로고.png" class="logo" width="325" />
       </a>
 
-      <nav v-if="isLogin(url)" class="right d-flex gap-2 align-items-center">
+      <nav v-if="isLogin" class="right d-flex gap-2 align-items-center">
         <form action="/html-css/search/search.html" class="m-0">
           <input type="text" id="headerSearchBar" required />
         </form>
@@ -53,7 +53,8 @@
 <script>
 export default {
   props: {
-    url: Boolean,
+    main: Boolean,
+    isLogin: Boolean,
   },
   data() {
     return {
@@ -62,13 +63,6 @@ export default {
     };
   },
   methods: {
-    isLogin(url) {
-      if (url === url) {
-        return true;
-      } else {
-        return false;
-      }
-    },
     toggleMenu() {
       this.menu = !this.menu;
     },

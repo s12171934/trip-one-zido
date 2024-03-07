@@ -33,7 +33,7 @@
 <script>
 export default {
   mounted(){
-    console.log(this.$route.params.id)
+    this.$emit("meta",this.$route.matched[0].meta.isLogin);
   }
 };
 </script>

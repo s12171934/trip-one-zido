@@ -129,6 +129,7 @@ export default {
   },
   mounted() {
     this.getUserData();
+    this.$emit("meta",this.$route.matched[0].meta.isLogin);
   },
 };
 </script>

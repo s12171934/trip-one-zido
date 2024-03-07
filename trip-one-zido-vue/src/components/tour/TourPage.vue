@@ -27,6 +27,9 @@ export default {
       loc: "서울특별시",
     };
   },
+  mounted(){
+    this.$emit("meta",this.$route.matched[0].meta.isLogin);
+  }
 };
 </script>
 

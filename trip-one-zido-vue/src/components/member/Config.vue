@@ -99,6 +99,9 @@ export default {
       this.$router.push("/bookmark");
     },
   },
+  mounted() {
+    this.$emit("meta", this.$route.matched[0].meta.isLogin);
+  },
 };
 </script>
 

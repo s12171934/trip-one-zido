@@ -63,18 +63,27 @@ export default {
   components: {
     AlertModal,
   },
+  data(){
+    return{
+      loginId: ""
+    }
+  },
   props: {
     modalShown: Boolean,
   },
   methods: {
     login() {
-      if (false) {
+      if (this.loginId == "test") {
+        this.$cookies.set("login",1);
         this.$router.push("/");
       } else {
         this.$emit("modal");
       }
     },
   },
+  mounted(){
+    this.$emit("meta",this.$route.matched[0].meta.isLogin);
+  }
 };
 </script>
 

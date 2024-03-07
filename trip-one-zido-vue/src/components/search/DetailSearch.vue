@@ -85,6 +85,9 @@ export default {
       selectLocations: data.selectLocations,
     };
   },
+  mounted() {
+    this.$emit("meta", this.$route.matched[0].meta.isLogin);
+  },
 };
 </script>
 

@@ -49,6 +49,9 @@ export default {
     ContentList,
     MemberList,
   },
+  mounted() {
+    this.$emit("meta", this.$route.matched[0].meta.isLogin);
+  },
 };
 </script>
 
@@ -76,5 +79,4 @@ span {
   margin-left: 5%;
   margin-right: 5%;
 }
-
 </style>
