@@ -53,7 +53,7 @@
                 owner
             WHERE
                 content_id = content.id
-            ) participants_count,
+            ) with_count,
             (
             SELECT
                 login_id
@@ -89,7 +89,7 @@
                     owner
                 WHERE
                     content_id = content.id
-            ) participants_count,
+            ) with_count,
             (
                 SELECT
                     login_id

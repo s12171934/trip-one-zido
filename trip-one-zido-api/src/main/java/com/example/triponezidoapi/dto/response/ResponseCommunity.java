@@ -11,6 +11,6 @@ public class ResponseCommunity {
     LocalDateTime deadline;
     int viewPoint;
     int total;
-    int participantsCount;
+    int withCount;
     String status;
 }
