@@ -14,7 +14,7 @@ public class ResponseCommunityDetail {
     String notice;
     int total;
     LocalDateTime deadline;
-    int viewCount;
+    int viewPoint;
     String status;
     String title;
     LocalDateTime createdAt;

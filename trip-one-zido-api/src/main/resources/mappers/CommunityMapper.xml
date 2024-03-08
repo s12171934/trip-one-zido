@@ -10,7 +10,8 @@
             loc_category,
             notice,
             total,
-            deadline
+            deadline,
+             status
             )
         VALUE
             (
@@ -20,7 +21,8 @@
             #{locCategory},
             #{notice},
             #{total},
-            #{deadline}
+            #{deadline},
+            #{status}
             );
     </insert>
 
