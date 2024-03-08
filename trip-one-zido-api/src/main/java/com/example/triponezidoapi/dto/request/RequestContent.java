@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class RequestContent {
+    Long id;
     String type;
     String title;
     boolean isPublic = true;

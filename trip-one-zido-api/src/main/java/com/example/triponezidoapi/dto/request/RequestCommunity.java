@@ -14,4 +14,5 @@ public class RequestCommunity {
     String notice;
     int total;
     LocalDateTime deadline;
+    String status;
 }
