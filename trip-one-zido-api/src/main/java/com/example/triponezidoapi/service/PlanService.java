@@ -15,7 +15,7 @@ public class PlanService {
     @Autowired
     CommentMapper commentMapper;
 
-    public ResponsePlanDetail getPlan(long id, long sessionId) {
+    public ResponsePlanDetail getPlan(Long id, long sessionId) {
         ResponsePlanDetail responsePlanDetail = new ResponsePlanDetail();
 
         // getPlan
@@ -49,14 +49,18 @@ public class PlanService {
         requestContent.setPublic(requestPlan.isPublic());
         requestContent.setTitle(requestPlan.getTitle());
         contentMapper.addContent(requestContent);
+        //Content 테이블에 추가한 이후에 생성된 id를 가져옴
+        long generatedId = requestContent.getId();
 
         // addPlan
+        requestPlan.setId(generatedId);
         planMapper.addPlan(requestPlan);
+
 
         // addSpot - 장소게시글 번호만 plan_spot에 등록
         for (int i = 0; i < requestPlan.getSpots().size(); i++) {
             RequestPlanSpot requestPlanSpot = new RequestPlanSpot();
-            requestPlanSpot.setPlanId(requestPlan.getId());
+            requestPlanSpot.setPlanId(generatedId);
             requestPlanSpot.setSpotId(requestPlan.getSpots().get(i));
             planMapper.addSpot(requestPlanSpot);
         }
@@ -86,10 +90,11 @@ public class PlanService {
         requestTitle.setTitle(requestPlan.getTitle());
         contentMapper.updateTitle(requestTitle);
 
+
         // deleteOwner - 이전에 등록된 동행인(해당 게시글의 동행인 조회) 삭제
         for (int i = 0; i < requestPlan.getMembers().size(); i++) {
             RequestContentMember requestContentMember = new RequestContentMember();
-            requestContentMember.setMemberId(contentMapper.getOwner(id).get(i).getId());
+            requestContentMember.setMemberId(requestPlan.getMembers().get(i));
             requestContentMember.setContentId(id);
             contentMapper.deleteOwner(requestContentMember);
         }

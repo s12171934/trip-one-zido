@@ -71,7 +71,12 @@ public class PageService {
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(sessionId);
         requestSessionTarget.setTargetId(id);
-        requestSessionTarget.setPage(page);
+        //페이지 카운트 처리
+        if(page == 0){
+            requestSessionTarget.setPage(0);
+        } else {
+            requestSessionTarget.setPage(page * 6);
+        }
 
         return spotMapper.getSpotList(requestSessionTarget);
     }
@@ -86,7 +91,16 @@ public class PageService {
         requestSessionTarget.setMyMemberId(id);
         requestSessionTarget.setPage(page);
 
-        return memberMapper.followingList(requestSessionTarget);
+        List<ResponseMember> followingList = memberMapper.followingList(requestSessionTarget);
+        // 팔로잉 여부 확인
+        for (int i = 0; i < followingList.size(); i++) {
+            RequestFollow requestFollow = new RequestFollow();
+            requestFollow.setFollower(sessionId);
+            requestFollow.setFollowing(followingList.get(i).getId());
+            followingList.get(i).setFollow(memberMapper.isFollow(requestFollow));
+        }
+
+        return followingList;
     }
 
     public List<ResponseMember> getFollowerList(Long id, Long sessionId, long page){
@@ -99,7 +113,16 @@ public class PageService {
         requestSessionTarget.setMyMemberId(id);
         requestSessionTarget.setPage(page);
 
-        return memberMapper.followerList(requestSessionTarget);
+        List<ResponseMember> followerList = memberMapper.followerList(requestSessionTarget);
+        // 팔로잉 여부 확인
+        for (int i = 0; i < followerList.size(); i++) {
+            RequestFollow requestFollow = new RequestFollow();
+            requestFollow.setFollower(sessionId);
+            requestFollow.setFollowing(followerList.get(i).getId());
+            followerList.get(i).setFollow(memberMapper.isFollow(requestFollow));
+        }
+
+        return followerList;
     }
 
     public void follow(Long id, Long sessionId){

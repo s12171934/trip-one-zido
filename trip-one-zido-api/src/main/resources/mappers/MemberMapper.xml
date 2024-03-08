@@ -77,15 +77,14 @@
     SELECT
       id,
       login_id,
-      profile,
-      isFollow
+      profile
     FROM
       member
     WHERE
       id IN
       (
       SELECT
-        following
+        follower
       FROM
         follow
       WHERE
@@ -99,8 +98,7 @@
     SELECT
       id,
       login_id,
-      profile,
-      isFollow
+      profile
     FROM
       member
     WHERE
@@ -203,6 +201,12 @@
       *
     FROM
       security_questions
+  </select>
+
+  <select id="getPasswordById" parameterType="Long" resultType="String">
+    SELECT password
+    FROM member
+    WHERE id = #{id}
   </select>
 
   <select id="getMemberProfile" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
