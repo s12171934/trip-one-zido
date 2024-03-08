@@ -37,7 +37,7 @@ public class SpotApiController {
             @Parameter(description = "장소 게시물 정보")
             RequestSpot requestSpot,
 
-//            @SessionAttribute(name = "id")
+            @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 번호")
             Long sessionId
     ){
@@ -54,7 +54,7 @@ public class SpotApiController {
             @Parameter(description = "장소 게시물 정보")
             RequestSpot requestSpot,
 
-//            @SessionAttribute(name = "id")
+            @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 번호")
             Long sessionId
     ){
