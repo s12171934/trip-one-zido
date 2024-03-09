@@ -128,7 +128,7 @@ public class SpotService {
         for (int i = 0; i < requestSpot.getPhotos().size(); i++) {
             RequestPhoto requestPhoto = new RequestPhoto();
             requestPhoto.setPhoto(requestSpot.getPhotos().get(i));
-            requestPhoto.setContentId(generatedId);
+            requestPhoto.setContentId(id);
             spotMapper.addPhoto(requestPhoto);
         }
     }
