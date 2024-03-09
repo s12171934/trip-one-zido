@@ -18,4 +18,7 @@ public interface SpotMapper {
 
     //update
     void updateSpot(RequestSpot requestSpot);
+
+    //delete
+    void deletePhoto(Long id);
 }

@@ -14,6 +14,6 @@ public interface TourMapper {
     //select
     ResponseTour getTour(RequestSessionTarget requestSessionTarget);
     List<ResponseTour> getTourList(RequestSessionTarget requestSessionTarget);
-    long getNextId(Long id);
-    long getPrevId(Long id);
+    Long getNextId(Long id);
+    Long getPrevId(Long id);
 }
