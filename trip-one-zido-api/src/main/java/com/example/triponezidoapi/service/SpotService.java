@@ -109,6 +109,20 @@ public class SpotService {
                  contentMapper.addOwner(requestOwner);
              }
          }
+
+        //deletePhoto
+        spotMapper.deletePhoto(id);
+
+        //addPhoto
+        List<byte[]> photos = requestSpot.getPhotos();
+        if (photos != null && !photos.isEmpty()) {
+            RequestPhoto requestPhoto = new RequestPhoto();
+            for (byte[] photo : photos) {
+                requestPhoto.setPhoto(photo);
+                requestPhoto.setContentId(id);
+                spotMapper.addPhoto(requestPhoto);
+            }
+        }
     }
 
     public void deleteSpot(Long id){

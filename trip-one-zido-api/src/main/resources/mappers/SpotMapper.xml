@@ -78,7 +78,15 @@
                     content
                 WHERE
                    id = #{targetId}
-            ) createdAt
+            ) createdAt,
+            (
+                SELECT
+                    m.profile
+                FROM
+                    member m
+                WHERE
+                    s.profile_id = m.id
+            ) profile
         FROM
             spot s,
             content c
@@ -165,4 +173,10 @@
         WHERE
             id = #{id};
     </update>
+
+    <delete id="deletePhoto" parameterType="Long">
+        DELETE FROM photo
+        WHERE
+            content_id = #{contentId}
+    </delete>
 </mapper>
