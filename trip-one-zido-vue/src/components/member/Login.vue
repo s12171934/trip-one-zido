@@ -3,15 +3,24 @@
     <div id="box" class="flex-column">
       <h1>로그인</h1>
       <form @submit.prevent class="d-flex flex-column border border-5 gap-4">
-        
         <input type="text" v-model="loginId" placeholder="아이디" />
         <input type="password" v-model="password" placeholder="비밀번호" />
 
         <div class="d-flex justify-content-between">
-          <input type="checkbox" id="idsave" name="idsave" />
+          <input
+            type="checkbox"
+            id="idsave"
+            name="idsave"
+            v-model="saveLoginId"
+          />
           <label for="idsave">아이디 저장</label>
 
-          <input type="checkbox" id="autologin" name="autologin" />
+          <input
+            type="checkbox"
+            id="autologin"
+            name="autologin"
+            v-model="autoLogin"
+          />
           <label for="autologin">자동 로그인</label>
 
           <a href="/find">아이디 / 비밀번호 찾기</a>
@@ -63,10 +72,12 @@ export default {
   components: {
     AlertModal,
   },
-  data(){
-    return{
-      loginId: ""
-    }
+  data() {
+    return {
+      loginId: this.$cookies.isKey("saveLoginId") ? this.$cookies.get("saveLoginId") : "",
+      saveLoginId: this.$cookies.isKey("saveLoginId"),
+      autoLogin: false,
+    };
   },
   props: {
     modalShown: Boolean,
@@ -74,16 +85,26 @@ export default {
   methods: {
     login() {
       if (this.loginId == "test") {
-        this.$cookies.set("login",1);
-        this.$router.push("/");
+        this.$cookies.set("login", 1, 0);
+        if (this.saveLoginId) {
+          this.$cookies.set("saveLoginId", this.loginId);
+        } else {
+          this.$cookies.remove("saveLoginId");
+        }
+        if (this.autoLogin) {
+          this.$cookies.set("autoLogin", this.loginId);
+        } else {
+          this.$cookies.remove("autoLogin");
+        }
+        location.href = "/";
       } else {
         this.$emit("modal");
       }
     },
   },
-  mounted(){
-    this.$emit("meta",this.$route.matched[0].meta.isLogin);
-  }
+  mounted() {
+    this.$emit("meta", this.$route.matched[0].meta.isLogin);
+  },
 };
 </script>
 

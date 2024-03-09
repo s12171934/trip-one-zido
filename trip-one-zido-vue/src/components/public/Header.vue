@@ -1,29 +1,29 @@
 <template>
-  <header id="header" :style="main ? 'box-shadow: none' : ''">
+  <header id="header" :style="view ? '' : 'box-shadow: none'">
     <nav v-if="isLogin" class="left">
       <a href="#menu" @click="toggleMenu"><span>Menu</span></a>
     </nav>
 
-    <div v-if="!main" class="h-100">
+    <div v-if="view" class="h-100">
       <a href="/">
         <img src="/images/여행한지도_로고.png" class="logo" width="325" />
       </a>
 
       <nav v-if="isLogin" class="right d-flex gap-2 align-items-center">
-        <form action="/html-css/search/search.html" class="m-0">
+        <form action="/search" class="m-0">
           <input type="text" id="headerSearchBar" required />
         </form>
         <span class="image round d-flex h-100 align-items-center" box-sha>
-          <a href="/html-css/main/detail/detail.html">
+          <a href="/member-page">
             <img src="/images/남자.png" height="75" />
           </a>
         </span>
       </nav>
       <nav v-else class="right d-flex gap-2 align-items-center">
-        <a href="/html-css/sign/login/login.html" class="button alt">
+        <a href="/login" class="button alt">
           로그인
         </a>
-        <a href="/html-css/sign/signin/signin.html" class="button alt">
+        <a href="/sign-up" class="button alt">
           회원가입
         </a>
       </nav>
@@ -44,7 +44,7 @@
       <li><a href="/recent-view">최근기록</a></li>
       <li><a href="/bookmark">찜목록</a></li>
       <li><a href="/tour/loc">관광정보</a></li>
-      <li><a href="/logout">로그아웃</a></li>
+      <li><a @click="logout">로그아웃</a></li>
     </ul>
     <a href="#menu" @click="toggleMenu" class="close"></a>
   </nav>
@@ -53,13 +53,13 @@
 <script>
 export default {
   props: {
-    main: Boolean,
     isLogin: Boolean,
   },
   data() {
     return {
       menu: false,
       addMenu: false,
+      view: window.location.pathname != '/',
     };
   },
   methods: {
@@ -69,6 +69,11 @@ export default {
     toggleAddMenu() {
       this.addMenu = !this.addMenu;
     },
+    logout() {
+      this.$cookies.remove('login');
+      this.$cookies.remove('autoLogin');
+      location.href = '/welcome';
+    }
   },
 };
 </script>
