@@ -3,6 +3,7 @@ package com.example.triponezidoapi.service;
 import com.example.triponezidoapi.dto.request.*;
 import com.example.triponezidoapi.dto.response.*;
 import com.example.triponezidoapi.mappers.ContentMapper;
+import com.example.triponezidoapi.mappers.SpotMapper;
 import com.example.triponezidoapi.mappers.TourMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,8 @@ public class TourService {
     TourMapper tourMapper;
     @Autowired
     ContentMapper contentMapper;
+    @Autowired
+    SpotMapper spotMapper;
 
     public List<ResponseTour> getTourList(Long sessionId, long page){
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
@@ -60,6 +63,12 @@ public class TourService {
         contentMapper.addContent(requestContent);
         //Content 테이블에 추가한 이후에 생성된 id를 가져옴
         long generatedId = requestContent.getId();
+
+        //addPhoto
+        RequestPhoto requestPhoto = new RequestPhoto();
+        requestPhoto.setPhoto(requestTour.getPhoto());
+        requestPhoto.setContentId(generatedId);
+        spotMapper.addPhoto(requestPhoto);
 
         // addTour
         requestTour.setId(generatedId);
