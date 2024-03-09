@@ -34,7 +34,22 @@ public class TourService {
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setTargetId(id);
         requestSessionTarget.setMyMemberId(sessionId);
-        return tourMapper.getTour(requestSessionTarget);
+        ResponseTour responseTour = tourMapper.getTour(requestSessionTarget);
+
+        //관광 정보 상세페이지 관광정보 이전/다음페이지 정보 - ParkJhh
+        //만약 앞 관광정보가 존재하지 않는다면
+        if(tourMapper.getPrevId(id) == null){
+            responseTour.setPrevId(0);
+        } else {
+            responseTour.setPrevId(tourMapper.getPrevId(id));
+        }
+        //만약 다음 관광정보가 존재하지 않는다면
+        if(tourMapper.getNextId(id) == null){
+            responseTour.setNextId(0);
+        } else {
+            responseTour.setNextId(tourMapper.getNextId(id));
+        }
+        return responseTour;
     }
 
     public void addTour(RequestTour requestTour) {

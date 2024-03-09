@@ -70,7 +70,15 @@
                 good
             WHERE
                 content_id = c.id
-            ) good_count
+            ) good_count,
+            (
+                SELECT
+                    created_at
+                FROM
+                    content
+                WHERE
+                   id = #{targetId}
+            ) createdAt
         FROM
             spot s,
             content c
