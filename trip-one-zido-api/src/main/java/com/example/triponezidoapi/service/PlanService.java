@@ -22,7 +22,7 @@ public class PlanService {
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setTargetId(id);
         requestSessionTarget.setMyMemberId(sessionId);
-        planMapper.getPlan(requestSessionTarget);
+        responsePlanDetail = planMapper.getPlan(requestSessionTarget);
 
         // getSpot
         responsePlanDetail.setResponseSpotPlans(planMapper.getSpot(id));
