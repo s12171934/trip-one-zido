@@ -85,25 +85,12 @@
                     <h4 id="title2">여행 중 일정 및 장소</h4>
                     &nbsp;&nbsp;
                         <div class="select-wrapper" >
-							<select class ="local-select" name="category" id="security">
-                                <option value="" selected>지역 선택</option>
-									<option value="1">서울특별시</option>
-									<option value="2">부산광역시</option>
-									<option value="3">대구광역시</option>
-									<option value="4">인천광역시</option>
-									<option value="5">광주광역시</option>
-									<option value="6">대전광역시</option>
-									<option value="7">울산광역시</option>
-									<option value="8">경기도</option>
-									<option value="9">강원특별자치도</option>
-									<option value="10">충청북도</option>
-									<option value="11">충청남도</option>
-									<option value="12">전북특별자치도</option>
-									<option value="13">전라남도</option>
-									<option value="14">경상북도</option>
-									<option value="15">경상남도</option>
-									<option value="16">제주특별자치도</option>
-							</select>
+                            <select class="form-control" name="category">
+									<option value="" selected>지역 선택</option>
+									<option v-for="location in selectLocations" :value="location">
+									{{ location }}
+									</option>
+                            </select>
 						</div>
                     <br>
                 </div>
@@ -171,11 +158,17 @@
 </template>
 
 <script>
+
+import data from "/src/assets/data.js";
+
 export default {
 
-
+    data() {
+    return {
+        selectLocations: data.selectLocations,
+        }
+    },
 }
-
     document.addEventListener('DOMContentLoaded', function () {
         var buttons = document.querySelectorAll('.btn-outline-primary');
         buttons.forEach(function (button) {
