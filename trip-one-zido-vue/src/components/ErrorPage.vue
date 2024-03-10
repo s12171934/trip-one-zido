@@ -13,7 +13,6 @@ export default {};
 
 <style scoped>
 h1 {
-  font-family: "Jalnan";
   text-align: center;
   color: grey;
   margin: 10% 0;
@@ -26,6 +25,5 @@ span {
 button {
   width: 20%;
   border-radius: 1.5rem;
-  font-family: "Jalnan";
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <section id="main" class="wrapper">
+  <main class="wrapper">
     <div class="d-flex align-items-center mb-5">
       <img :src="userData.imgSrc" alt="" class="rounded-circle" />
       <h1>{{ userData.loginId }}</h1>
@@ -8,7 +8,7 @@
       <h1>조회한 게시글(기록)</h1>
     </div>
     <ContentList />
-  </section>
+  </main>
 </template>
 
 <script>
@@ -35,14 +35,8 @@ export default {
 </script>
 
 <style scoped>
-#main {
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
 h1 {
   color: #ff928e !important;
-  font-family: "Jalnan";
 }
 
 img {

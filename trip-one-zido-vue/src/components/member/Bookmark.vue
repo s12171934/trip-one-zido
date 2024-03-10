@@ -1,5 +1,5 @@
 <template>
-  <section id="main" class="wrapper">
+  <main class="wrapper">
     <h1>찜한 게시글</h1>
 
     <div class="d-flex flex-row mb-6" id="subTitle">
@@ -13,7 +13,7 @@
     </div>
 
     <ContentList firstList="spotPlanList"/>
-  </section>
+  </main>
 </template>
 
 <script>
@@ -50,14 +50,8 @@ export default {
 </script>
 
 <style scoped>
-#main {
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
 h1,
 h3 {
-  font-family: "Jalnan";
   color: #ff928e !important;
 }
 

@@ -1,5 +1,5 @@
 <template>
-  <section id="main" class="wrapper">
+  <main class="wrapper">
     <div class="mb-5">
       <h1>설정페이지</h1>
     </div>
@@ -56,7 +56,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </main>
 
   <EditProfileModal
     :modalShown="modalShown && editProfile"
@@ -106,11 +106,6 @@ export default {
 </script>
 
 <style scoped>
-#main {
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
 img {
   width: 260px;
   height: 260px;
@@ -122,11 +117,5 @@ li {
 
 button {
   width: 260px;
-}
-
-h1,
-button,
-a {
-  font-family: "Jalnan";
 }
 </style>

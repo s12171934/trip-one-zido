@@ -1,5 +1,5 @@
 <template>
-  <section id="main" class="wrapper">
+  <main class="wrapper">
     <div class="d-flex p-2">
       <span>이런 곳 어때요?</span>
       <select class="button alt" id="locSelect" name="location" v-model="loc">
@@ -10,7 +10,7 @@
     </div>
 
     <ContentList />
-  </section>
+  </main>
 </template>
 
 <script>

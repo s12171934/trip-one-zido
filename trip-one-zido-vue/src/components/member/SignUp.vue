@@ -1,5 +1,5 @@
 <template>
-  <section id="main" class="wrapper">
+  <main class="wrapper">
     <div
       id="box"
       class="d-flex flex-column justify-content-center align-items-center"
@@ -73,7 +73,7 @@
       </form>
       <button @click="signUp" class="button p-2">회원가입 확인</button>
     </div>
-  </section>
+  </main>
 
   <AlertModal
     :modalShown="modalShown"
@@ -151,12 +151,6 @@ export default {
 }
 
 h1,
-h3,
-section {
-  font-family: "Jalnan";
-}
-
-h1,
 h3 {
   color: #ff928e !important;
   text-align: center;
@@ -164,7 +158,6 @@ h3 {
 
 input {
   border-radius: 15px;
-  font-family: "Jalnan";
   font-size: 20px;
   background-color: #ff928e;
 }
@@ -185,7 +178,6 @@ form {
 }
 
 .button {
-  font-family: "Jalnan";
   height: 70px;
   padding: 0;
   color: aliceblue;

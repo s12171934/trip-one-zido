@@ -1,5 +1,5 @@
 <template>
-  <section class="main-section">
+  <main>
     <div class="logo-wrap">
       <a href="#"><img src="/images/여행한지도_로고.png" /></a>
     </div>
@@ -35,7 +35,7 @@
       >
       <a href="/bookmark" class="button" id="buttons">찜</a>
     </div>
-  </section>
+  </main>
 </template>
 
 <script>
@@ -47,12 +47,7 @@ export default {
 </script>
 
 <style scoped>
-input, a {
-  font-family: 'Jalnan';
-}
-
-
-.main-section {
+main {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -84,7 +79,7 @@ input, a {
 
 }
 
-.main-section .searchbar-wrap .search-input {
+.main .searchbar-wrap .search-input {
     width: 400px;
     height: 100%;
     font-size: 16px;

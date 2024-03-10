@@ -79,7 +79,6 @@ export default {
 }
 p {
   line-height: 28px;
-  font-family: "Jalnan";
   align-items: center;
   text-align: center;
   margin: 0;
@@ -88,7 +87,6 @@ span {
   display: flex;
   align-items: center;
   line-height: 30px;
-  font-family: "Jalnan";
   color: white;
 }
 #bookmark,

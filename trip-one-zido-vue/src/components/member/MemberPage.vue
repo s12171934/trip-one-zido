@@ -1,5 +1,5 @@
 <template>
-  <section id="main" class="wrapper d-flex">
+  <main class="wrapper d-flex">
     <div class="d-flex flex-column fill me-5" id="leftSide">
       <div class="d-flex align-items-center mb-5">
         <img :src="userData.imgSrc" class="rounded-circle" />
@@ -63,7 +63,7 @@
 
       <ContentList />
     </div>
-  </section>
+  </main>
 
   <FollowModal
     :modalShown="modalShown"
@@ -135,11 +135,6 @@ export default {
 </script>
 
 <style scoped>
-#main {
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
 #mainTitle {
   text-align: left;
 }
@@ -150,12 +145,6 @@ export default {
 
 #rightSide {
   width: 64%;
-}
-
-button,
-span,
-select {
-  font-family: "Jalnan";
 }
 
 span {

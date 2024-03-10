@@ -1,5 +1,5 @@
 <template>
-  <section id="main" class="wrapper">
+  <main class="wrapper">
     <h1>탈퇴 안내</h1>
     <h3>
       회원탈퇴를 신청하기 전에
@@ -26,7 +26,7 @@
         <a href="/config" class="button alt rounded-3">취소하기</a>
       </div>
     </div>
-  </section>
+  </main>
 </template>
 
 <script>
@@ -53,10 +53,6 @@ export default {
 </script>
 
 <style scoped>
-#main {
-  margin-left: 5%;
-  margin-right: 5%;
-}
 h1 {
   color: #ff928e !important;
   margin-bottom: 3rem;
@@ -81,12 +77,5 @@ h3 {
   display: flex;
   align-items: center;
   width: 30%;
-}
-
-h1,
-h3,
-a,
-section {
-  font-family: "Jalnan";
 }
 </style>

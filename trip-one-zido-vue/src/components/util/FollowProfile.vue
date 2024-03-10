@@ -58,12 +58,10 @@ export default {
 h4 {
   margin: 0;
   line-height: 70px;
-  font-family: "Jalnan";
   display: inline;
 }
 
 .button {
-  font-family: "Jalnan";
   padding-left: 10px;
   padding-right: 10px;
   height: 70%;

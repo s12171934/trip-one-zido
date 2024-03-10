@@ -1,5 +1,5 @@
 <template>
-  <section class="wrapper d-flex flex-row justify-content-center">
+  <main class="wrapper d-flex flex-row justify-content-center">
     <div id="box" class="flex-column">
       <h1>로그인</h1>
       <form @submit.prevent class="d-flex flex-column border border-5 gap-4">
@@ -54,7 +54,7 @@
         <a href="/sign-up" class="button small">회원가입</a>
       </div>
     </div>
-  </section>
+  </main>
 
   <AlertModal
     @modal="$emit('modal')"
@@ -119,12 +119,6 @@ export default {
 }
 
 h1,
-h3,
-section {
-  font-family: "Jalnan";
-}
-
-h1,
 h3 {
   color: #ff928e !important;
   text-align: center;
@@ -132,7 +126,6 @@ h3 {
 
 input {
   border-radius: 15px;
-  font-family: "Jalnan";
   font-size: 20px;
   background-color: #ff928e;
 }
@@ -153,7 +146,6 @@ form {
 }
 
 .button {
-  font-family: "Jalnan";
   color: aliceblue;
   background-color: #ff928e;
   border-radius: 10px;

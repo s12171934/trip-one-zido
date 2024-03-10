@@ -1,5 +1,5 @@
 <template>
-  <section id="main" class="wrapper">
+  <main class="wrapper">
     <form @submit.prevent class="input-group">
       <input
         name="q"
@@ -37,7 +37,7 @@
     </div>
 
     <ContentList />
-  </section>
+  </main>
 </template>
 
 <script>
@@ -58,12 +58,7 @@ export default {
 <style scoped>
 h1,
 h3 {
-  font-family: "Jalnan";
   color: #ff928e !important;
-}
-
-button {
-  font-family: "Jalnan";
 }
 
 span {
@@ -73,10 +68,5 @@ span {
 
 #subTitle {
   margin-top: 5%;
-}
-
-#main {
-  margin-left: 5%;
-  margin-right: 5%;
 }
 </style>

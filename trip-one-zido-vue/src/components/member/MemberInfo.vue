@@ -1,5 +1,5 @@
 <template>
-  <section id="main" class="wrapper">
+  <main class="wrapper">
     <h1>회원 정보 수정</h1>
     <table>
       <tr id="trHeader">
@@ -118,7 +118,7 @@
         <a href="/config" class="button alt ms-3">취소</a>
       </div>
     </div>
-  </section>
+  </main>
 
   <AlertModal
     :modalShown="modalShown"
@@ -161,11 +161,9 @@ export default {
 </script>
 
 <style scoped>
-#main {
-  margin-left: 20%;
-  margin-right: 20%;
+main {
+  margin: 0 10%;
 }
-
 h1 {
   color: #ff928e !important;
   font-family: "Jalnan";
@@ -185,7 +183,6 @@ h1 {
 }
 h3 {
   margin: 0;
-  font-family: "Jalnan";
 }
 label {
   color: black !important;
@@ -193,10 +190,5 @@ label {
 
 .button {
   border-radius: 10px !important;
-  font-family: "Jalnan";
-}
-
-section {
-  font-family: "Jalnan";
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <section id="main" class="wrapper">
+  <main class="wrapper">
     <div class="d-flex justify-content-end">
       <ul class="actions">
         <li>
@@ -42,7 +42,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </main>
 </template>
 
 <script>
@@ -54,18 +54,8 @@ export default {
 </script>
 
 <style scoped>
-#main {
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
 h1 {
   color: #ff928e !important;
-  font-family: "Jalnan";
-}
-
-span, p, a {
-  font-family: "Jalnan";
 }
 
 #bookmark {

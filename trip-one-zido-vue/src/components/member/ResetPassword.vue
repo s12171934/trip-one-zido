@@ -1,5 +1,5 @@
 <template>
-  <section id="main" class="wrapper">
+  <main class="wrapper">
     <h1>비밀번호 재설정</h1>
     <hr />
     <table>
@@ -27,7 +27,7 @@
     <div class="d-flex justify-content-center">
       <button @click="passwordCheck" class="button">비밀번호 재설정하기</button>
     </div>
-  </section>
+  </main>
 
   <AlertModal
     :modalShown="modalShown"
@@ -81,22 +81,16 @@ export default {
 </script>
 
 <style scoped>
-#main {
+main {
   margin-left: 20%;
   margin-right: 20%;
 }
 
 h1 {
   color: #ff928e !important;
-  font-family: "Jalnan";
 }
 
 .button {
   border-radius: 10px !important;
-  font-family: "Jalnan";
-}
-
-section {
-  font-family: "Jalnan";
 }
 </style>

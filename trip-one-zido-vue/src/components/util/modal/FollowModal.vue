@@ -63,8 +63,4 @@ export default {
   background-color: #d9d9d9;
   overflow: auto;
 }
-
-h4 {
-  font-family: "Jalnan";
-}
 </style>

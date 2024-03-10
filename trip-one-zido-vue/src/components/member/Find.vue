@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <main class="wrapper">
     <div @submit.prevent id="mainbox" class="d-flex">
       <div id="box" class="flex-column gap-5 p-5">
         <h1>아이디 찾기</h1>
@@ -27,7 +27,7 @@
         >
       </div>
     </div>
-  </section>
+  </main>
 
   <AlertModal
     :modalShown="modalShown && !security"
@@ -137,19 +137,12 @@ export default {
   justify-content: center;
   align-content: center;
 }
-input,
-a {
-  font-family: "Jalnan";
-  font-size: 20px;
-}
 #button {
-  font-family: "Jalnan";
   border-radius: 40px;
   font-size: 17px;
 }
 
 h1 {
-  font-family: "Jalnan";
   color: #ff928e !important;
   text-align: center;
 }

@@ -28,13 +28,11 @@ export default {
 <style scoped>
 h1 {
   color: #ff928e !important;
-  font-family: "Jalnan";
   margin: 0;
   line-height: 60px;
 }
 
 select {
-  font-family: "Jalnan";
   width: 180px;
 }
 </style>

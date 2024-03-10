@@ -27,11 +27,6 @@ export default {};
 </script>
 
 <style scoped>
-a,
-h2 {
-  font-family: "Jalnan" !important;
-}
-
 footer {
   bottom: 3%;
   width: 100%;

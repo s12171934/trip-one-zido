@@ -1,5 +1,5 @@
 <template>
-  <section id="main" class="wrapper">
+  <main class="wrapper">
     <h1 class="title mb-5">상세검색</h1>
 
     <div class="row mb-3">
@@ -68,7 +68,7 @@
     </div>
 
     <ContentList />
-  </section>
+  </main>
 </template>
 
 <script>
@@ -94,13 +94,7 @@ export default {
 <style scoped>
 h1,
 h3 {
-  font-family: "Jalnan";
   color: #ff928e !important;
-}
-
-h5,
-button {
-  font-family: "Jalnan";
 }
 
 span {
@@ -110,11 +104,6 @@ span {
 
 #subTitle {
   margin-top: 5%;
-}
-
-#main {
-  margin-left: 5%;
-  margin-right: 5%;
 }
 
 .form-control {

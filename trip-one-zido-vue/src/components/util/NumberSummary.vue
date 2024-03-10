@@ -39,7 +39,6 @@ export default {};
 
 <style scoped>
 h3 {
-  font-family: "Jalnan";
   color: rgb(80, 80, 80) !important;
 }
 </style>

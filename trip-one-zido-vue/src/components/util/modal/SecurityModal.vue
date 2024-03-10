@@ -100,7 +100,6 @@ export default {
 }
 
 #button {
-  font-family: "Jalnan";
   border-radius: 30px;
   font-size: 17px;
 }
@@ -113,10 +112,5 @@ h3 {
   text-align: center;
   margin: 0;
   color: gray;
-}
-
-h3,
-button {
-  font-family: "Jalnan";
 }
 </style>

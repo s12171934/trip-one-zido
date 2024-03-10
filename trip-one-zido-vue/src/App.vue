@@ -49,6 +49,7 @@ export default {
 @import url(/public/css/font-awesome.min.css);
 @import url(/public/css/main.css);
 @import url(https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css);
+
 div::-webkit-scrollbar {
   /* 스크롤바 배경 */
   height: 15px;
@@ -62,9 +63,7 @@ div::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background: pink;
 }
-</style>
 
-<style scoped>
 #modal-back {
   position: fixed;
   background-color: black;
@@ -73,5 +72,14 @@ div::-webkit-scrollbar-thumb {
   left: 0;
   right: 0;
   opacity: 80%;
+}
+
+main {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+* {
+  font-family: "Jalnan" !important;
 }
 </style>
