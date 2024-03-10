@@ -19,10 +19,10 @@
     <h3 class="alt icon fa-check">탈퇴를 원하신다면 비밀번호를 입력해주세요</h3>
 
     <div class="inner flex-column gap-2">
-      <input type="password" value="" placeholder="비밀번호" />
-      <input type="password" value="" placeholder="비밀번호 확인" />
+      <input type="password" v-model="password" placeholder="비밀번호" />
+      <input type="password" v-model="passwordCheck" placeholder="비밀번호 확인" />
       <div class="d-flex gap-4">
-        <button id="button" class="rounded-3" type="submit">회원탈퇴</button>
+        <button @click="resign" id="button" class="rounded-3" type="submit">회원탈퇴</button>
         <a href="/config" class="button alt rounded-3">취소하기</a>
       </div>
     </div>
@@ -31,6 +31,21 @@
 
 <script>
 export default {
+  data(){
+    return{
+      password: "",
+      passwordCheck: "",
+    }
+  },
+  methods: {
+    resign(){
+      if(this.password === this.passwordCheck){
+        this.$cookies.remove('login');
+        this.$cookies.remove('autoLogin');
+        location.href = '/welcome'
+      }
+    }
+  },
   mounted(){
     this.$emit("meta",this.$route.matched[0].meta.isLogin);
   }

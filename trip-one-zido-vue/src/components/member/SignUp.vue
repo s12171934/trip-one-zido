@@ -10,8 +10,10 @@
         class="d-flex flex-column gap-3 border border-5 p-5"
       >
         <div class="d-flex gap-3">
-          <input type="text" value="" placeholder="사용할 아이디" />
-          <button class="button w-25">아이디중복체크</button>
+          <input type="text" v-model="loginId" placeholder="사용할 아이디" />
+          <button @click="checkLoginId" class="button w-25">
+            아이디중복체크
+          </button>
         </div>
 
         <input type="text" value="" placeholder="이름" />
@@ -69,16 +71,72 @@
           </div>
         </div>
       </form>
-      <button class="button p-2">회원가입 확인</button>
+      <button @click="signUp" class="button p-2">회원가입 확인</button>
     </div>
   </section>
+
+  <AlertModal
+    :modalShown="modalShown"
+    @modal="$emit('modal')"
+    :url="modalData.url"
+    :message="modalData.message"
+    :buttonMessage="modalData.buttonMessage"
+  />
 </template>
 
 <script>
+import AlertModal from "../util/modal/AlertModal.vue";
+
 export default {
-  mounted(){
-    this.$emit("meta",this.$route.matched[0].meta.isLogin);
-  }
+  components: {
+    AlertModal,
+  },
+  data() {
+    return {
+      modalData: {},
+      loginId: "",
+    };
+  },
+  props: {
+    modalShown: Boolean,
+  },
+  methods: {
+    checkLoginId() {
+      if (this.loginId === "test") {
+        this.modalData = {
+          url: "/sign-up",
+          message: `${this.loginId}는<br />사용가능한 ID입니다.`,
+          buttonMessage: "확인",
+        }
+      } else {
+        this.modalData = {
+          url: "/sign-up",
+          message: "중복된 ID입니다.",
+          buttonMessage: "확인",
+        }
+      }
+      this.$emit("modal");
+    },
+    signUp() {
+      if (this.loginId === "test") {
+        this.modalData = {
+          url: "/login",
+          message: "회원가입에<br />성공했습니다.",
+          buttonMessage: "확인",
+        }
+      } else {
+        this.modalData = {
+          url: "/sign-up",
+          message: "회원가입에<br />실패했습니다.",
+          buttonMessage: "확인",
+        }
+      }
+      this.$emit("modal");
+    },
+  },
+  mounted() {
+    this.$emit("meta", this.$route.matched[0].meta.isLogin);
+  },
 };
 </script>
 
@@ -161,7 +219,7 @@ select {
   font-size: 20px;
 }
 
-.icon{
+.icon {
   padding: 0 !important;
 }
 </style>

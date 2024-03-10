@@ -114,15 +114,46 @@
     <div class="gap-2 d-flex justify-content-between">
       <a href="/resign" class="button alt">회원 탈퇴</a>
       <div>
-        <button class="button">수정</button>
+        <button @click="updateMemberInfo" class="button">수정</button>
         <a href="/config" class="button alt ms-3">취소</a>
       </div>
     </div>
   </section>
+
+  <AlertModal
+    :modalShown="modalShown"
+    @modal="$emit('modal')"
+    :url="modalData.url"
+    :message="modalData.message"
+    :buttonMessage="modalData.buttonMessage"
+  />
 </template>
 
 <script>
+import AlertModal from '../util/modal/AlertModal.vue';
+
 export default {
+  components: {
+    AlertModal
+  },
+  data(){
+    return{
+      modalData: {},
+    }
+  },
+  props: {
+    modalShown: Boolean
+  },
+  methods: {
+    updateMemberInfo(){
+      this.modalData = {
+        url: "/config",
+        message: "회원정보 수정이<br />완료되었습니다.",
+        buttonMessage: "확인",
+      }
+      this.$emit("modal");
+    }
+  },
   mounted(){
     this.$emit("meta",this.$route.matched[0].meta.isLogin);
   }
