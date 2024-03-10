@@ -22,6 +22,7 @@ import EditSpot from "../components/spot/EditSpot.vue";
 import SpotDetail from "../components/spot/SpotDetail.vue";
 import TourDetail from "../components/tour/TourDetail.vue";
 import TourPage from "../components/tour/TourPage.vue";
+import ErrorPage from "../components/ErrorPage.vue";
 
 const routes = [
   {
@@ -154,6 +155,11 @@ const routes = [
     path: "/tour/:id",
     component: TourDetail,
     meta: { isLogin: true }
+  },
+  {
+    path: "/:pathMatch(.*)",
+    component: ErrorPage,
+    meta: { isLogin: false }
   },
 ];
 
