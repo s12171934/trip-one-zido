@@ -16,7 +16,7 @@ public class PlanService {
     CommentMapper commentMapper;
 
     public ResponsePlanDetail getPlan(Long id, long sessionId) {
-        ResponsePlanDetail responsePlanDetail = new ResponsePlanDetail();
+        ResponsePlanDetail responsePlanDetail;
 
         // getPlan
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
