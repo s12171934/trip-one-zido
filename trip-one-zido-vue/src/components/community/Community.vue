@@ -88,7 +88,6 @@ export default {
     data() {
     return {
         communityList: data.communityList,
-        
         }
     },
     

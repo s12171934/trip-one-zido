@@ -103,7 +103,7 @@ export default {
       viewCount: "8",
       content: "구로디지털단지에서 간단하게 마녀김밥 어때요?",
     }
-
+  ],
   selectLocations: [
     "서울특별시",
     "인천광역시",
@@ -125,6 +125,5 @@ export default {
   selectCategories: [
     "음식점",
     "관광지",
-
   ]
 };
