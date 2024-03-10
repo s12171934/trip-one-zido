@@ -8,6 +8,6 @@ import java.time.LocalDateTime;
 public class ResponseSpotPlan {
     long id;
     String title;
-    LocalDateTime start_date;
-    LocalDateTime end_date;
+    LocalDateTime startDate;
+    LocalDateTime endDate;
 }
