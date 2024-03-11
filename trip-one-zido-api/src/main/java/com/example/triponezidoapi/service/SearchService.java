@@ -53,7 +53,7 @@ public class SearchService {
                 break;
             // 겨울 12~2
             case "winter":
-                detailSearch.setStartMonth(12);
+                detailSearch.setStartMonth(1);
                 detailSearch.setEndMonth(2);
                 break;
         }

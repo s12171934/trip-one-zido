@@ -11,8 +11,6 @@ public class ResponseSearch {
     List<ResponseContentList> planList;
     List<ResponseContentList> spotList;
     String keyword;
-    LocalDateTime startDuration;
-    LocalDateTime endDuration;
     String locCategory;
     String category;
 }
