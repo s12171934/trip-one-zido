@@ -11,7 +11,12 @@
       >
         <div class="d-flex gap-3">
           <input type="text" v-model="loginId" placeholder="사용할 아이디" />
-          <button @click="checkLoginId" class="button w-25">
+          <button
+            @click="checkLoginId"
+            data-bs-toggle="modal"
+            data-bs-target="#alertModal"
+            class="button w-25"
+          >
             아이디중복체크
           </button>
         </div>
@@ -106,6 +111,7 @@ export default {
         this.modal = "checkDuplicationLoginIdSuccess";
       } else {
         this.modal = "checkDuplicationLoginIdFail";
+        this.loginId = ""
       }
     },
     signUp() {
@@ -115,16 +121,16 @@ export default {
         this.modal = "signUpFail";
       }
     },
-    searchAddress(){
+    searchAddress() {
       new daum.Postcode({
-        oncomplete: function(data) {
-            this.zipcode = data.zonecode;
-            document.querySelector("#zipcode").value = this.zipcode
-            this.address = data.address;
-            document.querySelector("#address").value = this.address
-        }
-    }).open();
-    }
+        oncomplete: function (data) {
+          this.zipcode = data.zonecode;
+          document.querySelector("#zipcode").value = this.zipcode;
+          this.address = data.address;
+          document.querySelector("#address").value = this.address;
+        },
+      }).open();
+    },
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
