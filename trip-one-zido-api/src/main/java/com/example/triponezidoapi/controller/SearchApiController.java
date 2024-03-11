@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/search")
+@RequestMapping("/api/search/{page}")
 @Tag(name = "Search", description = "Search API")
 public class SearchApiController {
     @Autowired
@@ -24,10 +24,13 @@ public class SearchApiController {
             Long sessionId,
             @PathVariable
             @Parameter(description = "검색어")
-            String keyword){
-        return searchService.searchByKeyword(sessionId, keyword);
+            String keyword,
+            @PathVariable
+            @Parameter(description = "페이지 번호")
+            long page){
+        return searchService.searchByKeyword(sessionId, keyword, page);
     }
-    @GetMapping("/detail")
+    @PostMapping("/detail")
     @Operation(summary = "상세 검색")
     public ResponseSearch searchDetail(
             @SessionAttribute(name="id")
@@ -36,7 +39,10 @@ public class SearchApiController {
 
             @RequestBody
             @Parameter(description = "상세 검색 조건")
-            RequestDetailSearch detailSearch){
-        return searchService.searchByDetail(sessionId,detailSearch);
+            RequestDetailSearch detailSearch,
+            @PathVariable
+            @Parameter(description = "페이지 번호")
+            long page){
+        return searchService.searchByDetail(sessionId,detailSearch, page);
     }
 }

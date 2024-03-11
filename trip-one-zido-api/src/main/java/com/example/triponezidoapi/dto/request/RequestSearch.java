@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class RequestSearch {
-    long myMemberId;
+    Long myMemberId;
     String keyword;
+    long page;
 }

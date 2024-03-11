@@ -6,10 +6,11 @@ import java.time.LocalDateTime;
 
 @Data
 public class RequestDetailSearch {
-    long myMemberId;
+    Long myMemberId;
     String keyword;
     String locCategory;
     String category;
     LocalDateTime startDate;
     LocalDateTime endDate;
+    long page;
 }
