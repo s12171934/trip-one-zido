@@ -1,5 +1,5 @@
 <template>
-  <section id="main" class="wrapper">
+  <main class="wrapper">
     <div class="mb-5">
       <h1>설정페이지</h1>
     </div>
@@ -9,11 +9,9 @@
           <div class="d-flex flex-column gap-2">
             <img :src="userData.imgSrc" alt="" class="rounded-circle" />
             <button
-              @click="
-                $emit('modal');
-                editProfile = true;
-              "
               class="button rounded-5"
+              data-bs-toggle="modal"
+              data-bs-target="#profileModal"
             >
               프로필 사진 편집
             </button>
@@ -23,13 +21,9 @@
 
         <hr />
         <NumberSummary
-          @modal="
-            $emit('modal');
-            editProfile = false;
-          "
           @follower="followType = 'follower'"
           @following="followType = 'following'"
-          @bookmark="goToBookmark"
+          @bookmark="$router.push('/bookmark')"
         />
       </div>
       <div
@@ -41,39 +35,33 @@
           <hr />
           <ul>
             <li>
-              <h3><a href="/member-info"> 회원 정보 수정 </a></h3>
+              <h3><a @click="$router.push('/member-info')"> 회원 정보 수정 </a></h3>
             </li>
             <li>
-              <h3><a href="/recent-view"> 최근 본 게시물 </a></h3>
+              <h3><a @click="$router.push('/recent-view')"> 최근 본 게시물 </a></h3>
             </li>
             <li>
-              <h3><a href="/reset-pw"> 비밀번호 변경 </a></h3>
+              <h3><a @click="$router.push('/reset-pw')"> 비밀번호 변경 </a></h3>
             </li>
             <li>
-              <h3><a href="/resign"> 회원탈퇴 </a></h3>
+              <h3><a @click="$router.push('/resign')"> 회원탈퇴 </a></h3>
             </li>
           </ul>
         </div>
       </div>
     </div>
-  </section>
+  </main>
 
-  <EditProfileModal
-    :modalShown="modalShown && editProfile"
-    @modal="$emit('modal')"
-  />
+  <EditProfileModal />
 
-  <FollowModal
-    :modalShown="modalShown && !editProfile"
-    :type="followType"
-    @modal="$emit('modal')"
-  />
+  <FollowModal :type="followType" />
 </template>
 
 <script>
 import NumberSummary from "../util/NumberSummary.vue";
 import EditProfileModal from "../util/modal/EditProfileModal.vue";
 import FollowModal from "../util/modal/FollowModal.vue";
+import data from "@/assets/data.js";
 
 export default {
   components: {
@@ -81,33 +69,20 @@ export default {
     NumberSummary,
     FollowModal,
   },
-  props: {
-    modalShown: Boolean,
-  },
   data() {
     return {
-      userData: {
-        imgSrc: "/images/남자.png",
-        loginId: "남자",
-      },
+      userData: data.userProfiles[2],
       editProfile: false,
       followType: "",
     };
   },
-  methods: {
-    goToBookmark() {
-      this.$router.push("/bookmark");
-    },
+  mounted() {
+    this.$emit("meta", this.$route.matched[0].meta.isLogin);
   },
 };
 </script>
 
 <style scoped>
-#main {
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
 img {
   width: 260px;
   height: 260px;
@@ -119,11 +94,5 @@ li {
 
 button {
   width: 260px;
-}
-
-h1,
-button,
-a {
-  font-family: "Jalnan";
 }
 </style>

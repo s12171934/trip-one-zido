@@ -1,6 +1,6 @@
 <template>
-  <section id="main" class="wrapper">
-    <form @submit.prevent class="input-group">
+  <main class="wrapper">
+    <form @submit.prevent="$router.push(`/search/${keyword}`)" class="input-group">
       <input
         name="q"
         type="text"
@@ -12,7 +12,7 @@
       <button
         class="button alt"
         type="button"
-        @click="this.$router.push('/search/detail')"
+        @click="this.$router.push('/search-detail')"
       >
         일정 & 장소 상세검색으로
       </button>
@@ -37,7 +37,7 @@
     </div>
 
     <ContentList />
-  </section>
+  </main>
 </template>
 
 <script>
@@ -49,18 +49,16 @@ export default {
     ContentList,
     MemberList,
   },
+  mounted() {
+    this.$emit("meta", this.$route.matched[0].meta.isLogin);
+  },
 };
 </script>
 
 <style scoped>
 h1,
 h3 {
-  font-family: "Jalnan";
   color: #ff928e !important;
-}
-
-button {
-  font-family: "Jalnan";
 }
 
 span {
@@ -71,10 +69,4 @@ span {
 #subTitle {
   margin-top: 5%;
 }
-
-#main {
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
 </style>

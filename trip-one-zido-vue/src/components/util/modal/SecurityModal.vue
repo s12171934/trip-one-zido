@@ -1,18 +1,15 @@
 <template>
   <div
     class="modal fade"
-    :class="modalShown ? 'show' : ''"
-    id="modal"
+    id="securityModal"
     tabindex="-1"
-    aria-labelledby="exampleModalLabel"
+    aria-labelledby="securityModalLabel"
+    aria-hidden="true"
   >
-    <!-- Vertically centered scrollable modal -->
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header border border-0">
-          <!-- <h1 class="modal-title fs-5" id="exampleModalLabel">타이틀 없애고</h1> -->
           <button
-            @click="$emit('modal')"
             type="button"
             class="btn-close"
             data-bs-dismiss="modal"
@@ -42,7 +39,8 @@
             @click="checkSecurity"
             type="button"
             class="rounded-3"
-            data-bs-dismiss="modal"
+            data-bs-toggle="modal"
+            data-bs-target="#alertModal"
           >
             보안답안 제출하기
           </button>
@@ -51,39 +49,34 @@
       </div>
     </div>
   </div>
+
+  <AlertModal :modal="modal" />
 </template>
 
 <script>
+import AlertModal from "../modal/AlertModal.vue";
+
 export default {
-  data() {
-    return{
-      answer : ""
-    }
+  components: {
+    AlertModal,
   },
-  props: {
-    message: String,
-    url: String,
-    buttonMessage: String,
-    modalShown: Boolean,
+  data() {
+    return {
+      answer: "",
+      modal: "securityFail"
+    };
   },
   methods: {
-    checkSecurity(){
-      if(this.answer === "정답"){
-        this.$router.push("/reset-pw")
-        this.$emit('modal')
-      } else{
-        this.$emit('fail')
+    checkSecurity() {
+      if (this.answer === "정답") {
+        this.$router.push('reset-pw');
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
-.modal {
-  z-index: 11000;
-}
-
 #modalButton,
 #button {
   color: rgb(255, 255, 255) !important;
@@ -100,7 +93,6 @@ export default {
 }
 
 #button {
-  font-family: "Jalnan";
   border-radius: 30px;
   font-size: 17px;
 }
@@ -113,10 +105,5 @@ h3 {
   text-align: center;
   margin: 0;
   color: gray;
-}
-
-h3,
-button {
-  font-family: "Jalnan";
 }
 </style>

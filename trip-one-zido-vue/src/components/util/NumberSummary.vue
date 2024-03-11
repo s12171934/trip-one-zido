@@ -5,23 +5,21 @@
       <h3>게시글</h3>
     </div>
     <div
-      @click="
-        $emit('modal');
-        $emit('follower');
-      "
+      @click="$emit('follower')"
       class="p-2"
       id="p-2"
+      data-bs-toggle="modal"
+      data-bs-target="#followModal"
     >
       <h3>255</h3>
       <h3>팔로워</h3>
     </div>
     <div
-      @click="
-        $emit('modal');
-        $emit('following');
-      "
+      @click="$emit('following')"
       class="p-2"
       id="p-2"
+      data-bs-toggle="modal"
+      data-bs-target="#followModal"
     >
       <h3>37</h3>
       <h3>팔로잉</h3>
@@ -39,7 +37,6 @@ export default {};
 
 <style scoped>
 h3 {
-  font-family: "Jalnan";
   color: rgb(80, 80, 80) !important;
 }
 </style>

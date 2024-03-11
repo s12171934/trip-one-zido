@@ -1,5 +1,5 @@
 <template>
-  <section class="main-section">
+  <main>
     <div class="logo-wrap">
       <a href="#"><img src="/images/여행한지도_로고.png" /></a>
     </div>
@@ -7,21 +7,18 @@
     <form action="/html-css/search/search.html">
       <div class="searchbar-wrap">
         <!-- <input class="search-input" type="text"/> -->
-        <i class="fas fa-search"></i>
+        <i class="icon fa-search"></i>
         <input
-          name="q"
+          name="keyword"
           type="text"
           class="search-input"
           placeholder="검색어를 입력해주세요"
-          aria-label="Recipient's username"
-          aria-describedby="button-addon2"
         />
-        <i class="fas fa-keyboard"></i>
       </div>
     </form>
 
     <div class="buttons">
-      <a href="/memberPage" class="button" id="buttons"
+      <a href="/member-page" class="button" id="buttons"
         >마이페이지</a
       >
       <a
@@ -35,20 +32,19 @@
       >
       <a href="/bookmark" class="button" id="buttons">찜</a>
     </div>
-  </section>
+  </main>
 </template>
 
 <script>
-export default {};
+export default {
+  mounted(){
+    this.$emit("meta",this.$route.matched[0].meta.isLogin);
+  }
+};
 </script>
 
 <style scoped>
-input, a {
-  font-family: 'Jalnan';
-}
-
-
-.main-section {
+main {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -80,12 +76,18 @@ input, a {
 
 }
 
-.main-section .searchbar-wrap .search-input {
+.main .searchbar-wrap .search-input {
     width: 400px;
-    height: 100%;
+    height: 100% !important;
     font-size: 16px;
     border: none;
     outline: none;
+}
+
+input {
+  height: 100% !important;
+  margin: 0 1rem !important;
+  border: none !important;
 }
 
 #buttons{

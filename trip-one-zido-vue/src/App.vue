@@ -1,8 +1,7 @@
 <template>
-  <Header :url="url" />
-  <router-view :modalShown="modalShown" @modal="modal" />
+  <Header :isLogin="isLogin" :key="key" :path="path" />
+  <router-view @meta="meta" :id="id"/>
   <Footer />
-  <div id="modal-back" v-if="modalShown"></div>
 </template>
 
 <script>
@@ -17,13 +16,28 @@ export default {
 
   data() {
     return {
-      url: window.location.pathname === "/" ? true : false,
-      modalShown: false,
+      isLogin: false,
+      key: 0,
+      path: location.pathname,
+      id: 0,
     };
   },
   methods: {
-    modal() {
-      this.modalShown = !this.modalShown;
+    meta(isLogin) {
+      this.isLogin = isLogin;
+    },
+    forceRender() {
+      this.key++;
+    },
+  },
+  watch: {
+    $route(to, from) {
+      if (to.path != from.path) {
+        this.forceRender;
+        this.path = to.fullPath
+        this.id = to.params.id
+        console.log(this.id)
+      }
     },
   },
 };
@@ -37,6 +51,7 @@ export default {
 @import url(/public/css/font-awesome.min.css);
 @import url(/public/css/main.css);
 @import url(https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css);
+
 div::-webkit-scrollbar {
   /* 스크롤바 배경 */
   height: 15px;
@@ -50,16 +65,13 @@ div::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background: pink;
 }
-</style>
 
-<style scoped>
-#modal-back {
-  position: fixed;
-  background-color: black;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  opacity: 80%;
+main {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+* {
+  font-family: "Jalnan" !important;
 }
 </style>

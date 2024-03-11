@@ -1,10 +1,10 @@
 <template>
   <div
     class="modal fade"
-    :class="modalShown ? 'show' : ''"
-    id="modal"
+    id="alertModal"
     tabindex="-1"
-    aria-labelledby="exampleModalLabel"
+    aria-labelledby="alertModalLabel"
+    aria-hidden="true"
   >
     <!-- Vertically centered scrollable modal -->
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -12,7 +12,6 @@
         <div class="modal-header border border-0">
           <!-- <h1 class="modal-title fs-5" id="exampleModalLabel">타이틀 없애고</h1> -->
           <button
-            @click="$emit('modal')"
             type="button"
             class="btn-close"
             data-bs-dismiss="modal"
@@ -21,15 +20,13 @@
         </div>
 
         <div class="m-5 modal-body border rounded-3" id="modalBox">
-          <h3 v-html="message"></h3>
+          <h3 v-html="modalData.message"></h3>
         </div>
 
         <div class="modal-footer border border-0">
-          <a :href="url"
-            ><button type="button" class="rounded-3" data-bs-dismiss="modal">
-              {{ buttonMessage }}
-            </button></a
-          >
+          <button @click="goTo" type="button" class="rounded-3" data-bs-dismiss="modal">
+            {{ modalData.buttonMessage }}
+          </button>
           <!-- <button type="button" class="rounded-3" style="color: aliceblue; background-color:#ff928e;" data-bs-dismiss="modal">아이디찾기</button> -->
         </div>
       </div>
@@ -38,21 +35,31 @@
 </template>
 
 <script>
+import data from "@/assets/data.js";
+
 export default {
   props: {
-    message: String,
-    url: String,
-    buttonMessage: String,
-    modalShown: Boolean,
+    modal: String
   },
+  data(){
+    return{
+      modalData: data.modalDatas[this.modal]
+    }
+  },
+  watch: {
+    modal(){
+      this.modalData = data.modalDatas[this.modal]
+    }
+  },
+  methods: {
+    goTo(){
+      this.$router.push(this.modalData.url)
+    }
+  }
 };
 </script>
 
 <style scoped>
-.modal {
-  z-index: 11000;
-}
-
 #modalButton,
 #button {
   color: rgb(255, 255, 255) !important;
@@ -69,7 +76,6 @@ export default {
 }
 
 #button {
-  font-family: "Jalnan";
   border-radius: 30px;
   font-size: 17px;
 }
@@ -82,9 +88,5 @@ h3 {
   text-align: center;
   margin: 0;
   color: gray;
-}
-
-h3,button {
-  font-family: "Jalnan";
 }
 </style>

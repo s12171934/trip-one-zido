@@ -1,40 +1,58 @@
 <template>
-  <section id="main" class="wrapper">
-    <h1>찜한 게시글</h1>
+  <main class="wrapper">
+    <h1><span>{{ userProfiles.loginId }}</span>님이 찜한 게시글</h1>
 
     <div class="d-flex flex-row mb-6" id="subTitle">
-      <h3>・모든 일정 & 장소 게시글<span>25</span></h3>
+      <h3>・모든 일정 & 장소 게시글<span>{{ tourCount }}</span></h3>
     </div>
 
-    <ContentList />
+    <ContentList firstList="tourList"/>
 
     <div class="d-flex flex-row mb-6" id="subTitle">
-      <h3>・모든 관광지<span>25</span></h3>
+      <h3>・모든 관광지<span>{{ spotPlanCount }}</span></h3>
     </div>
 
-    <ContentList />
-  </section>
+    <ContentList firstList="spotPlanList"/>
+  </main>
 </template>
 
 <script>
 import ContentList from "../util/ContentList.vue";
+import data from "@/assets/data";
 
 export default {
   components: {
     ContentList,
   },
+  data(){
+    return{
+      tourList: [],
+      tourCount: 0,
+      spotPlanList: [],
+      spotPlanCount: 0,
+      userProfiles: {},
+    }
+  },
+  methods: {
+    getData(){
+      this.tourList = data.tourList;
+      this.tourCount = data.tourCount;
+      this.spotPlanList = data.spotPlanList;
+      this.spotPlanCount = data.spotPlanCount;
+      this.userProfiles = data.userProfiles[this.$route.params.id]
+      
+    }
+  },
+  mounted(){
+    this.getData();
+    this.$emit("meta",this.$route.matched[0].meta.isLogin);
+  }
 };
 </script>
 
 <style scoped>
-#main {
-  margin-left: 5%;
-  margin-right: 5%;
-}
-
 h1,
 h3 {
-  font-family: "Jalnan";
   color: #ff928e !important;
 }
 

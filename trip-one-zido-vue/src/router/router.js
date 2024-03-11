@@ -22,33 +22,39 @@ import EditSpot from "../components/spot/EditSpot.vue";
 import SpotDetail from "../components/spot/SpotDetail.vue";
 import TourDetail from "../components/tour/TourDetail.vue";
 import TourPage from "../components/tour/TourPage.vue";
-import AlertModal from "@/components/util/modal/AlertModal.vue";
+import ErrorPage from "../components/ErrorPage.vue";
 
 const routes = [
   {
     path: "/welcome",
-    component: Welcome
+    component: Welcome,
+    meta: { isLogin: false }
   },
   {
     path: "/",
-    component: MainPage
+    component: MainPage,
+    meta: { isLogin: true }
   },
   //community
   {
     path: "/community/page=:page",
-    component: Community
+    component: Community,
+    meta: { isLogin: true }
   },
   {
     path: "/community",
-    component: Community
+    component: Community,
+    meta: { isLogin: true }
   },
   {
     path: "/community/:id",
-    component: CommunityDetail
+    component: CommunityDetail,
+    meta: { isLogin: true }
   },
   {
     path: "/community/detail",
-    component: CommunityDetail
+    component: CommunityDetail,
+    meta: { isLogin: true }
   },
   {
     path: "/:mode/community/:id?",
@@ -57,79 +63,102 @@ const routes = [
   //member
   {
     path: "/bookmark/:id?",
-    component: Bookmark
+    component: Bookmark,
+    meta: { isLogin: true }
   },
   {
     path: "/config",
-    component: Config
+    component: Config,
+    meta: { isLogin: true }
   },
   {
     path: "/find",
-    component: Find
+    component: Find,
+    meta: { isLogin: false }
   },
   {
     path: "/login",
-    component: Login
+    component: Login,
+    meta: { isLogin: false }
   },
   {
     path: "/member-info",
-    component: MemberInfo
+    component: MemberInfo,
+    meta: { isLogin: true }
   },
   {
     path: "/member-page/:id?",
-    component: MemberPage
+    component: MemberPage,
+    meta: { isLogin: true }
   },
   {
     path: "/recent-view",
-    component: RecentView
+    component: RecentView,
+    meta: { isLogin: true }
   },
   {
-    path: "/reset-pw",
-    component: ResetPassword
+    path: "/reset-pw/:id?",
+    component: ResetPassword,
+    meta: { isLogin: false }
   },
   {
     path: "/Resign",
-    component: Resign
+    component: Resign,
+    meta: { isLogin: true }
   },
   {
     path: "/sign-up",
-    component: SignUp
+    component: SignUp,
+    meta: { isLogin: false }
   },
   //plan
   {
-    path: "/plan/:mode/:id?",
-    component: EditPlan
+    path: "/:mode/plan/:id?",
+    component: EditPlan,
+    meta: { isLogin: true }
   },
   {
     path: "/plan/:id",
-    component: PlanDetail
+    component: PlanDetail,
+    meta: { isLogin: true }
   },
   //search
   {
-    path: "/search",
-    component: Search
+    path: "/search/:keyword",
+    component: Search,
+    meta: { isLogin: true }
   },
   {
-    path: "/search/detail",
-    component: DetailSearch
+    path: "/search-detail/:keyword",
+    component: DetailSearch,
+    meta: { isLogin: true }
   },
   //spot
   {
-    path: "/spot/:mode/:id?",
-    component: EditSpot
+    path: "/:mode/spot/:id?",
+    component: EditSpot,
+    meta: { isLogin: true }
   },
   {
     path: "/spot/:id",
-    component: SpotDetail
+    component: SpotDetail,
+    meta: { isLogin: true }
   },
   //tour
   {
     path: "/tour/loc/:locCategory?",
-    component: TourPage
+    component: TourPage,
+    meta: { isLogin: true }
   },
   {
     path: "/tour/:id",
-    component: TourDetail
+    component: TourDetail,
+    meta: { isLogin: true }
+  },
+  {
+    path: "/:pathMatch(.*)",
+    component: ErrorPage,
+    meta: { isLogin: false }
   },
 ];
 
@@ -139,9 +168,9 @@ const router = createRouter({
 });
 
 //로그인 안하면 welcome 페이지로 리다이렉트
-// router.beforeEach((to, from, next) => {
-//   if(to.fullPath != '/welcome') next({path: '/welcome'});
-//   next();
-// })
+router.beforeEach((to, from, next) => {
+  if(to.meta.isLogin && !document.cookie.includes("login")) next({path: '/welcome'});
+  next();
+})
 
 export { router };

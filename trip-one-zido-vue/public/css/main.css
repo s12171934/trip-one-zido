@@ -2683,7 +2683,7 @@
       position: absolute;
       top: 0;
       width: 100%;
-      z-index: 10001;
+      z-index: 1000;
       box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.075);
       text-align: center;
    }
@@ -2735,7 +2735,11 @@
                #header nav a[href="#menu"]:before {
                   content: "";
                   -moz-osx-font-smoothing: grayscale;
-                  -webkit-font-smoothing: antialiased;
+                  -webkit-font-smoothing: an
+                  
+                  
+                  
+                  tialiased;
                   font-family: FontAwesome;
                   font-style: normal;
                   font-weight: normal;
@@ -2796,14 +2800,6 @@
 /* Menu */
 
    #menu {
-      -moz-transform: translateX(-20em);
-      -webkit-transform: translateX(-20em);
-      -ms-transform: translateX(-20em);
-      transform: translateX(-20em);
-      -moz-transition: -moz-transform 0.5s ease, visibility 0.5s;
-      -webkit-transition: -webkit-transform 0.5s ease, visibility 0.5s;
-      -ms-transition: -ms-transform 0.5s ease, visibility 0.5s;
-      transition: transform 0.5s ease, visibility 0.5s;
       -webkit-overflow-scrolling: touch;
       background: #F6B6B4;
       color: #ffffff;
@@ -2814,7 +2810,6 @@
       position: fixed;
       left: 0;
       top: 0;
-      visibility: hidden;
       width: 20em;
       z-index: 10002;
    }

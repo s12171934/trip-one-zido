@@ -1,5 +1,5 @@
 <template>
-  <section id="main" class="wrapper">
+  <main class="wrapper">
     <h1 class="title mb-5">상세검색</h1>
 
     <div class="row mb-3">
@@ -42,7 +42,7 @@
 
       <div class="col-md-12 mb-3">
         <h5>검색</h5>
-        <form @submit.prevent class="input-group">
+        <form @submit.prevent="$router.push(`/search-detail/${keyword}`)" class="input-group">
           <input
             name="search"
             type="text"
@@ -68,7 +68,7 @@
     </div>
 
     <ContentList />
-  </section>
+  </main>
 </template>
 
 <script>
@@ -85,19 +85,16 @@ export default {
       selectLocations: data.selectLocations,
     };
   },
+  mounted() {
+    this.$emit("meta", this.$route.matched[0].meta.isLogin);
+  },
 };
 </script>
 
 <style scoped>
 h1,
 h3 {
-  font-family: "Jalnan";
   color: #ff928e !important;
-}
-
-h5,
-button {
-  font-family: "Jalnan";
 }
 
 span {
@@ -107,11 +104,6 @@ span {
 
 #subTitle {
   margin-top: 5%;
-}
-
-#main {
-  margin-left: 5%;
-  margin-right: 5%;
 }
 
 .form-control {

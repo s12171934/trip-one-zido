@@ -3,6 +3,7 @@
     @click="goToMemberPage"
     class="d-flex align-items-center gap-2 mb-2 p-2"
     id="profile"
+    data-bs-dismiss="modal"
   >
     <img
       class="rounded-circle"
@@ -33,7 +34,7 @@ export default {
   },
   methods: {
     goToMemberPage() {
-      location.href = `/${this.userProfile.id}`;
+      location.href = `/member-page/${this.userProfile.id}`;
     },
   },
   data() {
@@ -58,12 +59,10 @@ export default {
 h4 {
   margin: 0;
   line-height: 70px;
-  font-family: "Jalnan";
   display: inline;
 }
 
 .button {
-  font-family: "Jalnan";
   padding-left: 10px;
   padding-right: 10px;
   height: 70%;
