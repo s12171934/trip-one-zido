@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.triponezidoapi.mappers.SearchMapper">
-    <select id="searchMember" parameterType="string" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+    <select id="searchMember" parameterType="com.example.triponezidoapi.dto.request.RequestSearch" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
         SELECT
             id,
             login_id,
@@ -9,7 +9,7 @@
         FROM
             member
         WHERE
-            login_id LIKE #{keyword}
+            name LIKE CONCAT('%', #{keyword}, '%')
         LIMIT
             #{page}, 6
     </select>
@@ -57,7 +57,7 @@
             spot s
         WHERE
             c.id = s.id AND
-            c.title LIKE #{keyword}
+            c.title LIKE CONCAT('%', #{keyword}, '%')
         LIMIT
             #{page}, 6
     </select>
@@ -105,7 +105,7 @@
             plan p
         WHERE
             c.id = p.id AND
-            c.title LIKE #{keyword}
+            c.title LIKE CONCAT('%', #{keyword}, '%')
         LIMIT
             #{page}, 6
     </select>
@@ -153,7 +153,7 @@
             spot s
         WHERE
             c.id = s.id AND
-            c.title LIKE #{keyword} AND
+            c.title LIKE CONCAT('%', #{keyword}, '%') AND
             s.loc_category = #{locCategory} AND
             s.category = #{category} AND
             (
@@ -207,7 +207,7 @@
             plan p
         WHERE
             c.id = p.id AND
-            c.title LIKE #{keyword} AND
+            c.title LIKE CONCAT('%', #{keyword}, '%') AND
             p.loc_category = #{locCategory} AND
             (
             p.start_date BETWEEN #{startDate} AND #{endDate} OR

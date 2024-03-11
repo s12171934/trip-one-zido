@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface SearchMapper {
     //select
-    List<ResponseMember> searchMember(String keyword);
+    List<ResponseMember> searchMember(RequestSearch requestSearch);
     List<ResponseContentList> searchSpot(RequestSearch requestSearch);
     List<ResponseContentList> searchPlan(RequestSearch requestSearch);
     List<ResponseContentList> detailSearchSpot(RequestDetailSearch requestDetailSearch);
