@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class ResponseMember {
-    long id;
+    Long id;
     String loginId;
     String own;
     byte[] profile;

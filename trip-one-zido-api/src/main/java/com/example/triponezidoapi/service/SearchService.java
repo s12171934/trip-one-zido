@@ -11,14 +11,15 @@ public class SearchService {
     @Autowired
     SearchMapper searchMapper;
 
-    public ResponseSearch searchByKeyword(Long id, String keyword){
+    public ResponseSearch searchByKeyword(Long id, String keyword, long page){
         RequestSearch requestSearch = new RequestSearch();
         requestSearch.setMyMemberId(id);
         requestSearch.setKeyword(keyword);
+        requestSearch.setPage(page);
 
         ResponseSearch responseSearch = new ResponseSearch();
         //searchMember
-        responseSearch.setMemberList(searchMapper.searchMember(keyword));
+        responseSearch.setMemberList(searchMapper.searchMember(requestSearch));
         //searchPlan
         responseSearch.setPlanList(searchMapper.searchPlan(requestSearch));
         //searchSpot
@@ -28,9 +29,10 @@ public class SearchService {
         return responseSearch;
     }
 
-    public ResponseSearch searchByDetail(Long id, RequestDetailSearch detailSearch){
+    public ResponseSearch searchByDetail(Long id, RequestDetailSearch detailSearch, long page){
         //detailSearchPlan 및 detailSearchSpot 에 필요한 MyMemberId 값 추가
         detailSearch.setMyMemberId(id);
+        detailSearch.setPage(page);
 
         ResponseSearch responseSearch = new ResponseSearch();
 
