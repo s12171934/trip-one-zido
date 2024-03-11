@@ -33,6 +33,30 @@ public class SearchService {
         //detailSearchPlan 및 detailSearchSpot 에 필요한 MyMemberId 값 추가
         detailSearch.setMyMemberId(id);
         detailSearch.setPage(page);
+        // 기간검색
+        switch (detailSearch.getSeason()){
+            // 봄 3~5
+            case "spring":
+                detailSearch.setStartMonth(3);
+                detailSearch.setEndMonth(5);
+                break;
+            // 여름 6~8
+            case "summer":
+                detailSearch.setStartMonth(6);
+                detailSearch.setEndMonth(8);
+                break;
+
+            // 가을 9~11
+            case "fall":
+                detailSearch.setStartMonth(9);
+                detailSearch.setEndMonth(11);
+                break;
+            // 겨울 12~2
+            case "winter":
+                detailSearch.setStartMonth(12);
+                detailSearch.setEndMonth(2);
+                break;
+        }
 
         ResponseSearch responseSearch = new ResponseSearch();
 
@@ -42,8 +66,7 @@ public class SearchService {
         responseSearch.setSpotList(searchMapper.detailSearchSpot(detailSearch));
 
         responseSearch.setKeyword(detailSearch.getKeyword());
-        responseSearch.setStartDuration(detailSearch.getStartDate());
-        responseSearch.setEndDuration(detailSearch.getEndDate());
+
         responseSearch.setLocCategory(detailSearch.getLocCategory());
         responseSearch.setCategory(detailSearch.getCategory());
 
