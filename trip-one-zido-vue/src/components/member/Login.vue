@@ -82,6 +82,7 @@ export default {
       saveLoginId: this.$cookies.isKey("saveLoginId"),
       autoLogin: false,
       modal: "loginFail",
+      options: "toolbar=no,scrollbars=no,resizable=yes,status=no,menubar=no,width=1200, height=800, top=0,left=0",
     };
   },
   methods: {
@@ -109,7 +110,7 @@ export default {
         "&redirect_uri=" +
         "http://localhost:8080/api/social/naver_callback" +
         "&state=1234";
-      location.href = url;
+      window.open(url,"",this.options);
     },
     doKakaoLogin() {
       const url =
@@ -119,7 +120,7 @@ export default {
         "http://localhost:8080/api/social/kakao_login" +
         "&response_type=code&" +
         "scope=	profile_nickname";
-        location.href = url;
+        window.open(url,"",this.options);
     },
   },
   mounted() {

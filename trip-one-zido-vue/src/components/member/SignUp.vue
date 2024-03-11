@@ -41,17 +41,19 @@
             type="text"
             class="w-25"
             readonly
-            value=""
+            id="zipcode"
+            v-model="zipcode"
             placeholder="우편번호"
           />
           <input
             type="text"
             readonly
             class="w-50"
-            value=""
+            id="address"
+            v-model="address"
             placeholder="주소"
           />
-          <button class="button w-25 icon fa-search" onclick="searchAddress()">
+          <button class="button w-25 icon fa-search" @click="searchAddress">
             주소 검색
           </button>
         </div>
@@ -113,6 +115,16 @@ export default {
         this.modal = "signUpFail";
       }
     },
+    searchAddress(){
+      new daum.Postcode({
+        oncomplete: function(data) {
+            this.zipcode = data.zonecode;
+            document.querySelector("#zipcode").value = this.zipcode
+            this.address = data.address;
+            document.querySelector("#address").value = this.address
+        }
+    }).open();
+    }
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);

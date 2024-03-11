@@ -32,20 +32,21 @@
       <tr id="updateArea">
         <td>주소</td>
         <td>
-          <input type="text" value="08378" />
+          <input type="text" id="zipcode" v-model="zipcode" />
         </td>
         <td>
           <div class="d-flex">
             <input
               type="text"
+              id="address"
               name="address"
               size="70"
-              value="서울 구로구 디지털로 34길 43"
+              v-model="address"
             />
             <button
               type="button"
               class="button icon fa-search ps-2 pe-2 ms-2"
-              onclick="searchAddress()"
+              @click="searchAddress"
             >
               주소 검색
             </button>
@@ -140,7 +141,21 @@ export default {
   data() {
     return {
       modal: "updateMemberInfoFail",
+      zipcode: 0,
+      address: ""
     };
+  },
+  methods: {
+    searchAddress(){
+      new daum.Postcode({
+        oncomplete: function(data) {
+            this.zipcode = data.zonecode;
+            document.querySelector("#zipcode").value = this.zipcode
+            this.address = data.address;
+            document.querySelector("#address").value = this.address
+        }
+    }).open();
+    }
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
