@@ -64,15 +64,6 @@ public class SpotService {
             requestPhoto.setContentId(generatedId);
             spotMapper.addPhoto(requestPhoto);
         }
-       /* List<byte[]> photos = requestSpot.getPhotos();
-         if (photos != null && !photos.isEmpty()) {
-             for (byte[] photo : photos) {
-                 RequestPhoto requestPhoto = new RequestPhoto();
-                 requestPhoto.setPhoto(photo);
-                 requestPhoto.setContentId(generatedId);
-                 spotMapper.addPhoto(requestPhoto);
-             }
-         }*/
 
         //addOwner
         RequestOwner requestOwner = new RequestOwner();
@@ -113,16 +104,6 @@ public class SpotService {
             requestOwner.setContentId(id);
             contentMapper.addOwner(requestOwner);
         }
-  /*      RequestOwner requestOwner = new RequestOwner();
-        List<ResponseMember> addmembers =contentMapper.getOwner(id);
-         if (addmembers != null && !addmembers.isEmpty()) {
-             for (ResponseMember memberId : addmembers) {
-                 requestOwner.setOwn(memberId.getOwn());
-                 requestOwner.setMemberId(Long.parseLong(memberId.getLoginId()));
-                 requestOwner.setContentId(id);
-                 contentMapper.addOwner(requestOwner);
-             }
-         }*/
 
         //deletePhoto
         spotMapper.deletePhoto(id);
