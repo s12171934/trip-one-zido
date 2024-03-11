@@ -9,6 +9,11 @@
   },
   "dependencies": {
     "@vue/cli": "^5.0.8",
+    "@fullcalendar/core": "^6.1.10",
+    "@fullcalendar/daygrid": "^6.1.10",
+    "@fullcalendar/interaction": "^6.1.10",
+    "@fullcalendar/timegrid": "^6.1.10",
+    "@fullcalendar/vue3": "^6.1.10",
     "axios": "^1.6.7",
     "core-js": "^3.8.3",
     "vue": "^3.2.13",

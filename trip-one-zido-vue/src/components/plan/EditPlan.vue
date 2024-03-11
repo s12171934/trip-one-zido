@@ -9,17 +9,18 @@
                     <h1 class="title" id="title">일정 등록</h1>
                     <br>
                 </div>
-                <div class="p-2 d-flex flex-row" id="blank"><h4>일정 제목</h4>
+                <div class="p-2 d-flex flex-row" id="blank">
+                    <h4>일정 제목</h4>
                     <input type="text" value="" id="trip-state-button">
                         <div class="btn-group" id="trip-state-button-group" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio hidden" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                        <label class="btn btn-outline-primary" for="btnradio1">여행전</label>
-                        
-                        <input type="radio hidden" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btnradio2">여행중</label>
-                        
-                        <input type="radio hidden" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btnradio3">여행한</label>
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                            <label class="btn btn-outline-primary" for="btnradio1">여행전</label>
+                            
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio2">여행중</label>
+                            
+                            <input type="radio" class="btn-check visually-hidden" name="btnradio" id="btnradio3" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio3">여행한</label>
                         </div>
                 </div>
 
@@ -62,11 +63,11 @@
 
                 <div class="p-2 d-flex mt-3" id="trip-review"><h4>여행한 후기</h4> 
                     <div class="rating flex-fill" id="star">
-                        <span onclick="rateStar(10)">☆</span>
-                        <span onclick="rateStar(8)">☆</span>
-                        <span onclick="rateStar(6)">☆</span>
-                        <span onclick="rateStar(4)">☆</span>
-                        <span onclick="rateStar(2)">☆</span>
+                        <span onclick=rateStar(10)>☆</span>
+                        <span onclick=rateStar(8)>☆</span>
+                        <span onclick=rateStar(6)>☆</span>
+                        <span onclick=rateStar(4)>☆</span>
+                        <span onclick=rateStar(2)>☆</span>
                     </div>
                     <p class="flex-fill" id="ratingValue">별점을 선택하세요.</p>
                 </div>
@@ -84,36 +85,27 @@
                     <h4 id="title2">여행 중 일정 및 장소</h4>
                     &nbsp;&nbsp;
                         <div class="select-wrapper" >
-							<select class ="local-select" name="category" id="security">
-                                <option value="" selected>지역 선택</option>
-									<option value="1">서울특별시</option>
-									<option value="2">부산광역시</option>
-									<option value="3">대구광역시</option>
-									<option value="4">인천광역시</option>
-									<option value="5">광주광역시</option>
-									<option value="6">대전광역시</option>
-									<option value="7">울산광역시</option>
-									<option value="8">세종특별자치시</option>
-									<option value="9">경기도</option>
-									<option value="10">강원특별자치도</option>
-									<option value="11">충청북도</option>
-									<option value="12">충청남도</option>
-									<option value="13">전북특별자치도</option>
-									<option value="14">전라남도</option>
-									<option value="15">경상북도</option>
-									<option value="16">경상남도</option>
-									<option value="17">제주특별자치도</option>
-							</select>
+                            <select class="form-control" name="category">
+									<option value="" selected>지역 선택</option>
+									<option v-for="location in selectLocations" :value="location">
+									{{ location }}
+									</option>
+                            </select>
 						</div>
                     <br>
                 </div>
 
-                
-                    <!-- <input type="text" value=""> -->
-                    <!-- <div id='calendar'></div> -->
-                <template>
-                <FullCalendar :options='calendarOptions' />
-                </template>
+                <div class='demo-app-main'>
+                <FullCalendar
+                    class='demo-app-calendar'
+                    :options='calendarOptions'>
+                    
+                    <template v-slot:eventContent='arg'>
+                    <b>{{ arg.timeText }}</b>
+                    <i>{{ arg.event.title }}</i>
+                    </template>
+                </FullCalendar>
+                </div>
 
 
                 <div class="p-2 d-flex flex-row">
@@ -173,9 +165,115 @@
 </template>
 
 <script>
-export default {
+import FullCalendar from '@fullcalendar/vue3'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import interactionPlugin from '@fullcalendar/interaction'
+import data from "/src/assets/data.js";
 
+export function rateStar(stars) {
+    document.getElementById('ratingValue').innerText = '별점: ' + stars + '점';
 }
+
+let eventGuid = 0
+let todayStr = new Date().toISOString().replace(/T.*$/, '') // YYYY-MM-DD of today
+
+export const INITIAL_EVENTS = [
+  {
+    id: createEventId(),
+    title: 'All-day event',
+    start: todayStr
+  },
+  {
+    id: createEventId(),
+    title: 'Timed event',
+    start: todayStr + 'T12:00:00'
+  }
+]
+
+export function createEventId() {
+  return String(eventGuid++)
+}
+
+export default {
+    components: {
+    FullCalendar // make the <FullCalendar> tag available
+    },
+    data() {
+    return {
+        selectLocations: data.selectLocations,
+
+        calendarOptions: {
+        plugins: [
+          dayGridPlugin,
+          timeGridPlugin,
+          interactionPlugin // needed for dateClick
+        ],
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        initialView: 'timeGridWeek',
+        initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
+        editable: true,
+        selectable: true,
+        selectMirror: true,
+        dayMaxEvents: true,
+        weekends: true,
+        select: this.handleDateSelect,
+        eventClick: this.handleEventClick,
+        eventsSet: this.handleEvents
+        },
+        currentEvents: [],
+        }
+    },
+
+    methods: {
+    handleWeekendsToggle() {
+      this.calendarOptions.weekends = !this.calendarOptions.weekends // update a property
+    },
+    handleDateSelect(selectInfo) {
+      let title = prompt('Please enter a new title for your event')
+      let calendarApi = selectInfo.view.calendar
+
+      calendarApi.unselect() // clear date selection
+
+      if (title) {
+        calendarApi.addEvent({
+          id: createEventId(),
+          title,
+          start: selectInfo.startStr,
+          end: selectInfo.endStr,
+          allDay: selectInfo.allDay
+        })
+      }
+    },
+    handleEventClick(clickInfo) {
+      if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+        clickInfo.event.remove()
+      }
+    },
+    handleEvents(events) {
+      this.currentEvents = events
+    },
+  }
+}
+    document.addEventListener('DOMContentLoaded', function () {
+        var buttons = document.querySelectorAll('.btn-outline-primary');
+        buttons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                // Remove the 'active' class from all buttons
+                buttons.forEach(function (btn) {
+                    btn.classList.remove('active');
+                });
+
+                // Add the 'active' class to the clicked button
+                button.classList.add('active');
+            });
+        });
+    });
+
 </script>
 
 <style scoped>
@@ -333,5 +431,20 @@ input{
 
 #trip-review {
     margin-bottom:-1%
+}
+
+/* .btn-check:checked {
+    color :#ff928e ;
+} */
+
+.btn-check:checked + .btn-outline-primary::before {
+    background-color: #ff928e;
+}
+.btn-check:checked + .btn-outline-primary:focus {
+    border-color:#ff928e;
+}
+
+#app {
+    height: auto;
 }
 </style>

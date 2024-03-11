@@ -10,25 +10,11 @@
 						<td id="tdTitle">지역</td>
 						<td id="tdSelect">
 							<div class="select-wrapper"  id="table-select">
-								<select class="local-select" name="category">
+								<select class="form-control" name="category">
 									<option value="" selected>지역 선택</option>
-									<option value="1">서울특별시</option>
-									<option value="2">부산광역시</option>
-									<option value="3">대구광역시</option>
-									<option value="4">인천광역시</option>
-									<option value="5">광주광역시</option>
-									<option value="6">대전광역시</option>
-									<option value="7">울산광역시</option>
-									<option value="8">세종특별자치시</option>
-									<option value="9">경기도</option>
-									<option value="10">강원특별자치도</option>
-									<option value="11">충청북도</option>
-									<option value="12">충청남도</option>
-									<option value="13">전북특별자치도</option>
-									<option value="14">전라남도</option>
-									<option value="15">경상북도</option>
-									<option value="16">경상남도</option>
-									<option value="17">제주특별자치도</option>
+									<option v-for="location in selectLocations" :value="location">
+									{{ location }}
+									</option>
 								</select>
 							</div>
 						</td>
@@ -128,9 +114,18 @@
 </template>
 
 <script>
+       
+import data from "/src/assets/data.js";
+
 export default {
 
+    data() {
+    return {
+        selectLocations: data.selectLocations,
+        }
+    },
 }
+
 </script>
 
 <style scoped>

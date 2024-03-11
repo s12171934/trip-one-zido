@@ -57,9 +57,8 @@ const routes = [
     meta: { isLogin: true }
   },
   {
-    path: "/community/:mode/:id?",
-    component: EditCommunity,
-    meta: { isLogin: true }
+    path: "/:mode/community/:id?",
+    component: EditCommunity
   },
   //member
   {
