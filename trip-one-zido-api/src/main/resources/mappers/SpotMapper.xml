@@ -160,6 +160,15 @@
             #{page}, 6
     </select>
 
+    <select id="getPhoto" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponsePhoto">
+        SELECT
+            photo
+        FROM
+            photo
+        WHERE
+            content_id = #{id}
+    </select>
+
     <update id="updateSpot" parameterType="com.example.triponezidoapi.dto.request.RequestSpot">
         UPDATE spot
         SET

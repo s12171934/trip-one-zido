@@ -74,7 +74,7 @@ public class CommunityApiController {
     ){
         communityService.deleteCommunity(id);
     }
-    @GetMapping("/search/{page}")
+    @PostMapping("/search/{page}")
     @Operation(summary = "검색한 커뮤니티 게시물 목록")
     public List<ResponseCommunity> searchCommunity(
             @RequestBody

@@ -31,9 +31,19 @@ public class CommunityService {
         contentMember.setMemberId(sessionId);
         contentMember.setContentId(id);
         responseCommunityDetail.setMine(contentMapper.isMine(contentMember));
-        //NextId, PrevId
-        responseCommunityDetail.setNextId(communityMapper.getNextId(id));
-        responseCommunityDetail.setPrevId(communityMapper.getPrevId(id));
+        //NextId, PrevId , 커뮤니티 이전/다음페이지 정보세팅 추가 - ParkJhh
+        //만약 앞 커뮤니티 게시글이 존재하지 않는다면
+        if(communityMapper.getPrevId(id) == null){
+            responseCommunityDetail.setPrevId(0);
+        } else {
+            responseCommunityDetail.setPrevId(communityMapper.getPrevId(id));
+        }
+        //만약 다음 커뮤니티 게시글이 존재하지 않는다면
+        if(communityMapper.getNextId(id) == null){
+            responseCommunityDetail.setNextId(0);
+        } else {
+            responseCommunityDetail.setNextId(communityMapper.getNextId(id));
+        }
 
         return responseCommunityDetail;
     }
@@ -63,7 +73,7 @@ public class CommunityService {
     public void updateCommunity(RequestCommunity requestCommunity, Long id){
         //updateTitle
         RequestTitle requestTitle = new RequestTitle();
-        requestTitle.setId(requestCommunity.getId());
+        requestTitle.setId(id);
         requestTitle.setTitle(requestCommunity.getTitle());
         contentMapper.updateTitle(requestTitle);
 
@@ -77,8 +87,12 @@ public class CommunityService {
     }
 
     public List<ResponseCommunity> getCommunityListWithSearch(RequestCommunitySearch requestCommunitySearch,long page){
+        //페이지 카운트 처리
+        if(page != 0){
+            page = page * 6;
+        }
         requestCommunitySearch.setPage(page);
-
+        //타입이 'title' 또는 'writer'에 따라 쿼리가 동적이 되게끔 수정
         return communityMapper.getCommunityListWithSearch(requestCommunitySearch);
     }
 
