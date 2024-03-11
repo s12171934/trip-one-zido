@@ -106,9 +106,23 @@
         FROM
             community,
             content
-        WHERE
-            community.id = content.id AND
-            #{type} = #{keyword}
+        <where>
+            community.id = content.id
+            <if test="type == 'title'">AND title LIKE CONCAT('%', #{keyword},'%') </if>
+            <if test="type != 'title'">AND (
+                SELECT
+                login_id
+                FROM
+                member m,
+                owner o
+                WHERE
+                m.id = o.member_id AND
+                o.own = 'writer' AND
+                o.content_id = content.id
+                ) LIKE CONCAT('%', #{keyword}, '%')</if>
+        </where>
+        ORDER BY
+            created_at DESC
         LIMIT
             #{page}, 6
     </select>
