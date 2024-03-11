@@ -41,6 +41,7 @@
       <div class="d-flex gap-2 justify-content-center mb-4">
         <a href="#" id="naver-login-btn">
           <img
+            @click="doNaverLogin"
             src="\images\btnG_아이콘사각.png"
             alt="네이버 아이디로 로그인"
             height="70px"
@@ -48,6 +49,7 @@
         </a>
         <a href="#" id="kakao-login-btn">
           <img
+            @click="doKakaoLogin"
             src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png"
             alt="카카오톡 아이디로 로그인"
             height="70px"
@@ -96,9 +98,28 @@ export default {
         } else {
           this.$cookies.remove("autoLogin");
         }
-        location.href = '/';
+        location.href = "/";
       } else {
       }
+    },
+    doNaverLogin() {
+      const url =
+        "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=" +
+        "TGQMEJAd_Qx6raHI9ZZk" +
+        "&redirect_uri=" +
+        "http://localhost:8080/api/social/naver_callback" +
+        "&state=1234";
+      location.href = url;
+    },
+    doKakaoLogin() {
+      const url =
+        "https://kauth.kakao.com/oauth/authorize?client_id=" +
+        "a02aa0f1daf88f640e2509406d97bec1" +
+        "&redirect_uri=" +
+        "http://localhost:8080/api/social/kakao_login" +
+        "&response_type=code&" +
+        "scope=	profile_nickname";
+        location.href = url;
     },
   },
   mounted() {
