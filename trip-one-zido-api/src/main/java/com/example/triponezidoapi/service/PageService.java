@@ -48,13 +48,8 @@ public class PageService {
         //follower, following count
         memberPage.setFollowerCount(memberMapper.followerCount(id));
         memberPage.setFollowingCount(memberMapper.followingCount(id));
-
-        // memberPage.setMine();
-        //RequestContentMember requestContentMember = new RequestContentMember();
-        //requestContentMember.setMemberId(id);
-        //contentId 가져오지 못한다
-        //requestContentMember.setContentId();
-        //memberPage.setMine(contentMapper.isMine(requestContentMember));
+        //나의 페이지라면 true를, 아니라면 false를 반환
+        memberPage.setMine(id.equals(sessionId));
         return memberPage;
     }
 
