@@ -248,9 +248,9 @@
     UPDATE
       member
     SET
-      profile = #{profile}
+      profile = #{photo}
     WHERE
-      id = #{id}
+      id = #{contentId}
   </update>
 
   <delete id="deleteMember" parameterType="long">
