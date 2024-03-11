@@ -27,7 +27,7 @@
                         <td>{{ list.deadLine }}</td>
                         <td>{{ list.viewCount }}</td>
                         <td>{{ list.withCount }} / {{ list.total }}</td>
-                        <td>{{ list.status }}</td>
+                        <td>{{ getStatus(list.withCount, list.total) }}</td>
                         <!-- <td><a v-on:click="`/community/${list.content_id}`">{{ list.title }}</a></td> -->
                     </tr>
 
@@ -88,43 +88,29 @@ export default {
     data() {
     return {
         communityList: data.communityList,
+        communityDetail: data.communityDetail,
         }
     },
     
-  methods : {
-
-    status() {
-        if(this.communityList.with == this.communityList.total) {
-            this.communityList.status = "마감"
-        } else {
-            this.communityList.status = "모집"
-        }
+    methods: {
+    getStatus(withCount, total) {
+      return withCount === total ? "마감" : "모집중";
     },
     
     goToCommunityDetail(id) {
         this.currentContentId = id;
         this.$router.push({ path: `/community/${id}` })
       },
-  }
+    viewCount(id) {
+    // 해당 게시글의 viewCount를 증가시킵니다.
+    const selectedPost = this.communityList.find(post => post.content_id === id);
+    if (selectedPost) {
+        selectedPost.viewCount += 1;
+        }
+    }
 }
-    // // 1. 페이지 네이션
-    // data () {
-    //     return {
-    //         posts: [], // 게시글 데이터
-    //         currentPage: 1, // 현재 페이지 번호
-    //         postsPerPage: 10, // 한 페이지에 보여줄 게시글의 수
-    //     };
-    // },
-
-    // computed: {
-    //     displayedPosts() {
-    //         // 현재 페이지에 해당하는 게시글 목록을 반환하는 computed 속성
-    //         const startIndex = (this.currentPage -1) * this.postsPerPage;
-    //         const endIndex = startIndex + this.postsPerPage;
-    //         return this.posts.slice (startIndex, endIndex)
-    //     }    
-    // },
-
+}
+   
 </script>
 
 <style scoped>
