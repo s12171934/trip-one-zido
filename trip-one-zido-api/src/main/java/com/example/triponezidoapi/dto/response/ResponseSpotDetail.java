@@ -24,7 +24,7 @@ public class ResponseSpotDetail {
     boolean isPublic;
     LocalDateTime createdAt;
     byte[] profile;
-    List<byte[]> photos;
+    List<ResponsePhoto> photos;
     List<ResponseMember> members;
     List<ResponseComment> responseComments;
     boolean isMine;

@@ -24,6 +24,9 @@ public class SpotService {
         requestSessionTarget.setMyMemberId(sessionId);
         ResponseSpotDetail responseSpotDetail = spotMapper.getSpot(requestSessionTarget);
 
+        //getPhoto
+        responseSpotDetail.setPhotos(spotMapper.getPhoto(id));
+
         //getComment
         responseSpotDetail.setResponseComments(commentMapper.getComment(id));
 
