@@ -63,11 +63,11 @@
 
                 <div class="p-2 d-flex mt-3" id="trip-review"><h4>여행한 후기</h4> 
                     <div class="rating flex-fill" id="star">
-                        <span onclick="rateStar(10)">☆</span>
-                        <span onclick="rateStar(8)">☆</span>
-                        <span onclick="rateStar(6)">☆</span>
-                        <span onclick="rateStar(4)">☆</span>
-                        <span onclick="rateStar(2)">☆</span>
+                        <span onclick=rateStar(10)>☆</span>
+                        <span onclick=rateStar(8)>☆</span>
+                        <span onclick=rateStar(6)>☆</span>
+                        <span onclick=rateStar(4)>☆</span>
+                        <span onclick=rateStar(2)>☆</span>
                     </div>
                     <p class="flex-fill" id="ratingValue">별점을 선택하세요.</p>
                 </div>
@@ -95,10 +95,17 @@
                     <br>
                 </div>
 
-                
-                    <!-- <input type="text" value=""> -->
-                    <!-- <div id='calendar'></div> -->
-              <div id='calendar'></div>
+                <div class='demo-app-main'>
+                <FullCalendar
+                    class='demo-app-calendar'
+                    :options='calendarOptions'>
+                    
+                    <template v-slot:eventContent='arg'>
+                    <b>{{ arg.timeText }}</b>
+                    <i>{{ arg.event.title }}</i>
+                    </template>
+                </FullCalendar>
+                </div>
 
 
                 <div class="p-2 d-flex flex-row">
@@ -158,16 +165,99 @@
 </template>
 
 <script>
-
+import FullCalendar from '@fullcalendar/vue3'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import interactionPlugin from '@fullcalendar/interaction'
 import data from "/src/assets/data.js";
 
-export default {
+export function rateStar(stars) {
+    document.getElementById('ratingValue').innerText = '별점: ' + stars + '점';
+}
 
+let eventGuid = 0
+let todayStr = new Date().toISOString().replace(/T.*$/, '') // YYYY-MM-DD of today
+
+export const INITIAL_EVENTS = [
+  {
+    id: createEventId(),
+    title: 'All-day event',
+    start: todayStr
+  },
+  {
+    id: createEventId(),
+    title: 'Timed event',
+    start: todayStr + 'T12:00:00'
+  }
+]
+
+export function createEventId() {
+  return String(eventGuid++)
+}
+
+export default {
+    components: {
+    FullCalendar // make the <FullCalendar> tag available
+    },
     data() {
     return {
         selectLocations: data.selectLocations,
+
+        calendarOptions: {
+        plugins: [
+          dayGridPlugin,
+          timeGridPlugin,
+          interactionPlugin // needed for dateClick
+        ],
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        initialView: 'timeGridWeek',
+        initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
+        editable: true,
+        selectable: true,
+        selectMirror: true,
+        dayMaxEvents: true,
+        weekends: true,
+        select: this.handleDateSelect,
+        eventClick: this.handleEventClick,
+        eventsSet: this.handleEvents
+        },
+        currentEvents: [],
         }
     },
+
+    methods: {
+    handleWeekendsToggle() {
+      this.calendarOptions.weekends = !this.calendarOptions.weekends // update a property
+    },
+    handleDateSelect(selectInfo) {
+      let title = prompt('Please enter a new title for your event')
+      let calendarApi = selectInfo.view.calendar
+
+      calendarApi.unselect() // clear date selection
+
+      if (title) {
+        calendarApi.addEvent({
+          id: createEventId(),
+          title,
+          start: selectInfo.startStr,
+          end: selectInfo.endStr,
+          allDay: selectInfo.allDay
+        })
+      }
+    },
+    handleEventClick(clickInfo) {
+      if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+        clickInfo.event.remove()
+      }
+    },
+    handleEvents(events) {
+      this.currentEvents = events
+    },
+  }
 }
     document.addEventListener('DOMContentLoaded', function () {
         var buttons = document.querySelectorAll('.btn-outline-primary');
@@ -183,35 +273,6 @@ export default {
             });
         });
     });
-
-
-// document.addEventListener('DOMContentLoaded', function() {
-//   var calendarEl = document.getElementById('calendar');
-
-//   var calendar = new FullCalendar.Calendar(calendarEl, {
-//     timeZone: 'UTC',
-//     initialView: 'resourceTimeGridFourDay',
-//     headerToolbar: {
-//       left: 'prev,next',
-//       center: 'title',
-//       right: 'resourceTimeGridDay,resourceTimeGridFourDay'
-//     },
-//     views: {
-//       resourceTimeGridFourDay: {
-//         type: 'resourceTimeGrid',
-//         duration: { days: 4 },
-//         buttonText: '4 days'
-//       }
-//     },
-//     resources: [
-//       { id: 'a', title: 'Room A' },
-//       { id: 'b', title: 'Room B' }
-//     ],
-//     events: 'https://fullcalendar.io/api/demo-feeds/events.json?with-resources=2'
-//   });
-
-//   calendar.render();
-// });
 
 </script>
 
@@ -383,4 +444,7 @@ input{
     border-color:#ff928e;
 }
 
+#app {
+    height: auto;
+}
 </style>
