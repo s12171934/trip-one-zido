@@ -9,14 +9,11 @@
         <!-- <input class="search-input" type="text"/> -->
         <i class="icon fa-search"></i>
         <input
-          name="q"
+          name="keyword"
           type="text"
           class="search-input"
           placeholder="검색어를 입력해주세요"
-          aria-label="Recipient's username"
-          aria-describedby="button-addon2"
         />
-        <i class="fas fa-keyboard"></i>
       </div>
     </form>
 
@@ -81,10 +78,16 @@ main {
 
 .main .searchbar-wrap .search-input {
     width: 400px;
-    height: 100%;
+    height: 100% !important;
     font-size: 16px;
     border: none;
     outline: none;
+}
+
+input {
+  height: 100% !important;
+  margin: 0 1rem !important;
+  border: none !important;
 }
 
 #buttons{

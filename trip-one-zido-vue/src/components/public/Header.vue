@@ -1,52 +1,64 @@
 <template>
-  <header id="header" :style="view ? '' : 'box-shadow: none'">
+  <header id="header" :style="path != '/' ? '' : 'box-shadow: none'">
     <nav v-if="isLogin" class="left">
-      <a href="#menu" @click="toggleMenu"><span>Menu</span></a>
+      <a
+        href="#menu"
+        data-bs-toggle="offcanvas"
+        role="button"
+        aria-controls="menu"
+        ><span>Menu</span></a
+      >
     </nav>
 
-    <div v-if="view" class="h-100">
-      <a href="/">
+    <div v-if="path != '/'" class="h-100">
+      <a @click="$router.push('/')">
         <img src="/images/여행한지도_로고.png" class="logo" width="325" />
       </a>
 
       <nav v-if="isLogin" class="right d-flex gap-2 align-items-center">
-        <form action="/search" class="m-0">
-          <input type="text" id="headerSearchBar" required />
+        <form @submit.prevent="$router.push(`/search/${keyword}`)" class="m-0">
+          <input type="text" id="headerSearchBar" v-model="keyword" required />
         </form>
         <span class="image round d-flex h-100 align-items-center" box-sha>
-          <a href="/member-page">
-            <img src="/images/남자.png" height="75" />
-          </a>
+            <img @click="$router.push('/member-page')" src="/images/남자.png" height="75" />
+  
         </span>
       </nav>
       <nav v-else class="right d-flex gap-2 align-items-center">
-        <a href="/login" class="button alt">
-          로그인
-        </a>
-        <a href="/sign-up" class="button alt">
-          회원가입
-        </a>
+        <a @click="$router.push('/login')" class="button alt"> 로그인 </a>
+        <a @click="$router.push('/sign-up')" class="button alt"> 회원가입 </a>
       </nav>
     </div>
   </header>
 
-  <nav id="menu" :class="menu ? 'visible' : ''">
+  <nav
+    id="menu"
+    class="offcanvas offcanvas-start"
+    tabindex="-1"
+    aria-labelledby="menu"
+  >
     <ul class="links">
       <li>
         <a @click="toggleAddMenu">게시글 등록</a>
         <ul id="add" v-if="addMenu">
-          <li><a href="/plan/add">일정 게시글 등록</a></li>
-          <li><a href="/spot/add">장소 게시글 등록</a></li>
-          <li><a href="/community/add">커뮤니티 게시글 등록</a></li>
+          <li><a @click="goTo('/plan/add')" data-bs-dismiss="offcanvas">일정 게시글 등록</a></li>
+          <li><a @click="goTo('/spot/add')" data-bs-dismiss="offcanvas">장소 게시글 등록</a></li>
+          <li><a @click="goTo('/community/add')" data-bs-dismiss="offcanvas">커뮤니티 게시글 등록</a></li>
         </ul>
       </li>
-      <li><a href="/community">커뮤니티</a></li>
-      <li><a href="/recent-view">최근기록</a></li>
-      <li><a href="/bookmark">찜목록</a></li>
-      <li><a href="/tour/loc">관광정보</a></li>
+      <li><a @click="goTo('/community')" data-bs-dismiss="offcanvas">커뮤니티</a></li>
+      <li><a @click="goTo('/recent-view')" data-bs-dismiss="offcanvas">최근기록</a></li>
+      <li><a @click="goTo('/bookmark')" data-bs-dismiss="offcanvas">찜목록</a></li>
+      <li><a @click="goTo('/tour/loc')" data-bs-dismiss="offcanvas">관광정보</a></li>
       <li><a @click="logout">로그아웃</a></li>
     </ul>
-    <a href="#menu" @click="toggleMenu" class="close"></a>
+    <a
+      href="#menu"
+      @click="toggleMenu"
+      class="close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></a>
   </nav>
 </template>
 
@@ -54,12 +66,13 @@
 export default {
   props: {
     isLogin: Boolean,
+    path: String,
   },
   data() {
     return {
       menu: false,
       addMenu: false,
-      view: window.location.pathname != '/',
+      keyword: ""
     };
   },
   methods: {
@@ -70,9 +83,12 @@ export default {
       this.addMenu = !this.addMenu;
     },
     logout() {
-      this.$cookies.remove('login');
-      this.$cookies.remove('autoLogin');
-      location.href = '/welcome';
+      this.$cookies.remove("login");
+      this.$cookies.remove("autoLogin");
+      location.href = "/welcome";
+    },
+    goTo(path){
+      this.$router.push(path);
     }
   },
 };

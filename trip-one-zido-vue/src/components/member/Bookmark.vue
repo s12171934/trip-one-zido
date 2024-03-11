@@ -1,6 +1,6 @@
 <template>
   <main class="wrapper">
-    <h1>찜한 게시글</h1>
+    <h1><span>{{ userProfiles.loginId }}</span>님이 찜한 게시글</h1>
 
     <div class="d-flex flex-row mb-6" id="subTitle">
       <h3>・모든 일정 & 장소 게시글<span>{{ tourCount }}</span></h3>
@@ -30,6 +30,7 @@ export default {
       tourCount: 0,
       spotPlanList: [],
       spotPlanCount: 0,
+      userProfiles: {},
     }
   },
   methods: {
@@ -38,12 +39,12 @@ export default {
       this.tourCount = data.tourCount;
       this.spotPlanList = data.spotPlanList;
       this.spotPlanCount = data.spotPlanCount;
+      this.userProfiles = data.userProfiles[this.$route.params.id]
       
     }
   },
   mounted(){
     this.getData();
-
     this.$emit("meta",this.$route.matched[0].meta.isLogin);
   }
 };

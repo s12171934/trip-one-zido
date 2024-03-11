@@ -15,7 +15,7 @@
       <tr id="updateArea">
         <td>비밀번호</td>
         <td>
-          <a href="/reset-pw" class="button">비밀번호 변경</a>
+          <a @click="$router.push('reset-pw')" class="button">비밀번호 변경</a>
         </td>
       </tr>
       <tr id="trHeader">
@@ -112,51 +112,39 @@
     </table>
 
     <div class="gap-2 d-flex justify-content-between">
-      <a href="/resign" class="button alt">회원 탈퇴</a>
+      <a @click="$router.push('resign')" class="button alt">회원 탈퇴</a>
       <div>
-        <button @click="updateMemberInfo" class="button">수정</button>
-        <a href="/config" class="button alt ms-3">취소</a>
+        <button
+          @click="updateMemberInfo"
+          class="button"
+          data-bs-toggle="modal"
+          data-bs-target="#alertModal"
+        >
+          수정
+        </button>
+        <a @click="$router.push('/config')" class="button alt ms-3">취소</a>
       </div>
     </div>
   </main>
 
-  <AlertModal
-    :modalShown="modalShown"
-    @modal="$emit('modal')"
-    :url="modalData.url"
-    :message="modalData.message"
-    :buttonMessage="modalData.buttonMessage"
-  />
+  <AlertModal :modal="modal" />
 </template>
 
 <script>
-import AlertModal from '../util/modal/AlertModal.vue';
+import AlertModal from "../util/modal/AlertModal.vue";
 
 export default {
   components: {
-    AlertModal
+    AlertModal,
   },
-  data(){
-    return{
-      modalData: {},
-    }
+  data() {
+    return {
+      modal: "updateMemberInfoFail",
+    };
   },
-  props: {
-    modalShown: Boolean
+  mounted() {
+    this.$emit("meta", this.$route.matched[0].meta.isLogin);
   },
-  methods: {
-    updateMemberInfo(){
-      this.modalData = {
-        url: "/config",
-        message: "회원정보 수정이<br />완료되었습니다.",
-        buttonMessage: "확인",
-      }
-      this.$emit("modal");
-    }
-  },
-  mounted(){
-    this.$emit("meta",this.$route.matched[0].meta.isLogin);
-  }
 };
 </script>
 

@@ -125,12 +125,12 @@ const routes = [
   },
   //search
   {
-    path: "/search",
+    path: "/search/:keyword",
     component: Search,
     meta: { isLogin: true }
   },
   {
-    path: "/search/detail",
+    path: "/search-detail/:keyword",
     component: DetailSearch,
     meta: { isLogin: true }
   },

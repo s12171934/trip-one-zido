@@ -24,10 +24,9 @@
       </button>
       <hr />
       <NumberSummary
-        @modal="$emit('modal')"
         @follower="followType = 'follower'"
         @following="followType = 'following'"
-        @bookmark="goToBookmark"
+        @bookmark="$router.push('/bookmark')"
       />
       <div class="fs-5 h-100" id="googleMap">
         <iframe
@@ -65,11 +64,7 @@
     </div>
   </main>
 
-  <FollowModal
-    :modalShown="modalShown"
-    :type="followType"
-    @modal="$emit('modal')"
-  />
+  <FollowModal :type="followType" />
 </template>
 
 <script>
@@ -87,7 +82,7 @@ export default {
     ListTitle,
   },
   props: {
-    modalShown: Boolean,
+    id: Number,
   },
   data() {
     return {
@@ -102,18 +97,15 @@ export default {
   },
   methods: {
     goToBookmark() {
-      location.href = `/bookmark/${this.$route.params.id}`;
+      location.href = `/bookmark/${this.id}`;
     },
     getUserData() {
-      for (let profile of data.userProfiles) {
-        console.log(profile);
-        if (profile.id == this.$route.params.id) {
-          this.userData = profile;
-        }
+      if (this.id != "") {
+        this.userData = data.userProfiles[this.id];
       }
     },
     followOrConfig() {
-      if (this.userData.id == 1 || this.userData.id == null) {
+      if (this.userData.id == null || this.userData.id == 1) {
         this.$router.push("/config");
       } else {
         this.userData.isFollow = !this.userData.isFollow;
@@ -129,8 +121,8 @@ export default {
   },
   mounted() {
     this.getUserData();
-    this.$emit("meta",this.$route.matched[0].meta.isLogin);
-  },
+    this.$emit("meta", this.$route.matched[0].meta.isLogin);
+  },  
 };
 </script>
 

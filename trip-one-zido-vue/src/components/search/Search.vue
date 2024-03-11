@@ -1,6 +1,6 @@
 <template>
   <main class="wrapper">
-    <form @submit.prevent class="input-group">
+    <form @submit.prevent="$router.push(`/search/${keyword}`)" class="input-group">
       <input
         name="q"
         type="text"
@@ -12,7 +12,7 @@
       <button
         class="button alt"
         type="button"
-        @click="this.$router.push('/search/detail')"
+        @click="this.$router.push('/search-detail')"
       >
         일정 & 장소 상세검색으로
       </button>

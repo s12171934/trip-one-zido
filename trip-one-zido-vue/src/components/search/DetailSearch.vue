@@ -42,7 +42,7 @@
 
       <div class="col-md-12 mb-3">
         <h5>검색</h5>
-        <form @submit.prevent class="input-group">
+        <form @submit.prevent="$router.push(`/search-detail/${keyword}`)" class="input-group">
           <input
             name="search"
             type="text"

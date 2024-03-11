@@ -3,10 +3,10 @@
     <div class="d-flex justify-content-end">
       <ul class="actions">
         <li>
-          <a href="/tour/loc" class="button alt small">목록</a>
+          <a @click="$router.push('/tour/loc')" class="button alt small">목록</a>
         </li>
-        <li><a href="/tour/1" class="button alt small">이전</a></li>
-        <li><a href="/tour/3" class="button alt small">다음</a></li>
+        <li><a @click="$router.push('/tour/1')" class="button alt small">이전</a></li>
+        <li><a @click="$router.push('/tour/3')" class="button alt small">다음</a></li>
       </ul>
     </div>
     <div class="row">

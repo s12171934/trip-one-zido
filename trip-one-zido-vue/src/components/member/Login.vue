@@ -14,7 +14,6 @@
             v-model="saveLoginId"
           />
           <label for="idsave">아이디 저장</label>
-
           <input
             type="checkbox"
             id="autologin"
@@ -23,11 +22,18 @@
           />
           <label for="autologin">자동 로그인</label>
 
-          <a href="/find">아이디 / 비밀번호 찾기</a>
+          <a @click="$router.push('/find')">아이디 / 비밀번호 찾기</a>
         </div>
 
         <div class="d-flex justify-content-center">
-          <a @click="login" class="button small">로그인</a>
+          <button
+            @click="login"
+            data-bs-toggle="modal"
+            data-bs-target="#alertModal"
+            class="button small"
+          >
+            로그인
+          </button>
         </div>
       </form>
 
@@ -51,18 +57,12 @@
 
       <h3>아직 회원이 아니시라면?</h3>
       <div class="d-flex justify-content-center">
-        <a href="/sign-up" class="button small">회원가입</a>
+        <a @click="$router.push('sign-up')" class="button small">회원가입</a>
       </div>
     </div>
   </main>
 
-  <AlertModal
-    @modal="$emit('modal')"
-    :modalShown="modalShown"
-    url="/login"
-    message="아이디와 비밀번호를<br />확인해주세요."
-    buttonMessage="다시 로그인 하기"
-  />
+  <AlertModal :modal="modal" />
 </template>
 
 <script>
@@ -74,13 +74,13 @@ export default {
   },
   data() {
     return {
-      loginId: this.$cookies.isKey("saveLoginId") ? this.$cookies.get("saveLoginId") : "",
+      loginId: this.$cookies.isKey("saveLoginId")
+        ? this.$cookies.get("saveLoginId")
+        : "",
       saveLoginId: this.$cookies.isKey("saveLoginId"),
       autoLogin: false,
+      modal: "loginFail",
     };
-  },
-  props: {
-    modalShown: Boolean,
   },
   methods: {
     login() {
@@ -96,9 +96,8 @@ export default {
         } else {
           this.$cookies.remove("autoLogin");
         }
-        location.href = "/";
+        location.href = '/';
       } else {
-        this.$emit("modal");
       }
     },
   },

@@ -7,7 +7,7 @@
       <br />
       <h1 style="color: beige">쉽게 작성 할 수 있는 여행 리뷰</h1>
       <ul class="actions">
-        <li><a href="/login" class="button scrolly">시작해보기</a></li>
+        <li><a @click="$router.push('/login')" class="button scrolly">시작해보기</a></li>
       </ul>
     </div>
   </section>

@@ -11,7 +11,13 @@
             placeholder="이메일 주소"
           />
         </div>
-        <a @click="loginIdModal" id="input" class="button small rounded-3">
+        <a
+          @click="loginIdModal"
+          id="input"
+          class="button small rounded-3"
+          data-bs-toggle="modal"
+          data-bs-target="#alertModal"
+        >
           아이디 찾기
         </a>
       </div>
@@ -22,25 +28,21 @@
           <input type="text" v-model="pwName" placeholder="이름" />
           <input type="email" v-model="pwEmail" placeholder="이메일 주소" />
         </div>
-        <a @click="securityModal" id="input" class="button small rounded-3"
+        <button @click="loginIdModal">dddd</button>
+        <a
+          @click="securityModal"
+          id="input"
+          class="button small rounded-3"
+          data-bs-toggle="modal"
+          data-bs-target="#securityModal"
           >비밀번호 변경하기</a
         >
       </div>
     </div>
   </main>
 
-  <AlertModal
-    :modalShown="modalShown && !security"
-    @modal="$emit('modal')"
-    :url="modalData.url"
-    :message="modalData.message"
-    :buttonMessage="modalData.buttonMessage"
-  />
-  <SecurityModal
-    :modalShown="modalShown && security"
-    @fail="securityFail"
-    @modal="$emit('modal')"
-  />
+  <AlertModal :modal="modal" />
+  <SecurityModal />
 </template>
 
 <script>
@@ -52,9 +54,6 @@ export default {
     AlertModal,
     SecurityModal,
   },
-  props: {
-    modalShown: Boolean,
-  },
   data() {
     return {
       security: false,
@@ -63,47 +62,22 @@ export default {
       pwLoginId: "",
       pwName: "",
       pwEmail: "",
-      modalData: {},
+      modal: "",
     };
   },
   methods: {
     loginIdModal() {
-      this.security = false;
       if (this.loginIdName === "test") {
-        this.modalData = {
-          url: "/login",
-          message: "당신의 아이디는<br />테스트<br />입니다.",
-          buttonMessage: "로그인 하러 가기",
-        };
+        this.modal = "findLoginIdSuccess";
       } else {
-        this.modalData = {
-          url: "/find",
-          message: "아이디 찾기에<br />실패했습니다.",
-          buttonMessage: "재시도",
-        };
+        this.modal = "findLoginIdFail";
       }
-      this.$emit("modal");
     },
     securityModal() {
       if (this.pwLoginId === "test") {
-        this.security = true;
       } else {
-        this.security = false;
-        this.modalData = {
-          url: "/find",
-          message: "비밀번호 찾기에<br />실패했습니다.",
-          buttonMessage: "재시도",
-        };
+        this.modal = "findPasswordFail";
       }
-      this.$emit("modal");
-    },
-    securityFail() {
-      this.security = false;
-      this.modalData = {
-        url: "/find",
-        message: "올바르지 않는 보안질문 입니다",
-        buttonMessage: "재시도",
-      };
     },
   },
   mounted() {

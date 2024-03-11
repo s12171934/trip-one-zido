@@ -25,17 +25,18 @@
       </tr>
     </table>
     <div class="d-flex justify-content-center">
-      <button @click="passwordCheck" class="button">비밀번호 재설정하기</button>
+      <button
+        @click="passwordCheck"
+        class="button"
+        data-bs-toggle="modal"
+        data-bs-target="#alertModal"
+      >
+        비밀번호 재설정하기
+      </button>
     </div>
   </main>
 
-  <AlertModal
-    :modalShown="modalShown"
-    @modal="$emit('modal')"
-    :url="modalData.url"
-    :message="modalData.message"
-    :buttonMessage="modalData.buttonMessage"
-  />
+  <AlertModal :modal="modal" />
 </template>
 
 <script>
@@ -47,31 +48,19 @@ export default {
   },
   data() {
     return {
-      modalData: {},
+      modal: "",
       prevPw: "",
       resetPw: "",
       resetPwCheck: "",
     };
   },
-  props: {
-    modalShown: Boolean,
-  },
   methods: {
     passwordCheck() {
       if (this.resetPw === this.resetPwCheck) {
-        this.modalData = {
-          url: "/config",
-          message: "비밀번호가<br />변경되었습니다.",
-          buttonMessage: "확인",
-        };
+        this.modal = "resetPasswordSuccess";
       } else {
-        this.modalData = {
-          url: "/reset-pw",
-          message: "비밀번호와<br />비밀번호 확인이<br />다릅니다.",
-          buttonMessage: "비밀번호 재설정 하기",
-        };
+        this.modal = "resetPasswordFail";
       }
-      this.$emit("modal");
     },
   },
   mounted() {

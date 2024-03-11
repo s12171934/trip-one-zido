@@ -1,10 +1,17 @@
 <template>
-  <div class="modal fade" :class="modalShown ? 'show' : ''">
+  <div class="modal fade" id="followModal"
+    tabindex="-1"
+    aria-labelledby="followModalLabel"
+    aria-hidden="true">
     <!-- Vertically centered scrollable modal -->
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header border border-0">
-          <button @click="$emit('modal')" class="btn-close" />
+          <button
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          />
         </div>
         <div class="m-4 modal-body border rounded-3" id="followType">
           <h4>{{ type === "follower" ? "팔로워" : "팔로잉" }} 목록</h4>
@@ -32,7 +39,6 @@ export default {
   },
   props: {
     type: String,
-    modalShown: Boolean,
   },
   data() {
     return {
@@ -40,10 +46,10 @@ export default {
     };
   },
   methods: {
-    followToggle(userProfile){
+    followToggle(userProfile) {
       userProfile.isFollow = !userProfile.isFollow;
-    }
-  }
+    },
+  },
 };
 </script>
 

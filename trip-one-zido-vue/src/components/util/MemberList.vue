@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-row mb-6" id="searchUser">
-    <div v-for="profile in userProfiles" class="p-2">
+    <div @click="$router.push(`/member-page/${profile.id}`)" v-for="profile in userProfiles" class="p-2">
       <img :src="profile.imgSrc"/>
       <p>{{ profile.loginId }}</p>
     </div>

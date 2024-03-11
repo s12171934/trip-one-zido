@@ -1,13 +1,7 @@
 <template>
-  <Header :isLogin="isLogin" :key="key" />
-  <router-view
-    :modalShown="modalShown"
-    @modal="modal"
-    @meta="meta"
-    @welcome="forceRender"
-  />
+  <Header :isLogin="isLogin" :key="key" :path="path" />
+  <router-view @meta="meta" :id="id"/>
   <Footer />
-  <div id="modal-back" v-if="modalShown"></div>
 </template>
 
 <script>
@@ -22,20 +16,28 @@ export default {
 
   data() {
     return {
-      modalShown: false,
       isLogin: false,
       key: 0,
+      path: location.pathname,
+      id: 0,
     };
   },
   methods: {
-    modal() {
-      this.modalShown = !this.modalShown;
-    },
     meta(isLogin) {
       this.isLogin = isLogin;
     },
     forceRender() {
       this.key++;
+    },
+  },
+  watch: {
+    $route(to, from) {
+      if (to.path != from.path) {
+        this.forceRender;
+        this.path = to.fullPath
+        this.id = to.params.id
+        console.log(this.id)
+      }
     },
   },
 };
@@ -62,16 +64,6 @@ div::-webkit-scrollbar-thumb {
   width: 15px;
   border-radius: 10px;
   background: pink;
-}
-
-#modal-back {
-  position: fixed;
-  background-color: black;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  opacity: 80%;
 }
 
 main {

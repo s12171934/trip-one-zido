@@ -23,7 +23,7 @@
       <input type="password" v-model="passwordCheck" placeholder="비밀번호 확인" />
       <div class="d-flex gap-4">
         <button @click="resign" id="button" class="rounded-3" type="submit">회원탈퇴</button>
-        <a href="/config" class="button alt rounded-3">취소하기</a>
+        <a @click="$router.push('/config')" class="button alt rounded-3">취소하기</a>
       </div>
     </div>
   </main>
@@ -42,7 +42,7 @@ export default {
       if(this.password === this.passwordCheck){
         this.$cookies.remove('login');
         this.$cookies.remove('autoLogin');
-        location.href = '/welcome'
+        this.$router.push('/welcome')
       }
     }
   },

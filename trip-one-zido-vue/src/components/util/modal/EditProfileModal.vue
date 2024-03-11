@@ -1,19 +1,19 @@
 <template>
   <div
     class="modal fade"
-    :class="modalShown ? 'show' : ''"
-    id="updatepic"
+    id="profileModal"
     tabindex="-1"
-    aria-labelledby="exampleModalLabel"
+    aria-labelledby="profileModalLabel"
     aria-hidden="true"
   >
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header border border-0">
           <button
-          @click="$emit('modal')"
             type="button"
             class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
           ></button>
         </div>
 
@@ -42,16 +42,12 @@
 </template>
 
 <script>
-export default {
-  props: {
-    modalShown: Boolean,
-  },
-};
+export default {};
 </script>
 
 <style scoped>
-.show {
-  opacity: 100;
-  display: block;
+img {
+  width: 260px;
+  height: 260px;
 }
 </style>

@@ -71,17 +71,18 @@
           </div>
         </div>
       </form>
-      <button @click="signUp" class="button p-2">회원가입 확인</button>
+      <button
+        @click="signUp"
+        class="button p-2"
+        data-bs-toggle="modal"
+        data-bs-target="#alertModal"
+      >
+        회원가입 확인
+      </button>
     </div>
   </main>
 
-  <AlertModal
-    :modalShown="modalShown"
-    @modal="$emit('modal')"
-    :url="modalData.url"
-    :message="modalData.message"
-    :buttonMessage="modalData.buttonMessage"
-  />
+  <AlertModal :modal="modal" />
 </template>
 
 <script>
@@ -93,45 +94,24 @@ export default {
   },
   data() {
     return {
-      modalData: {},
+      modal: "",
       loginId: "",
     };
-  },
-  props: {
-    modalShown: Boolean,
   },
   methods: {
     checkLoginId() {
       if (this.loginId === "test") {
-        this.modalData = {
-          url: "/sign-up",
-          message: `${this.loginId}는<br />사용가능한 ID입니다.`,
-          buttonMessage: "확인",
-        }
+        this.modal = "checkDuplicationLoginIdSuccess";
       } else {
-        this.modalData = {
-          url: "/sign-up",
-          message: "중복된 ID입니다.",
-          buttonMessage: "확인",
-        }
+        this.modal = "checkDuplicationLoginIdFail";
       }
-      this.$emit("modal");
     },
     signUp() {
       if (this.loginId === "test") {
-        this.modalData = {
-          url: "/login",
-          message: "회원가입에<br />성공했습니다.",
-          buttonMessage: "확인",
-        }
+        this.modal = "signUpSuccess";
       } else {
-        this.modalData = {
-          url: "/sign-up",
-          message: "회원가입에<br />실패했습니다.",
-          buttonMessage: "확인",
-        }
+        this.modal = "signUpFail";
       }
-      this.$emit("modal");
     },
   },
   mounted() {

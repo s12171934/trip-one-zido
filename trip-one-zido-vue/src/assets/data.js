@@ -1,18 +1,18 @@
 export default {
-  userProfiles: [
-    {
+  userProfiles: {
+    2: {
       id: 2,
       imgSrc: "/images/유재석.png",
       loginId: "유재석",
       isFollow: true,
     },
-    {
+    3: {
       id: 3,
       imgSrc: "/images/조세호.png",
       loginId: "조세호",
       isFollow: false,
     },
-  ],
+  },
   selectLocations: [
     "서울특별시",
     "인천광역시",
@@ -29,18 +29,10 @@ export default {
     "경상남도",
     "전라북도",
     "전라남도",
-    "제주특별자치도",   
+    "제주특별자치도",
   ],
-  selectCategories: [
-    "음식점",
-    "관광지",
-  ],
-  sortMenu: [
-    "조회순",
-    "최신순",
-    "가나다순",
-    "사용자 정의순",
-  ],
+  selectCategories: ["음식점", "관광지"],
+  sortMenu: ["조회순", "최신순", "가나다순", "사용자 정의순"],
   tourCount: 20,
   spotPlanCount: 14,
   tourList: [
@@ -75,4 +67,71 @@ export default {
       type: "spot",
     },
   ],
+  modalDatas: {
+    "": {
+      url: "",
+      message: "",
+      buttonMessage: "",
+    },
+    findLoginIdSuccess: {
+      url: "/login",
+      message: "당신의 아이디는<br />테스트<br />입니다.",
+      buttonMessage: "로그인 하러 가기",
+    },
+    findLoginIdFail: {
+      url: "/find",
+      message: "아이디 찾기에<br />실패했습니다.",
+      buttonMessage: "재시도",
+    },
+    findPasswordFail: {
+      url: "/find",
+      message: "비밀번호 찾기에<br />실패했습니다.",
+      buttonMessage: "재시도",
+    },
+    loginFail: {
+      url: "/login",
+      message: "아이디와 비밀번호를<br />확인해주세요.",
+      buttonMessage: "다시 로그인 하기",
+    },
+    updateMemberInfoFail: {
+      url: "/config",
+      message: "회원정보 수정이<br />완료되었습니다.",
+      buttonMessage: "확인",
+    },
+    resetPasswordSuccess: {
+      url: "/config",
+          message: "비밀번호가<br />변경되었습니다.",
+          buttonMessage: "확인",
+    },
+    resetPasswordFail: {
+      url: "/reset-pw",
+          message: "비밀번호와<br />비밀번호 확인이<br />다릅니다.",
+          buttonMessage: "비밀번호 재설정 하기",
+    },
+    checkDuplicationLoginIdSuccess: {
+        url: "/sign-up",
+        message: "사용가능한 ID입니다.",
+        buttonMessage: "확인",
+    },
+    checkDuplicationLoginIdFail: {
+      url: "/sign-up",
+          message: "중복된 ID입니다.",
+          buttonMessage: "확인",
+    },
+    signUpSuccess: {
+      url: "/login",
+      message: "회원가입에<br />성공했습니다.",
+      buttonMessage: "확인",
+    },
+    signUpFail: {
+      url: "/login",
+      message: "회원가입에<br />성공했습니다.",
+      buttonMessage: "확인",
+    },
+    securityFail: {
+      url: "/find",
+        message: "비밀번호 찾기에<br />실패했습니다.",
+        buttonMessage: "재시도",
+    }
+  },
 };
