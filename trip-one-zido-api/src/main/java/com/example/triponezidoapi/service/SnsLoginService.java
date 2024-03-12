@@ -11,11 +11,12 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Service
 public class SnsLoginService {
-    public void naverLogin(String code, String state) throws JsonProcessingException {
+    public String naverLogin(String code, String state) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -36,7 +37,7 @@ public class SnsLoginService {
                 ,request
                 ,String.class);
 
-        Map<String,String> map = objectMapper.readValue(authorization.getBody(), Map.class);
+        Map map = objectMapper.readValue(authorization.getBody(), Map.class);
 
         header = new HttpHeaders();
         header.set("authorization", "Bearer " + map.get("access_token"));
@@ -47,9 +48,12 @@ public class SnsLoginService {
                 ,HttpMethod.GET
                 ,request
                 ,String.class);
+
+        map = objectMapper.readValue(naverInfo.getBody(),Map.class);
+        return (String)((LinkedHashMap)map.get("response")).get("id");
     }
 
-    public void kakaoLogin(String code) throws JsonProcessingException {
+    public String kakaoLogin(String code) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         ObjectMapper objectMapper = new ObjectMapper();
         MultiValueMap<String,String> dto = new LinkedMultiValueMap<>();
@@ -68,7 +72,7 @@ public class SnsLoginService {
                 ,request
                 ,String.class);
 
-        Map<String,String> map = objectMapper.readValue(authorization.getBody(), Map.class);
+        Map map = objectMapper.readValue(authorization.getBody(), Map.class);
 
         header = new HttpHeaders();
         header.set("authorization", "Bearer " + map.get("access_token"));
@@ -79,5 +83,8 @@ public class SnsLoginService {
                 ,HttpMethod.GET
                 ,request
                 ,String.class);
+
+        map = objectMapper.readValue(kakaoInfo.getBody(),Map.class);
+        return String.valueOf(map.get("id"));
     }
 }
