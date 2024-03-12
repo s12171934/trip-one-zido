@@ -18,6 +18,8 @@ public class Member {
     String password;
     String passwordCheck;
     long question;
+
+
     @NotEmpty
     @Size(min = 1, max = 100, message = "최소 1자 이상의 답변이 필요합니다")
     String answer;

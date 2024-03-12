@@ -4,15 +4,17 @@ import com.example.triponezidoapi.dto.*;
 import com.example.triponezidoapi.dto.request.*;
 import com.example.triponezidoapi.dto.response.*;
 import com.example.triponezidoapi.service.MemberService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@Validated
 @RequestMapping("/api/member")
 @Tag(name = "Member", description = "Member API")
 public class MemberApiController {
@@ -28,6 +30,7 @@ public class MemberApiController {
     @Operation(summary = "회원가입")
     public void signupMember(
             @RequestBody
+            @Valid
             @Parameter(description = "회원 등록 정보")
             Member member
     ){
@@ -59,9 +62,10 @@ public class MemberApiController {
     public String checkId(
             @RequestBody
             @Parameter(description = "이름 / 이메일")
-            RequestFind requestFind
+            RequestFindId requestFindid
+
     ){
-        return memberService.getLoginId(requestFind);
+        return memberService.getLoginId(requestFindid);
     }
     @PostMapping("/check/pw")
     @Operation(summary = "비밀번호 찾기 - 비밀번호를 찾을 회원번호 조회")
@@ -136,9 +140,9 @@ public class MemberApiController {
             @Parameter(description = "로그인 회원 번호")
             Long sessionId,
 
-            @RequestParam
+            @RequestBody
             @Parameter(description = "프로필 사진")
-            byte[] profile
+            RequestPhoto profile
     ){
         memberService.updateProfile(sessionId, profile);
     }

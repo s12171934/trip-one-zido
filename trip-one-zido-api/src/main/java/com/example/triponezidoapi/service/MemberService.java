@@ -46,8 +46,8 @@ public class MemberService {
         return false;
     }
 
-    public String getLoginId(RequestFind requestFind){
-       return memberMapper.getLoginIdByFind(requestFind);
+    public String getLoginId(RequestFindId requestFindid){
+       return memberMapper.getLoginIdByFind(requestFindid);
     }
 
     public Long getId(RequestFind requestFind){
@@ -102,12 +102,10 @@ public class MemberService {
         memberMapper.updateMember(member);
     }
 
-    public void updateProfile(Long id, byte[] profile){
+    public void updateProfile(Long id, RequestPhoto profile){
         // 받은 아이디와 프로필을 requestPhoto에 저장 후 매퍼로 전송
-        RequestPhoto requestPhoto = new RequestPhoto();
-        requestPhoto.setContentId(id);
-        requestPhoto.setPhoto(profile);
-        memberMapper.updateProfile(requestPhoto);
+        profile.setContentId(id);
+        memberMapper.updateProfile(profile);
     }
 
     public void deleteMember(Long id){
