@@ -23,6 +23,7 @@ import SpotDetail from "../components/spot/SpotDetail.vue";
 import TourDetail from "../components/tour/TourDetail.vue";
 import TourPage from "../components/tour/TourPage.vue";
 import ErrorPage from "../components/ErrorPage.vue";
+import SocialLogin from "@/components/member/SocialLogin.vue";
 
 const routes = [
   {
@@ -109,6 +110,11 @@ const routes = [
   {
     path: "/sign-up",
     component: SignUp,
+    meta: { isLogin: false }
+  },
+  {
+    path: "/social/:sns/:id",
+    component: SocialLogin,
     meta: { isLogin: false }
   },
   //plan

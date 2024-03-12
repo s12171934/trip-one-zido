@@ -36,7 +36,6 @@ export default {
         this.forceRender;
         this.path = to.fullPath
         this.id = to.params.id
-        console.log(this.id)
       }
     },
   },

@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
     <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <body>
     <script
       src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js"
       type="text/javascript"
@@ -18,6 +16,11 @@
       integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
       crossorigin="anonymous"
     ></script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script type="text/javascript" src = "//dapi.kakao.com/v2/maps/sdk.js?appkey=a02aa0f1daf88f640e2509406d97bec1"></script>
+  </head>
+  <body>
+    
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>

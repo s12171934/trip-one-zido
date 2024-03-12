@@ -18,13 +18,14 @@
         </div>
 
         <div class="m-5 modal-body border rounded-3" id="picBox">
-          <img id="configPicUpdate" src="/images/조세호.png" alt="" />
+          <img id="configPicUpdate" :src="img" alt="" />
         </div>
 
         <div class="modal-footer border border-0">
-          <button type="button" class="rounded-3" id="modalButton">
-            사진찾기
-          </button>
+          <label for="file"
+            ><a class="button rounded-3 m-0">사진 찾기</a></label
+          >
+          <input type="file" name="file" id="file" @change="getFileName($event.target.files)"/>
           <form>
             <button
               type="button"
@@ -42,12 +43,39 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data(){
+    return{
+      img: '/images/조세호.png'
+    }
+  },
+  methods: {
+    async getFileName(files) {
+      this.img = files[0];
+      await this.base64(this.img)
+    },
+    base64(file){
+      return new Promise(resolve => {
+        let fileReader = new FileReader()
+        fileReader.onload = e => {
+          resolve(e.target.result)
+          this.img = e.target.result;
+          console.log(this.img)
+        }
+        fileReader.readAsDataURL(file)
+      })
+    }
+  }
+}
 </script>
 
 <style scoped>
 img {
   width: 260px;
   height: 260px;
+}
+
+#file {
+  display: none;
 }
 </style>
