@@ -24,7 +24,7 @@ public interface MemberMapper {
     long getId(RequestFind requestFind);
     ResponseMember getLogin(Login login);
     Login getLoginFormByLoginId(String loginId);
-    String getLoginIdByFind(RequestFind requestFind);
+    String getLoginIdByFind(RequestFindId requestFindid);
     String getSecurityAnswer(Long id);
     String getSecurityQuestion(Long id);
     String getPasswordById(Long id);

@@ -157,7 +157,7 @@
       login_id = #{loginId}
   </select>
 
-  <select id="getLoginIdByFind" parameterType="com.example.triponezidoapi.dto.request.RequestFind" resultType="String">
+  <select id="getLoginIdByFind" parameterType="com.example.triponezidoapi.dto.request.RequestFindId" resultType="String">
     SELECT
       login_id
     FROM
