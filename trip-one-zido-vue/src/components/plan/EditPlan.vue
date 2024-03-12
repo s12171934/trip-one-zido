@@ -36,11 +36,21 @@
           <td>
             <div class="d-flex justify-content-between align-items-center">
               <div class="date-time">
-                <input class="border-0" type="date" v-model="start_date" />
+                <input
+                  @change="checkOtherDate('start')"
+                  class="border-0"
+                  type="date"
+                  v-model="startDate"
+                />
               </div>
               <h4>~</h4>
               <div class="date-time">
-                <input class="border-0" type="date" v-model="end_date" />
+                <input
+                  @change="checkOtherDate('end')"
+                  class="border-0"
+                  type="date"
+                  v-model="endDate"
+                />
               </div>
             </div>
           </td>
@@ -116,14 +126,12 @@
 
     <!-- ★오른쪽 -->
     <div class="p-2 d-flex flex-column" id="rightSide">
-      <div class="demo-app-main">
-        <FullCalendar class="demo-app-calendar" :options="calendarOptions">
-          <template v-slot:eventContent="arg">
-            <b>{{ arg.timeText }}</b>
-            <i>{{ arg.event.title }}</i>
-          </template>
-        </FullCalendar>
-      </div>
+      <FullCalendar
+        ref="FullCalendar"
+        :options="calendarOptions"
+        data-bs-toggle="modal"
+        data-bs-target="#spotModal"
+      />
       <table>
         <tr>
           <td>
@@ -156,72 +164,56 @@
       </table>
     </div>
   </main>
+  <EditSpotModal />
 </template>
 
 <script>
+import EditSpotModal from "./EditSpotModal.vue";
 import FullCalendar from "@fullcalendar/vue3";
-import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
+import koLocale from "@fullcalendar/core/locales/ko";
 import data from "/src/assets/data.js";
-
-export function rateStar(stars) {
-  document.getElementById("ratingValue").innerText = "별점: " + stars + "점";
-}
-
-let eventGuid = 0;
-let todayStr = new Date().toISOString().replace(/T.*$/, ""); // YYYY-MM-DD of today
-
-export const INITIAL_EVENTS = [
-  {
-    id: createEventId(),
-    title: "All-day event",
-    start: todayStr,
-  },
-  {
-    id: createEventId(),
-    title: "Timed event",
-    start: todayStr + "T12:00:00",
-  },
-];
-
-export function createEventId() {
-  return String(eventGuid++);
-}
 
 export default {
   components: {
-    FullCalendar, // make the <FullCalendar> tag available
+    FullCalendar,
+    EditSpotModal,
   },
   data() {
     return {
       selectLocations: data.selectLocations,
       status: 0,
       members: [""],
+      startDate: "",
+      endDate: "",
+      popUpOptions:
+        "toolbar=no,resizable=yes,status=no,width=800,height=1000,top=0,left=0",
 
       calendarOptions: {
-        plugins: [
-          dayGridPlugin,
-          timeGridPlugin,
-          interactionPlugin, // needed for dateClick
-        ],
-        headerToolbar: {
-          left: "prev,next today",
-          center: "title",
-          right: "dayGridMonth,timeGridWeek,timeGridDay",
+        plugins: [timeGridPlugin, interactionPlugin],
+        initialView: "timeGridDay",
+        views: {
+          timeGridDay: {
+            type: "timeGrid",
+            duration: { days: 4 },
+          },
         },
-        initialView: "timeGridWeek",
-        initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
-        editable: true,
+        dayHeaderFormat: {
+          weekday: "short",
+          month: "numeric",
+          day: "numeric",
+          omitCommas: true,
+        },
+        locale: koLocale,
+        headerToolbar: false,
+        allDaySlot: false,
         selectable: true,
-        selectMirror: true,
-        dayMaxEvents: true,
-        weekends: true,
+        slotMinTime: "06:00:00",
         select: this.handleDateSelect,
         eventClick: this.handleEventClick,
-        eventsSet: this.handleEvents,
+        eventColor: "#ff928e",
       },
-      currentEvents: [],
     };
   },
 
@@ -231,30 +223,17 @@ export default {
     },
 
     handleDateSelect(selectInfo) {
-      let title = prompt("Please enter a new title for your event");
       let calendarApi = selectInfo.view.calendar;
-
-      calendarApi.unselect(); // clear date selection
-
-      if (title) {
-        calendarApi.addEvent({
-          id: createEventId(),
-          title,
-          start: selectInfo.startStr,
-          end: selectInfo.endStr,
-          allDay: selectInfo.allDay,
-        });
-      }
+      calendarApi.addEvent({
+        id: 1,
+        title: "title",
+        start: selectInfo.startStr,
+        end: selectInfo.endStr,
+      });
     },
 
     handleEventClick(clickInfo) {
-      if (
-        confirm(
-          `Are you sure you want to delete the event '${clickInfo.event.title}'`
-        )
-      ) {
-        clickInfo.event.remove();
-      }
+      clickInfo.event.remove();
     },
 
     handleEvents(events) {
@@ -271,25 +250,41 @@ export default {
     toggle(content) {
       content.myBookmark = !content.myBookmark;
     },
-  },
-  mounted(){
-    this.$emit("meta", this.$route.matched[0].meta.isLogin);
-  }
-};
-document.addEventListener("DOMContentLoaded", function () {
-  var buttons = document.querySelectorAll(".btn-outline-primary");
-  buttons.forEach(function (button) {
-    button.addEventListener("click", function () {
-      // Remove the 'active' class from all buttons
-      buttons.forEach(function (btn) {
-        btn.classList.remove("active");
-      });
+    setCalendarByDate() {
+      const start = new Date(this.startDate);
+      const end = new Date(this.endDate);
+      let days = end.getTime() - start.getTime();
+      console.log(days);
+      days = Math.ceil(days / (1000 * 60 * 60 * 24)) + 1;
 
-      // Add the 'active' class to the clicked button
-      button.classList.add("active");
-    });
-  });
-});
+      const calendarApi = this.$refs.FullCalendar.getApi();
+      console.log(days);
+      this.calendarOptions.views.timeGridDay.duration.days = days;
+      this.calendarOptions.firstDay = start.getDay();
+      calendarApi.gotoDate(this.startDate);
+    },
+    checkOtherDate(type) {
+      const start = new Date(this.startDate);
+      const end = new Date(this.endDate);
+      let days = end.getTime() - start.getTime();
+      console.log(days);
+
+      if (days < 0 || !days) {
+        if (type === "start") {
+          this.endDate = this.startDate;
+          console.log(123);
+        } else {
+          this.startDate = this.endDate;
+          console.log(123);
+        }
+      }
+      this.setCalendarByDate();
+    },
+  },
+  mounted() {
+    this.$emit("meta", this.$route.matched[0].meta.isLogin);
+  },
+};
 </script>
 
 <style scoped>
@@ -362,5 +357,21 @@ textarea {
 
 .custom-range::-ms-thumb {
   background: #ff928e;
+}
+</style>
+
+<style>
+.fc-day-today {
+  background-color: inherit !important;
+}
+.fc-col-header-cell-cushion {
+  text-decoration: none;
+  color: #ff928e;
+}
+colgroup col {
+  width: 100px !important;
+}
+.fc-scrollgrid-shrink-cushion {
+  margin-right: 3%;
 }
 </style>

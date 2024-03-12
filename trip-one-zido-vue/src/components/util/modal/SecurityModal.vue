@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import AlertModal from "../modal/AlertModal.vue";
+import AlertModal from "./AlertModal.vue";
 
 export default {
   components: {
