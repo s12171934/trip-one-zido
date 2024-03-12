@@ -1,5 +1,5 @@
 <template>
-    <section id="main" class="wrapper">
+    <main id="main" class="wrapper">
         <form id="split-container" class="d-flex flex-row" action="">
             
             <!-- ★왼쪽 -->
@@ -141,7 +141,7 @@
 				</div>
             </div>
         </form>
-    </section>
+      </main>
         
     
 

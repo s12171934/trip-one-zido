@@ -1,5 +1,5 @@
 <template>
-      <section id="main" class="wrapper">
+      <main id="main" class="wrapper">
         <form id="split-container" class="d-flex flex-row">
             
             <!-- ★왼쪽 -->
@@ -112,7 +112,7 @@
 
 
                 <!-- ★댓글창  -->
-                <section class="mb-5" id="commentBody">
+                <main class="mb-5" id="commentBody">
                     <div class="card bg-light">
                         <div class="card-body">
                                 <form class="input-group">
@@ -165,10 +165,10 @@
                             </div>
                         </div>
                     </div>
-                </section>
+                </main>
             </div>
         </form>
-    </section>
+    </main>
 
 </template>
 

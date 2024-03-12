@@ -1,5 +1,5 @@
 <template>
-  <section id="main" class="wrapper">
+  <main id="main" class="wrapper">
         <div class="d-flex justify-content-center">
             <!-- 왼쪽 영역 -->
             <div class="d-flex flex-column mb-2" id="leftSide">
@@ -111,7 +111,7 @@
             </div>
 
         </div>
-    </section>
+      </main>
 </template>
 
 <script scoped>
