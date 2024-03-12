@@ -14,6 +14,9 @@ public interface ContentMapper {
     void addOwner(RequestOwner requestOwner);
     void addPin(RequestContentMember requestContentMember);
 
+    // 사용자의 ID를 기반으로 핀의 갯수를 가져오는 메서드
+    int getPinCountByMemberId(Long memberId);
+
     //select
     List<ResponseMember> getOwner(Long id);
     ResponseMember getWriter(Long id);

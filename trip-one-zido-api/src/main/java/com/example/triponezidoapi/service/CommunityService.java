@@ -3,11 +3,15 @@ package com.example.triponezidoapi.service;
 import com.example.triponezidoapi.dto.request.*;
 import com.example.triponezidoapi.dto.response.*;
 import com.example.triponezidoapi.mappers.*;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+
 import java.util.List;
 
 @Service
+@Validated
 public class CommunityService {
     @Autowired
     CommunityMapper communityMapper;
@@ -48,7 +52,7 @@ public class CommunityService {
         return responseCommunityDetail;
     }
 
-    public void addCommunity(RequestCommunity requestCommunity, Long sessionId){
+    public void addCommunity(@Valid RequestCommunity requestCommunity, Long sessionId){
         //addContent
         RequestContent requestContent = new RequestContent();
         requestContent.setType("community");
@@ -60,6 +64,14 @@ public class CommunityService {
         //addCommunity
         requestCommunity.setId(generatedId);
         requestCommunity.setStatus("모집중");
+        // 여행종료일이 여행시작일보다 과거인지 확인
+        if (requestCommunity.getEndDate().isBefore(requestCommunity.getStartDate())) {
+            throw new IllegalArgumentException("여행종료일은 여행시작일보다 미래의 날짜여야 합니다.");
+        }
+        // 모집마감일이 여행시작일보다 미래인지 확인
+        if (requestCommunity.getDeadline().isAfter(requestCommunity.getStartDate())) {
+            throw new IllegalArgumentException("모집마감일은 여행시작일보다 과거의 날짜여야 합니다.");
+        }
         communityMapper.addCommunity(requestCommunity);
 
         //addOwner
