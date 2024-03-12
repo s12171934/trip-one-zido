@@ -226,5 +226,75 @@ export default {
   selectCategories: [
     "음식점",
     "관광지",
+  ],
+  locMap: [
+    {
+      code: 11,
+      color: "#111111"
+    },
+    {
+      code: 21,
+      color: "#222222"
+    },
+    {
+      code: 22,
+      color: "#333333"
+    },
+    {
+      code: 23,
+      color: "#444444"
+    },
+    {
+      code: 24,
+      color: "#555555"
+    },
+    {
+      code: 25,
+      color: "#666666"
+    },
+    {
+      code: 26,
+      color: "#777777"
+    },
+    {
+      code: 29,
+      color: "#888888"
+    },
+    {
+      code: 31,
+      color: "#999999"
+    },
+    {
+      code: 32,
+      color: "#aaaaaa"
+    },
+    {
+      code: 33,
+      color: "#bbbbbb"
+    },
+    {
+      code: 34,
+      color: "#cccccc"
+    },
+    {
+      code: 35,
+      color: "#dddddd"
+    },
+    {
+      code: 36,
+      color: "#eeeeee"
+    },
+    {
+      code: 37,
+      color: "#ffffff"
+    },
+    {
+      code: 38,
+      color: "#000000"
+    },
+    {
+      code: 39,
+      color: "#000000"
+    },
   ]
 };
