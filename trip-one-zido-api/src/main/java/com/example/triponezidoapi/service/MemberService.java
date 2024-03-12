@@ -50,7 +50,7 @@ public class MemberService {
        return memberMapper.getLoginIdByFind(requestFind);
     }
 
-    public long getId(RequestFind requestFind){
+    public Long getId(RequestFind requestFind){
         return memberMapper.getId(requestFind);
     }
 

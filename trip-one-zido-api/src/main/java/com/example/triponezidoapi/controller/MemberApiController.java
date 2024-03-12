@@ -65,7 +65,7 @@ public class MemberApiController {
     }
     @PostMapping("/check/pw")
     @Operation(summary = "비밀번호 찾기 - 비밀번호를 찾을 회원번호 조회")
-    public long checkPw(
+    public Long checkPw(
             @RequestBody
             @Parameter(description = "이름 / 이메일 / 아이디")
             RequestFind requestFind
