@@ -80,6 +80,8 @@
             ) my_bookmark
         FROM
             content c
+        WHERE
+            type = "tour"
         LIMIT
             #{page}, 6
     </select>
