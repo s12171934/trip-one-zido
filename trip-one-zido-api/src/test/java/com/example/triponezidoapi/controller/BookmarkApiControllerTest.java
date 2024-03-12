@@ -2,6 +2,7 @@ package com.example.triponezidoapi.controller;
 
 import com.example.triponezidoapi.service.BookmarkService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -32,6 +33,7 @@ class BookmarkApiControllerTest {
     }
 
     @Test
+    @DisplayName("찜 목록 전체 조회")
     void showBookmarkAll() throws Exception {
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("id", 9L); // 세션 속성 설정
@@ -46,6 +48,7 @@ class BookmarkApiControllerTest {
     }
 
     @Test
+    @DisplayName("찜목록 일정 장소 더보기 조회")
     void showSpotPlanListByPage() throws Exception {
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("id", 9L); // 세션 속성 설정
@@ -60,6 +63,7 @@ class BookmarkApiControllerTest {
     }
 
     @Test
+    @DisplayName("찜목록 관광지 더보기 조회")
     void showTourListByPage() throws Exception {
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("id", 9L); // 세션 속성 설정
@@ -74,6 +78,7 @@ class BookmarkApiControllerTest {
     }
 
     @Test
+    @DisplayName("찜 등록")
     void postBookmark() throws Exception {
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("id", 9L); // 세션 속성 설정
@@ -88,6 +93,7 @@ class BookmarkApiControllerTest {
     }
 
     @Test
+    @DisplayName("찜 삭제")
     void deleteBookmark() throws Exception {
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("id", 9L); // 세션 속성 설정
