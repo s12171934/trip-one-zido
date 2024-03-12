@@ -41,9 +41,9 @@
       <li>
         <a @click="toggleAddMenu">게시글 등록</a>
         <ul id="add" v-if="addMenu">
-          <li><a @click="goTo('/plan/add')" data-bs-dismiss="offcanvas">일정 게시글 등록</a></li>
-          <li><a @click="goTo('/spot/add')" data-bs-dismiss="offcanvas">장소 게시글 등록</a></li>
-          <li><a @click="goTo('/community/add')" data-bs-dismiss="offcanvas">커뮤니티 게시글 등록</a></li>
+          <li><a @click="goTo('/add/plan')" data-bs-dismiss="offcanvas">일정 게시글 등록</a></li>
+          <li><a @click="goTo('/add/spot')" data-bs-dismiss="offcanvas">장소 게시글 등록</a></li>
+          <li><a @click="goTo('/add/community')" data-bs-dismiss="offcanvas">커뮤니티 게시글 등록</a></li>
         </ul>
       </li>
       <li><a @click="goTo('/community')" data-bs-dismiss="offcanvas">커뮤니티</a></li>
