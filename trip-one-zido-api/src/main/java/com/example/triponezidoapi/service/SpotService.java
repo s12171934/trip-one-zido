@@ -66,11 +66,13 @@ public class SpotService {
         }
 
         //addOwner
-        RequestOwner requestOwner = new RequestOwner();
-        requestOwner.setOwn("writer");
-        requestOwner.setMemberId(sessionId);
-        requestOwner.setContentId(generatedId);
-        contentMapper.addOwner(requestOwner);
+        for (int i = 0; i < requestSpot.getMembers().size(); i++) {
+            RequestOwner requestOwner = new RequestOwner();
+            requestOwner.setOwn("writer");
+            requestOwner.setMemberId(sessionId);
+            requestOwner.setContentId(generatedId);
+            contentMapper.addOwner(requestOwner);
+        }
     }
 
     public void updateSpot(Long id, RequestSpot requestSpot, Long sessionId){
