@@ -8,7 +8,7 @@
                     <ul class="actions" id="actions">
                         <li>
                             <button class="btn btn-outline-secondary btn-sm rounded-3" id="button" disabled>관광지</button>
-                            <button class="btn btn-sm" id="openPopup">위치보기</button>
+                            <button class="btn btn-sm" id="openPopup" onclick="viewLocation()">위치보기</button>
                         </li>
                     </ul>
                     <h6 id="createdAt">2024 02.20 14:30</h6>
@@ -45,7 +45,7 @@
                 <div class="p-2">
                     <span><small>작성자 : jisoo</small></span>
                     <span><small>조회수 : 341,245</small></span>
-                    <img id="icon" src="/images/찜해제.png" onclick="zzim()"><span><small>1,241</small></span>
+                    <i class="heart-icon" :class="{ 'filled': isZzim }" @click="toggleZzim"></i>
                     <img id="icon" src="/images/star.png"><span><small>10점</small></span>
                     <img id="icon" src="/images/like.png" onclick="like()"><span><small>955</small></span>
                     <img id="icon" src="/images/unlike.png" onclick="unlike()"><span><small>127</small></span>
@@ -69,7 +69,7 @@
                                 <!-- Comment with nested comments-->
                                 <div class="d-flex mb-4">
                                     <!-- Parent comment-->
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="/html-css/images/유재석.png" alt="..." id="commentProfilePic"/></div>
+                                    <div class="flex-shrink-0"><img class="rounded-circle" src="/images/유재석.png" alt="..." id="commentProfilePic"/></div>
                                     <div class="ms-3">
                                         <div class="fw-bold">유재석</div>
                                         조세호랑 촬영차 왔습니다!
@@ -77,7 +77,7 @@
                                         <div><small><a href="#" id="addedComment" >▼답글 2개</a></small></div>
                                         <!-- Child comment 1-->
                                         <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="/html-css/images/남자.png" alt="..." id="commentProfilePic" /></div>
+                                            <div class="flex-shrink-0"><img class="rounded-circle" src="/images/남자.png" alt="..." id="commentProfilePic" /></div>
                                             <div class="ms-3">
                                                 <div class="fw-bold">대댓글 단사람1
                                                     <small><a href="#" id="commentUpdate">수정</a></small>
@@ -88,7 +88,7 @@
                                         </div>
                                         <!-- Child comment 2-->
                                         <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="/html-css/images/여자.png" alt="..." id="commentProfilePic" /></div>
+                                            <div class="flex-shrink-0"><img class="rounded-circle" src="/images/여자.png" alt="..." id="commentProfilePic" /></div>
                                             <div class="ms-3">
                                                 <div class="fw-bold">대댓글 단사람2</div>
                                                 박명수 오빠가 더 재밌어요!
@@ -98,7 +98,7 @@
                                 </div>
                                 <!-- Single comment-->
                                 <div class="d-flex mb-4">
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="/html-css/images/조세호.png" alt="..." id="commentProfilePic" /></div>
+                                    <div class="flex-shrink-0"><img class="rounded-circle" src="/images/조세호.png" alt="..." id="commentProfilePic" /></div>
                                     <div class="ms-3">
                                         <div class="fw-bold">조세호</div>
                                         형님이랑 좋은 시간 보냈습니다
@@ -114,10 +114,32 @@
     </section>
 </template>
 
-<script>
-export default {
+<script scoped>
 
+export default {  
+  data() {
+    return {
+      isZzim: false
+    }
+  },
+
+  methods : {
+    toggleZzim() {
+      
+      icon.src = isZzim ? "/images/zzim.png" : "/images/찜해제.png";
+    },
+
+    viewLocation() {
+      const openPopUp = document.getElementById('openPopup');
+      openPopUp.addEventListener('click', () => {
+          window.open('/html-css/location/popup.html', 'popup', 'width=850, height=600, left=500, top=100');
+      });
+    }
+  },
 }
+
+
+
 </script>
 
 <style scoped>
@@ -320,7 +342,7 @@ ul,li {
   box-shadow : none;
 }
 #openPopup {
-  color: aliceblue !important;
+  color: rgb(255, 255, 255) !important;
   background-color: #ff928e !important;
   border-radius: 10px !important;
 }

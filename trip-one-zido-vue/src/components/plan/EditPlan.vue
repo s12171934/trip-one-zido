@@ -19,7 +19,7 @@
                             <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
                             <label class="btn btn-outline-primary" for="btnradio2">여행중</label>
                             
-                            <input type="radio" class="btn-check visually-hidden" name="btnradio" id="btnradio3" autocomplete="off">
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
                             <label class="btn btn-outline-primary" for="btnradio3">여행한</label>
                         </div>
                 </div>
@@ -158,10 +158,9 @@
 				</div>
 
             </div>
-            
+
         </form>
     </section>
-
 </template>
 
 <script>
@@ -233,6 +232,7 @@ export default {
     handleWeekendsToggle() {
       this.calendarOptions.weekends = !this.calendarOptions.weekends // update a property
     },
+
     handleDateSelect(selectInfo) {
       let title = prompt('Please enter a new title for your event')
       let calendarApi = selectInfo.view.calendar
@@ -249,13 +249,19 @@ export default {
         })
       }
     },
+
     handleEventClick(clickInfo) {
       if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
         clickInfo.event.remove()
       }
     },
+
     handleEvents(events) {
       this.currentEvents = events
+    },
+
+    toggle(content) {
+      content.myBookmark = !content.myBookmark;
     },
   }
 }

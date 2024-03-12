@@ -4,7 +4,8 @@
 	<h1>게시글 상세</h1>
 	<br>
 	<div class="d-grid gap-2 d-md-flex justify-content-md-end">   
-		<span class="button small rounded-3" id="mouseHover">모집중</span>
+		<span v-if="isRecruitmentClosed" class="button alt small rounded-3" id="mouseHover">마감</span>
+        <span v-else class="button small rounded-3" id="mouseHover">모집중</span>
 		<a href="/community" class="button alt small rounded-3">목록</a>
 		<!-- 현재 id-1 : 이전글 / 현재 id+1 : 다음글   -->
 		<!-- <a href="/html-css/community/detail/detail.html" id="button2" class="button small rounded-3">이전글</a> -->
@@ -59,9 +60,10 @@
 		</tr> 
 	</table>
 
-	<div class="d-grid gap-2 d-md-flex justify-content-md-center">   
-		<a href="/html-css/community/board/community.html" id="button" class="button small rounded-3">참여 / 참여 취소</a>
-	</div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-center">   
+        <a @click="participateOrCancel" id="button" class="button small rounded-3">참여 / 참여 취소</a>
+    </div>
+
 	</form>
 
 	<div class="d-flex flex-row">
@@ -130,16 +132,32 @@
 <script>
 
 import data from "/src/assets/data.js";
+import { reactive } from 'vue';
+
+const communityDetail = reactive([
+    // your data here
+]);
 
 export default {
 	data() {
         return {
+			// 상세 내용 담는 배열
             communityDetail: [],
+			// 참여 상태를 나타내는 변수 추가
+            isParticipating: false,
         };
     },
 
     created() {
         this.fetchCommunityDetail();
+
+		this.fetchCommunityDetail();
+		// 해당 게시글의 viewCount를 증가시킵니다.
+		const currentContentId = this.$route.params.id;
+		const selectedPost = this.communityDetail.find(post => post.content_id == currentContentId);
+		if (selectedPost) {
+			selectedPost.viewCount += 1;
+  		}
     },
 
     methods: {
@@ -190,8 +208,52 @@ export default {
                 // 다음 글이 없을 경우에 대한 처리 추가
             }
         },
+
+		participateOrCancel() {
+            const currentContentId = this.$route.params.id;
+            const selectedPostIndex = this.communityDetail.findIndex(
+                (post) => post.content_id == currentContentId
+            );
+
+            if (selectedPostIndex !== -1) {
+                const selectedPost = this.communityDetail[selectedPostIndex];
+
+                // 참여 상태에 따라 동작을 조절
+                if (this.isParticipating) {
+                    // 참여 중이면 참여 취소
+                    selectedPost.withCount -= 1;
+                    // 직접 속성을 업데이트
+                    this.communityDetail[selectedPostIndex] = { ...selectedPost };
+                    // 참여 상태 업데이트
+                    this.isParticipating = false;
+                } else {
+                    // 참여 중이 아니면 참여
+                    if (selectedPost.withCount < selectedPost.total) {
+                        selectedPost.withCount += 1;
+                        // 직접 속성을 업데이트
+                        this.communityDetail[selectedPostIndex] = { ...selectedPost };
+                        // 참여 상태 업데이트
+                        this.isParticipating = true;
+                    } else {
+                        console.log("정원이 모두 찼습니다.");
+                        // 최대 total에 도달한 경우 처리
+                    }
+                }
+            }
+		},
+	},
+	computed: {
+        // detail.withCount와 detail.total이 같으면 마감 상태로 간주합니다.
+        isRecruitmentClosed() {
+            return (
+                this.communityDetail.length > 0 &&
+                this.communityDetail[0].withCount === this.communityDetail[0].total
+            );
+        },
     },
-};
+
+}
+
 </script>
 
 <style scoped>
@@ -242,7 +304,7 @@ thead {
     background-color:#ff928e !important;
     font-size: 15px;
 }
-#mouseHover, #button2 {
+#button2 {
     color: rgb(255, 255, 255) !important; 
     background-color:#ff928e !important;
 }

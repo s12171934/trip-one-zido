@@ -18,18 +18,19 @@
                             <img id="icon" src="/images/like.png"onclick="like()">
                         </button>
                     </div>
-                <div class="p-2 d-flex flex-row" id="blank"><h4>일정 제목</h4>&nbsp;
+
+                <div class="p-2 d-flex flex-row" id="blank">
+                    <h4>일정 제목</h4>
                     <input type="text" value="★ 맛집 투어 | 부산 ★" id="detail-title" readonly>
-                    
-                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio hidden" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                        <label class="btn btn-outline-primary" for="btnradio1">여행전</label>
-                        
-                        <input type="radio hidden" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                        <label class="btn btn-primary" for="btnradio2">여행중</label>
-                        
-                        <input type="radio hidden" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                        <label class="btn btn-outline-primary" for="btnradio3">여행한</label>
+                        <div class="btn-group" id="trip-state-button-group" role="group" aria-label="Basic radio toggle button group">
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" disabled>
+                            <label class="btn btn-outline-primary" for="btnradio1">여행전</label>
+                            
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked disabled>
+                            <label class="btn btn-outline-primary" for="btnradio2">여행중</label>
+                            
+                            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" disabled>
+                            <label class="btn btn-outline-primary" for="btnradio3">여행한</label>
                         </div>
                 </div>
 
@@ -96,7 +97,19 @@
                     <br>
                 </div>
 
-                <div id='calendar'></div>
+
+                <div class='demo-app-main'>
+                <FullCalendar
+                    class='demo-app-calendar'
+                    :options='calendarOptions'>
+                    
+                    <template v-slot:eventContent='arg'>
+                    <b>{{ arg.timeText }}</b>
+                    <i>{{ arg.event.title }}</i>
+                    </template>
+                </FullCalendar>
+                </div>
+
 
                 <!-- ★댓글창  -->
                 <section class="mb-5" id="commentBody">
@@ -160,9 +173,103 @@
 </template>
 
 <script>
-export default {
+import FullCalendar from '@fullcalendar/vue3'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import interactionPlugin from '@fullcalendar/interaction'
+import data from "/src/assets/data.js";
 
+export function rateStar(stars) {
+    document.getElementById('ratingValue').innerText = '별점: ' + stars + '점';
 }
+
+let eventGuid = 0
+let todayStr = new Date().toISOString().replace(/T.*$/, '') // YYYY-MM-DD of today
+
+export const INITIAL_EVENTS = [
+  {
+    id: createEventId(),
+    title: 'All-day event',
+    start: todayStr
+  },
+  {
+    id: createEventId(),
+    title: 'Timed event',
+    start: todayStr + 'T12:00:00'
+  }
+]
+
+export function createEventId() {
+  return String(eventGuid++)
+}
+
+export default {
+    components: {
+    FullCalendar // make the <FullCalendar> tag available
+    },
+    data() {
+    return {
+        selectLocations: data.selectLocations,
+
+        calendarOptions: {
+        plugins: [
+          dayGridPlugin,
+          timeGridPlugin,
+          interactionPlugin // needed for dateClick
+        ],
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        initialView: 'timeGridWeek',
+        initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
+        editable: true,
+        selectable: true,
+        selectMirror: true,
+        dayMaxEvents: true,
+        weekends: true,
+        select: this.handleDateSelect,
+        eventClick: this.handleEventClick,
+        eventsSet: this.handleEvents
+        },
+        currentEvents: [],
+        }
+    },
+
+    methods: {
+        
+    handleWeekendsToggle() {
+      this.calendarOptions.weekends = !this.calendarOptions.weekends // update a property
+    },
+    handleDateSelect(selectInfo) {
+      let title = prompt('Please enter a new title for your event')
+      let calendarApi = selectInfo.view.calendar
+
+      calendarApi.unselect() // clear date selection
+
+      if (title) {
+        calendarApi.addEvent({
+          id: createEventId(),
+          title,
+          start: selectInfo.startStr,
+          end: selectInfo.endStr,
+          allDay: selectInfo.allDay
+        })
+      }
+    },
+    handleEventClick(clickInfo) {
+      if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+        clickInfo.event.remove()
+      }
+    },
+    handleEvents(events) {
+      this.currentEvents = events
+    },
+  }
+}
+
+
 </script>
 
 <style scoped>
@@ -242,7 +349,7 @@ width: 100%;
     color: #ff928e;
 }
 
-#start_date, #end_date {
+#start_date, #end_date, #email {
     color: black;
     margin-right: 10px; margin-left: 10px;
 }
@@ -356,4 +463,12 @@ color:darkgray; text-decoration:none
     width: 75px;
     height: 75px;
 }
+
+#icon{
+  width: 40px;
+  height: 40px;
+}
+
+
+
 </style>
