@@ -29,6 +29,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
@@ -116,7 +117,7 @@ class BookmarkApiControllerTest {
     void showTourListByPage() throws Exception {
         MockHttpSession session = new MockHttpSession();
         session.setAttribute("id", 9L); // 세션 속성 설정
-
+        
         mockMvc.perform(get("/api/bookmark/5/tour/3")
                         .session(session) // MockMvc에 세션 설정
                         .contentType(MediaType.APPLICATION_JSON)
