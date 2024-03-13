@@ -2,16 +2,13 @@ package com.example.triponezidoapi.controller;
 
 import com.example.triponezidoapi.dto.response.*;
 import com.example.triponezidoapi.service.BookmarkService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
@@ -31,15 +28,6 @@ class BookmarkApiControllerTest {
     // Controller에서 잡고 있는 Bean 객체에 대해 Mock 형태의 객체를 생성해줌
     @MockBean
     private BookmarkService bookmarkService;
-
-    @InjectMocks
-    private BookmarkApiController bookmarkApiController;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(bookmarkApiController).build();
-    }
 
     @Test
     @DisplayName("찜 목록 전체 조회")
