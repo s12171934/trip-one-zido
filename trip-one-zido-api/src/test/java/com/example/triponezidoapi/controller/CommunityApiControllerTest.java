@@ -4,38 +4,28 @@ import com.example.triponezidoapi.dto.request.RequestCommunity;
 import com.example.triponezidoapi.dto.request.RequestCommunitySearch;
 import com.example.triponezidoapi.service.CommunityService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.time.LocalDateTime;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@WebMvcTest(CommunityApiController.class)
 class CommunityApiControllerTest {
+    @Autowired
     private MockMvc mockMvc;
 
-    @Mock
+    @MockBean
     private CommunityService communityService;
-
-    @InjectMocks
-    private CommunityApiController communityApiController;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(communityApiController).build();
-    }
 
     @Test
     @DisplayName("커뮤니티 목록 조회")
@@ -76,13 +66,13 @@ class CommunityApiControllerTest {
 //        RequestCommunity requestCommunity = new RequestCommunity();
 //        requestCommunity.setId(9L);
 //        requestCommunity.setTitle("될꺼야");
-//        requestCommunity.setStartDate(LocalDateTime.parse("2024-03-15T09:08:47.189"));
-//        requestCommunity.setEndDate(LocalDateTime.parse("2024-03-20T09:08:47.189"));
+//        requestCommunity.setStartDate(null);
+//        requestCommunity.setEndDate(null);
 //        requestCommunity.setNotice("테스트");
 //        requestCommunity.setTotal(2);
 //        requestCommunity.setLocCategory("서울특별시");
-//        requestCommunity.setDeadline(LocalDateTime.parse("2024-03-14T09:08:47.189"));
-//        requestCommunity.setStatus("string");
+//        requestCommunity.setDeadline(null);
+//        requestCommunity.setStatus("모집중");
 //
 //        // ObjectMapper 객체 생성
 //        ObjectMapper objectMapper = new ObjectMapper();
@@ -90,7 +80,7 @@ class CommunityApiControllerTest {
 //        // member 객체를 JSON 문자열로 변환
 //        String jsonMember = objectMapper.writeValueAsString(requestCommunity);
 //
-//        mockMvc.perform(post("/api/bookmark/")
+//        mockMvc.perform(post("/api/community/")
 //                        .session(session) // MockMvc에 세션 설정
 //                        .contentType(MediaType.APPLICATION_JSON)
 //                        .content(jsonMember))
