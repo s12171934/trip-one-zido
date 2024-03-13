@@ -28,7 +28,7 @@
         @following="followType = 'following'"
         @bookmark="$router.push('/bookmark')"
       />
-      <KakaoMap />
+      <KakaoMapForMemberPage />
     </div>
     <div class="d-flex flex-column justify-content-between" id="rightSide">
       <div class="select-wrapper d-flex justify-content-end" id="add">
@@ -64,7 +64,7 @@ import ContentList from "../util/ContentList.vue";
 import FollowModal from "../util/modal/FollowModal.vue";
 import NumberSummary from "../util/NumberSummary.vue";
 import ListTitle from "../util/ListTitle.vue";
-import KakaoMap from "../util/KakaoMap.vue";
+import KakaoMapForMemberPage from "../util/KakaoMapForMemberPage.vue";
 import data from "/src/assets/data.js";
 
 export default {
@@ -73,7 +73,7 @@ export default {
     FollowModal,
     NumberSummary,
     ListTitle,
-    KakaoMap,
+    KakaoMapForMemberPage,
   },
   props: {
     id: Number,
@@ -147,3 +147,4 @@ img {
   background-color: grey;
 }
 </style>
+../util/KakaoMapForMemberPage.vue

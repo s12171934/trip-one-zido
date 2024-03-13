@@ -2,7 +2,9 @@
   <main class="wrapper d-flex">
     <div class="p-2 d-flex flex-column border-end" id="leftSide">
       <div class="d-flex justify-content-between me-5">
-        <h1 @click="console.log(status)" class="title">일정 등록</h1>
+        <h1 @click="console.log(status)" class="title">
+          일정 {{ mode === 'add' ? '등록' : '수정' }}
+        </h1>
         <div class="w-50">
           <div class="d-flex justify-content-between">
             <span>여행할</span>
@@ -100,7 +102,11 @@
             <h4>지도</h4>
           </td>
         </tr>
-        <tr></tr>
+        <tr>
+          <td colspan="2">
+            <KakaoMapForEditPlan />
+          </td>
+        </tr>
 
         <tr>
           <td>
@@ -127,6 +133,7 @@
     <!-- ★오른쪽 -->
     <div class="p-2 d-flex flex-column" id="rightSide">
       <FullCalendar
+        class="h-100"
         ref="FullCalendar"
         :options="calendarOptions"
         data-bs-toggle="modal"
@@ -146,17 +153,17 @@
           <td>
             <div class="m-0 d-flex justify-content-end gap-2">
               <input
-                @click="console.log(members)"
+                @click="$router.push('/member-page')"
                 id="input"
                 class="button small"
                 type="submit"
-                value="등록"
+                :value="mode === 'add' ? '등록' : '수정'"
               />
               <input
+                @click="$router.push('/member-page')"
                 class="button alt small"
                 type="button"
                 value="취소"
-                onclick="location.href='/html-css/main/detail/detail.html'"
               />
             </div>
           </td>
@@ -181,14 +188,17 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import koLocale from "@fullcalendar/core/locales/ko";
 import data from "/src/assets/data.js";
+import KakaoMapForEditPlan from "../util/KakaoMapForEditPlan.vue";
 
 export default {
   components: {
     FullCalendar,
     EditSpotModal,
+    KakaoMapForEditPlan,
   },
   data() {
     return {
+      mode: this.$route.params.mode,
       selectLocations: data.selectLocations,
       status: 0,
       members: [""],
@@ -235,7 +245,7 @@ export default {
       this.editSpotMode = "add";
       this.calendarEvent = selectInfo;
 
-      this.spotData =  {
+      this.spotData = {
         photos: [],
         title: "",
         category: "",
