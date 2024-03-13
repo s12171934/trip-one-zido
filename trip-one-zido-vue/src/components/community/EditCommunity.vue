@@ -1,9 +1,9 @@
 <template>
-	<section class="wrapper">
+	<main class="wrapper">
 		<div class="inner">
 			<h1>게시글 등록하기</h1>
 			<br>
-			<form method="post" action="#">
+			<form method="post" action="/components/community">
 				<!-- 테이블 -->
 				<table id="table" class="border">
 					<tr>
@@ -13,13 +13,13 @@
 								<select class="form-control" name="category">
 									<option value="" selected>지역 선택</option>
 									<option v-for="location in selectLocations" :value="location">
-									{{ location }}
+									<select v-model="locationSelect">{{ location }}</select>
 									</option>
 								</select>
 							</div>
 						</td>
 						<td id="tdTitle" class="border-start">여행 일정</td>
-						<td id="tdSelect"><input type="date"> ~ <input type="date"></td>
+						<td id="tdSelect"><input type="date" v-model="start_date"> ~ <input type="date" v-model="end_date"></td>
 					</tr>
 
 					<tr>
@@ -28,102 +28,83 @@
 							<div class="select-wrapper" id="table-select">
 								<select class="local-select" name="category">
 									<option value="" selected>인원 선택</option>
-									<option value="2">2 명</option>
-									<option value="3">3 명</option>
-									<option value="4">4 명</option>
-									<option value="5">5 명</option>
-									<option value="6">6 명</option>
-									<option value="7">7 명</option>
-									<option value="8">8 명</option>
-									<option value="9">9 명</option>
-									<option value="10">10 명</option>
-									<option value="11">11 명</option>
-									<option value="12">12 명</option>
-									<option value="13">13 명</option>
-									<option value="14">14 명</option>
-									<option value="15">15 명</option>
-									<option value="16">16 명</option>
-									<option value="17">17 명</option>
-									<option value="18">18 명</option>
-									<option value="19">19 명</option>
-									<option value="20">20 명</option>
+									<option v-for="snop in selectNumberOfPeople" :value="snop">
+									<select v-model="selectNumberOfPeople">{{ snop }}</select>
+									</option>
 								</select>
 							</div>
 						</td>
 						<td class="border-start">모집 마감일 </td>
-						<td><input type="date"></td>
+						<td><input type="date" v-model="date"></td>
 					</tr>
 
 					<tr>
 						<td>제목</td>
-						<td colspan="3"><input type="text" name="text" placeholder="제목을 입력해 주세요"></td>
+						<td colspan="3"><input type="text" v-model="title" placeholder="제목을 입력해 주세요"></td>
 					</tr>
 
 					<tr>
 						<td>내용</td>
 						<td colspan="3">
-							<textarea rows="13" class="form-control" id="content" placeholder="내용을 입력하세요"></textarea>
+							<textarea rows="13" class="form-control" id="content" v-model="content" placeholder="내용을 입력하세요"></textarea>
 						</td>
 					</tr>
 				</table>
 
 				<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					<a href="/community" id="button" class="button small rounded-3">등록</a>
-					<a href="/community" id="button" class="button small rounded-3">취소</a>
+				<a 
+				@click="addOrUpdate" 
+				class="button small rounded-3"
+				data-bs-toggle="modal"
+				data-bs-target="#alertModal"
+				>
+				등록</a>
+				<input class="button alt small rounded-3" type="button" value="취소"
+                        onclick="location.href='/community'">
 				</div>
-			</form>
-
-			<!-- 모달1 -->
-			<div class="p-1 12u$">
-				<ul class="actions">
-					<!-- Button trigger modal -->
-					<button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-						data-bs-target="#exampleModal">
-						게시글등록 모달
-					</button>
-
-					<!-- Modal -->
-					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-						aria-hidden="true">
-						<!-- Vertically centered scrollable modal -->
-						<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-							<div class="modal-content">
-								<div class="modal-header border border-0">
-									<!-- <h1 class="modal-title fs-5" id="exampleModalLabel">타이틀 없애고</h1> -->
-									<button type="button" class="btn-close" data-bs-dismiss="modal"
-										aria-label="Close"></button>
-								</div>
-
-								<div class="m-5 modal-body border rounded-3" id="modalBox">
-									<h3>게시물 등록이</h3>
-									<h3>완료되었습니다</h3>
-								</div>
-
-								<div class="modal-footer border border-0">
-									<!-- <button type="button" class="btn btn-secondary" >로그인하러가기</button> -->
-									<button type="button" class="rounded-3" id="modalButton"
-										onclick="location.href='/html-css/community/board/community.html'">목록가기</button>
-								</div>
-							</div>
-						</div>
-					</div>
-				</ul>
-			</div>
+     		 </form>
+		
 		</div>
-	</section>
-</template>
+	</main>
+	<AlertModal modal="addCommunity" />
 
+</template>
 <script>
-       
+import AlertModal from "../util/modal/AlertModal.vue";
 import data from "/src/assets/data.js";
+
+
+let content_id = communityDetail.content_id;
 
 export default {
 
-    data() {
-    return {
-        selectLocations: data.selectLocations,
-        }
-    },
+	components : {
+		AlertModal,
+	},
+		data() {
+		return {
+			modal: "",
+			loginId: "",
+
+			selectLocations: data.selectLocations,
+			selectNumberOfPeople: data.selectNumberOfPeople,
+			communityDetail: data.communityDetail,
+
+			start_date: "",
+			end_date: "",
+			date: "",
+			title: "",
+			content: "",
+		}
+	},
+	mounted() {
+		this.$emit("meta", this.$route.matched[0].meta.isLogin);
+	},
+
+	methods: {
+
+
+	}
 }
 
 </script>
@@ -189,5 +170,9 @@ table tbody tr {
 
 #table-select {
 	width: 80%
+}
+
+textarea {
+	resize: none;
 }
 </style>

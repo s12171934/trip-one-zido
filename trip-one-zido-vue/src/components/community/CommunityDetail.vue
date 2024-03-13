@@ -1,155 +1,133 @@
 <template>
-    <section class="wrapper">
-<div class="inner">
-	<h1>게시글 상세</h1>
-	<br>
-	<div class="d-grid gap-2 d-md-flex justify-content-md-end">   
-		<span v-if="isRecruitmentClosed" class="button alt small rounded-3" id="mouseHover">마감</span>
-        <span v-else class="button small rounded-3" id="mouseHover">모집중</span>
-		<a href="/community" class="button alt small rounded-3">목록</a>
-		<!-- 현재 id-1 : 이전글 / 현재 id+1 : 다음글   -->
-		<!-- <a href="/html-css/community/detail/detail.html" id="button2" class="button small rounded-3">이전글</a> -->
-		<a @click="goToPreviousPost" class="button small rounded-3">이전글</a>
-		<a @click="goToNextPost" class="button small rounded-3">다음글</a>
-	</div>
-	<br>
-	<form method="get" action="#">
-	<!-- 테이블 -->
-	<table id="table" class="border" 
-	
-		v-for="detail in communityDetail" :key="detail.content_id">
+    <main class="wrapper">
+		<div class="inner">
+			<h1>게시글 상세</h1>
+			<br>
+			<div class="d-grid gap-2 d-md-flex justify-content-md-end">   
+				<span v-if="isRecruitmentClosed" class="button alt small rounded-3" id="mouseHover">마감</span>
+				<span v-else class="button small rounded-3" id="mouseHover">모집중</span>
+				<a href="/community" class="button alt small rounded-3">목록</a>
+				<!-- 현재 id-1 : 이전글 / 현재 id+1 : 다음글   -->
+				<!-- <a href="/html-css/community/detail/detail.html" id="button2" class="button small rounded-3">이전글</a> -->
+				<a @click="goToPreviousPost" class="button small rounded-3">이전글</a>
+				<a @click="goToNextPost" class="button small rounded-3">다음글</a>
+			</div>
+			<br>
 
-		<tr>
-			<td id="tdTitle"> 제목 : </td>
-			<td id="black">{{ detail.title }}</td>
-			<td id="tdTitle" class="border-start"> 작성자 : </td>
-			<td id="black">{{ detail.login_id }}</td>
-		</tr>
+		<form method="get" action="#">
+			<!-- 테이블 -->
+			<table id="table" class="border" 
 			
-		<tr>
-			<td> 지역 : </td>
-			<td><option value="1" id="black">{{ detail.local }}</option></td>
-			<td class="border-start"> 모집 인원 : </td>
-			<td id="black">{{ detail.withCount }}/{{ detail.total }} 명</td>
-		</tr>
+				v-for="detail in communityDetail" :key="detail.content_id">
 
-		<tr>
-			<td> 참여 인원 : </td>
-			<td colspan="3" id="black"> {{ detail.with1 }} {{ detail.with2 }} {{ detail.with3 }} </td>
-		</tr>
+				<tr>
+					<td id="tdTitle"> 제목 : </td>
+					<td id="black">{{ detail.title }}</td>
+					<td id="tdTitle" class="border-start"> 작성자 : </td>
+					<td id="black">{{ detail.login_id }}</td>
+				</tr>
+					
+				<tr>
+					<td> 지역 : </td>
+					<td><option value="1" id="black">{{ detail.local }}</option></td>
+					<td class="border-start"> 모집 인원 : </td>
+					<td id="black">{{ detail.withCount }}/{{ detail.total }} 명</td>
+				</tr>
 
-		<tr>
-			<td>일정 : </td>
-			<td id="black">{{ detail.start_date }} ~ {{ detail.end_date }}</td>
-			<td class="border-start">모집 마감일 : </td>
-			<td id="black">{{ detail.deadLine }}</td>
-		</tr>
+				<tr>
+					<td> 참여 인원 : </td>
+					<td colspan="3" id="black"> {{ detail.with1 }} {{ detail.with2 }} {{ detail.with3 }} </td>
+				</tr>
 
-		<tr>
-			<td>작성일 : </td>
-			<td id="black">{{ detail.created_at }}</td>
-			<td class="border-start">조회수 : </td>
-			<td id="black">{{ detail.viewCount }}</td>
-		</tr>
+				<tr>
+					<td>일정 : </td>
+					<td id="black">{{ detail.start_date }} ~ {{ detail.end_date }}</td>
+					<td class="border-start">모집 마감일 : </td>
+					<td id="black">{{ detail.deadLine }}</td>
+				</tr>
 
-		<tr>						
-			<td>내용</td>
-			<td colspan="3">
-				<textarea class="form-control" rows="5" cols="50" id="content" readonly> {{ detail.content }} </textarea>
-			</td>
-		</tr> 
-	</table>
+				<tr>
+					<td>작성일 : </td>
+					<td id="black">{{ detail.created_at }}</td>
+					<td class="border-start">조회수 : </td>
+					<td id="black">{{ detail.viewCount }}</td>
+				</tr>
 
-    <div class="d-grid gap-2 d-md-flex justify-content-md-center">   
-        <a @click="participateOrCancel" id="button" class="button small rounded-3">참여 / 참여 취소</a>
-    </div>
+				<tr>						
+					<td>내용</td>
+					<td colspan="3">
+						<textarea class="form-control" rows="5" cols="50" id="content" readOnly> {{ detail.content }} </textarea>
+					</td>
+				</tr> 
+			</table>
+			
+			<div class="d-grid gap-2 d-md-flex justify-content-md-center">
+				
+				<template v-if = "id==1">
+					<a 
+					@click="update" 
+					class="button alt small rounded-3"
+					>
+					수정</a>
+					<a 
 
-	</form>
-
-	<div class="d-flex flex-row">
-		<!-- 모달1 -->
-		<div class="12u$">
-			<ul class="actions">
-			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-				참여하기 모달
-			</button>
-
-			<!-- Modal -->
-			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<!-- Vertically centered scrollable modal -->
-				<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-					<div class="modal-content">
-						<div class="modal-header border border-0">
-						<!-- <h1 class="modal-title fs-5" id="exampleModalLabel">타이틀 없애고</h1> -->
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
-
-						<div class="m-5 modal-body border rounded-3" id="modalBox">
-						<h3>참여신청이 </h3>
-						<h3>완료되었습니다</h3>
-						</div>
-
-					</div>
-				</div>
+					@click="del" 
+					class="button small rounded-3"
+					data-bs-toggle="modal"
+					data-bs-target="#alertModal"
+					>
+					삭제</a>
+					<AlertModal :modal="modal" />
+				</template>
+				<template v-if= " id != 1">
+					<a 
+					@click="participateOrCancel" 
+					class="button small rounded-3"
+					id="button" 
+					data-bs-toggle="modal"
+					data-bs-target="#alertModal"
+					>
+					참여 / 참여 취소</a>
+					<AlertModal :modal="showSuccessModal ? 'withSuccess' : 'withFail' "/>
+				</template>
 			</div>
-			</ul>
+		</form>
 		</div>
-
-		<!-- 모달2 -->
-		<div class="12u$">
-			<ul class="actions">
-			<!-- Button trigger modal -->
-			<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
-				참여하기 취소 모달
-			</button>
-
-			<!-- Modal -->
-			<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<!-- Vertically centered scrollable modal -->
-				<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-					<div class="modal-content">
-						<div class="modal-header border border-0">
-						<!-- <h1 class="modal-title fs-5" id="exampleModalLabel">타이틀 없애고</h1> -->
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
-
-						<div class="m-5 modal-body border rounded-3" id="modalBox">
-						<h3>참여신청이 </h3>
-						<h3>취소되었습니다</h3>
-						</div>
-
-					</div>
-				</div>
-			</div>
-			</ul>
-		</div>
-	</div>
-</div>
-</section>
+	</main>
 </template>
 
 <script>
-
-import data from "/src/assets/data.js";
+import AlertModal from "../util/modal/AlertModal.vue";
+import data from "@/assets/data.js";
 import { reactive } from 'vue';
 
-const communityDetail = reactive([
-    // your data here
-]);
+const communityDetail = reactive([]);
 
 export default {
+
+	components: {
+		AlertModal,
+  	},
+
 	data() {
         return {
 			// 상세 내용 담는 배열
             communityDetail: [],
-			// 참여 상태를 나타내는 변수 추가
-            isParticipating: false,
+			modal: "",
+      		loginId: "",
+			id: this.$cookies.get("login"),
+			showSuccessModal: false,
+
+			title: "", // 추가: 게시글 제목
+            content: "", // 추가: 게시글 내용
         };
     },
 
+	mounted() {
+    this.$emit("meta", this.$route.matched[0].meta.isLogin);
+  	},
+
     created() {
-        this.fetchCommunityDetail();
 
 		this.fetchCommunityDetail();
 		// 해당 게시글의 viewCount를 증가시킵니다.
@@ -187,7 +165,7 @@ export default {
 
             if (currentIndex > 0) {
                 const previousPostId = data.communityDetail[currentIndex - 1].content_id;
-                this.$router.push(`/community/${previousPostId}`);
+                this.$router.push({ path: `/community/${previousPostId}` });
             } else {
                 console.log("이전 글이 없습니다.");
                 // 이전 글이 없을 경우에 대한 처리 추가
@@ -202,46 +180,32 @@ export default {
 
             if (currentIndex < data.communityDetail.length - 1) {
                 const nextPostId = data.communityDetail[currentIndex + 1].content_id;
-                this.$router.push(`/community/${nextPostId}`);
+                this.$router.push({ path: `/community/${nextPostId}` });
             } else {
                 console.log("다음 글이 없습니다.");
                 // 다음 글이 없을 경우에 대한 처리 추가
             }
         },
 
-		participateOrCancel() {
-            const currentContentId = this.$route.params.id;
-            const selectedPostIndex = this.communityDetail.findIndex(
-                (post) => post.content_id == currentContentId
-            );
-
-            if (selectedPostIndex !== -1) {
-                const selectedPost = this.communityDetail[selectedPostIndex];
-
-                // 참여 상태에 따라 동작을 조절
-                if (this.isParticipating) {
-                    // 참여 중이면 참여 취소
-                    selectedPost.withCount -= 1;
-                    // 직접 속성을 업데이트
-                    this.communityDetail[selectedPostIndex] = { ...selectedPost };
-                    // 참여 상태 업데이트
-                    this.isParticipating = false;
-                } else {
-                    // 참여 중이 아니면 참여
-                    if (selectedPost.withCount < selectedPost.total) {
-                        selectedPost.withCount += 1;
-                        // 직접 속성을 업데이트
-                        this.communityDetail[selectedPostIndex] = { ...selectedPost };
-                        // 참여 상태 업데이트
-                        this.isParticipating = true;
-                    } else {
-                        console.log("정원이 모두 찼습니다.");
-                        // 최대 total에 도달한 경우 처리
-                    }
-                }
-            }
+		update() {
+			// 자기 자신이 버튼 누르면 수정완료
+			this.$router.push({ path: `/edit/community/${this.$cookies.get("login")}` });
 		},
+
+
+		del() {
+			// 자기 자신이 버튼 누르면 삭제완료
+			if (this.id == 1) {
+				this.modal = "deleteCommunity"
+			}
+		},
+
+		participateOrCancel() {
+		// 타인 자신이 참여/참여취소 버튼 누르면
+			this.showSuccessModal = !this.showSuccessModal;
+		}
 	},
+
 	computed: {
         // detail.withCount와 detail.total이 같으면 마감 상태로 간주합니다.
         isRecruitmentClosed() {
@@ -251,7 +215,6 @@ export default {
             );
         },
     },
-
 }
 
 </script>
