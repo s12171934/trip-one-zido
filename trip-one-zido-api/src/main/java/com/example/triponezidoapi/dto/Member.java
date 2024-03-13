@@ -3,6 +3,8 @@ package com.example.triponezidoapi.dto;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class Member {
     long id;
@@ -34,7 +36,7 @@ public class Member {
     @Size(max = 200)
     String address;
     @Past
-    String birth;
+    LocalDateTime birth;
     @NotEmpty
     String gender;
 }

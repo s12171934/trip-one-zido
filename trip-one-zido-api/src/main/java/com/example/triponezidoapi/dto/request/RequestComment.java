@@ -12,4 +12,11 @@ public class RequestComment {
 
     long memberId;
     long contentId;
+
+    public RequestComment(long id, String comment, long memberId, long contentId) {
+        this.id = id;
+        this.comment = comment;
+        this.memberId = memberId;
+        this.contentId = contentId;
+    }
 }
