@@ -164,7 +164,14 @@
       </table>
     </div>
   </main>
-  <EditSpotModal />
+  <EditSpotModal
+    :editData="spotData"
+    :mode="editSpotMode"
+    :event="calendarEvent"
+    @add="addSpot"
+    @edit="editSpotDetail"
+    @delete="deleteSpot"
+  />
 </template>
 
 <script>
@@ -187,6 +194,12 @@ export default {
       members: [""],
       startDate: "",
       endDate: "",
+      editSpotMode: "",
+      spotId: 0,
+      refresh: 0,
+      spots: {},
+      calendarEvent: null,
+      spotData: null,
       popUpOptions:
         "toolbar=no,resizable=yes,status=no,width=800,height=1000,top=0,left=0",
 
@@ -218,26 +231,27 @@ export default {
   },
 
   methods: {
-    handleWeekendsToggle() {
-      this.calendarOptions.weekends = !this.calendarOptions.weekends; // update a property
-    },
-
     handleDateSelect(selectInfo) {
-      let calendarApi = selectInfo.view.calendar;
-      calendarApi.addEvent({
-        id: 1,
-        title: "title",
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-      });
+      this.editSpotMode = "add";
+      this.calendarEvent = selectInfo;
+
+      this.spotData =  {
+        photos: [],
+        title: "",
+        category: "",
+        address: "",
+        address2: "",
+        rate: 0,
+        review: "",
+      };
     },
 
     handleEventClick(clickInfo) {
-      clickInfo.event.remove();
-    },
+      this.editSpotMode = "edit";
+      this.calendarEvent = clickInfo;
 
-    handleEvents(events) {
-      this.currentEvents = events;
+      const id = clickInfo.event._def.publicId;
+      this.spotData = this.spots[id];
     },
 
     addMember() {
@@ -258,7 +272,6 @@ export default {
       days = Math.ceil(days / (1000 * 60 * 60 * 24)) + 1;
 
       const calendarApi = this.$refs.FullCalendar.getApi();
-      console.log(days);
       this.calendarOptions.views.timeGridDay.duration.days = days;
       this.calendarOptions.firstDay = start.getDay();
       calendarApi.gotoDate(this.startDate);
@@ -272,13 +285,46 @@ export default {
       if (days < 0 || !days) {
         if (type === "start") {
           this.endDate = this.startDate;
-          console.log(123);
         } else {
           this.startDate = this.endDate;
-          console.log(123);
         }
       }
       this.setCalendarByDate();
+    },
+    addSpot(calendarEvent, spotData) {
+      const calendarApi = calendarEvent.view.calendar;
+      calendarApi.addEvent({
+        id: ++this.spotId,
+        title: spotData.title,
+        start: calendarEvent.startStr,
+        end: calendarEvent.endStr,
+      });
+      const newSpot = JSON.parse(JSON.stringify(spotData));
+      newSpot.id = this.spotId;
+      newSpot.start = calendarEvent.startStr;
+      newSpot.end = calendarEvent.endStr;
+      this.spots[this.spotId] = newSpot;
+    },
+    editSpotDetail(calendarEvent, spotData) {
+      calendarEvent.event.setProp("title", spotData.title);
+      const id = calendarEvent.event._def.publicId;
+      const newSpot = JSON.parse(JSON.stringify(spotData));
+      this.spots[id].photos = newSpot.photos;
+      this.spots[id].title = newSpot.title;
+      this.spots[id].category = newSpot.category;
+      this.spots[id].address = newSpot.address;
+      this.spots[id].address2 = newSpot.address2;
+      this.spots[id].rate = newSpot.rate;
+      this.spots[id].review = newSpot.review;
+
+      console.log(this.spots);
+    },
+    deleteSpot(calendarEvent) {
+      calendarEvent.event.remove();
+      const id = calendarEvent.event._def.publicId;
+      delete this.spots[id];
+
+      console.log(this.spots);
     },
   },
   mounted() {

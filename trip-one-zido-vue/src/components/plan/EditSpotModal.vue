@@ -11,7 +11,9 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header border border-bottom">
-          <h1 class="title mt-3">장소 등록</h1>
+          <h1 class="title mt-3">
+            장소 {{ mode === "add" ? "등록" : "수정" }}
+          </h1>
           <button
             type="button"
             class="btn-close m-3"
@@ -42,7 +44,7 @@
               <div class="d-flex align-items-center" id="photo-container">
                 <img
                   @contextmenu.prevent="delPhoto(idx)"
-                  v-for="(photo, idx) in photos"
+                  v-for="(photo, idx) in responseSpotData.photos"
                   class="rounded"
                   id="selectedPic"
                   :src="photo"
@@ -60,7 +62,7 @@
                   <h4>장소 이름</h4>
                 </td>
                 <td scope="col-2">
-                  <input type="text" v-model="title" />
+                  <input type="text" v-model="responseSpotData.title" />
                 </td>
               </tr>
               <tr>
@@ -69,7 +71,10 @@
                 </td>
                 <td>
                   <div class="select-wrapper">
-                    <select class="local-select" v-model="category">
+                    <select
+                      class="local-select"
+                      v-model="responseSpotData.category"
+                    >
                       <option value="" selected>카테고리</option>
                       <option value="1">음식점</option>
                       <option value="2">여가(관람/체험/스포츠)</option>
@@ -90,7 +95,7 @@
                       id="address"
                       name="address"
                       size="70"
-                      v-model="address"
+                      readonly
                     />
                     <button
                       type="button"
@@ -105,7 +110,9 @@
 
               <tr>
                 <td><h4>상세주소</h4></td>
-                <td colspan="2"><input type="text" v-model="address2" /></td>
+                <td colspan="2">
+                  <input type="text" v-model="responseSpotData.address2" />
+                </td>
               </tr>
 
               <tr>
@@ -134,13 +141,32 @@
         <div class="modal-footer border border-0">
           <div class="m-0 d-flex justify-content-end gap-2">
             <input
-              @click="console.log(start)"
+              @click="
+                $emit(mode === 'add' ? 'add' : 'edit', event, responseSpotData)
+              "
               id="input"
               class="button small"
               type="submit"
-              value="등록"
+              :value="mode === 'add' ? '등록' : '수정'"
+              data-bs-dismiss="modal"
+              aria-label="Close"
             />
-            <input class="button alt small" type="button" value="취소" />
+            <input
+              @click="$emit('delete', event)"
+              v-if="mode === 'edit'"
+              class="button alt small"
+              type="button"
+              value="삭제"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            />
+            <input
+              class="button alt small"
+              type="button"
+              value="취소"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            />
           </div>
         </div>
       </div>
@@ -150,10 +176,23 @@
 
 <script>
 export default {
+  props: {
+    mode: String,
+    event: Object,
+    editData: Object,
+  },
   data() {
     return {
-      members: [""],
-      photos: [],
+      responseSpotData: {
+        photos: [],
+        title: "",
+        category: "",
+        address: "",
+        address2: "",
+        rate: 0,
+        review: "",
+      },
+      address: "",
     };
   },
   methods: {
@@ -168,28 +207,27 @@ export default {
         let fileReader = new FileReader();
         fileReader.onload = (e) => {
           resolve(e.target.result);
-          this.photos.push(e.target.result);
-          console.log(this.photos);
+          this.responseSpotData.photos.push(e.target.result);
+          console.log(this.responseSpotData.photos);
         };
         fileReader.readAsDataURL(file);
       });
     },
     delPhoto(idx) {
-      this.photos.splice(idx, 1);
-    },
-    addMember() {
-      this.members.push("");
-    },
-    delMember(idx) {
-      this.members.splice(idx, 1);
+      this.responseSpotData.photos.splice(idx, 1);
     },
     searchAddress() {
       new daum.Postcode({
         oncomplete: function (data) {
-          this.address = data.address;
-          document.querySelector("#address").value = this.address;
+          document.querySelector("#address").value = data.address;
         },
       }).open();
+      this.responseSpotData.address = document.querySelector("#address").value;
+    },
+  },
+  watch: {
+    editData() {
+      this.responseSpotData = this.editData;
     },
   },
 };
