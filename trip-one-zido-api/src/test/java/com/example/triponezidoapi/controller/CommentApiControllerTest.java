@@ -2,22 +2,14 @@ package com.example.triponezidoapi.controller;
 
 import com.example.triponezidoapi.dto.request.RequestComment;
 import com.example.triponezidoapi.service.CommentService;
-import com.example.triponezidoapi.service.TourService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import nonapi.io.github.classgraph.utils.Assert;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
@@ -33,15 +25,6 @@ public class CommentApiControllerTest {
 
     @MockBean
     private CommentService commentService;
-
-    @InjectMocks
-    private CommentApiController commentApiController;
-
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(commentApiController).build();
-    }
 
     @Test
     @DisplayName("댓글 등록")

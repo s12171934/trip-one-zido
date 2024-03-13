@@ -39,4 +39,19 @@ public class Member {
     LocalDateTime birth;
     @NotEmpty
     String gender;
+
+    public Member(long id, String name, String loginId, String password, String passwordCheck, long question, String answer, String email, String phoneNumber, String address, LocalDateTime birth, String gender) {
+        this.id = id;
+        this.name = name;
+        this.loginId = loginId;
+        this.password = password;
+        this.passwordCheck = passwordCheck;
+        this.question = question;
+        this.answer = answer;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.birth = birth;
+        this.gender = gender;
+    }
 }

@@ -5,6 +5,8 @@ import com.example.triponezidoapi.dto.Member;
 import com.example.triponezidoapi.dto.request.RequestFind;
 import com.example.triponezidoapi.dto.request.RequestFindId;
 import com.example.triponezidoapi.dto.request.RequestNewPassword;
+import com.example.triponezidoapi.dto.response.ResponseQuestions;
+import com.example.triponezidoapi.dto.response.ResponseTour;
 import com.example.triponezidoapi.service.MemberService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -15,72 +17,81 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
+@WebMvcTest(MemberApiController.class)
 class MemberApiControllerTest {
+
+    @Autowired
     private MockMvc mockMvc;
 
-    @Mock
+    @MockBean
     private MemberService memberService;
 
-    @InjectMocks
-    private MemberApiController memberApiController;
-
     //LocalDateTime을 직렬화 및 역직렬화하기 위한 코드
-    @Bean
     public ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         return objectMapper;
     }
 
-    @BeforeEach
-    void setUp() {
-        MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(memberApiController).build();
-    }
-
     @Test
     @DisplayName("회원가입시 보안질문 조회")
     void questionsInfo() throws Exception {
+        List<ResponseQuestions> questions = new ArrayList<>();
+        questions.add(new ResponseQuestions(1L, "당신이 태어난 곳은?"));
+        questions.add(new ResponseQuestions(2L, "졸업한 초등학교 이름은?"));
+        questions.add(new ResponseQuestions(3L, "당신의 별명은?"));
+        questions.add(new ResponseQuestions(4L, "부모님의 고향은?"));
+        questions.add(new ResponseQuestions(5L, "가족구성원은?"));
 
-        mockMvc.perform(get("/api/member/signup")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(""))
-                .andExpect(status().isOk());
+        //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
+        given(memberService.getSecurityQuestions()).willReturn(
+                questions
+        );
 
-        verify(memberService).getSecurityQuestions();
+        mockMvc.perform(get("/api/member/signup"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").exists())
+                .andExpect(jsonPath("$[1].id").isNotEmpty())
+                .andExpect(jsonPath("$[2].id").exists())
+                .andExpect(jsonPath("$[3].id").exists())
+                .andExpect(jsonPath("$[4].id").exists())
+                .andExpect(jsonPath("$[5].id").doesNotExist())
+                // andDo -> 메소드가 어떻게 실행이 됐는지
+                .andDo(print());
+
+        //응답 객체 확인
+        for (ResponseQuestions question : questions) {
+            System.out.println(question);
+        }
     }
     @Test
     @DisplayName("회원가입")
     void signupMember() throws Exception {
-        Member member = new Member();
-        member.setId(0L); // 예시로 0으로 설정
-        member.setName("테스트");
-        member.setLoginId("test02");
-        member.setPassword("testkitir!123");
-        member.setPasswordCheck("testkitir!123");
-        member.setQuestion(5L);
-        member.setAnswer("테스트");
-        member.setEmail("kitri@kitri.com");
-        member.setPhoneNumber("010-1111-1111");
-        member.setAddress("테스트용 주소");
-        member.setBirth(LocalDateTime.of(1991,1,12,8,24));
-        member.setGender("남");
+        Member member = new Member(0L, "테스트", "test02","testkitri!123","testkitri!123",
+                5L,"테스트","kitri@kitri.com","010-1111-1111","테스트용주소",
+                LocalDateTime.of(1991,1,12,8,24),"남");
 
         // ObjectMapper 객체 생성
         ObjectMapper objectMapper = objectMapper();
@@ -101,13 +112,18 @@ class MemberApiControllerTest {
     @DisplayName("아이디 중복확인")
     void signupCheckLoginId() throws Exception {
 
-        mockMvc.perform(post("/api/member/signup/test")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(""))
-                .andDo(print())
-                .andExpect(status().isOk());
+        //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
+        given(memberService.isUsingMemberId("test01")).willReturn(
+                true
+        );
 
-        verify(memberService).isUsingMemberId(eq("test"));
+        mockMvc.perform(post("/api/member/signup/{loginId}", "test01"))
+                .andExpect(status().isOk())
+                //Body = true 일때 세팅
+                .andExpect(content().string("true"))
+                .andDo(print());
+
+        verify(memberService).isUsingMemberId("test01");
     }
 
     @Test
