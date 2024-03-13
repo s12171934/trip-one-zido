@@ -35,10 +35,14 @@
           <hr />
           <ul>
             <li>
-              <h3><a @click="$router.push('/member-info')"> 회원 정보 수정 </a></h3>
+              <h3>
+                <a @click="$router.push('/member-info')"> 회원 정보 수정 </a>
+              </h3>
             </li>
             <li>
-              <h3><a @click="$router.push('/recent-view')"> 최근 본 게시물 </a></h3>
+              <h3>
+                <a @click="$router.push('/recent-view')"> 최근 본 게시물 </a>
+              </h3>
             </li>
             <li>
               <h3><a @click="$router.push('/reset-pw')"> 비밀번호 변경 </a></h3>
@@ -61,7 +65,6 @@
 import NumberSummary from "../util/NumberSummary.vue";
 import EditProfileModal from "../util/modal/EditProfileModal.vue";
 import FollowModal from "../util/modal/FollowModal.vue";
-import data from "@/assets/data.js";
 
 export default {
   components: {
@@ -71,7 +74,7 @@ export default {
   },
   data() {
     return {
-      userData: data.userProfiles[2],
+      userData: this.$zido.getUserProfile(),
       editProfile: false,
       followType: "",
     };

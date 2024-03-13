@@ -1,6 +1,43 @@
-import zido from "@/assets/zido"
+import zido from "@/assets/zido";
 
 export default {
+  userInfo: {
+    loginId: "test",
+    name: "test",
+    password: "test",
+    passwordCheck: "test",
+    securityQuestion: 3,
+    securityAnswer: "test",
+    email: "test",
+    phoneNumber: "test",
+    zipcode: 822,
+    address: "test",
+    address2: "test",
+    birth: "2023-11-12",
+    gender: 0,
+  },
+  securityQuestions: [
+    {
+      id: 1,
+      question: "당신이 태어난 곳은?",
+    },
+    {
+      id: 2,
+      question: "졸업한 초등학교명은?",
+    },
+    {
+      id: 3,
+      question: "당신의 별명은?",
+    },
+    {
+      id: 4,
+      question: "처음으로 국내여행 가본 곳은?",
+    },
+    {
+      id: 5,
+      question: "처음으로 해외여행 가본 국가는?",
+    },
+  ],
   userProfiles: {
     2: {
       id: 2,
@@ -15,7 +52,7 @@ export default {
       isFollow: false,
     },
   },
-  communityList : [
+  communityList: [
     {
       content_id: 2,
       title: "부산여행 가실분?",
@@ -45,10 +82,10 @@ export default {
       withCount: 2,
       total: 2,
       status: "마감",
-    }
+    },
   ],
 
-  communityDetail : [
+  communityDetail: [
     {
       content_id: 2,
       status: "모집중",
@@ -102,7 +139,7 @@ export default {
       created_at: "2024/02/01",
       viewCount: 8,
       content: "구로디지털단지에서 간단하게 마녀김밥 어때요?",
-    }
+    },
   ],
   selectLocations: [
     "서울특별시",
@@ -191,23 +228,23 @@ export default {
     },
     resetPasswordSuccess: {
       url: "/config",
-          message: "비밀번호가<br />변경되었습니다.",
-          buttonMessage: "확인",
+      message: "비밀번호가<br />변경되었습니다.",
+      buttonMessage: "확인",
     },
     resetPasswordFail: {
       url: "/reset-pw",
-          message: "비밀번호와<br />비밀번호 확인이<br />다릅니다.",
-          buttonMessage: "비밀번호 재설정 하기",
+      message: "비밀번호와<br />비밀번호 확인이<br />다릅니다.",
+      buttonMessage: "비밀번호 재설정 하기",
     },
     checkDuplicationLoginIdSuccess: {
-        url: "/sign-up",
-        message: "사용가능한 ID입니다.",
-        buttonMessage: "확인",
+      url: "/sign-up",
+      message: "사용가능한 ID입니다.",
+      buttonMessage: "확인",
     },
     checkDuplicationLoginIdFail: {
       url: "/sign-up",
-          message: "중복된 ID입니다.",
-          buttonMessage: "확인",
+      message: "중복된 ID입니다.",
+      buttonMessage: "확인",
     },
     signUpSuccess: {
       url: "/login",
@@ -220,78 +257,75 @@ export default {
       buttonMessage: "확인",
     },
   },
-  selectCategories: [
-    "음식점",
-    "관광지",
-  ],
+  selectCategories: ["음식점", "관광지"],
   locMap: [
     {
       code: 11,
-      color: "#111111"
+      color: "#111111",
     },
     {
       code: 21,
-      color: "#222222"
+      color: "#222222",
     },
     {
       code: 22,
-      color: "#333333"
+      color: "#333333",
     },
     {
       code: 23,
-      color: "#444444"
+      color: "#444444",
     },
     {
       code: 24,
-      color: "#555555"
+      color: "#555555",
     },
     {
       code: 25,
-      color: "#666666"
+      color: "#666666",
     },
     {
       code: 26,
-      color: "#777777"
+      color: "#777777",
     },
     {
       code: 29,
-      color: "#888888"
+      color: "#888888",
     },
     {
       code: 31,
-      color: "#999999"
+      color: "#999999",
     },
     {
       code: 32,
-      color: "#aaaaaa"
+      color: "#aaaaaa",
     },
     {
       code: 33,
-      color: "#bbbbbb"
+      color: "#bbbbbb",
     },
     {
       code: 34,
-      color: "#cccccc"
+      color: "#cccccc",
     },
     {
       code: 35,
-      color: "#dddddd"
+      color: "#dddddd",
     },
     {
       code: 36,
-      color: "#eeeeee"
+      color: "#eeeeee",
     },
     {
       code: 37,
-      color: "#ffffff"
+      color: "#ffffff",
     },
     {
       code: 38,
-      color: "#000000"
+      color: "#000000",
     },
     {
       code: 39,
-      color: "#000000"
+      color: "#000000",
     },
-  ]
+  ],
 };

@@ -1,38 +1,59 @@
+import data from "@/assets/data";
+
 export default {
-  login(loginId, password){
+  login(loginId, password) {
     return true;
   },
 
-  checkLoginId(loginId){
+  getSecurityQuestions() {
+    return data.securityQuestions;
+  },
+
+  checkLoginId(loginId) {
     return true;
   },
 
-  signUp(){
+  signUp(form) {
     return true;
   },
 
-  findId(){
+  findId(name, email) {
     return null;
   },
 
-  findPassword(){
+  findPassword(name, email, loginId) {
     return 1;
   },
 
-  getSecurityQuestion(){
-    return '질문지도하기'
+  getSecurityQuestion(id) {
+    return "질문지도하기";
   },
 
-  checkSecurityAnswer(){
-    return true
+  checkSecurityAnswer(securityAnswer) {
+    return true;
   },
 
-  updateSocialLogin(socialType,socialId,LoginId){
-    alert([socialType,socialId,LoginId])
+  updateSocialLogin(socialType, socialId, LoginId) {
+    alert([socialType, socialId, LoginId]);
   },
 
-  resetPassword(){
-    return true
+  resetPassword(prevPassword, newPassword, newPasswordCheck) {
+    return true;
   },
 
-}
+  getProfileImg() {
+    return "/images/남자.png";
+  },
+
+  getUserProfile() {
+    return data.userProfiles[2];
+  },
+
+  getUserInfo() {
+    return data.userInfo;
+  },
+
+  updateUserInfo(userInfo) {
+    alert(userInfo.name);
+  },
+};
