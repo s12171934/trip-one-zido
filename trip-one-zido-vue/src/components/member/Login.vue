@@ -86,7 +86,7 @@ export default {
   },
   methods: {
     login() {
-      if (this.loginId == "test") {
+      if (this.$zido.login()) {
         this.$cookies.set("login", 1, 0);
         if (this.saveLoginId) {
           this.$cookies.set("saveLoginId", this.loginId);

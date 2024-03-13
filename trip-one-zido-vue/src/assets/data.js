@@ -1,3 +1,5 @@
+import zido from "@/assets/zido"
+
 export default {
   userProfiles: {
     2: {
@@ -164,7 +166,7 @@ export default {
     },
     findLoginIdSuccess: {
       url: "/login",
-      message: "당신의 아이디는<br />테스트<br />입니다.",
+      message: `당신의 아이디는<br />${zido.findId()}<br />입니다.`,
       buttonMessage: "로그인 하러 가기",
     },
     findLoginIdFail: {
@@ -217,11 +219,6 @@ export default {
       message: "회원가입에<br />성공했습니다.",
       buttonMessage: "확인",
     },
-    securityFail: {
-      url: "/find",
-        message: "비밀번호 찾기에<br />실패했습니다.",
-        buttonMessage: "재시도",
-    }
   },
   selectCategories: [
     "음식점",

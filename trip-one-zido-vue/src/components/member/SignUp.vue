@@ -107,7 +107,7 @@ export default {
   },
   methods: {
     checkLoginId() {
-      if (this.loginId === "test") {
+      if (this.$zido.checkLoginId()) {
         this.modal = "checkDuplicationLoginIdSuccess";
       } else {
         this.modal = "checkDuplicationLoginIdFail";
@@ -115,7 +115,7 @@ export default {
       }
     },
     signUp() {
-      if (this.loginId === "test") {
+      if (this.$zido.signUp()) {
         this.modal = "signUpSuccess";
       } else {
         this.modal = "signUpFail";
