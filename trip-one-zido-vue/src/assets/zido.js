@@ -148,4 +148,22 @@ export default {
   updateSpot(spotData) {},
 
   updatePlan(planData) {},
+
+  getCommunityList(options) {
+    return data.communityList;
+  },
+
+  getCommunityDetail(id){
+return data.communityDetail[id]
+  },
+
+  addCommunity(communityData) {},
+
+  updateCommunity(communityData) {},
+
+  deleteCommunity(targetId) {},
+
+  joinCommunity(targetId) {},
+
+  joinCancleCommunity(targetId) {},
 };

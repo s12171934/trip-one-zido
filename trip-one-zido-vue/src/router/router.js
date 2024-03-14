@@ -38,22 +38,12 @@ const routes = [
   },
   //community
   {
-    path: "/community/page=:page",
-    component: Community,
-    meta: { isLogin: true }
-  },
-  {
     path: "/community",
     component: Community,
     meta: { isLogin: true }
   },
   {
     path: "/community/:id",
-    component: CommunityDetail,
-    meta: { isLogin: true }
-  },
-  {
-    path: "/community/detail",
     component: CommunityDetail,
     meta: { isLogin: true }
   },
