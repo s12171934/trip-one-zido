@@ -1,6 +1,10 @@
 <template>
   <div class="d-flex flex-row mb-6" id="contentList">
-    <ContentCard v-for="content in list" :content="content" @toggle="(content) => $zido.toggleBookmark(content)" />
+    <ContentCard
+      v-for="content in list"
+      :content="content"
+      @toggle="(content) => $zido.toggleBookmark(content)"
+    />
     <ContentCard :content="plus" @plus="addContent" />
   </div>
 </template>
@@ -13,6 +17,7 @@ export default {
     list: Object,
     sortOption: String,
     addApi: String,
+    method: String,
   },
   components: {
     ContentCard,
@@ -29,7 +34,9 @@ export default {
   },
   methods: {
     addContent() {
-      this.list.push(this.$zido.newContents(this.addApi, ++this.page));
+      this.list.push(
+        this.$zido.newContents(this.addApi, ++this.page, this.method)
+      );
       console.log(this.page);
     },
   },

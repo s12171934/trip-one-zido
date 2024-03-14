@@ -3,7 +3,7 @@
     <div class="p-2 d-flex flex-column border-end" id="leftSide">
       <div class="d-flex justify-content-between me-5">
         <h1 @click="console.log(status)" class="title">
-          일정 {{ mode === 'add' ? '등록' : '수정' }}
+          일정 {{ mode === "add" ? "등록" : "수정" }}
         </h1>
         <div class="w-50">
           <div class="d-flex justify-content-between">
@@ -17,7 +17,7 @@
             min="0"
             max="2"
             step="1"
-            v-model="status"
+            v-model="planData.status"
           />
         </div>
       </div>
@@ -27,7 +27,7 @@
             <h4>일정 제목</h4>
           </td>
           <td scope="col-2">
-            <input type="text" v-model="title" />
+            <input type="text" v-model="planData.title" />
           </td>
         </tr>
 
@@ -42,7 +42,7 @@
                   @change="checkOtherDate('start')"
                   class="border-0"
                   type="date"
-                  v-model="startDate"
+                  v-model="planData.start"
                 />
               </div>
               <h4>~</h4>
@@ -51,7 +51,7 @@
                   @change="checkOtherDate('end')"
                   class="border-0"
                   type="date"
-                  v-model="endDate"
+                  v-model="planData.end"
                 />
               </div>
             </div>
@@ -64,9 +64,9 @@
               <div class="member-container d-flex">
                 <input
                   @contextmenu.prevent="delMember(idx)"
-                  v-for="(_, idx) in members"
+                  v-for="(_, idx) in planData.members"
                   type="text"
-                  v-model="members[idx]"
+                  v-model="planData.members[idx].loginId"
                   class="member m-1"
                 />
               </div>
@@ -87,7 +87,7 @@
           </td>
           <td>
             <div class="select-wrapper">
-              <select class="local-select" name="category">
+              <select class="local-select" v-model="planData.locCategory">
                 <option value="" selected>지역 선택</option>
                 <option v-for="location in selectLocations" :value="location">
                   {{ location }}
@@ -124,7 +124,9 @@
         </tr>
         <tr>
           <td colspan="2">
-            <textarea id="content" name="content" rows="5" cols="50" />
+            <textarea id="content" name="content" rows="5" cols="50">{{
+              planData.review
+            }}</textarea>
           </td>
         </tr>
       </table>
@@ -143,7 +145,7 @@
         <tr>
           <td>
             <div class="select-wrapper" id="security">
-              <select class="local-select" name="category">
+              <select class="local-select" v-model="planData.isPublic">
                 <option value="" selected>공개 설정</option>
                 <option value="1">공개</option>
                 <option value="2">비공개</option>
@@ -153,7 +155,7 @@
           <td>
             <div class="m-0 d-flex justify-content-end gap-2">
               <input
-                @click="$router.push('/member-page')"
+                @click="submitButton(mode)"
                 id="input"
                 class="button small"
                 type="submit"
@@ -182,7 +184,7 @@
 </template>
 
 <script>
-import EditSpotModal from "./EditSpotModal.vue";
+import EditSpotModal from "../util/modal/EditSpotModal.vue";
 import FullCalendar from "@fullcalendar/vue3";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -200,16 +202,24 @@ export default {
     return {
       mode: this.$route.params.mode,
       selectLocations: data.selectLocations,
-      status: 0,
-      members: [""],
-      startDate: "",
-      endDate: "",
       editSpotMode: "",
       spotId: 0,
       refresh: 0,
-      spots: {},
       calendarEvent: null,
       spotData: null,
+
+      planData: {
+        status: 0,
+        title: "",
+        start: "",
+        end: "",
+        members: [{}],
+        locCategory: "",
+        review: "",
+        spotList: null,
+        isPublic: "",
+      },
+
       popUpOptions:
         "toolbar=no,resizable=yes,status=no,width=800,height=1000,top=0,left=0",
 
@@ -261,22 +271,20 @@ export default {
       this.calendarEvent = clickInfo;
 
       const id = clickInfo.event._def.publicId;
-      this.spotData = this.spots[id];
+      this.spotData = this.planData.spotList[id];
     },
 
     addMember() {
-      this.members.push("");
-    },
-    delMember(idx) {
-      this.members.splice(idx, 1);
+      this.planData.members.push("");
     },
 
-    toggle(content) {
-      content.myBookmark = !content.myBookmark;
+    delMember(idx) {
+      this.planData.members.splice(idx, 1);
     },
+
     setCalendarByDate() {
-      const start = new Date(this.startDate);
-      const end = new Date(this.endDate);
+      const start = new Date(this.planData.start);
+      const end = new Date(this.planData.end);
       let days = end.getTime() - start.getTime();
       console.log(days);
       days = Math.ceil(days / (1000 * 60 * 60 * 24)) + 1;
@@ -284,23 +292,25 @@ export default {
       const calendarApi = this.$refs.FullCalendar.getApi();
       this.calendarOptions.views.timeGridDay.duration.days = days;
       this.calendarOptions.firstDay = start.getDay();
-      calendarApi.gotoDate(this.startDate);
+      calendarApi.gotoDate(this.planData.start);
     },
+
     checkOtherDate(type) {
-      const start = new Date(this.startDate);
-      const end = new Date(this.endDate);
+      const start = new Date(this.planData.start);
+      const end = new Date(this.planData.end);
       let days = end.getTime() - start.getTime();
       console.log(days);
 
       if (days < 0 || !days) {
         if (type === "start") {
-          this.endDate = this.startDate;
+          this.planData.end = this.planData.start;
         } else {
-          this.startDate = this.endDate;
+          this.planData.start = this.planData.end;
         }
       }
       this.setCalendarByDate();
     },
+
     addSpot(calendarEvent, spotData) {
       const calendarApi = calendarEvent.view.calendar;
       calendarApi.addEvent({
@@ -313,32 +323,54 @@ export default {
       newSpot.id = this.spotId;
       newSpot.start = calendarEvent.startStr;
       newSpot.end = calendarEvent.endStr;
-      this.spots[this.spotId] = newSpot;
+      this.planData.spotList[this.spotId] = newSpot;
     },
+
     editSpotDetail(calendarEvent, spotData) {
       calendarEvent.event.setProp("title", spotData.title);
       const id = calendarEvent.event._def.publicId;
       const newSpot = JSON.parse(JSON.stringify(spotData));
-      this.spots[id].photos = newSpot.photos;
-      this.spots[id].title = newSpot.title;
-      this.spots[id].category = newSpot.category;
-      this.spots[id].address = newSpot.address;
-      this.spots[id].address2 = newSpot.address2;
-      this.spots[id].rate = newSpot.rate;
-      this.spots[id].review = newSpot.review;
-
-      console.log(this.spots);
+      this.planData.spotList[id].photos = newSpot.photos;
+      this.planData.spotList[id].title = newSpot.title;
+      this.planData.spotList[id].category = newSpot.category;
+      this.planData.spotList[id].address = newSpot.address;
+      this.planData.spotList[id].address2 = newSpot.address2;
+      this.planData.spotList[id].rate = newSpot.rate;
+      this.planData.spotList[id].review = newSpot.review;
     },
+
     deleteSpot(calendarEvent) {
       calendarEvent.event.remove();
       const id = calendarEvent.event._def.publicId;
-      delete this.spots[id];
+      delete this.planData.spotList[id];
+    },
 
-      console.log(this.spots);
+    setPlanData() {
+      this.planData = this.$zido.getPlanData(this.$route.params.id);
+    },
+    setInitialEvent() {
+      const calendarApi = this.$refs.FullCalendar.getApi();
+      for (let spot of this.planData.spotList) {
+        calendarApi.addEvent(spot);
+      }
+      console.log(calendarApi.getEvents());
+    },
+    submitButton(mode) {
+      if (mode == "add") {
+        this.$zido.addPlan(this.planData);
+      } else {
+        this.$zido.updatePlan(this.planData);
+      }
+      this.$router.push('/member-page')
     },
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    if (this.mode != "add") {
+      this.setPlanData();
+      this.setCalendarByDate();
+      this.setInitialEvent();
+    }
   },
 };
 </script>
@@ -431,3 +463,4 @@ colgroup col {
   margin-right: 3%;
 }
 </style>
+../util/modal/EditSpotModal.vue

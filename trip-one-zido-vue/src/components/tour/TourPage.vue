@@ -15,7 +15,7 @@
       </select>
     </div>
 
-    <ContentList :list="tourList" />
+    <ContentList :list="tourList" :addApi="`/api/tour/list/${defaultLoc}/`" />
   </main>
 </template>
 

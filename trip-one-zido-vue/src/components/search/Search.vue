@@ -1,6 +1,9 @@
 <template>
   <main class="wrapper">
-    <form @submit.prevent="$router.push(`/search/${keyword}`)" class="input-group">
+    <form
+      @submit.prevent="$router.push(`/search/${keyword}`)"
+      class="input-group"
+    >
       <input
         name="q"
         type="text"
@@ -18,25 +21,40 @@
       </button>
     </form>
 
-    <h1>{{ searchData.userCount + searchData.planCount + searchData.spotCount }} 건의 검색 결과</h1>
+    <h1>
+      {{ searchData.userCount + searchData.planCount + searchData.spotCount }}
+      건의 검색 결과
+    </h1>
 
     <div class="d-flex flex-row mb-6" id="subTitle">
-      <h3>계정<span>{{ searchData.userCount }}</span></h3>
+      <h3>
+        계정<span>{{ searchData.userCount }}</span>
+      </h3>
     </div>
 
-    <MemberList :list="searchData.userList" />
+    <MemberList :list="searchData.userList" :plus="true" />
 
     <div class="d-flex flex-row mb-6" id="subTitle">
-      <h3>일정<span>{{ searchData.planCount }}</span></h3>
+      <h3>
+        일정<span>{{ searchData.planCount }}</span>
+      </h3>
     </div>
 
-    <ContentList :list="searchData.planList" />
+    <ContentList
+      :list="searchData.planList"
+      :addApi="`api/search/${keyword}/plan/`"
+    />
 
     <div class="d-flex flex-row mb-6" id="subTitle">
-      <h3>장소<span>{{ searchData.spotCount }}</span></h3>
+      <h3>
+        장소<span>{{ searchData.spotCount }}</span>
+      </h3>
     </div>
 
-    <ContentList :list="searchData.spotList" />
+    <ContentList
+      :list="searchData.spotList"
+      :addApi="`api/search/${keyword}/spot/`"
+    />
   </main>
 </template>
 
@@ -49,10 +67,10 @@ export default {
     ContentList,
     MemberList,
   },
-  data(){
-    return{
-      searchData: this.$zido.getSearchData(this.$route.params.keyword)
-    }
+  data() {
+    return {
+      searchData: this.$zido.getSearchData(this.$route.params.keyword),
+    };
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);

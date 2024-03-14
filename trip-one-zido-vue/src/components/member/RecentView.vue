@@ -1,13 +1,16 @@
 <template>
   <main class="wrapper">
     <div class="d-flex align-items-center mb-5">
-      <img :src="userData.imgSrc" alt="" class="rounded-circle" />
-      <h1>{{ userData.loginId }}</h1>
+      <img :src="RecentViewData.imgSrc" alt="" class="rounded-circle" />
+      <h1>{{ RecentViewData.loginId }}</h1>
     </div>
     <div>
       <h1>조회한 게시글(기록)</h1>
     </div>
-    <ContentList />
+    <ContentList
+      :list="RecentViewData.recentList"
+      :addApi="`/api/content/recnet-view/`"
+    />
   </main>
 </template>
 
@@ -20,12 +23,7 @@ export default {
   },
   data() {
     return {
-      userData: {
-        imgSrc: "/images/남자.png",
-        loginId: "남자",
-      },
-      editProfile: false,
-      followType: "",
+      RecentViewData: this.$zido.getRecentView(),
     };
   },
   mounted() {

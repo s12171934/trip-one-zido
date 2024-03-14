@@ -13,7 +13,7 @@ export default {
   //찜페이지 조회
   //GET -- api/bookmark/id
   getBookmarkById(id) {
-    return data.bookmark[id];
+    return data.bookmark[id ? id : 1];
   },
 
   //Comment
@@ -68,7 +68,10 @@ export default {
   //Content
 
   //최근 본 게시물 조회
-  //GET -- api/content/recent-view/page
+  //GET -- api/content/recent-view
+  getRecentView() {
+    return data.recentView;
+  },
 
   //공개 비공개 여부
   //미구현 PUT -- api/content/public -> 일정, 장소 조회시 토글로 변경가능?
@@ -132,25 +135,13 @@ export default {
   //회원 페이지 조회
   //GET -- api/page/id
   getMemberPageData(id) {
-    return data.memberPageData[id ? id : this.getMemberId()];
+    return data.memberPageData[id ? id : 1];
   },
 
   //프로필 사진 가져오기
-  //미구현 GET -- api/member/pofile -> header와 프로필 사진 편집시 필요
+  //미구현 GET -- api/member/profile -> header와 프로필 사진 편집시 필요
   getProfileImg() {
-    return data.userProfiles[this.getMemberId()].imgSrc;
-  },
-
-  //세션에 저장된 회원번호 조회
-  //미구현 GET -- api/member/session
-  getMemberId() {
-    return 1;
-  },
-
-  //프로필정보 조회
-  //미구현 GET -- api/member/profile/id
-  getUserProfile(id) {
-    return data.userProfiles[id];
+    return data.userProfiles[1].imgSrc;
   },
 
   //설정 페이지 조회
@@ -219,16 +210,28 @@ export default {
 
   //More
 
-  //데이터 목록 더보기 / 최근 본 게시물
+  //데이터 목록 더보기
   //GET Methods -> page전까지가 addApi
   //api/bookmark/id/tour/page
-  //api/bookmakr/id/spot-plan/page
+  //api/bookmark/id/spot-plan/page
   //미구현 api/tour/list/loc/page
+  //미구현 api/content/recent-view/page
   //api/page/id/plan/page
   //api/page/id/spot/page
-  newContents(addApi, page) {
-    alert(page);
+  //미구현 api/search/keyword/spot/page
+  //미구현 api/search/keyword/plan/page
+  //미구현 POST -- api/search/spot/page
+  //미구현 POST -- api/search/plan/page
+  newContents(addApi, page, method) {
+    alert(method);
     return data.newContent;
+  },
+
+  //계정정보 더보기
+  //미구현 GET -- api/search/member/keyword/page
+  newMembers(page) {
+    alert(page);
+    return data.newMember;
   },
 
   //Pin
@@ -262,13 +265,13 @@ export default {
   //Search
 
   //검색 정보 조회
-  //GET -- api/search/keyword/page
+  //GET -- api/search/keyword/page  -> remove page, api/search/keyword
   getSearchData(keyword) {
     return data.searchData;
   },
 
   //상세 검색 정보 조회
-  //POST -- api/search/detail/page
+  //POST -- api/search/detail/page -> remove page, api/search 로만
   getDetailSearchData(searchOptions) {
     return data.searchData;
   },

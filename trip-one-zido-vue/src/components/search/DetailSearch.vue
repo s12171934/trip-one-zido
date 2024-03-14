@@ -63,7 +63,11 @@
       </h3>
     </div>
 
-    <ContentList :list="detailSearchData.planList" />
+    <ContentList
+      :list="detailSearchData.planList"
+      :addApi="'api/search/plan/page'"
+      method="post"
+    />
 
     <div class="d-flex flex-row mb-6" id="subTitle">
       <h3>
@@ -71,7 +75,11 @@
       </h3>
     </div>
 
-    <ContentList :list="detailSearchData.spotList" />
+    <ContentList
+      :list="detailSearchData.spotList"
+      :addApi="'api/search/spot/page'"
+      method="post"
+    />
   </main>
 </template>
 

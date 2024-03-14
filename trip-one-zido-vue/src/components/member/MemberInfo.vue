@@ -63,7 +63,7 @@
               v-model="userInfo.securityQuestion"
             >
               <option
-                v-for="securityQuestion in $zido.getSecurityQuestions()"
+                v-for="securityQuestion in userInfo.securityQuestions"
                 :value="securityQuestion.id"
                 :selected="securityQuestion.id == userInfo.securityQuestion"
               >

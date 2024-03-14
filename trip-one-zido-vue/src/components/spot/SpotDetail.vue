@@ -14,9 +14,13 @@
           <button class="rounded-5">약도보기</button>
         </div>
       </div>
-      <h6>{{ spotData.start }} ~ {{ spotData.end }}</h6>
       <h6>
-        <span v-for="member in spotData.members">{{ member.loginId }}</span>
+        {{
+          `${spotData.startDate} : ${spotData.startTime} ~ ${spotData.startDate} : ${spotData.startTime}`
+        }}
+      </h6>
+      <h6>
+        <span v-for="member in spotData.members">{{ member }}</span>
       </h6>
 
       <div class="p-2 h-100">
@@ -74,7 +78,7 @@
                 <select
                   @change="$zido.togglePublic($route.params.id)"
                   class="local-select"
-                  name="category"
+                  v-model="spotData.isPublic"
                 >
                   <option value="1">공개</option>
                   <option value="2">비공개</option>
@@ -132,7 +136,6 @@
       </section>
     </div>
   </main>
-
 </template>
 
 <script>

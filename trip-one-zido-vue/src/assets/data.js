@@ -1,174 +1,6 @@
 import zido from "@/assets/zido";
 
 export default {
-  userInfo: {
-    loginId: "test",
-    name: "test",
-    password: "test",
-    passwordCheck: "test",
-    securityQuestion: 3,
-    securityAnswer: "test",
-    email: "test",
-    phoneNumber: "test",
-    zipcode: 822,
-    address: "test",
-    address2: "test",
-    birth: "2023-11-12",
-    gender: 0,
-  },
-  securityQuestions: [
-    {
-      id: 1,
-      question: "당신이 태어난 곳은?",
-    },
-    {
-      id: 2,
-      question: "졸업한 초등학교명은?",
-    },
-    {
-      id: 3,
-      question: "당신의 별명은?",
-    },
-    {
-      id: 4,
-      question: "처음으로 국내여행 가본 곳은?",
-    },
-    {
-      id: 5,
-      question: "처음으로 해외여행 가본 국가는?",
-    },
-  ],
-  userProfiles: {
-    1: {
-      id: 1,
-      imgSrc: "/images/남자.png",
-      loginId: "남자",
-      isFollow: true,
-    },
-    2: {
-      id: 2,
-      imgSrc: "/images/유재석.png",
-      loginId: "유재석",
-      isFollow: true,
-    },
-    3: {
-      id: 3,
-      imgSrc: "/images/조세호.png",
-      loginId: "조세호",
-      isFollow: false,
-    },
-  },
-  communityList: [
-    {
-      id: 1,
-      content_id: 0,
-      title: "부산여행 가실분?",
-      login_id: "유재석",
-      deadLine: "24/02/14",
-      viewCount: 5,
-      withCount: 3,
-      total: 4,
-      status: "모집중",
-    },
-    {
-      id: 2,
-      content_id: 1,
-      title: "서울이 처음인데 남산가실분 ~~",
-      login_id: "조세호",
-      deadLine: "24/02/13",
-      viewCount: 5,
-      withCount: 5,
-      total: 5,
-      status: "마감",
-    },
-    {
-      id: 3,
-      content_id: 2,
-      title: "구로디지털단지 맛집 도장깨기!",
-      login_id: "윤지수",
-      deadLine: "24/02/10",
-      viewCount: 2,
-      withCount: 2,
-      total: 2,
-      status: "마감",
-    },
-    {
-      id: 4,
-      content_id: 0,
-      title: "구로디지털단지 맛집 도장깨기22!",
-      login_id: "윤지수22",
-      deadLine: "24/02/10",
-      viewCount: 2,
-      withCount: 2,
-      total: 2,
-      status: "마감",
-    },
-    {
-      id: 5,
-      content_id: 1,
-      title: "구로디지털단지 맛집 도장깨기33!",
-      login_id: "윤지수33",
-      deadLine: "24/02/10",
-      viewCount: 2,
-      withCount: 2,
-      total: 2,
-      status: "마감",
-    },
-  ],
-
-  communityDetail: [
-    {
-      id: 1,
-      content_id: 0,
-      status: "모집중",
-      title: "부산여행 가실분?",
-      login_id: "유재석",
-      locCategory: "부산광역시",
-      withCount: 3,
-      total: 4,
-      withMember: ["조세호", "문성기", "한희주", "송준형"],
-      start: "2024-02-07",
-      end: "2024-02-14",
-      deadLine: "2024/02/14",
-      created_at: "2024/02/05",
-      viewCount: 5,
-      content: "부산여행 갑시다!",
-    },
-    {
-      id: 2,
-      content_id: 1,
-      status: "마감",
-      title: "서울이 처음인데 남산가실분 ~~",
-      login_id: "조세호",
-      locCategory: "서울특별시",
-      withCount: 4,
-      total: 2,
-      withMember: ["조세호", "문성기", "한희주", "송준형"],
-      start: "2024-02-05",
-      end: "2024-02-17",
-      deadLine: "2024-02-04",
-      created_at: "2024/02/03",
-      viewCount: 6,
-      content: "서울에 맛집을 잘 아시는분 계신가요~?",
-    },
-    {
-      id: 3,
-      content_id: 2,
-      status: "마감",
-      title: "구로디지털단지 맛집 도장깨기!",
-      login_id: "윤지수",
-      locCategory: "서울특별시",
-      withCount: 2,
-      total: 2,
-      withMember: ["조세호", "문성기", "한희주", "송준형"],
-      start: "2024/02/05",
-      end: "2024/02/17",
-      deadLine: "2024/02/04",
-      created_at: "2024/02/01",
-      viewCount: 8,
-      content: "구로디지털단지에서 간단하게 마녀김밥 어때요?",
-    },
-  ],
   selectLocations: [
     "서울특별시",
     "인천광역시",
@@ -187,42 +19,11 @@ export default {
     "전라남도",
     "제주특별자치도",
   ],
+
   selectCategories: ["음식점", "관광지"],
+
   sortMenu: ["조회순", "최신순", "가나다순", "사용자 정의순"],
-  tourCount: 20,
-  spotPlanCount: 14,
-  tourList: [
-    {
-      id: 1,
-      imgSrc: "/images/busan2.jpg",
-      title: "더미",
-      bookmarkCount: 3000,
-      myBookmark: true,
-      type: "tour",
-    },
-  ],
-  spotPlanList: [
-    {
-      id: 1,
-      imgSrc: "/images/busan2.jpg",
-      title: "더미",
-      bookmarkCount: 3000,
-      grade: 10,
-      like: 300,
-      myBookmark: true,
-      type: "plan",
-    },
-    {
-      id: 1,
-      imgSrc: "/images/busan2.jpg",
-      title: "더미",
-      bookmarkCount: 3000,
-      grade: 10,
-      like: 300,
-      myBookmark: true,
-      type: "spot",
-    },
-  ],
+
   modalDatas: {
     "": {
       url: "",
@@ -310,7 +111,7 @@ export default {
       buttonMessage: "확인",
     },
   },
-  selectCategories: ["음식점", "관광지"],
+
   locMap: [
     {
       code: 11,
@@ -381,7 +182,46 @@ export default {
       color: "#000000",
     },
   ],
+
+  tourCount: 20,
+
+  spotPlanCount: 14,
+
+  tourList: [
+    {
+      id: 1,
+      imgSrc: "/images/busan2.jpg",
+      title: "더미",
+      bookmarkCount: 3000,
+      myBookmark: true,
+      type: "tour",
+    },
+  ],
+  spotPlanList: [
+    {
+      id: 1,
+      imgSrc: "/images/busan2.jpg",
+      title: "더미",
+      bookmarkCount: 3000,
+      grade: 10,
+      like: 300,
+      myBookmark: true,
+      type: "plan",
+    },
+    {
+      id: 1,
+      imgSrc: "/images/busan2.jpg",
+      title: "더미",
+      bookmarkCount: 3000,
+      grade: 10,
+      like: 300,
+      myBookmark: true,
+      type: "spot",
+    },
+  ],
+  
   selectNumberOfPeople: [1, 2, 3],
+
   bookmark: {
     1: {
       id: 1,
@@ -534,6 +374,7 @@ export default {
       loginId: "조세호",
     },
   },
+
   memberPageData: {
     1: {
       id: 1,
@@ -588,7 +429,7 @@ export default {
           type: "spot",
         },
       ],
-      sessionId: zido.getMemberId(),
+      sessionId: 1,
     },
     2: {
       id: 2,
@@ -643,7 +484,7 @@ export default {
           type: "spot",
         },
       ],
-      sessionId: zido.getMemberId(),
+      sessionId: 1,
     },
     3: {
       id: 3,
@@ -698,9 +539,10 @@ export default {
           type: "spot",
         },
       ],
-      sessionId: zido.getMemberId(),
+      sessionId: 1,
     },
   },
+
   configData: {
     imgSrc: "/images/남자.png",
     loginId: "남자",
@@ -708,8 +550,9 @@ export default {
     followerCount: 10,
     followingCount: 10,
     bookmarkCount: 10,
-    sessionId: zido.getMemberId(),
+    sessionId: 1,
   },
+
   newContent: {
     id: 1,
     imgSrc: "/images/busan2.jpg",
@@ -720,6 +563,7 @@ export default {
     myBookmark: true,
     type: "spot",
   },
+
   searchData: {
     userList: [],
     planList: [],
@@ -728,6 +572,13 @@ export default {
     planCount: 0,
     spotCount: 0,
   },
+
+  newMember: {
+    id: "1",
+    imgSrc: '/images/남자.png',
+    loginId: '남자'
+  },
+
   tourData: {
     1: {
       id: 1,
@@ -742,25 +593,29 @@ export default {
       myBookmark: true,
     },
   },
+
   spotData: {
     1: {
       id: 1,
       title: "test",
-      members: [{ loginId: "test" }],
+      members: ["test"],
       photos: [
         "/images/busan1.jpg",
         "/images/busan1.jpg",
         "/images/busan1.jpg",
       ],
       category: "관광지",
-      start: "test",
-      end: "test",
+      startDate: "2023-01-04",
+      startTime: "07:00:00",
+      endDate: "2023-04-05",
+      endTime: "07:00:00",
       grade: 10,
       myBookmark: true,
       myLike: null,
       bookmarkCount: 9,
       likeCount: 10,
       review: "123",
+      isPublic: 1,
       commentList: [
         {
           id: 1,
@@ -786,6 +641,7 @@ export default {
       ],
     },
   },
+  
   planData: {
     1: {
       id: 1,
@@ -812,7 +668,7 @@ export default {
       ],
       spotList: [
         {
-          id: 1,
+          id: 0,
           title: 123,
           start: "2024-04-14T07:30:00+09:00",
           end: "2024-04-17T07:30:00+09:00",
@@ -827,6 +683,7 @@ export default {
       bookmarkCount: 9,
       likeCount: 10,
       review: "123",
+      isPublic: 1,
       commentList: [
         {
           id: 1,
@@ -852,4 +709,198 @@ export default {
       ],
     },
   },
+
+  userInfo: {
+    loginId: "test",
+    name: "test",
+    password: "test",
+    passwordCheck: "test",
+    securityQuestion: 3,
+    securityAnswer: "test",
+    email: "test",
+    phoneNumber: "test",
+    zipcode: 822,
+    address: "test",
+    address2: "test",
+    birth: "2023-11-12",
+    gender: 0,
+    securityQuestions: [
+      {
+        id: 1,
+        question: "당신이 태어난 곳은?",
+      },
+      {
+        id: 2,
+        question: "졸업한 초등학교명은?",
+      },
+      {
+        id: 3,
+        question: "당신의 별명은?",
+      },
+      {
+        id: 4,
+        question: "처음으로 국내여행 가본 곳은?",
+      },
+      {
+        id: 5,
+        question: "처음으로 해외여행 가본 국가는?",
+      },
+    ],
+  },
+  
+  securityQuestions: [
+    {
+      id: 1,
+      question: "당신이 태어난 곳은?",
+    },
+    {
+      id: 2,
+      question: "졸업한 초등학교명은?",
+    },
+    {
+      id: 3,
+      question: "당신의 별명은?",
+    },
+    {
+      id: 4,
+      question: "처음으로 국내여행 가본 곳은?",
+    },
+    {
+      id: 5,
+      question: "처음으로 해외여행 가본 국가는?",
+    },
+  ],
+
+  userProfiles: {
+    1: {
+      id: 1,
+      imgSrc: "/images/남자.png",
+      loginId: "남자",
+      isFollow: true,
+    },
+    2: {
+      id: 2,
+      imgSrc: "/images/유재석.png",
+      loginId: "유재석",
+      isFollow: true,
+    },
+    3: {
+      id: 3,
+      imgSrc: "/images/조세호.png",
+      loginId: "조세호",
+      isFollow: false,
+    },
+  },
+
+  communityList: [
+    {
+      id: 1,
+      content_id: 0,
+      title: "부산여행 가실분?",
+      login_id: "유재석",
+      deadLine: "24/02/14",
+      viewCount: 5,
+      withCount: 3,
+      total: 4,
+      status: "모집중",
+    },
+    {
+      id: 2,
+      content_id: 1,
+      title: "서울이 처음인데 남산가실분 ~~",
+      login_id: "조세호",
+      deadLine: "24/02/13",
+      viewCount: 5,
+      withCount: 5,
+      total: 5,
+      status: "마감",
+    },
+    {
+      id: 3,
+      content_id: 2,
+      title: "구로디지털단지 맛집 도장깨기!",
+      login_id: "윤지수",
+      deadLine: "24/02/10",
+      viewCount: 2,
+      withCount: 2,
+      total: 2,
+      status: "마감",
+    },
+    {
+      id: 4,
+      content_id: 0,
+      title: "구로디지털단지 맛집 도장깨기22!",
+      login_id: "윤지수22",
+      deadLine: "24/02/10",
+      viewCount: 2,
+      withCount: 2,
+      total: 2,
+      status: "마감",
+    },
+    {
+      id: 5,
+      content_id: 1,
+      title: "구로디지털단지 맛집 도장깨기33!",
+      login_id: "윤지수33",
+      deadLine: "24/02/10",
+      viewCount: 2,
+      withCount: 2,
+      total: 2,
+      status: "마감",
+    },
+  ],
+
+  communityDetail: [
+    {
+      id: 1,
+      content_id: 0,
+      status: "모집중",
+      title: "부산여행 가실분?",
+      login_id: "유재석",
+      locCategory: "부산광역시",
+      withCount: 3,
+      total: 4,
+      withMember: ["조세호", "문성기", "한희주", "송준형"],
+      start: "2024-02-07",
+      end: "2024-02-14",
+      deadLine: "2024/02/14",
+      created_at: "2024/02/05",
+      viewCount: 5,
+      content: "부산여행 갑시다!",
+    },
+    {
+      id: 2,
+      content_id: 1,
+      status: "마감",
+      title: "서울이 처음인데 남산가실분 ~~",
+      login_id: "조세호",
+      locCategory: "서울특별시",
+      withCount: 4,
+      total: 2,
+      withMember: ["조세호", "문성기", "한희주", "송준형"],
+      start: "2024-02-05",
+      end: "2024-02-17",
+      deadLine: "2024-02-04",
+      created_at: "2024/02/03",
+      viewCount: 6,
+      content: "서울에 맛집을 잘 아시는분 계신가요~?",
+    },
+    {
+      id: 3,
+      content_id: 2,
+      status: "마감",
+      title: "구로디지털단지 맛집 도장깨기!",
+      login_id: "윤지수",
+      locCategory: "서울특별시",
+      withCount: 2,
+      total: 2,
+      withMember: ["조세호", "문성기", "한희주", "송준형"],
+      start: "2024/02/05",
+      end: "2024/02/17",
+      deadLine: "2024/02/04",
+      created_at: "2024/02/01",
+      viewCount: 8,
+      content: "구로디지털단지에서 간단하게 마녀김밥 어때요?",
+    },
+  ],
 };

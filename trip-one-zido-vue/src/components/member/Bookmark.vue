@@ -13,8 +13,7 @@
 
     <ContentList
       :list="bookmark.tourList"
-      :addApi="`/api/bookmark/${bookmark.id}/tour`"
-      :sessionId="bookmark.sessionId"
+      :addApi="`/api/bookmark/${bookmark.id}/tour/`"
     />
 
     <div class="d-flex flex-row mb-6" id="subTitle">
@@ -25,8 +24,7 @@
 
     <ContentList
       :list="bookmark.spotPlanList"
-      :addApi="`/api/bookmark/${bookmark.id}/spotPlan`"
-      :sessionId="bookmark.sessionId"
+      :addApi="`/api/bookmark/${bookmark.id}/spotPlan/`"
     />
   </main>
 </template>
@@ -40,17 +38,8 @@ export default {
   },
   data() {
     return {
-      bookmark: this.$zido.getBookmarkById(this.pageMemberId()),
+      bookmark: this.$zido.getBookmarkById(this.$route.params.id),
     };
-  },
-  methods: {
-    pageMemberId() {
-      if (this.$route.params.id) {
-        return this.$route.params.id;
-      } else {
-        return this.$zido.getMemberId();
-      }
-    },
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);

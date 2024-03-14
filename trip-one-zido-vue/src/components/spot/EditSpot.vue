@@ -2,7 +2,7 @@
   <main class="wrapper d-flex">
     <!-- ★왼쪽 -->
     <div class="p-2 d-flex flex-column border-end" id="leftSide">
-      <h1 class="title">장소 등록</h1>
+      <h1 class="title">장소 {{ mode == "add" ? "등록" : "수정" }}</h1>
 
       <div class="p-2 h-100">
         <div class="d-flex justify-content-between">
@@ -53,13 +53,29 @@
           <td>
             <div class="d-flex justify-content-between align-items-center">
               <div class="date-time">
-                <input class="border-0" type="date" v-model="spotData.start_date" />
-                <input class="border-0" type="time" v-model="spotData.start_time" />
+                <input
+                  class="border-0"
+                  type="date"
+                  v-model="spotData.startDate"
+                />
+                <input
+                  class="border-0"
+                  type="time"
+                  v-model="spotData.startTime"
+                />
               </div>
               <h4>~</h4>
               <div class="date-time">
-                <input class="border-0" type="date" v-model="spotData.end_date" />
-                <input class="border-0" type="time" v-model="spotData.end_time" />
+                <input
+                  class="border-0"
+                  type="date"
+                  v-model="spotData.endDate"
+                />
+                <input
+                  class="border-0"
+                  type="time"
+                  v-model="spotData.endTime"
+                />
               </div>
             </div>
           </td>
@@ -94,13 +110,14 @@
           </td>
           <td>
             <div class="select-wrapper">
-              <select class="local-select" v-model="category">
+              <select class="local-select" v-model="spotData.category">
                 <option value="" selected>카테고리</option>
-                <option value="1">음식점</option>
-                <option value="2">여가(관람/체험/스포츠)</option>
-                <option value="3">관광지(산/바다/계곡/해변)</option>
-                <option value="4">테마파크</option>
-                <option value="5">기타</option>
+                <option
+                  v-for="category in selectCategories"
+                  :aria-colcount="category"
+                >
+                  {{ category }}
+                </option>
               </select>
             </div>
           </td>
@@ -110,13 +127,7 @@
           <td><h4>주소</h4></td>
           <td>
             <div class="d-flex">
-              <input
-                type="text"
-                id="address"
-                name="address"
-                size="70"
-                v-model="spotData.address"
-              />
+              <input type="text" id="address" name="address" size="70" />
               <button
                 type="button"
                 class="button icon fa-search ps-2 pe-2 ms-2"
@@ -149,7 +160,9 @@
         </tr>
         <tr>
           <td colspan="2">
-            <textarea id="content" name="content" rows="5" cols="50" />
+            <textarea id="content" name="content" rows="5" cols="50">{{
+              spotData.review
+            }}</textarea>
           </td>
         </tr>
         <tr>
@@ -165,17 +178,17 @@
           <td>
             <div class="m-0 d-flex justify-content-end gap-2">
               <input
-                @click="console.log(members)"
+                @click="submitButton($route.params.mode)"
                 id="input"
                 class="button small"
                 type="submit"
-                value="등록"
+                :value="$route.params.mode == 'add' ? '등록' : '수정'"
               />
               <input
+              @click="$router.push('/member-page')"
                 class="button alt small"
                 type="button"
                 value="취소"
-                onclick="location.href='/html-css/main/detail/detail.html'"
               />
             </div>
           </td>
@@ -186,11 +199,26 @@
 </template>
 
 <script>
+import data from "@/assets/data";
+
 export default {
   data() {
     return {
-      members: [""],
-      photos: [],
+      selectCategories: data.selectCategories,
+      spotData: {
+        photos: [],
+        title: "",
+        startDate: "",
+        startTime: "",
+        endDate: "",
+        endTime: "",
+        members: [""],
+        category: "",
+        address: "",
+        address2: "",
+        review: "",
+        isPublic: "",
+      },
     };
   },
   methods: {
@@ -205,32 +233,46 @@ export default {
         let fileReader = new FileReader();
         fileReader.onload = (e) => {
           resolve(e.target.result);
-          this.photos.push(e.target.result);
-          console.log(this.photos);
+          this.spotData.photos.push(e.target.result);
+          console.log(this.spotData.photos);
         };
         fileReader.readAsDataURL(file);
       });
     },
     delPhoto(idx) {
-      this.photos.splice(idx, 1);
+      this.spotData.photos.splice(idx, 1);
     },
     addMember() {
-      this.members.push("");
+      this.spotData.members.push("");
     },
     delMember(idx) {
-      this.members.splice(idx, 1);
+      this.spotData.members.splice(idx, 1);
     },
-    searchAddress(){
+    searchAddress() {
       new daum.Postcode({
-        oncomplete: function(data) {
-            this.address = data.address;
-            document.querySelector("#address").value = this.address
-        }
-    }).open();
-    }
+        oncomplete: function (data) {
+          document.querySelector("#address").value = data.address;
+        },
+      }).open();
+    },
+    setSpotData() {
+      this.spotData = this.$zido.getSpotData(this.$route.params.id);
+    },
+    submitButton(mode) {
+      if (mode == "add") {
+        this.$zido.addSpot(this.spotData);
+      } else {
+        this.$zido.updateSpot(this.spotData);
+      }
+      this.$router.push('/member-page')
+    },
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    if (this.$route.params.id) {
+      this.setSpotData();
+      document.querySelector("#address").value = this.spotData.address;
+    }
   },
 };
 </script>
@@ -254,7 +296,6 @@ main > div {
   height: 100%;
   margin-right: 1%;
 }
-
 
 #addPic {
   display: none;

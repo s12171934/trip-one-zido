@@ -6,21 +6,21 @@
       <tr v-if="$route.params.id == ''">
         <td>현재 비밀번호 입력</td>
         <td>
-          <input type="password" v-model="prevPw" />
+          <input type="password" v-model="prevPassword" />
         </td>
       </tr>
 
       <tr>
         <td width="200">재설정 비밀번호 입력</td>
         <td width="400">
-          <input type="password" v-model="resetPw" />
+          <input type="password" v-model="newPassword" />
         </td>
       </tr>
 
       <tr>
         <td width="200">재설정 비밀번호 확인</td>
         <td width="400">
-          <input type="password" v-model="resetPwCheck" />
+          <input type="password" v-model="newPasswordCheck" />
         </td>
       </tr>
     </table>
@@ -49,19 +49,27 @@ export default {
   data() {
     return {
       modal: "",
-      prevPw: "",
-      resetPw: "",
-      resetPwCheck: "",
+      prevPassword: "",
+      newPassword: "",
+      newPasswordCheck: "",
     };
   },
   methods: {
     passwordCheck() {
-      if (this.$zido.resetPassword) {
+      if (this.checkPassword()) {
         this.modal = "resetPasswordSuccess";
       } else {
         this.modal = "resetPasswordFail";
       }
     },
+    checkPassword(){
+      if(this.$route.params.id){
+        return this.$zido.resetPassword(this.$route.params.id, this.newPassword, this.newPasswordCheck);
+      }
+      else{
+        return this.$zido.changePassword(this.prevPassword, this.newPassword, this.newPasswordCheck);
+      }
+    }
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);

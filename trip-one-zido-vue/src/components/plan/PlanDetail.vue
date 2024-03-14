@@ -51,7 +51,7 @@
         </tr>
         <tr>
           <td>
-            <MemberList :memberList="planData.members" />
+            <MemberList :list="planData.members" />
           </td>
         </tr>
         <tr>
@@ -89,7 +89,7 @@
               <select
                 @change="$zido.togglePublic($route.params.id)"
                 class="local-select"
-                name="category"
+                v-model="planData.isPublic"
               >
                 <option value="1">공개</option>
                 <option value="2">비공개</option>
@@ -152,7 +152,6 @@
 </template>
 
 <script>
-import EditSpotModal from "./EditSpotModal.vue";
 import FullCalendar from "@fullcalendar/vue3";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -165,7 +164,6 @@ import Comment from "../util/Comment.vue";
 export default {
   components: {
     FullCalendar,
-    EditSpotModal,
     KakaoMapForEditPlan,
     MemberList,
     Comment,
@@ -202,7 +200,6 @@ export default {
           day: "numeric",
           omitCommas: true,
         },
-        initialEvents: this.$zido.getPlanData(this.$route.params.id).spotList,
         locale: koLocale,
         headerToolbar: false,
         allDaySlot: false,
@@ -244,10 +241,18 @@ export default {
       this.calendarOptions.firstDay = start.getDay();
       calendarApi.gotoDate(this.planData.start);
     },
+    setInitialEvent() {
+      const calendarApi = this.$refs.FullCalendar.getApi();
+      for (let spot of this.planData.spotList) {
+        calendarApi.addEvent(spot);
+      }
+      console.log(calendarApi.getEvents());
+    },
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
     this.setCalendarByDate();
+    this.setInitialEvent();
   },
 };
 </script>
@@ -377,3 +382,4 @@ colgroup col {
   margin-right: 3%;
 }
 </style>
+../util/modal/EditSpotModal.vue
