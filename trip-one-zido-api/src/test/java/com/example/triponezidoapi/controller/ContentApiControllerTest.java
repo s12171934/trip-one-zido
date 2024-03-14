@@ -70,7 +70,7 @@ class ContentApiControllerTest {
         // ObjectMapper 객체 생성
         ObjectMapper objectMapper = new ObjectMapper();
 
-        // member 객체를 JSON 문자열로 변환
+        // requestGood 객체를 JSON 문자열로 변환
         String jsonGood = objectMapper.writeValueAsString(requestGood);
 
         mockMvc.perform(post("/api/content/good/{id}", 9L)
