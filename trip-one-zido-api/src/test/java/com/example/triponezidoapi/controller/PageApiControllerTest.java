@@ -63,7 +63,7 @@ class PageApiControllerTest {
 
         ResponseMember responseMember = new ResponseMember();
         responseMember.setId(1L);
-        responseMember.setLoginId(2L);
+        responseMember.setLoginId("2L");
         responseMember.setOwn(null);
         responseMember.setProfile(null);
         responseMember.setFollow(true);
@@ -180,7 +180,7 @@ class PageApiControllerTest {
     void listFollowing() throws Exception {
         ResponseMember responseMember = new ResponseMember();
         responseMember.setId(1L);
-        responseMember.setLoginId(2L);
+        responseMember.setLoginId("2L");
         responseMember.setOwn(null);
         responseMember.setProfile(null);
         responseMember.setFollow(true);
@@ -210,7 +210,7 @@ class PageApiControllerTest {
     void listFollower() throws Exception {
         ResponseMember responseMember = new ResponseMember();
         responseMember.setId(1L);
-        responseMember.setLoginId(2L);
+        responseMember.setLoginId("2L");
         responseMember.setOwn(null);
         responseMember.setProfile(null);
         responseMember.setFollow(true);
