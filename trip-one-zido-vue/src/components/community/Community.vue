@@ -1,5 +1,5 @@
 <template>
-      <section class="wrapper">
+      <main class="wrapper">
         <div id="leftPosition">
             <h1>커뮤니티(여행 멤버 모집)</h1>
             <br>
@@ -21,6 +21,7 @@
                 <tbody>
                     <!-- location.href="/community/"`${this.list.id}` -->
                     <tr v-for="list in communityList" :value="list" id="tdList">
+                        <td hidden>{{ list.id }}</td>
                         <td>{{ list.content_id }}</td>
                         <td @click="goToCommunityDetail(list.content_id)" id="cursor">{{ list.title }}</td>
                         <td>{{ list.login_id }}</td>
@@ -36,7 +37,7 @@
         </div>
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a href="/:mode/community/id?" class="button small rounded-3" id="button">등록</a>
+            <a @click="add" class="button small rounded-3">등록</a>
         </div>
 
         <nav aria-label="Page navigation example">
@@ -76,7 +77,7 @@
             </form>
             <br><br><br>
         </div>
-    </section>
+    </main>
 </template>
 
 <script>
@@ -93,6 +94,11 @@ export default {
     },
     
     methods: {
+
+    add () {
+        this.$router.push({ path: `/edit/community/${this.$cookies.get("login")}` });
+    },
+
     getStatus(withCount, total) {
       return withCount === total ? "마감" : "모집중";
     },
@@ -140,7 +146,7 @@ h1 {
     font-family: 'Jalnan';
     font-size: 20px;
 }
-thead {
+thead, thead hd{
     font-size: 15px;
     color: black;
 }

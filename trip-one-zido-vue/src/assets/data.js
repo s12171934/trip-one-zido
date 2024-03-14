@@ -60,6 +60,7 @@ export default {
   },
   communityList: [
     {
+      id: 1,
       content_id: 2,
       title: "부산여행 가실분?",
       login_id: "유재석",
@@ -70,6 +71,7 @@ export default {
       status: "모집중",
     },
     {
+      id: 2,
       content_id: 3,
       title: "서울이 처음인데 남산가실분 ~~",
       login_id: "조세호",
@@ -80,9 +82,32 @@ export default {
       status: "마감",
     },
     {
+      id: 3,
       content_id: 4,
       title: "구로디지털단지 맛집 도장깨기!",
       login_id: "윤지수",
+      deadLine: "24/02/10",
+      viewCount: 2,
+      withCount: 2,
+      total: 2,
+      status: "마감",
+    },
+    {
+      id: 4,
+      content_id: 5,
+      title: "구로디지털단지 맛집 도장깨기22!",
+      login_id: "윤지수22",
+      deadLine: "24/02/10",
+      viewCount: 2,
+      withCount: 2,
+      total: 2,
+      status: "마감",
+    },
+    {
+      id: 5,
+      content_id: 6,
+      title: "구로디지털단지 맛집 도장깨기33!",
+      login_id: "윤지수33",
       deadLine: "24/02/10",
       viewCount: 2,
       withCount: 2,
@@ -93,6 +118,7 @@ export default {
 
   communityDetail: [
     {
+      id: 1,
       content_id: 2,
       status: "모집중",
       title: "부산여행 가실분?",
@@ -111,6 +137,7 @@ export default {
       content: "부산여행 갑시다!",
     },
     {
+      id: 2,
       content_id: 3,
       status: "마감",
       title: "서울이 처음인데 남산가실분 ~~",
@@ -130,6 +157,7 @@ export default {
       content: "서울에 맛집을 잘 아시는분 계신가요~?",
     },
     {
+      id: 3,
       content_id: 4,
       status: "마감",
       title: "구로디지털단지 맛집 도장깨기!",
@@ -262,6 +290,31 @@ export default {
       message: "회원가입에<br />성공했습니다.",
       buttonMessage: "확인",
     },
+    withSuccess: {
+      url: "/community/id",
+        message: "참여 신청이<br />완료되었습니다.",
+        buttonMessage: "확인",
+    },
+    withFail: {
+      url: "/community/id",
+        message: "참여 신청이<br />취소되었습니다.",
+        buttonMessage: "확인",
+    },
+    addCommunity: {
+      url: "/community",
+        message: "게시글 등록이<br />완료되었습니다.",
+        buttonMessage: "확인",
+    },
+    updateCommunity: {
+      url: "/community",
+        message: "게시글 수정이<br />완료되었습니다.",
+        buttonMessage: "확인",
+    },
+    deleteCommunity: {
+      url: "/community",
+        message: "게시글 삭제가<br />완료되었습니다.",
+        buttonMessage: "확인",
+    },
   },
   selectCategories: ["음식점", "관광지"],
   locMap: [
@@ -333,6 +386,28 @@ export default {
       code: 39,
       color: "#000000",
     },
+  ],
+  selectNumberOfPeople: [
+    1 + " 명",
+    2 + " 명",
+    3 + " 명",
+    4 + " 명",
+    5 + " 명",
+    6 + " 명",
+    7 + " 명",
+    8 + " 명",
+    9 + " 명",
+    10 + " 명",
+    11 + " 명",
+    12 + " 명",
+    13 + " 명",
+    14 + " 명",
+    15 + " 명",
+    16 + " 명",
+    17 + " 명",
+    18 + " 명",
+    19 + " 명",
+    20 + " 명"
   ],
   bookmark: {
     1: {
