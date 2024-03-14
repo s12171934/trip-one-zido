@@ -25,9 +25,15 @@
           <label for="file"
             ><a class="button rounded-3 m-0">사진 찾기</a></label
           >
-          <input type="file" name="file" id="file" @change="getFileName($event.target.files)"/>
+          <input
+            type="file"
+            name="file"
+            id="file"
+            @change="getFileName($event.target.files)"
+          />
           <form>
             <button
+              @click="this.$zido.editProfileImg(img)"
               type="button"
               class="rounded-3"
               id="modalButton"
@@ -44,29 +50,29 @@
 
 <script>
 export default {
-  data(){
-    return{
-      img: '/images/조세호.png'
-    }
+  data() {
+    return {
+      img: this.$zido.getProfileImg(),
+    };
   },
   methods: {
     async getFileName(files) {
       this.img = files[0];
-      await this.base64(this.img)
+      await this.base64(this.img);
     },
-    base64(file){
-      return new Promise(resolve => {
-        let fileReader = new FileReader()
-        fileReader.onload = e => {
-          resolve(e.target.result)
+    base64(file) {
+      return new Promise((resolve) => {
+        let fileReader = new FileReader();
+        fileReader.onload = (e) => {
+          resolve(e.target.result);
           this.img = e.target.result;
-          console.log(this.img)
-        }
-        fileReader.readAsDataURL(file)
-      })
-    }
-  }
-}
+          console.log(this.img);
+        };
+        fileReader.readAsDataURL(file);
+      });
+    },
+  },
+};
 </script>
 
 <style scoped>

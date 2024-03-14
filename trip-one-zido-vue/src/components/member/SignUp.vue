@@ -10,7 +10,11 @@
         class="d-flex flex-column gap-3 border border-5 p-5"
       >
         <div class="d-flex gap-3">
-          <input type="text" v-model="loginId" placeholder="사용할 아이디" />
+          <input
+            type="text"
+            v-model="form.loginId"
+            placeholder="사용할 아이디"
+          />
           <button
             @click="checkLoginId"
             data-bs-toggle="modal"
@@ -21,33 +25,44 @@
           </button>
         </div>
 
-        <input type="text" value="" placeholder="이름" />
+        <input type="text" v-model="form.name" placeholder="이름" />
 
-        <input type="password" value="" placeholder="비밀번호" />
-        <input type="password" value="" placeholder="비밀번호 확인" />
+        <input type="password" v-model="form.password" placeholder="비밀번호" />
+        <input
+          type="password"
+          v-model="form.passwordCheck"
+          placeholder="비밀번호 확인"
+        />
         <div class="select-wrapper">
-          <select name="category" id="security">
-            <option value="">보안질문</option>
-            <option value="1">당신이 태어난 곳은?</option>
-            <option value="2">졸업한 초등학교명은?</option>
-            <option value="3">당신의 별명은?</option>
-            <option value="4">처음으로 국내여행 가본 곳은?</option>
-            <option value="5">처음으로 해외여행 가본 국가는?</option>
+          <select name="category" id="security" v-model="form.securityQuestion">
+            <option
+              v-for="securityQuestion in $zido.getSecurityQuestions()"
+              :value="securityQuestion.id"
+            >
+              {{ securityQuestion.question }}
+            </option>
           </select>
         </div>
 
-        <input type="text" value="" placeholder="보안질문 답" />
+        <input
+          type="text"
+          v-model="form.securityAnswer"
+          placeholder="보안질문 답"
+        />
 
-        <input type="email" value="" placeholder="Email" />
+        <input type="email" v-model="form.email" placeholder="Email" />
 
-        <input type="text" value="" placeholder="핸드폰번호 ex)010-xxxx-xxxx" />
+        <input
+          type="text"
+          v-model="form.phoneNumber"
+          placeholder="핸드폰번호 ex)010-xxxx-xxxx"
+        />
         <div class="d-flex gap-3">
           <input
             type="text"
             class="w-25"
             readonly
             id="zipcode"
-            v-model="zipcode"
             placeholder="우편번호"
           />
           <input
@@ -55,25 +70,41 @@
             readonly
             class="w-50"
             id="address"
-            v-model="address"
             placeholder="주소"
           />
           <button class="button w-25 icon fa-search" @click="searchAddress">
             주소 검색
           </button>
         </div>
-        <input type="text" value="" placeholder="상세한 주소" />
+        <input type="text" v-model="form.address2" placeholder="상세한 주소" />
 
         <div class="d-flex flex-fill gap-3 justify-content-start">
           <div class="birth-gender">
             생년월일:
-            <input type="date" id="birthday" value="" placeholder="생년월일" />
+            <input
+              type="date"
+              id="birthday"
+              v-model="form.birth"
+              placeholder="생년월일"
+            />
           </div>
           <div class="birth-gender">
             성별:
-            <input type="radio" id="male" name="gender" checked />
+            <input
+              type="radio"
+              id="male"
+              name="gender"
+              v-model="form.gender"
+              value="0"
+            />
             <label for="male" id="gender" class="m-0">남성</label>
-            <input type="radio" id="female" name="gender" />
+            <input
+              type="radio"
+              id="female"
+              name="gender"
+              v-model="form.gender"
+              value="1"
+            />
             <label for="female" id="gender" class="m-0">여성</label>
           </div>
         </div>
@@ -102,20 +133,34 @@ export default {
   data() {
     return {
       modal: "",
-      loginId: "",
+      form: {
+        loginId: "",
+        name: "",
+        password: "",
+        passwordCheck: "",
+        securityQuestion: "",
+        securityAnswer: "",
+        email: "",
+        phoneNumber: "",
+        address2: "",
+        birth: "",
+        gender: "",
+      },
     };
   },
   methods: {
     checkLoginId() {
-      if (this.loginId === "test") {
+      if (this.$zido.checkLoginId(this.loginId)) {
         this.modal = "checkDuplicationLoginIdSuccess";
       } else {
         this.modal = "checkDuplicationLoginIdFail";
-        this.loginId = ""
+        this.loginId = "";
       }
     },
     signUp() {
-      if (this.loginId === "test") {
+      this.form.zipcode = document.querySelector("#zipcode").value;
+      this.form.address = document.querySelector("#address").value;
+      if (this.$zido.signUp(this.form)) {
         this.modal = "signUpSuccess";
       } else {
         this.modal = "signUpFail";
@@ -124,10 +169,8 @@ export default {
     searchAddress() {
       new daum.Postcode({
         oncomplete: function (data) {
-          this.zipcode = data.zonecode;
-          document.querySelector("#zipcode").value = this.zipcode;
-          this.address = data.address;
-          document.querySelector("#address").value = this.address;
+          document.querySelector("#zipcode").value = data.zonecode;
+          document.querySelector("#address").value = data.address;
         },
       }).open();
     },

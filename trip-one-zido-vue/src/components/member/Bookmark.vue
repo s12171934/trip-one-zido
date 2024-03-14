@@ -1,52 +1,60 @@
 <template>
   <main class="wrapper">
-    <h1><span>{{ userProfiles.loginId }}</span>님이 찜한 게시글</h1>
+    <h1>
+      <span>{{ bookmark.loginId }}</span
+      >님이 찜한 게시글
+    </h1>
 
     <div class="d-flex flex-row mb-6" id="subTitle">
-      <h3>・모든 일정 & 장소 게시글<span>{{ tourCount }}</span></h3>
+      <h3>
+        ・모든 일정 & 장소 게시글<span>{{ bookmark.tourCount }}</span>
+      </h3>
     </div>
 
-    <ContentList firstList="tourList"/>
+    <ContentList
+      :list="bookmark.tourList"
+      :addApi="`/api/bookmark/${bookmark.id}/tour`"
+      :sessionId="bookmark.sessionId"
+    />
 
     <div class="d-flex flex-row mb-6" id="subTitle">
-      <h3>・모든 관광지<span>{{ spotPlanCount }}</span></h3>
+      <h3>
+        ・모든 관광지<span>{{ bookmark.spotPlanCount }}</span>
+      </h3>
     </div>
 
-    <ContentList firstList="spotPlanList"/>
+    <ContentList
+      :list="bookmark.spotPlanList"
+      :addApi="`/api/bookmark/${bookmark.id}/spotPlan`"
+      :sessionId="bookmark.sessionId"
+    />
   </main>
 </template>
 
 <script>
 import ContentList from "../util/ContentList.vue";
-import data from "@/assets/data";
 
 export default {
   components: {
     ContentList,
   },
-  data(){
-    return{
-      tourList: [],
-      tourCount: 0,
-      spotPlanList: [],
-      spotPlanCount: 0,
-      userProfiles: {},
-    }
+  data() {
+    return {
+      bookmark: this.$zido.getBookmarkById(this.pageMemberId()),
+    };
   },
   methods: {
-    getData(){
-      this.tourList = data.tourList;
-      this.tourCount = data.tourCount;
-      this.spotPlanList = data.spotPlanList;
-      this.spotPlanCount = data.spotPlanCount;
-      this.userProfiles = data.userProfiles[this.$route.params.id]
-      
-    }
+    pageMemberId() {
+      if (this.$route.params.id) {
+        return this.$route.params.id;
+      } else {
+        return this.$zido.getMemberId();
+      }
+    },
   },
-  mounted(){
-    this.getData();
-    this.$emit("meta",this.$route.matched[0].meta.isLogin);
-  }
+  mounted() {
+    this.$emit("meta", this.$route.matched[0].meta.isLogin);
+  },
 };
 </script>
 

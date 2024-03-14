@@ -135,7 +135,7 @@ const routes = [
     meta: { isLogin: true }
   },
   {
-    path: "/search-detail/:keyword",
+    path: "/search-detail",
     component: DetailSearch,
     meta: { isLogin: true }
   },
@@ -152,7 +152,7 @@ const routes = [
   },
   //tour
   {
-    path: "/tour/loc/:locCategory?",
+    path: "/tour/loc/:loc?",
     component: TourPage,
     meta: { isLogin: true }
   },

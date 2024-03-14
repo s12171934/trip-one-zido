@@ -57,8 +57,15 @@ export default {
   },
   methods: {
     login() {
-      if (this.loginId == "test") {
+      if (this.$zido.login()) {
         this.$cookies.set("login", 1, 0);
+        this.$zido.updateSocialLogin(
+          this.$route.params.sns,
+          this.$route.params.id,
+          this.loginId
+        )
+
+
         if (this.autoLogin) {
           this.$cookies.set("autoLogin", this.loginId);
         } else {

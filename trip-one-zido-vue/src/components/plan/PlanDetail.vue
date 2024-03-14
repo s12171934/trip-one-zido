@@ -1,474 +1,379 @@
 <template>
-      <main id="main" class="wrapper">
-        <form id="split-container" class="d-flex flex-row">
-            
-            <!-- ★왼쪽 -->
-            <div class="p-2 d-flex flex-column border-end" id="leftSide">
-                <div class="d-flex">
-                    <div id="leftPosition">
-                    <h1 class="title">일정 조회</h1>
-                    <br>
-                </div>
-                        <button class="btn btn-outline flex-shrink-0" type="button">
-                            <i class="bi-cart-fill me-1"></i>
-                            <img id="icon" src="/images/unzzim.png" onclick="zzim()">
-                        </button>
-                        <button class="btn btn-outline flex-shrink-0" type="button">
-                            <i class="bi-cart-fill me-1"></i>
-                            <img id="icon" src="/images/like.png"onclick="like()">
-                        </button>
-                    </div>
+  <main class="wrapper d-flex">
+    <div class="p-2 d-flex flex-column border-end" id="leftSide">
+      <div class="d-flex justify-content-between me-5 w-100">
+        <h1 @click="console.log(status)" class="title">
+          {{ planData.title
+          }}<span class="date">{{ planData.start }}~{{ planData.end }}</span>
+          <span class="comm"
+            ><img id="star" src="/images/star.png" />{{ planData.grade }}</span
+          >
+        </h1>
+        <button class="rounded-5">{{ planData.status }}</button>
+      </div>
+      <table>
+        <tr>
+          <td>
+            <h1 class="p-2">
+              <span class="comm"
+                ><img
+                  @click="$zido.toggleBookmark(planData)"
+                  id="bookmark"
+                  :src="
+                    planData.myBookmark
+                      ? '/images/zzim.png'
+                      : '/images/unzzim.png'
+                  "
+                />{{ planData.bookmarkCount }}</span
+              >
+              <span class="comm" :class="planData.myLike === true ? 'like' : ''"
+                ><img
+                  @click="$zido.toggleLike(planData, true)"
+                  id="like"
+                  src="/images/like.png"
+                />{{ planData.likeCount }}</span
+              >
+              <span
+                class="comm"
+                :class="planData.myLike === false ? 'like' : ''"
+                ><img
+                  @click="$zido.toggleLike(planData, false)"
+                  id="unLike"
+                  src="/images/unlike.png"
+              /></span>
+            </h1>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h4>참여 인원</h4>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <MemberList :memberList="planData.members" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h4>지도</h4>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <KakaoMapForEditPlan style="height: 40vh" />
+          </td>
+        </tr>
 
-                <div class="p-2 d-flex flex-row" id="blank">
-                    <h4>일정 제목</h4>
-                    <input type="text" value="★ 맛집 투어 | 부산 ★" id="detail-title" readonly>
-                        <div class="btn-group" id="trip-state-button-group" role="group" aria-label="Basic radio toggle button group">
-                            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" disabled>
-                            <label class="btn btn-outline-primary" for="btnradio1">여행전</label>
-                            
-                            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" checked disabled>
-                            <label class="btn btn-outline-primary" for="btnradio2">여행중</label>
-                            
-                            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" disabled>
-                            <label class="btn btn-outline-primary" for="btnradio3">여행한</label>
-                        </div>
-                </div>
+        <tr>
+          <td>
+            <h4>여행한 후기</h4>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <textarea id="content" name="content" rows="5" cols="50">{{
+              planData.review
+            }}</textarea>
+          </td>
+        </tr>
+      </table>
+    </div>
 
-                <div class="p-2 d-flex" id="blank"><h4>기간</h4>&nbsp;&nbsp;
-                    <label for="start_date"></label>
-                    <input class="flex-fill" type="date" id="start_date" name="start_date" value="2024-02-10" readonly>
-                    <h4>~</h4>
-                    <label for="end_date"></label>
-                    <input class="flex-fill" type="date" id="end_date" name="end_date" value="2024-02-14" readonly>
-                </div>
-
-                <div class="p-2 d-flex border-bottom" id="with"><h4>동행인</h4>&nbsp;&nbsp; 
-                    <!-- <form action="send_email.php" method="POST"> -->
-                    <label for="email1"></label>
-                    <input class="flex-fill" type="email" id="email" name="email1" value="윤지수" readonly><br><br>
-
-                    <label for="email2"></label>
-                    <input class="flex-fill" type="email" id="email" name="email2" value="문성기" readonly><br><br>
-
-                    <label for="email3"></label>
-                    <input class="flex-fill" type="email" id="email" name="email3" value="한희주" readonly><br><br>
-                    <!-- 필요한 만큼 이메일 주소 입력 필드를 추가할 수 있음 -->
-                    <!-- </form> -->
-                </div>
-
-                <div class="p-2"><h4> 지도 </h4>
-                    <!-- Google 지도를 삽입할 영역 -->
-                    <iframe
-                    id="map"
-                    width="600"
-                    height="300"
-                    frameborder="0"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26097.096481087745!2d129.09806643943534!3d35.15320239534059!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3568ed2f27c70ec7%3A0xff6df0e14d9216fb!2z6rSR7JWI66as7ZW07IiY7JqV7J6l!5e0!3m2!1sko!2skr!4v1709173272511!5m2!1sko!2skr"
-                    allowfullscreen>
-                    </iframe>
-                </div>
-
-                <div class="p-2 d-flex border-top"><h4>여행한 후기</h4>
-                    <div class="rating flex-fill" id="star">
-                        <span onclick="rateStar(10)">☆</span>
-                        <span onclick="rateStar(8)">☆</span>
-                        <span onclick="rateStar(6)">☆</span>
-                        <span onclick="rateStar(4)">☆</span>
-                        <span onclick="rateStar(2)">☆</span>
-                    </div>
-                    <p class="flex-fill" id="ratingValue">별점을 선택하세요.</p>
-                </div>
-
-                <!-- 여행후기 -->
-                <div class="p-2">
-                    <!-- <form action="submit_post.php" method="POST">             -->
-                        <textarea id="content" name="content" rows="5" cols="50">1일차 : 부산 광안리 너무 재밌다 !~!</textarea><br><br>
-                    <!-- </form> -->
-                </div>
+    <!-- ★오른쪽 -->
+    <div class="p-2 d-flex flex-column" id="rightSide">
+      <table v-if="$route.params.id == 1">
+        <tr>
+          <td>
+            <div class="select-wrapper" id="security">
+              <select
+                @change="$zido.togglePublic($route.params.id)"
+                class="local-select"
+                name="category"
+              >
+                <option value="1">공개</option>
+                <option value="2">비공개</option>
+              </select>
             </div>
-
-            <!-- ★오른쪽 -->
-            <div class="p-2 d-flex flex-column border-end" id= "rightSide-margin">
- 
-                <div class="p-2 d-flex flex-row" id="rightSide">
-                    <h4 id="title2">여행 중 일정 및 장소</h4>
-                    &nbsp;&nbsp;
-                    <input type="text" value="부산광역시" id="blank-city" readonly>
-                    <br>
-                </div>
-
-
-                <div class='demo-app-main'>
-                <FullCalendar
-                    class='demo-app-calendar'
-                    :options='calendarOptions'>
-                    
-                    <template v-slot:eventContent='arg'>
-                    <b>{{ arg.timeText }}</b>
-                    <i>{{ arg.event.title }}</i>
-                    </template>
-                </FullCalendar>
-                </div>
-
-
-                <!-- ★댓글창  -->
-                <main class="mb-5" id="commentBody">
-                    <div class="card bg-light">
-                        <div class="card-body">
-                                <form class="input-group">
-                                    <div class="d-flex flex-row-reverse">
-                                        <button class="button alt" type="submit" id="comment">댓글</button>
-                                        <input name="comment" type="text" class="form-control" placeholder="댓글 추가하기"
-                                               aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    </div>
-                                </form>
-                            <!-- Comment with nested comments-->
-                            <div class="d-flex mb-4">
-                                <!-- Parent comment-->
-                                <div class="flex-shrink-0">
-                                    <br>
-                                    <img class="rounded-circle" src="/images/유재석.png" alt="..." id="commentProfilePic"/></div>
-                                <div class="ms-3">                                  
-                                    <br>
-                                    <div class="fw-bold">유재석</div>
-                                    부산 먹거리가 너무많네요 ~
-                                    <small><b><a href="#" id="plusComment">답글</a></b></small>
-                                    <div><small><a href="#" id="adddComment">▼답글 2개</a></small></div>
-                                    <!-- Child comment 1-->
-                                    <div class="d-flex mt-4">
-                                        <div class="flex-shrink-0"><img class="rounded-circle" src="/images/남자.png" alt="..." id="commentProfilePic"/></div>
-                                        <div class="ms-3">
-                                            <div class="fw-bold">대댓글 단사람1
-                                                <a href="#" id="commentUpdate">수정</a>
-                                                <a href="#" id="commentDelete">삭제</a>
-                                            </div>
-                                            광안리 주변 횟집추천드려요!
-                                        </div>
-                                    </div>
-                                    <!-- Child comment 2-->
-                                    <div class="d-flex mt-4">
-                                        <div class="flex-shrink-0"><img class="rounded-circle" src="/images/여자.png" alt="..." id="commentProfilePic"/></div>
-                                        <div class="ms-3">
-                                            <div class="fw-bold">대댓글 단사람2</div>
-                                            거기도 맛있고~ 부산집도 맛있어요
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Single comment-->
-                            <div class="d-flex mb-4">
-                                <div class="flex-shrink-0"><img class="rounded-circle" src="/images/조세호.png" alt="..." id="commentProfilePic"/></div>
-                                <div class="ms-3">
-                                    <div class="fw-bold">조세호</div>
-                                    ㅎㅎ
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </main>
+          </td>
+          <td>
+            <div class="m-0 d-flex justify-content-end gap-2">
+              <input
+                @click="$router.push(`/edit/plan/${$route.params.id}`)"
+                id="input"
+                class="button small"
+                type="submit"
+                value="수정"
+              />
+              <input
+                @click="$zido.deletePlan($route.params.id)"
+                class="button alt small"
+                type="button"
+                value="삭제"
+              />
             </div>
-        </form>
-    </main>
+          </td>
+        </tr>
+      </table>
+      <FullCalendar
+        class="h-100"
+        ref="FullCalendar"
+        :options="calendarOptions"
+      />
+      <!-- ★댓글창  -->
+      <section id="commentBody">
+        <div class="card bg-light">
+          <div class="card-body">
+            <form
+              @submit.prevent="$zido.addComment(planData.id, comment)"
+              class="border-bottom mb-3"
+            >
+              <input
+                v-model="comment"
+                type="text"
+                class="form-control me-3"
+                placeholder="댓글 추가하기"
+              />
+              <button class="button alt" type="submit" id="comment">
+                댓글
+              </button>
+            </form>
 
+            <Comment
+              v-for="comment in planData.commentList"
+              :first="true"
+              :data="comment"
+            />
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
 </template>
 
 <script>
-import FullCalendar from '@fullcalendar/vue3'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import timeGridPlugin from '@fullcalendar/timegrid'
-import interactionPlugin from '@fullcalendar/interaction'
+import EditSpotModal from "./EditSpotModal.vue";
+import FullCalendar from "@fullcalendar/vue3";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import koLocale from "@fullcalendar/core/locales/ko";
 import data from "/src/assets/data.js";
-
-export function rateStar(stars) {
-    document.getElementById('ratingValue').innerText = '별점: ' + stars + '점';
-}
-
-let eventGuid = 0
-let todayStr = new Date().toISOString().replace(/T.*$/, '') // YYYY-MM-DD of today
-
-export const INITIAL_EVENTS = [
-  {
-    id: createEventId(),
-    title: 'All-day event',
-    start: todayStr
-  },
-  {
-    id: createEventId(),
-    title: 'Timed event',
-    start: todayStr + 'T12:00:00'
-  }
-]
-
-export function createEventId() {
-  return String(eventGuid++)
-}
+import KakaoMapForEditPlan from "../util/KakaoMapForEditPlan.vue";
+import MemberList from "../util/MemberList.vue";
+import Comment from "../util/Comment.vue";
 
 export default {
-    components: {
-    FullCalendar // make the <FullCalendar> tag available
-    },
-    data() {
+  components: {
+    FullCalendar,
+    EditSpotModal,
+    KakaoMapForEditPlan,
+    MemberList,
+    Comment,
+  },
+  data() {
     return {
-        selectLocations: data.selectLocations,
+      planData: this.$zido.getPlanData(this.$route.params.id),
+      selectLocations: data.selectLocations,
+      status: 0,
+      members: [""],
+      startDate: "",
+      endDate: "",
+      editSpotMode: "",
+      spotId: 0,
+      refresh: 0,
+      spots: {},
+      calendarEvent: null,
+      spotData: null,
+      popUpOptions:
+        "toolbar=no,resizable=yes,status=no,width=800,height=1000,top=0,left=0",
 
-        calendarOptions: {
-        plugins: [
-          dayGridPlugin,
-          timeGridPlugin,
-          interactionPlugin // needed for dateClick
-        ],
-        headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      calendarOptions: {
+        plugins: [timeGridPlugin, interactionPlugin],
+        initialView: "timeGridDay",
+        views: {
+          timeGridDay: {
+            type: "timeGrid",
+            duration: { days: 4 },
+          },
         },
-        initialView: 'timeGridWeek',
-        initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
-        editable: true,
+        dayHeaderFormat: {
+          weekday: "short",
+          month: "numeric",
+          day: "numeric",
+          omitCommas: true,
+        },
+        initialEvents: this.$zido.getPlanData(this.$route.params.id).spotList,
+        locale: koLocale,
+        headerToolbar: false,
+        allDaySlot: false,
         selectable: true,
-        selectMirror: true,
-        dayMaxEvents: true,
-        weekends: true,
-        select: this.handleDateSelect,
+        slotMinTime: "06:00:00",
         eventClick: this.handleEventClick,
-        eventsSet: this.handleEvents
-        },
-        currentEvents: [],
-        }
-    },
+        eventColor: "#ff928e",
+      },
+    };
+  },
 
-    methods: {
-        
-    handleWeekendsToggle() {
-      this.calendarOptions.weekends = !this.calendarOptions.weekends // update a property
-    },
-    handleDateSelect(selectInfo) {
-      let title = prompt('Please enter a new title for your event')
-      let calendarApi = selectInfo.view.calendar
-
-      calendarApi.unselect() // clear date selection
-
-      if (title) {
-        calendarApi.addEvent({
-          id: createEventId(),
-          title,
-          start: selectInfo.startStr,
-          end: selectInfo.endStr,
-          allDay: selectInfo.allDay
-        })
-      }
-    },
+  methods: {
     handleEventClick(clickInfo) {
-      if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-        clickInfo.event.remove()
-      }
+      window.open(
+        `/spot/${clickInfo.event._def.publicId}`,
+        "",
+        "toolbar=no,scrollbars=yes,resizable=yes,top=0,left=0,width=1200,height=800"
+      );
     },
-    handleEvents(events) {
-      this.currentEvents = events
+
+    addMember() {
+      this.members.push("");
     },
-  }
-}
+    delMember(idx) {
+      this.members.splice(idx, 1);
+    },
 
+    toggle(content) {
+      content.myBookmark = !content.myBookmark;
+    },
+    setCalendarByDate() {
+      const start = new Date(this.planData.start);
+      const end = new Date(this.planData.end);
+      let days = end.getTime() - start.getTime();
+      days = Math.ceil(days / (1000 * 60 * 60 * 24)) + 1;
 
+      const calendarApi = this.$refs.FullCalendar.getApi();
+      this.calendarOptions.views.timeGridDay.duration.days = days;
+      this.calendarOptions.firstDay = start.getDay();
+      calendarApi.gotoDate(this.planData.start);
+    },
+  },
+  mounted() {
+    this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    this.setCalendarByDate();
+  },
+};
 </script>
 
 <style scoped>
-.select-wrapper {
-    font-size: small;
+main > div {
+  width: 50%;
+  padding: 20px;
 }
 
-#leftPosition {
-    text-align: left;
+.date {
+  font-size: 50%;
+  color: grey;
+  margin: 1rem;
 }
 
-h1, h2, h3, h4, body, .button, section {
-    font-family: 'Jalnan';
+.comm {
+  font-size: 70%;
+  margin-right: 1rem;
 }
 
-/* 달력 */
-html, body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-    /* font-size: 14px; */
-}
-
-        #calendar {
-            width: 90%;
-            max-width: 1100px;
-            margin: 40px auto;
-        }
-
-        /* 별점주기 */
-        .rating {
-            unicode-bidi: bidi-override;
-            direction: rtl;
-            text-align: left;
-        }
-
-        .rating>span {
-            display: inline-block;
-            position: relative;
-            width: 1.1em;
-        }
-
-        .rating>span:hover:before,
-        .rating>span:hover~span:before {
-            content: "\2605";
-            position: absolute;
-        }
-
-/* 화면 나누기 */
-#split-container {
-display: flex;
-width: 100%;
-}
-#split-container > div {
-    width: 50%;
-    padding: 20px;
-}
-
-/* 지도 크기 설정 */
-#map {
-    height: 400px;
-    width: 100%;
-}
-
-
-#input {
-    color:white;
-    font-family: 'Jalnan';
-    text-align: center;
-    margin-right: 10px; 
-    margin-left: 10px; 
-    margin-bottom: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-.flex-fill {
-    color: #ff928e;
-}
-
-#start_date, #end_date, #email {
-    color: black;
-    margin-right: 10px; margin-left: 10px;
-}
-
-
-#content{
-        resize: none;
-}
-
-
-/* refactoring */
-
-#main {
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-top: -3%;
-}
-
-#leftSide {
-    margin-right: auto;
-}
-
-#leftSide .title {
-    color:#ff928e;
-}
-
-#detail-title {
-    margin-right: 10px; 
-    margin-left: 10px;
-    width: 40%;
-    height: 60%;
-}
-
-#email {
-    margin-right: 5px; 
-    margin-left: 5px; 
-    width: 20%; 
-    height: 70%;
-}
-
-
-#buttonBackground {
-    background-color: white;
-}
-
-#map {
-    border: 0;
-}
-
-#trip-review {
-    margin-right: 10%; 
-}
-
-#rightSide {
-  
-    margin-top:8%
-}
-
-#rightSide #title {
-    margin-top: 15%
-}
-
-#rightSide #title2 {
-    margin-top: 2%;
-}
-
-.select-wrapper {
-    width: 20%
-}
-
-
-#with {
-    margin-top: 2%
-}
-
+#bookmark,
+#unLike,
+#like,
 #star {
-    margin-right: 10px;
-    margin-left: 100px;
-}
-
-#rightSide-margin {
-    margin-left: 3%;
-}
-
-
-#blank-city {
-    margin-right: 10px; 
-    margin-left: 10px; 
-    width: 30%;
-    height: 90%;
-}
-
-
-#commentBody {
-    width: 95%; margin-top: 3%;
-  }
-
-#plusComment {
-color:darkgray; text-decoration:none
-}
-
-#addedComment {
-text-decoration:none
-}
-
-#commentUpdate,#commentDelete {
-color:darkgray; text-decoration:none
-}
-
-#commentProfilePic {
-    width: 75px;
-    height: 75px;
-}
-
-#icon{
   width: 40px;
   height: 40px;
+  margin: 0.5rem;
 }
 
+h4 {
+  margin: 0;
+}
 
+td {
+  min-width: 170px;
+}
 
+.member-container {
+  overflow: scroll;
+  overflow-y: hidden;
+  height: 100%;
+  width: 500px;
+}
+
+.member {
+  width: 200px;
+}
+
+.date-time {
+  display: flex;
+  padding: 2% 4%;
+  box-shadow: 0 0 0 1px #dee1e3 inset;
+  border-radius: 0.5rem;
+}
+
+#plusMember {
+  margin: 2%;
+}
+
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  text-align: left;
+  padding-left: 1rem;
+  color: #ff928e;
+}
+
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+  content: "\2605";
+  position: absolute;
+}
+
+textarea {
+  resize: none;
+}
+
+.custom-range::-webkit-slider-thumb {
+  background: #ff928e;
+}
+
+.custom-range::-moz-range-thumb {
+  background: #ff928e;
+}
+
+.custom-range::-ms-thumb {
+  background: #ff928e;
+}
+
+#commentBody {
+  width: 100%;
+  margin-top: 5%;
+}
+
+.card-body > form {
+  display: flex;
+  width: 100%;
+  padding-bottom: 1rem;
+  margin: 0;
+}
+.like {
+  border: #ff928e 1px solid;
+  border-radius: 1.5rem;
+  padding: 2%;
+}
+</style>
+
+<style>
+.fc-day-today {
+  background-color: inherit !important;
+}
+.fc-col-header-cell-cushion {
+  text-decoration: none;
+  color: #ff928e;
+}
+colgroup col {
+  width: 100px !important;
+}
+.fc-scrollgrid-shrink-cushion {
+  margin-right: 3%;
+}
 </style>

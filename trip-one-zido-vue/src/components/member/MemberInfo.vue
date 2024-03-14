@@ -9,7 +9,7 @@
       </tr>
       <tr id="updateArea">
         <td width="200">아이디</td>
-        <td width="300">kitritest</td>
+        <td width="300">{{ userInfo.loginId }}</td>
       </tr>
 
       <tr id="updateArea">
@@ -26,23 +26,17 @@
       <tr id="updateArea">
         <td>이름</td>
         <td>
-          <input type="text" value="키트리" />
+          <input type="text" v-model="userInfo.name" />
         </td>
       </tr>
       <tr id="updateArea">
         <td>주소</td>
         <td>
-          <input type="text" id="zipcode" v-model="zipcode" />
+          <input type="text" id="zipcode" readonly />
         </td>
         <td>
           <div class="d-flex">
-            <input
-              type="text"
-              id="address"
-              name="address"
-              size="70"
-              v-model="address"
-            />
+            <input type="text" id="address" name="address" size="70" readonly />
             <button
               type="button"
               class="button icon fa-search ps-2 pe-2 ms-2"
@@ -56,21 +50,25 @@
 
       <tr>
         <td>상세주소</td>
-        <td colspan="2"><input type="text" value="4층 406호 kitri" /></td>
+        <td colspan="2"><input type="text" v-model="userInfo.address2" /></td>
       </tr>
 
       <tr id="updateArea">
         <td>보안질문</td>
         <td>
           <div class="select-wrapper">
-            <select name="category" id="security">
-              <option value="">보안질문</option>
-              <option value="1" selected>당신이 태어난 곳은?</option>
-              <option value="2">졸업한 초등학교명은?</option>
-              <option value="3">당신의 별명은?</option>
-              <option value="4">처음으로 국내여행 가본 곳은?</option>
-              <option value="5">처음으로 해외여행 가본 국가는?</option>
-              <option value="6">직접 작성</option>
+            <select
+              name="category"
+              id="security"
+              v-model="userInfo.securityQuestion"
+            >
+              <option
+                v-for="securityQuestion in $zido.getSecurityQuestions()"
+                :value="securityQuestion.id"
+                :selected="securityQuestion.id == userInfo.securityQuestion"
+              >
+                {{ securityQuestion.question }}
+              </option>
             </select>
           </div>
         </td>
@@ -78,36 +76,29 @@
       <tr id="updateArea">
         <td>보안질문답</td>
         <td>
-          <input type="text" value="대한민국" />
+          <input type="text" v-model="userInfo.securityAnswer" />
         </td>
       </tr>
       <tr id="updateArea">
         <td>생년월일</td>
-        <td>1999-01-01</td>
+        <td>{{ userInfo.birth }}</td>
       </tr>
       <tr id="updateArea">
         <td>성별</td>
         <td>
-          <input type="radio" id="male" name="gender" checked /><label
-            for="male"
-            >남성</label
-          >
-          <input type="radio" id="female" name="gender" /><label for="female"
-            >여성</label
-          >
+          {{ userInfo.gender == 0 ? "남자" : "여자" }}
         </td>
       </tr>
       <tr id="updateArea">
         <td>전화번호</td>
         <td>
-          <input type="text" value="010-9999-1111" />
+          <input type="text" v-model="userInfo.phoneNumber" />
         </td>
-        <td>( - 는 제외하고 입력하세요)</td>
       </tr>
       <tr id="updateArea">
         <td>이메일 :</td>
         <td>
-          <input type="email" value="kitri@kitri.com" />
+          <input type="email" v-model="userInfo.email" />
         </td>
       </tr>
     </table>
@@ -141,24 +132,29 @@ export default {
   data() {
     return {
       modal: "updateMemberInfoFail",
-      zipcode: 0,
-      address: ""
+      userInfo: this.$zido.getUserInfo(),
     };
   },
   methods: {
-    searchAddress(){
+    searchAddress() {
       new daum.Postcode({
-        oncomplete: function(data) {
-            this.zipcode = data.zonecode;
-            document.querySelector("#zipcode").value = this.zipcode
-            this.address = data.address;
-            document.querySelector("#address").value = this.address
-        }
-    }).open();
-    }
+        oncomplete: function (data) {
+          document.querySelector("#zipcode").value = data.zonecode;
+          document.querySelector("#address").value = data.address;
+        },
+      }).open();
+    },
+    updateMemberInfo() {
+      this.userInfo.zipcode = document.getElementById("zipcode").value;
+      this.userInfo.address = document.getElementById("address").value;
+      console.log(this.userInfo);
+      this.$zido.updateUserInfo(this.userInfo);
+    },
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    document.getElementById("zipcode").value = this.userInfo.zipcode;
+    document.getElementById("address").value = this.userInfo.address;
   },
 };
 </script>
