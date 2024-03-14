@@ -37,7 +37,7 @@
         </div>
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <a href="/edit/community/id?" class="button small rounded-3">등록</a>
+            <a @click="add" class="button small rounded-3">등록</a>
         </div>
 
         <nav aria-label="Page navigation example">
@@ -94,6 +94,11 @@ export default {
     },
     
     methods: {
+
+    add () {
+        this.$router.push({ path: `/edit/community/${this.$cookies.get("login")}` });
+    },
+
     getStatus(withCount, total) {
       return withCount === total ? "마감" : "모집중";
     },
