@@ -30,7 +30,6 @@ class PlanApiControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-    // Controller에서 잡고 있는 Bean 객체에 대해 Mock 형태의 객체를 생성해줌
     @MockBean
     PlanService planService;
 
@@ -45,28 +44,56 @@ class PlanApiControllerTest {
     @DisplayName("일정 게시글 상세 조회 테스트")
     void showPlanDetail() throws Exception{
 
-        List<ResponseSpotPlan> responseSpotPlans = new ArrayList<>();
-        responseSpotPlans.add(new ResponseSpotPlan(1L, "덕수궁", LocalDateTime.of(2024, 3, 14, 0, 0),
-                LocalDateTime.of(2024, 3, 14, 23, 59)));
-        responseSpotPlans.add(new ResponseSpotPlan(2L, "광화문", LocalDateTime.of(2024, 3, 14, 0, 0),
-                LocalDateTime.of(2024, 3, 14, 23, 59)));
+        List<ResponseSpotPlan> SpotPlans = new ArrayList<>();
+        ResponseSpotPlan spotPlan = new ResponseSpotPlan();
+        spotPlan.setId(1L);
+        spotPlan.setTitle("덕수궁");
+        spotPlan.setStartDate(LocalDateTime.of(2024, 3, 14, 0, 0));
+        spotPlan.setEndDate(LocalDateTime.of(2024, 3, 14, 23, 59));
+        SpotPlans.add(spotPlan);
 
         List<ResponseMember> members = new ArrayList<>();
-        members.add(new ResponseMember(9L, "member1", "writer", null, true));
-        members.add(new ResponseMember(10L, "member2", "with", null, true));
+        ResponseMember member = new ResponseMember();
+        member.setId(9L);
+        member.setLoginId("member");
+        member.setOwn("writer");
+        member.setProfile(null);
+        member.setFollow(true);
+        members.add(member);
 
         List<ResponseComment> comments = new ArrayList<>();
-        comments.add(new ResponseComment(1L, "멋지네요", 11L, 1L, "comment", LocalDateTime.of(2024, 3, 14, 23, 59)));
-        comments.add(new ResponseComment(2L, "굿", 12L, 1L, "comment", LocalDateTime.of(2024, 3, 14, 23, 59)));
+        ResponseComment responseComment = new ResponseComment();
+        responseComment.setId(1L);
+        responseComment.setComment("굿");
+        responseComment.setMemberId(11L);
+        responseComment.setContentId(1L);
+        responseComment.setType("comment");
+        responseComment.setCreatedAt(LocalDateTime.of(2024, 3, 14, 23, 59));
 
-        ResponsePlanDetail responsePlanDetail = new ResponsePlanDetail(1L, LocalDateTime.of(2024, 3, 14, 0, 0),
-                LocalDateTime.of(2024, 3, 14, 23, 59), "서울", "여행중", "",
-                5, 1, 1, 1, 1, 1, "서울여행", true, LocalDateTime.of(2024, 3, 14, 0, 0),
-                responseSpotPlans, members, comments, true);
+        ResponsePlanDetail planDetail = new ResponsePlanDetail();
+        planDetail.setId(1L);
+        planDetail.setStartDate(LocalDateTime.of(2024, 3, 14, 0, 0));
+        planDetail.setEndDate(LocalDateTime.of(2024, 3, 14, 23, 59));
+        planDetail.setLocCategory("서울");
+        planDetail.setStatus("여행중");
+        planDetail.setReview("후기");
+        planDetail.setGrade(1);
+        planDetail.setViewCount(2);
+        planDetail.setGoodCount(1);
+        planDetail.setMyGood(1);
+        planDetail.setBookmarkCount(1);
+        planDetail.setMyBookmark(1);
+        planDetail.setTitle("서울여행");
+        planDetail.setPublic(true);
+        planDetail.setCreatedAt(LocalDateTime.of(2024, 3, 14, 0, 0));
+        planDetail.setSpotPlans(SpotPlans);
+        planDetail.setMembers(members);
+        planDetail.setComments(comments);
+        planDetail.setMine(true);
 
         //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
         given(planService.getPlan(1L, 9L )).willReturn(
-                responsePlanDetail
+                planDetail
         );
 
 
@@ -91,7 +118,7 @@ class PlanApiControllerTest {
                 .andExpect(jsonPath("$.title").exists())
                 .andExpect(jsonPath("$.public").exists())
                 .andExpect(jsonPath("$.createdAt").exists())
-                .andExpect(jsonPath("$.responseSpotPlans").exists())
+                .andExpect(jsonPath("$.spotPlans").exists())
                 .andExpect(jsonPath("$.members").exists())
                 .andExpect(jsonPath("$.comments").exists())
                 .andExpect(jsonPath("$.mine").exists())
@@ -104,8 +131,19 @@ class PlanApiControllerTest {
     @Test
     @DisplayName("일정 게시글 등록 테스트")
     void postPlan() throws Exception {
-        RequestPlan requestPlan = new RequestPlan(1L, "제목", true, LocalDateTime.of(2024, 3, 14, 0, 0),
-                LocalDateTime.of(2024, 3, 14, 23, 59), "서울특별시", "계획", "후기", 5, null, null, null);
+        RequestPlan requestPlan = new RequestPlan();
+        requestPlan.setId(1L);
+        requestPlan.setTitle("제목");
+        requestPlan.setPublic(true);
+        requestPlan.setStartDate(LocalDateTime.of(2024, 3, 14, 0, 0));
+        requestPlan.setEndDate(LocalDateTime.of(2024, 3, 14, 23, 59));
+        requestPlan.setLocCategory("서울특별시");
+        requestPlan.setStatus("계획");
+        requestPlan.setReview("후기");
+        requestPlan.setGrade(5);
+        requestPlan.setProfile(new byte[]{0, 0});
+        requestPlan.setSpots(new ArrayList<>(){{add(1L); add(2L);}});
+        requestPlan.setMembers(new ArrayList<>(){{add(1L); add(2L);}});
 
         // ObjectMapper 객체 생성
         ObjectMapper objectMapper = objectMapper();
@@ -127,8 +165,19 @@ class PlanApiControllerTest {
     @Test
     @DisplayName("일정 게시물 수정 테스트")
     void putPlan() throws Exception {
-        RequestPlan requestPlan = new RequestPlan(1L, "제목", true, LocalDateTime.of(2024, 3, 14, 0, 0),
-                LocalDateTime.of(2024, 3, 14, 23, 59), "서울특별시", "계획", "후기", 5, null, null, null);
+        RequestPlan requestPlan = new RequestPlan();
+        requestPlan.setId(1L);
+        requestPlan.setTitle("제목");
+        requestPlan.setPublic(true);
+        requestPlan.setStartDate(LocalDateTime.of(2024, 3, 14, 0, 0));
+        requestPlan.setEndDate(LocalDateTime.of(2024, 3, 14, 23, 59));
+        requestPlan.setLocCategory("서울특별시");
+        requestPlan.setStatus("계획");
+        requestPlan.setReview("후기");
+        requestPlan.setGrade(5);
+        requestPlan.setProfile(new byte[]{0, 0});
+        requestPlan.setSpots(new ArrayList<>(){{add(1L); add(2L);}});
+        requestPlan.setMembers(new ArrayList<>(){{add(1L); add(2L);}});
 
         // ObjectMapper 객체 생성
         ObjectMapper objectMapper = objectMapper();
@@ -157,4 +206,3 @@ class PlanApiControllerTest {
         verify(planService).deletePlan(9L);
     }
 }
-

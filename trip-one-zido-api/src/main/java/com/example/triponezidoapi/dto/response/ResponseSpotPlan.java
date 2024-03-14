@@ -11,11 +11,4 @@ public class ResponseSpotPlan {
     String title;
     LocalDateTime startDate;
     LocalDateTime endDate;
-
-    public ResponseSpotPlan(Long id, String title, LocalDateTime startDate, LocalDateTime endDate){
-        this.id = id;
-        this.title = title;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
 }

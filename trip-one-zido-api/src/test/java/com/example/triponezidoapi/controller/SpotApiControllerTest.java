@@ -43,24 +43,55 @@ class SpotApiControllerTest {
     @DisplayName("장소 게시글 조회 테스트")
     void showSpotDetail() throws Exception {
         List<ResponsePhoto> photos = new ArrayList<>();
-        photos.add(new ResponsePhoto(1L, new byte[]{0,0}));
-        photos.add(new ResponsePhoto(1L, new byte[]{1,1}));
+        ResponsePhoto photo = new ResponsePhoto();
+        photo.setContentId(1L);
+        photo.setPhoto(new byte[]{0,0});
+        photos.add(photo);
 
         List<ResponseMember> members = new ArrayList<>();
-        members.add(new ResponseMember(9L, "member1", "writer", null, true));
-        members.add(new ResponseMember(10L, "member2", "with", null, true));
+        ResponseMember member = new ResponseMember();
+        member.setId(9L);
+        member.setLoginId("member");
+        member.setOwn("writer");
+        member.setProfile(null);
+        member.setFollow(true);
+        members.add(member);
 
         List<ResponseComment> comments = new ArrayList<>();
-        comments.add(new ResponseComment(1L, "멋지네요", 11L, 1L, "comment", LocalDateTime.of(2024, 3, 14, 23, 59)));
-        comments.add(new ResponseComment(2L, "굿", 12L, 1L, "comment", LocalDateTime.of(2024, 3, 14, 23, 59)));
+        ResponseComment comment = new ResponseComment();
+        comment.setId(1L);
+        comment.setComment("굿");
+        comment.setMemberId(11L);
+        comment.setContentId(1L);
+        comment.setType("comment");
+        comment.setCreatedAt(LocalDateTime.of(2024, 3, 14, 23, 59));
+        comments.add(comment);
 
-        ResponseSpotDetail responseSpotDetail = new ResponseSpotDetail(1L, LocalDateTime.of(2024, 3, 14, 0, 0),
-                LocalDateTime.of(2024, 3, 14, 23, 59), "서울", "후기", 5, 1,
-        1, 1, 1, 1, "장소", true, LocalDateTime.of(2024, 3, 14, 0, 0),
-        new byte[]{0, 0},  photos,  members, comments, true);
+        ResponseSpotDetail spotDetail = new ResponseSpotDetail();
+        spotDetail.setId(1L);
+        spotDetail.setCategory("음식점");
+        spotDetail.setStartDate(LocalDateTime.of(2024, 3, 14, 0, 0));
+        spotDetail.setEndDate(LocalDateTime.of(2024, 3, 14, 23, 59));
+        spotDetail.setLocCategory("서울");
+        spotDetail.setAddress("서울");
+        spotDetail.setReview("후기");
+        spotDetail.setGrade(5);
+        spotDetail.setViewCount(1);
+        spotDetail.setGoodCount(1);
+        spotDetail.setMyGood(1);
+        spotDetail.setBookmarkCount(1);
+        spotDetail.setMyBookmark(1);
+        spotDetail.setTitle("장소");
+        spotDetail.setPublic(true);
+        spotDetail.setCreatedAt(LocalDateTime.of(2024, 3, 14, 0, 0));
+        spotDetail.setProfile(new byte[]{0, 0});
+        spotDetail.setPhotos(photos);
+        spotDetail.setMembers(members);
+        spotDetail.setComments(comments);
+        spotDetail.setMine(true);
 
         given(spotService.spotDetail(1L, 9L )).willReturn(
-                responseSpotDetail
+                spotDetail
         );
 
         mockMvc.perform(get("/api/spot/{id}", 1L)
@@ -94,8 +125,20 @@ class SpotApiControllerTest {
     @Test
     @DisplayName("장소 게시글 등록 테스트")
     void postSpot() throws Exception {
-        RequestSpot requestSpot = new RequestSpot(1L, "제목", true, LocalDateTime.of(2024, 3, 14, 0, 0),
-                LocalDateTime.of(2024, 3, 14, 23, 59), "음식점", "서울특별시", "서울시", "후기", 5, 1, null, null);
+        RequestSpot requestSpot = new RequestSpot();
+        requestSpot.setId(1L);
+        requestSpot.setTitle("제목");
+        requestSpot.setPublic(true);
+        requestSpot.setStartDate(LocalDateTime.of(2024, 3, 14, 0, 0));
+        requestSpot.setEndDate(LocalDateTime.of(2024, 3, 14, 23, 59));
+        requestSpot.setCategory("음식점");
+        requestSpot.setLocCategory("서울특별시");
+        requestSpot.setAddress("서울시");
+        requestSpot.setReview("후기");
+        requestSpot.setGrade(5);
+        requestSpot.setProfile(1);
+        requestSpot.setPhotos(null);
+        requestSpot.setMembers(new ArrayList<>(){{add(1L); add(2L);}});
 
         // ObjectMapper 객체 생성
         ObjectMapper objectMapper = objectMapper();
@@ -117,13 +160,25 @@ class SpotApiControllerTest {
     @Test
     @DisplayName("장소 게시글 수정 테스트")
     void putSpot() throws Exception {
-        RequestSpot requestSpot = new RequestSpot(1L, "제목", true, LocalDateTime.of(2024, 3, 14, 0, 0),
-                LocalDateTime.of(2024, 3, 14, 23, 59), "음식점", "서울특별시", "서울시", "후기", 5, 1, null, null);
+        RequestSpot requestSpot = new RequestSpot();
+        requestSpot.setId(1L);
+        requestSpot.setTitle("제목");
+        requestSpot.setPublic(true);
+        requestSpot.setStartDate(LocalDateTime.of(2024, 3, 14, 0, 0));
+        requestSpot.setEndDate(LocalDateTime.of(2024, 3, 14, 23, 59));
+        requestSpot.setCategory("음식점");
+        requestSpot.setLocCategory("서울특별시");
+        requestSpot.setAddress("서울시");
+        requestSpot.setReview("후기");
+        requestSpot.setGrade(5);
+        requestSpot.setProfile(1);
+        requestSpot.setPhotos(null);
+        requestSpot.setMembers(new ArrayList<>(){{add(1L); add(2L);}});
 
         // ObjectMapper 객체 생성
         ObjectMapper objectMapper = objectMapper();
 
-        // requestPlan 객체를 JSON 문자열로 변환
+        // requestSpot 객체를 JSON 문자열로 변환
         String jsonSpot = objectMapper.writeValueAsString(requestSpot);
 
         mockMvc.perform(put("/api/spot/{id}", 1L)

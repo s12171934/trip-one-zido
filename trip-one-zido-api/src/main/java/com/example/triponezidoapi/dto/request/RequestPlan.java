@@ -38,20 +38,4 @@ public class RequestPlan {
 
     @Size(max = 20)
     List<Long> members;
-
-    public RequestPlan(Long id, String title, boolean isPublic, LocalDateTime startDate, LocalDateTime endDate, String locCategory,
-                       String status, String review, int grade, byte[] profile, List<Long> spots, List<Long> members){
-        this.id = id;
-        this.title = title;
-        this.isPublic = isPublic;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.locCategory = locCategory;
-        this.status = status;
-        this.review = review;
-        this.grade = grade;
-        this.profile = profile;
-        this.spots = spots;
-        this.members = members;
-    }
 }
