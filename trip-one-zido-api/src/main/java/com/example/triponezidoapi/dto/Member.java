@@ -3,6 +3,8 @@ package com.example.triponezidoapi.dto;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 public class Member {
     long id;
@@ -34,7 +36,22 @@ public class Member {
     @Size(max = 200)
     String address;
     @Past
-    String birth;
+    LocalDateTime birth;
     @NotEmpty
     String gender;
+
+    public Member(long id, String name, String loginId, String password, String passwordCheck, long question, String answer, String email, String phoneNumber, String address, LocalDateTime birth, String gender) {
+        this.id = id;
+        this.name = name;
+        this.loginId = loginId;
+        this.password = password;
+        this.passwordCheck = passwordCheck;
+        this.question = question;
+        this.answer = answer;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.birth = birth;
+        this.gender = gender;
+    }
 }

@@ -6,4 +6,9 @@ import lombok.Data;
 public class ResponseQuestions {
     long id;
     String question;
+
+    public ResponseQuestions(long id, String question) {
+        this.id = id;
+        this.question = question;
+    }
 }

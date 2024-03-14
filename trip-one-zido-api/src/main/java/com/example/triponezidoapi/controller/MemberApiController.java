@@ -52,6 +52,7 @@ public class MemberApiController {
             @RequestBody
             @Parameter(description = "로그인 정보")
             Login login,
+
             HttpServletRequest request
     ){
 
@@ -123,7 +124,7 @@ public class MemberApiController {
     @PutMapping("/")
     @Operation(summary = "회원 정보 수정")
     public void updateMemberInfo(
-            /*@SessionAttribute(name="id")*/
+            @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 번호")
             Long sessionId,
 

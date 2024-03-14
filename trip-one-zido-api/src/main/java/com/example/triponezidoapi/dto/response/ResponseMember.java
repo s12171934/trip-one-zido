@@ -11,7 +11,6 @@ public class ResponseMember {
     boolean isFollow;
 
     public ResponseMember(){
-
     }
 
     public ResponseMember(Long id, String loginId, String own, byte[] profile, boolean isFollow){

@@ -12,4 +12,12 @@ public class Login {
     @Size(min = 8, max = 50, message = "비밀번호는 최소 8자 이상입니다.")
     @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{8,16}$")
     String password;
+
+    public Login() {
+    }
+
+    public Login(String loginId, String password) {
+        this.loginId = loginId;
+        this.password = password;
+    }
 }
