@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class ResponseMember {
     Long id;
-    Long loginId;
+    String loginId;
     String own;
     byte[] profile;
     boolean isFollow;
