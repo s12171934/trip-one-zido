@@ -11,13 +11,4 @@ public class RequestNewPassword {
     @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{8,16}$")
     String changePassword;
     String changePasswordCheck;
-
-    public RequestNewPassword() {
-    }
-
-    public RequestNewPassword(String nowPassword, String changePassword, String changePasswordCheck) {
-        this.nowPassword = nowPassword;
-        this.changePassword = changePassword;
-        this.changePasswordCheck = changePasswordCheck;
-    }
 }

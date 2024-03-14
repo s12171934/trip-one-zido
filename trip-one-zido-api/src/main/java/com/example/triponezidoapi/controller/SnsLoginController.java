@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("api/social")
+@RequestMapping("/api/social")
 public class SnsLoginController {
     @Autowired
     SnsLoginService snsLoginService;
