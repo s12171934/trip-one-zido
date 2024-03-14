@@ -43,15 +43,18 @@ class CommunityApiControllerTest {
     @Test
     @DisplayName("커뮤니티 목록 조회")
     void showCommunityAll() throws Exception {
+        ResponseCommunity communityList1 = new ResponseCommunity();
+        communityList1.setId(1L);
+        communityList1.setTitle("되낭1");
+        communityList1.setWriter("아");
+        communityList1.setDeadline(LocalDateTime.of(2024,1,1,12,8,4));
+        communityList1.setViewPoint(5);
+        communityList1.setTotal(2);
+        communityList1.setWithCount(2);
+        communityList1.setStatus("어");
 
         List<ResponseCommunity> communityList = new ArrayList<>();
-        communityList.add(new ResponseCommunity(1L, "되낭1", "아", LocalDateTime.of(2024,1,1,12,8,4),5,2,2,"어"));
-        communityList.add(new ResponseCommunity(2L, "되낭2", "아", LocalDateTime.of(2024,1,1,12,8,4),5,2,2,"어"));
-        communityList.add(new ResponseCommunity(3L, "되낭3", "아", LocalDateTime.of(2024,1,1,12,8,4),5,2,2,"어"));
-        communityList.add(new ResponseCommunity(4L, "되낭4", "아", LocalDateTime.of(2024,1,1,12,8,4),5,2,2,"어"));
-        communityList.add(new ResponseCommunity(5L, "되낭5", "아", LocalDateTime.of(2024,1,1,12,8,4),5,2,2,"어"));
-        communityList.add(new ResponseCommunity(6L, "되낭6", "아", LocalDateTime.of(2024,1,1,12,8,4),5,2,2,"어"));
-        communityList.add(new ResponseCommunity(7L, "되낭7", "아", LocalDateTime.of(2024,1,1,12,8,4),5,2,2,"어"));
+        communityList.add(communityList1);
 
         //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
         given(communityService.getCommunityList(0)).willReturn(
@@ -60,21 +63,21 @@ class CommunityApiControllerTest {
 
         //andExcept : 기대하는 값이 나왔는지 체크해볼 수 있는 메소드
         //jsonPath : body에 값들이 존재하는지?
-        mockMvc.perform(get("/api/community/list/{page}", 0)
+        mockMvc.perform(get("/api/community/list/{page}", 0L)
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").exists())
-                .andExpect(jsonPath("$[1].title").exists())
-                .andExpect(jsonPath("$[2].writer").exists())
-                .andExpect(jsonPath("$[3].deadline").exists())
-                .andExpect(jsonPath("$[4].viewPoint").exists())
-                .andExpect(jsonPath("$[5].total").exists())
-                .andExpect(jsonPath("$[6].withCount").exists())
-                .andExpect(jsonPath("$[7].status").doesNotExist())
+                .andExpect(jsonPath("$[0].title").exists())
+                .andExpect(jsonPath("$[0].writer").exists())
+                .andExpect(jsonPath("$[0].deadline").exists())
+                .andExpect(jsonPath("$[0].viewPoint").exists())
+                .andExpect(jsonPath("$[0].total").exists())
+                .andExpect(jsonPath("$[0].withCount").exists())
+                .andExpect(jsonPath("$[0].status").exists())
                 // andDo -> 메소드가 어떻게 실행이 됐는지
                 .andDo(print());
         //verify : 해당 객체의 메소드가 실행됐는지 체크
-        verify(communityService).getCommunityList(eq(0L));
+        verify(communityService).getCommunityList(0L);
     }
 
     @Test
@@ -82,7 +85,7 @@ class CommunityApiControllerTest {
     void showCommunityDetail() throws Exception {
         ResponseMember responseMember = new ResponseMember();
         responseMember.setId(9L);
-        responseMember.setLoginId("9");
+        responseMember.setLoginId(9L);
         responseMember.setOwn(null);
         responseMember.setProfile(null);
         responseMember.setFollow(true);
