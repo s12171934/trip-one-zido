@@ -30,7 +30,11 @@ public class CommentApiControllerTest {
     @DisplayName("댓글 등록")
     void postComment() throws Exception {
 
-        RequestComment requestComment = new RequestComment(8L,"테스트",8L,200L);
+        RequestComment requestComment = new RequestComment();
+        requestComment.setId(8L);
+        requestComment.setComment("테스트");
+        requestComment.setMemberId(8L);
+        requestComment.setMemberId(200L);
 
         // ObjectMapper 객체 생성
         ObjectMapper objectMapper = new ObjectMapper();
@@ -52,7 +56,11 @@ public class CommentApiControllerTest {
     @Test
     @DisplayName("댓글 수정")
     void putComment() throws Exception {
-        RequestComment requestComment = new RequestComment(8L,"테스트용 수정",8L,200L);
+        RequestComment requestComment = new RequestComment();
+        requestComment.setId(8L);
+        requestComment.setComment("테스트 수정");
+        requestComment.setMemberId(8L);
+        requestComment.setMemberId(200L);
 
         // ObjectMapper 객체 생성
         ObjectMapper objectMapper = new ObjectMapper();

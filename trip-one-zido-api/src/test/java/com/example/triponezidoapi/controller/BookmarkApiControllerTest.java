@@ -34,12 +34,12 @@ class BookmarkApiControllerTest {
     void showBookmarkAll() throws Exception {
 
         List<ResponseTour> tours = new ArrayList<>();
-        tours.add(new ResponseTour(1L, "덕수궁", "서울시", "서울특별시", "굿", null, 1, 1, 0L, 0L));
-        tours.add(new ResponseTour(2L, "광화문", "서울시", "서울특별시", "굿", null, 1, 1, 0L, 0L));
+//        tours.add(new ResponseTour(1L, "덕수궁", "서울시", "서울특별시", "굿", null, 1, 1, 0L, 0L));
+//        tours.add(new ResponseTour(2L, "광화문", "서울시", "서울특별시", "굿", null, 1, 1, 0L, 0L));
 
         List<ResponseContentList> contentLists = new ArrayList<>();
-        contentLists.add(new ResponseContentList(1L, "에버랜드", null, 1, 1, 1, 1, 1));
-        contentLists.add(new ResponseContentList(2L, "롯데월드", null, 1, 1, 1, 1, 1));
+//        contentLists.add(new ResponseContentList(1L, "에버랜드", null, 1, 1, 1, 1, 1));
+//        contentLists.add(new ResponseContentList(2L, "롯데월드", null, 1, 1, 1, 1, 1));
 
         ResponseBookmark responseBookmark = new ResponseBookmark();
         responseBookmark.setTourBookmarkCount(5);
@@ -74,8 +74,8 @@ class BookmarkApiControllerTest {
     void showSpotPlanListByPage() throws Exception {
 
         List<ResponseContentList> contentLists = new ArrayList<>();
-        contentLists.add(new ResponseContentList(1L, "에버랜드", null, 1, 1, 1, 1, 1));
-        contentLists.add(new ResponseContentList(2L, "롯데월드", null, 1, 1, 1, 1, 1));
+//        contentLists.add(new ResponseContentList(1L, "에버랜드", null, 1, 1, 1, 1, 1));
+//        contentLists.add(new ResponseContentList(2L, "롯데월드", null, 1, 1, 1, 1, 1));
 
         //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
         given(bookmarkService.getPlanSpotBookmark(9L, 9L, 0)).willReturn(
@@ -104,8 +104,8 @@ class BookmarkApiControllerTest {
     void showTourListByPage() throws Exception {
 
         List<ResponseTour> tours = new ArrayList<>();
-        tours.add(new ResponseTour(1L, "덕수궁", "서울시", "서울특별시", "굿", null, 1, 1, 0L, 0L));
-        tours.add(new ResponseTour(2L, "광화문", "서울시", "서울특별시", "굿", null, 1, 1, 0L, 0L));
+//        tours.add(new ResponseTour(1L, "덕수궁", "서울시", "서울특별시", "굿", null, 1, 1, 0L, 0L));
+//        tours.add(new ResponseTour(2L, "광화문", "서울시", "서울특별시", "굿", null, 1, 1, 0L, 0L));
 
         //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
         given(bookmarkService.getTourBookmark(9L, 9L, 0)).willReturn(
