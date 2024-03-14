@@ -1,10 +1,7 @@
 package com.example.triponezidoapi.controller;
 
-import com.example.triponezidoapi.dto.request.RequestCommunity;
-import com.example.triponezidoapi.dto.request.RequestCommunitySearch;
-import com.example.triponezidoapi.dto.response.ResponseCommunity;
-import com.example.triponezidoapi.dto.response.ResponseCommunityDetail;
-import com.example.triponezidoapi.dto.response.ResponseMember;
+import com.example.triponezidoapi.dto.request.*;
+import com.example.triponezidoapi.dto.response.*;
 import com.example.triponezidoapi.service.CommunityService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -27,8 +24,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(CommunityApiController.class)
 class CommunityApiControllerTest {
@@ -64,7 +60,6 @@ class CommunityApiControllerTest {
 
         //andExcept : 기대하는 값이 나왔는지 체크해볼 수 있는 메소드
         //jsonPath : body에 값들이 존재하는지?
-        // 반복문을 통해 jsonPath 값에 대한 검증
         mockMvc.perform(get("/api/community/list/{page}", 0)
                 )
                 .andExpect(status().isOk())
@@ -76,191 +71,162 @@ class CommunityApiControllerTest {
                 .andExpect(jsonPath("$[5].total").exists())
                 .andExpect(jsonPath("$[6].withCount").exists())
                 .andExpect(jsonPath("$[7].status").doesNotExist())
-                
                 // andDo -> 메소드가 어떻게 실행이 됐는지
                 .andDo(print());
-
         //verify : 해당 객체의 메소드가 실행됐는지 체크
         verify(communityService).getCommunityList(eq(0L));
     }
 
-//    @Test
-//    @DisplayName("커뮤니티 상세 조회")
-//    void showCommunityDetail() throws Exception {
-//        ResponseMember responseMember = new ResponseMember();
-//        responseMember.setId(9L);
-//        responseMember.setLoginId("9");
-//        responseMember.setOwn(null);
-//        responseMember.setProfile(null);
-//        responseMember.setFollow(true);
-//
-//        List<ResponseMember> members = new ArrayList<>();
-//        members.add(responseMember);
-//
-//        ResponseCommunityDetail responseCommunityDetail = new ResponseCommunityDetail(
-//                9L,
-//                LocalDateTime.of(2024,3,16,0,0,0),
-//                LocalDateTime.of(2024,3,20,0,0,0),
-//                "서울특별시", "야미야미", 2,
-//                LocalDateTime.of(2024,3,15,0,0,0),
-//                1, "모집중",  "얌얌",
-//                LocalDateTime.of(2024,3,14,10,0,0),
-//                LocalDateTime.of(2024,3,14,10,0,0),
-//                members, true, 2L, 0L);
-//
-//        //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
-//        given(communityService.getCommunity(9L, 9L)).willReturn(
-//                responseCommunityDetail
-//        );
-//
-//        //andExcept : 기대하는 값이 나왔는지 체크해볼 수 있는 메소드
-//        //jsonPath : body에 값들이 존재하는지?
-//        // 반복문을 통해 jsonPath 값에 대한 검증
-//        mockMvc.perform(get("/api/community/{id}", 9L)
-//                )
-//                .andExpect(status().isOk())
-////                .andExpect(jsonPath("$.id").exists())
-////                .andExpect(jsonPath("$.startDate").value("2024-03-16T00:00:00"))
-////                .andExpect(jsonPath("$.endDate").value("2024-03-20T00:00:00"))
-////                .andExpect(jsonPath("$.locCategory").value("서울특별시"))
-////                .andExpect(jsonPath("$.notice").value("야미야미"))
-////                .andExpect(jsonPath("$.total").value(2))
-////                .andExpect(jsonPath("$.deadline").value("2024-03-15T00:00:00"))
-////                .andExpect(jsonPath("$.viewPoint").value(1))
-////                .andExpect(jsonPath("$.status").value("모집중"))
-////                .andExpect(jsonPath("$.title").value("얌얌"))
-////                .andExpect(jsonPath("$.createdAt").value("2024-03-14T10:00:00"))
-////                .andExpect(jsonPath("$.modifiedAt").value("2024-03-14T10:00:00"))
-////                .andExpect(jsonPath("$.members[0].id").value(1))
-////                .andExpect(jsonPath("$.members[0].loginId").value("9"))
-////                .andExpect(jsonPath("$.members[0].own").doesNotExist())
-////                .andExpect(jsonPath("$.members[0].profile").doesNotExist())
-////                .andExpect(jsonPath("$.members[0].follow").value(true))
-////                .andExpect(jsonPath("$.isMine").value(true))
-////                .andExpect(jsonPath("$.nextId").value(2))
-////                .andExpect(jsonPath("$.prevId").value(0))
-//                .andExpect(jsonPath("$[0].id").exists())
-//                .andExpect(jsonPath("$[1].startDate").exists())
-//                .andExpect(jsonPath("$[2].endDate").exists())
-//                .andExpect(jsonPath("$[3].locCategory").exists())
-//                .andExpect(jsonPath("$[4].notice").exists())
-//                .andExpect(jsonPath("$[5].total").exists())
-//                .andExpect(jsonPath("$[6].deadline").exists())
-//                .andExpect(jsonPath("$[7].viewPoint").exists())
-//                .andExpect(jsonPath("$[8].status").exists())
-//                .andExpect(jsonPath("$[9].title").exists())
-//                .andExpect(jsonPath("$[10].createdAt").exists())
-//                .andExpect(jsonPath("$[11].modifiedAt").exists())
-//                .andExpect(jsonPath("$[12].members").exists())
-//                .andExpect(jsonPath("$[13].isMine").exists())
-//                .andExpect(jsonPath("$[14].nextId").exists())
-//                .andExpect(jsonPath("$[15].prevId").exists())
-//                .andExpect(jsonPath("$[16].id").doesNotExist())
-//
-//                // andDo -> 메소드가 어떻게 실행이 됐는지
-//                .andDo(print());
-//
-//        verify(communityService).getCommunity(eq(9L), eq(9L));
-//    }
+    @Test
+    @DisplayName("커뮤니티 상세 조회")
+    void showCommunityDetail() throws Exception {
+        ResponseMember responseMember = new ResponseMember();
+        responseMember.setId(9L);
+        responseMember.setLoginId("9");
+        responseMember.setOwn(null);
+        responseMember.setProfile(null);
+        responseMember.setFollow(true);
 
-//    @Test
-//    @DisplayName("커뮤니티 게시물 등록")
-//    void postCommunity() throws Exception {
-//
-//        RequestCommunity requestCommunity = new RequestCommunity();
-//        requestCommunity.setId(9L);
-//        requestCommunity.setTitle("될꺼야");
-//        requestCommunity.setStartDate(LocalDateTime.of(2024,3,14,10,0,0));
-//        requestCommunity.setEndDate(LocalDateTime.of(2024,3,14,10,0,0));
-//        requestCommunity.setNotice("테스트");
-//        requestCommunity.setTotal(2);
-//        requestCommunity.setLocCategory("서울특별시");
-//        requestCommunity.setDeadline(LocalDateTime.of(2024,3,14,10,0,0));
-//        requestCommunity.setStatus("모집중");
-//
-//        // ObjectMapper 객체 생성
-//        ObjectMapper objectMapper = new ObjectMapper();
-//
-//        // member 객체를 JSON 문자열로 변환
-//        String jsonMember = objectMapper.writeValueAsString(requestCommunity);
-//
-//        mockMvc.perform(post("/api/community/")
-//                        .session(session) // MockMvc에 세션 설정
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(jsonMember))
-//                .andExpect(status().isOk());
-//
-//        verify(communityService).addCommunity(any(RequestCommunity.class), eq(9L));
-//    }
+        List<ResponseMember> members = new ArrayList<>();
+        members.add(responseMember);
+
+        ResponseCommunityDetail responseCommunityDetail = new ResponseCommunityDetail(
+                1L,
+                LocalDateTime.of(2024,3,16,0,0,0),
+                LocalDateTime.of(2024,3,20,0,0,0),
+                "서울특별시", "야미야미", 2,
+                LocalDateTime.of(2024,3,15,0,0,0),
+                1, "모집중",  "얌얌",
+                LocalDateTime.of(2024,3,14,10,0,0),
+                LocalDateTime.of(2024,3,14,10,0,0),
+                members, true, 2L, 0L);
+
+        //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
+        given(communityService.getCommunity(1L, 9L)).willReturn(
+                responseCommunityDetail
+        );
+
+        //andExcept : 기대하는 값이 나왔는지 체크해볼 수 있는 메소드
+        //jsonPath : body에 값들이 존재하는지?
+        // 반복문을 통해 jsonPath 값에 대한 검증
+        mockMvc.perform(get("/api/community/{id}", 1L)
+                        .sessionAttr("id", 9L)
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.startDate").exists())
+                .andExpect(jsonPath("$.endDate").exists())
+                .andExpect(jsonPath("$.locCategory").exists())
+                .andExpect(jsonPath("$.notice").exists())
+                .andExpect(jsonPath("$.total").exists())
+                .andExpect(jsonPath("$.deadline").exists())
+                .andExpect(jsonPath("$.viewPoint").exists())
+                .andExpect(jsonPath("$.status").exists())
+                .andExpect(jsonPath("$.title").exists())
+                .andExpect(jsonPath("$.createdAt").exists())
+                .andExpect(jsonPath("$.modifiedAt").exists())
+                .andExpect(jsonPath("$.members").exists())
+                .andExpect(jsonPath("$.mine").exists())
+                .andExpect(jsonPath("$.nextId").exists())
+                .andExpect(jsonPath("$.prevId").exists())
+
+                // andDo -> 메소드가 어떻게 실행이 됐는지
+                .andDo(print());
+
+        verify(communityService).getCommunity(1L,9L);
+    }
+
+    @Test
+    @DisplayName("커뮤니티 게시물 등록")
+    void postCommunity() throws Exception {
+
+        RequestCommunity requestCommunity = new RequestCommunity();
+        requestCommunity.setId(9L);
+        requestCommunity.setTitle("될꺼야");
+        requestCommunity.setStartDate(LocalDateTime.of(2024,3,14,10,0,0));
+        requestCommunity.setEndDate(LocalDateTime.of(2024,3,14,10,0,0));
+        requestCommunity.setNotice("테스트");
+        requestCommunity.setTotal(2);
+        requestCommunity.setLocCategory("서울특별시");
+        requestCommunity.setDeadline(LocalDateTime.of(2024,3,14,10,0,0));
+        requestCommunity.setStatus("모집중");
+
+        // ObjectMapper 객체 생성
+        ObjectMapper objectMapper = objectMapper();
+
+        // community 객체를 JSON 문자열로 변환
+        String jsonCommunity = objectMapper.writeValueAsString(requestCommunity);
+
+        mockMvc.perform(post("/api/community/")
+                        .sessionAttr("id", 9L)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonCommunity)
+                )
+                .andExpect(status().isOk())
+                .andDo(print());
+
+        verify(communityService).addCommunity(any(RequestCommunity.class), eq(9L));
+    }
 
     @Test
     @DisplayName("커뮤니티 게시물 삭제")
     void deleteCommunity() throws Exception {
-        MockHttpSession session = new MockHttpSession();
-        session.setAttribute("id", 9L); // 세션 속성 설정
+        mockMvc.perform(delete("/api/community/{id}", 9L)
+                )
+                .andExpect(status().isOk())
+                .andDo(print());
 
-        mockMvc.perform(delete("/api/community/9")
-                        .session(session) // MockMvc에 세션 설정
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(""))
-                .andExpect(status().isOk());
-
-        verify(communityService).deleteCommunity(eq(9L));
+        verify(communityService).deleteCommunity(9L);
     }
 
     @Test
     @DisplayName("검색한 커뮤니티 게시물 목록")
     void searchCommunity() throws Exception {
-        MockHttpSession session = new MockHttpSession();
-        session.setAttribute("id", 9L); // 세션 속성 설정
 
         RequestCommunitySearch requestCommunitySearch = new RequestCommunitySearch();
         requestCommunitySearch.setPage(0);
         requestCommunitySearch.setType("writer");
-        requestCommunitySearch.setKeyword("mshan");
+        requestCommunitySearch.setKeyword("keyword");
 
         // ObjectMapper 객체 생성
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = objectMapper();
 
         // member 객체를 JSON 문자열로 변환
-        String jsonMember = objectMapper.writeValueAsString(requestCommunitySearch);
+        String jsonCommunitySearch = objectMapper.writeValueAsString(requestCommunitySearch);
 
-        mockMvc.perform(post("/api/community/search/9")
-                        .session(session) // MockMvc에 세션 설정
+        mockMvc.perform(post("/api/community/search/{page}", 0)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonMember))
-                .andExpect(status().isOk());
+                        .content(jsonCommunitySearch)
+                )
+                .andExpect(status().isOk())
+                .andDo(print());
 
-        verify(communityService).getCommunityListWithSearch(any(), eq(9L));
+        verify(communityService).getCommunityListWithSearch(requestCommunitySearch, 0);
     }
 
     @Test
     @DisplayName("커뮤니티 참여하기")
     void entryCommunity() throws Exception {
-        MockHttpSession session = new MockHttpSession();
-        session.setAttribute("id", 9L); // 세션 속성 설정
 
-        mockMvc.perform(post("/api/community/member/9")
-                        .session(session) // MockMvc에 세션 설정
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(""))
-                .andExpect(status().isOk());
+        mockMvc.perform(post("/api/community/member/{id}", 1L)
+                        .sessionAttr("id", 9L)
+                )
+                .andExpect(status().isOk())
+                .andDo(print());
 
-        verify(communityService).addOwner(eq(9L), eq(9L));
+        verify(communityService).addOwner(1L, 9L);
     }
 
     @Test
     @DisplayName("커뮤니티 참여 취소하기")
     void departureCommunity() throws Exception {
-        MockHttpSession session = new MockHttpSession();
-        session.setAttribute("id", 9L); // 세션 속성 설정
 
-        mockMvc.perform(delete("/api/community/member/9")
-                        .session(session) // MockMvc에 세션 설정
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(""))
-                .andExpect(status().isOk());
+        mockMvc.perform(delete("/api/community/member/{id}", 1L)
+                        .sessionAttr("id", 9L)
+                )
+                .andExpect(status().isOk())
+                .andDo(print());
 
-        verify(communityService).deleteOwner(eq(9L), eq(9L));
+        verify(communityService).deleteOwner(1L, 9L);
     }
 }
