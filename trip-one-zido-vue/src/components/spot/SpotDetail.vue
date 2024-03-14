@@ -2,25 +2,29 @@
   <main class="wrapper d-flex">
     <!-- ★왼쪽 -->
     <div class="p-2 d-flex flex-column border-end" id="leftSide">
-      <div class="d-flex justify-content-between me-5 w-100">
+      <div class="d-flex justify-content-between pe-2 w-100">
         <h1 class="title">
-          장소 제목
-          <span class="comm"><img id="star" src="/images/star.png" />10</span>
+          {{ spotData.title }}
+          <span class="comm"
+            ><img id="star" src="/images/star.png" />{{ spotData.grade }}</span
+          >
         </h1>
         <div class="d-flex gap-2">
-          <button class="rounded-5">관광지</button>
+          <button class="rounded-5">{{ spotData.category }}</button>
           <button class="rounded-5">약도보기</button>
         </div>
       </div>
-      <h6>장소 기간</h6>
-      <h6>장소 참여자</h6>
+      <h6>{{ spotData.start }} ~ {{ spotData.end }}</h6>
+      <h6>
+        <span v-for="member in spotData.members">{{ member.loginId }}</span>
+      </h6>
 
       <div class="p-2 h-100">
         <div class="d-flex justify-content-between"></div>
         <div class="d-flex align-items-center" id="photo-container">
           <img
             @contextmenu.prevent="delPhoto(idx)"
-            v-for="(photo, idx) in photos"
+            v-for="(photo, idx) in spotData.photos"
             class="rounded"
             id="selectedPic"
             :src="photo"
@@ -32,26 +36,83 @@
 
     <!-- ★오른쪽 -->
     <div class="p-2 d-flex flex-column" id="rightSide">
-      <h1 class="p-2">
-        <span class="comm"
-          ><img id="bookmark" src="/images/zzim.png" />123</span
-        >
-        <span class="comm"><img id="like" src="/images/like.png" />345</span>
-        <span class="comm"
-          ><img id="unLike" src="/images/unlike.png" />345</span
-        >
-      </h1>
+      <table v-if="$route.params.id == 1">
+        <tr>
+          <td>
+            <h1 class="p-2">
+              <span class="comm"
+                ><img
+                  @click="$zido.toggleBookmark(spotData)"
+                  id="bookmark"
+                  :src="
+                    spotData.myBookmark
+                      ? '/images/zzim.png'
+                      : '/images/unzzim.png'
+                  "
+                />{{ spotData.bookmarkCount }}</span
+              >
+              <span class="comm" :class="spotData.myLike === true ? 'like' : ''"
+                ><img
+                  @click="$zido.toggleLike(spotData, true)"
+                  id="like"
+                  src="/images/like.png"
+                />{{ spotData.likeCount }}</span
+              >
+              <span
+                class="comm"
+                :class="spotData.myLike === false ? 'like' : ''"
+                ><img
+                  @click="$zido.toggleLike(spotData, false)"
+                  id="unLike"
+                  src="/images/unlike.png"
+              /></span>
+            </h1>
+          </td>
+          <td>
+            <div class="m-0 d-flex justify-content-end gap-2">
+              <div class="select-wrapper" id="security">
+                <select
+                  @change="$zido.togglePublic($route.params.id)"
+                  class="local-select"
+                  name="category"
+                >
+                  <option value="1">공개</option>
+                  <option value="2">비공개</option>
+                </select>
+              </div>
+              <input
+                @click="$router.push(`/edit/spot/${$route.params.id}`)"
+                id="input"
+                class="button small"
+                type="submit"
+                value="수정"
+              />
+              <input
+                @click="$zido.deleteSpot($route.params.id)"
+                class="button alt small"
+                type="button"
+                value="삭제"
+              />
+            </div>
+          </td>
+        </tr>
+      </table>
 
       <h4 class="p-2">여행한 후기</h4>
 
-      <textarea class="p-2" id="content" name="content" rows="5" cols="50" />
+      <textarea class="p-2" id="content" name="content" rows="5" cols="50">
+        {{ spotData.review }}
+      </textarea>
 
       <section id="commentBody">
         <div class="card bg-light">
           <div class="card-body">
-            <form class="border-bottom">
+            <form
+              @submit.prevent="$zido.addComment(spotData.id, comment)"
+              class="border-bottom mb-3"
+            >
               <input
-                name="comment"
+                v-model="comment"
                 type="text"
                 class="form-control me-3"
                 placeholder="댓글 추가하기"
@@ -60,79 +121,12 @@
                 댓글
               </button>
             </form>
-            <!-- Comment with nested comments-->
-            <div class="d-flex mb-4">
-              <!-- Parent comment-->
-              <div class="flex-shrink-0">
-                <br />
-                <img
-                  class="rounded-circle"
-                  src="/images/유재석.png"
-                  alt="..."
-                  id="commentProfilePic"
-                />
-              </div>
-              <div class="ms-3">
-                <br />
-                <div class="fw-bold">유재석</div>
-                부산 먹거리가 너무많네요 ~
-                <small
-                  ><b><a href="#" id="plusComment">답글</a></b></small
-                >
-                <div>
-                  <small><a href="#" id="addedComment">▼답글 2개</a></small>
-                </div>
-                <!-- Child comment 1-->
-                <div class="d-flex mt-4">
-                  <div class="flex-shrink-0">
-                    <img
-                      class="rounded-circle"
-                      src="/images/남자.png"
-                      alt="..."
-                      id="commentProfilePic"
-                    />
-                  </div>
-                  <div class="ms-3">
-                    <div class="fw-bold">
-                      대댓글 단사람1
-                      <a href="#" id="commentUpdate">수정</a>
-                      <a href="#" id="commentDelete">삭제</a>
-                    </div>
-                    광안리 주변 횟집추천드려요!
-                  </div>
-                </div>
-                <!-- Child comment 2-->
-                <div class="d-flex mt-4">
-                  <div class="flex-shrink-0">
-                    <img
-                      class="rounded-circle"
-                      src="/images/여자.png"
-                      alt="..."
-                      id="commentProfilePic"
-                    />
-                  </div>
-                  <div class="ms-3">
-                    <div class="fw-bold">대댓글 단사람2</div>
-                    거기도 맛있고~ 부산집도 맛있어요
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Single comment-->
-            <div class="d-flex mb-4">
-              <div class="flex-shrink-0">
-                <img
-                  class="rounded-circle"
-                  src="/images/조세호.png"
-                  alt="..."
-                  id="commentProfilePic"
-                />
-              </div>
-              <div class="ms-3">
-                <div class="fw-bold">조세호</div>
-                ㅎㅎ
-              </div>
-            </div>
+
+            <Comment
+              v-for="comment in spotData.commentList"
+              :first="true"
+              :data="comment"
+            />
           </div>
         </div>
       </section>
@@ -141,15 +135,16 @@
 </template>
 
 <script>
+import Comment from "../util/Comment.vue";
+
 export default {
+  components: {
+    Comment,
+  },
   data() {
     return {
-      members: [""],
-      photos: [
-        "/images/busan1.jpg",
-        "/images/busan1.jpg",
-        "/images/busan1.jpg",
-      ],
+      spotData: this.$zido.getSpotData(this.$route.params.id),
+      comment: "",
     };
   },
   methods: {
@@ -291,23 +286,9 @@ textarea {
   margin: 0;
 }
 
-#plusComment {
-  color: darkgray;
-  text-decoration: none;
-}
-
-#addedComment {
-  text-decoration: none;
-}
-
-#commentUpdate,
-#commentDelete {
-  color: darkgray;
-  text-decoration: none;
-}
-
-#commentProfilePic {
-  width: 75px;
-  height: 75px;
+.like {
+  border: #ff928e 1px solid;
+  border-radius: 1.5rem;
+  padding: 2%;
 }
 </style>

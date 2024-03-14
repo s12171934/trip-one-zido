@@ -3,26 +3,44 @@
     <div class="p-2 d-flex flex-column border-end" id="leftSide">
       <div class="d-flex justify-content-between me-5 w-100">
         <h1 @click="console.log(status)" class="title">
-          일정 제목<span class="date">일정 기간</span>
+          {{ planData.title
+          }}<span class="date">{{ planData.start }}~{{ planData.end }}</span>
           <span class="comm"
-                ><img id="star" src="/images/star.png" />10</span
-              >
+            ><img id="star" src="/images/star.png" />{{ planData.grade }}</span
+          >
         </h1>
-        <button class="rounded-5">여행중</button>
+        <button class="rounded-5">{{ planData.status }}</button>
       </div>
       <table>
         <tr>
           <td>
-            <h1>
+            <h1 class="p-2">
               <span class="comm"
-                ><img id="bookmark" src="/images/zzim.png" />123</span
+                ><img
+                  @click="$zido.toggleBookmark(planData)"
+                  id="bookmark"
+                  :src="
+                    planData.myBookmark
+                      ? '/images/zzim.png'
+                      : '/images/unzzim.png'
+                  "
+                />{{ planData.bookmarkCount }}</span
               >
-              <span class="comm"
-                ><img id="like" src="/images/like.png" />345</span
+              <span class="comm" :class="planData.myLike === true ? 'like' : ''"
+                ><img
+                  @click="$zido.toggleLike(planData, true)"
+                  id="like"
+                  src="/images/like.png"
+                />{{ planData.likeCount }}</span
               >
-              <span class="comm"
-                ><img id="unLike" src="/images/unlike.png" />345</span
-              >
+              <span
+                class="comm"
+                :class="planData.myLike === false ? 'like' : ''"
+                ><img
+                  @click="$zido.toggleLike(planData, false)"
+                  id="unLike"
+                  src="/images/unlike.png"
+              /></span>
             </h1>
           </td>
         </tr>
@@ -33,7 +51,7 @@
         </tr>
         <tr>
           <td>
-            <MemberList />
+            <MemberList :memberList="planData.members" />
           </td>
         </tr>
         <tr>
@@ -54,7 +72,9 @@
         </tr>
         <tr>
           <td>
-            <textarea id="content" name="content" rows="5" cols="50" />
+            <textarea id="content" name="content" rows="5" cols="50">{{
+              planData.review
+            }}</textarea>
           </td>
         </tr>
       </table>
@@ -62,11 +82,15 @@
 
     <!-- ★오른쪽 -->
     <div class="p-2 d-flex flex-column" id="rightSide">
-      <table v-if="$route.params.id === 1">
+      <table v-if="$route.params.id == 1">
         <tr>
           <td>
             <div class="select-wrapper" id="security">
-              <select class="local-select" name="category">
+              <select
+                @change="$zido.togglePublic($route.params.id)"
+                class="local-select"
+                name="category"
+              >
                 <option value="1">공개</option>
                 <option value="2">비공개</option>
               </select>
@@ -75,14 +99,14 @@
           <td>
             <div class="m-0 d-flex justify-content-end gap-2">
               <input
-                @click="$router.push('/member-page')"
+                @click="$router.push(`/edit/plan/${$route.params.id}`)"
                 id="input"
                 class="button small"
                 type="submit"
                 value="수정"
               />
               <input
-                @click="$router.push('/member-page')"
+                @click="$zido.deletePlan($route.params.id)"
                 class="button alt small"
                 type="button"
                 value="삭제"
@@ -95,16 +119,17 @@
         class="h-100"
         ref="FullCalendar"
         :options="calendarOptions"
-        data-bs-toggle="modal"
-        data-bs-target="#spotModal"
       />
       <!-- ★댓글창  -->
       <section id="commentBody">
         <div class="card bg-light">
           <div class="card-body">
-            <form class="border-bottom">
+            <form
+              @submit.prevent="$zido.addComment(planData.id, comment)"
+              class="border-bottom mb-3"
+            >
               <input
-                name="comment"
+                v-model="comment"
                 type="text"
                 class="form-control me-3"
                 placeholder="댓글 추가하기"
@@ -113,92 +138,17 @@
                 댓글
               </button>
             </form>
-            <!-- Comment with nested comments-->
-            <div class="d-flex mb-4">
-              <!-- Parent comment-->
-              <div class="flex-shrink-0">
-                <br />
-                <img
-                  class="rounded-circle"
-                  src="/images/유재석.png"
-                  alt="..."
-                  id="commentProfilePic"
-                />
-              </div>
-              <div class="ms-3">
-                <br />
-                <div class="fw-bold">유재석</div>
-                부산 먹거리가 너무많네요 ~
-                <small
-                  ><b><a href="#" id="plusComment">답글</a></b></small
-                >
-                <div>
-                  <small><a href="#" id="addedComment">▼답글 2개</a></small>
-                </div>
-                <!-- Child comment 1-->
-                <div class="d-flex mt-4">
-                  <div class="flex-shrink-0">
-                    <img
-                      class="rounded-circle"
-                      src="/images/남자.png"
-                      alt="..."
-                      id="commentProfilePic"
-                    />
-                  </div>
-                  <div class="ms-3">
-                    <div class="fw-bold">
-                      대댓글 단사람1
-                      <a href="#" id="commentUpdate">수정</a>
-                      <a href="#" id="commentDelete">삭제</a>
-                    </div>
-                    광안리 주변 횟집추천드려요!
-                  </div>
-                </div>
-                <!-- Child comment 2-->
-                <div class="d-flex mt-4">
-                  <div class="flex-shrink-0">
-                    <img
-                      class="rounded-circle"
-                      src="/images/여자.png"
-                      alt="..."
-                      id="commentProfilePic"
-                    />
-                  </div>
-                  <div class="ms-3">
-                    <div class="fw-bold">대댓글 단사람2</div>
-                    거기도 맛있고~ 부산집도 맛있어요
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Single comment-->
-            <div class="d-flex mb-4">
-              <div class="flex-shrink-0">
-                <img
-                  class="rounded-circle"
-                  src="/images/조세호.png"
-                  alt="..."
-                  id="commentProfilePic"
-                />
-              </div>
-              <div class="ms-3">
-                <div class="fw-bold">조세호</div>
-                ㅎㅎ
-              </div>
-            </div>
+
+            <Comment
+              v-for="comment in planData.commentList"
+              :first="true"
+              :data="comment"
+            />
           </div>
         </div>
       </section>
     </div>
   </main>
-  <EditSpotModal
-    :editData="spotData"
-    :mode="editSpotMode"
-    :event="calendarEvent"
-    @add="addSpot"
-    @edit="editSpotDetail"
-    @delete="deleteSpot"
-  />
 </template>
 
 <script>
@@ -210,6 +160,7 @@ import koLocale from "@fullcalendar/core/locales/ko";
 import data from "/src/assets/data.js";
 import KakaoMapForEditPlan from "../util/KakaoMapForEditPlan.vue";
 import MemberList from "../util/MemberList.vue";
+import Comment from "../util/Comment.vue";
 
 export default {
   components: {
@@ -217,9 +168,11 @@ export default {
     EditSpotModal,
     KakaoMapForEditPlan,
     MemberList,
+    Comment,
   },
   data() {
     return {
+      planData: this.$zido.getPlanData(this.$route.params.id),
       selectLocations: data.selectLocations,
       status: 0,
       members: [""],
@@ -249,12 +202,12 @@ export default {
           day: "numeric",
           omitCommas: true,
         },
+        initialEvents: this.$zido.getPlanData(this.$route.params.id).spotList,
         locale: koLocale,
         headerToolbar: false,
         allDaySlot: false,
         selectable: true,
         slotMinTime: "06:00:00",
-        select: this.handleDateSelect,
         eventClick: this.handleEventClick,
         eventColor: "#ff928e",
       },
@@ -262,27 +215,12 @@ export default {
   },
 
   methods: {
-    handleDateSelect(selectInfo) {
-      this.editSpotMode = "add";
-      this.calendarEvent = selectInfo;
-
-      this.spotData = {
-        photos: [],
-        title: "",
-        category: "",
-        address: "",
-        address2: "",
-        rate: 0,
-        review: "",
-      };
-    },
-
     handleEventClick(clickInfo) {
-      this.editSpotMode = "edit";
-      this.calendarEvent = clickInfo;
-
-      const id = clickInfo.event._def.publicId;
-      this.spotData = this.spots[id];
+      window.open(
+        `/spot/${clickInfo.event._def.publicId}`,
+        "",
+        "toolbar=no,scrollbars=yes,resizable=yes,top=0,left=0,width=1200,height=800"
+      );
     },
 
     addMember() {
@@ -296,70 +234,20 @@ export default {
       content.myBookmark = !content.myBookmark;
     },
     setCalendarByDate() {
-      const start = new Date(this.startDate);
-      const end = new Date(this.endDate);
+      const start = new Date(this.planData.start);
+      const end = new Date(this.planData.end);
       let days = end.getTime() - start.getTime();
-      console.log(days);
       days = Math.ceil(days / (1000 * 60 * 60 * 24)) + 1;
 
       const calendarApi = this.$refs.FullCalendar.getApi();
       this.calendarOptions.views.timeGridDay.duration.days = days;
       this.calendarOptions.firstDay = start.getDay();
-      calendarApi.gotoDate(this.startDate);
-    },
-    checkOtherDate(type) {
-      const start = new Date(this.startDate);
-      const end = new Date(this.endDate);
-      let days = end.getTime() - start.getTime();
-      console.log(days);
-
-      if (days < 0 || !days) {
-        if (type === "start") {
-          this.endDate = this.startDate;
-        } else {
-          this.startDate = this.endDate;
-        }
-      }
-      this.setCalendarByDate();
-    },
-    addSpot(calendarEvent, spotData) {
-      const calendarApi = calendarEvent.view.calendar;
-      calendarApi.addEvent({
-        id: ++this.spotId,
-        title: spotData.title,
-        start: calendarEvent.startStr,
-        end: calendarEvent.endStr,
-      });
-      const newSpot = JSON.parse(JSON.stringify(spotData));
-      newSpot.id = this.spotId;
-      newSpot.start = calendarEvent.startStr;
-      newSpot.end = calendarEvent.endStr;
-      this.spots[this.spotId] = newSpot;
-    },
-    editSpotDetail(calendarEvent, spotData) {
-      calendarEvent.event.setProp("title", spotData.title);
-      const id = calendarEvent.event._def.publicId;
-      const newSpot = JSON.parse(JSON.stringify(spotData));
-      this.spots[id].photos = newSpot.photos;
-      this.spots[id].title = newSpot.title;
-      this.spots[id].category = newSpot.category;
-      this.spots[id].address = newSpot.address;
-      this.spots[id].address2 = newSpot.address2;
-      this.spots[id].rate = newSpot.rate;
-      this.spots[id].review = newSpot.review;
-
-      console.log(this.spots);
-    },
-    deleteSpot(calendarEvent) {
-      calendarEvent.event.remove();
-      const id = calendarEvent.event._def.publicId;
-      delete this.spots[id];
-
-      console.log(this.spots);
+      calendarApi.gotoDate(this.planData.start);
     },
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    this.setCalendarByDate();
   },
 };
 </script>
@@ -467,25 +355,10 @@ textarea {
   padding-bottom: 1rem;
   margin: 0;
 }
-
-#plusComment {
-  color: darkgray;
-  text-decoration: none;
-}
-
-#addedComment {
-  text-decoration: none;
-}
-
-#commentUpdate,
-#commentDelete {
-  color: darkgray;
-  text-decoration: none;
-}
-
-#commentProfilePic {
-  width: 75px;
-  height: 75px;
+.like {
+  border: #ff928e 1px solid;
+  border-radius: 1.5rem;
+  padding: 2%;
 }
 </style>
 
