@@ -46,7 +46,7 @@ public class CommunityApiController {
             @Parameter(description = "커뮤니티 게시물 정보")
             RequestCommunity requestCommunity,
 
-//            @SessionAttribute(name = "id")
+            @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 정보")
             Long sessionId
     ){
