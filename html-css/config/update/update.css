@@ -31,7 +31,7 @@ h1 {
 
 #modalButton, #button {
 
-    color: aliceblue !important;
+    color: rgb(255, 255, 255) !important;
     background-color: #ff928e !important;
     border-radius: 10px !important;
     padding-left: 50px !important;
@@ -43,8 +43,9 @@ h1 {
 }
 
 #formButton{
-    margin-left: 40%;
+    margin-left: auto;
 }
+
 h3 {
     margin-top: 5px !important;
     margin-bottom: 0 !important;
@@ -54,4 +55,19 @@ label {
 }
 .button {
     border-radius: 10px !important;
+}
+
+#button-pw {
+    font-size: 100%;
+    width: 50%;
+}
+
+#withdrawal {
+    margin-right: auto;
+}
+
+
+.actions #duplication-check {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
 }

@@ -1,0 +1,379 @@
+<template>
+  <main class="wrapper d-flex">
+    <div class="p-2 d-flex flex-column border-end" id="leftSide">
+      <div class="d-flex justify-content-between me-5 w-100">
+        <h1 @click="console.log(status)" class="title">
+          {{ planData.title
+          }}<span class="date">{{ planData.start }}~{{ planData.end }}</span>
+          <span class="comm"
+            ><img id="star" src="/images/star.png" />{{ planData.grade }}</span
+          >
+        </h1>
+        <button class="rounded-5">{{ planData.status }}</button>
+      </div>
+      <table>
+        <tr>
+          <td>
+            <h1 class="p-2">
+              <span class="comm"
+                ><img
+                  @click="$zido.toggleBookmark(planData)"
+                  id="bookmark"
+                  :src="
+                    planData.myBookmark
+                      ? '/images/zzim.png'
+                      : '/images/unzzim.png'
+                  "
+                />{{ planData.bookmarkCount }}</span
+              >
+              <span class="comm" :class="planData.myLike === true ? 'like' : ''"
+                ><img
+                  @click="$zido.toggleLike(planData, true)"
+                  id="like"
+                  src="/images/like.png"
+                />{{ planData.likeCount }}</span
+              >
+              <span
+                class="comm"
+                :class="planData.myLike === false ? 'like' : ''"
+                ><img
+                  @click="$zido.toggleLike(planData, false)"
+                  id="unLike"
+                  src="/images/unlike.png"
+              /></span>
+            </h1>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h4>참여 인원</h4>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <MemberList :memberList="planData.members" />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <h4>지도</h4>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <KakaoMapForEditPlan style="height: 40vh" />
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <h4>여행한 후기</h4>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <textarea id="content" name="content" rows="5" cols="50">{{
+              planData.review
+            }}</textarea>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- ★오른쪽 -->
+    <div class="p-2 d-flex flex-column" id="rightSide">
+      <table v-if="$route.params.id == 1">
+        <tr>
+          <td>
+            <div class="select-wrapper" id="security">
+              <select
+                @change="$zido.togglePublic($route.params.id)"
+                class="local-select"
+                name="category"
+              >
+                <option value="1">공개</option>
+                <option value="2">비공개</option>
+              </select>
+            </div>
+          </td>
+          <td>
+            <div class="m-0 d-flex justify-content-end gap-2">
+              <input
+                @click="$router.push(`/edit/plan/${$route.params.id}`)"
+                id="input"
+                class="button small"
+                type="submit"
+                value="수정"
+              />
+              <input
+                @click="$zido.deletePlan($route.params.id)"
+                class="button alt small"
+                type="button"
+                value="삭제"
+              />
+            </div>
+          </td>
+        </tr>
+      </table>
+      <FullCalendar
+        class="h-100"
+        ref="FullCalendar"
+        :options="calendarOptions"
+      />
+      <!-- ★댓글창  -->
+      <section id="commentBody">
+        <div class="card bg-light">
+          <div class="card-body">
+            <form
+              @submit.prevent="$zido.addComment(planData.id, comment)"
+              class="border-bottom mb-3"
+            >
+              <input
+                v-model="comment"
+                type="text"
+                class="form-control me-3"
+                placeholder="댓글 추가하기"
+              />
+              <button class="button alt" type="submit" id="comment">
+                댓글
+              </button>
+            </form>
+
+            <Comment
+              v-for="comment in planData.commentList"
+              :first="true"
+              :data="comment"
+            />
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</template>
+
+<script>
+import EditSpotModal from "./EditSpotModal.vue";
+import FullCalendar from "@fullcalendar/vue3";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import koLocale from "@fullcalendar/core/locales/ko";
+import data from "/src/assets/data.js";
+import KakaoMapForEditPlan from "../util/KakaoMapForEditPlan.vue";
+import MemberList from "../util/MemberList.vue";
+import Comment from "../util/Comment.vue";
+
+export default {
+  components: {
+    FullCalendar,
+    EditSpotModal,
+    KakaoMapForEditPlan,
+    MemberList,
+    Comment,
+  },
+  data() {
+    return {
+      planData: this.$zido.getPlanData(this.$route.params.id),
+      selectLocations: data.selectLocations,
+      status: 0,
+      members: [""],
+      startDate: "",
+      endDate: "",
+      editSpotMode: "",
+      spotId: 0,
+      refresh: 0,
+      spots: {},
+      calendarEvent: null,
+      spotData: null,
+      popUpOptions:
+        "toolbar=no,resizable=yes,status=no,width=800,height=1000,top=0,left=0",
+
+      calendarOptions: {
+        plugins: [timeGridPlugin, interactionPlugin],
+        initialView: "timeGridDay",
+        views: {
+          timeGridDay: {
+            type: "timeGrid",
+            duration: { days: 4 },
+          },
+        },
+        dayHeaderFormat: {
+          weekday: "short",
+          month: "numeric",
+          day: "numeric",
+          omitCommas: true,
+        },
+        initialEvents: this.$zido.getPlanData(this.$route.params.id).spotList,
+        locale: koLocale,
+        headerToolbar: false,
+        allDaySlot: false,
+        selectable: true,
+        slotMinTime: "06:00:00",
+        eventClick: this.handleEventClick,
+        eventColor: "#ff928e",
+      },
+    };
+  },
+
+  methods: {
+    handleEventClick(clickInfo) {
+      window.open(
+        `/spot/${clickInfo.event._def.publicId}`,
+        "",
+        "toolbar=no,scrollbars=yes,resizable=yes,top=0,left=0,width=1200,height=800"
+      );
+    },
+
+    addMember() {
+      this.members.push("");
+    },
+    delMember(idx) {
+      this.members.splice(idx, 1);
+    },
+
+    toggle(content) {
+      content.myBookmark = !content.myBookmark;
+    },
+    setCalendarByDate() {
+      const start = new Date(this.planData.start);
+      const end = new Date(this.planData.end);
+      let days = end.getTime() - start.getTime();
+      days = Math.ceil(days / (1000 * 60 * 60 * 24)) + 1;
+
+      const calendarApi = this.$refs.FullCalendar.getApi();
+      this.calendarOptions.views.timeGridDay.duration.days = days;
+      this.calendarOptions.firstDay = start.getDay();
+      calendarApi.gotoDate(this.planData.start);
+    },
+  },
+  mounted() {
+    this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    this.setCalendarByDate();
+  },
+};
+</script>
+
+<style scoped>
+main > div {
+  width: 50%;
+  padding: 20px;
+}
+
+.date {
+  font-size: 50%;
+  color: grey;
+  margin: 1rem;
+}
+
+.comm {
+  font-size: 70%;
+  margin-right: 1rem;
+}
+
+#bookmark,
+#unLike,
+#like,
+#star {
+  width: 40px;
+  height: 40px;
+  margin: 0.5rem;
+}
+
+h4 {
+  margin: 0;
+}
+
+td {
+  min-width: 170px;
+}
+
+.member-container {
+  overflow: scroll;
+  overflow-y: hidden;
+  height: 100%;
+  width: 500px;
+}
+
+.member {
+  width: 200px;
+}
+
+.date-time {
+  display: flex;
+  padding: 2% 4%;
+  box-shadow: 0 0 0 1px #dee1e3 inset;
+  border-radius: 0.5rem;
+}
+
+#plusMember {
+  margin: 2%;
+}
+
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  text-align: left;
+  padding-left: 1rem;
+  color: #ff928e;
+}
+
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+  content: "\2605";
+  position: absolute;
+}
+
+textarea {
+  resize: none;
+}
+
+.custom-range::-webkit-slider-thumb {
+  background: #ff928e;
+}
+
+.custom-range::-moz-range-thumb {
+  background: #ff928e;
+}
+
+.custom-range::-ms-thumb {
+  background: #ff928e;
+}
+
+#commentBody {
+  width: 100%;
+  margin-top: 5%;
+}
+
+.card-body > form {
+  display: flex;
+  width: 100%;
+  padding-bottom: 1rem;
+  margin: 0;
+}
+.like {
+  border: #ff928e 1px solid;
+  border-radius: 1.5rem;
+  padding: 2%;
+}
+</style>
+
+<style>
+.fc-day-today {
+  background-color: inherit !important;
+}
+.fc-col-header-cell-cushion {
+  text-decoration: none;
+  color: #ff928e;
+}
+colgroup col {
+  width: 100px !important;
+}
+.fc-scrollgrid-shrink-cushion {
+  margin-right: 3%;
+}
+</style>

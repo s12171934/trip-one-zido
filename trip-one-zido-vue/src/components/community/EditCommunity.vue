@@ -1,0 +1,210 @@
+<template>
+  <main class="wrapper">
+    <div class="inner">
+      <h1>게시글 {{ $route.params.mode == "add" ? "등록" : "수정" }}하기</h1>
+      <br />
+      <form>
+        <!-- 테이블 -->
+        <table id="table" class="border">
+          <tr>
+            <td id="tdTitle">지역</td>
+            <td id="tdSelect">
+              <div class="select-wrapper" id="table-select">
+                <select class="form-control" v-model="communityData.locCategory">
+                  <option value="" selected>지역 선택</option>
+                  <option v-for="location in selectLocations" :value="location">
+                    {{ location }}
+                  </option>
+                </select>
+              </div>
+            </td>
+            <td id="tdTitle" class="border-start">여행 일정</td>
+            <td id="tdSelect">
+              <input type="date" v-model="communityData.start" /> ~
+              <input type="date" v-model="communityData.end" />
+            </td>
+          </tr>
+
+          <tr>
+            <td>모집 인원</td>
+            <td>
+              <div class="select-wrapper" id="table-select">
+                <select class="local-select" v-model="communityData.total">
+                  <option value="" selected>인원 선택</option>
+                  <option v-for="snop in selectNumberOfPeople" :value="snop">
+                    {{ snop }}&nbsp;명
+                  </option>
+                </select>
+              </div>
+            </td>
+            <td class="border-start">모집 마감일</td>
+            <td><input type="date" v-model="communityData.deadLine" /></td>
+          </tr>
+
+          <tr>
+            <td>제목</td>
+            <td colspan="3">
+              <input
+                type="text"
+                v-model="communityData.title"
+                placeholder="제목을 입력해 주세요"
+              />
+            </td>
+          </tr>
+
+          <tr>
+            <td>내용</td>
+            <td colspan="3">
+              <textarea
+                rows="13"
+                class="form-control"
+                id="content"
+                v-model="communityData.content"
+                placeholder="내용을 입력하세요"
+              ></textarea>
+            </td>
+          </tr>
+        </table>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <a
+            @click="submitButton($route.params.mode)"
+            class="button small rounded-3"
+            data-bs-toggle="modal"
+            data-bs-target="#alertModal"
+          >
+            {{ $route.params.mode == 'add' ? '등록' : '수정' }}</a
+          >
+          <input
+            @click="$router.push('/community')"
+            class="button alt small rounded-3"
+            type="button"
+            value="취소"
+          />
+        </div>
+      </form>
+    </div>
+  </main>
+  <AlertModal :modal="$route.params.mode == 'add' ? 'addCommunity' : 'updateCommunity'" />
+</template>
+<script>
+import AlertModal from "../util/modal/AlertModal.vue";
+import data from "/src/assets/data.js";
+
+export default {
+  components: {
+    AlertModal,
+  },
+  data() {
+    return {
+      selectLocations: data.selectLocations,
+      selectNumberOfPeople: data.selectNumberOfPeople,
+      communityDetail: data.communityDetail,
+
+      communityData: {
+				locCategory: "",
+				start: "",
+				end: "",
+				total: "",
+				deadLine: "",
+				title: "",
+				content: "",
+			}
+    };
+  },
+	methods: {
+		submitButton(mode){
+			if(mode === 'add'){
+				this.$zido.addCommunity(this.communityData)
+			}
+			else{
+				this.$zido.updateCommunity(this.communityData)
+			}
+			this.$router.push('/community')
+		},
+		setCommunityData(){
+			if(this.$route.params.mode != 'add'){
+				this.communityData = this.$zido.getCommunityDetail(this.$route.params.id)
+			}
+		}
+	},
+  mounted() {
+    this.$emit("meta", this.$route.matched[0].meta.isLogin);
+		this.setCommunityData();
+  },
+};
+</script>
+
+<style scoped>
+#leftPosition {
+  text-align: left;
+}
+
+#centerPosition {
+  text-align: center;
+}
+
+#searchBar {
+  margin: auto;
+}
+
+#tdTitle {
+  width: 15%;
+}
+
+#tdSelect {
+  width: 35%;
+}
+
+#footer {
+  font-family: "Jalnan";
+  font-size: 10px;
+}
+h1,
+h2,
+h3,
+h4,
+body,
+.button,
+section {
+  font-family: "Jalnan";
+}
+h1 {
+  color: #ff928e !important;
+}
+#menu {
+  font-family: "Jalnan";
+  font-size: 20px;
+}
+thead {
+  font-size: 15px;
+  color: black;
+}
+.wrapper {
+  margin-left: 5% !important;
+  margin-right: 5% !important;
+}
+#button {
+  color: rgb(255, 255, 255) !important;
+  background-color: #ff928e !important;
+  font-size: 15px;
+}
+#table {
+  font-size: 15px !important;
+  color: black !important;
+}
+input {
+  color: black !important;
+}
+table tbody tr {
+  background-color: white !important;
+}
+
+#table-select {
+  width: 80%;
+}
+
+textarea {
+  resize: none;
+}
+</style>

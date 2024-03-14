@@ -44,7 +44,7 @@ h3 {
 }
 
 #modalButton {
-    color: aliceblue;
+    color: rgb(255, 255, 255);
     background-color: #ff928e;
 }
 
@@ -72,6 +72,6 @@ h3 {
     text-align: left;
 }
 #button {
-    color: aliceblue !important; 
+    color: rgb(255, 255, 255) !important; 
     background-color:#ff928e !important;
 }
