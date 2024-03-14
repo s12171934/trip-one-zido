@@ -25,7 +25,7 @@ public class PlanService {
         responsePlanDetail = planMapper.getPlan(requestSessionTarget);
 
         // getSpot
-        responsePlanDetail.setResponseSpotPlans(planMapper.getSpot(id));
+        responsePlanDetail.setSpotPlans(planMapper.getSpot(id));
 
         // getOwner
         responsePlanDetail.setMembers(contentMapper.getOwner(id));

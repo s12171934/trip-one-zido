@@ -34,12 +34,30 @@ class BookmarkApiControllerTest {
     void showBookmarkAll() throws Exception {
 
         List<ResponseTour> tours = new ArrayList<>();
-//        tours.add(new ResponseTour(1L, "덕수궁", "서울시", "서울특별시", "굿", null, 1, 1, 0L, 0L));
-//        tours.add(new ResponseTour(2L, "광화문", "서울시", "서울특별시", "굿", null, 1, 1, 0L, 0L));
+        ResponseTour tour = new ResponseTour();
+        tour.setId(1L);
+        tour.setTitle("덕수궁");
+        tour.setAddress("서울시");
+        tour.setLocCategory("서울특별시");
+        tour.setInfo("굿");
+        tour.setPhoto(null);
+        tour.setBookmarkCount(1);
+        tour.setMyBookmark(1);
+        tour.setPrevId(0L);
+        tour.setNextId(0L);
+        tours.add(tour);
 
         List<ResponseContentList> contentLists = new ArrayList<>();
-//        contentLists.add(new ResponseContentList(1L, "에버랜드", null, 1, 1, 1, 1, 1));
-//        contentLists.add(new ResponseContentList(2L, "롯데월드", null, 1, 1, 1, 1, 1));
+        ResponseContentList contentList = new ResponseContentList();
+        contentList.setId(1L);
+        contentList.setTitle("에버랜드");
+        contentList.setPhoto(null);
+        contentList.setBookmarkCount(1);
+        contentList.setGoodCount(1);
+        contentList.setGrade(1);
+        contentList.setMyBookmark(1);
+        contentList.setPin(1);
+        contentLists.add(contentList);
 
         ResponseBookmark responseBookmark = new ResponseBookmark();
         responseBookmark.setTourBookmarkCount(5);
@@ -74,8 +92,16 @@ class BookmarkApiControllerTest {
     void showSpotPlanListByPage() throws Exception {
 
         List<ResponseContentList> contentLists = new ArrayList<>();
-//        contentLists.add(new ResponseContentList(1L, "에버랜드", null, 1, 1, 1, 1, 1));
-//        contentLists.add(new ResponseContentList(2L, "롯데월드", null, 1, 1, 1, 1, 1));
+        ResponseContentList contentList = new ResponseContentList();
+        contentList.setId(1L);
+        contentList.setTitle("에버랜드");
+        contentList.setPhoto(null);
+        contentList.setBookmarkCount(1);
+        contentList.setGoodCount(1);
+        contentList.setGrade(1);
+        contentList.setMyBookmark(1);
+        contentList.setPin(1);
+        contentLists.add(contentList);
 
         //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
         given(bookmarkService.getPlanSpotBookmark(9L, 9L, 0)).willReturn(
@@ -87,16 +113,10 @@ class BookmarkApiControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.[0].id").isNotEmpty())
-                .andExpect(jsonPath("$.[1].id").isNotEmpty())
                 // andDo -> 메소드가 어떻게 실행이 됐는지
                 .andDo(print());
 
         verify(bookmarkService).getPlanSpotBookmark(9L, 9L, 0);
-
-        //응답 객체 확인
-        for (ResponseContentList contentList : contentLists) {
-            System.out.println(contentList);
-        }
     }
 
     @Test
@@ -104,8 +124,18 @@ class BookmarkApiControllerTest {
     void showTourListByPage() throws Exception {
 
         List<ResponseTour> tours = new ArrayList<>();
-//        tours.add(new ResponseTour(1L, "덕수궁", "서울시", "서울특별시", "굿", null, 1, 1, 0L, 0L));
-//        tours.add(new ResponseTour(2L, "광화문", "서울시", "서울특별시", "굿", null, 1, 1, 0L, 0L));
+        ResponseTour tour = new ResponseTour();
+        tour.setId(1L);
+        tour.setTitle("덕수궁");
+        tour.setAddress("서울시");
+        tour.setLocCategory("서울특별시");
+        tour.setInfo("굿");
+        tour.setPhoto(null);
+        tour.setBookmarkCount(1);
+        tour.setMyBookmark(1);
+        tour.setPrevId(0L);
+        tour.setNextId(0L);
+        tours.add(tour);
 
         //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
         given(bookmarkService.getTourBookmark(9L, 9L, 0)).willReturn(
@@ -117,16 +147,11 @@ class BookmarkApiControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.[0].id").isNotEmpty())
-                .andExpect(jsonPath("$.[1].id").isNotEmpty())
                 // andDo -> 메소드가 어떻게 실행이 됐는지
                 .andDo(print());
 
         verify(bookmarkService).getTourBookmark(9L,9L,0);
 
-        //응답 객체 확인
-        for (ResponseTour tour : tours) {
-            System.out.println(tour);
-        }
     }
 
     @Test

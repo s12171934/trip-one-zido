@@ -41,23 +41,4 @@ public class RequestSpot {
 
     @Size(max = 20)
     List<Long> members;
-
-    public RequestSpot() {
-    }
-
-    public RequestSpot(long id, String title, boolean isPublic, LocalDateTime startDate, LocalDateTime endDate, String category, String locCategory, String address, String review, int grade, long profile, List<byte[]> photos, List<Long> members) {
-        this.id = id;
-        this.title = title;
-        this.isPublic = isPublic;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.category = category;
-        this.locCategory = locCategory;
-        this.address = address;
-        this.review = review;
-        this.grade = grade;
-        this.profile = profile;
-        this.photos = photos;
-        this.members = members;
-    }
 }
