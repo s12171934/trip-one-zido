@@ -10,10 +10,10 @@ public class ResponseMember {
     byte[] profile;
     boolean isFollow;
 
-    public ResponseMember() {
+    public ResponseMember(){
     }
 
-    public ResponseMember(Long id, String loginId, String own, byte[] profile, boolean isFollow) {
+    public ResponseMember(Long id, String loginId, String own, byte[] profile, boolean isFollow){
         this.id = id;
         this.loginId = loginId;
         this.own = own;
