@@ -18,25 +18,25 @@
       </button>
     </form>
 
-    <h1>12 건의 검색 결과</h1>
+    <h1>{{ searchData.userCount + searchData.planCount + searchData.spotCount }} 건의 검색 결과</h1>
 
     <div class="d-flex flex-row mb-6" id="subTitle">
-      <h3>계정<span>25</span></h3>
+      <h3>계정<span>{{ searchData.userCount }}</span></h3>
     </div>
 
-    <MemberList />
+    <MemberList :list="searchData.userList" />
 
     <div class="d-flex flex-row mb-6" id="subTitle">
-      <h3>일정<span>25</span></h3>
+      <h3>일정<span>{{ searchData.planCount }}</span></h3>
     </div>
 
-    <ContentList />
+    <ContentList :list="searchData.planList" />
 
     <div class="d-flex flex-row mb-6" id="subTitle">
-      <h3>장소<span>25</span></h3>
+      <h3>장소<span>{{ searchData.spotCount }}</span></h3>
     </div>
 
-    <ContentList />
+    <ContentList :list="searchData.spotList" />
   </main>
 </template>
 
@@ -48,6 +48,11 @@ export default {
   components: {
     ContentList,
     MemberList,
+  },
+  data(){
+    return{
+      searchData: this.$zido.getSearchData(this.$route.params.keyword)
+    }
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);

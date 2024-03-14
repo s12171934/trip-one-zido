@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     passwordCheck() {
-      if (this.resetPw === this.resetPwCheck) {
+      if (this.$zido.resetPassword) {
         this.modal = "resetPasswordSuccess";
       } else {
         this.modal = "resetPasswordFail";

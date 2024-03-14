@@ -1,456 +1,433 @@
 <template>
-      <section id="main" class="wrapper">
-        <form id="split-container" class="d-flex flex-row">
-            
-            <!-- ★왼쪽 -->
-            <div class="p-2 d-flex flex-column border-end" id="leftSide">
-                <!-- <div style="text-align: left;"> -->
-                <div>
-                    <h1 class="title" id="title">일정 등록</h1>
-                    <br>
-                </div>
-                <div class="p-2 d-flex flex-row" id="blank">
-                    <h4>일정 제목</h4>
-                    <input type="text" value="" id="trip-state-button">
-                        <div class="btn-group" id="trip-state-button-group" role="group" aria-label="Basic radio toggle button group">
-                            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
-                            <label class="btn btn-outline-primary" for="btnradio1">여행전</label>
-                            
-                            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="btnradio2">여행중</label>
-                            
-                            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-                            <label class="btn btn-outline-primary" for="btnradio3">여행한</label>
-                        </div>
-                </div>
+  <main class="wrapper d-flex">
+    <div class="p-2 d-flex flex-column border-end" id="leftSide">
+      <div class="d-flex justify-content-between me-5">
+        <h1 @click="console.log(status)" class="title">
+          일정 {{ mode === 'add' ? '등록' : '수정' }}
+        </h1>
+        <div class="w-50">
+          <div class="d-flex justify-content-between">
+            <span>여행할</span>
+            <span>여행중</span>
+            <span>여행한</span>
+          </div>
+          <input
+            type="range"
+            class="form-range custom-range p-3"
+            min="0"
+            max="2"
+            step="1"
+            v-model="status"
+          />
+        </div>
+      </div>
+      <table>
+        <tr>
+          <td scope="col">
+            <h4>일정 제목</h4>
+          </td>
+          <td scope="col-2">
+            <input type="text" v-model="title" />
+          </td>
+        </tr>
 
-                <div class="p-2 d-flex" id="blank"><h4>기간</h4>
-                    <label for="start_date"></label>
-                    <input class="flex-fill" type="date" id="start_date" name="start_date">
-                    <h4>~</h4>
-                    <label for="end_date"></label>
-                    <input class="flex-fill" type="date" id="end_date" name="end_date">
-                </div>
-
-                <div class="p-2 d-flex border-bottom"><h4 id="with">동행인</h4> &nbsp;&nbsp;
-                    <!-- <form action="send_email.php" method="POST"> -->
-                    <label for="email1"></label>
-                    <input class="flex-fill" type="email" id="email" name="email1"><br><br>
-
-                    <label for="email2"></label>
-                    <input class="flex-fill" type="email" id="email" name="email2"><br><br>
-
-                    <label for="email3"></label>
-                    <input class="flex-fill" type="email" id="email" name="email3"><br><br>
-                    <!-- 필요한 만큼 이메일 주소 입력 필드를 추가할 수 있음 -->
-                    <!-- </form> -->
-                    <div class="actions vertical small" id="plusButton">
-                        <button id ="buttonBackground"><img src="/images/plusbutton.png" width="25" height="25"></button>
-                    </div>
-                </div>
-    
-                <div class="p-2 mt-3 border-bottom"><h4> 지도 </h4>
-                    <!-- Google 지도를 삽입할 영역 -->
-                    <iframe
-                    id="map"
-                    width="600"
-                    height="300"
-                    frameborder="0"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3164.529575556133!2d127.02654691567728!3d37.497953624024396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357ca31a218db503%3A0x72a372df19cf7b95!2z7ISc7Jq47Yq567OE7IucIOyWtOyKpO2PrCDshozqs6DsiJzsnbTsiqTqtawg67Cg7J2067aAIDQwMC00MA!5e0!3m2!1sko!2skr!4v1645788148025!5m2!1sko!2skr"
-                    allowfullscreen>
-                    </iframe>
-                </div>
-
-                <div class="p-2 d-flex mt-3" id="trip-review"><h4>여행한 후기</h4> 
-                    <div class="rating flex-fill" id="star">
-                        <span onclick=rateStar(10)>☆</span>
-                        <span onclick=rateStar(8)>☆</span>
-                        <span onclick=rateStar(6)>☆</span>
-                        <span onclick=rateStar(4)>☆</span>
-                        <span onclick=rateStar(2)>☆</span>
-                    </div>
-                    <p class="flex-fill" id="ratingValue">별점을 선택하세요.</p>
-                </div>
-                <!-- 여행후기 -->
-                <div class="p-2">
-                    <!-- <form action="submit_post.php" method="POST">             -->
-                        <textarea id="content" name="content" rows="5" cols="50"></textarea>
-                    <!-- </form> -->
-                </div>
+        <tr>
+          <td>
+            <h4>기간</h4>
+          </td>
+          <td>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="date-time">
+                <input
+                  @change="checkOtherDate('start')"
+                  class="border-0"
+                  type="date"
+                  v-model="startDate"
+                />
+              </div>
+              <h4>~</h4>
+              <div class="date-time">
+                <input
+                  @change="checkOtherDate('end')"
+                  class="border-0"
+                  type="date"
+                  v-model="endDate"
+                />
+              </div>
             </div>
-
-            <!-- ★오른쪽 -->
-            <div class="p-2 d-flex flex-column border-end" id="rightSide">
-                <div class="p-2 d-flex flex-row" id="title">
-                    <h4 id="title2">여행 중 일정 및 장소</h4>
-                    &nbsp;&nbsp;
-                        <div class="select-wrapper" >
-                            <select class="form-control" name="category">
-									<option value="" selected>지역 선택</option>
-									<option v-for="location in selectLocations" :value="location">
-									{{ location }}
-									</option>
-                            </select>
-						</div>
-                    <br>
-                </div>
-
-                <div class='demo-app-main'>
-                <FullCalendar
-                    class='demo-app-calendar'
-                    :options='calendarOptions'>
-                    
-                    <template v-slot:eventContent='arg'>
-                    <b>{{ arg.timeText }}</b>
-                    <i>{{ arg.event.title }}</i>
-                    </template>
-                </FullCalendar>
-                </div>
-
-
-                <div class="p-2 d-flex flex-row">
-                    <div class="select-wrapper">
-                        <select class ="local-select" name="category" id="security">
-                            <option value="" selected>공개 설정</option>
-                            <option value="1">공개</option>
-                            <option value="2">비공개</option>
-                        </select>
-                    </div>
-                    <div class="input-add-cancle">
-                        <input id="input" class="button small" type="submit" value="등록">
-                        <input class="button alt small" type="button" value="취소"
-                        onclick="location.href='/html-css/main/detail.html'">
-                    </div>
-                </div>
-                    
-                <!-- Break1 -->
-				<div class="p-1 12u$">
-					<ul class="actions">
-					<!-- Button trigger modal -->
-					<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-						게시글등록 모달
-					</button>
-
-					<!-- Modal -->
-					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-						<!-- Vertically centered scrollable modal -->
-						<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-							<div class="modal-content">
-								<div class="modal-header border border-0">
-								<!-- <h1 class="modal-title fs-5" id="exampleModalLabel">타이틀 없애고</h1> -->
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-								</div>
-
-								<div class="m-5 modal-body border rounded-3" id="modalBox">
-								<h3>게시물 등록이</h3>
-								<h3>완료되었습니다</h3>
-								</div>
-
-								<div class="modal-footer border border-0">
-								<!-- <button type="button" class="btn btn-secondary" >로그인하러가기</button> -->
-								<button type="button" class="rounded-3" id="modalButton" 
-                                    onclick="location.href='/schedule/detail/detail.html'">목록가기</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					</ul>
-				</div>
-
+          </td>
+        </tr>
+        <tr>
+          <td><h4>동행인</h4></td>
+          <td>
+            <div class="d-flex align-items-center">
+              <div class="member-container d-flex">
+                <input
+                  @contextmenu.prevent="delMember(idx)"
+                  v-for="(_, idx) in members"
+                  type="text"
+                  v-model="members[idx]"
+                  class="member m-1"
+                />
+              </div>
+              <img
+                @click="addMember"
+                src="/images/plusbutton.png"
+                width="25"
+                height="25"
+                id="plusMember"
+              />
             </div>
+          </td>
+        </tr>
 
-        </form>
-    </section>
+        <tr>
+          <td>
+            <h4>여행 장소 카테고리</h4>
+          </td>
+          <td>
+            <div class="select-wrapper">
+              <select class="local-select" name="category">
+                <option value="" selected>지역 선택</option>
+                <option v-for="location in selectLocations" :value="location">
+                  {{ location }}
+                </option>
+              </select>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td colspan="2">
+            <h4>지도</h4>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <KakaoMapForEditPlan />
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <h4>여행한 후기</h4>
+          </td>
+          <td>
+            <div class="rating">
+              <span>☆</span>
+              <span>☆</span>
+              <span>☆</span>
+              <span>☆</span>
+              <span>☆</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <textarea id="content" name="content" rows="5" cols="50" />
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- ★오른쪽 -->
+    <div class="p-2 d-flex flex-column" id="rightSide">
+      <FullCalendar
+        class="h-100"
+        ref="FullCalendar"
+        :options="calendarOptions"
+        data-bs-toggle="modal"
+        data-bs-target="#spotModal"
+      />
+      <table>
+        <tr>
+          <td>
+            <div class="select-wrapper" id="security">
+              <select class="local-select" name="category">
+                <option value="" selected>공개 설정</option>
+                <option value="1">공개</option>
+                <option value="2">비공개</option>
+              </select>
+            </div>
+          </td>
+          <td>
+            <div class="m-0 d-flex justify-content-end gap-2">
+              <input
+                @click="$router.push('/member-page')"
+                id="input"
+                class="button small"
+                type="submit"
+                :value="mode === 'add' ? '등록' : '수정'"
+              />
+              <input
+                @click="$router.push('/member-page')"
+                class="button alt small"
+                type="button"
+                value="취소"
+              />
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </main>
+  <EditSpotModal
+    :editData="spotData"
+    :mode="editSpotMode"
+    :event="calendarEvent"
+    @add="addSpot"
+    @edit="editSpotDetail"
+    @delete="deleteSpot"
+  />
 </template>
 
 <script>
-import FullCalendar from '@fullcalendar/vue3'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import timeGridPlugin from '@fullcalendar/timegrid'
-import interactionPlugin from '@fullcalendar/interaction'
+import EditSpotModal from "./EditSpotModal.vue";
+import FullCalendar from "@fullcalendar/vue3";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import koLocale from "@fullcalendar/core/locales/ko";
 import data from "/src/assets/data.js";
-
-export function rateStar(stars) {
-    document.getElementById('ratingValue').innerText = '별점: ' + stars + '점';
-}
-
-let eventGuid = 0
-let todayStr = new Date().toISOString().replace(/T.*$/, '') // YYYY-MM-DD of today
-
-export const INITIAL_EVENTS = [
-  {
-    id: createEventId(),
-    title: 'All-day event',
-    start: todayStr
-  },
-  {
-    id: createEventId(),
-    title: 'Timed event',
-    start: todayStr + 'T12:00:00'
-  }
-]
-
-export function createEventId() {
-  return String(eventGuid++)
-}
+import KakaoMapForEditPlan from "../util/KakaoMapForEditPlan.vue";
 
 export default {
-    components: {
-    FullCalendar // make the <FullCalendar> tag available
-    },
-    data() {
+  components: {
+    FullCalendar,
+    EditSpotModal,
+    KakaoMapForEditPlan,
+  },
+  data() {
     return {
-        selectLocations: data.selectLocations,
+      mode: this.$route.params.mode,
+      selectLocations: data.selectLocations,
+      status: 0,
+      members: [""],
+      startDate: "",
+      endDate: "",
+      editSpotMode: "",
+      spotId: 0,
+      refresh: 0,
+      spots: {},
+      calendarEvent: null,
+      spotData: null,
+      popUpOptions:
+        "toolbar=no,resizable=yes,status=no,width=800,height=1000,top=0,left=0",
 
-        calendarOptions: {
-        plugins: [
-          dayGridPlugin,
-          timeGridPlugin,
-          interactionPlugin // needed for dateClick
-        ],
-        headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek,timeGridDay'
+      calendarOptions: {
+        plugins: [timeGridPlugin, interactionPlugin],
+        initialView: "timeGridDay",
+        views: {
+          timeGridDay: {
+            type: "timeGrid",
+            duration: { days: 4 },
+          },
         },
-        initialView: 'timeGridWeek',
-        initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
-        editable: true,
+        dayHeaderFormat: {
+          weekday: "short",
+          month: "numeric",
+          day: "numeric",
+          omitCommas: true,
+        },
+        locale: koLocale,
+        headerToolbar: false,
+        allDaySlot: false,
         selectable: true,
-        selectMirror: true,
-        dayMaxEvents: true,
-        weekends: true,
+        slotMinTime: "06:00:00",
         select: this.handleDateSelect,
         eventClick: this.handleEventClick,
-        eventsSet: this.handleEvents
-        },
-        currentEvents: [],
-        }
-    },
+        eventColor: "#ff928e",
+      },
+    };
+  },
 
-    methods: {
-    handleWeekendsToggle() {
-      this.calendarOptions.weekends = !this.calendarOptions.weekends // update a property
-    },
-
+  methods: {
     handleDateSelect(selectInfo) {
-      let title = prompt('Please enter a new title for your event')
-      let calendarApi = selectInfo.view.calendar
+      this.editSpotMode = "add";
+      this.calendarEvent = selectInfo;
 
-      calendarApi.unselect() // clear date selection
-
-      if (title) {
-        calendarApi.addEvent({
-          id: createEventId(),
-          title,
-          start: selectInfo.startStr,
-          end: selectInfo.endStr,
-          allDay: selectInfo.allDay
-        })
-      }
+      this.spotData = {
+        photos: [],
+        title: "",
+        category: "",
+        address: "",
+        address2: "",
+        rate: 0,
+        review: "",
+      };
     },
 
     handleEventClick(clickInfo) {
-      if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-        clickInfo.event.remove()
-      }
+      this.editSpotMode = "edit";
+      this.calendarEvent = clickInfo;
+
+      const id = clickInfo.event._def.publicId;
+      this.spotData = this.spots[id];
     },
 
-    handleEvents(events) {
-      this.currentEvents = events
+    addMember() {
+      this.members.push("");
+    },
+    delMember(idx) {
+      this.members.splice(idx, 1);
     },
 
     toggle(content) {
       content.myBookmark = !content.myBookmark;
     },
-  }
-}
-    document.addEventListener('DOMContentLoaded', function () {
-        var buttons = document.querySelectorAll('.btn-outline-primary');
-        buttons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                // Remove the 'active' class from all buttons
-                buttons.forEach(function (btn) {
-                    btn.classList.remove('active');
-                });
+    setCalendarByDate() {
+      const start = new Date(this.startDate);
+      const end = new Date(this.endDate);
+      let days = end.getTime() - start.getTime();
+      console.log(days);
+      days = Math.ceil(days / (1000 * 60 * 60 * 24)) + 1;
 
-                // Add the 'active' class to the clicked button
-                button.classList.add('active');
-            });
-        });
-    });
+      const calendarApi = this.$refs.FullCalendar.getApi();
+      this.calendarOptions.views.timeGridDay.duration.days = days;
+      this.calendarOptions.firstDay = start.getDay();
+      calendarApi.gotoDate(this.startDate);
+    },
+    checkOtherDate(type) {
+      const start = new Date(this.startDate);
+      const end = new Date(this.endDate);
+      let days = end.getTime() - start.getTime();
+      console.log(days);
 
+      if (days < 0 || !days) {
+        if (type === "start") {
+          this.endDate = this.startDate;
+        } else {
+          this.startDate = this.endDate;
+        }
+      }
+      this.setCalendarByDate();
+    },
+    addSpot(calendarEvent, spotData) {
+      const calendarApi = calendarEvent.view.calendar;
+      calendarApi.addEvent({
+        id: ++this.spotId,
+        title: spotData.title,
+        start: calendarEvent.startStr,
+        end: calendarEvent.endStr,
+      });
+      const newSpot = JSON.parse(JSON.stringify(spotData));
+      newSpot.id = this.spotId;
+      newSpot.start = calendarEvent.startStr;
+      newSpot.end = calendarEvent.endStr;
+      this.spots[this.spotId] = newSpot;
+    },
+    editSpotDetail(calendarEvent, spotData) {
+      calendarEvent.event.setProp("title", spotData.title);
+      const id = calendarEvent.event._def.publicId;
+      const newSpot = JSON.parse(JSON.stringify(spotData));
+      this.spots[id].photos = newSpot.photos;
+      this.spots[id].title = newSpot.title;
+      this.spots[id].category = newSpot.category;
+      this.spots[id].address = newSpot.address;
+      this.spots[id].address2 = newSpot.address2;
+      this.spots[id].rate = newSpot.rate;
+      this.spots[id].review = newSpot.review;
+
+      console.log(this.spots);
+    },
+    deleteSpot(calendarEvent) {
+      calendarEvent.event.remove();
+      const id = calendarEvent.event._def.publicId;
+      delete this.spots[id];
+
+      console.log(this.spots);
+    },
+  },
+  mounted() {
+    this.$emit("meta", this.$route.matched[0].meta.isLogin);
+  },
+};
 </script>
 
 <style scoped>
-
-.select-wrapper {
-    font-size: small;
+main > div {
+  width: 50%;
+  padding: 20px;
 }
 
-h1, h2, h3, h4, h5, body, .button, #security, .rating, #ratingValue {
-  font-family: 'Jalnan';
+h4 {
+  margin: 0;
 }
 
-h4, #email {
-  color: rgb(0, 0, 0) !important;
+td {
+  min-width: 170px;
 }
 
-
-/* 달력 */
-html, body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-    /* font-size: 14px; */
+.member-container {
+  overflow: scroll;
+  overflow-y: hidden;
+  height: 100%;
+  width: 500px;
 }
 
-#calendar {
-    width: 90%;
-    max-width: 1100px;
-    margin: 40px auto;
+.member {
+  width: 200px;
 }
 
-/* 별점주기 */
+.date-time {
+  display: flex;
+  padding: 2% 4%;
+  box-shadow: 0 0 0 1px #dee1e3 inset;
+  border-radius: 0.5rem;
+}
+
+#plusMember {
+  margin: 2%;
+}
+
 .rating {
-    unicode-bidi: bidi-override;
-    direction: rtl;
-    text-align: left;
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  text-align: left;
+  padding-left: 1rem;
+  color: #ff928e;
 }
 
-.rating>span {
-    display: inline-block;
-    position: relative;
-    width: 1.1em;
+.rating > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
 }
 
-.rating>span:hover:before,
-.rating>span:hover~span:before {
-    content: "\2605";
-    position: absolute;
-}
-/* 화면 나누기 */
-#split-container {
-display: flex;
-width: 100%;
-}
-#split-container > div {
-    width: 50%;
-    padding: 20px;
-}
-/* 지도 크기 설정 */
-#map {
-    height: 400px;
-    width: 100%;
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+  content: "\2605";
+  position: absolute;
 }
 
-input{
-    font-family: 'Jalnan' !important;
+textarea {
+  resize: none;
 }
 
-#input {
-    color:white !important;
-    background-color: #ff928e !important;
+.custom-range::-webkit-slider-thumb {
+  background: #ff928e;
 }
 
-.flex-fill {
-    color: #ff928e;
+.custom-range::-moz-range-thumb {
+  background: #ff928e;
 }
 
-#start_date, #end_date {
-    color: black;
-    margin-right: 10px; margin-left: 10px;
+.custom-range::-ms-thumb {
+  background: #ff928e;
 }
+</style>
 
-#content{
-        resize: none;
+<style>
+.fc-day-today {
+  background-color: inherit !important;
 }
-
-/* refactoring */
-
-#main {
-    margin-left: 5%;
-    margin-right: 5%;
-    margin-top: -3%;
+.fc-col-header-cell-cushion {
+  text-decoration: none;
+  color: #ff928e;
 }
-
-#leftSide {
-    margin-right: auto;
+colgroup col {
+  width: 100px !important;
 }
-
-#leftSide #title {
-    color:#ff928e;
-    /* margin-top:5% */
-}
-
-#trip-state-button {
-    margin-right: 10px; 
-    margin-left: 10px;
-    width: 40%;
-    height: 70%;
-}
-
-#email {
-    margin-right: 5px; 
-    margin-left: 5px; 
-    width: 20%; 
-    height: 70%;
-    margin-top: 2%
-}
-
-#with {
-    margin-top: 2%
-}
-
-#buttonBackground {
-    background-color: white;
-}
-
-#map {
-    border: 0;
-}
-
-#rightSide {
-    margin-left: 3%;
-}
-
-#rightSide #title {
-    margin-top: 15%
-}
-
-#rightSide #title #title2 {
-    margin-top: 2%
-}
-
-.select-wrapper {
-    width: 20%
-}
-
-.input-add-cancle {
-    margin-left: auto
-}
-
-#star {
-    margin-right: 10px;
-    margin-left: 100px;
-}
-
-#trip-review {
-    margin-bottom:-1%
-}
-
-/* .btn-check:checked {
-    color :#ff928e ;
-} */
-
-.btn-check:checked + .btn-outline-primary::before {
-    background-color: #ff928e;
-}
-.btn-check:checked + .btn-outline-primary:focus {
-    border-color:#ff928e;
-}
-
-#app {
-    height: auto;
+.fc-scrollgrid-shrink-cushion {
+  margin-right: 3%;
 }
 </style>

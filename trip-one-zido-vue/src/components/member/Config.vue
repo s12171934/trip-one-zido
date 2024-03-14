@@ -7,7 +7,7 @@
       <div class="w-50">
         <div class="d-flex align-items-center">
           <div class="d-flex flex-column gap-2">
-            <img :src="userData.imgSrc" alt="" class="rounded-circle" />
+            <img :src="configData.imgSrc" alt="" class="rounded-circle" />
             <button
               class="button rounded-5"
               data-bs-toggle="modal"
@@ -16,7 +16,7 @@
               프로필 사진 편집
             </button>
           </div>
-          <h1>{{ userData.loginId }}</h1>
+          <h1>{{ configData.loginId }}</h1>
         </div>
 
         <hr />
@@ -24,6 +24,10 @@
           @follower="followType = 'follower'"
           @following="followType = 'following'"
           @bookmark="$router.push('/bookmark')"
+          :totalBoard="configData.totalBoard"
+          :followerCount="configData.followerCount"
+          :followingCount="configData.followingCount"
+          :bookmarkCount="configData.bookmarkCount"
         />
       </div>
       <div
@@ -35,10 +39,14 @@
           <hr />
           <ul>
             <li>
-              <h3><a @click="$router.push('/member-info')"> 회원 정보 수정 </a></h3>
+              <h3>
+                <a @click="$router.push('/member-info')"> 회원 정보 수정 </a>
+              </h3>
             </li>
             <li>
-              <h3><a @click="$router.push('/recent-view')"> 최근 본 게시물 </a></h3>
+              <h3>
+                <a @click="$router.push('/recent-view')"> 최근 본 게시물 </a>
+              </h3>
             </li>
             <li>
               <h3><a @click="$router.push('/reset-pw')"> 비밀번호 변경 </a></h3>
@@ -54,14 +62,18 @@
 
   <EditProfileModal />
 
-  <FollowModal :type="followType" />
+  <FollowModal
+    :type="followType"
+    :followList="
+      $zido.getFollowList(followType, configData.id, configData.sessionId)
+    "
+  />
 </template>
 
 <script>
 import NumberSummary from "../util/NumberSummary.vue";
 import EditProfileModal from "../util/modal/EditProfileModal.vue";
 import FollowModal from "../util/modal/FollowModal.vue";
-import data from "@/assets/data.js";
 
 export default {
   components: {
@@ -71,8 +83,7 @@ export default {
   },
   data() {
     return {
-      userData: data.userProfiles[2],
-      editProfile: false,
+      configData: this.$zido.getConfigData(),
       followType: "",
     };
   },

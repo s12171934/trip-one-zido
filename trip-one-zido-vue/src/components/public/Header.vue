@@ -20,8 +20,11 @@
           <input type="text" id="headerSearchBar" v-model="keyword" required />
         </form>
         <span class="image round d-flex h-100 align-items-center" box-sha>
-            <img @click="$router.push('/member-page')" src="/images/남자.png" height="75" />
-  
+          <img
+            @click="$router.push('/member-page')"
+            :src="$zido.getProfileImg()"
+            height="75"
+          />
         </span>
       </nav>
       <nav v-else class="right d-flex gap-2 align-items-center">
@@ -41,20 +44,41 @@
       <li>
         <a @click="toggleAddMenu">게시글 등록</a>
         <ul id="add" v-if="addMenu">
-          <li><a @click="goTo('/plan/add')" data-bs-dismiss="offcanvas">일정 게시글 등록</a></li>
-          <li><a @click="goTo('/spot/add')" data-bs-dismiss="offcanvas">장소 게시글 등록</a></li>
-          <li><a @click="goTo('/community/add')" data-bs-dismiss="offcanvas">커뮤니티 게시글 등록</a></li>
+          <li>
+            <a @click="goTo('/add/plan')" data-bs-dismiss="offcanvas"
+              >일정 게시글 등록</a
+            >
+          </li>
+          <li>
+            <a @click="goTo('/add/spot')" data-bs-dismiss="offcanvas"
+              >장소 게시글 등록</a
+            >
+          </li>
+          <li>
+            <a @click="goTo('/add/community')" data-bs-dismiss="offcanvas"
+              >커뮤니티 게시글 등록</a
+            >
+          </li>
         </ul>
       </li>
-      <li><a @click="goTo('/community')" data-bs-dismiss="offcanvas">커뮤니티</a></li>
-      <li><a @click="goTo('/recent-view')" data-bs-dismiss="offcanvas">최근기록</a></li>
-      <li><a @click="goTo('/bookmark')" data-bs-dismiss="offcanvas">찜목록</a></li>
-      <li><a @click="goTo('/tour/loc')" data-bs-dismiss="offcanvas">관광정보</a></li>
+      <li>
+        <a @click="goTo('/community')" data-bs-dismiss="offcanvas">커뮤니티</a>
+      </li>
+      <li>
+        <a @click="goTo('/recent-view')" data-bs-dismiss="offcanvas"
+          >최근기록</a
+        >
+      </li>
+      <li>
+        <a @click="goTo('/bookmark')" data-bs-dismiss="offcanvas">찜목록</a>
+      </li>
+      <li>
+        <a @click="goTo('/tour/loc')" data-bs-dismiss="offcanvas">관광정보</a>
+      </li>
       <li><a @click="logout">로그아웃</a></li>
     </ul>
     <a
       href="#menu"
-      @click="toggleMenu"
       class="close"
       data-bs-dismiss="offcanvas"
       aria-label="Close"
@@ -72,13 +96,10 @@ export default {
     return {
       menu: false,
       addMenu: false,
-      keyword: ""
+      keyword: "",
     };
   },
   methods: {
-    toggleMenu() {
-      this.menu = !this.menu;
-    },
     toggleAddMenu() {
       this.addMenu = !this.addMenu;
     },
@@ -87,9 +108,9 @@ export default {
       this.$cookies.remove("autoLogin");
       location.href = "/welcome";
     },
-    goTo(path){
+    goTo(path) {
       this.$router.push(path);
-    }
+    },
   },
 };
 </script>

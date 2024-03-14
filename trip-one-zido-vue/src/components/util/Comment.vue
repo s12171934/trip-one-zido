@@ -1,0 +1,111 @@
+<template>
+  <div class="d-flex mb-3 w-100">
+    <div class="flex-shrink-0">
+      <img
+        class="rounded-circle"
+        :src="data.imgSrc"
+        alt="..."
+        id="commentProfilePic"
+      />
+    </div>
+    <div class="ms-3 w-100">
+      <div class="d-flex gap-5">
+        <span class="fw-bold">{{ data.loginId }}</span>
+        <div v-if="true && !editComment" class="d-flex gap-2 edit-comment">
+          <span @click="editComment = !editComment" class="fw-bold">수정</span>
+          <span @click="$zido.deleteComment(data.id)" class="fw-bold">삭제</span>
+        </div>
+      </div>
+      <form
+        @submit.prevent="edit"
+        v-if="editComment"
+        class="border-bottom mb-3"
+      >
+        <input
+          v-model="data.comment"
+          type="text"
+          class="form-control me-3"
+        />
+        <button class="button alt" type="submit" id="comment">수정</button>
+      </form>
+      <span v-else>{{ data.comment }}</span>
+      
+      <div v-if="first">
+        <small
+          ><b
+            ><span @click="addNestedComment = !addNestedComment">답글</span></b
+          ></small
+        >
+      </div>
+      <form
+        @submit.prevent="$zido.addComment(data.id, comment)"
+        v-if="addNestedComment"
+        class="border-bottom mb-3"
+      >
+        <input
+          v-model="comment"
+          type="text"
+          class="form-control me-3"
+          placeholder="답글 추가하기"
+        />
+        <button class="button alt" type="submit" id="comment">등록</button>
+      </form>
+      <Comment
+        v-if="data.commentList"
+        v-for="comment in data.commentList"
+        :first="false"
+        :data="comment"
+      />
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    data: Object,
+    first: Boolean,
+  },
+  data() {
+    return {
+      addNestedComment: false,
+      editComment: false,
+      comment: ""
+    };
+  },
+  methods: {
+    edit(){
+      this.$zido.editComment(this.data.id, this.comment);
+      this.editComment = false;
+    }
+  }
+};
+</script>
+
+<style scoped>
+form {
+  display: flex;
+  width: 100%;
+  padding-bottom: 1rem;
+  margin-top: 0.5rem;
+}
+
+#plusComment {
+  color: darkgray;
+  text-decoration: none;
+}
+
+#addedComment {
+  text-decoration: none;
+}
+
+.edit-comment {
+  color: darkgray;
+  text-decoration: none;
+}
+
+#commentProfilePic {
+  width: 75px;
+  height: 75px;
+}
+</style>

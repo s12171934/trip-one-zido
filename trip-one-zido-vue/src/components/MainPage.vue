@@ -4,12 +4,12 @@
       <a href="#"><img src="/images/여행한지도_로고.png" /></a>
     </div>
 
-    <form action="/html-css/search/search.html">
+    <form @submit.prevent="$router.push(`/search/${keyword}`)">
       <div class="searchbar-wrap">
         <!-- <input class="search-input" type="text"/> -->
         <i class="icon fa-search"></i>
         <input
-          name="keyword"
+          v-model="keyword"
           type="text"
           class="search-input"
           placeholder="검색어를 입력해주세요"
@@ -18,25 +18,30 @@
     </form>
 
     <div class="buttons">
-      <a href="/member-page" class="button" id="buttons"
+      <a @click="$router.push('/member-page')" class="button" id="buttons"
         >마이페이지</a
       >
       <a
-        href="/community"
+      @click="$router.push('/community')"
         class="button"
         id="buttons"
         >커뮤니티</a
       >
-      <a href="/tour/loc" class="button" id="buttons"
+      <a @click="$router.push('/tour/loc')" class="button" id="buttons"
         >관광정보</a
       >
-      <a href="/bookmark" class="button" id="buttons">찜</a>
+      <a @click="$router.push('/bookmark')" class="button" id="buttons">찜</a>
     </div>
   </main>
 </template>
 
 <script>
 export default {
+  data(){
+    return{
+      keyword: ""
+    }
+  },
   mounted(){
     this.$emit("meta",this.$route.matched[0].meta.isLogin);
   }

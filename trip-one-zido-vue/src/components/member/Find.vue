@@ -28,7 +28,6 @@
           <input type="text" v-model="pwName" placeholder="이름" />
           <input type="email" v-model="pwEmail" placeholder="이메일 주소" />
         </div>
-        <button @click="loginIdModal">dddd</button>
         <a
           @click="securityModal"
           id="input"
@@ -42,7 +41,7 @@
   </main>
 
   <AlertModal :modal="modal" />
-  <SecurityModal />
+  <SecurityModal @securityFail="modal='findPasswordFail'" :securityId="securityId" />
 </template>
 
 <script>
@@ -57,6 +56,7 @@ export default {
   data() {
     return {
       security: false,
+      securityId: null,
       loginIdName: "",
       loginIdEmail: "",
       pwLoginId: "",
@@ -67,17 +67,15 @@ export default {
   },
   methods: {
     loginIdModal() {
-      if (this.loginIdName === "test") {
+      if (this.$zido.findId()) {
         this.modal = "findLoginIdSuccess";
+        console.log(document.getElementById("findId"))
       } else {
         this.modal = "findLoginIdFail";
       }
     },
     securityModal() {
-      if (this.pwLoginId === "test") {
-      } else {
-        this.modal = "findPasswordFail";
-      }
+      this.securityId = this.$zido.findPassword();
     },
   },
   mounted() {

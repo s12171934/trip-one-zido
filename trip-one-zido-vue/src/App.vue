@@ -73,4 +73,18 @@ main {
 * {
   font-family: "Jalnan" !important;
 }
+
+h1 {
+  color: #ff928e !important;
+}
+
+
+h3 {
+  color: rgb(80, 80, 80) !important;
+}
+
+h4,
+#email {
+  color: rgb(0, 0, 0) !important;
+}
 </style>

@@ -17,12 +17,16 @@
           ></button>
         </div>
 
-        <div class="m-5 modal-body border rounded-3" id="modalBox">
+        <div
+          v-if="securityId"
+          class="m-5 modal-body border rounded-3"
+          id="modalBox"
+        >
           <input
             type="text"
             name="answer"
             id="answer"
-            value="보안질문"
+            :value="$zido.getSecurityQuestion(securityId)"
             readonly
           />
           <input
@@ -34,8 +38,13 @@
           />
         </div>
 
+        <div v-else class="m-5 modal-body border rounded-3" id="modalBox">
+          <h3>비밀번호 찾기에<br />실패했습니다.</h3>
+        </div>
+
         <div class="modal-footer border border-0">
           <button
+            v-if="securityId"
             @click="checkSecurity"
             type="button"
             class="rounded-3"
@@ -44,32 +53,44 @@
           >
             보안답안 제출하기
           </button>
+          <button
+          v-else
+            @click="$router.push('/find')"
+            type="button"
+            class="rounded-3"
+            data-bs-dismiss="modal"
+          >
+            재시도
+          </button>
           <!-- <button type="button" class="rounded-3" style="color: aliceblue; background-color:#ff928e;" data-bs-dismiss="modal">아이디찾기</button> -->
         </div>
       </div>
     </div>
   </div>
-
-  <AlertModal :modal="modal" />
 </template>
 
 <script>
-import AlertModal from "../modal/AlertModal.vue";
+import AlertModal from "./AlertModal.vue";
 
 export default {
+  props: {
+    securityId: Number,
+  },
   components: {
     AlertModal,
   },
   data() {
     return {
       answer: "",
-      modal: "securityFail"
     };
   },
   methods: {
     checkSecurity() {
-      if (this.answer === "정답") {
-        this.$router.push('reset-pw');
+      if (this.$zido.checkSecurityAnswer()) {
+        location.href = `/reset-pw/${this.securityId}`
+      }
+      else{
+        this.$emit('securityFail')
       }
     },
   },

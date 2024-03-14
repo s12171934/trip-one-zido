@@ -24,7 +24,7 @@
         </div>
 
         <div class="modal-footer border border-0">
-          <button @click="goTo" type="button" class="rounded-3" data-bs-dismiss="modal">
+          <button @click="$router.push(modalData.url)" type="button" class="rounded-3" data-bs-dismiss="modal">
             {{ modalData.buttonMessage }}
           </button>
           <!-- <button type="button" class="rounded-3" style="color: aliceblue; background-color:#ff928e;" data-bs-dismiss="modal">아이디찾기</button> -->
@@ -51,11 +51,6 @@ export default {
       this.modalData = data.modalDatas[this.modal]
     }
   },
-  methods: {
-    goTo(){
-      this.$router.push(this.modalData.url)
-    }
-  }
 };
 </script>
 
