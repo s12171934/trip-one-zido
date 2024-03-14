@@ -66,21 +66,29 @@
                 good
             WHERE
                 content_id = c.id
-            ) good_count
+            ) good_count,
+            (
+                SELECT
+                    created_at
+                FROM
+                    content
+                WHERE
+                    id = #{targetId}
+            ) createdAt
         FROM
             plan p,
             content c
         WHERE
             p.id = c.id AND
-            p.id = #{contentId}
+            p.id = #{targetId}
     </select>
 
-    <select id="getSpot" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseSpotPlan">
+    <select id="getSpot" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseSpotPlan">
         SELECT
             s.id,
             c.title,
-            s.start_time,
-            s.end_time
+            s.start_date,
+            s.end_date
         FROM
             spot s,
             content c
@@ -140,8 +148,8 @@
                 FROM
                     pin
                 WHERE
-                    member_id = ?
-                  AND content_id = ?
+                    member_id = #{myMemberId}
+                  AND content_id = #{targetId}
             ) pin
         FROM
             content c,
@@ -168,7 +176,7 @@
             end_date = #{endDate},
             loc_category = #{locCategory},
             review = #{review},
-            status = #{startDate},
+            status = #{status},
             grade = #{grade}
         WHERE
             id = #{id}

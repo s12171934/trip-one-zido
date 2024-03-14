@@ -11,7 +11,8 @@
             loc_category,
             address,
             review,
-            grade
+            grade,
+            profile_id
             )
         VALUE
             (
@@ -22,7 +23,8 @@
             #{locCategory},
             #{address},
             #{review},
-            #{grade}
+            #{grade},
+            #{profile}
             )
     </insert>
 
@@ -59,7 +61,7 @@
                 bookmark
             WHERE
                 content_id = c.id AND
-                member_id = #{memberId}
+                member_id = #{myMemberId}
             ) my_bookmark,
             (
             SELECT
@@ -68,13 +70,29 @@
                 good
             WHERE
                 content_id = c.id
-            ) good_count
+            ) good_count,
+            (
+                SELECT
+                    created_at
+                FROM
+                    content
+                WHERE
+                   id = #{targetId}
+            ) createdAt,
+            (
+                SELECT
+                    m.profile
+                FROM
+                    member m
+                WHERE
+                    s.profile_id = m.id
+            ) profile
         FROM
             spot s,
             content c
         WHERE
             s.id = c.id AND
-            s.id = #{contentId}
+            s.id = #{targetId}
     </select>
 
     <select id="getSpotList" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
@@ -121,8 +139,8 @@
                 FROM
                     pin
                 WHERE
-                    member_id = ?
-                  AND content_id = ?
+                    member_id = #{myMemberId}
+                  AND content_id = #{targetId}
             ) pin
         FROM
             content c,
@@ -136,10 +154,19 @@
             FROM
                 owner
             WHERE
-                member_id = #{targetId}
+                member_id = #{myMemberId}
             )
         LIMIT
             #{page}, 6
+    </select>
+
+    <select id="getPhoto" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponsePhoto">
+        SELECT
+            photo
+        FROM
+            photo
+        WHERE
+            content_id = #{id}
     </select>
 
     <update id="updateSpot" parameterType="com.example.triponezidoapi.dto.request.RequestSpot">
@@ -155,4 +182,10 @@
         WHERE
             id = #{id};
     </update>
+
+    <delete id="deletePhoto" parameterType="Long">
+        DELETE FROM photo
+        WHERE
+            content_id = #{contentId}
+    </delete>
 </mapper>

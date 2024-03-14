@@ -6,10 +6,10 @@ import java.time.LocalDateTime;
 
 @Data
 public class ResponseComment {
-    long id;
+    Long id;
     String comment;
-    long memberId;
-    long contentId;
+    Long memberId;
+    Long contentId;
     String type;
     LocalDateTime createdAt;
 }

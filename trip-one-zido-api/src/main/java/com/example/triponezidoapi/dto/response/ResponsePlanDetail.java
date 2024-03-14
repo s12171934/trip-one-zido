@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class ResponsePlanDetail {
-    long id;
+    Long id;
     LocalDateTime startDate;
     LocalDateTime endDate;
     String locCategory;
@@ -20,10 +20,11 @@ public class ResponsePlanDetail {
     int bookmarkCount;
     int myBookmark;
     String title;
-    String isPublic;
+    boolean isPublic;
     LocalDateTime createdAt;
-    List<ResponseSpotDetail> responseSpotDetails;
+    List<ResponseSpotPlan> spotPlans;
     List<ResponseMember> members;
     List<ResponseComment> comments;
     boolean isMine;
+
 }

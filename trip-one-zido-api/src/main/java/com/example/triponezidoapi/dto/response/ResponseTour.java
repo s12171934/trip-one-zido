@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class ResponseTour {
-    long id;
+    Long id;
     String title;
     String address;
     String locCategory;
