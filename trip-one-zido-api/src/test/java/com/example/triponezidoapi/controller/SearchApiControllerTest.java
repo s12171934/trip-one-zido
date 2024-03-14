@@ -41,16 +41,37 @@ class SearchApiControllerTest {
 
         ResponseSearch responseSearch = new ResponseSearch();
         List<ResponseMember> memberList = new ArrayList<>();
-        memberList.add(new ResponseMember(1L,"test01",null,null,true));
-        memberList.add(new ResponseMember(2L,"test02",null,null,false));
+        ResponseMember responseMember1 = new ResponseMember();
+        responseMember1.setId(1L);
+        responseMember1.setLoginId("test01");
+        responseMember1.setOwn(null);
+        responseMember1.setProfile(null);
+        responseMember1.setFollow(true);
+        memberList.add(responseMember1);
 
         List<ResponseContentList> planList = new ArrayList<>();
-        planList.add(new ResponseContentList(1L,"일정 검색 테스트용",null,9,1,2,5,5));
-        planList.add(new ResponseContentList(2L,"일정을 바꿔봐",null,7,12,15,30,3));
+        ResponseContentList planList1 = new ResponseContentList();
+        planList1.setId(1L);
+        planList1.setTitle("일정 검색 테스트용");
+        planList1.setPhoto(null);
+        planList1.setGrade(9);
+        planList1.setMyBookmark(1);
+        planList1.setGoodCount(2);
+        planList1.setBookmarkCount(5);
+        planList1.setPin(5);
+        planList.add(planList1);
 
         List<ResponseContentList> spotList = new ArrayList<>();
-        spotList.add(new ResponseContentList(1L,"장소 검색 테스트용",null,100,50,9,85,9));
-        spotList.add(new ResponseContentList(2L,"장소를 바꿔봐",null,102,32,8,75,4));
+        ResponseContentList spotList1 = new ResponseContentList();
+        spotList1.setId(1L);
+        spotList1.setTitle("장소 검색 테스트용");
+        spotList1.setPhoto(null);
+        spotList1.setBookmarkCount(100);
+        spotList1.setGoodCount(50);
+        spotList1.setMyBookmark(9);
+        spotList1.setGrade(85);
+        spotList1.setPin(9);
+        spotList.add(spotList1);
 
         responseSearch.setMemberList(memberList);
         responseSearch.setPlanList(planList);
@@ -94,12 +115,28 @@ class SearchApiControllerTest {
 
         ResponseSearch responseSearch = new ResponseSearch();
         List<ResponseContentList> planList = new ArrayList<>();
-        planList.add(new ResponseContentList(1L,"일정 검색 테스트용",null,9,1,2,5,5));
-        planList.add(new ResponseContentList(2L,"일정을 바꿔봐",null,7,12,15,30,3));
+        ResponseContentList planList1 = new ResponseContentList();
+        planList1.setId(1L);
+        planList1.setTitle("일정 검색 테스트용");
+        planList1.setPhoto(null);
+        planList1.setGrade(9);
+        planList1.setMyBookmark(1);
+        planList1.setGoodCount(2);
+        planList1.setBookmarkCount(5);
+        planList1.setPin(5);
+        planList.add(planList1);
 
         List<ResponseContentList> spotList = new ArrayList<>();
-        spotList.add(new ResponseContentList(1L,"장소 검색 테스트용",null,100,50,9,85,9));
-        spotList.add(new ResponseContentList(2L,"장소를 바꿔봐",null,102,32,8,75,4));
+        ResponseContentList spotList1 = new ResponseContentList();
+        spotList1.setId(1L);
+        spotList1.setTitle("장소 검색 테스트용");
+        spotList1.setPhoto(null);
+        spotList1.setBookmarkCount(100);
+        spotList1.setGoodCount(50);
+        spotList1.setMyBookmark(9);
+        spotList1.setGrade(85);
+        spotList1.setPin(9);
+        spotList.add(spotList1);
 
         responseSearch.setPlanList(planList);
         responseSearch.setSpotList(spotList);

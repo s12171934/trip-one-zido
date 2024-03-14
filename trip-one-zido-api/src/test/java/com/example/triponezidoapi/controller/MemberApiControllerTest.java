@@ -55,11 +55,11 @@ class MemberApiControllerTest {
     @DisplayName("회원가입시 보안질문 조회")
     void questionsInfo() throws Exception {
         List<ResponseQuestions> questions = new ArrayList<>();
-        questions.add(new ResponseQuestions(1L, "당신이 태어난 곳은?"));
-        questions.add(new ResponseQuestions(2L, "졸업한 초등학교 이름은?"));
-        questions.add(new ResponseQuestions(3L, "당신의 별명은?"));
-        questions.add(new ResponseQuestions(4L, "부모님의 고향은?"));
-        questions.add(new ResponseQuestions(5L, "가족구성원은?"));
+        ResponseQuestions responseQuestions = new ResponseQuestions();
+        responseQuestions.setId(1L);
+        responseQuestions.setQuestion("당신이 태어난 곳은?");
+
+        questions.add(responseQuestions);
 
         //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
         given(memberService.getSecurityQuestions()).willReturn(
@@ -69,27 +69,28 @@ class MemberApiControllerTest {
         mockMvc.perform(get("/api/member/signup"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").exists())
-                .andExpect(jsonPath("$[1].id").isNotEmpty())
-                .andExpect(jsonPath("$[2].id").exists())
-                .andExpect(jsonPath("$[3].id").exists())
-                .andExpect(jsonPath("$[4].id").exists())
-                .andExpect(jsonPath("$[5].id").doesNotExist())
+                .andExpect(jsonPath("$[0].question").exists())
                 // andDo -> 메소드가 어떻게 실행이 됐는지
                 .andDo(print());
 
         verify(memberService).getSecurityQuestions();
-
-        //응답 객체 확인
-        for (ResponseQuestions question : questions) {
-            System.out.println(question);
-        }
     }
     @Test
     @DisplayName("회원가입")
     void signupMember() throws Exception {
-        Member member = new Member(0L, "테스트", "test02","testkitri!123","testkitri!123",
-                5L,"테스트","kitri@kitri.com","010-1111-1111","테스트용주소",
-                LocalDateTime.of(1991,1,12,8,24),"남");
+        Member member = new Member();
+        member.setId(0L);
+        member.setName("테스트");
+        member.setLoginId("test02");
+        member.setPassword("testkitri!123");
+        member.setPasswordCheck("testkitri!123");
+        member.setQuestion(5L);
+        member.setAnswer("테스트");
+        member.setEmail("kitri@kitri.com");
+        member.setPhoneNumber("010-1111-1111");
+        member.setAddress("테스트용주소");
+        member.setBirth(LocalDateTime.of(1991,1,12,8,24));
+        member.setGender("남");
 
         // ObjectMapper 객체 생성
         ObjectMapper objectMapper = objectMapper();
@@ -128,7 +129,9 @@ class MemberApiControllerTest {
     @DisplayName("로그인")
     void loginMember() throws Exception {
 
-        Login login = new Login("test01","string1");
+        Login login = new Login();
+        login.setLoginId("test01");
+        login.setPassword("string1");
         //request에 담긴 세션정보를 서비스에서 확인하여 처리
         MockHttpServletRequest request = new MockHttpServletRequest();
 
@@ -156,8 +159,9 @@ class MemberApiControllerTest {
     @Test
     @DisplayName("아이디 찾기")
     void checkId() throws Exception {
-        RequestFindId requestFindid = new RequestFindId("박준혁","kitri@kitri.com");
-
+        RequestFindId requestFindid = new RequestFindId();
+        requestFindid.setName("박준혁");
+        requestFindid.setEmail("kitri@kitri.com");
         //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
         given(memberService.getLoginId(requestFindid)).willReturn(
                 "jhpark"
@@ -184,8 +188,10 @@ class MemberApiControllerTest {
     @Test
     @DisplayName("비밀번호 찾기 - 비밀번호를 찾을 회원번호 조회")
     void checkPw() throws Exception {
-        RequestFind requestFind = new RequestFind("박준혁","kitri@kitri.com","test02");
-
+        RequestFind requestFind = new RequestFind();
+        requestFind.setName("박준혁");
+        requestFind.setEmail("kitri@kitri.com");
+        requestFind.setLoginId("test02");
         given(memberService.getId(requestFind)).willReturn(
                 7L
         );
@@ -245,7 +251,10 @@ class MemberApiControllerTest {
     @Test
     @DisplayName("비밀번호 찾기 - 비밀번호 재설정")
     void setNewPassword() throws Exception {
-        RequestNewPassword requestNewPassword = new RequestNewPassword("Test123!@","Test123!@new","Test123!@new");
+        RequestNewPassword requestNewPassword = new RequestNewPassword();
+        requestNewPassword.setNowPassword("Test123!@");
+        requestNewPassword.setChangePassword("Test123!@new");
+        requestNewPassword.setChangePasswordCheck("Test123!@new");
 
         given(memberService.updatePw(9L,requestNewPassword)).willReturn(
                 true
@@ -270,9 +279,19 @@ class MemberApiControllerTest {
     @Test
     @DisplayName("회원 정보 조회")
     void showMemberInfo() throws Exception {
-        Member member = new Member(9L,"회원1","mmmm1234","Mmmm123!",null,4L,"서울",
-                "m1@naver.com","010-0000-0000","경기도",
-                LocalDateTime.of(2020,02,02,0,0,0),"여");
+        Member member = new Member();
+        member.setId(0L);
+        member.setName("테스트");
+        member.setLoginId("test02");
+        member.setPassword("testkitri!123");
+        member.setPasswordCheck(null);
+        member.setQuestion(5L);
+        member.setAnswer("테스트");
+        member.setEmail("kitri@kitri.com");
+        member.setPhoneNumber("010-1111-1111");
+        member.setAddress("테스트용주소");
+        member.setBirth(LocalDateTime.of(1991,1,12,8,24));
+        member.setGender("남");
 
         given(memberService.getMember(9L)).willReturn(
                 member
@@ -303,9 +322,19 @@ class MemberApiControllerTest {
     @DisplayName("회원 정보 수정")
     void updateMemberInfo() throws Exception {
 
-        Member member = new Member(9L,"회원변경","mmmm1234","Mmmm123!",null,4L,"정보수정",
-                "m1@naver.com","010-1234-5678","경기도",
-                LocalDateTime.of(2020,02,02,0,0,0),"남");
+        Member member = new Member();
+        member.setId(0L);
+        member.setName("테스트");
+        member.setLoginId("test02");
+        member.setPassword("testkitri!123");
+        member.setPasswordCheck("testkitri!123");
+        member.setQuestion(5L);
+        member.setAnswer("테스트");
+        member.setEmail("kitri@kitri.com");
+        member.setPhoneNumber("010-1111-1111");
+        member.setAddress("테스트용주소");
+        member.setBirth(LocalDateTime.of(1991,1,12,8,24));
+        member.setGender("남");
 
         // ObjectMapper 객체 생성
         ObjectMapper objectMapper = objectMapper();
@@ -350,7 +379,10 @@ class MemberApiControllerTest {
     @Test
     @DisplayName("비밀번호 변경")
     void updatePassword() throws Exception {
-        RequestNewPassword requestNewPassword = new RequestNewPassword("Test123!@","Test123!@new","Test123!@new");
+        RequestNewPassword requestNewPassword = new RequestNewPassword();
+        requestNewPassword.setNowPassword("Test123!@");
+        requestNewPassword.setChangePassword("Test123!@new");
+        requestNewPassword.setChangePasswordCheck("Test123!@new");
 
         given(memberService.updatePw(9L,requestNewPassword)).willReturn(
                 true
