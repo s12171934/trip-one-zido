@@ -15,13 +15,4 @@ public class RequestFind {
     @NotEmpty
     @Size(min = 1, max = 100)
     String loginId;
-
-    public RequestFind() {
-    }
-
-    public RequestFind(String name, String email, String loginId) {
-        this.name = name;
-        this.email = email;
-        this.loginId = loginId;
-    }
 }
