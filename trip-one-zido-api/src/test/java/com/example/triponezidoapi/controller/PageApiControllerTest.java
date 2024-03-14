@@ -35,13 +35,31 @@ class PageApiControllerTest {
     @Test
     @DisplayName("회원 페이지 조회")
     void showMemberPage() throws Exception {
-        List<ResponseContentList> planLists = new ArrayList<>();
-        planLists.add(new ResponseContentList(1L, "부산가자", null, 0, 0, 0, 0, 0));
-        planLists.add(new ResponseContentList(2L, "서울가자", null, 0, 0, 0, 0, 0));
+        ResponseContentList planContent  = new ResponseContentList();
+        planContent .setId(1L);
+        planContent .setTitle("부산가자");
+        planContent .setPhoto(null);
+        planContent .setBookmarkCount(0);
+        planContent .setGoodCount(0);
+        planContent .setGrade(0);
+        planContent .setMyBookmark(0);
+        planContent .setPin(0);
+
+        List<ResponseContentList> planList = new ArrayList<>();
+        planList.add(planContent);
+
+        ResponseContentList spotContent = new ResponseContentList();
+        spotContent.setId(1L);
+        spotContent.setTitle("부산용궁사");
+        spotContent.setPhoto(null);
+        spotContent.setBookmarkCount(0);
+        spotContent.setGoodCount(0);
+        spotContent.setGrade(0);
+        spotContent.setMyBookmark(0);
+        spotContent.setPin(0);
 
         List<ResponseContentList> spotLists = new ArrayList<>();
-        spotLists.add(new ResponseContentList(1L, "부산용궁사", null, 0, 0, 0, 0, 0 ));
-        spotLists.add(new ResponseContentList(2L, "서울남산", null, 0, 0, 0, 0, 0 ));
+        spotLists.add(spotContent);
 
         ResponseMember responseMember = new ResponseMember();
         responseMember.setId(1L);
@@ -87,14 +105,23 @@ class PageApiControllerTest {
     @DisplayName("회원 페이지 일정 게시물 더보기 조회")
     void showPlanListByPage() throws Exception {
 
-        List<ResponseContentList> showPlanListByPage = new ArrayList<>();
-        showPlanListByPage.add(new ResponseContentList(1L, "부산가자", null, 0, 0, 0, 0, 0));
-        showPlanListByPage.add(new ResponseContentList(2L, "서울가자", null, 0, 0, 0, 0, 0));
+        ResponseContentList planContent  = new ResponseContentList();
+        planContent .setId(1L);
+        planContent .setTitle("부산가자");
+        planContent .setPhoto(null);
+        planContent .setBookmarkCount(0);
+        planContent .setGoodCount(0);
+        planContent .setGrade(0);
+        planContent .setMyBookmark(0);
+        planContent .setPin(0);
+
+        List<ResponseContentList> planList = new ArrayList<>();
+        planList.add(planContent);
 
 
         //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
         given(pageService.getPlanListByPage(1L, 1L, 0L)).willReturn(
-                showPlanListByPage
+                planList
         );
 
         //andExcept : 기대하는 값이 나왔는지 체크해볼 수 있는 메소드
@@ -115,13 +142,22 @@ class PageApiControllerTest {
     @Test
     @DisplayName("회원 페이지 장소 게시물 더보기 조회")
     void showSpotListByPage() throws Exception {
-        List<ResponseContentList> showSpotListByPage = new ArrayList<>();
-        showSpotListByPage.add(new ResponseContentList(1L, "부산용궁사", null, 0, 0, 0, 0, 0));
-        showSpotListByPage.add(new ResponseContentList(2L, "서울남산", null, 0, 0, 0, 0, 0));
+        ResponseContentList spotContent = new ResponseContentList();
+        spotContent.setId(1L);
+        spotContent.setTitle("부산용궁사");
+        spotContent.setPhoto(null);
+        spotContent.setBookmarkCount(0);
+        spotContent.setGoodCount(0);
+        spotContent.setGrade(0);
+        spotContent.setMyBookmark(0);
+        spotContent.setPin(0);
+
+        List<ResponseContentList> spotLists = new ArrayList<>();
+        spotLists.add(spotContent);
 
         //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
         given(pageService.getSpotListByPage(1L, 1L, 0L)).willReturn(
-                showSpotListByPage
+                spotLists
         );
 
         //andExcept : 기대하는 값이 나왔는지 체크해볼 수 있는 메소드
