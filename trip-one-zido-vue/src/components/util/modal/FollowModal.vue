@@ -1,8 +1,11 @@
 <template>
-  <div class="modal fade" id="followModal"
+  <div
+    class="modal fade"
+    id="followModal"
     tabindex="-1"
     aria-labelledby="followModalLabel"
-    aria-hidden="true">
+    aria-hidden="true"
+  >
     <!-- Vertically centered scrollable modal -->
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
@@ -16,11 +19,10 @@
         <div class="m-4 modal-body border rounded-3" id="followType">
           <h4>{{ type === "follower" ? "팔로워" : "팔로잉" }} 목록</h4>
         </div>
-
         <div class="m-4 modal-body border rounded-3" id="followList">
           <FollowProfile
-            @followToggle="followToggle"
-            v-for="userProfile in userProfiles"
+            @followToggle="(userProfile) => $zido.toggleFollow(userProfile)"
+            v-for="userProfile in followList"
             :userProfile="userProfile"
           />
         </div>
@@ -31,7 +33,6 @@
 
 <script>
 import FollowProfile from "../FollowProfile.vue";
-import data from "/src/assets/data.js";
 
 export default {
   components: {
@@ -39,16 +40,7 @@ export default {
   },
   props: {
     type: String,
-  },
-  data() {
-    return {
-      userProfiles: data.userProfiles,
-    };
-  },
-  methods: {
-    followToggle(userProfile) {
-      userProfile.isFollow = !userProfile.isFollow;
-    },
+    followList: Object,
   },
 };
 </script>

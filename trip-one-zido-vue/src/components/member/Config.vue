@@ -7,7 +7,7 @@
       <div class="w-50">
         <div class="d-flex align-items-center">
           <div class="d-flex flex-column gap-2">
-            <img :src="userData.imgSrc" alt="" class="rounded-circle" />
+            <img :src="configData.imgSrc" alt="" class="rounded-circle" />
             <button
               class="button rounded-5"
               data-bs-toggle="modal"
@@ -16,7 +16,7 @@
               프로필 사진 편집
             </button>
           </div>
-          <h1>{{ userData.loginId }}</h1>
+          <h1>{{ configData.loginId }}</h1>
         </div>
 
         <hr />
@@ -24,6 +24,10 @@
           @follower="followType = 'follower'"
           @following="followType = 'following'"
           @bookmark="$router.push('/bookmark')"
+          :totalBoard="configData.totalBoard"
+          :followerCount="configData.followerCount"
+          :followingCount="configData.followingCount"
+          :bookmarkCount="configData.bookmarkCount"
         />
       </div>
       <div
@@ -58,7 +62,12 @@
 
   <EditProfileModal />
 
-  <FollowModal :type="followType" />
+  <FollowModal
+    :type="followType"
+    :followList="
+      $zido.getFollowList(followType, configData.id, configData.sessionId)
+    "
+  />
 </template>
 
 <script>
@@ -74,8 +83,7 @@ export default {
   },
   data() {
     return {
-      userData: this.$zido.getUserProfile(),
-      editProfile: false,
+      configData: this.$zido.getConfigData(),
       followType: "",
     };
   },

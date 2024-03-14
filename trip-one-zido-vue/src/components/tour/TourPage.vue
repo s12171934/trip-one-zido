@@ -2,14 +2,20 @@
   <main class="wrapper">
     <div class="d-flex p-2">
       <span>이런 곳 어때요?</span>
-      <select class="button alt" id="locSelect" name="location" v-model="loc">
+      <select
+        @change="changeLoc"
+        class="button alt"
+        id="locSelect"
+        name="location"
+        v-model="loc"
+      >
         <option v-for="location in selectLocations" :value="location">
           {{ location }}
         </option>
       </select>
     </div>
 
-    <ContentList />
+    <ContentList :list="tourList" />
   </main>
 </template>
 
@@ -24,12 +30,21 @@ export default {
   data() {
     return {
       selectLocations: data.selectLocations,
-      loc: "서울특별시",
+      loc: this.defaultLoc(),
+      tourList: this.$zido.getTourList(this.defaultLoc()),
     };
   },
-  mounted(){
-    this.$emit("meta",this.$route.matched[0].meta.isLogin);
-  }
+  methods: {
+    changeLoc() {
+      location.href = `/tour/loc/${this.loc}`;
+    },
+    defaultLoc() {
+      return this.$route.params.loc ? this.$route.params.loc : "서울특별시";
+    },
+  },
+  mounted() {
+    this.$emit("meta", this.$route.matched[0].meta.isLogin);
+  },
 };
 </script>
 

@@ -42,11 +42,15 @@ export default {
   },
 
   getProfileImg() {
-    return "/images/남자.png";
+    return data.userProfiles[this.getMemberId()].imgSrc;
   },
 
-  getUserProfile() {
-    return data.userProfiles[2];
+  getMemberId() {
+    return 1;
+  },
+
+  getUserProfile(id) {
+    return data.userProfiles[id];
   },
 
   getUserInfo() {
@@ -56,4 +60,92 @@ export default {
   updateUserInfo(userInfo) {
     alert(userInfo.name);
   },
+
+  checkResign(password, passwordCheck) {
+    return true;
+  },
+
+  getBookmarkById(id) {
+    return data.bookmark[id];
+  },
+
+  editProfileImg(img) {},
+
+  getMemberPageData(id) {
+    return data.memberPageData[id ? id : this.getMemberId()];
+  },
+
+  getConfigData() {
+    return data.configData;
+  },
+
+  newContents(addApi, page) {
+    alert(page);
+    return data.newContent;
+  },
+
+  toggleBookmark(content) {
+    content.myBookmark = !content.myBookmark;
+  },
+
+  getFollowList(type, targetId, sessionId) {
+    console.log(type, targetId, sessionId);
+    return data.userProfiles;
+  },
+
+  toggleFollow(userProfile) {
+    userProfile.isFollow = !userProfile.isFollow;
+  },
+
+  getSearchData(keyword) {
+    return data.searchData;
+  },
+
+  getDetailSearchData(searchOptions) {
+    return data.searchData;
+  },
+
+  getTourList(loc) {
+    return data.tourList;
+  },
+
+  getTourData(id) {
+    return data.tourData[id];
+  },
+
+  getSpotData(id) {
+    return data.spotData[id];
+  },
+
+  getPlanData(id) {
+    return data.planData[id];
+  },
+
+  toggleLike(content, like) {
+    if (content.myLike == like) {
+      content.myLike = null;
+    } else {
+      content.myLike = like;
+    }
+  },
+
+  addComment(targetId, comment) {},
+
+  editComment(targetId, comment) {},
+
+  deleteComment(targetId) {},
+
+  deleteSpot(targetId) {},
+
+  deletePlan(targetId) {},
+
+  togglePublic(targetId) {},
+
+  addSpot(spotData) {},
+
+  addPlan(planData) {},
+
+  updateSpot(spotData) {},
+
+  updatePlan(planData) {},
 };

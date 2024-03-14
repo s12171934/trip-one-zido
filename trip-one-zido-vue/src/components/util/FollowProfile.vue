@@ -3,7 +3,6 @@
     @click="goToMemberPage"
     class="d-flex align-items-center gap-2 mb-2 p-2"
     id="profile"
-    data-bs-dismiss="modal"
   >
     <img
       class="rounded-circle"

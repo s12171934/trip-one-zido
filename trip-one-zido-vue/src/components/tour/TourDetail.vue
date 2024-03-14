@@ -3,26 +3,26 @@
     <div class="d-flex justify-content-end">
       <ul class="actions">
         <li>
-          <a @click="$router.push('/tour/loc')" class="button alt small">목록</a>
+          <a @click="$router.push(`/tour/loc/${tour.locCategory}`)" class="button alt small">목록</a>
         </li>
-        <li><a @click="$router.push('/tour/1')" class="button alt small">이전</a></li>
-        <li><a @click="$router.push('/tour/3')" class="button alt small">다음</a></li>
+        <li><a @click="tour.prevId ? $router.push(`/tour/${tour.prevId}`) : ''" class="button alt small">이전</a></li>
+        <li><a @click="tour.nextId ? $router.push(`/tour/${tour.nextId}`) : ''" class="button alt small">다음</a></li>
       </ul>
     </div>
     <div class="row">
       <div class="col-md-6 d-flex">
-        <img class="rounded-5" src="/images/busan3.jpg" />
+        <img class="rounded-5" :src="tour.imgSrc" />
       </div>
       <div class="col-md-6">
         <div class="d-flex align-items-center">
-          <h1 class="display-5">해동용궁사</h1>
-          <img id="bookmark" src="/images/unzzim.png" onclick="zzim()" />
+          <h1 class="display-5">{{ tour.title }}</h1>
+          <img @click="$zido.toggleBookmark(tour)" id="bookmark" :src="tour.myBookmark ? '/images/zzim.png' :'/images/unzzim.png'" />
+          <h5 class="ms-2">{{ tour.bookmarkCount }}</h5>
         </div>
         <div class="fs-5 mb-5">
           <span>・관광지 한줄 설명</span>
           <p id="explanation">
-            부산광역시 기장군 기장읍 시랑리에 있는 대한불교조계종 제19교구 본사
-            화엄사 소속 사찰.
+            {{ tour.explain }}
           </p>
         </div>
         <div class="fs-5">
@@ -47,6 +47,11 @@
 
 <script>
 export default {
+  data(){
+    return{
+      tour: this.$zido.getTourData(this.$route.params.id)
+    }
+  },
   mounted(){
     this.$emit("meta",this.$route.matched[0].meta.isLogin);
   }

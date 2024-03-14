@@ -2,8 +2,8 @@
   <main class="wrapper d-flex">
     <div class="d-flex flex-column fill me-5" id="leftSide">
       <div class="d-flex align-items-center mb-5">
-        <img :src="userData.imgSrc" class="rounded-circle" />
-        <span id="userName">{{ userData.loginId }}</span>
+        <img :src="memberPageData.imgSrc" class="rounded-circle" />
+        <span id="userName">{{ memberPageData.loginId }}</span>
       </div>
       <button
         @click="followOrConfig"
@@ -13,9 +13,9 @@
         id="edit-profile"
       >
         {{
-          userData.id == 1 || userData.id == null
+          isMyPage()
             ? "프로필 편집"
-            : userData.isFollow
+            : memberPageData.isFollow
             ? hover
               ? "언 팔로우"
               : "팔로잉 중"
@@ -27,6 +27,10 @@
         @follower="followType = 'follower'"
         @following="followType = 'following'"
         @bookmark="$router.push('/bookmark')"
+        :totalBoard="memberPageData.totalBoard"
+        :followerCount="memberPageData.followerCount"
+        :followingCount="memberPageData.followingCount"
+        :bookmarkCount="memberPageData.bookmarkCount"
       />
       <KakaoMapForMemberPage />
     </div>
@@ -34,7 +38,7 @@
       <div class="select-wrapper d-flex justify-content-end" id="add">
         <select
           @change="addSpotPlan"
-          v-if="userData.id == 1 || userData.id == null"
+          v-if="isMyPage()"
           class="local-select rounded-4 w-25"
           name="category"
           id="mySelect"
@@ -46,17 +50,43 @@
         </select>
       </div>
 
-      <ListTitle title="일정 게시글" />
+      <ListTitle
+        title="일정 게시글"
+        @option="(option) => (planSortOption = option)"
+      />
 
-      <ContentList />
+      <ContentList
+        :list="memberPageData.planList"
+        :sortOption="planSortOption"
+        :addApi="`/api/page/${memberPageData.id}/plan`"
+        :sessionId="memberPageData.sessionId"
+      />
 
-      <ListTitle title="장소 게시글" class="mt-5" />
+      <ListTitle
+        title="장소 게시글"
+        @option="(option) => (spotSortOption = option)"
+        class="mt-5"
+      />
 
-      <ContentList />
+      <ContentList
+        :list="memberPageData.spotList"
+        :sortOption="spotSortOption"
+        :addApi="`/api/page/${memberPageData.id}/spot`"
+        :sessionId="memberPageData.sessionId"
+      />
     </div>
   </main>
 
-  <FollowModal :type="followType" />
+  <FollowModal
+    :type="followType"
+    :followList="
+      $zido.getFollowList(
+        followType,
+        memberPageData.id,
+        memberPageData.sessionId
+      )
+    "
+  />
 </template>
 
 <script>
@@ -65,7 +95,6 @@ import FollowModal from "../util/modal/FollowModal.vue";
 import NumberSummary from "../util/NumberSummary.vue";
 import ListTitle from "../util/ListTitle.vue";
 import KakaoMapForMemberPage from "../util/KakaoMapForMemberPage.vue";
-import data from "/src/assets/data.js";
 
 export default {
   components: {
@@ -81,28 +110,20 @@ export default {
   data() {
     return {
       followType: "",
-      userData: {
-        imgSrc: "/images/남자.png",
-        loginId: "남자",
-      },
       hover: false,
       addType: "게시물 작성",
+      memberPageData: this.$zido.getMemberPageData(this.$route.params.id),
     };
   },
   methods: {
     goToBookmark() {
       location.href = `/bookmark/${this.id}`;
     },
-    getUserData() {
-      if (this.id != "") {
-        this.userData = data.userProfiles[this.id];
-      }
-    },
     followOrConfig() {
-      if (this.userData.id == null || this.userData.id == 1) {
+      if (this.isMyPage()) {
         this.$router.push("/config");
       } else {
-        this.userData.isFollow = !this.userData.isFollow;
+        this.memberPageData.isFollow = !this.memberPageData.isFollow;
       }
     },
     addSpotPlan() {
@@ -112,9 +133,14 @@ export default {
         this.$router.push("/add/spot");
       }
     },
+    isMyPage() {
+      return (
+        !this.$route.params.id ||
+        this.$route.params.id == this.memberPageData.sessionId
+      );
+    },
   },
   mounted() {
-    this.getUserData();
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
   },
 };

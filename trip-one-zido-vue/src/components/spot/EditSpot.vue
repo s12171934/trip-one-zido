@@ -24,7 +24,7 @@
         <div class="d-flex align-items-center" id="photo-container">
           <img
             @contextmenu.prevent="delPhoto(idx)"
-            v-for="(photo, idx) in photos"
+            v-for="(photo, idx) in spotData.photos"
             class="rounded"
             id="selectedPic"
             :src="photo"
@@ -42,7 +42,7 @@
             <h4>장소 제목</h4>
           </td>
           <td scope="col-2">
-            <input type="text" v-model="title" />
+            <input type="text" v-model="spotData.title" />
           </td>
         </tr>
 
@@ -53,13 +53,13 @@
           <td>
             <div class="d-flex justify-content-between align-items-center">
               <div class="date-time">
-                <input class="border-0" type="date" v-model="start_date" />
-                <input class="border-0" type="time" v-model="start_time" />
+                <input class="border-0" type="date" v-model="spotData.start_date" />
+                <input class="border-0" type="time" v-model="spotData.start_time" />
               </div>
               <h4>~</h4>
               <div class="date-time">
-                <input class="border-0" type="date" v-model="end_date" />
-                <input class="border-0" type="time" v-model="end_time" />
+                <input class="border-0" type="date" v-model="spotData.end_date" />
+                <input class="border-0" type="time" v-model="spotData.end_time" />
               </div>
             </div>
           </td>
@@ -71,9 +71,9 @@
               <div class="member-container d-flex">
                 <input
                   @contextmenu.prevent="delMember(idx)"
-                  v-for="(_, idx) in members"
+                  v-for="(_, idx) in spotData.members"
                   type="text"
-                  v-model="members[idx]"
+                  v-model="spotData.members[idx]"
                   class="member m-1"
                 />
               </div>
@@ -115,7 +115,7 @@
                 id="address"
                 name="address"
                 size="70"
-                v-model="address"
+                v-model="spotData.address"
               />
               <button
                 type="button"
@@ -130,7 +130,7 @@
 
         <tr>
           <td><h4>상세주소</h4></td>
-          <td colspan="2"><input type="text" v-model="address2" /></td>
+          <td colspan="2"><input type="text" v-model="spotData.address2" /></td>
         </tr>
 
         <tr>
@@ -155,7 +155,7 @@
         <tr>
           <td>
             <div class="select-wrapper" id="security">
-              <select class="local-select" name="category">
+              <select class="local-select" v-model="spotData.isPublic">
                 <option value="" selected>공개 설정</option>
                 <option value="1">공개</option>
                 <option value="2">비공개</option>
