@@ -13,6 +13,9 @@ public class ResponseContentList {
     int myBookmark;
     int pin;
 
+    public ResponseContentList() {
+    }
+
     public ResponseContentList(Long id, String title, byte[] photo, int bookmarkCount, int goodCount, int grade, int myBookmark, int pin){
         this.id = id;
         this.title = title;
