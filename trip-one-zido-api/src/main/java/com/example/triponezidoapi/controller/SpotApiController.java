@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/spot")
-@Tag(name = "Content")
+@Tag(name = "Spot", description = "Spot API")
 public class SpotApiController {
     @Autowired
     SpotService spotService;

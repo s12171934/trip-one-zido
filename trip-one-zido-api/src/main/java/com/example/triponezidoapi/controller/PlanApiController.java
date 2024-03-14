@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/plan")
-@Tag(name = "Content")
+@Tag(name = "Plan", description = "Plan API")
 public class PlanApiController {
     @Autowired
     PlanService planService;

@@ -2,6 +2,7 @@ package com.example.triponezidoapi.controller;
 
 import com.example.triponezidoapi.service.SnsLoginService;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/social")
+@Tag(name = "SNS Connect", description = "SNS API")
 public class SnsLoginController {
     @Autowired
     SnsLoginService snsLoginService;

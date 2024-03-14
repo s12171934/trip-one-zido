@@ -33,7 +33,7 @@ public class PageApiController {
         return pageService.getMemberPage(id, sessionId);
     }
     @GetMapping("/{id}/plan/{page}")
-    @Tag(name = "Plan")
+    @Tag(name = "More")
     @Operation(summary = "회원 페이지 일정 게시물 더보기 조회")
     public List<ResponseContentList> showPlanListByPage(
             @PathVariable
@@ -51,7 +51,7 @@ public class PageApiController {
         return pageService.getPlanListByPage(id, sessionId, page);
     }
     @GetMapping("/{id}/spot/{page}")
-    @Tag(name = "Spot")
+    @Tag(name = "More")
     @Operation(summary = "회원 페이지 장소 게시물 더보기 조회")
     public List<ResponseContentList> showSpotListByPage(
             @PathVariable

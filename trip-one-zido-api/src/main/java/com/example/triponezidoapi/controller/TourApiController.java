@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/tour")
-@Tag(name = "Content")
+@Tag(name = "Tour", description = "Tour API")
 public class TourApiController {
     @Autowired
     TourService tourService;
