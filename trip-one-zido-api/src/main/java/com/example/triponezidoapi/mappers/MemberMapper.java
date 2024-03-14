@@ -14,20 +14,23 @@ public interface MemberMapper {
     void signUp(Member member);
 
     //select
-    int isFollow(RequestFollow requestFollow);
+    boolean isFollow(RequestFollow requestFollow);
     int followerCount(long id);
     int followingCount(long id);
-    List<ResponseMember> followerList(long id);
-    List<ResponseMember> followingList(long id);
+    List<ResponseMember> followerList(RequestSessionTarget requestSessionTarget);
+    List<ResponseMember> followingList(RequestSessionTarget requestSessionTarget);
     int postCount(long id);
+
     long getId(RequestFind requestFind);
     ResponseMember getLogin(Login login);
     Login getLoginFormByLoginId(String loginId);
-    String getLoginIdByFind(RequestFind requestFind);
-    String getSecurityAnswer(long id);
-    String getSecurityQuestion(long id);
+    String getLoginIdByFind(RequestFindId requestFindid);
+    String getSecurityAnswer(Long id);
+    String getSecurityQuestion(Long id);
+    String getPasswordById(Long id);
     List<ResponseQuestions> getSecurityQuestionList();
-    Member getMemberById(long id);
+    Member getMemberById(Long id);
+    ResponseMember getMemberProfile(Long id);
 
     //update
     void updateMember(Member member);
@@ -35,6 +38,6 @@ public interface MemberMapper {
     void updateProfile(RequestPhoto requestPhoto);
 
     //delete
-    void deleteMember(long id);
+    void deleteMember(Long id);
     void unFollow(RequestFollow requestFollow);
 }

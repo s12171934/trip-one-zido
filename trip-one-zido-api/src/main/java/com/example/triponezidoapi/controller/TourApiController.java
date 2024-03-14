@@ -2,9 +2,11 @@ package com.example.triponezidoapi.controller;
 
 import com.example.triponezidoapi.dto.response.*;
 import com.example.triponezidoapi.dto.request.*;
+import com.example.triponezidoapi.service.TourService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -12,25 +14,40 @@ import java.util.List;
 @RequestMapping("/api/tour")
 @Tag(name = "Content")
 public class TourApiController {
-    @GetMapping("/")
+    @Autowired
+    TourService tourService;
+
+    @GetMapping("/list/{page}")
     @Operation(summary = "관광지 목록 조회")
-    public List<ResponseTour> showTourAll(){
-        return null;
+    public List<ResponseTour> showTourAll(
+            @SessionAttribute(name="id")
+            @Parameter(description = "로그인 회원 정보")
+            Long sessionId,
+            @PathVariable("page")
+            @Parameter(description = "페이지 번호")
+            long page
+    ){
+        return tourService.getTourList(sessionId, page);
     }
     @GetMapping("/{id}")
     @Operation(summary = "관광지 상세 조회")
     public ResponseTour showTourDetail(
+            @SessionAttribute(name="id")
+            @Parameter(description = "로그인 회원 정보")
+            Long sessionId,
             @PathVariable
             @Parameter(description = "관광지 게시물 번호")
-            long id){
-        return null;
+            Long id
+    ){
+        return tourService.getTour(sessionId, id);
     }
     @PostMapping("/")
     @Operation(summary = "관광지 등록")
-    public void addTour(
+    public void postTour(
             @RequestBody
             @Parameter(description = "관광지 정보")
-            RequestTour requestTour){
-
+            RequestTour requestTour
+    ){
+        tourService.addTour(requestTour);
     }
 }

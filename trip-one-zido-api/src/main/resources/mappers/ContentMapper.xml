@@ -28,7 +28,7 @@
             )
         VALUE
             (
-            #{own},
+            #{good},
             #{memberId},
             #{contentId}
             )
@@ -62,7 +62,12 @@
             )
     </insert>
 
-    <select id="getOwner" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+    <!-- 사용자의 ID를 기반으로 핀의 갯수를 가져오는 쿼리 -->
+    <select id="getPinCountByMemberId" resultType="int">
+        SELECT COUNT(*) FROM pin_table WHERE member_id = #{memberId};
+    </select>
+
+    <select id="getOwner" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
         SELECT
             m.id,
             m.login_id,
@@ -76,7 +81,7 @@
             o.content_id = #{id}
     </select>
 
-    <select id="getWriter" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+    <select id="getWriter" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
         SELECT
             m.id,
             m.login_id,
@@ -97,58 +102,64 @@
             c.title,
             sp.grade,
             (
-            SELECT
-                photo
-            FROM
-                photo
-            WHERE
-                content_id = c.id
+                SELECT
+                    photo
+                FROM
+                    photo
+                WHERE
+                    content_id = c.id
             ) photo,
             (
-            SELECT
-                COUNT(*)
-            FROM
-                bookmark
-            WHERE
-                content_id = c.id
+                SELECT
+                    COUNT(*)
+                FROM
+                    bookmark
+                WHERE
+                    content_id = c.id
             ) bookmark_count,
             (
-            SELECT
-                COUNT(*)
-            FROM
-                bookmark
-            WHERE
-                content_id = c.id AND
-                member_id = #{myMemberId}
+                SELECT
+                    COUNT(*)
+                FROM
+                    bookmark
+                WHERE
+                    content_id = c.id AND
+                    member_id = #{myMemberId}
             ) my_bookmark,
             (
-            SELECT
-                COUNT(*)
-            FROM
-                good
-            WHERE
-                content_id = c.id
+                SELECT
+                    COUNT(*)
+                FROM
+                    good
+                WHERE
+                    content_id = c.id
             ) good_count
         FROM
             content c,
             (
-            SELECT
-                id,
-                grade
-            FROM spot
-            UNION
-            SELECT
-                id,
-                grade
-            FROM plan
+                SELECT
+                    id,
+                    grade
+                FROM spot
+                UNION
+                SELECT
+                    id,
+                    grade
+                FROM plan
+                UNION
+                SELECT
+                    id,
+                    0 COMN
+                FROM tour
             ) sp,
             open_content o
         WHERE
-            c.id = sp.id AND
-            c.id = o.content_id
+            c.id = sp.id and
+            o.content_id = c.id and
+            o.member_id = #{myMemberId}
         ORDER BY
             opened_at DESC
-        LIMIT
+            LIMIT
             #{page}, 6
     </select>
 
@@ -160,6 +171,18 @@
         WHERE
             content_id = #{contentId}
           AND member_id = #{memberId}
+    </select>
+
+    <select id="isMine" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember" resultType="boolean">
+        SELECT CASE
+            WHEN COUNT(*) > 0 THEN TRUE
+            ELSE FALSE
+            END AS result
+        FROM
+            owner
+        WHERE
+            content_id = #{contentId} AND
+            member_id = #{memberId}
     </select>
 
     <update id="updateIsPublic" parameterType="com.example.triponezidoapi.dto.request.RequestIsPublic">
@@ -178,7 +201,7 @@
             id = #{id}
     </update>
 
-    <delete id="deleteContent" parameterType="long">
+    <delete id="deleteContent" parameterType="Long">
         DELETE FROM content
         WHERE id = #{id}
     </delete>

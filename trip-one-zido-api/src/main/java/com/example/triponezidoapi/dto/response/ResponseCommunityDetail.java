@@ -7,14 +7,14 @@ import java.util.List;
 
 @Data
 public class ResponseCommunityDetail {
-    long id;
+    Long id;
     LocalDateTime startDate;
     LocalDateTime endDate;
     String locCategory;
     String notice;
     int total;
     LocalDateTime deadline;
-    int viewCount;
+    int viewPoint;
     String status;
     String title;
     LocalDateTime createdAt;

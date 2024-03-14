@@ -5,12 +5,12 @@ import lombok.Data;
 import java.time.LocalDateTime;
 @Data
 public class ResponseCommunity {
-    long id;
+    Long id;
     String title;
     String writer;
     LocalDateTime deadline;
     int viewPoint;
     int total;
-    int participantsCount;
+    int withCount;
     String status;
 }

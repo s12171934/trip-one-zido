@@ -43,16 +43,18 @@
       )
   </insert>
 
-  <select id="isFollow" parameterType="com.example.triponezidoapi.dto.request.RequestFollow" resultType="int">
-    SELECT
-      COUNT(*)
+  <select id="isFollow" parameterType="com.example.triponezidoapi.dto.request.RequestFollow" resultType="boolean">
+    SELECT CASE
+        WHEN COUNT(*) > 0 THEN TRUE
+        ELSE FALSE
+        END AS result
     FROM
       follow
     WHERE
       follower = #{follower} AND following = #{following}
   </select>
 
-  <select id="followerCount" parameterType="long" resultType="int">
+  <select id="followerCount" parameterType="Long" resultType="int">
     SELECT
       COUNT(*)
     FROM
@@ -61,7 +63,7 @@
       following = #{id}
   </select>
 
-  <select id="followingCount" parameterType="long" resultType="int">
+  <select id="followingCount" parameterType="Long" resultType="int">
     SELECT
       COUNT(*)
     FROM
@@ -70,7 +72,29 @@
       follower = #{id}
   </select>
 
-  <select id="followerList" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+
+  <select id="followerList" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+    SELECT
+      id,
+      login_id,
+      profile
+    FROM
+      member
+    WHERE
+      id IN
+      (
+      SELECT
+        follower
+      FROM
+        follow
+      WHERE
+        following = #{myMemberId}
+      )
+    LIMIT
+      #{page}, 6
+  </select>
+
+  <select id="followingList" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
     SELECT
       id,
       login_id,
@@ -85,30 +109,13 @@
       FROM
         follow
       WHERE
-        following = #{id}
+        follower = #{myMemberId}
       )
+    LIMIT
+      #{page}, 6
   </select>
 
-  <select id="followingList" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
-    SELECT
-      id,
-      login_id,
-      profile
-    FROM
-      member
-    WHERE
-      id IN
-      (
-      SELECT
-        following
-      FROM
-        follow
-      WHERE
-        follower = #{id}
-      )
-  </select>
-
-  <select id="postCount" parameterType="long" resultType="int">
+  <select id="postCount" parameterType="Long" resultType="int">
     SELECT
       COUNT(*)
     FROM
@@ -150,7 +157,7 @@
       login_id = #{loginId}
   </select>
 
-  <select id="getLoginIdByFind" parameterType="com.example.triponezidoapi.dto.request.RequestFind" resultType="String">
+  <select id="getLoginIdByFind" parameterType="com.example.triponezidoapi.dto.request.RequestFindId" resultType="String">
     SELECT
       login_id
     FROM
@@ -160,7 +167,7 @@
       email = #{email}
   </select>
 
-  <select id="getMemberById" parameterType="long" resultType="com.example.triponezidoapi.dto.Member">
+  <select id="getMemberById" parameterType="Long" resultType="com.example.triponezidoapi.dto.Member">
     SELECT
       *
     FROM
@@ -169,7 +176,7 @@
       id = #{id}
   </select>
 
-  <select id="getSecurityAnswer" parameterType="long" resultType="string">
+  <select id="getSecurityAnswer" parameterType="Long" resultType="string">
     SELECT
       answer
     FROM
@@ -178,7 +185,7 @@
       id = #{id}
   </select>
 
-  <select id="getSecurityQuestion" parameterType="long" resultType="string">
+  <select id="getSecurityQuestion" parameterType="Long" resultType="string">
     SELECT
       q.question
     FROM
@@ -194,6 +201,23 @@
       *
     FROM
       security_questions
+  </select>
+
+  <select id="getPasswordById" parameterType="Long" resultType="String">
+    SELECT password
+    FROM member
+    WHERE id = #{id}
+  </select>
+
+  <select id="getMemberProfile" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+    SELECT
+      id,
+      login_id,
+      profile
+    FROM
+      member
+    WHERE
+      id = #{id}
   </select>
 
   <update id="updateMember" parameterType="com.example.triponezidoapi.dto.Member">
@@ -224,9 +248,9 @@
     UPDATE
       member
     SET
-      profile = #{profile}
+      profile = #{photo}
     WHERE
-      id = #{id}
+      id = #{contentId}
   </update>
 
   <delete id="deleteMember" parameterType="long">

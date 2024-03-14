@@ -12,11 +12,11 @@ public interface CommunityMapper {
     void addCommunity(RequestCommunity requestCommunity);
 
     //select
-    ResponseCommunityDetail getCommunity(long id);
+    ResponseCommunityDetail getCommunity(Long id);
     List<ResponseCommunity> getCommunityList(long page);
     List<ResponseCommunity> getCommunityListWithSearch(RequestCommunitySearch requestCommunitySearch);
-    long getNextId(long id);
-    long getPrevId(long id);
+    Long getNextId(Long id);
+    Long getPrevId(Long id);
 
     //update
     void updateCommunity(RequestCommunity requestCommunity);

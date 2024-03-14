@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.triponezidoapi.mappers.CommentMapper">
-	<insert id="addComment" parameterType="com.example.triponezidoapi.dto.response.ResponseComment">
+	<insert id="addComment" parameterType="com.example.triponezidoapi.dto.request.RequestComment">
 		INSERT INTO comment
 			(
 			id,
@@ -18,7 +18,7 @@
 			)
 	</insert>
 
-	<select id="getComment" parameterType="long" resultType="com.example.triponezidoapi.dto.response.ResponseComment">
+	<select id="getComment" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseComment">
 		SELECT
 			comment.*,
 			content.created_at,
@@ -31,7 +31,7 @@
 			content_id = #{contentId}
 	</select>
 
-	<update id="updateComment" parameterType="com.example.triponezidoapi.dto.response.ResponseComment">
+	<update id="updateComment" parameterType="com.example.triponezidoapi.dto.request.RequestComment">
 		UPDATE comment
 		SET
 			comment = #{comment}

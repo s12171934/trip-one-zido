@@ -1,15 +1,17 @@
 package com.example.triponezidoapi.dto.request;
 
+import jakarta.validation.constraints.*;
 import lombok.Data;
-
-import java.time.LocalDateTime;
 
 @Data
 public class RequestDetailSearch {
-    long myMemberId;
+    Long myMemberId;
+    @Size(max = 300)
     String keyword;
     String locCategory;
     String category;
-    LocalDateTime startDate;
-    LocalDateTime endDate;
+    String season;
+    int startMonth;
+    int endMonth;
+    long page;
 }
