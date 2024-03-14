@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 
 
@@ -85,7 +84,7 @@ class CommunityApiControllerTest {
     void showCommunityDetail() throws Exception {
         ResponseMember responseMember = new ResponseMember();
         responseMember.setId(9L);
-        responseMember.setLoginId(9L);
+        responseMember.setLoginId("9L");
         responseMember.setOwn(null);
         responseMember.setProfile(null);
         responseMember.setFollow(true);
@@ -93,16 +92,25 @@ class CommunityApiControllerTest {
         List<ResponseMember> members = new ArrayList<>();
         members.add(responseMember);
 
-        ResponseCommunityDetail responseCommunityDetail = new ResponseCommunityDetail(
-                1L,
-                LocalDateTime.of(2024,3,16,0,0,0),
-                LocalDateTime.of(2024,3,20,0,0,0),
-                "서울특별시", "야미야미", 2,
-                LocalDateTime.of(2024,3,15,0,0,0),
-                1, "모집중",  "얌얌",
-                LocalDateTime.of(2024,3,14,10,0,0),
-                LocalDateTime.of(2024,3,14,10,0,0),
-                members, true, 2L, 0L);
+        ResponseCommunityDetail responseCommunityDetail = new ResponseCommunityDetail();
+        responseCommunityDetail.setId(1L);
+        responseCommunityDetail.setStartDate(LocalDateTime.of(2024,3,16,0,0,0));
+        responseCommunityDetail.setEndDate(LocalDateTime.of(2024,3,20,0,0,0));
+        responseCommunityDetail.setLocCategory("서울특별시");
+        responseCommunityDetail.setNotice("야미야미");
+        responseCommunityDetail.setTotal(2);
+        responseCommunityDetail.setDeadline(LocalDateTime.of(2024,3,15,0,0,0));
+        responseCommunityDetail.setViewPoint(1);
+        responseCommunityDetail.setStatus("모집중");
+        responseCommunityDetail.setTitle("얌얌");
+        responseCommunityDetail.setCreatedAt(LocalDateTime.of(2024,3,14,10,0,0));
+        responseCommunityDetail.setModifiedAt(LocalDateTime.of(2024,3,14,10,0,0));
+        responseCommunityDetail.setMembers(members);
+        responseCommunityDetail.setMine(true);
+        responseCommunityDetail.setNextId(2L);
+        responseCommunityDetail.setPrevId(0L);
+
+
 
         //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
         given(communityService.getCommunity(1L, 9L)).willReturn(
