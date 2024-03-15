@@ -29,10 +29,9 @@ export default {
   },
 
   signUp(form) {
-    return axios
-      .post(api + member + "/signup", form)
-      .then((response) => {
-        console.log(response.data);
+    return axios.post(api + member + '/signup', form)
+      .then(response => {
+        console.log(response.data); 
         return response.data;
       })
       .catch((error) => {
