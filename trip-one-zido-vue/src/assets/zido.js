@@ -167,8 +167,11 @@ export default {
 
   //비밀번호 찾기 보안답변 전송
   //POST -- api/member/check -> id를 requestBody로 편입해 중복 방지
-  checkSecurityAnswer(securityAnswer) {
-    return true;
+  async checkSecurityAnswer(id,securityAnswer) {
+    const res = await axios.post('/api/member/check',{
+      id: id,
+      answer: securityAnswer,
+    })
   },
 
   //비밀번호 찾기 회원번호 조회
