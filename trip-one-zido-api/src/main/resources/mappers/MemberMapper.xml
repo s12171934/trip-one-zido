@@ -256,6 +256,8 @@
   <delete id="deleteMember" parameterType="long">
     DELETE FROM
       member
+    SET
+    password = #{password}
     WHERE
       id = #{id}
   </delete>

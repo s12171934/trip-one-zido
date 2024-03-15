@@ -414,7 +414,7 @@ class MemberApiControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print());
 
-        verify(memberService).deleteMember(eq(9L));
+        verify(memberService).deleteMember(eq(9L), "s", "s");
 
     }
 }
