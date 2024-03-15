@@ -5,8 +5,10 @@ import lombok.Data;
 import java.util.List;
 @Data
 public class ResponseBookmark {
-    int TourBookmarkCount;
-    int PlanSpotBookMarkCount;
+    Long id;
+    String loginId;
+    int tourBookmarkCount;
+    int planSpotBookMarkCount;
     List<ResponseTour> tourList;
     List<ResponseContentList> contentList;
 }

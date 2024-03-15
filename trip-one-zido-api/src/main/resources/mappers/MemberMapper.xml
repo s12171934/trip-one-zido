@@ -156,6 +156,15 @@
       password = #{password}
   </select>
 
+  <select id="getLoginId" parameterType="Long" resultType="String">
+    SELECT
+      login_id
+    FROM
+      member
+    WHERE
+      id = #{id}
+  </select>
+
   <select id="getLoginFormByLoginId" parameterType="string" resultType="com.example.triponezidoapi.dto.Login">
     SELECT
       login_id,

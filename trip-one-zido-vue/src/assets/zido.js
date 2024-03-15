@@ -7,14 +7,42 @@ export default {
   //찜하기
   //DELETE -- api/bookmark/id
   //PUT -- api/bookmark/id
-  toggleBookmark(content) {
-    content.myBookmark = !content.myBookmark;
+  toggleBookmark(id, content) {
+    if(!content.myBookmark){
+        axios.put(`/api/bookmark/${id}`)
+          .then(response => {
+            console.log(response.data);
+            return content.myBookmark = !content.myBookmark;
+          })
+          .catch(error => {
+            console.error('찜하기 요청 오류', error);
+            throw error;
+          });
+    } else {
+        axios.delete(`/api/bookmark/${id}`)
+            .then(response => {
+              console.log(response.data);
+              return content.myBookmark = !content.myBookmark;
+            })
+            .catch(error => {
+              console.error('찜삭제 요청 오류', error);
+              throw error;
+            });
+      }
   },
 
   //찜페이지 조회
   //GET -- api/bookmark/id
   getBookmarkById(id) {
-    return data.bookmark[id ? id : 1];
+    return axios.get(`/api/bookmark/${id}`)
+      .then(response => {
+        console.log(response.data);
+        return response.data.bookmark[id ? id : 1];
+      })
+      .catch(error => {
+        console.error('찜페이지 조회 요청 오류', error);
+        throw error;
+      });
   },
 
   //Comment
@@ -35,36 +63,102 @@ export default {
 
   //커뮤니티 삭제
   //DELETE -- api/community/id
-  deleteCommunity(targetId) {},
+  deleteCommunity(targetId) {
+    axios.delete(`/api/community/${targetId}`)
+      .then(response => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch(error => {
+        console.error('커뮤니티 삭제 요청 오류', error);
+        throw error;
+      });
+  },
 
   //커뮤니티 참여 취소
   //DELETE -- api/community/member/id
-  joinCancleCommunity(targetId) {},
+  joinCancleCommunity(targetId) {
+    axios.delete(`/api/community/${targetId}`)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error('커뮤니티 참여/취소 요청 오류', error);
+        throw error;
+      });
+  },
 
   //커뮤니티 상세 조회
   //GET -- api/community/id
-  getCommunityDetail(id) {
-    return data.communityDetail[id];
+  getCommunityDetail(targetId) {
+    return axios.get(`/api/community/${targetId}`)
+      .then(response => {
+        console.log(response.data);
+        return response.data.communityDetail[targetId];
+      })
+      .catch(error => {
+        console.error('커뮤니티 상세 조회 요청 오류', error);
+        throw error;
+      });
   },
 
   //커뮤니티 목록 조회
   //GET -- api/community/list/page
   //GET -- api/community/search/page -> query를 통해 GET전송이 어떤가?
-  getCommunityList(options) {
-    return data.communityList;
+  //POST -- 커뮤니티 목록 조회와 검색한 커뮤니티 목록 결합
+  postCommunityList(options) {
+    return axios.post(`/api/community/list`, options)
+      .then(response => {
+        console.log(response.data);
+        return response.data.communityList;
+      })
+      .catch(error => {
+        console.error('커뮤니티 목록 조회 요청 오류', error);
+        throw error;
+      });
   },
 
   //커뮤니티 참여
   //POST -- api/community/member/id
-  joinCommunity(targetId) {},
+  joinCommunity(targetId) {
+    axios.post(`/api/community/member/${targetId}`)
+      .then(response => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch(error => {
+        console.error('커뮤니티 참여 요청 오류', error);
+        throw error;
+      });
+  },
 
   //커뮤니티 등록
   //POST -- api/community
-  addCommunity(communityData) {},
+  addCommunity(communityData) {
+    axios.post(`/api/community`, communityData)
+      .then(response => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch(error => {
+        console.error('커뮤니티 등록 오류', error);
+        throw error;
+      });
+  },
 
   //커뮤니티 수정
   //PUT -- api/community/id
-  updateCommunity(communityData) {},
+  updateCommunity(targetId, communityData) {
+    axios.put(`/api/community/{targetId}`, communityData)
+    .then(response => {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch(error => {
+      console.error('커뮤니티 수정 오류', error);
+      throw error;
+    });
+  },
 
   //Content
 
