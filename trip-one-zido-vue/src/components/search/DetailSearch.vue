@@ -95,7 +95,12 @@ export default {
     return {
       selectLocations: data.selectLocations,
       selectCategories: data.selectCategories,
-      detailSearchData: this.$zido.getDetailSearchData(this.$route.query),
+      detailSearchData: {
+        planList,
+        planCount,
+        spotList,
+        spotCount,
+      },
       start: "",
       end: "",
       category: "",
@@ -105,11 +110,12 @@ export default {
   },
   methods: {
     detailSearch() {
-      location.href = `/search-detail?keyword=${this.keyword}&start=${this.start}&end=${this.end}&category=${this.category}&location=${this.location}`;
+      location.href = `/search-detail?keyword=${this.keyword}&startMonth=${this.start}&endMonth=${this.end}&category=${this.category}&locCategory=${this.locCategory}`;
     },
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    this.$zido.getDetailSearchData(this.$route.query).then((res) => this.detailSearchData = res)
   },
 };
 </script>

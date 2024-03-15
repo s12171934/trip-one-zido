@@ -3,6 +3,7 @@ package com.example.triponezidoapi.service;
 import com.example.triponezidoapi.dto.request.*;
 import com.example.triponezidoapi.dto.response.*;
 import com.example.triponezidoapi.mappers.BookmarkMapper;
+import com.example.triponezidoapi.mappers.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.List;
 public class BookmarkService {
     @Autowired
     BookmarkMapper bookmarkMapper;
+    @Autowired
+    MemberMapper memberMapper;
 
     // tourBookmarkCount,
     // planSpotBookmarkCount,
@@ -21,6 +24,8 @@ public class BookmarkService {
             id = sessionId;
         }
         ResponseBookmark responseBookmark = new ResponseBookmark();
+        responseBookmark.setId(id);
+        responseBookmark.setLoginId(memberMapper.getLoginId(sessionId));
         responseBookmark.setTourBookmarkCount(bookmarkMapper.tourBookmarkCount(id));
         responseBookmark.setPlanSpotBookMarkCount(bookmarkMapper.planSpotBookmarkCount(id));
         responseBookmark.setTourList(getTourBookmark(id,sessionId,0));

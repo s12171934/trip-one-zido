@@ -42,7 +42,7 @@
                   @change="checkOtherDate('start')"
                   class="border-0"
                   type="date"
-                  v-model="planData.start"
+                  v-model="planData.startDate"
                 />
               </div>
               <h4>~</h4>
@@ -51,7 +51,7 @@
                   @change="checkOtherDate('end')"
                   class="border-0"
                   type="date"
-                  v-model="planData.end"
+                  v-model="planData.endDate"
                 />
               </div>
             </div>
@@ -211,12 +211,12 @@ export default {
       planData: {
         status: 0,
         title: "",
-        start: "",
-        end: "",
+        startDate: "",
+        endDate: "",
         members: [{}],
         locCategory: "",
         review: "",
-        spotList: null,
+        spotPlans: null,
         isPublic: "",
       },
 
@@ -271,7 +271,7 @@ export default {
       this.calendarEvent = clickInfo;
 
       const id = clickInfo.event._def.publicId;
-      this.spotData = this.planData.spotList[id];
+      this.spotData = this.planData.spotPlans[id];
     },
 
     addMember() {
@@ -283,8 +283,8 @@ export default {
     },
 
     setCalendarByDate() {
-      const start = new Date(this.planData.start);
-      const end = new Date(this.planData.end);
+      const start = new Date(this.planData.startDate);
+      const end = new Date(this.planData.endDate);
       let days = end.getTime() - start.getTime();
       console.log(days);
       days = Math.ceil(days / (1000 * 60 * 60 * 24)) + 1;
@@ -292,20 +292,20 @@ export default {
       const calendarApi = this.$refs.FullCalendar.getApi();
       this.calendarOptions.views.timeGridDay.duration.days = days;
       this.calendarOptions.firstDay = start.getDay();
-      calendarApi.gotoDate(this.planData.start);
+      calendarApi.gotoDate(this.planData.startDate);
     },
 
     checkOtherDate(type) {
-      const start = new Date(this.planData.start);
-      const end = new Date(this.planData.end);
+      const start = new Date(this.planData.startDate);
+      const end = new Date(this.planData.endDate);
       let days = end.getTime() - start.getTime();
       console.log(days);
 
       if (days < 0 || !days) {
         if (type === "start") {
-          this.planData.end = this.planData.start;
+          this.planData.endDate = this.planData.startDate;
         } else {
-          this.planData.start = this.planData.end;
+          this.planData.startDate = this.planData.endDate;
         }
       }
       this.setCalendarByDate();
@@ -330,19 +330,19 @@ export default {
       calendarEvent.event.setProp("title", spotData.title);
       const id = calendarEvent.event._def.publicId;
       const newSpot = JSON.parse(JSON.stringify(spotData));
-      this.planData.spotList[id].photos = newSpot.photos;
-      this.planData.spotList[id].title = newSpot.title;
-      this.planData.spotList[id].category = newSpot.category;
-      this.planData.spotList[id].address = newSpot.address;
-      this.planData.spotList[id].address2 = newSpot.address2;
-      this.planData.spotList[id].rate = newSpot.rate;
-      this.planData.spotList[id].review = newSpot.review;
+      this.planData.spotPlans[id].photos = newSpot.photos;
+      this.planData.spotPlans[id].title = newSpot.title;
+      this.planData.spotPlans[id].category = newSpot.category;
+      this.planData.spotPlans[id].address = newSpot.address;
+      this.planData.spotPlans[id].address2 = newSpot.address2;
+      this.planData.spotPlans[id].rate = newSpot.rate;
+      this.planData.spotPlans[id].review = newSpot.review;
     },
 
     deleteSpot(calendarEvent) {
       calendarEvent.event.remove();
       const id = calendarEvent.event._def.publicId;
-      delete this.planData.spotList[id];
+      delete this.planData.spotPlans[id];
     },
 
     setPlanData() {

@@ -86,18 +86,14 @@ public class MemberApiController {
     ){
         return memberService.getQuestion(id);
     }
-    @PostMapping("/check/{id}")
+    @PostMapping("/check")
     @Operation(summary = "비밀번호 찾기 - 보안 답변 전송")
     public boolean answerQuestion(
-            @PathVariable
-            @Parameter(description = "회원 번호")
-            Long id,
-
-            @RequestParam
+            @RequestBody
             @Parameter(description = "보안 답변")
-            String answer
+            RequestAnswer requestAnswer
     ){
-        return memberService.checkAnswer(id, answer);
+        return memberService.checkAnswer(requestAnswer.getId(), requestAnswer.getAnswer());
     }
     @PutMapping("/passwd/{id}")
     @Operation(summary = "비밀번호 찾기 - 비밀번호 재설정")
@@ -134,6 +130,17 @@ public class MemberApiController {
     ){
         memberService.updateMember(sessionId, member);
     }
+
+    @GetMapping("/profile")
+    @Operation(summary = "프로필 사진 가져오기")
+    public ResponseMember showPofile(
+            @SessionAttribute(name="id")
+            @Parameter(description = "로그인 회원 번호")
+            Long sessionId
+    ){
+        return memberService.getMemberProfile(sessionId);
+    }
+
     @PutMapping("/profile")
     @Operation(summary = "프로필 사진 변경")
     public void PutProfile(
@@ -166,10 +173,19 @@ public class MemberApiController {
     public void removeMember(
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 정보")
-            Long id
+            Long id,
+
+            @RequestParam
+            @Parameter(description = "비밀번호")
+            String password,
+
+            @RequestParam
+            @Parameter(description = "비밀번호확인")
+            String passwordCheck
     ){
-        memberService.deleteMember(id);
+        memberService.deleteMember(id, password, passwordCheck);
     }
+
     @GetMapping("/config")
     @Operation(summary = "설정 페이지 조회")
     public ResponseConfigPage showConfig(
@@ -179,6 +195,7 @@ public class MemberApiController {
     ){
         return memberService.getConfig(SessionId);
     }
+
 /*    @PostMapping("/pairing")
     public void pairingSignup(@RequestBody ){
 

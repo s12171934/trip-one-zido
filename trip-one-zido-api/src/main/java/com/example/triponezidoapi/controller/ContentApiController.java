@@ -80,19 +80,25 @@ public class ContentApiController {
     ){
         contentService.addGood(id, sessionId, requestGood);
     }
+  
+    @GetMapping("/recent-view/")
+    @Tag(name = "Content", description = "Content API")
+    @Operation(summary = "최근 본 게시물 조회")
+    public ResponseRecentView showRecentView(
+            @SessionAttribute(name = "id")
+            @Parameter(description = "로그인 회원 정보")
+            Long sessionId
+    ){
+        return contentService.getRecentViewPage(sessionId);
+    }
     @GetMapping("/recent-view/{page}")
     @Tag(name = "Content", description = "Content API")
     @Operation(summary = "최근 본 게시물 조회")
-    public List<ResponseContentList> showRecentView(
+    public List<ResponseContentList> showMoreRecentView(
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 정보")
-            Long sessionId,
-
-            @PathVariable(required = false)
-            @Schema(nullable = true)
-            @Parameter(description = "페이징 번호")
-            long page
+            Long sessionId
     ){
-        return contentService.getRecentView(sessionId, page);
+        return contentService.getRecentView(sessionId);
     }
 }

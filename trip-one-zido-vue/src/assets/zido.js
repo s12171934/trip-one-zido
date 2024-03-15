@@ -1,6 +1,5 @@
 import data from "@/assets/data";
-
-const API_URL = "http://localhost:8080";
+import axios from "axios";
 
 export default {
   //BookMark
@@ -8,71 +7,206 @@ export default {
   //찜하기
   //DELETE -- api/bookmark/id
   //PUT -- api/bookmark/id
-  toggleBookmark(content) {   //axios + if 문 사용해야 함
-    content.myBookmark = !content.myBookmark;
+  toggleBookmark(id, content) {
+    if(!content.myBookmark){
+        axios.put(`/api/bookmark/${id}`)
+          .then(response => {
+            console.log(response.data);
+            content.myBookmark = !content.myBookmark;
+          })
+          .catch(error => {
+            console.error('찜하기 요청 오류', error);
+            throw error;
+          });
+    } else {
+        axios.delete(`/api/bookmark/${id}`)
+            .then(response => {
+              console.log(response.data);
+              content.myBookmark = !content.myBookmark;
+            })
+            .catch(error => {
+              console.error('찜삭제 요청 오류', error);
+              throw error;
+            });
+      }
   },
 
   //찜페이지 조회
   //GET -- api/bookmark/id
   getBookmarkById(id) {
-    return data.bookmark[id ? id : 1];
+    return axios.get(`/api/bookmark/${id}`)
+      .then(response => {
+        console.log(response.data);
+        return response.data.bookmark[id ? id : 1];
+      })
+      .catch(error => {
+        console.error('찜페이지 조회 요청 오류', error);
+        throw error;
+      });
   },
 
   //Comment
 
   //댓글 삭제
   //DELETE -- api/comment/id
-  deleteComment(targetId) {},
+  deleteComment(targetId) {
+    axios.delete(`/api/comment/${targetId}`)
+      .then(response => {
+        console.log(response.data);
+    })
+      .catch(error => {
+        console.log(error)
+        throw error;
+    })
+  },
 
   //댓글 등록
   //POST -- api/comment
-  addComment(targetId, comment) {},
+  addComment(targetId, comment) {
+    axios.post(`/api/comment`,{
+      comment : comment
+    })
+      .then(response => {
+        console.log(response.data);
+    })
+      .catch(error => {
+        console.log(error)
+        throw error;
+    })
+  },
 
   //댓글 수정
   //PUT -- api/comment/id
-  editComment(targetId, comment) {},
+  editComment(targetId, comment) {
+    axios.put(`/api/comment/${targetId}`,{
+      id : targetId,
+      comment : comment
+    })
+      .then(response => {
+        console.log(response.data);
+    })
+      .catch(error => {
+        console.log(error)
+        throw error;
+    })
+  },
 
   //Community
 
   //커뮤니티 삭제
   //DELETE -- api/community/id
-  deleteCommunity(targetId) {},
+  deleteCommunity(targetId) {
+    axios.delete(`/api/community/${targetId}`)
+      .then(response => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch(error => {
+        console.error('커뮤니티 삭제 요청 오류', error);
+        throw error;
+      });
+  },
 
   //커뮤니티 참여 취소
   //DELETE -- api/community/member/id
-  joinCancleCommunity(targetId) {},
+  joinCancleCommunity(targetId) {
+    axios.delete(`/api/community/${targetId}`)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error('커뮤니티 참여/취소 요청 오류', error);
+        throw error;
+      });
+  },
 
   //커뮤니티 상세 조회
   //GET -- api/community/id
-  getCommunityDetail(id) {
-    return data.communityDetail[id];
+  getCommunityDetail(targetId) {
+    return axios.get(`/api/community/${targetId}`)
+      .then(response => {
+        console.log(response.data);
+        return response.data.communityDetail[targetId];
+      })
+      .catch(error => {
+        console.error('커뮤니티 상세 조회 요청 오류', error);
+        throw error;
+      });
   },
 
   //커뮤니티 목록 조회
   //GET -- api/community/list/page
   //GET -- api/community/search/page -> query를 통해 GET전송이 어떤가?
-  getCommunityList(options) {
-    return data.communityList;
+  //POST -- 커뮤니티 목록 조회와 검색한 커뮤니티 목록 결합
+  postCommunityList(options) {
+    return axios.post(`/api/community/list`, options)
+      .then(response => {
+        console.log(response.data);
+        return response.data.communityList;
+      })
+      .catch(error => {
+        console.error('커뮤니티 목록 조회 요청 오류', error);
+        throw error;
+      });
   },
 
   //커뮤니티 참여
   //POST -- api/community/member/id
-  joinCommunity(targetId) {},
+  joinCommunity(targetId) {
+    axios.post(`/api/community/member/${targetId}`)
+      .then(response => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch(error => {
+        console.error('커뮤니티 참여 요청 오류', error);
+        throw error;
+      });
+  },
 
   //커뮤니티 등록
   //POST -- api/community
-  addCommunity(communityData) {},
+  addCommunity(communityData) {
+    axios.post(`/api/community`, communityData)
+      .then(response => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch(error => {
+        console.error('커뮤니티 등록 오류', error);
+        throw error;
+      });
+  },
 
   //커뮤니티 수정
   //PUT -- api/community/id
-  updateCommunity(communityData) {},
+  updateCommunity(targetId, communityData) {
+    axios.put(`/api/community/{targetId}`, communityData)
+    .then(response => {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch(error => {
+      console.error('커뮤니티 수정 오류', error);
+      throw error;
+    });
+  },
 
   //Content
 
   //최근 본 게시물 조회
   //GET -- api/content/recent-view
   getRecentView() {
-    return data.recentView;
+    axios.get(`/api/content/recent-view`)
+    .then(response => {
+      data.recentView = response.data 
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.log(error)
+      throw error;
+    })
+    return data.recentView
   },
 
   //Follow
@@ -82,12 +216,50 @@ export default {
   //POST -- api/page/follow/id
   toggleFollow(userProfile) {
     userProfile.isFollow = !userProfile.isFollow;
+    //팔로잉으로 변경한다면 POST요청
+    if(userProfile.isFollow === true){
+      axios.POST(`/api/page/follow/${userProfile.id}`)
+      .then(response => {
+        console.log(response.data);
+    })
+      .catch(error => {
+        console.log(error)
+        throw error;
+    })
+    //팔로잉을 해제한다면 delete요청
+    } else {
+      axios.delete(`/api/page/follow/${userProfile.id}`)
+      .then(response => {
+        console.log(response.data);
+    })
+      .catch(error => {
+        console.log(error)
+        throw error;
+    })
+    }
   },
 
   //팔로잉, 팔로워 목록 조회
   //GET -- api/page/follower/id
   //GET -- api/page/following/id
   getFollowList(type, targetId, sessionId) {
+    //타입체크후 get API설정 
+    let url;
+    if (type === 'follower') {
+      url = `/api/page/follower/${targetId}`;
+    } else {
+      url = `/api/page/following/${targetId}`;
+    }
+
+    axios.get(url)
+      .then(response => {
+        data.userProfiles = response.data
+        console.log(response.data);
+    })
+      .catch(error => {
+        console.log(error)
+        throw error;
+    })
     console.log(type, targetId, sessionId);
     return data.userProfiles;
   },
@@ -102,6 +274,15 @@ export default {
     } else {
       content.myLike = like;
     }
+    axios.post(`api/content/good/${content.id}`,{content})
+      .then(response => {
+        data.userProfiles = response.data
+        console.log(response.data);
+    })
+      .catch(error => {
+        console.log(error)
+        throw error;
+    })
   },
 
   //Member
@@ -109,37 +290,114 @@ export default {
   //회원탈퇴 확인
   //DELETE -- api/member -> 비밀번호, 비밀번호 확인 추가 전송
   checkResign(password, passwordCheck) {
-    return true;
+    return axios.delete(API_URL + '/api/member/', {
+      loginId: loginId,
+      password: password,
+      passwordCheck: passwordCheck
+    })
+    .then(response => {
+      // 서버로부터 응답을 받으면 처리
+      // 예를 들어, 응답이 성공인 경우 처리
+      console.log(response.data); // 서버 응답 데이터 출력
+      return response.data; // 다른 처리를 위해 응답 데이터 반환
+    })
+    .catch(error => {
+       // 오류 발생 시 처리
+      console.error('회원탈퇴시 비밀번호+비밀번호오류 확인 오류:', error);
+      throw error;  // 오류를 호출자로 전파하거나 다른 방식으로 처리
+    });
   },
 
   //회원정보 조회
   //GET -- api/member
   getUserInfo() {
-    return data.userInfo;
+    // return data.userInfo;
+    return axios.get(API_URL + '/api/member/',{
+      loginId: loginId
+    })
+    .then(response => {
+      // 서버로부터 응답을 받으면 처리
+      // 예를 들어, 응답이 성공인 경우 처리
+      console.log(response.data); // 서버 응답 데이터 출력
+      return response.data; // 다른 처리를 위해 응답 데이터 반환
+    })
+    .catch(error => {
+       // 오류 발생 시 처리
+      console.error('회원정보 조회 요청 오류:', error);
+      throw error;  // 오류를 호출자로 전파하거나 다른 방식으로 처리
+    });
   },
 
   //보안질문 목록 조회
   //GET -- api/member/signup
   getSecurityQuestions() {
-    return data.securityQuestions;
+    // return data.securityQuestions;
+    return axios.get(API_URL + '/api/member/signup', {
+      loginId: loginId,
+      password: password
+    })
+    .then(response => {
+      // 서버로부터 응답을 받으면 처리
+      // 예를 들어, 응답이 성공인 경우 처리
+      console.log(response.data); // 서버 응답 데이터 출력
+      return response.data; // 다른 처리를 위해 응답 데이터 반환
+    })
+    .catch(error => {
+       // 오류 발생 시 처리
+      console.error('회원가입시 보안질문 조회 요청 오류:', error);
+      throw error;  // 오류를 호출자로 전파하거나 다른 방식으로 처리
+    });
   },
 
   //비밀번호 찾기 보안질문 조회
   //GET -- api/member/check/id
   getSecurityQuestion(id) {
-    return "질문지도하기";
+  // return "질문지도하기";
+  return axios.get(API_URL + `'/api/member/check/${id}'`, {
+    id: id,
+  })
+  .then(response => {
+    console.log(response.data); 
+    return response.data;
+  })
+  .catch(error => {
+    console.error('선택한 보안질문 조회 요청 오류', error);
+    throw error; 
+  });
   },
 
   //회원 페이지 조회
   //GET -- api/page/id
   getMemberPageData(id) {
-    return data.memberPageData[id ? id : 1];
+    // return data.memberPageData[id ? id : 1];
+    return axios.put(API_URL + `'/api/page/${id}'`, {
+      id: id ? id : this.getMemberId()
+   })
+   .then(response => {
+     console.log(response.data); 
+     return response.data;
+   })
+   .catch(error => {
+     console.error('회원 페이지 조회 요청 오류', error);
+     throw error; 
+   });
   },
 
   //프로필 사진 가져오기
   //미구현 GET -- api/member/profile -> header와 프로필 사진 편집시 필요
   getProfileImg() {
-    return data.userProfiles[1].imgSrc;
+    // return data.userProfiles[1].imgSrc;
+    return axios.get(API_URL + '/api/member/profile', {
+      loginId: loginId
+   })
+   .then(response => {
+     console.log(response.data); 
+     return response.data;
+   })
+   .catch(error => {
+     console.error('프로필 사진 가져오기 오류', error);
+     throw error; 
+   });
   },
 
   //설정 페이지 조회
@@ -343,24 +601,30 @@ export default {
   //GET Methods -> page전까지가 addApi
   //api/bookmark/id/tour/page
   //api/bookmark/id/spot-plan/page
-  //미구현 api/tour/list/loc/page
-  //미구현 api/content/recent-view/page
+  //api/tour/list/loc/page
+  //api/content/recent-view/page
   //api/page/id/plan/page
   //api/page/id/spot/page
-  //미구현 api/search/keyword/spot/page
-  //미구현 api/search/keyword/plan/page
-  //미구현 POST -- api/search/spot/page
-  //미구현 POST -- api/search/plan/page
-  newContents(addApi, page, method) {
-    alert(method);
-    return data.newContent;
+  //api/search/keyword/spot/page
+  //api/search/keyword/plan/page
+  //POST -- api/search/spot/page
+  //POST -- api/search/plan/page
+  async newContents(addApi, page, method, searchOptions) {
+    let res = null;
+    if(method){
+      res = await axios.post(addApi + page, searchOptions)
+    }
+    else{
+      res = await axios.get(addApi + page)
+    }
+    return res.data;
   },
 
   //계정정보 더보기
-  //미구현 GET -- api/search/member/keyword/page
-  newMembers(page) {
-    alert(page);
-    return data.newMember;
+  //GET -- api/search/keyword/member/page
+  async newMembers(addApi, page) {
+    const res = await axios.get(addApi + page)
+    return res.data;
   },
 
   //Pin
@@ -375,76 +639,98 @@ export default {
 
   //일정 삭제
   //DELETE -- api/plan/id
-  deletePlan(targetId) {},
+  async deletePlan(targetId) {
+    await axios.delete(`/api/plan/${targetId}`);
+  },
 
   //일정 상세 조회
   //GET -- api/plan/id
-  getPlanData(id) {
-    return data.planData[id];
+  async getPlanData(id) {
+    const res = await axios.get(`/api/plan/${id}`);
+    return res.data;
   },
 
   //일정 등록
   //POST -- api/plan
-  addPlan(planData) {},
+  async addPlan(planData) {
+    await axios.post("/api/plan", planData);
+  },
 
   //일정 수정
   //PUT -- api/plan/id
-  updatePlan(planData) {},
+  async updatePlan(planData) {
+    await axios.put("/api/plan", planData);
+  },
 
   //Search
 
   //검색 정보 조회
-  //GET -- api/search/keyword/page  -> remove page, api/search/keyword
-  getSearchData(keyword) {
-    return data.searchData;
+  //GET -- api/search/keyword
+  async getSearchData(keyword) {
+    const res = await axios.get(`/api/search/${keyword}`)
+    return res.data;
   },
 
   //상세 검색 정보 조회
-  //POST -- api/search/detail/page -> remove page, api/search 로만
-  getDetailSearchData(searchOptions) {
-    return data.searchData;
+  //POST -- api/search
+  async getDetailSearchData(searchOptions) {
+    const res = await axios.post('/api/search',searchOptions)
+    return res.data;
   },
 
   //SNS Connect
 
   //소셜로그인 연동
-  //미구현 PUT -- api/social/connect/
-  updateSocialLogin(socialType, socialId, LoginId) {
-    alert([socialType, socialId, LoginId]);
+  //PUT -- api/social
+  async updateSocialLogin(socialType, socialId, loginId) {
+    await axios.put('/api/socal/connect',{
+      socialType: socialType,
+      socialId: socialId,
+      loginId: loginId
+    });
   },
 
   //Spot
 
   //장소 삭제
   //DELETE -- api/spot/id
-  deleteSpot(targetId) {},
+  async deleteSpot(targetId) {
+    await axios.delete(`/api/spot/${targetId}`);
+  },
 
   //장소 상세 조회
   //GET -- api/spot/id
-  getSpotData(id) {
-    return data.spotData[id];
+  async getSpotData(id) {
+    const res = await axios.get(`/api/spot/${id}`);
+    return res.data;
   },
 
   //장소 등록
   //POST -- api/spot
-  addSpot(spotData) {},
+  async addSpot(spotData) {
+    await axios.post("/api/spot", spotData);
+  },
 
   //장소 수정
   //PUT -- api/spot/id
-  updateSpot(spotData) {},
+  async updateSpot(spotData) {
+    await axios.put("/api/spot", spotData);
+  },
 
   //Tour
 
   //관광지 상세 조회
   //GET -- api/tour/id
-  getTourData(id) {
-    return data.tourData[id];
+  async getTourData(id) {
+    const res = await axios.get(`/api/tour/${id}`);
+    return res.data;
   },
 
   //관광지 목록 조회
-  //GET -- api/tour/list/page -> page 에서 loc으로 변경 필요
-  getTourList(loc) {
-    return data.tourList;
+  //GET -- api/tour/list/loc
+  async getTourList(loc) {
+    const res = await axios.get(`/api/tour/list/${loc}`);
+    return res.data;
   },
 };
 

@@ -16,6 +16,8 @@ public class SpotService {
     ContentMapper contentMapper;
     @Autowired
     CommentMapper commentMapper;
+    @Autowired
+    MemberMapper memberMapper;
 
     public ResponseSpotDetail spotDetail(Long id, Long sessionId){
         //spotDetail 기본 (getSpot)
@@ -102,7 +104,7 @@ public class SpotService {
         for (int i = 0; i < requestSpot.getMembers().size(); i++) {
             RequestOwner requestOwner = new RequestOwner();
             requestOwner.setOwn("with");
-            requestOwner.setMemberId(requestSpot.getMembers().get(i));
+            requestOwner.setMemberId(memberMapper.getIdByLoginId(requestSpot.getMembers().get(i)));
             requestOwner.setContentId(id);
             contentMapper.addOwner(requestOwner);
         }

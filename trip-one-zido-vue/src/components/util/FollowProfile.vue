@@ -7,7 +7,7 @@
     <img
       class="rounded-circle"
       id="followPic"
-      :src="userProfile.imgSrc"
+      :src="userProfile.profile"
       alt="..."
     />
 

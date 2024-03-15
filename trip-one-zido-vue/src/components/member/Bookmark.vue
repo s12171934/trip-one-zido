@@ -7,23 +7,23 @@
 
     <div class="d-flex flex-row mb-6" id="subTitle">
       <h3>
-        ・모든 일정 & 장소 게시글<span>{{ bookmark.tourCount }}</span>
+        ・모든 일정 & 장소 게시글<span>{{ bookmark.planSpotBookMarkCount }}</span>
       </h3>
     </div>
 
     <ContentList
-      :list="bookmark.tourList"
+      :list="bookmark.contentList"
       :addApi="`/bookmark/${bookmark.id}/tour/`"
     />
 
     <div class="d-flex flex-row mb-6" id="subTitle">
       <h3>
-        ・모든 관광지<span>{{ bookmark.spotPlanCount }}</span>
+        ・모든 관광지<span>{{ bookmark.tourBookmarkCount }}</span>
       </h3>
     </div>
 
     <ContentList
-      :list="bookmark.spotPlanList"
+      :list="bookmark.tourList"
       :addApi="`/bookmark/${bookmark.id}/spotPlan/`"
     />
   </main>

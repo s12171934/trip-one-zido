@@ -189,7 +189,7 @@ class PageApiControllerTest {
         members.add(responseMember);
 
         //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
-        given(pageService.getFollowingList(1L, 1L, 0L)).willReturn(
+        given(pageService.getFollowingList(1L, 1L)).willReturn(
                 members
         );
 
@@ -202,7 +202,7 @@ class PageApiControllerTest {
                 // andDo -> 메소드가 어떻게 실행이 됐는지
                 .andDo(print());
 
-        verify(pageService).getFollowingList(1L, 1L, 0L);
+        verify(pageService).getFollowingList(1L, 1L);
     }
 
     @Test
@@ -219,7 +219,7 @@ class PageApiControllerTest {
         members.add(responseMember);
 
         //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
-        given(pageService.getFollowerList(1L, 1L, 0L)).willReturn(
+        given(pageService.getFollowerList(1L, 1L)).willReturn(
                 members
         );
 
@@ -232,7 +232,7 @@ class PageApiControllerTest {
                 // andDo -> 메소드가 어떻게 실행이 됐는지
                 .andDo(print());
 
-        verify(pageService).getFollowerList(1L, 1L, 0L);
+        verify(pageService).getFollowerList(1L, 1L);
     }
 
     @Test
