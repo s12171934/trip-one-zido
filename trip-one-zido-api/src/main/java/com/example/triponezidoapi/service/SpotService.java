@@ -56,7 +56,7 @@ public class SpotService {
 
         //addSpot
         requestSpot.setId(generatedId);
-        requestSpot.setProfile(generatedId);
+        requestSpot.setProfile(sessionId);
         spotMapper.addSpot(requestSpot);
 
         //addPhoto

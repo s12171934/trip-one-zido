@@ -97,8 +97,13 @@ public class ContentApiController {
     public List<ResponseContentList> showMoreRecentView(
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 정보")
-            Long sessionId
+            Long sessionId,
+
+            @PathVariable
+            @Parameter(description = "페이지 번호")
+            long page
+
     ){
-        return contentService.getRecentView(sessionId);
+        return contentService.getRecentView(sessionId,page);
     }
 }

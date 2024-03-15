@@ -157,9 +157,16 @@
         s.loc_category = #{locCategory} AND
         s.category = #{category} AND
         <if test="startMonth == 1">
-            (<![CDATA[(MONTH(s.start_date) = 12 OR MONTH(s.end_date) = 12) OR]]>
+            <![CDATA[
+                ((MONTH(s.start_date) = 12 OR MONTH(s.end_date) = 12) OR
+                (MONTH(s.start_date) <= #{endMonth} AND MONTH(s.end_date) >= #{startMonth}))
+            ]]>
         </if>
-        <![CDATA[ (MONTH(s.start_date) <= #{endMonth} AND MONTH(s.end_date) >= #{startMonth}) ]]>)
+        <if test="startMonth != 1">
+            <![CDATA[
+                (MONTH(s.start_date) <= #{endMonth} AND MONTH(s.end_date) >= #{startMonth})
+            ]]>
+        </if>
         LIMIT
             #{page}, 6
     </select>
@@ -209,11 +216,17 @@
             c.id = p.id AND
             c.title LIKE CONCAT('%', #{keyword}, '%') AND
             p.loc_category = #{locCategory} AND
-
-            <if test="startMonth == 1">
-                (<![CDATA[(MONTH(p.start_date) = 12 OR MONTH(p.end_date) = 12) OR ]]>
-            </if>
-            <![CDATA[ (MONTH(p.start_date) <= #{endMonth} AND MONTH(p.end_date) >= #{startMonth}) ]]>)
+        <if test="startMonth == 1">
+            <![CDATA[
+                ((MONTH(p.start_date) = 12 OR MONTH(p.end_date) = 12) OR
+                (MONTH(p.start_date) <= #{endMonth} AND MONTH(p.end_date) >= #{startMonth}))
+            ]]>
+        </if>
+        <if test="startMonth != 1">
+            <![CDATA[
+                (MONTH(p.start_date) <= #{endMonth} AND MONTH(p.end_date) >= #{startMonth})
+            ]]>
+        </if>
         LIMIT
             #{page}, 6
     </select>

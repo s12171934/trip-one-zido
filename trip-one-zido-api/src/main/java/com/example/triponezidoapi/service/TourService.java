@@ -20,6 +20,9 @@ public class TourService {
     SpotMapper spotMapper;
 
     public List<ResponseTour> getTourList(Long sessionId, String loc, Long page){
+        if(page != 0 ){
+            page = page * 6;
+        }
         RequestTourList requestTourList = new RequestTourList(page,loc,sessionId);
         return tourMapper.getTourList(requestTourList);
     }
@@ -53,7 +56,7 @@ public class TourService {
         requestContent.setTitle(requestTour.getTitle());
         contentMapper.addContent(requestContent);
         //Content 테이블에 추가한 이후에 생성된 id를 가져옴
-        long generatedId = requestContent.getId();
+        Long generatedId = requestContent.getId();
 
         //addPhoto
         RequestPhoto requestPhoto = new RequestPhoto();

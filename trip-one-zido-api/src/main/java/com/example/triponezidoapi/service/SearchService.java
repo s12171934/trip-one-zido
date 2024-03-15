@@ -32,22 +32,37 @@ public class SearchService {
         responseSearch.setPlanList(searchMapper.searchPlan(requestSearch));
         //searchSpot
         responseSearch.setSpotList(searchMapper.searchSpot(requestSearch));
+
+        //검색 결과의 카운트 처리
+        responseSearch.setMemberCount(responseSearch.getMemberList().size());
+        responseSearch.setPlanCount(responseSearch.getPlanList().size());
+        responseSearch.setSpotCount(responseSearch.getPlanList().size());
+
         responseSearch.setKeyword(keyword);
 
         return responseSearch;
     }
 
     public List<ResponseContentList> moreSpotByKeyword(Long id, String keyword, long page){
+        if(page != 0){
+            page = page * 6;
+        }
         RequestSearch requestSearch = setRequsetSearch(id,keyword,page);
         return searchMapper.searchSpot(requestSearch);
     }
 
     public List<ResponseContentList> morePlanByKeyword(Long id, String keyword, long page){
+        if(page != 0){
+            page = page * 6;
+        }
         RequestSearch requestSearch = setRequsetSearch(id,keyword,page);
         return searchMapper.searchPlan(requestSearch);
     }
 
     public List<ResponseMember> moreMemberByKeyword(Long id, String keyword, long page){
+        if(page != 0){
+            page = page * 6;
+        }
         RequestSearch requestSearch = setRequsetSearch(id,keyword,page);
         return searchMapper.searchMember(requestSearch);
     }
@@ -104,11 +119,17 @@ public class SearchService {
     }
 
     public List<ResponseContentList> moreSpotByDetail(Long id, RequestDetailSearch detailSearch, long page){
+        if(page != 0){
+            page = page * 6;
+        }
         detailSearch = setDetailSearch(id,detailSearch,page);
         return searchMapper.detailSearchSpot(detailSearch);
     }
 
     public List<ResponseContentList> morePlanByDetail(Long id, RequestDetailSearch detailSearch, long page){
+        if(page != 0){
+            page = page * 6;
+        }
         detailSearch = setDetailSearch(id,detailSearch,page);
         return searchMapper.detailSearchPlan(detailSearch);
     }
