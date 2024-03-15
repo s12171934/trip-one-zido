@@ -86,11 +86,11 @@ class ContentApiControllerTest {
     @Test
     @DisplayName("최근 본 게시물 조회")
     void showRecentView() throws Exception {
-        mockMvc.perform(get("/api/content/recent-view/{page}", 0)
+        mockMvc.perform(get("/api/content/recent-view")
                         .sessionAttr("id", 9L)
                 )
                 .andExpect(status().isOk())
                 .andDo(print());
-        verify(contentService).getRecentView(9L, 0);
+        verify(contentService).getRecentView(9L);
     }
 }

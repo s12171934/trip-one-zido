@@ -90,8 +90,6 @@
       WHERE
         following = #{myMemberId}
       )
-    LIMIT
-      #{page}, 6
   </select>
 
   <select id="followingList" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
@@ -111,8 +109,6 @@
       WHERE
         follower = #{myMemberId}
       )
-    LIMIT
-      #{page}, 6
   </select>
 
   <select id="postCount" parameterType="Long" resultType="int">

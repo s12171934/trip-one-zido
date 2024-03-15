@@ -22,15 +22,47 @@ export default {
 
   //댓글 삭제
   //DELETE -- api/comment/id
-  deleteComment(targetId) {},
+  deleteComment(targetId) {
+    axios.delete(`/api/comment/${targetId}`)
+      .then(response => {
+        console.log(response.data);
+    })
+      .catch(error => {
+        console.log(error)
+        throw error;
+    })
+  },
 
   //댓글 등록
   //POST -- api/comment
-  addComment(targetId, comment) {},
+  addComment(targetId, comment) {
+    axios.post(`/api/comment`,{
+      comment : comment
+    })
+      .then(response => {
+        console.log(response.data);
+    })
+      .catch(error => {
+        console.log(error)
+        throw error;
+    })
+  },
 
   //댓글 수정
   //PUT -- api/comment/id
-  editComment(targetId, comment) {},
+  editComment(targetId, comment) {
+    axios.put(`/api/comment/${targetId}`,{
+      id : targetId,
+      comment : comment
+    })
+      .then(response => {
+        console.log(response.data);
+    })
+      .catch(error => {
+        console.log(error)
+        throw error;
+    })
+  },
 
   //Community
 
@@ -72,7 +104,16 @@ export default {
   //최근 본 게시물 조회
   //GET -- api/content/recent-view
   getRecentView() {
-    return data.recentView;
+    axios.get(`/api/content/recent-view`)
+    .then(response => {
+      data.recentView = response.data 
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.log(error)
+      throw error;
+    })
+    return data.recentView
   },
 
   //공개 비공개 여부
@@ -86,12 +127,50 @@ export default {
   //POST -- api/page/follow/id
   toggleFollow(userProfile) {
     userProfile.isFollow = !userProfile.isFollow;
+    //팔로잉으로 변경한다면 POST요청
+    if(userProfile.isFollow === true){
+      axios.POST(`/api/page/follow/${userProfile.id}`)
+      .then(response => {
+        console.log(response.data);
+    })
+      .catch(error => {
+        console.log(error)
+        throw error;
+    })
+    //팔로잉을 해제한다면 delete요청
+    } else {
+      axios.delete(`/api/page/follow/${userProfile.id}`)
+      .then(response => {
+        console.log(response.data);
+    })
+      .catch(error => {
+        console.log(error)
+        throw error;
+    })
+    }
   },
 
   //팔로잉, 팔로워 목록 조회
   //GET -- api/page/follower/id/page -> 현재는 페이징 없음
   //GET -- api/page/following/id/page -> 현재는 페이징 없음
   getFollowList(type, targetId, sessionId) {
+    //타입체크후 get API설정 
+    let url;
+    if (type === 'follower') {
+      url = `/api/page/follower/${targetId}`;
+    } else {
+      url = `/api/page/following/${targetId}`;
+    }
+
+    axios.get(url)
+      .then(response => {
+        data.userProfiles = response.data
+        console.log(response.data);
+    })
+      .catch(error => {
+        console.log(error)
+        throw error;
+    })
     console.log(type, targetId, sessionId);
     return data.userProfiles;
   },
@@ -106,6 +185,15 @@ export default {
     } else {
       content.myLike = like;
     }
+    axios.post(`api/content/good/${content.id}`,{content})
+      .then(response => {
+        data.userProfiles = response.data
+        console.log(response.data);
+    })
+      .catch(error => {
+        console.log(error)
+        throw error;
+    })
   },
 
   //Member

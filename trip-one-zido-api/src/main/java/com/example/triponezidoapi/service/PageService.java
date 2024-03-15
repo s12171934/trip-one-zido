@@ -76,7 +76,7 @@ public class PageService {
         return spotMapper.getSpotList(requestSessionTarget);
     }
 
-    public List<ResponseMember> getFollowingList(Long id, Long sessionId, long page){
+    public List<ResponseMember> getFollowingList(Long id, Long sessionId){
         //id가 null일때 세션정보를 이용한다
         if(id == null){
             id = sessionId;
@@ -84,7 +84,6 @@ public class PageService {
 
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(id);
-        requestSessionTarget.setPage(page);
 
         List<ResponseMember> followingList = memberMapper.followingList(requestSessionTarget);
         // 팔로잉 여부 확인
@@ -98,7 +97,7 @@ public class PageService {
         return followingList;
     }
 
-    public List<ResponseMember> getFollowerList(Long id, Long sessionId, long page){
+    public List<ResponseMember> getFollowerList(Long id, Long sessionId){
         //id가 null일때 세션정보를 이용한다
         if(id == null){
             id = sessionId;
@@ -106,7 +105,6 @@ public class PageService {
 
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(id);
-        requestSessionTarget.setPage(page);
 
         List<ResponseMember> followerList = memberMapper.followerList(requestSessionTarget);
         // 팔로잉 여부 확인
