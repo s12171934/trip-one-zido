@@ -76,6 +76,9 @@ class SearchApiControllerTest {
         responseSearch.setMemberList(memberList);
         responseSearch.setPlanList(planList);
         responseSearch.setSpotList(spotList);
+        responseSearch.setUserCount(memberList.size());
+        responseSearch.setPlanCount(planList.size());
+        responseSearch.setSpotCount(spotList.size());
         responseSearch.setKeyword("검색테스트");
         responseSearch.setCategory("기본");
         responseSearch.setLocCategory("서울특별시");
@@ -91,6 +94,9 @@ class SearchApiControllerTest {
                 .andExpect(jsonPath("$.memberList").exists())
                 .andExpect(jsonPath("$.planList").exists())
                 .andExpect(jsonPath("$.spotList").exists())
+                .andExpect(jsonPath("$.userCount").exists())
+                .andExpect(jsonPath("$.planCount").exists())
+                .andExpect(jsonPath("$.spotCount").exists())
                 .andExpect(jsonPath("$.keyword").exists())
                 .andExpect(jsonPath("$.category").exists())
                 .andExpect(jsonPath("$.locCategory").exists())

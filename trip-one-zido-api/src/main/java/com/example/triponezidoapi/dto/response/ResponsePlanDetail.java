@@ -16,7 +16,7 @@ public class ResponsePlanDetail {
     int grade;
     int viewCount;
     int goodCount;
-    int myGood;
+    boolean myGood;
     int bookmarkCount;
     int myBookmark;
     String title;

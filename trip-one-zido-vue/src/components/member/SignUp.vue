@@ -34,7 +34,7 @@
           placeholder="비밀번호 확인"
         />
         <div class="select-wrapper">
-          <select name="category" id="security" v-model="form.securityQuestion">
+          <select name="category" id="security" v-model="form.question">
             <option
               v-for="securityQuestion in $zido.getSecurityQuestions()"
               :value="securityQuestion.id"
@@ -46,7 +46,7 @@
 
         <input
           type="text"
-          v-model="form.securityAnswer"
+          v-model="form.answer"
           placeholder="보안질문 답"
         />
 
@@ -138,10 +138,12 @@ export default {
         name: "",
         password: "",
         passwordCheck: "",
-        securityQuestion: "",
-        securityAnswer: "",
+        question: "",
+        answer: "",
         email: "",
         phoneNumber: "",
+        zipcode: "",
+        address: "",
         address2: "",
         birth: "",
         gender: "",
@@ -150,11 +152,11 @@ export default {
   },
   methods: {
     checkLoginId() {
-      if (this.$zido.checkLoginId(this.loginId)) {
+      if (this.$zido.checkLoginId(this.form.loginId)) {
         this.modal = "checkDuplicationLoginIdSuccess";
       } else {
         this.modal = "checkDuplicationLoginIdFail";
-        this.loginId = "";
+        this.form.loginId = "";
       }
     },
     signUp() {

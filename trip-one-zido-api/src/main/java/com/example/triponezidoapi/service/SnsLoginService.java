@@ -1,7 +1,10 @@
 package com.example.triponezidoapi.service;
 
+import com.example.triponezidoapi.dto.request.RequestSocialConnect;
+import com.example.triponezidoapi.mappers.MemberMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -11,11 +14,14 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.lang.reflect.Parameter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Service
 public class SnsLoginService {
+    @Autowired
+    MemberMapper memberMapper;
     public String naverLogin(String code, String state) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -86,5 +92,14 @@ public class SnsLoginService {
 
         map = objectMapper.readValue(kakaoInfo.getBody(),Map.class);
         return String.valueOf(map.get("id"));
+    }
+
+    public void connect(RequestSocialConnect requestSocialConnect){
+        if(requestSocialConnect.getSocialType().equals("naver")){
+            memberMapper.updateNaverId(requestSocialConnect);
+        }
+        else {
+            memberMapper.updateKakaoId(requestSocialConnect);
+        }
     }
 }

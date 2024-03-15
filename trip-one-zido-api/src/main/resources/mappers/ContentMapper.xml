@@ -103,6 +103,14 @@
             sp.grade,
             (
                 SELECT
+                    login_id
+                FROM
+                    member
+                WHERE
+                    id = #{myMemberId}
+            ) login_id,
+            (
+                SELECT
                     photo
                 FROM
                     photo
@@ -159,8 +167,6 @@
             o.member_id = #{myMemberId}
         ORDER BY
             opened_at DESC
-            LIMIT
-            #{page}, 6
     </select>
 
     <select id="isGood" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember" resultType="boolean">

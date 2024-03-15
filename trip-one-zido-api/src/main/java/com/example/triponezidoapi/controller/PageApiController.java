@@ -68,7 +68,7 @@ public class PageApiController {
     ){
         return pageService.getSpotListByPage(id, sessionId, page);
     }
-    @GetMapping("/following/{id}/{page}")
+    @GetMapping("/following/{id}")
     @Tag(name = "Follow", description = "Follow API")
     @Operation(summary = "팔로잉 명단")
     public List<ResponseMember> listFollowing(
@@ -79,15 +79,11 @@ public class PageApiController {
 
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 번호")
-            Long sessionId,
-
-            @PathVariable
-            @Parameter(description = "페이징 번호")
-            long page
+            Long sessionId
     ){
-        return pageService.getFollowingList(id, sessionId, page);
+        return pageService.getFollowingList(id, sessionId);
     }
-    @GetMapping("/follower/{id}/{page}")
+    @GetMapping("/follower/{id}")
     @Tag(name = "Follow")
     @Operation(summary = "팔로워 명단")
     public List<ResponseMember> listFollower(
@@ -98,13 +94,9 @@ public class PageApiController {
 
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 번호")
-            Long sessionId,
-
-            @PathVariable
-            @Parameter(description = "페이징 번호")
-            long page
+            Long sessionId
     ){
-        return pageService.getFollowerList(id, sessionId, page);
+        return pageService.getFollowerList(id, sessionId);
     }
     @PostMapping("/follow/{id}")
     @Tag(name = "Follow")

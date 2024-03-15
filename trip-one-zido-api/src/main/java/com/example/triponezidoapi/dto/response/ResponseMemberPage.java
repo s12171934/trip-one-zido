@@ -6,6 +6,9 @@ import java.util.List;
 
 @Data
 public class ResponseMemberPage {
+    Long id;
+    String loginId;
+    boolean isFollow;
     List<ResponseContentList> planLists;
     List<ResponseContentList> spotLists;
     ResponseMember responseMember;

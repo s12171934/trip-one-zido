@@ -22,17 +22,17 @@
     </form>
 
     <h1>
-      {{ searchData.userCount + searchData.planCount + searchData.spotCount }}
+      {{ searchData.memberCount + searchData.planCount + searchData.spotCount }}
       건의 검색 결과
     </h1>
 
     <div class="d-flex flex-row mb-6" id="subTitle">
       <h3>
-        계정<span>{{ searchData.userCount }}</span>
+        계정<span>{{ searchData.memberCount }}</span>
       </h3>
     </div>
 
-    <MemberList :list="searchData.userList" :plus="true" />
+    <MemberList :list="searchData.memberList" :plus="true" />
 
     <div class="d-flex flex-row mb-6" id="subTitle">
       <h3>
@@ -69,11 +69,21 @@ export default {
   },
   data() {
     return {
-      searchData: this.$zido.getSearchData(this.$route.params.keyword),
+      searchData: {
+        memberList,
+        memberCount,
+        planList,
+        planCount,
+        spotList,
+        spotCount,
+      },
     };
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    this.$zido
+      .getSearchData(this.$route.params.keyword)
+      .then((res) => (this.searchData = res));
   },
 };
 </script>

@@ -86,7 +86,7 @@ export default {
   },
   methods: {
     checkSecurity() {
-      if (this.$zido.checkSecurityAnswer()) {
+      if (this.$zido.checkSecurityAnswer(this.securityId, this.answer)) {
         location.href = `/reset-pw/${this.securityId}`
       }
       else{
