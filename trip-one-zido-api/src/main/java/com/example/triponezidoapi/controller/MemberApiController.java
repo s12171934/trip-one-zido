@@ -170,6 +170,15 @@ public class MemberApiController {
     ){
         memberService.deleteMember(id);
     }
+    @GetMapping("/config")
+    @Operation(summary = "설정 페이지 조회")
+    public ResponseConfigPage showConfig(
+            @SessionAttribute(name="id")
+            @Parameter(description = "로그인 회원 번호")
+            Long SessionId
+    ){
+        return memberService.getConfig(SessionId);
+    }
 /*    @PostMapping("/pairing")
     public void pairingSignup(@RequestBody ){
 

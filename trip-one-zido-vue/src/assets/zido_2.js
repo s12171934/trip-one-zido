@@ -28,10 +28,7 @@ export default {
   },
 
   signUp(form) {
-    return axios.post(api + member + '/signup', {
-        id, name, loginId, password, passwordCheck, question, answer, email, phoneNumber, address, birth, gender 
-        : form
-      })
+    return axios.post(api + member + '/signup', form)
       .then(response => {
         console.log(response.data); 
         return response.data;

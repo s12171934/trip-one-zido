@@ -1,6 +1,6 @@
 import data from "@/assets/data";
 
-const API_URL = "http://localhost:8080/api";
+const API_URL = "http://localhost:8080";
 
 export default {
   //BookMark
@@ -8,7 +8,7 @@ export default {
   //찜하기
   //DELETE -- api/bookmark/id
   //PUT -- api/bookmark/id
-  toggleBookmark(content) {
+  toggleBookmark(content) {   //axios + if 문 사용해야 함
     content.myBookmark = !content.myBookmark;
   },
 
@@ -75,10 +75,6 @@ export default {
     return data.recentView;
   },
 
-  //공개 비공개 여부
-  //미구현 PUT -- api/content/public -> 일정, 장소 조회시 토글로 변경가능?
-  togglePublic(targetId) {},
-
   //Follow
 
   //팔로우 및 언팔로우
@@ -89,8 +85,8 @@ export default {
   },
 
   //팔로잉, 팔로워 목록 조회
-  //GET -- api/page/follower/id/page -> 현재는 페이징 없음
-  //GET -- api/page/following/id/page -> 현재는 페이징 없음
+  //GET -- api/page/follower/id
+  //GET -- api/page/following/id
   getFollowList(type, targetId, sessionId) {
     console.log(type, targetId, sessionId);
     return data.userProfiles;
@@ -147,67 +143,198 @@ export default {
   },
 
   //설정 페이지 조회
-  //미구현 GET -- api/member/config
+  // ★미구현 GET -- api/member/config
   getConfigData() {
     return data.configData;
+    // return axios.get(API_URL + '/member/config', {
+    // })
+    // .then(response => {
+    //   console.log(response.data); 
+    //   return response.data;
+    // })
+    // .catch(error => {
+    //   console.error('설정페이지 조회 오류:', error);
+    //   throw error;  
+    // });
   },
 
   //회원가입
   //POST -- api/member/signup
   signUp(form) {
-    return true;
+    // return true;
+    return axios.post(API_URL + '/member/signup', form)
+    .then(response => {
+      console.log(response.data); 
+      return response.data; 
+    })
+    .catch(error => {
+      console.error('회원가입 오류:', error);
+      throw error;  
+    });
   },
 
   //아이디 중복 확인
   //POST -- api/member/signup/loginId
   checkLoginId(loginId) {
-    return true;
+    // return true;
+    return axios.post(API_URL + '/member/signup/loginId', {
+      loginId: loginId
+    })
+    .then(response => {
+      console.log(response.data);
+      
+      if (response.data.exists) {
+        return false;
+      } else {
+        return true
+      }
+      // return response.data; 
+    })
+    .catch(error => {
+      console.error('아이디 중복확인 오류:', error);
+      throw error;  
+    });
   },
 
   //로그인
   //POST -- api/member/login
   login(loginId, password) {
     return true;
+    // return axios.post(API_URL + '/api/member/login', {
+    //   loginId: loginId,
+    //   password: password
+    // })
+    // .then(response => {
+    //   console.log(response.data); 
+    //   return response.data; 
+    // })
+    // .catch(error => {
+    //   console.error('로그인 오류:', error);
+    //   throw error;  
+    // });
   },
 
   //비밀번호 찾기 보안답변 전송
   //POST -- api/member/check -> id를 requestBody로 편입해 중복 방지
   checkSecurityAnswer(securityAnswer) {
-    return true;
+    // return true;
+    return axios.post(API_URL + '/api/member/check', {
+      securityAnswer: securityAnswer
+    })
+    .then(response => {
+      console.log(response.data); 
+      return response.data; 
+    })
+    .catch(error => {
+      console.error('비밀번호 찾기 보안답변 전송 오류:', error);
+      throw error;  
+    });
   },
 
   //비밀번호 찾기 회원번호 조회
   //POST -- api/member/check/pw
   findPassword(name, email, loginId) {
-    return 1;
+    // return 1;
+    return axios.post(API_URL + '/api/member/profile', {
+      name: name,
+      email: email,
+      loginId: loginId,
+    })
+    .then(response => {
+      console.log(response.data); 
+      return response.data; 
+    })
+    .catch(error => {
+      console.error('비밀번호 찾기 회원번호 조회 오류:', error);
+      throw error;  
+    });
   },
 
   //아이디 찾기
   //POST -- api/member/check/id
   findId(name, email) {
-    return null;
+    // return null;
+    return axios.post(API_URL + `'/api/member/check/${id}'`, {
+      name: name,
+      email: email
+    })
+    .then(response => {
+      console.log(response.data); 
+      return response.data;
+    })
+    .catch(error => {
+      console.error('아이디 찾기 오류', error);
+      throw error; 
+    });
   },
 
   //프로필 사진 변경
   //PUT -- api/member/profile
-  editProfileImg(img) {},
+  editProfileImg(img) {
+    return axios.put(API_URL + '/api/member/profile', {
+      img: img,
+    })
+    .then(response => {
+      console.log(response.data); 
+      return response.data; 
+    })
+    .catch(error => {
+      console.error('프로필 사진변경 오류:', error);
+      throw error;  
+    });
+  },
 
   //비밀번호 변경
   //PUT -- api/member/password
   changePassword(prevPassword, newPassword, newPasswordCheck) {
-    return true;
+    // return true;
+    return axios.put(API_URL + '/api/member/password', {
+      prevPassword: prevPassword,
+      newPassword: newPassword,
+      newPasswordCheck: newPasswordCheck
+    })
+    .then(response => {
+      console.log(response.data); 
+      return response.data; 
+    })
+    .catch(error => {
+      console.error('비밀번호 변경 오류:', error);
+      throw error;  
+    });
   },
 
-  //비밀번호 재설정
+  //★비밀번호 재설정
   //PUT -- api/member/password/id
   resetPassword(id, newPassword, newPasswordCheck) {
-    return true;
+    // return true;
+    return axios.put(API_URL + '/api/member/password/id', {
+      id: id,
+      newPassword: newPassword,
+      newPasswordCheck: newPasswordCheck
+    })
+    .then(response => {
+      console.log(response.data); 
+      return response.data; 
+    })
+    .catch(error => {
+      console.error('비밀번호 재설정 오류:', error);
+      throw error;  
+    });
   },
 
-  //회원정보수정
+  //★회원정보수정
   //PUT -- api/member
   updateUserInfo(userInfo) {
-    alert(userInfo.name);
+    // alert(userInfo.name);
+    return axios.put(API_URL + '/api/member', userInfo)
+    .then(response => {
+      console.log(response.data); 
+      return response.data; 
+    })
+    .catch(error => {
+      console.error('회원정보수정 오류:', error);
+      throw error;  
+    });
   },
 
   //More
@@ -320,3 +447,4 @@ export default {
     return data.tourList;
   },
 };
+
