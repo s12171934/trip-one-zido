@@ -2,8 +2,11 @@
   <main class="wrapper d-flex">
     <div class="d-flex flex-column fill me-5" id="leftSide">
       <div class="d-flex align-items-center mb-5">
-        <img :src="memberPageData.imgSrc" class="rounded-circle" />
-        <span id="userName">{{ memberPageData.loginId }}</span>
+        <img
+          :src="`data:image/jpeg;base64,${memberPageData.responseMember.profile}`"
+          class="rounded-circle"
+        />
+        <span id="userName">{{ memberPageData.responseMember.loginId }}</span>
       </div>
       <button
         @click="followOrConfig"
@@ -24,9 +27,8 @@
       </button>
       <hr />
       <NumberSummary
-        @follower="followType = 'follower'"
-        @following="followType = 'following'"
-        @bookmark="$router.push('/bookmark')"
+        @follower="followType = 'follower'; getFollowList()"
+        @following="followType = 'following'; getFollowList()"
         :totalBoard="memberPageData.postCount"
         :followerCount="memberPageData.followerCount"
         :followingCount="memberPageData.followingCount"
@@ -56,7 +58,7 @@
       />
 
       <ContentList
-        :list="memberPageData.planList"
+        :list="memberPageData.planLists"
         :sortOption="planSortOption"
         :addApi="`/page/${memberPageData.id}/plan/`"
       />
@@ -68,23 +70,14 @@
       />
 
       <ContentList
-        :list="memberPageData.spotList"
+        :list="memberPageData.spotLists"
         :sortOption="spotSortOption"
         :addApi="`/page/${memberPageData.id}/spot/`"
       />
     </div>
   </main>
 
-  <FollowModal
-    :type="followType"
-    :followList="
-      $zido.getFollowList(
-        followType,
-        memberPageData.id,
-        memberPageData.sessionId
-      )
-    "
-  />
+  <FollowModal :type="followType" :followList="followList" />
 </template>
 
 <script>
@@ -108,9 +101,23 @@ export default {
   data() {
     return {
       followType: "",
+      followList: null,
       hover: false,
       addType: "게시물 작성",
-      memberPageData: this.$zido.getMemberPageData(this.$route.params.id),
+      memberPageData: {
+        id: null,
+        sessionId: null,
+        loginId: null,
+        isFollow: null,
+        planLists: [],
+        spotLists: [],
+        responseMember: {},
+        postCount: null,
+        bookmarkCount: null,
+        followerCount: null,
+        followingCount: null,
+        isMine: null,
+      },
     };
   },
   methods: {
@@ -137,9 +144,21 @@ export default {
         this.$route.params.id == this.memberPageData.sessionId
       );
     },
+    getFollowList() {
+      this.$zido
+        .getFollowList(
+          this.followType,
+          this.memberPageData.id,
+          this.memberPageData.sessionId
+        )
+        .then((res) => (this.followList = res));
+    },
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    this.$zido
+      .getMemberPageData(this.$route.params.id)
+      .then((res) => (this.memberPageData = res));
   },
 };
 </script>

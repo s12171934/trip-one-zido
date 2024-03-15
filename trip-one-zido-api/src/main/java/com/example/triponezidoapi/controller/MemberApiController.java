@@ -58,6 +58,16 @@ public class MemberApiController {
 
         return memberService.login(login, request);
     }
+
+    @PostMapping("/autoLogin")
+    public void autoLogin(
+            @RequestBody
+            Login login,
+            HttpServletRequest request
+    ){
+        memberService.autoLogin(login, request);
+    }
+
     @PostMapping("/check/id")
     @Operation(summary = "아이디 찾기")
     public String checkId(

@@ -150,7 +150,8 @@
                 WHERE
                     member_id = #{myMemberId}
                   AND content_id = #{targetId}
-            ) pin
+            ) pin,
+            c.type
         FROM
             content c,
             plan p

@@ -19,7 +19,6 @@
           </tr>
         </thead>
         <tbody>
-          <!-- location.href="/community/"`${this.list.id}` -->
           <tr v-for="list in communityList" id="tdList">
             <td>{{ list.id }}</td>
             <td @click="goToCommunityDetail(list.id)" id="cursor">
@@ -30,7 +29,6 @@
             <td>{{ list.viewPoint }}</td>
             <td>{{ list.withCount }} / {{ list.total }}</td>
             <td>{{ list.status }}</td>
-            <!-- <td><a v-on:click="`/community/${list.content_id}`">{{ list.title }}</a></td> -->
           </tr>
         </tbody>
       </table>
@@ -82,8 +80,8 @@
 export default {
   data() {
     return {
-      communityList: {
-        id: null,
+      communityList: [{
+        id: 0,
         title: null,
         writer: null,
         deadLine: null,
@@ -91,7 +89,7 @@ export default {
         total: null,
         withCount: null,
         status: null,
-      },
+      }],
       type: "",
       keyword: "",
     };
@@ -107,6 +105,7 @@ export default {
   },
 
   mounted() {
+    this.$emit("meta", this.$route.matched[0].meta.isLogin);
     this.$zido
       .getCommunityList(this.$route.query)
       .then((res) => (this.communityList = res));

@@ -27,6 +27,7 @@ export default {
       plus: {
         photo: "/images/plusbutton.png",
         title: "더보기",
+        plus: true,
       },
 
       page: 0,

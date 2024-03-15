@@ -17,7 +17,7 @@ public class BookmarkApiController {
     @Autowired
     BookmarkService bookmarkService;
 
-    @GetMapping("/{id}")
+    @GetMapping(value = {"/{id}" , "/"})
     @Operation(summary = "찜 목록 전체 조회")
     @Tag(name = "Bookmark", description = "Bookmark API")
     public ResponseBookmark showBookmarkAll(

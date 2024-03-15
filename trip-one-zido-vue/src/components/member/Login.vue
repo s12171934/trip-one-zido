@@ -85,8 +85,8 @@ export default {
     };
   },
   methods: {
-    login() {
-      if (this.$zido.login()) {
+    async login() {
+      if (await this.$zido.login(this.loginId,this.password)) {
         this.$cookies.set("login", 1, 0);
         if (this.saveLoginId) {
           this.$cookies.set("saveLoginId", this.loginId);

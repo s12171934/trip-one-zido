@@ -91,14 +91,14 @@ public class ContentApiController {
     ){
         return contentService.getRecentViewPage(sessionId);
     }
-    @GetMapping("/recent-view/{page}")
+    @GetMapping("/recent-view")
     @Tag(name = "Content", description = "Content API")
     @Operation(summary = "최근 본 게시물 조회")
-    public List<ResponseContentList> showMoreRecentView(
+    public ResponseRecentView showMoreRecentView(
             @SessionAttribute(name = "id")
             @Parameter(description = "로그인 회원 정보")
             Long sessionId
     ){
-        return contentService.getRecentView(sessionId);
+        return contentService.getRecentViewPage(sessionId);
     }
 }

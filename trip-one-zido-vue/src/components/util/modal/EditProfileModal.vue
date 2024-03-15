@@ -33,7 +33,7 @@
           />
           <form>
             <button
-              @click="this.$zido.editProfileImg(img)"
+              @click="submitButton()"
               type="button"
               class="rounded-3"
               id="modalButton"
@@ -52,12 +52,13 @@
 export default {
   data() {
     return {
-      img: null,
+      img: '/images/남자.png',
     };
   },
   methods: {
     async getFileName(files) {
       this.img = files[0];
+      console.log(this.img)
       await this.base64(this.img);
     },
     base64(file) {
@@ -67,13 +68,18 @@ export default {
           resolve(e.target.result);
           this.img = e.target.result;
           console.log(this.img);
+          console.log('check')
         };
         fileReader.readAsDataURL(file);
       });
     },
+    submitButton(){
+      this.$zido.editProfileImg(this.img)
+      location.href = '/config'
+    }
   },
   mounted(){
-    this.$zido.getProfileImg().then((res) => this.img = res)
+    this.$zido.getProfileImg().then((res) => this.img = `data:image/jpeg;base64,${res}`)
   }
 };
 </script>

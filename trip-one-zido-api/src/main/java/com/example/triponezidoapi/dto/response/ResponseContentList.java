@@ -11,7 +11,7 @@ public class ResponseContentList {
     int bookmarkCount;
     int goodCount;
     int grade;
-    int myBookmark;
+    boolean myBookmark;
     int pin;
     String type;
 }

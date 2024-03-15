@@ -1,7 +1,7 @@
 <template>
   <main class="wrapper">
     <div class="d-flex align-items-center mb-5">
-      <img :src="RecentViewData.member.profile" alt="" class="rounded-circle" />
+      <img :src="`data:image/jpeg;base64,${RecentViewData.member.profile}`" alt="" class="rounded-circle" />
       <h1>{{ RecentViewData.member.loginId }}</h1>
     </div>
     <div>
@@ -24,8 +24,8 @@ export default {
   data() {
     return {
       RecentViewData: {
-        recentList: [],
-        member: [],
+        recentList: [{}],
+        member: [{}],
       },
     };
   },

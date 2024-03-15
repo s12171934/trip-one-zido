@@ -4,9 +4,9 @@
       <h1>게시글 상세</h1>
       <br />
       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <span class="button small rounded-3" id="mouseHover"
-          >{{ detail.status }}</span
-        >
+        <span class="button small rounded-3" id="mouseHover">{{
+          detail.status
+        }}</span>
         <a href="/community" class="button alt small rounded-3">목록</a>
         <!-- 현재 id-1 : 이전글 / 현재 id+1 : 다음글   -->
         <!-- <a href="/html-css/community/detail/detail.html" id="button2" class="button small rounded-3">이전글</a> -->
@@ -40,7 +40,7 @@
             <td>참여 인원 :</td>
             <td colspan="3" id="black">
               <span v-for="withMember in detail.members" class="me-2">{{
-                withMember
+                withMember.loginId
               }}</span>
             </td>
           </tr>
@@ -76,7 +76,7 @@
         </table>
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-          <div v-if="detail.isMine">
+          <div v-if="detail.mine">
             <a @click="update" class="button alt small rounded-3"> 수정</a>
             <a
               @click="del"
@@ -110,7 +110,6 @@
 
 <script>
 import AlertModal from "../util/modal/AlertModal.vue";
-import data from "@/assets/data.js";
 
 export default {
   components: {
@@ -121,28 +120,28 @@ export default {
     return {
       // 상세 내용 담는 배열
       detail: {
-        id,
-        startDate,
-        endDate,
-        locCategory,
-        notice,
-        total,
-        deadLine,
-        viewPoint,
-        status,
-        title,
-        createdAt,
-        modifiedAt,
-        members : {
-          loginId,
-        },
-        isMine,
-        nextId,
-        prevId,
+        id: null,
+        startDate: null,
+        endDate: null,
+        locCategory: null,
+        notice: null,
+        total: null,
+        deadLine: null,
+        viewPoint: null,
+        status: null,
+        title: null,
+        createdAt: null,
+        modifiedAt: null,
+        members: [{
+          loginId: null,
+        }],
+        mine: null,
+        nextId: null,
+        prevId: null,
       },
       modal: "",
       loginId: "",
-      id: this.$cookies.get("login"),
+      id: "",
       showSuccessModal: false,
 
       title: "", // 추가: 게시글 제목
@@ -152,6 +151,7 @@ export default {
 
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    this.id = this.$route.params.id;
     this.$zido
       .getCommunityDetail(this.$route.params.id)
       .then((res) => (this.detail = res));
@@ -159,11 +159,11 @@ export default {
 
   methods: {
     goToPreviousPost() {
-      location.href = `/community/${this.detail.prevId}`
+      location.href = `/community/${this.detail.prevId}`;
     },
 
     goToNextPost() {
-      location.href = `/community/${this.detail.nextId}`
+      location.href = `/community/${this.detail.nextId}`;
     },
 
     update() {
@@ -173,17 +173,17 @@ export default {
       });
     },
 
-    del() {
+    async del() {
       this.modal = "deleteCommunity";
-      this.$zido.deleteCommunity(this.$route.params.id);
+      await this.$zido.deleteCommunity(this.$route.params.id);
     },
 
-    participateOrCancel() {
+    async participateOrCancel() {
       // 타인 자신이 참여/참여취소 버튼 누르면
       if (this.showSuccessModal) {
-        this.$zido.joinCommunity(this.$route.params.id);
+        await this.$zido.joinCommunity(this.$route.params.id);
       } else {
-        this.$zido.joinCancleCommunity(this.$route.params.id);
+        await this.$zido.joinCancleCommunity(this.$route.params.id);
       }
       this.showSuccessModal = !this.showSuccessModal;
     },
