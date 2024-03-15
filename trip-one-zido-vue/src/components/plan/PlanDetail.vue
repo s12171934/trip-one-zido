@@ -4,7 +4,7 @@
       <div class="d-flex justify-content-between me-5 w-100">
         <h1 @click="console.log(status)" class="title">
           {{ planData.title
-          }}<span class="date">{{ planData.start }}~{{ planData.end }}</span>
+          }}<span class="date">{{ planData.startDate }}~{{ planData.endDate }}</span>
           <span class="comm"
             ><img id="star" src="/images/star.png" />{{ planData.grade }}</span
           >
@@ -26,16 +26,16 @@
                   "
                 />{{ planData.bookmarkCount }}</span
               >
-              <span class="comm" :class="planData.myLike === true ? 'like' : ''"
+              <span class="comm" :class="planData.myGood === true ? 'like' : ''"
                 ><img
                   @click="$zido.toggleLike(planData, true)"
                   id="like"
                   src="/images/like.png"
-                />{{ planData.likeCount }}</span
+                />{{ planData.goodCount }}</span
               >
               <span
                 class="comm"
-                :class="planData.myLike === false ? 'like' : ''"
+                :class="planData.myGood === false ? 'like' : ''"
                 ><img
                   @click="$zido.toggleLike(planData, false)"
                   id="unLike"
@@ -140,7 +140,7 @@
             </form>
 
             <Comment
-              v-for="comment in planData.commentList"
+              v-for="comment in planData.comments"
               :first="true"
               :data="comment"
             />
@@ -231,19 +231,19 @@ export default {
       content.myBookmark = !content.myBookmark;
     },
     setCalendarByDate() {
-      const start = new Date(this.planData.start);
-      const end = new Date(this.planData.end);
+      const start = new Date(this.planData.startDate);
+      const end = new Date(this.planData.endDate);
       let days = end.getTime() - start.getTime();
       days = Math.ceil(days / (1000 * 60 * 60 * 24)) + 1;
 
       const calendarApi = this.$refs.FullCalendar.getApi();
       this.calendarOptions.views.timeGridDay.duration.days = days;
       this.calendarOptions.firstDay = start.getDay();
-      calendarApi.gotoDate(this.planData.start);
+      calendarApi.gotoDate(this.planData.startDate);
     },
     setInitialEvent() {
       const calendarApi = this.$refs.FullCalendar.getApi();
-      for (let spot of this.planData.spotList) {
+      for (let spot of this.planData.spotPlans) {
         calendarApi.addEvent(spot);
       }
       console.log(calendarApi.getEvents());
