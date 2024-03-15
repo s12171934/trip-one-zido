@@ -31,6 +31,15 @@ public class PageService {
         requestSessionTarget.setMyMemberId(sessionId);
         requestSessionTarget.setTargetId(id);
 
+        memberPage.setId(id);
+        memberPage.setLoginId(memberMapper.getLoginId(sessionId));
+
+        //isFollow
+        RequestFollow follow = new RequestFollow();
+        follow.setFollower(sessionId);
+        follow.setFollowing(id);
+        memberPage.setFollow(memberMapper.isFollow(follow));
+
         //planLists
         memberPage.setPlanLists(planMapper.getPlanList(requestSessionTarget));
         //spotLists

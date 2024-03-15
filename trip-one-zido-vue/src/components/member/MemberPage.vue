@@ -27,7 +27,7 @@
         @follower="followType = 'follower'"
         @following="followType = 'following'"
         @bookmark="$router.push('/bookmark')"
-        :totalBoard="memberPageData.totalBoard"
+        :totalBoard="memberPageData.postCount"
         :followerCount="memberPageData.followerCount"
         :followingCount="memberPageData.followingCount"
         :bookmarkCount="memberPageData.bookmarkCount"

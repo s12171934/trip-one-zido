@@ -16,7 +16,7 @@
       </div>
       <h6>
         {{
-          `${spotData.startDate} : ${spotData.startTime} ~ ${spotData.startDate} : ${spotData.startTime}`
+          `${spotData.startDate} : ${spotData.startTime} ~ ${spotData.endDate} : ${spotData.endTime}`
         }}
       </h6>
       <h6>
@@ -27,8 +27,7 @@
         <div class="d-flex justify-content-between"></div>
         <div class="d-flex align-items-center" id="photo-container">
           <img
-            @contextmenu.prevent="delPhoto(idx)"
-            v-for="(photo, idx) in spotData.photos"
+            v-for="photo in spotData.photos"
             class="rounded"
             id="selectedPic"
             :src="photo"
@@ -55,16 +54,16 @@
                   "
                 />{{ spotData.bookmarkCount }}</span
               >
-              <span class="comm" :class="spotData.myLike === true ? 'like' : ''"
+              <span class="comm" :class="spotData.myGood === true ? 'like' : ''"
                 ><img
                   @click="$zido.toggleLike(spotData, true)"
                   id="like"
                   src="/images/like.png"
-                />{{ spotData.likeCount }}</span
+                />{{ spotData.goodCount }}</span
               >
               <span
                 class="comm"
-                :class="spotData.myLike === false ? 'like' : ''"
+                :class="spotData.myGood === false ? 'like' : ''"
                 ><img
                   @click="$zido.toggleLike(spotData, false)"
                   id="unLike"
@@ -73,15 +72,15 @@
             </h1>
           </td>
           <td>
-            <div class="m-0 d-flex justify-content-end gap-2">
+            <div v-if="spotData.isMine" class="m-0 d-flex justify-content-end gap-2">
               <div class="select-wrapper" id="security">
                 <select
                   @change="$zido.togglePublic($route.params.id)"
                   class="local-select"
                   v-model="spotData.isPublic"
                 >
-                  <option value="1">공개</option>
-                  <option value="2">비공개</option>
+                  <option value=true>공개</option>
+                  <option value=false>비공개</option>
                 </select>
               </div>
               <input
@@ -127,7 +126,7 @@
             </form>
 
             <Comment
-              v-for="comment in spotData.commentList"
+              v-for="comment in spotData.comments"
               :first="true"
               :data="comment"
             />
@@ -147,48 +146,35 @@ export default {
   },
   data() {
     return {
-      spotData: this.$zido.getSpotData(this.$route.params.id),
+      spotData: {
+        id,
+        category,
+        startDate,
+        startTime,
+        endDate,
+        endTime,
+        locCategory,
+        address,
+        review,
+        grade,
+        viewCount,
+        goodCount,
+        myGood,
+        bookmarkCount,
+        myBookmark,
+        title,
+        isPublic,
+        photos,
+        members,
+        comments,
+        isMine,
+      },
       comment: "",
     };
   },
-  methods: {
-    async addPhotos(files) {
-      for (let file of files) {
-        const photo = file;
-        await this.base64(photo);
-      }
-    },
-    base64(file) {
-      return new Promise((resolve) => {
-        let fileReader = new FileReader();
-        fileReader.onload = (e) => {
-          resolve(e.target.result);
-          this.photos.push(e.target.result);
-          console.log(this.photos);
-        };
-        fileReader.readAsDataURL(file);
-      });
-    },
-    delPhoto(idx) {
-      this.photos.splice(idx, 1);
-    },
-    addMember() {
-      this.members.push("");
-    },
-    delMember(idx) {
-      this.members.splice(idx, 1);
-    },
-    searchAddress() {
-      new daum.Postcode({
-        oncomplete: function (data) {
-          this.address = data.address;
-          document.querySelector("#address").value = this.address;
-        },
-      }).open();
-    },
-  },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    this.$zido.getSpotData(this.$route.params.id).then((res) => this.spotData = res)
   },
 };
 </script>

@@ -60,12 +60,12 @@
             <select
               name="category"
               id="security"
-              v-model="userInfo.securityQuestion"
+              v-model="userInfo.question"
             >
               <option
-                v-for="securityQuestion in userInfo.securityQuestions"
+                v-for="securityQuestion in $zido.getSecurityQuestions()"
                 :value="securityQuestion.id"
-                :selected="securityQuestion.id == userInfo.securityQuestion"
+                :selected="securityQuestion.id == userInfo.question"
               >
                 {{ securityQuestion.question }}
               </option>

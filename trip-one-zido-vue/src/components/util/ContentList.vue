@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       plus: {
-        imgSrc: "/images/plusbutton.png",
+        photo: "/images/plusbutton.png",
         title: "더보기",
       },
 

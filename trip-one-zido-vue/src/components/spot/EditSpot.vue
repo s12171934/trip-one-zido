@@ -170,8 +170,8 @@
             <div class="select-wrapper" id="security">
               <select class="local-select" v-model="spotData.isPublic">
                 <option value="" selected>공개 설정</option>
-                <option value="1">공개</option>
-                <option value="2">비공개</option>
+                <option value="true">공개</option>
+                <option value="false">비공개</option>
               </select>
             </div>
           </td>
@@ -185,7 +185,7 @@
                 :value="$route.params.mode == 'add' ? '등록' : '수정'"
               />
               <input
-              @click="$router.push('/member-page')"
+                @click="$router.push('/member-page')"
                 class="button alt small"
                 type="button"
                 value="취소"
@@ -256,7 +256,9 @@ export default {
       }).open();
     },
     setSpotData() {
-      this.spotData = this.$zido.getSpotData(this.$route.params.id);
+      this.$zido
+        .getSpotData(this.$route.params.id)
+        .then((res) => (this.spotData = res));
     },
     submitButton(mode) {
       if (mode == "add") {
@@ -264,7 +266,7 @@ export default {
       } else {
         this.$zido.updateSpot(this.spotData);
       }
-      this.$router.push('/member-page')
+      this.$router.push("/member-page");
     },
   },
   mounted() {

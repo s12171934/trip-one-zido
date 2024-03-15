@@ -21,13 +21,13 @@
         <tbody>
           <!-- location.href="/community/"`${this.list.id}` -->
           <tr v-for="list in communityList" id="tdList">
-            <td>{{ list.content_id }}</td>
-            <td @click="goToCommunityDetail(list.content_id)" id="cursor">
+            <td>{{ list.id }}</td>
+            <td @click="goToCommunityDetail(list.id)" id="cursor">
               {{ list.title }}
             </td>
-            <td>{{ list.login_id }}</td>
+            <td>{{ list.writer }}</td>
             <td>{{ list.deadLine }}</td>
-            <td>{{ list.viewCount }}</td>
+            <td>{{ list.viewPoint }}</td>
             <td>{{ list.withCount }} / {{ list.total }}</td>
             <td>{{ list.status }}</td>
             <!-- <td><a v-on:click="`/community/${list.content_id}`">{{ list.title }}</a></td> -->
@@ -45,7 +45,9 @@
         <li class="page-item disabled">
           <a class="page-link">Previous</a>
         </li>
-        <li class="page-item"><a class="page-link" :href="`/community?page=${1}`">1</a></li>
+        <li class="page-item">
+          <a class="page-link" :href="`/community?page=${1}`">1</a>
+        </li>
         <li class="page-item">
           <a class="page-link" href="#">Next</a>
         </li>
@@ -56,7 +58,7 @@
     <div class="col-md-9 mb-3 mt-5" id="searchBar">
       <form action="#" method="GET" class="input-group">
         <div class="select-wrapper">
-          <select class="local-select" v-model="category" id="category">
+          <select class="local-select" v-model="type" id="category">
             <option value="" selected>카테고리</option>
             <option value="1">제목</option>
             <option value="2">작성자</option>
@@ -80,19 +82,34 @@
 export default {
   data() {
     return {
-      communityList: this.$zido.getCommunityList(this.$route.query),
-      category: "",
+      communityList: {
+        id: null,
+        title: null,
+        writer: null,
+        deadLine: null,
+        viewPoint: null,
+        total: null,
+        withCount: null,
+        status: null,
+      },
+      type: "",
       keyword: "",
     };
   },
 
   methods: {
     add() {
-      this.$router.push('/add/community');
+      this.$router.push("/add/community");
     },
     goToCommunityDetail(id) {
       this.$router.push(`/community/${id}`);
     },
+  },
+
+  mounted() {
+    this.$zido
+      .getCommunityList(this.$route.query)
+      .then((res) => (this.communityList = res));
   },
 };
 </script>

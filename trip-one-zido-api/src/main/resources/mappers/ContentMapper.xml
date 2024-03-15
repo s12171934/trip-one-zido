@@ -103,6 +103,14 @@
             sp.grade,
             (
                 SELECT
+                    login_id
+                FROM
+                    member
+                WHERE
+                    id = #{myMemberId}
+            ) login_id,
+            (
+                SELECT
                     photo
                 FROM
                     photo
