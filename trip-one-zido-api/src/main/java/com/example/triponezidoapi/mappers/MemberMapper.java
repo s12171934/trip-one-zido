@@ -20,7 +20,7 @@ public interface MemberMapper {
     List<ResponseMember> followerList(RequestSessionTarget requestSessionTarget);
     List<ResponseMember> followingList(RequestSessionTarget requestSessionTarget);
     int postCount(long id);
-
+    long getIdByLoginId(String loginId);
     long getId(RequestFind requestFind);
     ResponseMember getLogin(Login login);
     Login getLoginFormByLoginId(String loginId);
@@ -36,6 +36,8 @@ public interface MemberMapper {
     void updateMember(Member member);
     void updatePassword(RequestPassword requestPassword);
     void updateProfile(RequestPhoto requestPhoto);
+    void updateNaverId(RequestSocialConnect requestSocialConnect);
+    void updateKakaoId(RequestSocialConnect requestSocialConnect);
 
     //delete
     void deleteMember(Long id);

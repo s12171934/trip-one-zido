@@ -1,6 +1,5 @@
 import data from "@/assets/data";
-
-const API_URL = "http://localhost:8080/api";
+import axios from "axios";
 
 export default {
   //BookMark
@@ -75,10 +74,6 @@ export default {
     return data.recentView;
   },
 
-  //공개 비공개 여부
-  //미구현 PUT -- api/content/public -> 일정, 장소 조회시 토글로 변경가능?
-  togglePublic(targetId) {},
-
   //Follow
 
   //팔로우 및 언팔로우
@@ -89,8 +84,8 @@ export default {
   },
 
   //팔로잉, 팔로워 목록 조회
-  //GET -- api/page/follower/id/page -> 현재는 페이징 없음
-  //GET -- api/page/following/id/page -> 현재는 페이징 없음
+  //GET -- api/page/follower/id
+  //GET -- api/page/following/id
   getFollowList(type, targetId, sessionId) {
     console.log(type, targetId, sessionId);
     return data.userProfiles;
@@ -216,24 +211,30 @@ export default {
   //GET Methods -> page전까지가 addApi
   //api/bookmark/id/tour/page
   //api/bookmark/id/spot-plan/page
-  //미구현 api/tour/list/loc/page
-  //미구현 api/content/recent-view/page
+  //api/tour/list/loc/page
+  //api/content/recent-view/page
   //api/page/id/plan/page
   //api/page/id/spot/page
-  //미구현 api/search/keyword/spot/page
-  //미구현 api/search/keyword/plan/page
-  //미구현 POST -- api/search/spot/page
-  //미구현 POST -- api/search/plan/page
-  newContents(addApi, page, method) {
-    alert(method);
-    return data.newContent;
+  //api/search/keyword/spot/page
+  //api/search/keyword/plan/page
+  //POST -- api/search/spot/page
+  //POST -- api/search/plan/page
+  async newContents(addApi, page, method, searchOptions) {
+    let res = null;
+    if(method){
+      res = await axios.post(addApi + page, searchOptions)
+    }
+    else{
+      res = await axios.get(addApi + page)
+    }
+    return res.data;
   },
 
   //계정정보 더보기
-  //미구현 GET -- api/search/member/keyword/page
-  newMembers(page) {
-    alert(page);
-    return data.newMember;
+  //GET -- api/search/keyword/member/page
+  async newMembers(addApi, page) {
+    const res = await axios.get(addApi + page)
+    return res.data;
   },
 
   //Pin
@@ -248,75 +249,97 @@ export default {
 
   //일정 삭제
   //DELETE -- api/plan/id
-  deletePlan(targetId) {},
+  async deletePlan(targetId) {
+    await axios.delete(`/api/plan/${targetId}`);
+  },
 
   //일정 상세 조회
   //GET -- api/plan/id
-  getPlanData(id) {
-    return data.planData[id];
+  async getPlanData(id) {
+    const res = await axios.get(`/api/plan/${id}`);
+    return res.data;
   },
 
   //일정 등록
   //POST -- api/plan
-  addPlan(planData) {},
+  async addPlan(planData) {
+    await axios.post("/api/plan", planData);
+  },
 
   //일정 수정
   //PUT -- api/plan/id
-  updatePlan(planData) {},
+  async updatePlan(planData) {
+    await axios.put("/api/plan", planData);
+  },
 
   //Search
 
   //검색 정보 조회
-  //GET -- api/search/keyword/page  -> remove page, api/search/keyword
-  getSearchData(keyword) {
-    return data.searchData;
+  //GET -- api/search/keyword
+  async getSearchData(keyword) {
+    const res = await axios.get(`/api/search/${keyword}`)
+    return res.data;
   },
 
   //상세 검색 정보 조회
-  //POST -- api/search/detail/page -> remove page, api/search 로만
-  getDetailSearchData(searchOptions) {
-    return data.searchData;
+  //POST -- api/search
+  async getDetailSearchData(searchOptions) {
+    const res = await axios.post('/api/search',searchOptions)
+    return res.data;
   },
 
   //SNS Connect
 
   //소셜로그인 연동
-  //미구현 PUT -- api/social/connect/
-  updateSocialLogin(socialType, socialId, LoginId) {
-    alert([socialType, socialId, LoginId]);
+  //PUT -- api/social
+  async updateSocialLogin(socialType, socialId, loginId) {
+    await axios.put('/api/socal/connect',{
+      socialType: socialType,
+      socialId: socialId,
+      loginId: loginId
+    });
   },
 
   //Spot
 
   //장소 삭제
   //DELETE -- api/spot/id
-  deleteSpot(targetId) {},
+  async deleteSpot(targetId) {
+    await axios.delete(`/api/spot/${targetId}`);
+  },
 
   //장소 상세 조회
   //GET -- api/spot/id
-  getSpotData(id) {
-    return data.spotData[id];
+  async getSpotData(id) {
+    const res = await axios.get(`/api/spot/${id}`);
+    return res.data;
   },
 
   //장소 등록
   //POST -- api/spot
-  addSpot(spotData) {},
+  async addSpot(spotData) {
+    await axios.post("/api/spot", spotData);
+  },
 
   //장소 수정
   //PUT -- api/spot/id
-  updateSpot(spotData) {},
+  async updateSpot(spotData) {
+    await axios.put("/api/spot", spotData);
+  },
 
   //Tour
 
   //관광지 상세 조회
   //GET -- api/tour/id
-  getTourData(id) {
-    return data.tourData[id];
+  async getTourData(id) {
+    const res = await axios.get(`/api/tour/${id}`);
+    return res.data;
   },
 
   //관광지 목록 조회
-  //GET -- api/tour/list/page -> page 에서 loc으로 변경 필요
-  getTourList(loc) {
-    return data.tourList;
+  //GET -- api/tour/list/loc
+  async getTourList(loc) {
+    const res = await axios.get(`/api/tour/list/${loc}`);
+    return res.data;
   },
 };

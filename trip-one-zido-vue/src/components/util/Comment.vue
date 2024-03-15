@@ -3,14 +3,14 @@
     <div class="flex-shrink-0">
       <img
         class="rounded-circle"
-        :src="data.imgSrc"
+        :src="data.member.profile"
         alt="..."
         id="commentProfilePic"
       />
     </div>
     <div class="ms-3 w-100">
       <div class="d-flex gap-5">
-        <span class="fw-bold">{{ data.loginId }}</span>
+        <span class="fw-bold">{{ data.member.loginId }}</span>
         <div v-if="true && !editComment" class="d-flex gap-2 edit-comment">
           <span @click="editComment = !editComment" class="fw-bold">수정</span>
           <span @click="$zido.deleteComment(data.id)" class="fw-bold">삭제</span>
@@ -51,8 +51,8 @@
         <button class="button alt" type="submit" id="comment">등록</button>
       </form>
       <Comment
-        v-if="data.commentList"
-        v-for="comment in data.commentList"
+        v-if="data.comments"
+        v-for="comment in data.comments"
         :first="false"
         :data="comment"
       />

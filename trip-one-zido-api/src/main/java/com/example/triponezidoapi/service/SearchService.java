@@ -6,16 +6,24 @@ import com.example.triponezidoapi.mappers.SearchMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SearchService {
     @Autowired
     SearchMapper searchMapper;
 
-    public ResponseSearch searchByKeyword(Long id, String keyword, long page){
+    private RequestSearch setRequsetSearch(Long id, String keyword, long page){
         RequestSearch requestSearch = new RequestSearch();
         requestSearch.setMyMemberId(id);
         requestSearch.setKeyword(keyword);
         requestSearch.setPage(page);
+
+        return requestSearch;
+    }
+
+    public ResponseSearch searchByKeyword(Long id, String keyword, long page){
+        RequestSearch requestSearch = setRequsetSearch(id,keyword,page);
 
         ResponseSearch responseSearch = new ResponseSearch();
         //searchMember
@@ -29,7 +37,22 @@ public class SearchService {
         return responseSearch;
     }
 
-    public ResponseSearch searchByDetail(Long id, RequestDetailSearch detailSearch, long page){
+    public List<ResponseContentList> moreSpotByKeyword(Long id, String keyword, long page){
+        RequestSearch requestSearch = setRequsetSearch(id,keyword,page);
+        return searchMapper.searchSpot(requestSearch);
+    }
+
+    public List<ResponseContentList> morePlanByKeyword(Long id, String keyword, long page){
+        RequestSearch requestSearch = setRequsetSearch(id,keyword,page);
+        return searchMapper.searchPlan(requestSearch);
+    }
+
+    public List<ResponseMember> moreMemberByKeyword(Long id, String keyword, long page){
+        RequestSearch requestSearch = setRequsetSearch(id,keyword,page);
+        return searchMapper.searchMember(requestSearch);
+    }
+
+    RequestDetailSearch setDetailSearch(Long id, RequestDetailSearch detailSearch, long page){
         //detailSearchPlan 및 detailSearchSpot 에 필요한 MyMemberId 값 추가
         detailSearch.setMyMemberId(id);
         detailSearch.setPage(page);
@@ -58,6 +81,13 @@ public class SearchService {
                 break;
         }
 
+        return detailSearch;
+    }
+
+    public ResponseSearch searchByDetail(Long id, RequestDetailSearch detailSearch, long page){
+
+        detailSearch = setDetailSearch(id,detailSearch,page);
+
         ResponseSearch responseSearch = new ResponseSearch();
 
         //detailSearchPlan
@@ -71,5 +101,15 @@ public class SearchService {
         responseSearch.setCategory(detailSearch.getCategory());
 
         return responseSearch;
+    }
+
+    public List<ResponseContentList> moreSpotByDetail(Long id, RequestDetailSearch detailSearch, long page){
+        detailSearch = setDetailSearch(id,detailSearch,page);
+        return searchMapper.detailSearchSpot(detailSearch);
+    }
+
+    public List<ResponseContentList> morePlanByDetail(Long id, RequestDetailSearch detailSearch, long page){
+        detailSearch = setDetailSearch(id,detailSearch,page);
+        return searchMapper.detailSearchPlan(detailSearch);
     }
 }
