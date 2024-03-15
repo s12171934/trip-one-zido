@@ -20,8 +20,8 @@
             </td>
             <td id="tdTitle" class="border-start">여행 일정</td>
             <td id="tdSelect">
-              <input type="date" v-model="communityData.start" /> ~
-              <input type="date" v-model="communityData.end" />
+              <input type="date" v-model="communityData.startDate" /> ~
+              <input type="date" v-model="communityData.endDate" />
             </td>
           </tr>
 
@@ -31,7 +31,7 @@
               <div class="select-wrapper" id="table-select">
                 <select class="local-select" v-model="communityData.total">
                   <option value="" selected>인원 선택</option>
-                  <option v-for="snop in selectNumberOfPeople" :value="snop">
+                  <option v-for="snop in 20" :value="snop">
                     {{ snop }}&nbsp;명
                   </option>
                 </select>
@@ -59,7 +59,7 @@
                 rows="13"
                 class="form-control"
                 id="content"
-                v-model="communityData.content"
+                v-model="communityData.notice"
                 placeholder="내용을 입력하세요"
               ></textarea>
             </td>
@@ -103,12 +103,12 @@ export default {
 
       communityData: {
 				locCategory: "",
-				start: "",
-				end: "",
+				startDate: "",
+				endDate: "",
 				total: "",
 				deadLine: "",
 				title: "",
-				content: "",
+				notice: "",
 			}
     };
   },
@@ -124,7 +124,7 @@ export default {
 		},
 		setCommunityData(){
 			if(this.$route.params.mode != 'add'){
-				this.communityData = this.$zido.getCommunityDetail(this.$route.params.id)
+				this.$zido.getCommunityDetail(this.$route.params.id).then((res) => this.communityData = res)
 			}
 		}
 	},

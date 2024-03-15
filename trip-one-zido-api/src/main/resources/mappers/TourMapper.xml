@@ -49,7 +49,7 @@
             t.id = #{targetId}
     </select>
 
-    <select id="getTourList" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseTour">
+    <select id="getTourList" parameterType="com.example.triponezidoapi.dto.request.RequestTourList" resultType="com.example.triponezidoapi.dto.response.ResponseTour">
         SELECT
             id,
             title,
@@ -81,7 +81,13 @@
         FROM
             content c
         WHERE
-            type = "tour"
+            type = "tour" AND
+            id IN
+            (
+            SELECT id
+            FROM tour
+            WHERE loc_category = #{loc}
+            )
         LIMIT
             #{page}, 6
     </select>

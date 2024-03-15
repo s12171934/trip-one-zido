@@ -19,18 +19,9 @@ public class TourService {
     @Autowired
     SpotMapper spotMapper;
 
-    public List<ResponseTour> getTourList(Long sessionId, long page){
-        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-
-        //페이지 카운트 처리
-        if(page == 0){
-            requestSessionTarget.setPage(0);
-        } else {
-            requestSessionTarget.setPage(page * 6);
-        }
-
-        requestSessionTarget.setMyMemberId(sessionId);
-        return tourMapper.getTourList(requestSessionTarget);
+    public List<ResponseTour> getTourList(Long sessionId, String loc, Long page){
+        RequestTourList requestTourList = new RequestTourList(page,loc,sessionId);
+        return tourMapper.getTourList(requestTourList);
     }
 
     public ResponseTour getTour(Long sessionId, Long id){

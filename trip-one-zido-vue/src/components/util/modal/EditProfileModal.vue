@@ -52,7 +52,7 @@
 export default {
   data() {
     return {
-      img: this.$zido.getProfileImg(),
+      img: null,
     };
   },
   methods: {
@@ -72,6 +72,9 @@ export default {
       });
     },
   },
+  mounted(){
+    this.$zido.getProfileImg().then((res) => this.img = res)
+  }
 };
 </script>
 

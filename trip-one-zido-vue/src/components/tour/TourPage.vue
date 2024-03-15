@@ -31,7 +31,14 @@ export default {
     return {
       selectLocations: data.selectLocations,
       loc: this.defaultLoc(),
-      tourList: this.$zido.getTourList(this.defaultLoc()),
+      tourList: {
+        id,
+        title,
+        photo,
+        bookmarkCount,
+        myBookmark,
+        type,
+      },
     };
   },
   methods: {
@@ -44,6 +51,7 @@ export default {
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    this.$zido.getTourList(this.defaultLoc()).then((res) => { this.tourList = res });
   },
 };
 </script>
