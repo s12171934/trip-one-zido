@@ -65,7 +65,7 @@
 
     <ContentList
       :list="detailSearchData.planList"
-      :addApi="'api/search/plan/page'"
+      :addApi="'/search/plan/page'"
       method="post"
     />
 
@@ -77,7 +77,7 @@
 
     <ContentList
       :list="detailSearchData.spotList"
-      :addApi="'api/search/spot/page'"
+      :addApi="'/search/spot/page'"
       method="post"
     />
   </main>

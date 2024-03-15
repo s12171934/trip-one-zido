@@ -18,7 +18,6 @@
 <script>
 export default {
   props: {
-    addApi: String,
     list: Object,
     plus: Boolean,
   },

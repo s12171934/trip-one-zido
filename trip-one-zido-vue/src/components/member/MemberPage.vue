@@ -58,7 +58,7 @@
       <ContentList
         :list="memberPageData.planList"
         :sortOption="planSortOption"
-        :addApi="`/api/page/${memberPageData.id}/plan/`"
+        :addApi="`/page/${memberPageData.id}/plan/`"
       />
 
       <ListTitle
@@ -70,7 +70,7 @@
       <ContentList
         :list="memberPageData.spotList"
         :sortOption="spotSortOption"
-        :addApi="`/api/page/${memberPageData.id}/spot/`"
+        :addApi="`/page/${memberPageData.id}/spot/`"
       />
     </div>
   </main>

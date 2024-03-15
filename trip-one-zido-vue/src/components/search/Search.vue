@@ -42,7 +42,7 @@
 
     <ContentList
       :list="searchData.planList"
-      :addApi="`api/search/${keyword}/plan/`"
+      :addApi="`/search/${keyword}/plan/`"
     />
 
     <div class="d-flex flex-row mb-6" id="subTitle">
@@ -53,7 +53,7 @@
 
     <ContentList
       :list="searchData.spotList"
-      :addApi="`api/search/${keyword}/spot/`"
+      :addApi="`/search/${keyword}/spot/`"
     />
   </main>
 </template>

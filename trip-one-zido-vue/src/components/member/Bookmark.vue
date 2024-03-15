@@ -13,7 +13,7 @@
 
     <ContentList
       :list="bookmark.tourList"
-      :addApi="`/api/bookmark/${bookmark.id}/tour/`"
+      :addApi="`/bookmark/${bookmark.id}/tour/`"
     />
 
     <div class="d-flex flex-row mb-6" id="subTitle">
@@ -24,7 +24,7 @@
 
     <ContentList
       :list="bookmark.spotPlanList"
-      :addApi="`/api/bookmark/${bookmark.id}/spotPlan/`"
+      :addApi="`/bookmark/${bookmark.id}/spotPlan/`"
     />
   </main>
 </template>

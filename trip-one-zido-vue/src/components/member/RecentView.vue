@@ -9,7 +9,7 @@
     </div>
     <ContentList
       :list="RecentViewData.recentList"
-      :addApi="`/api/content/recnet-view/`"
+      :addApi="`/content/recnet-view/`"
     />
   </main>
 </template>
