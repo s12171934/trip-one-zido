@@ -290,37 +290,114 @@ export default {
   //회원탈퇴 확인
   //DELETE -- api/member -> 비밀번호, 비밀번호 확인 추가 전송
   checkResign(password, passwordCheck) {
-    return true;
+    return axios.delete(API_URL + '/api/member/', {
+      loginId: loginId,
+      password: password,
+      passwordCheck: passwordCheck
+    })
+    .then(response => {
+      // 서버로부터 응답을 받으면 처리
+      // 예를 들어, 응답이 성공인 경우 처리
+      console.log(response.data); // 서버 응답 데이터 출력
+      return response.data; // 다른 처리를 위해 응답 데이터 반환
+    })
+    .catch(error => {
+       // 오류 발생 시 처리
+      console.error('회원탈퇴시 비밀번호+비밀번호오류 확인 오류:', error);
+      throw error;  // 오류를 호출자로 전파하거나 다른 방식으로 처리
+    });
   },
 
   //회원정보 조회
   //GET -- api/member
   getUserInfo() {
-    return data.userInfo;
+    // return data.userInfo;
+    return axios.get(API_URL + '/api/member/',{
+      loginId: loginId
+    })
+    .then(response => {
+      // 서버로부터 응답을 받으면 처리
+      // 예를 들어, 응답이 성공인 경우 처리
+      console.log(response.data); // 서버 응답 데이터 출력
+      return response.data; // 다른 처리를 위해 응답 데이터 반환
+    })
+    .catch(error => {
+       // 오류 발생 시 처리
+      console.error('회원정보 조회 요청 오류:', error);
+      throw error;  // 오류를 호출자로 전파하거나 다른 방식으로 처리
+    });
   },
 
   //보안질문 목록 조회
   //GET -- api/member/signup
   getSecurityQuestions() {
-    return data.securityQuestions;
+    // return data.securityQuestions;
+    return axios.get(API_URL + '/api/member/signup', {
+      loginId: loginId,
+      password: password
+    })
+    .then(response => {
+      // 서버로부터 응답을 받으면 처리
+      // 예를 들어, 응답이 성공인 경우 처리
+      console.log(response.data); // 서버 응답 데이터 출력
+      return response.data; // 다른 처리를 위해 응답 데이터 반환
+    })
+    .catch(error => {
+       // 오류 발생 시 처리
+      console.error('회원가입시 보안질문 조회 요청 오류:', error);
+      throw error;  // 오류를 호출자로 전파하거나 다른 방식으로 처리
+    });
   },
 
   //비밀번호 찾기 보안질문 조회
   //GET -- api/member/check/id
   getSecurityQuestion(id) {
-    return "질문지도하기";
+  // return "질문지도하기";
+  return axios.get(API_URL + `'/api/member/check/${id}'`, {
+    id: id,
+  })
+  .then(response => {
+    console.log(response.data); 
+    return response.data;
+  })
+  .catch(error => {
+    console.error('선택한 보안질문 조회 요청 오류', error);
+    throw error; 
+  });
   },
 
   //회원 페이지 조회
   //GET -- api/page/id
   getMemberPageData(id) {
-    return data.memberPageData[id ? id : 1];
+    // return data.memberPageData[id ? id : 1];
+    return axios.put(API_URL + `'/api/page/${id}'`, {
+      id: id ? id : this.getMemberId()
+   })
+   .then(response => {
+     console.log(response.data); 
+     return response.data;
+   })
+   .catch(error => {
+     console.error('회원 페이지 조회 요청 오류', error);
+     throw error; 
+   });
   },
 
   //프로필 사진 가져오기
   //미구현 GET -- api/member/profile -> header와 프로필 사진 편집시 필요
   getProfileImg() {
-    return data.userProfiles[1].imgSrc;
+    // return data.userProfiles[1].imgSrc;
+    return axios.get(API_URL + '/api/member/profile', {
+      loginId: loginId
+   })
+   .then(response => {
+     console.log(response.data); 
+     return response.data;
+   })
+   .catch(error => {
+     console.error('프로필 사진 가져오기 오류', error);
+     throw error; 
+   });
   },
 
   //설정 페이지 조회

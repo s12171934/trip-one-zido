@@ -41,6 +41,6 @@ public interface MemberMapper {
     void updateKakaoId(RequestSocialConnect requestSocialConnect);
 
     //delete
-    void deleteMember(Long id);
+    void deleteMember(Long id, String password);
     void unFollow(RequestFollow requestFollow);
 }
