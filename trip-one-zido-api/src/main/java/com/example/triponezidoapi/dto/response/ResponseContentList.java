@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class ResponseContentList {
     Long id;
+    String loginId;
     String title;
     byte[] photo;
     int bookmarkCount;
