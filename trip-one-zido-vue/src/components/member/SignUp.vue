@@ -138,10 +138,12 @@ export default {
         name: "",
         password: "",
         passwordCheck: "",
-        securityQuestion: "",
-        securityAnswer: "",
+        question: "",
+        answer: "",
         email: "",
         phoneNumber: "",
+        zipcode: "",
+        address: "",
         address2: "",
         birth: "",
         gender: "",
@@ -150,11 +152,11 @@ export default {
   },
   methods: {
     checkLoginId() {
-      if (this.$zido.checkLoginId(this.loginId)) {
+      if (this.$zido.checkLoginId(this.form.loginId)) {
         this.modal = "checkDuplicationLoginIdSuccess";
       } else {
         this.modal = "checkDuplicationLoginIdFail";
-        this.loginId = "";
+        this.form.loginId = "";
       }
     },
     signUp() {

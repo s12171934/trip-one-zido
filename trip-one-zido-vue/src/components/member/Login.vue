@@ -107,7 +107,7 @@ export default {
         "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=" +
         "TGQMEJAd_Qx6raHI9ZZk" +
         "&redirect_uri=" +
-        "http://localhost:8080/api/social/naver_callback" +
+        "http://localhost:8080/api/social/naver_login" +
         "&state=1234";
       location.href = url;
     },

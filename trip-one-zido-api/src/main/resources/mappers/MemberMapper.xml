@@ -124,6 +124,15 @@
       member_id = #{id}
   </select>
 
+  <select id="getIdByLoginId" parameterType="string" resultType="long">
+    SELECT
+      id
+    FROM
+      member
+    WHERE
+      login_id = #{loginId}
+  </select>
+
   <select id="getId" parameterType="com.example.triponezidoapi.dto.request.RequestFind" resultType="long">
     SELECT
       id
@@ -260,6 +269,26 @@
       profile = #{photo}
     WHERE
       id = #{contentId}
+  </update>
+
+  <update id="updateNaverId" parameterType="com.example.triponezidoapi.dto.request.RequestSocialConnect">
+    UPDATE
+      member
+    SET
+      naver_pairing = 1,
+      naver_id = #{SocialId}
+    WHERE
+      login_id = #{loginId}
+  </update>
+
+  <update id="updateKakaoId" parameterType="com.example.triponezidoapi.dto.request.RequestSocialConnect">
+    UPDATE
+      member
+    SET
+      kakao_pairing = 1,
+      kakao_id = #{SocialId}
+    WHERE
+      login_id = #{loginId}
   </update>
 
   <delete id="deleteMember" parameterType="long">

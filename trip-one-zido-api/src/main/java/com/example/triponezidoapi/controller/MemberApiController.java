@@ -86,18 +86,14 @@ public class MemberApiController {
     ){
         return memberService.getQuestion(id);
     }
-    @PostMapping("/check/{id}")
+    @PostMapping("/check")
     @Operation(summary = "비밀번호 찾기 - 보안 답변 전송")
     public boolean answerQuestion(
-            @PathVariable
-            @Parameter(description = "회원 번호")
-            Long id,
-
-            @RequestParam
+            @RequestBody
             @Parameter(description = "보안 답변")
-            String answer
+            RequestAnswer requestAnswer
     ){
-        return memberService.checkAnswer(id, answer);
+        return memberService.checkAnswer(requestAnswer.getId(), requestAnswer.getAnswer());
     }
     @PutMapping("/passwd/{id}")
     @Operation(summary = "비밀번호 찾기 - 비밀번호 재설정")

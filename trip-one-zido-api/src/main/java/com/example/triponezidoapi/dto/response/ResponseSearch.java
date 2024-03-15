@@ -17,4 +17,7 @@ public class ResponseSearch {
     String keyword;
     String locCategory;
     String category;
+    int memberCount;
+    int planCount;
+    int spotCount;
 }

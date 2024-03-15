@@ -5,7 +5,7 @@
       v-for="profile in list"
       class="p-2"
     >
-      <img :src="profile.imgSrc" />
+      <img :src="profile.profile" />
       <p>{{ profile.loginId }}</p>
     </div>
     <div @click="addMember" v-if="plus" class="p-2">

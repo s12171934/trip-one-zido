@@ -15,7 +15,9 @@ public class RequestSpot {
     boolean isPublic;
 
     LocalDateTime startDate;
+    LocalDateTime startTime;
     LocalDateTime endDate;
+    LocalDateTime endTime;
 
     @NotBlank(message = "카테고리를 선택해주세요")
     String category;
@@ -25,6 +27,8 @@ public class RequestSpot {
 
     @NotEmpty(message = "주소를 입력하세요")
     String address;
+
+    String address2;
 
     @NotEmpty(message = "장소에 대한 후기를 공유해주세요")
     @Size(max = 500, message = "후기 작성은 최대 500자 입니다")
@@ -40,5 +44,5 @@ public class RequestSpot {
     List<byte[]> photos;
 
     @Size(max = 20)
-    List<Long> members;
+    List<String> members;
 }
