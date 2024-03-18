@@ -3,7 +3,7 @@
     <div class="inner">
       <h1>게시글 상세</h1>
       <br />
-      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <div class="d-grid gap-2 d-flex justify-content-end">
         <span class="button small rounded-3" id="mouseHover">{{
           detail.status
         }}</span>
@@ -18,14 +18,14 @@
       <form method="get" action="#">
         <!-- 테이블 -->
         <table id="table" class="border">
-          <tr>
+          <tr class="border-bottom">
             <td id="tdTitle">제목 :</td>
             <td id="black">{{ detail.title }}</td>
             <td id="tdTitle" class="border-start">작성자 :</td>
             <td id="black">{{ detail.writer }}</td>
           </tr>
 
-          <tr>
+          <tr class="border-bottom">
             <td>지역 :</td>
             <td>
               <option value="1" id="black">{{ detail.locCategory }}</option>
@@ -36,7 +36,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr class="border-bottom">
             <td>참여 인원 :</td>
             <td colspan="3" id="black">
               <span v-for="withMember in detail.members" class="me-2">{{
@@ -45,14 +45,14 @@
             </td>
           </tr>
 
-          <tr>
+          <tr class="border-bottom">
             <td>일정 :</td>
             <td id="black">{{ detail.startDate }} ~ {{ detail.endDate }}</td>
             <td class="border-start">모집 마감일 :</td>
-            <td id="black">{{ detail.deadLine }}</td>
+            <td id="black">{{ detail.deadline }}</td>
           </tr>
 
-          <tr>
+          <tr class="border-bottom">
             <td>작성일 :</td>
             <td id="black">{{ detail.createdAt }}</td>
             <td class="border-start">조회수 :</td>

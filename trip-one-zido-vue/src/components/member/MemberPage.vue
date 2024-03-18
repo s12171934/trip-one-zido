@@ -179,11 +179,12 @@ export default {
 span {
   font-size: 30px;
   margin-left: 30px;
+  color: rgb(80, 80, 80);
 }
 
 img {
-  width: 260px;
-  height: 260px;
+  width: 50%;
+  height: 100%;
 }
 
 #edit-profile:hover {

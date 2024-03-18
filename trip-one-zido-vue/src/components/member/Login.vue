@@ -150,6 +150,10 @@ input {
   background-color: #ff928e;
 }
 
+input[type="checkbox"] {
+  margin-right: 0 !important;
+}
+
 #box {
   background-color: white;
   border-radius: 50px;
