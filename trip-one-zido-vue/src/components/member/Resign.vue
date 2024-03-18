@@ -47,11 +47,18 @@ export default {
   },
   methods: {
     resign() {
-      if (this.$zido.checkResign(this.password, this.passwordCheck)) {
-        this.$cookies.remove("login");
-        this.$cookies.remove("autoLogin");
-        this.$router.push("/welcome");
-      }
+      this.$zido.checkResign(this.password, this.passwordCheck).then(result =>
+      {
+        if(result){
+          this.$cookies.remove("login");
+          this.$cookies.remove("autoLogin");
+          this.$router.push("/welcome");
+        }else{
+          this.password = "";
+          this.passwordCheck = "";
+          console.log("비밀번호가 틀립니다.");
+        }
+      })
     },
   },
   mounted() {

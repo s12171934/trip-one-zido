@@ -33,7 +33,7 @@
       #{name},
       #{loginId},
       #{password},
-      #{questionId},
+      #{question},
       #{answer},
       #{email},
       #{phoneNumber},
@@ -250,11 +250,13 @@
       member
     SET
       name = #{name},
-      question = #{questionId},
+      question = #{question},
       answer = #{answer},
       email = #{email},
       phone_number = #{phoneNumber},
+      postcode = #{postcode},
       address = #{address},
+      address2 = #{address2},
       gender = #{gender}
     WHERE
       id = #{id}
@@ -298,11 +300,9 @@
       login_id = #{loginId}
   </update>
 
-  <delete id="deleteMember" parameterType="long">
+  <delete id="deleteMember" parameterType="Long">
     DELETE FROM
       member
-    SET
-    password = #{password}
     WHERE
       id = #{id}
   </delete>
