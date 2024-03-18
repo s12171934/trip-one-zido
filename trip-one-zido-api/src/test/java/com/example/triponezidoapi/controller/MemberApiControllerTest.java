@@ -84,7 +84,7 @@ class MemberApiControllerTest {
         member.setLoginId("test02");
         member.setPassword("testkitri!123");
         member.setPasswordCheck("testkitri!123");
-        member.setQuestion(5L);
+        member.setQuestionId(5L);
         member.setAnswer("테스트");
         member.setEmail("kitri@kitri.com");
         member.setPhoneNumber("010-1111-1111");
@@ -285,7 +285,7 @@ class MemberApiControllerTest {
         member.setLoginId("test02");
         member.setPassword("testkitri!123");
         member.setPasswordCheck(null);
-        member.setQuestion(5L);
+        member.setQuestionId(5L);
         member.setAnswer("테스트");
         member.setEmail("kitri@kitri.com");
         member.setPhoneNumber("010-1111-1111");
@@ -305,7 +305,7 @@ class MemberApiControllerTest {
                 .andExpect(jsonPath("$.loginId").exists())
                 .andExpect(jsonPath("$.password").exists())
                 .andExpect(jsonPath("$.passwordCheck").doesNotExist())
-                .andExpect(jsonPath("$.question").exists())
+                .andExpect(jsonPath("$.questionId").exists())
                 .andExpect(jsonPath("$.answer").exists())
                 .andExpect(jsonPath("$.email").exists())
                 .andExpect(jsonPath("$.phoneNumber").exists())
@@ -328,7 +328,7 @@ class MemberApiControllerTest {
         member.setLoginId("test02");
         member.setPassword("testkitri!123");
         member.setPasswordCheck("testkitri!123");
-        member.setQuestion(5L);
+        member.setQuestionId(5L);
         member.setAnswer("테스트");
         member.setEmail("kitri@kitri.com");
         member.setPhoneNumber("010-1111-1111");

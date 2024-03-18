@@ -185,7 +185,6 @@ public class MemberApiController {
     ){
         memberService.deleteMember(id, password, passwordCheck);
     }
-
     @GetMapping("/config")
     @Operation(summary = "설정 페이지 조회")
     public ResponseConfigPage showConfig(
@@ -195,9 +194,4 @@ public class MemberApiController {
     ){
         return memberService.getConfig(SessionId);
     }
-
-/*    @PostMapping("/pairing")
-    public void pairingSignup(@RequestBody ){
-
-    }*/
 }

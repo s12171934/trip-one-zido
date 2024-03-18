@@ -27,11 +27,11 @@ public class MemberService {
         memberMapper.signUp(member);
     }
 
-    public boolean isUsingMemberId(String memberId) {
-        if (memberMapper.getLoginFormByLoginId(memberId) != null) {
-            return true;
-        }
-        return false;
+    public boolean isUsingMemberId(String memberId){
+       if(memberMapper.getLoginFormByLoginId(memberId) != null){
+           throw new IllegalArgumentException("이미 존재하는 아이디 입니다.");
+       }
+       return true;
     }
 
     public boolean login(Login login, HttpServletRequest request) {
@@ -74,6 +74,7 @@ public class MemberService {
         // requestNewPassword의 changePassword, changePasswordCheck를 체크
         String changePassword = requestNewPassword.getChangePassword();
         String chkPassword = requestNewPassword.getChangePasswordCheck();
+        // valid를 충족하지 못 할 경우
 
         //새로운 비밀번호와 새로운 비밀번호 확인이 불일치 하는 경우
         if (!changePassword.equals(chkPassword)) {

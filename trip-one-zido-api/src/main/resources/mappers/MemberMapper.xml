@@ -33,7 +33,7 @@
       #{name},
       #{loginId},
       #{password},
-      #{question},
+      #{questionId},
       #{answer},
       #{email},
       #{phoneNumber},
@@ -239,7 +239,7 @@
       member
     SET
       name = #{name},
-      question = #{question},
+      question = #{questionId},
       answer = #{answer},
       email = #{email},
       phone_number = #{phoneNumber},

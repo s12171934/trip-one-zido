@@ -13,24 +13,26 @@ public class CommentService {
     ContentMapper contentMapper;
 
 
-    public void addComment(long sessionId, RequestComment requestComment){
+    public void addComment(Long sessionId, RequestComment requestComment){
         //addContent
         RequestContent requestContent = new RequestContent();
         requestContent.setType("comment");
         //댓글은 제목이 없으므로 null
         requestContent.setTitle(null);
         contentMapper.addContent(requestContent);
+        Long generatedId = requestContent.getId();
+
+        //addComment
+        requestComment.setId(generatedId);
+        requestComment.setMemberId(sessionId);
+        commentMapper.addComment(requestComment);
 
         //addOwner
         RequestOwner requestOwner = new RequestOwner();
         requestOwner.setOwn("writer");
         requestOwner.setMemberId(sessionId);
-        requestOwner.setContentId(requestComment.getContentId());
+        requestOwner.setContentId(requestComment.getId());
         contentMapper.addOwner(requestOwner);
-
-        //addComment
-        requestComment.setMemberId(sessionId);
-        commentMapper.addComment(requestComment);
     }
 
     public void updateComment(Long id, RequestComment requestComment){
