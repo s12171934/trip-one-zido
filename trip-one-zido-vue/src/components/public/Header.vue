@@ -22,7 +22,7 @@
         <span class="image round d-flex h-100 align-items-center" box-sha>
           <img
             @click="$router.push('/member-page')"
-            :src="$zido.getProfileImg()"
+            :src="`data:image/jpeg;base64,${img}`"
             height="75"
           />
         </span>
@@ -97,6 +97,7 @@ export default {
       menu: false,
       addMenu: false,
       keyword: "",
+      img: null,
     };
   },
   methods: {
@@ -112,6 +113,9 @@ export default {
       this.$router.push(path);
     },
   },
+  mounted(){
+    this.$zido.getProfileImg().then((res) => this.img = res)
+  }
 };
 </script>
 

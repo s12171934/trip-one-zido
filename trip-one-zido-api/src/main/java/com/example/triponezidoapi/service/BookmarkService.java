@@ -25,7 +25,7 @@ public class BookmarkService {
         }
         ResponseBookmark responseBookmark = new ResponseBookmark();
         responseBookmark.setId(id);
-        responseBookmark.setLoginId(memberMapper.getLoginId(sessionId));
+        responseBookmark.setLoginId(memberMapper.getLoginId(id));
         responseBookmark.setTourBookmarkCount(bookmarkMapper.tourBookmarkCount(id));
         responseBookmark.setPlanSpotBookMarkCount(bookmarkMapper.planSpotBookmarkCount(id));
         responseBookmark.setTourList(getTourBookmark(id,sessionId,0));

@@ -14,4 +14,5 @@ public class ResponseTour {
     int myBookmark;
     long nextId;
     long prevId;
+    String type;
 }

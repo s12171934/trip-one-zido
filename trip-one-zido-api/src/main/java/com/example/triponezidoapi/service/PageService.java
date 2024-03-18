@@ -27,11 +27,9 @@ public class PageService {
             id = sessionId;
         }
         ResponseMemberPage memberPage = new ResponseMemberPage();
-        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(sessionId);
-        requestSessionTarget.setTargetId(id);
 
         memberPage.setId(id);
+        memberPage.setSessionId(sessionId);
         memberPage.setLoginId(memberMapper.getLoginId(sessionId));
 
         //isFollow
@@ -40,16 +38,22 @@ public class PageService {
         follow.setFollowing(id);
         memberPage.setFollow(memberMapper.isFollow(follow));
 
+        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
+        requestSessionTarget.setMyMemberId(sessionId);
+        requestSessionTarget.setTargetId(id);
+
         //planLists
         memberPage.setPlanLists(planMapper.getPlanList(requestSessionTarget));
         //spotLists
         memberPage.setSpotLists(spotMapper.getSpotList(requestSessionTarget));
+
         //member
         ResponseMember member = new ResponseMember();
         member.setId(id);
         member.setLoginId(memberMapper.getMemberProfile(id).getLoginId());
         member.setProfile(memberMapper.getMemberProfile(id).getProfile());
         memberPage.setResponseMember(member);
+
         //post count
         memberPage.setPostCount(memberMapper.postCount(id));
         //bookmark count
@@ -57,8 +61,10 @@ public class PageService {
         //follower, following count
         memberPage.setFollowerCount(memberMapper.followerCount(id));
         memberPage.setFollowingCount(memberMapper.followingCount(id));
+
         //나의 페이지라면 true를, 아니라면 false를 반환
         memberPage.setMine(id.equals(sessionId));
+
         return memberPage;
     }
 

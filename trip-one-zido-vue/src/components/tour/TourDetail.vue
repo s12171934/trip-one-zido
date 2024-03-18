@@ -11,14 +11,14 @@
         </li>
         <li>
           <a
-            @click="tour.prevId ? $router.push(`/tour/${tour.prevId}`) : ''"
+            :href="tour.prevId ? `/tour/${tour.prevId}` : ''"
             class="button alt small"
             >이전</a
           >
         </li>
         <li>
           <a
-            @click="tour.nextId ? $router.push(`/tour/${tour.nextId}`) : ''"
+            :href="tour.nextId ? `/tour/${tour.nextId}` : ''"
             class="button alt small"
             >다음</a
           >
@@ -27,7 +27,7 @@
     </div>
     <div class="row">
       <div class="col-md-6 d-flex">
-        <img class="rounded-5" :src="tour.photo" />
+        <img class="rounded-5" :src="`data:image/jpeg;base64,${tour.photo}`" />
       </div>
       <div class="col-md-6">
         <div class="d-flex align-items-center">
@@ -70,16 +70,16 @@ export default {
   data() {
     return {
       tour: {
-        id,
-        title,
-        address,
-        locCategory,
-        info,
-        photo,
-        bookmarkCount,
-        myBookmark,
-        nextId,
-        prevId,
+        id: null,
+        title: null,
+        address: null,
+        locCategory: null,
+        info: null,
+        photo: null,
+        bookmarkCount: null,
+        myBookmark: null,
+        nextId: null,
+        prevId: null,
       }
     };
   },

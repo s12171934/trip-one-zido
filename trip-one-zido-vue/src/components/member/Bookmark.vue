@@ -7,7 +7,9 @@
 
     <div class="d-flex flex-row mb-6" id="subTitle">
       <h3>
-        ・모든 일정 & 장소 게시글<span>{{ bookmark.planSpotBookMarkCount }}</span>
+        ・모든 일정 & 장소 게시글<span>{{
+          bookmark.planSpotBookMarkCount
+        }}</span>
       </h3>
     </div>
 
@@ -38,11 +40,21 @@ export default {
   },
   data() {
     return {
-      bookmark: this.$zido.getBookmarkById(this.$route.params.id),
+      bookmark: {
+        id: null,
+        loginId: null,
+        planSpotBookMarkCount: null,
+        tourBookmarkCount: null,
+        contentList: [],
+        tourList: [],
+      },
     };
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    this.$zido
+      .getBookmarkById(this.$route.params.id)
+      .then((res) => (this.bookmark = res));
   },
 };
 </script>

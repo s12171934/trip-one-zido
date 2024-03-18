@@ -4,7 +4,9 @@
       <div class="d-flex justify-content-between me-5 w-100">
         <h1 @click="console.log(status)" class="title">
           {{ planData.title
-          }}<span class="date">{{ planData.startDate }}~{{ planData.endDate }}</span>
+          }}<span class="date"
+            >{{ planData.startDate }}~{{ planData.endDate }}</span
+          >
           <span class="comm"
             ><img id="star" src="/images/star.png" />{{ planData.grade }}</span
           >
@@ -233,6 +235,8 @@ export default {
     setCalendarByDate() {
       const start = new Date(this.planData.startDate);
       const end = new Date(this.planData.endDate);
+      console.log(this.planData.startDate);
+      console.log(end);
       let days = end.getTime() - start.getTime();
       days = Math.ceil(days / (1000 * 60 * 60 * 24)) + 1;
 
@@ -244,13 +248,20 @@ export default {
     setInitialEvent() {
       const calendarApi = this.$refs.FullCalendar.getApi();
       for (let spot of this.planData.spotPlans) {
-        calendarApi.addEvent(spot);
+        calendarApi.addEvent({
+          id: spot.id,
+          title: spot.title,
+          start: spot.startDate,
+          end: spot.endDate
+        });
       }
       console.log(calendarApi.getEvents());
     },
   },
-  mounted() {
+  async mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    this.planData = await this.$zido.getPlanData(this.$route.params.id);
+    console.log(this.planData)
     this.setCalendarByDate();
     this.setInitialEvent();
   },

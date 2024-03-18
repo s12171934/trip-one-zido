@@ -7,7 +7,11 @@
       <div class="w-50">
         <div class="d-flex align-items-center">
           <div class="d-flex flex-column gap-2">
-            <img :src="configData.imgSrc" alt="" class="rounded-circle" />
+            <img
+              :src="`data:image/jpeg;base64,${configData.memberProfile.profile}`"
+              alt=""
+              class="rounded-circle"
+            />
             <button
               class="button rounded-5"
               data-bs-toggle="modal"
@@ -16,15 +20,20 @@
               프로필 사진 편집
             </button>
           </div>
-          <h1>{{ configData.loginId }}</h1>
+          <h1>{{ configData.memberProfile.loginId }}</h1>
         </div>
 
         <hr />
         <NumberSummary
-          @follower="followType = 'follower'"
-          @following="followType = 'following'"
-          @bookmark="$router.push('/bookmark')"
-          :totalBoard="configData.totalBoard"
+          @follower="
+            followType = 'follower';
+            getFollowList();
+          "
+          @following="
+            followType = 'following';
+            getFollowList();
+          "
+          :totalBoard="configData.postCount"
           :followerCount="configData.followerCount"
           :followingCount="configData.followingCount"
           :bookmarkCount="configData.bookmarkCount"
@@ -62,12 +71,7 @@
 
   <EditProfileModal />
 
-  <FollowModal
-    :type="followType"
-    :followList="
-      $zido.getFollowList(followType, configData.id, configData.sessionId)
-    "
-  />
+  <FollowModal :type="followType" :followList="followList" />
 </template>
 
 <script>
@@ -83,12 +87,31 @@ export default {
   },
   data() {
     return {
-      configData: this.$zido.getConfigData(),
+      configData: {
+        memberProfile: {},
+        postCount: null,
+        followerCount: null,
+        followingCount: null,
+        bookmarkCount: null,
+      },
       followType: "",
+      followList: null,
     };
+  },
+  methods: {
+    getFollowList() {
+      this.$zido
+        .getFollowList(
+          this.followType,
+          this.memberPageData.id,
+          this.memberPageData.sessionId
+        )
+        .then((res) => (this.followList = res));
+    },
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    this.$zido.getConfigData().then((res) => (this.configData = res));
   },
 };
 </script>

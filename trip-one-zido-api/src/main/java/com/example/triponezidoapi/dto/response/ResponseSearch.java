@@ -18,6 +18,4 @@ public class ResponseSearch {
     String locCategory;
     String category;
     int memberCount;
-    int planCount;
-    int spotCount;
 }

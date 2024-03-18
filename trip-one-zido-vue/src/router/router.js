@@ -49,7 +49,8 @@ const routes = [
   },
   {
     path: "/:mode/community/:id?",
-    component: EditCommunity
+    component: EditCommunity,
+    meta: { isLogin: true }
   },
   //member
   {

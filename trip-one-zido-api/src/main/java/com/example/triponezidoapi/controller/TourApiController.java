@@ -50,6 +50,7 @@ public class TourApiController {
         return tourService.getTourList(sessionId, loc, page);
     }
     @GetMapping("/{id}")
+
     @Operation(summary = "관광지 상세 조회")
     public ResponseTour showTourDetail(
             @SessionAttribute(name="id")
