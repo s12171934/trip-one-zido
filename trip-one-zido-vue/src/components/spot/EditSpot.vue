@@ -27,7 +27,7 @@
             v-for="(photo, idx) in spotData.photos"
             class="rounded"
             id="selectedPic"
-            :src="photo"
+            :src="photo.photo"
             alt=""
           />
         </div>
@@ -55,26 +55,16 @@
               <div class="date-time">
                 <input
                   class="border-0"
-                  type="date"
+                  type="datetime-local"
                   v-model="spotData.startDate"
-                />
-                <input
-                  class="border-0"
-                  type="time"
-                  v-model="spotData.startTime"
                 />
               </div>
               <h4>~</h4>
               <div class="date-time">
                 <input
                   class="border-0"
-                  type="date"
+                  type="datetime-local"
                   v-model="spotData.endDate"
-                />
-                <input
-                  class="border-0"
-                  type="time"
-                  v-model="spotData.endTime"
                 />
               </div>
             </div>
@@ -89,7 +79,7 @@
                   @contextmenu.prevent="delMember(idx)"
                   v-for="(_, idx) in spotData.members"
                   type="text"
-                  v-model="spotData.members[idx]"
+                  v-model="spotData.members[idx].loginId"
                   class="member m-1"
                 />
               </div>
@@ -114,7 +104,7 @@
                 <option value="" selected>카테고리</option>
                 <option
                   v-for="category in selectCategories"
-                  :aria-colcount="category"
+                  :aria-colcount="category" :value="category"
                 >
                   {{ category }}
                 </option>
@@ -160,18 +150,15 @@
         </tr>
         <tr>
           <td colspan="2">
-            <textarea id="content" name="content" rows="5" cols="50">{{
-              spotData.review
-            }}</textarea>
+            <textarea v-model="spotData.review" id="content" name="content" rows="5" cols="50" />
           </td>
         </tr>
         <tr>
           <td>
             <div class="select-wrapper" id="security">
               <select class="local-select" v-model="spotData.isPublic">
-                <option value="" selected>공개 설정</option>
-                <option value="true">공개</option>
-                <option value="false">비공개</option>
+                <option value=true>공개</option>
+                <option value=false>비공개</option>
               </select>
             </div>
           </td>
@@ -209,15 +196,13 @@ export default {
         photos: [],
         title: "",
         startDate: "",
-        startTime: "",
         endDate: "",
-        endTime: "",
-        members: [""],
+        members: [{}],
         category: "",
         address: "",
         address2: "",
         review: "",
-        isPublic: "",
+        isPublic: true,
       },
     };
   },
@@ -233,7 +218,7 @@ export default {
         let fileReader = new FileReader();
         fileReader.onload = (e) => {
           resolve(e.target.result);
-          this.spotData.photos.push(e.target.result);
+          this.spotData.photos.push({photo: e.target.result});
           console.log(this.spotData.photos);
         };
         fileReader.readAsDataURL(file);
@@ -255,16 +240,33 @@ export default {
         },
       }).open();
     },
-    setSpotData() {
-      this.$zido
-        .getSpotData(this.$route.params.id)
-        .then((res) => (this.spotData = res));
+    async setSpotData() {
+      const responseSpotData = await this.$zido.getSpotData(this.$route.params.id);
+      this.spotData = {
+        photos: responseSpotData.photos,
+        title: responseSpotData.title,
+        startDate: responseSpotData.startDate,
+        endDate: responseSpotData.endDate,
+        members: responseSpotData.members,
+        category: responseSpotData.category,
+        address: responseSpotData.address,
+        address2: responseSpotData.address,
+        review: responseSpotData.review,
+        isPublic: responseSpotData.isPublic,
+      };
+      for(let photo in this.spotData.photos){
+
+        this.spotData.photos[photo].photo = `data:image/jpeg;base64,${this.spotData.photos[photo].photo}`
+      }
+      console.log(this.spotData)
+      document.querySelector("#address").value = this.spotData.address;
     },
     submitButton(mode) {
+      this.spotData.address = document.querySelector("#address").value;
       if (mode == "add") {
         this.$zido.addSpot(this.spotData);
       } else {
-        this.$zido.updateSpot(this.spotData);
+        this.$zido.updateSpot(this.$route.params.id,this.spotData);
       }
       this.$router.push("/member-page");
     },
@@ -273,7 +275,6 @@ export default {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
     if (this.$route.params.id) {
       this.setSpotData();
-      document.querySelector("#address").value = this.spotData.address;
     }
   },
 };

@@ -30,7 +30,7 @@ public class SpotApiController {
     ){
         return spotService.spotDetail(id, sessionId);
     }
-    @PostMapping("/")
+    @PostMapping("")
     @Operation(summary = "장소 게시물 등록")
     public void postSpot(
             @RequestBody

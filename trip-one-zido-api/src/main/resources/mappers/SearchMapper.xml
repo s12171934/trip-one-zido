@@ -9,7 +9,7 @@
         FROM
             member
         WHERE
-            name LIKE CONCAT('%', #{keyword}, '%')
+            login_id LIKE CONCAT('%', #{keyword}, '%')
         LIMIT
             #{page}, 6
     </select>

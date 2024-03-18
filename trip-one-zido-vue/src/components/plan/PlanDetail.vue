@@ -84,20 +84,9 @@
 
     <!-- ★오른쪽 -->
     <div class="p-2 d-flex flex-column" id="rightSide">
-      <table v-if="$route.params.id == 1">
+      <table>
         <tr>
-          <td>
-            <div class="select-wrapper" id="security">
-              <select
-                @change="$zido.togglePublic($route.params.id)"
-                class="local-select"
-                v-model="planData.isPublic"
-              >
-                <option value="1">공개</option>
-                <option value="2">비공개</option>
-              </select>
-            </div>
-          </td>
+          <td></td>
           <td>
             <div class="m-0 d-flex justify-content-end gap-2">
               <input
@@ -108,7 +97,10 @@
                 value="수정"
               />
               <input
-                @click="$zido.deletePlan($route.params.id)"
+                @click="
+                  $zido.deletePlan($route.params.id);
+                  $router.push('/member-page');
+                "
                 class="button alt small"
                 type="button"
                 value="삭제"
@@ -127,7 +119,10 @@
         <div class="card bg-light">
           <div class="card-body">
             <form
-              @submit.prevent="$zido.addComment(planData.id, comment)"
+              @submit.prevent="
+                $zido.addComment(planData.id, comment);
+                reloadComment();
+              "
               class="border-bottom mb-3"
             >
               <input
@@ -145,6 +140,7 @@
               v-for="comment in planData.comments"
               :first="true"
               :data="comment"
+              @reload="reloadComment"
             />
           </div>
         </div>
@@ -172,7 +168,20 @@ export default {
   },
   data() {
     return {
-      planData: this.$zido.getPlanData(this.$route.params.id),
+      planData: {
+        title: null,
+        startDate: null,
+        endDate: null,
+        grade: 0,
+        status: 0,
+        myBookmark: null,
+        bookmarkCount: null,
+        myGood: null,
+        goodCount: null,
+        members: [{}],
+        review: null,
+        comments: null,
+      },
       selectLocations: data.selectLocations,
       status: 0,
       members: [""],
@@ -247,21 +256,24 @@ export default {
     },
     setInitialEvent() {
       const calendarApi = this.$refs.FullCalendar.getApi();
-      for (let spot of this.planData.spotPlans) {
+      for (let spot of this.planData.spots) {
         calendarApi.addEvent({
           id: spot.id,
           title: spot.title,
           start: spot.startDate,
-          end: spot.endDate
+          end: spot.endDate,
         });
       }
       console.log(calendarApi.getEvents());
+    },
+    async reloadComment() {
+      this.planData = await this.$zido.getPlanData(this.$route.params.id);
     },
   },
   async mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
     this.planData = await this.$zido.getPlanData(this.$route.params.id);
-    console.log(this.planData)
+    console.log(this.planData);
     this.setCalendarByDate();
     this.setInitialEvent();
   },

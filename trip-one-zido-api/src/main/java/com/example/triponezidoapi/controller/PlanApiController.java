@@ -30,7 +30,7 @@ public class PlanApiController {
     ){
         return planService.getPlan(id, sessionId);
     }
-    @PostMapping("/")
+    @PostMapping("")
     @Operation(summary = "일정 게시물 등록")
     public void postPlan(
             @SessionAttribute(name = "id")

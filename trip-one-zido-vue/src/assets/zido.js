@@ -15,6 +15,7 @@ export default {
         .then((response) => {
           console.log(response.data);
           content.myBookmark = !content.myBookmark;
+          content.bookmarkCount++;
         })
         .catch((error) => {
           console.error("찜하기 요청 오류", error);
@@ -26,6 +27,7 @@ export default {
         .then((response) => {
           console.log(response.data);
           content.myBookmark = !content.myBookmark;
+          content.bookmarkCount--;
         })
         .catch((error) => {
           console.error("찜삭제 요청 오류", error);
@@ -66,9 +68,11 @@ export default {
   //댓글 등록
   //POST -- api/comment
   addComment(targetId, comment) {
+    console.log(targetId);
     axios
       .post(`/api/comment`, {
         comment: comment,
+        contentId: targetId,
       })
       .then((response) => {
         console.log(response.data);
@@ -205,13 +209,11 @@ export default {
   //최근 본 게시물 조회
   //GET -- api/content/recent-view
   async getRecentView() {
-    const res = await axios
-      .get(`/api/content/recent-view`)
-      .catch((error) => {
-        console.log(error);
-        throw error;
-      });
-      console.log(res.data)
+    const res = await axios.get(`/api/content/recent-view`).catch((error) => {
+      console.log(error);
+      throw error;
+    });
+    console.log(res.data);
     return res.data;
   },
 
@@ -220,53 +222,40 @@ export default {
   //팔로우 및 언팔로우
   //DELETE -- api/page/follow/id
   //POST -- api/page/follow/id
-  toggleFollow(userProfile) {
-    userProfile.isFollow = !userProfile.isFollow;
+  async toggleFollow(userProfile) {
+    console.log(userProfile.follow);
     //팔로잉으로 변경한다면 POST요청
-    if (userProfile.isFollow === true) {
-      axios
-        .POST(`/api/page/follow/${userProfile.id}`)
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-          throw error;
-        });
+    if (userProfile.follow == false) {
+      console.log("post");
+      await axios.post(`/api/page/follow/${userProfile.id}`);
       //팔로잉을 해제한다면 delete요청
     } else {
-      axios
-        .delete(`/api/page/follow/${userProfile.id}`)
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-          throw error;
-        });
+      console.log("delete");
+      await axios.delete(`/api/page/follow/${userProfile.id}`);
     }
+    userProfile.follow = !userProfile.follow;
   },
 
   //팔로잉, 팔로워 목록 조회
   //GET -- api/page/follower/id
   //GET -- api/page/following/id
   getFollowList(type, targetId) {
-    console.log(type)
+    console.log(type);
     //타입체크후 get API설정
     let url;
     if (type === "follower") {
-      console.log('follower')
+      console.log("follower");
       url = `/api/page/follower/${targetId}`;
     } else {
-      console.log('following')
+      console.log("following");
       url = `/api/page/following/${targetId}`;
     }
 
     return axios
       .get(url)
       .then((response) => {
-        console.log('follow')
-        console.log(response.data)
+        console.log("follow");
+        console.log(response.data);
         return response.data;
       })
       .catch((error) => {
@@ -279,14 +268,20 @@ export default {
 
   //좋아요 싫어요
   //POST -- api/content/good/id
-  toggleLike(content, like) {
-    if (content.myLike == like) {
-      content.myLike = null;
+  toggleLike(content, good) {
+    if (content.myGood) {
+      content.goodCount--;
+    } else if(good){
+      content.goodCount++;
+    }
+
+    if (content.myGood == good) {
+      content.myGood = null;
     } else {
-      content.myLike = like;
+      content.myGood = good;
     }
     axios
-      .post(`api/content/good/${content.id}`, { content })
+      .post(`/api/content/good/${content.id}`, { good: good })
       .then((response) => {
         data.userProfiles = response.data;
         console.log(response.data);
@@ -394,7 +389,7 @@ export default {
     // return data.userProfiles[1].imgSrc;
     try {
       const response = await axios.get("/api/member/profile");
-      console.log('checkPro')
+      console.log("checkPro");
       console.log(response.data);
       return response.data.profile;
     } catch (error) {
@@ -406,16 +401,16 @@ export default {
   //설정 페이지 조회
   // ★미구현 GET -- api/member/config
   getConfigData() {
-    return axios.get('/api/member/config', {
-    })
-    .then(response => {
-      console.log(response.data);
-      return response.data;
-    })
-    .catch(error => {
-      console.error('설정페이지 조회 오류:', error);
-      throw error;
-    });
+    return axios
+      .get("/api/member/config", {})
+      .then((response) => {
+        console.log(response.data);
+        return response.data;
+      })
+      .catch((error) => {
+        console.error("설정페이지 조회 오류:", error);
+        throw error;
+      });
   },
 
   //회원가입
@@ -477,10 +472,10 @@ export default {
 
   //자동 로그인
   //POST -- api/member/autoLogin
-  async autoLogin(loginId){
-    await axios.post('/api/member/autoLogin',{
+  async autoLogin(loginId) {
+    await axios.post("/api/member/autoLogin", {
       loginId: loginId,
-    })
+    });
   },
 
   //비밀번호 찾기 보안답변 전송
@@ -543,8 +538,8 @@ export default {
   //프로필 사진 변경
   //PUT -- api/member/profile
   async editProfileImg(img) {
-    const binaryString = img.split(',')[1]
-    console.log(binaryString)
+    const binaryString = img.split(",")[1];
+    console.log(binaryString);
 
     return axios
       .put("/api/member/profile", {
@@ -673,6 +668,14 @@ export default {
   //일정 등록
   //POST -- api/plan
   async addPlan(planData) {
+    for (let spot of planData.spots) {
+      for (let photo in spot.photos) {
+        console.log(spot.photos[photo]);
+        spot.photos[photo].photo = spot.photos[photo].photo.split(",")[1];
+      }
+    }
+
+    console.log(planData);
     await axios.post("/api/plan", planData);
   },
 
@@ -688,6 +691,7 @@ export default {
   //GET -- api/search/keyword
   async getSearchData(keyword) {
     const res = await axios.get(`/api/search/${keyword}`);
+    console.log(res.data);
     return res.data;
   },
 
@@ -728,13 +732,21 @@ export default {
   //장소 등록
   //POST -- api/spot
   async addSpot(spotData) {
+    for (let photo in spotData.photos) {
+      console.log(spotData.photos[photo]);
+      spotData.photos[photo].photo = spotData.photos[photo].photo.split(",")[1];
+    }
+    console.log(spotData);
     await axios.post("/api/spot", spotData);
   },
 
   //장소 수정
   //PUT -- api/spot/id
-  async updateSpot(spotData) {
-    await axios.put("/api/spot", spotData);
+  async updateSpot(id, spotData) {
+    for (let photo in spotData.photos) {
+      spotData.photos[photo].photo = spotData.photos[photo].photo.split(",")[1];
+    }
+    await axios.put(`/api/spot/${id}`, spotData);
   },
 
   //Tour

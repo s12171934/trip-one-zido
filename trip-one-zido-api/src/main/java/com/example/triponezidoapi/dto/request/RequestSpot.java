@@ -1,7 +1,9 @@
 package com.example.triponezidoapi.dto.request;
 
+import com.example.triponezidoapi.dto.response.ResponseMember;
 import jakarta.validation.constraints.*;
 import lombok.Data;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,9 +17,7 @@ public class RequestSpot {
     boolean isPublic;
 
     LocalDateTime startDate;
-    LocalDateTime startTime;
     LocalDateTime endDate;
-    LocalDateTime endTime;
 
     @NotBlank(message = "카테고리를 선택해주세요")
     String category;
@@ -41,8 +41,8 @@ public class RequestSpot {
     long profile;
 
     @Size(max = 10)
-    List<byte[]> photos;
+    List<RequestPhoto> photos;
 
     @Size(max = 20)
-    List<String> members;
+    List<ResponseMember> members;
 }

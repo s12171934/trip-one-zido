@@ -5,7 +5,11 @@
       :content="content"
       @toggle="(content) => $zido.toggleBookmark(content)"
     />
-    <ContentCard :content="plus" @plus="addContent" />
+    <ContentCard
+      v-if="this.list.length < this.maxLen"
+      :content="plusData"
+      @plus="addContent"
+    />
   </div>
 </template>
 
@@ -14,17 +18,18 @@ import ContentCard from "./ContentCard.vue";
 
 export default {
   props: {
-    list: Object,
+    list: Array,
     sortOption: String,
     addApi: String,
     method: String,
+    maxLen: Number,
   },
   components: {
     ContentCard,
   },
   data() {
     return {
-      plus: {
+      plusData: {
         photo: "/images/plusbutton.png",
         title: "더보기",
         plus: true,
@@ -34,11 +39,13 @@ export default {
     };
   },
   methods: {
-    addContent() {
-      this.list.push(
-        this.$zido.newContents(this.addApi, ++this.page, this.method)
+    async addContent() {
+      const addContents = await this.$zido.newContents(
+        this.addApi,
+        ++this.page,
+        this.method
       );
-      console.log(this.page);
+      this.list.push(...addContents);
     },
   },
 };

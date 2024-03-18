@@ -5,10 +5,10 @@
       v-for="profile in list"
       class="p-2"
     >
-      <img :src="profile.profile" />
+      <img :src="`data:image/jpeg;base64,${profile.profile}`" />
       <p>{{ profile.loginId }}</p>
     </div>
-    <div @click="addMember" v-if="plus" class="p-2">
+    <div @click="addMember" v-if="this.list.length < this.maxLen" class="p-2">
       <img src="/images/plusbutton.png" />
       <p>더보기</p>
     </div>
@@ -19,7 +19,8 @@
 export default {
   props: {
     list: Object,
-    plus: Boolean,
+    addApi: String,
+    maxLen: Boolean,
   },
   data() {
     return {
@@ -27,8 +28,9 @@ export default {
     };
   },
   methods: {
-    addMember() {
-      this.list.push(this.$zido.newMembers(++this.page));
+    async addMember() {
+      const addMember = await this.$zido.newMembers(this.addApi, ++this.page);
+      this.list.push(...addMember);
     },
   },
 };
