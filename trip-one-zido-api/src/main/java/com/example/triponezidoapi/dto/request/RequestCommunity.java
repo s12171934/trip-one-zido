@@ -34,6 +34,5 @@ public class RequestCommunity {
     @Future(message = "모집마감일은 미래의 날짜여야 합니다.")
     LocalDateTime deadline;
 
-    @NotEmpty(message = "상태설정은 필수 입니다.")
     String status;
 }
