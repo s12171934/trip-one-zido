@@ -19,7 +19,7 @@ public class Member {
     @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{8,16}$")
     String password;
     String passwordCheck;
-    long questionId;
+    long question;
 
 
     @NotEmpty
@@ -32,9 +32,12 @@ public class Member {
     @NotEmpty
     @Size(max = 20)
     String phoneNumber;
+    String zipcode;
     @NotEmpty
     @Size(max = 200)
     String address;
+    @Size(max = 200)
+    String address2;
     @Past
     LocalDateTime birth;
     @NotEmpty

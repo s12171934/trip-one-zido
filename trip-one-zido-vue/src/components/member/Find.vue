@@ -41,12 +41,13 @@
   </main>
 
   <AlertModal :modal="modal" />
-  <SecurityModal @securityFail="modal='findPasswordFail'" :securityId="securityId" />
+  <SecurityModal @securityFail="modal='findPasswordFail'" :securityId="securityId" :SecurityQuestion="SecurityQuestion" />
 </template>
 
 <script>
 import AlertModal from "../util/modal/AlertModal.vue";
 import SecurityModal from "../util/modal/SecurityModal.vue";
+import data from "@/assets/data.js";
 
 export default {
   components: {
@@ -63,19 +64,36 @@ export default {
       pwName: "",
       pwEmail: "",
       modal: "",
+      SecurityQuestion: "",
     };
   },
   methods: {
     loginIdModal() {
-      if (this.$zido.findId()) {
-        this.modal = "findLoginIdSuccess";
-        console.log(document.getElementById("findId"))
-      } else {
-        this.modal = "findLoginIdFail";
-      }
+      this.$zido.findId(this.loginIdName, this.loginIdEmail).then(result => {
+        if (result !== null && result !== '') {
+            this.modal = "findLoginIdSuccess";
+            console.log(result)
+            data.modalDatas.findLoginIdSuccess.message = `당신의 아이디는<br />${result}<br />입니다.`,
+            console.log(document.getElementById("findId"));
+        } else {
+            this.modal = "findLoginIdFail"; 
+        }
+      })
     },
-    securityModal() {
-      this.securityId = this.$zido.findPassword();
+    async securityModal() {
+      try {
+        const result = await this.$zido.findPassword(this.pwName, this.pwEmail, this.pwLoginId);
+      if (result !== null && result !== '') {
+        this.securityId = result;
+        // SecurityQuestion 값을 가져오기 위해 프로미스를 기다립니다.
+        this.SecurityQuestion = await this.$zido.getSecurityQuestion(this.securityId);
+      } else {
+        this.modal = "findPasswordFail";
+      }
+      } catch (error) {
+        console.error("비밀번호 찾기 오류:", error);
+        // 에러 처리 로직 추가
+      }
     },
   },
   mounted() {

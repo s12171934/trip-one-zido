@@ -24,7 +24,9 @@
       answer,
       email,
       phone_number,
+      postcode,
       address,
+      address2,
       birth,
       gender
       )
@@ -33,11 +35,13 @@
       #{name},
       #{loginId},
       #{password},
-      #{questionId},
+      #{question},
       #{answer},
       #{email},
       #{phoneNumber},
+      #{zipcode},
       #{address},
+      #{address2},
       #{birth},
       #{gender}
       )
