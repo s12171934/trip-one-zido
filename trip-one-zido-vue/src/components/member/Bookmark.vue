@@ -1,6 +1,6 @@
 <template>
   <main class="wrapper">
-    <h1>
+    <h1 id="mainTitle">
       <span>{{ bookmark.loginId }}</span
       >님이 찜한 게시글
     </h1>
@@ -72,5 +72,14 @@ span {
 
 #subTitle {
   margin-top: 5%;
+}
+
+@media (max-width: 1000px) { /* 원하는 크기로 설정 */
+
+  #wrapper, #subTitle, #mainTitle {
+    white-space: nowrap; 
+    text-overflow: ellipsis; 
+  }
+
 }
 </style>

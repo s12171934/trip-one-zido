@@ -10,7 +10,7 @@
           >
         </h1>
         <div class="d-flex gap-2" id="left-category">
-          <button class="rounded-5">{{ spotData.category }}</button>
+          <button class="rounded-5" id="spot-data">{{ spotData.category }}</button>
           <button class="rounded-5">약도보기</button>
         </div>
       </div>
@@ -103,7 +103,7 @@
 
       <h4 class="p-2">여행한 후기</h4>
 
-      <textarea class="p-2" id="content" name="content" rows="5" cols="50">
+      <textarea class="p-2" id="content" name="content" rows="5" cols="50" readonly>
         {{ spotData.review }}
       </textarea>
 
@@ -287,14 +287,26 @@ textarea {
   height: 100%
 }
 
-#left-category {
+/* #left-category {
   margin-right: left;
-}
+} */
 
-@media (max-width: 800px) { /* 원하는 크기로 설정 */
+@media (max-width: 1200px) {
   #left-category button {
-    font-size: 0.5rem; /* 작은 폰트 크기 설정 */
-    padding: 0.5rem 1rem; /* 작은 버튼 크기 설정 */
+    font-size: 0.4rem; 
+    /* padding: 0.5rem 1rem; */
+    /* display: flex;
+    flex-wrap: wrap; */
+  }
+  .title, .p-2 {
+    white-space: nowrap; 
+    overflow: hidden;
+    /* text-overflow: ellipsis;  */
   }
 }
+
+#spot-data { 
+  cursor: default;
+}
+
 </style>

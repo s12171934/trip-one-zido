@@ -327,6 +327,7 @@ td {
   padding: 2% 4%;
   box-shadow: 0 0 0 1px #dee1e3 inset;
   border-radius: 0.5rem;
+ 
 }
 
 #plusMember {
@@ -355,5 +356,23 @@ td {
 
 textarea {
   resize: none;
+}
+
+.border-0 {
+  color: black;
+}
+
+@media (max-width: 1000px) { /* 원하는 크기로 설정 */
+  #photo-container {
+    height: 90%;
+    /* padding: 0.5rem 1rem; */
+    /* display: flex;
+    flex-wrap: wrap; */
+  }
+
+  #font-vertical {
+    white-space: nowrap; 
+    text-overflow: ellipsis; 
+  }
 }
 </style>

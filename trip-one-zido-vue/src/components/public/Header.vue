@@ -23,7 +23,7 @@
           <img
             @click="$router.push('/member-page')"
             :src="`data:image/jpeg;base64,${img}`"
-            height="75"
+            height="75" width="75"
           />
         </span>
       </nav>

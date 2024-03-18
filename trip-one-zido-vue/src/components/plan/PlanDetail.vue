@@ -74,7 +74,7 @@
         </tr>
         <tr>
           <td>
-            <textarea id="content" name="content" rows="5" cols="50">{{
+            <textarea id="content" name="content" rows="5" cols="50" readonly>{{
               planData.review
             }}</textarea>
           </td>

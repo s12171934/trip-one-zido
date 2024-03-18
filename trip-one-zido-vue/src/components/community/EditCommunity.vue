@@ -66,7 +66,7 @@
           </tr>
         </table>
 
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <div class="d-grid gap-2 d-flex justify-content-end">
           <a
             @click="submitButton($route.params.mode)"
             class="button small rounded-3"
@@ -206,5 +206,14 @@ table tbody tr {
 
 textarea {
   resize: none;
+}
+
+@media screen and (max-width: 1300px) {
+  
+  .border {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
 }
 </style>
