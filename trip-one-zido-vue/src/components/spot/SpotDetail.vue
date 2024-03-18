@@ -9,7 +9,7 @@
             ><img id="star" src="/images/star.png" />{{ spotData.grade }}</span
           >
         </h1>
-        <div class="d-flex gap-2">
+        <div class="d-flex gap-2" id="left-category">
           <button class="rounded-5">{{ spotData.category }}</button>
           <button class="rounded-5">약도보기</button>
         </div>
@@ -280,5 +280,21 @@ textarea {
   border: #ff928e 1px solid;
   border-radius: 1.5rem;
   padding: 2%;
+}
+
+.select-wrapper .local-select {
+  width: 100%;
+  height: 100%
+}
+
+#left-category {
+  margin-right: left;
+}
+
+@media (max-width: 800px) { /* 원하는 크기로 설정 */
+  #left-category button {
+    font-size: 0.5rem; /* 작은 폰트 크기 설정 */
+    padding: 0.5rem 1rem; /* 작은 버튼 크기 설정 */
+  }
 }
 </style>
