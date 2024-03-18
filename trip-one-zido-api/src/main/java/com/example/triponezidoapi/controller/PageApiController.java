@@ -17,7 +17,7 @@ public class PageApiController {
     @Autowired
     PageService pageService;
 
-    @GetMapping("/{id}")
+    @GetMapping(value = {"/{id}" , "/"})
     @Tag(name = "Member")
     @Operation(summary = "회원 페이지 조회")
     public ResponseMemberPage showMemberPage(

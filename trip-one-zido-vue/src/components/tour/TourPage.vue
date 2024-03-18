@@ -31,14 +31,14 @@ export default {
     return {
       selectLocations: data.selectLocations,
       loc: this.defaultLoc(),
-      tourList: {
-        id,
-        title,
-        photo,
-        bookmarkCount,
-        myBookmark,
-        type,
-      },
+      tourList: [{
+        id: null,
+        title: null,
+        photo: null,
+        bookmarkCount: null,
+        myBookmark: null,
+        type: null,
+      }],
     };
   },
   methods: {

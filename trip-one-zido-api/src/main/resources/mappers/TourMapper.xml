@@ -77,7 +77,8 @@
             WHERE
                 content_id = c.id AND
                 member_id = #{myMemberId}
-            ) my_bookmark
+            ) my_bookmark,
+            type
         FROM
             content c
         WHERE

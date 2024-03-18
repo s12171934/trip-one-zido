@@ -5,10 +5,13 @@ import com.example.triponezidoapi.dto.request.*;
 import com.example.triponezidoapi.dto.response.*;
 import com.example.triponezidoapi.mappers.BookmarkMapper;
 import com.example.triponezidoapi.mappers.MemberMapper;
+import com.mysql.cj.log.Log;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -42,11 +45,16 @@ public class MemberService {
         if (memberMapper.getLoginFormByLoginId(login.getLoginId()) != null && login.getPassword().equals(memberMapper.getLoginFormByLoginId(login.getLoginId()).getPassword())) {
             ResponseMember member = memberMapper.getLogin(login);
             HttpSession session = request.getSession();
-            session.setAttribute("id", member);
+            session.setAttribute("id", member.getId());
             System.out.println(session);
             return true;
         }
         return false;
+    }
+
+    public void autoLogin(Login login, HttpServletRequest request){
+        request.getSession().setAttribute("id",memberMapper.getAutoLogin(login).getId());
+        System.out.println(login);
     }
 
     public String getLoginId(RequestFindId requestFindid) {
@@ -112,6 +120,7 @@ public class MemberService {
     public void updateProfile(Long id, RequestPhoto profile){
         // 받은 아이디와 프로필을 requestPhoto에 저장 후 매퍼로 전송
         profile.setContentId(id);
+        profile.setPhoto(Base64.getDecoder().decode(profile.getImg()));
         memberMapper.updateProfile(profile);
     }
 

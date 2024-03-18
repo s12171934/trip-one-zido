@@ -1,7 +1,7 @@
 <template>
   <div :id="content.id" class="container">
     <div @click.stop="this.$emit('plus')" class="image">
-      <img :src="content.photo" class="img" />
+      <img :src="content.plus ? content.photo : `data:image/jpeg;base64,${content.photo}`" class="img" />
     </div>
     <div
       v-if="content.type != null"

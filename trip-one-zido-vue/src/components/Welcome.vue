@@ -82,8 +82,11 @@ export default {
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
     this.$emit("welcome");
-    if (this.$cookies.isKey("autoLogin")) {
-      this.$cookies.set("login", this.$cookies.get("autoLogin"));
+
+    if (this.$cookies.get("autoLogin")) {
+      const autoLoginId = this.$cookies.get("autoLogin")
+      this.$cookies.set("login", autoLoginId);
+      this.$zido.autoLogin(autoLoginId)
       location.href = "/";
     }
   },

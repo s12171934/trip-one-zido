@@ -20,7 +20,7 @@
         }}
       </h6>
       <h6>
-        <span v-for="member in spotData.members">{{ member }}</span>
+        <span v-for="member in spotData.members">{{ member.loginId }}</span>
       </h6>
 
       <div class="p-2 h-100">
@@ -30,7 +30,7 @@
             v-for="photo in spotData.photos"
             class="rounded"
             id="selectedPic"
-            :src="photo"
+            :src="`data:image/jpeg;base64,${photo.photo}`"
             alt=""
           />
         </div>
@@ -147,27 +147,27 @@ export default {
   data() {
     return {
       spotData: {
-        id,
-        category,
-        startDate,
-        startTime,
-        endDate,
-        endTime,
-        locCategory,
-        address,
-        review,
-        grade,
-        viewCount,
-        goodCount,
-        myGood,
-        bookmarkCount,
-        myBookmark,
-        title,
-        isPublic,
-        photos,
-        members,
-        comments,
-        isMine,
+        id: null,
+        category: null,
+        startDate: null,
+        startTime: null,
+        endDate: null,
+        endTime: null,
+        locCategory: null,
+        address: null,
+        review: null,
+        grade: null,
+        viewCount: null,
+        goodCount: null,
+        myGood: null,
+        bookmarkCount: null,
+        myBookmark: null,
+        title: null,
+        isPublic: null,
+        photos: null,
+        members: [{}],
+        comments: null,
+        isMine: null,
       },
       comment: "",
     };

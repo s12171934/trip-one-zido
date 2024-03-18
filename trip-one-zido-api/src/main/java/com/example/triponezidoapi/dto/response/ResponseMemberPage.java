@@ -7,6 +7,7 @@ import java.util.List;
 @Data
 public class ResponseMemberPage {
     Long id;
+    Long sessionId;
     String loginId;
     boolean isFollow;
     List<ResponseContentList> planLists;

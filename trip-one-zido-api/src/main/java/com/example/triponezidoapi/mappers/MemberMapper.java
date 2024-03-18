@@ -23,6 +23,7 @@ public interface MemberMapper {
     long getIdByLoginId(String loginId);
     long getId(RequestFind requestFind);
     ResponseMember getLogin(Login login);
+    ResponseMember getAutoLogin(Login login);
     String getLoginId(Long id);
     Login getLoginFormByLoginId(String loginId);
     String getLoginIdByFind(RequestFindId requestFindid);
