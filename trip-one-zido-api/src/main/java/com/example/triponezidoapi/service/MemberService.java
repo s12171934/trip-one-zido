@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
 
@@ -32,7 +33,8 @@ public class MemberService {
 
     public boolean isUsingMemberId(String memberId){
        if(memberMapper.getLoginFormByLoginId(memberId) != null){
-           throw new IllegalArgumentException("이미 존재하는 아이디 입니다.");
+//           throw new IllegalArgumentException("이미 존재하는 아이디 입니다.");
+           return false;
        }
        return true;
     }

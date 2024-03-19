@@ -20,8 +20,6 @@ public class Member {
     String password;
     String passwordCheck;
     long question;
-
-
     @NotEmpty
     @Size(min = 1, max = 100, message = "최소 1자 이상의 답변이 필요합니다")
     String answer;
@@ -32,11 +30,13 @@ public class Member {
     @NotEmpty
     @Size(max = 20)
     String phoneNumber;
+    String zipcode;
     @NotEmpty
     String postcode;
     @NotEmpty
     @Size(max = 200)
     String address;
+    @Size(max = 200)
     String address2;
     @Past
     LocalDateTime birth;

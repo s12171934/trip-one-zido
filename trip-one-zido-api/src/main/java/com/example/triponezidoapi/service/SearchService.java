@@ -36,7 +36,7 @@ public class SearchService {
         //검색 결과의 카운트 처리
         responseSearch.setMemberCount(responseSearch.getMemberList().size());
         responseSearch.setPlanCount(responseSearch.getPlanList().size());
-        responseSearch.setSpotCount(responseSearch.getPlanList().size());
+        responseSearch.setSpotCount(responseSearch.getSpotList().size());
 
         responseSearch.setKeyword(keyword);
 
@@ -114,6 +114,10 @@ public class SearchService {
 
         responseSearch.setLocCategory(detailSearch.getLocCategory());
         responseSearch.setCategory(detailSearch.getCategory());
+
+        //검색 결과의 카운트 처리
+        responseSearch.setPlanCount(responseSearch.getPlanList().size());
+        responseSearch.setSpotCount(responseSearch.getSpotList().size());
 
         return responseSearch;
     }

@@ -36,7 +36,7 @@
         <div class="select-wrapper">
           <select name="category" id="security" v-model="form.question">
             <option
-              v-for="securityQuestion in $zido.getSecurityQuestions()"
+              v-for="securityQuestion in securityQuestions"
               :value="securityQuestion.id"
             >
               {{ securityQuestion.question }}
@@ -76,7 +76,7 @@
             주소 검색
           </button>
         </div>
-        <input type="text" v-model="form.address2" placeholder="상세한 주소" />
+        <input type="text" id="address2" v-model="form.address2" placeholder="상세한 주소" />
 
         <div class="d-flex flex-fill gap-3 justify-content-start">
           <div class="birth-gender">
@@ -95,7 +95,7 @@
               id="male"
               name="gender"
               v-model="form.gender"
-              value="0"
+              value="남"
             />
             <label for="male" id="gender" class="m-0">남성</label>
             <input
@@ -103,7 +103,7 @@
               id="female"
               name="gender"
               v-model="form.gender"
-              value="1"
+              value="여"
             />
             <label for="female" id="gender" class="m-0">여성</label>
           </div>
@@ -148,25 +148,36 @@ export default {
         birth: "",
         gender: "",
       },
+      securityQuestions: [],
+      securityQuestion: {
+        id: "",
+        question: "",
+      }
     };
   },
   methods: {
     checkLoginId() {
-      if (this.$zido.checkLoginId(this.form.loginId)) {
-        this.modal = "checkDuplicationLoginIdSuccess";
-      } else {
-        this.modal = "checkDuplicationLoginIdFail";
-        this.form.loginId = "";
-      }
+      this.$zido.checkLoginId(this.form.loginId).then(result => {
+        if(result){
+          this.modal = "checkDuplicationLoginIdSuccess";
+        } else {
+          this.modal = "checkDuplicationLoginIdFail";
+          this.form.loginId = "";
+        }
+      })
     },
     signUp() {
       this.form.zipcode = document.querySelector("#zipcode").value;
       this.form.address = document.querySelector("#address").value;
-      if (this.$zido.signUp(this.form)) {
-        this.modal = "signUpSuccess";
-      } else {
-        this.modal = "signUpFail";
-      }
+      this.form.address2 = document.querySelector("#address2").value;
+      this.form.birth = new Date(this.form.birth);
+      this.$zido.signUp(this.form).then(result =>{
+        if(result){
+          this.modal = "signUpSuccess";
+        } else {
+          this.modal = "signUpFail";
+        }
+      })
     },
     searchAddress() {
       new daum.Postcode({
@@ -180,6 +191,9 @@ export default {
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
   },
+  async created(){
+    this.securityQuestions  = await this.$zido.getSecurityQuestions()
+  }
 };
 </script>
 

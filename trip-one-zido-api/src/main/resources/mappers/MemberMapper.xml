@@ -24,7 +24,9 @@
       answer,
       email,
       phone_number,
+      postcode,
       address,
+      address2,
       birth,
       gender
       )
@@ -37,7 +39,9 @@
       #{answer},
       #{email},
       #{phoneNumber},
+      #{zipcode},
       #{address},
+      #{address2},
       #{birth},
       #{gender}
       )
