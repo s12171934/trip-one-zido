@@ -47,21 +47,6 @@ public class ContentApiController {
         contentService.deletePin(id, sessionId);
     }
 
-    @GetMapping("/good/{id}")
-    @Tag(name = "Good", description = "Good API")
-    @Operation(summary = "좋아요 여부 조회")
-    public Boolean getGood(
-            @PathVariable
-            @Parameter(description = "좋아요 게시물 번호")
-            Long id,
-
-            @SessionAttribute(name = "id")
-            @Parameter(description = "로그인 회원 정보")
-            Long sessionId
-    ){
-        return contentService.isGood(id, sessionId);
-    }
-
     @PostMapping("/good/{id}")
     @Tag(name = "Good")
     @Operation(summary = "좋아요 등록/수정/취소")
@@ -78,7 +63,7 @@ public class ContentApiController {
             @Parameter(description = "좋아요")
             RequestGood requestGood
     ){
-        contentService.addGood(id, sessionId, requestGood);
+        contentService.toggleGood(id, sessionId, requestGood);
     }
   
     @GetMapping("/recent-view")
@@ -105,5 +90,26 @@ public class ContentApiController {
 
     ){
         return contentService.getRecentView(sessionId,page);
+    }
+
+    @GetMapping("/address/{id}")
+    public String getAdress(
+            @PathVariable
+            long id
+    ){
+        return contentService.getAddress(id);
+    }
+
+    @PostMapping("/recent-view/{id}")
+    public void addRecentView(
+            @SessionAttribute(name = "id")
+            @Parameter(description = "로그인 회원 정보")
+            Long sessionId,
+
+            @PathVariable
+            @Parameter(description = "조회 게시물 번호")
+            long id
+    ){
+        contentService.addRecentView(sessionId,id);
     }
 }

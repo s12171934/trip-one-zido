@@ -46,9 +46,12 @@ public class PageApiController {
 
             @PathVariable
             @Parameter(description = "페이징 번호")
-            long page
+            long page,
+
+            @RequestParam(required = false)
+            String sort
     ){
-        return pageService.getPlanListByPage(id, sessionId, page);
+        return pageService.getPlanListByPage(id, sessionId, page, sort);
     }
     @GetMapping("/{id}/spot/{page}")
     @Tag(name = "More")
@@ -64,9 +67,12 @@ public class PageApiController {
 
             @PathVariable
             @Parameter(description = "페이징 번호")
-            long page
+            long page,
+
+            @RequestParam(required = false)
+            String sort
     ){
-        return pageService.getSpotListByPage(id, sessionId, page);
+        return pageService.getSpotListByPage(id, sessionId, page, sort);
     }
     @GetMapping("/following/{id}")
     @Tag(name = "Follow", description = "Follow API")

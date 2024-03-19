@@ -8,7 +8,7 @@
         v-model="option"
         id="category"
       >
-        <option v-for="sort in sortMenu" :value="sort">{{ sort }}</option>
+        <option v-for="sort in sortMenu" :value="sort.value">{{ sort.view }}</option>
       </select>
     </div>
   </div>
@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       sortMenu: data.sortMenu,
-      option: "최신순",
+      option: "created_at",
     };
   },
 };

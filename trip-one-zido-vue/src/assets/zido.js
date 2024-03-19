@@ -217,6 +217,19 @@ export default {
     return res.data;
   },
 
+  //최근 본 게시물 등록
+  //POST --api/content/recent-view
+  addRecentView(id) {
+    axios.post(`/api/content/recent-view/${id}`)
+  },
+
+  //주소 가져오기
+  //GET -- api/content/address/id
+  async getAddress(id) {
+    const res = await axios.get(`/api/content/address/${id}`)
+    return res.data
+  },
+
   //Follow
 
   //팔로우 및 언팔로우
@@ -625,12 +638,13 @@ export default {
   //api/search/keyword/plan/page
   //POST -- api/search/spot/page
   //POST -- api/search/plan/page
-  async newContents(addApi, page, method, searchOptions) {
+  async newContents(addApi, page, method, Options) {
     let res = null;
     if (method) {
-      res = await axios.post(addApi + page, searchOptions);
+      res = await axios.post(addApi + page, Options);
     } else {
-      res = await axios.get(addApi + page);
+      res = await axios.get(addApi + page + '?' + Options);
+      console.log(addApi + page + '?' + Options)
     }
     return res.data;
   },
@@ -681,8 +695,14 @@ export default {
 
   //일정 수정
   //PUT -- api/plan/id
-  async updatePlan(planData) {
-    await axios.put("/api/plan", planData);
+  async updatePlan(id,planData) {
+    for (let spot of planData.spots) {
+      for (let photo in spot.photos) {
+        console.log(spot.photos[photo]);
+        spot.photos[photo].photo = spot.photos[photo].photo.split(",")[1];
+      }
+    }
+    await axios.put(`/api/plan/${id}`, planData);
   },
 
   //Search
@@ -707,7 +727,8 @@ export default {
   //소셜로그인 연동
   //PUT -- api/social
   async updateSocialLogin(socialType, socialId, loginId) {
-    await axios.put("/api/socal/connect", {
+    console.log(123)
+    await axios.put("/api/social", {
       socialType: socialType,
       socialId: socialId,
       loginId: loginId,
@@ -726,6 +747,7 @@ export default {
   //GET -- api/spot/id
   async getSpotData(id) {
     const res = await axios.get(`/api/spot/${id}`);
+    console.log(res.data)
     return res.data;
   },
 

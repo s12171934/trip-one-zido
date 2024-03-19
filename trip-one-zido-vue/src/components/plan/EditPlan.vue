@@ -113,18 +113,21 @@
             <h4>여행한 후기</h4>
           </td>
           <td>
-            <div class="rating">
-              <span>☆</span>
-              <span>☆</span>
-              <span>☆</span>
-              <span>☆</span>
-              <span>☆</span>
-            </div>
+            <Grade
+              @grade="(grade) => (planData.grade = grade)"
+              :grade="planData.grade"
+            />
           </td>
         </tr>
         <tr>
           <td colspan="2">
-            <textarea id="content" name="content" rows="5" cols="50" v-model="planData.review" />
+            <textarea
+              id="content"
+              name="content"
+              rows="5"
+              cols="50"
+              v-model="planData.review"
+            />
           </td>
         </tr>
       </table>
@@ -188,12 +191,14 @@ import interactionPlugin from "@fullcalendar/interaction";
 import koLocale from "@fullcalendar/core/locales/ko";
 import data from "/src/assets/data.js";
 import KakaoMapForEditPlan from "../util/KakaoMapForEditPlan.vue";
+import Grade from "@/components/util/Grade.vue";
 
 export default {
   components: {
     FullCalendar,
     EditSpotModal,
     KakaoMapForEditPlan,
+    Grade,
   },
   data() {
     return {
@@ -214,6 +219,7 @@ export default {
         locCategory: "",
         review: "",
         spots: [],
+        grade: 0,
         isPublic: true,
       },
 
@@ -258,7 +264,7 @@ export default {
         category: "",
         address: "",
         address2: "",
-        rate: 0,
+        grade: 0,
         review: "",
       };
     },
@@ -268,7 +274,7 @@ export default {
       this.calendarEvent = clickInfo;
 
       const id = clickInfo.event._def.publicId;
-      this.spotData = this.planData.spots.find((spot) => spot.id = id);
+      this.spotData = this.planData.spots.find((spot) => (spot.id = id));
     },
 
     addMember() {
@@ -319,7 +325,11 @@ export default {
       const newSpot = JSON.parse(JSON.stringify(spotData));
       newSpot.id = this.spotId;
       newSpot.startDate = new Date(calendarEvent.startStr);
+      console.log(calendarEvent.startStr)
+      console.log(newSpot.startDate)
       newSpot.endDate = new Date(calendarEvent.endStr);
+      console.log(calendarEvent.endStr)
+      console.log(newSpot.endDate)
       this.planData.spots.push(newSpot);
       this.spotId++;
     },
@@ -328,7 +338,7 @@ export default {
       calendarEvent.event.setProp("title", spotData.title);
       const id = calendarEvent.event._def.publicId;
       const newSpot = JSON.parse(JSON.stringify(spotData));
-      const spot = this.planData.spots.find((spot) => spot.id = id)
+      const spot = this.planData.spots.find((spot) => (spot.id = id));
       spot.photos = newSpot.photos;
       spot.title = newSpot.title;
       spot.category = newSpot.category;
@@ -350,7 +360,7 @@ export default {
           id: spot.id,
           title: spot.title,
           start: spot.startDate,
-          end: spot.endDate
+          end: spot.endDate,
         });
       }
       console.log(calendarApi.getEvents());
@@ -359,16 +369,16 @@ export default {
       if (mode == "add") {
         this.$zido.addPlan(this.planData);
       } else {
-        this.$zido.updatePlan(this.planData);
+        this.$zido.updatePlan(this.$route.params.id,this.planData);
       }
-      this.$router.push('/member-page')
+      location.href = "/member-page";
     },
   },
   async mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
     if (this.mode != "add") {
       this.planData = await this.$zido.getPlanData(this.$route.params.id);
-      console.log(this.planData)
+      console.log(this.planData);
       this.setCalendarByDate();
       this.setInitialEvent();
     }
@@ -410,26 +420,6 @@ td {
 
 #plusMember {
   margin: 2%;
-}
-
-.rating {
-  unicode-bidi: bidi-override;
-  direction: rtl;
-  text-align: left;
-  padding-left: 1rem;
-  color: #ff928e;
-}
-
-.rating > span {
-  display: inline-block;
-  position: relative;
-  width: 1.1em;
-}
-
-.rating > span:hover:before,
-.rating > span:hover ~ span:before {
-  content: "\2605";
-  position: absolute;
 }
 
 textarea {

@@ -35,6 +35,13 @@ public class PlanService {
         // getComment
         responsePlanDetail.setComments(commentService.getComments(id));
 
+        RequestGood requestGood = new RequestGood();
+        requestGood.setMemberId(sessionId);
+        requestGood.setContentId(id);
+        if(contentMapper.isGood(requestGood) != 0){
+            responsePlanDetail.setMyGood(contentMapper.myGood(requestGood));
+        }
+
         // isMine
         RequestContentMember requestContentMember = new RequestContentMember();
         requestContentMember.setContentId(id);
@@ -68,13 +75,27 @@ public class PlanService {
             contentMapper.addContent(requestContent);
             Long generatedSpotId = requestContent.getId();
 
+            requestPlan.getSpots().get(i).setStartDate(
+                requestPlan.getSpots().get(i).getStartDate().plusSeconds(60 * 60 * 9)
+            );
+
+            requestPlan.getSpots().get(i).setEndDate(
+                requestPlan.getSpots().get(i).getEndDate().plusSeconds(60 * 60 * 9)
+            );
+
             requestPlan.getSpots().get(i).setId(generatedSpotId);
-            requestPlan.getSpots().get(i).setGrade(2);
             requestPlan.getSpots().get(i).setLocCategory("서울");
             requestPlan.getSpots().get(i).setMembers(requestPlan.getMembers());
             requestPlan.getSpots().get(i).setPublic(true);
             spotMapper.addSpot(requestPlan.getSpots().get(i));
 
+            //addPhoto
+            for (int j = 0; j < requestPlan.getSpots().get(i).getPhotos().size(); j++) {
+                RequestPhoto requestPhoto = new RequestPhoto();
+                requestPhoto.setPhoto(requestPlan.getSpots().get(i).getPhotos().get(j).getPhoto());
+                requestPhoto.setContentId(generatedSpotId);
+                spotMapper.addPhoto(requestPhoto);
+            }
 
             RequestPlanSpot requestPlanSpot = new RequestPlanSpot();
             requestPlanSpot.setPlanId(generatedId);
@@ -117,7 +138,7 @@ public class PlanService {
         // deleteOwner - 이전에 등록된 동행인(해당 게시글의 동행인 조회) 삭제
         for (int i = 0; i < requestPlan.getMembers().size(); i++) {
             RequestContentMember requestContentMember = new RequestContentMember();
-//            requestContentMember.setMemberId(requestPlan.getMembers().get(i));
+            requestContentMember.setMemberId(requestPlan.getMembers().get(i).getId());
             requestContentMember.setContentId(id);
             contentMapper.deleteOwner(requestContentMember);
         }
@@ -127,7 +148,7 @@ public class PlanService {
             RequestOwner requestOwner = new RequestOwner();
             requestOwner.setOwn("with");
             requestOwner.setContentId(id);
-//            requestOwner.setMemberId(requestPlan.getMembers().get(i));
+            requestOwner.setMemberId(requestPlan.getMembers().get(i).getId());
             contentMapper.addOwner(requestOwner);
         }
     }
