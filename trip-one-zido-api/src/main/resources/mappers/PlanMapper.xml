@@ -170,6 +170,25 @@
             #{page}, 6
     </select>
 
+    <select id="getPlanListCount" parameterType="Long" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            content c,
+            plan p
+        WHERE
+            c.id = p.id AND
+            c.id IN
+            (
+                SELECT
+                    content_id
+                FROM
+                    owner
+                WHERE
+                     member_id = #{memberId}
+            )
+    </select>
+
     <update id="updatePlan" parameterType="com.example.triponezidoapi.dto.request.RequestPlan">
         UPDATE plan
         SET

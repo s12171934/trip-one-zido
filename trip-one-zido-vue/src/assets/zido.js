@@ -148,14 +148,27 @@ export default {
   //GET -- api/community/list/page
   //GET -- api/community/search/page -> query를 통해 GET전송이 어떤가?
   //POST -- 커뮤니티 목록 조회와 검색한 커뮤니티 목록 결합
-  async getCommunityList(options) {
-    try {
-      const response = await axios.get(`/api/community/list/0`);
-      console.log(response.data);
+  // async getCommunityList(options) {
+  async getCommunityList(page){
+      try {
+        const response = await axios.get(`/api/community/list/${page}`);
+        console.log(response.data);
+        return response.data;
+      } catch (error) {
+        console.error("커뮤니티 목록 조회 요청 오류", error);
+        throw error;
+    }
+  },
+
+  async searchCommunity(form,page){
+    if(page === undefined){page = 0}
+    try{
+      const response = await axios.post(`/api/community/search/${page}`, form)
+      console.log(response.data)
       return response.data;
     } catch (error) {
-      console.error("커뮤니티 목록 조회 요청 오류", error);
-      throw error;
+      console.error("커뮤니티 목록 검색 요청 오류", error);
+        throw error;
     }
   },
 
@@ -762,6 +775,7 @@ export default {
   //GET -- api/tour/list/loc
   async getTourList(loc) {
     const res = await axios.get(`/api/tour/list/${loc}`);
+    console.log(res.data)
     return res.data;
   },
 };

@@ -58,6 +58,7 @@ public class ContentService {
         requestSessionTarget.setMyMemberId(sessionId);
         responseRecentView.setRecentList(contentMapper.getRecentView(requestSessionTarget));
         responseRecentView.setMember(memberMapper.getMemberProfile(sessionId));
+        responseRecentView.setRecentViewCount(contentMapper.getRecentViewCount(sessionId));
         return responseRecentView;
     }
 

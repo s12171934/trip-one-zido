@@ -19,7 +19,20 @@ public class TourService {
     @Autowired
     SpotMapper spotMapper;
 
-    public List<ResponseTour> getTourList(Long sessionId, String loc, Long page){
+    public ResponseTourList getTourList(Long sessionId, String loc, Long page){
+        if(page != 0 ){
+            page = page * 6;
+        }
+        //응답객체
+        ResponseTourList responseTourList = new ResponseTourList();
+        //요청
+        RequestTourList requestTourList = new RequestTourList(page,loc,sessionId);
+        responseTourList.setTourLists(tourMapper.getTourList(requestTourList));
+        responseTourList.setTourListCount((tourMapper.getTourListCount(requestTourList)));
+
+        return responseTourList;
+    }
+    public List<ResponseTour> getTourListPage(Long sessionId, String loc, Long page){
         if(page != 0 ){
             page = page * 6;
         }

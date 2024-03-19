@@ -170,6 +170,25 @@
             content_id = #{id}
     </select>
 
+    <select id="getSpotListCount" parameterType="Long" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            content c,
+            spot s
+        WHERE
+            c.id = s.id AND
+            c.id IN
+            (
+                SELECT
+                    content_id
+                FROM
+                    owner
+                WHERE
+                    member_id = 9
+            )
+    </select>
+
     <update id="updateSpot" parameterType="com.example.triponezidoapi.dto.request.RequestSpot">
         UPDATE spot
         SET

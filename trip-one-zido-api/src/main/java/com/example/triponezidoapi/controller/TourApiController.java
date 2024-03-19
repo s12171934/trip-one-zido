@@ -23,7 +23,7 @@ public class TourApiController {
 
     @GetMapping("/list/{loc}")
     @Operation(summary = "관광지 목록 조회")
-    public List<ResponseTour> showTourAll(
+    public ResponseTourList showTourAll(
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 정보")
             Long sessionId,
@@ -47,7 +47,7 @@ public class TourApiController {
             @Parameter(description = "페이지 번호")
             Long page
     ){
-        return tourService.getTourList(sessionId, loc, page);
+        return tourService.getTourListPage(sessionId, loc, page);
     }
     @GetMapping("/{id}")
 

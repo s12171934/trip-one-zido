@@ -55,9 +55,13 @@ class CommunityApiControllerTest {
         List<ResponseCommunity> communityList = new ArrayList<>();
         communityList.add(communityList1);
 
+        ResponseCommunityList responseCommunityList = new ResponseCommunityList();
+        responseCommunityList.setCommunitys(communityList);
+        responseCommunityList.setTotalCount(1L);
+
         //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
         given(communityService.getCommunityList(0)).willReturn(
-                communityList
+                responseCommunityList
         );
 
         //andExcept : 기대하는 값이 나왔는지 체크해볼 수 있는 메소드
