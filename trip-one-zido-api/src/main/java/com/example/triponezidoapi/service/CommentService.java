@@ -1,9 +1,14 @@
 package com.example.triponezidoapi.service;
 
 import com.example.triponezidoapi.dto.request.*;
+import com.example.triponezidoapi.dto.response.ResponseComment;
+import com.example.triponezidoapi.dto.response.ResponseMember;
 import com.example.triponezidoapi.mappers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class CommentService {
@@ -11,7 +16,20 @@ public class CommentService {
     CommentMapper commentMapper;
     @Autowired
     ContentMapper contentMapper;
+    @Autowired
+    MemberMapper memberMapper;
 
+    public List<ResponseComment> getComments(Long id){
+        List<ResponseComment> responseCommentList = commentMapper.getComment(id);
+
+        for(ResponseComment responseComment : responseCommentList){
+            ResponseMember responseMember = memberMapper.getMemberProfile(responseComment.getMemberId());
+            responseComment.setMember(responseMember);
+            responseComment.setComments(getComments(responseComment.getId()));
+        }
+
+        return responseCommentList;
+    }
 
     public void addComment(Long sessionId, RequestComment requestComment){
         //addContent

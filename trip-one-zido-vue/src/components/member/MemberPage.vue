@@ -27,8 +27,14 @@
       </button>
       <hr />
       <NumberSummary
-        @follower="followType = 'follower'; getFollowList()"
-        @following="followType = 'following'; getFollowList()"
+        @follower="
+          followType = 'follower';
+          getFollowList();
+        "
+        @following="
+          followType = 'following';
+          getFollowList();
+        "
         :totalBoard="memberPageData.postCount"
         :followerCount="memberPageData.followerCount"
         :followingCount="memberPageData.followingCount"
@@ -60,7 +66,8 @@
       <ContentList
         :list="memberPageData.planLists"
         :sortOption="planSortOption"
-        :addApi="`/page/${memberPageData.id}/plan/`"
+        :addApi="`/api/page/${memberPageData.id}/plan/`"
+        :maxLen="20"
       />
 
       <ListTitle
@@ -72,7 +79,8 @@
       <ContentList
         :list="memberPageData.spotLists"
         :sortOption="spotSortOption"
-        :addApi="`/page/${memberPageData.id}/spot/`"
+        :addApi="`/api/page/${memberPageData.id}/spot/`"
+        :maxLen="20"
       />
     </div>
   </main>

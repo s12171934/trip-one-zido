@@ -39,7 +39,7 @@
 
     <!-- ★오른쪽 -->
     <div class="p-2 d-flex flex-column" id="rightSide">
-      <table v-if="$route.params.id == 1">
+      <table>
         <tr>
           <td>
             <h1 class="p-2">
@@ -54,7 +54,7 @@
                   "
                 />{{ spotData.bookmarkCount }}</span
               >
-              <span class="comm" :class="spotData.myGood === true ? 'like' : ''"
+              <span class="comm" :class="spotData.myGood == true ? 'like' : ''"
                 ><img
                   @click="$zido.toggleLike(spotData, true)"
                   id="like"
@@ -63,7 +63,7 @@
               >
               <span
                 class="comm"
-                :class="spotData.myGood === false ? 'like' : ''"
+                :class="spotData.myGood == false ? 'like' : ''"
                 ><img
                   @click="$zido.toggleLike(spotData, false)"
                   id="unLike"
@@ -72,17 +72,10 @@
             </h1>
           </td>
           <td>
-            <div v-if="spotData.isMine" class="m-0 d-flex justify-content-end gap-2">
-              <div class="select-wrapper" id="security">
-                <select
-                  @change="$zido.togglePublic($route.params.id)"
-                  class="local-select"
-                  v-model="spotData.isPublic"
-                >
-                  <option value=true>공개</option>
-                  <option value=false>비공개</option>
-                </select>
-              </div>
+            <div
+              v-if="spotData.mine"
+              class="m-0 d-flex justify-content-end gap-2"
+            >
               <input
                 @click="$router.push(`/edit/spot/${$route.params.id}`)"
                 id="input"
@@ -91,7 +84,7 @@
                 value="수정"
               />
               <input
-                @click="$zido.deleteSpot($route.params.id)"
+                @click="$zido.deleteSpot($route.params.id); $router.push('/member-page')"
                 class="button alt small"
                 type="button"
                 value="삭제"
@@ -111,7 +104,7 @@
         <div class="card bg-light">
           <div class="card-body">
             <form
-              @submit.prevent="$zido.addComment(spotData.id, comment)"
+              @submit.prevent="$zido.addComment(spotData.id, comment); reloadComment()"
               class="border-bottom mb-3"
             >
               <input
@@ -129,6 +122,7 @@
               v-for="comment in spotData.comments"
               :first="true"
               :data="comment"
+              @reload = "reloadComment"
             />
           </div>
         </div>
@@ -167,14 +161,20 @@ export default {
         photos: null,
         members: [{}],
         comments: null,
-        isMine: null,
+        mine: null,
       },
       comment: "",
     };
   },
-  mounted() {
+  methods: {
+    async reloadComment(){
+      this.spotData = await this.$zido.getSpotData(this.$route.params.id);
+    }
+  },
+  async mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
-    this.$zido.getSpotData(this.$route.params.id).then((res) => this.spotData = res)
+    this.spotData = await this.$zido.getSpotData(this.$route.params.id);
+    console.log(this.spotData);
   },
 };
 </script>
@@ -284,14 +284,15 @@ textarea {
 
 .select-wrapper .local-select {
   width: 100%;
-  height: 100%
+  height: 100%;
 }
 
 #left-category {
   margin-right: left;
 }
 
-@media (max-width: 800px) { /* 원하는 크기로 설정 */
+@media (max-width: 800px) {
+  /* 원하는 크기로 설정 */
   #left-category button {
     font-size: 0.5rem; /* 작은 폰트 크기 설정 */
     padding: 0.5rem 1rem; /* 작은 버튼 크기 설정 */

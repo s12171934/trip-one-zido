@@ -7,7 +7,7 @@
     <img
       class="rounded-circle"
       id="followPic"
-      :src="userProfile.profile"
+      :src="`data:image/jpeg;base64,${userProfile.profile}`"
       alt="..."
     />
 
@@ -18,7 +18,7 @@
         @mouseover="hover = true"
         @mouseleave="hover = false"
         v-html="
-          userProfile.isFollow ? (hover ? '언 팔로우' : '팔로잉 중') : '팔로우'
+          userProfile.follow ? (hover ? '언 팔로우' : '팔로잉 중') : '팔로우'
         "
         class="button"
       />

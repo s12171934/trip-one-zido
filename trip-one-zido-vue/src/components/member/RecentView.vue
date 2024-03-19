@@ -1,7 +1,11 @@
 <template>
   <main class="wrapper">
     <div class="d-flex align-items-center mb-5">
-      <img :src="`data:image/jpeg;base64,${RecentViewData.member.profile}`" alt="" class="rounded-circle" />
+      <img
+        :src="`data:image/jpeg;base64,${RecentViewData.member.profile}`"
+        alt=""
+        class="rounded-circle"
+      />
       <h1>{{ RecentViewData.member.loginId }}</h1>
     </div>
     <div>
@@ -10,6 +14,7 @@
     <ContentList
       :list="RecentViewData.recentList"
       :addApi="`/api/content/recent-view/`"
+      :maxLen="20"
     />
   </main>
 </template>
@@ -31,7 +36,7 @@ export default {
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
-    this.$zido.getRecentView().then((res) => this.RecentViewData = res)
+    this.$zido.getRecentView().then((res) => (this.RecentViewData = res));
   },
 };
 </script>

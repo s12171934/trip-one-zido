@@ -18,6 +18,8 @@ public class SpotService {
     CommentMapper commentMapper;
     @Autowired
     MemberMapper memberMapper;
+    @Autowired
+    CommentService commentService;
 
     public ResponseSpotDetail spotDetail(Long id, Long sessionId){
         //spotDetail 기본 (getSpot)
@@ -30,7 +32,7 @@ public class SpotService {
         responseSpotDetail.setPhotos(spotMapper.getPhoto(id));
 
         //getComment
-        responseSpotDetail.setComments(commentMapper.getComment(id));
+        responseSpotDetail.setComments(commentService.getComments(id));
 
         //getOwner
         responseSpotDetail.setMembers(contentMapper.getOwner(id));
@@ -41,7 +43,7 @@ public class SpotService {
         requestContentMember.setContentId(id);
         responseSpotDetail.setMine(contentMapper.isMine(requestContentMember));
 
-        return responseSpotDetail;
+            return responseSpotDetail;
     }
 
     public void addSpot(RequestSpot requestSpot, Long sessionId){
@@ -57,12 +59,15 @@ public class SpotService {
         //addSpot
         requestSpot.setId(generatedId);
         requestSpot.setProfile(sessionId);
+        requestSpot.setLocCategory("서울특별시");
+        requestSpot.setProfile(1);
+        requestSpot.setGrade(2);
         spotMapper.addSpot(requestSpot);
 
         //addPhoto
         for (int i = 0; i < requestSpot.getPhotos().size(); i++) {
             RequestPhoto requestPhoto = new RequestPhoto();
-            requestPhoto.setPhoto(requestSpot.getPhotos().get(i));
+            requestPhoto.setPhoto(requestSpot.getPhotos().get(i).getPhoto());
             requestPhoto.setContentId(generatedId);
             spotMapper.addPhoto(requestPhoto);
         }
@@ -80,6 +85,7 @@ public class SpotService {
     public void updateSpot(Long id, RequestSpot requestSpot, Long sessionId){
         //updateSpot
         requestSpot.setId(id);
+        requestSpot.setLocCategory("서울특별시");
         spotMapper.updateSpot(requestSpot);
 
         //updatePublic
@@ -104,7 +110,7 @@ public class SpotService {
         for (int i = 0; i < requestSpot.getMembers().size(); i++) {
             RequestOwner requestOwner = new RequestOwner();
             requestOwner.setOwn("with");
-            requestOwner.setMemberId(memberMapper.getIdByLoginId(requestSpot.getMembers().get(i)));
+            requestOwner.setMemberId(memberMapper.getIdByLoginId(requestSpot.getMembers().get(i).getLoginId()));
             requestOwner.setContentId(id);
             contentMapper.addOwner(requestOwner);
         }
@@ -115,7 +121,7 @@ public class SpotService {
         //addPhoto
         for (int i = 0; i < requestSpot.getPhotos().size(); i++) {
             RequestPhoto requestPhoto = new RequestPhoto();
-            requestPhoto.setPhoto(requestSpot.getPhotos().get(i));
+            requestPhoto.setPhoto(requestSpot.getPhotos().get(i).getPhoto());
             requestPhoto.setContentId(id);
             spotMapper.addPhoto(requestPhoto);
         }

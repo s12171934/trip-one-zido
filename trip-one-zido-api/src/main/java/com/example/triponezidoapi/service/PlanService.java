@@ -13,7 +13,9 @@ public class PlanService {
     @Autowired
     ContentMapper contentMapper;
     @Autowired
-    CommentMapper commentMapper;
+    CommentService commentService;
+    @Autowired
+    SpotMapper spotMapper;
 
     public ResponsePlanDetail getPlan(Long id, Long sessionId) {
         ResponsePlanDetail responsePlanDetail;
@@ -25,13 +27,13 @@ public class PlanService {
         responsePlanDetail = planMapper.getPlan(requestSessionTarget);
 
         // getSpot
-        responsePlanDetail.setSpotPlans(planMapper.getSpot(id));
+        responsePlanDetail.setSpots(planMapper.getSpot(id));
 
         // getOwner
         responsePlanDetail.setMembers(contentMapper.getOwner(id));
 
         // getComment
-        responsePlanDetail.setComments(commentMapper.getComment(id));
+        responsePlanDetail.setComments(commentService.getComments(id));
 
         // isMine
         RequestContentMember requestContentMember = new RequestContentMember();
@@ -59,10 +61,31 @@ public class PlanService {
 
         // addSpot - 장소게시글 번호만 plan_spot에 등록
         for (int i = 0; i < requestPlan.getSpots().size(); i++) {
+            requestContent = new RequestContent();
+            requestContent.setType("spot");
+            requestContent.setPublic(requestPlan.isPublic());
+            requestContent.setTitle(requestPlan.getTitle());
+            contentMapper.addContent(requestContent);
+            Long generatedSpotId = requestContent.getId();
+
+            requestPlan.getSpots().get(i).setId(generatedSpotId);
+            requestPlan.getSpots().get(i).setGrade(2);
+            requestPlan.getSpots().get(i).setLocCategory("서울");
+            requestPlan.getSpots().get(i).setMembers(requestPlan.getMembers());
+            requestPlan.getSpots().get(i).setPublic(true);
+            spotMapper.addSpot(requestPlan.getSpots().get(i));
+
+
             RequestPlanSpot requestPlanSpot = new RequestPlanSpot();
             requestPlanSpot.setPlanId(generatedId);
-            requestPlanSpot.setSpotId(requestPlan.getSpots().get(i));
+            requestPlanSpot.setSpotId(requestPlan.getSpots().get(i).getId());
             planMapper.addSpot(requestPlanSpot);
+
+            RequestOwner requestOwner = new RequestOwner();
+            requestOwner.setOwn("writer");
+            requestOwner.setMemberId(sessionId);
+            requestOwner.setContentId(generatedSpotId);
+            contentMapper.addOwner(requestOwner);
         }
 
         // addOwner
@@ -94,7 +117,7 @@ public class PlanService {
         // deleteOwner - 이전에 등록된 동행인(해당 게시글의 동행인 조회) 삭제
         for (int i = 0; i < requestPlan.getMembers().size(); i++) {
             RequestContentMember requestContentMember = new RequestContentMember();
-            requestContentMember.setMemberId(requestPlan.getMembers().get(i));
+//            requestContentMember.setMemberId(requestPlan.getMembers().get(i));
             requestContentMember.setContentId(id);
             contentMapper.deleteOwner(requestContentMember);
         }
@@ -104,7 +127,7 @@ public class PlanService {
             RequestOwner requestOwner = new RequestOwner();
             requestOwner.setOwn("with");
             requestOwner.setContentId(id);
-            requestOwner.setMemberId(requestPlan.getMembers().get(i));
+//            requestOwner.setMemberId(requestPlan.getMembers().get(i));
             contentMapper.addOwner(requestOwner);
         }
     }

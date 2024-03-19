@@ -47,7 +47,7 @@
                   v-for="(photo, idx) in responseSpotData.photos"
                   class="rounded"
                   id="selectedPic"
-                  :src="photo"
+                  :src="photo.photo"
                   alt=""
                 />
               </div>
@@ -131,7 +131,13 @@
               </tr>
               <tr>
                 <td colspan="2">
-                  <textarea id="content" name="content" rows="5" cols="50" />
+                  <textarea
+                    id="content"
+                    name="content"
+                    rows="5"
+                    cols="50"
+                    v-model="responseSpotData.review"
+                  />
                 </td>
               </tr>
             </table>
@@ -141,9 +147,7 @@
         <div class="modal-footer border border-0">
           <div class="m-0 d-flex justify-content-end gap-2">
             <input
-              @click="
-                $emit(mode === 'add' ? 'add' : 'edit', event, responseSpotData)
-              "
+              @click="submitButton(mode)"
               id="input"
               class="button small"
               type="submit"
@@ -189,7 +193,7 @@ export default {
         category: "",
         address: "",
         address2: "",
-        rate: 0,
+        grade: 0,
         review: "",
       },
       address: "",
@@ -207,7 +211,7 @@ export default {
         let fileReader = new FileReader();
         fileReader.onload = (e) => {
           resolve(e.target.result);
-          this.responseSpotData.photos.push(e.target.result);
+          this.responseSpotData.photos.push({photo: e.target.result});
           console.log(this.responseSpotData.photos);
         };
         fileReader.readAsDataURL(file);
@@ -224,6 +228,10 @@ export default {
       }).open();
       this.responseSpotData.address = document.querySelector("#address").value;
     },
+    submitButton(mode){
+      this.responseSpotData.address = document.querySelector("#address").value;
+      this.$emit(mode === 'add' ? 'add' : 'edit', this.event, this.responseSpotData)
+    }
   },
   watch: {
     editData() {

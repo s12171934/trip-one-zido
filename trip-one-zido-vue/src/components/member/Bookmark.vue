@@ -15,7 +15,8 @@
 
     <ContentList
       :list="bookmark.contentList"
-      :addApi="`/bookmark/${bookmark.id}/tour/`"
+      :addApi="`/api/bookmark/${bookmark.id}/SpotPlan/`"
+      :maxLen="bookmark.planSpotBookMarkCount"
     />
 
     <div class="d-flex flex-row mb-6" id="subTitle">
@@ -26,7 +27,8 @@
 
     <ContentList
       :list="bookmark.tourList"
-      :addApi="`/bookmark/${bookmark.id}/spotPlan/`"
+      :addApi="`/api/bookmark/${bookmark.id}/tour/`"
+      :maxLen="bookmark.tourBookmarkCount"
     />
   </main>
 </template>
@@ -50,11 +52,15 @@ export default {
       },
     };
   },
-  mounted() {
+  methods: {
+    maxLen(){
+      return this.bookmark.tourBookmarkCount;
+    }
+  },
+  async mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
-    this.$zido
-      .getBookmarkById(this.$route.params.id)
-      .then((res) => (this.bookmark = res));
+    this.bookmark = await this.$zido.getBookmarkById(this.$route.params.id);
+    console.log(this.bookmark)
   },
 };
 </script>

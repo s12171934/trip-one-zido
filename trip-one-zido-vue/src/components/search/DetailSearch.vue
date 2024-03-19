@@ -65,7 +65,8 @@
 
     <ContentList
       :list="detailSearchData.planList"
-      :addApi="'/search/plan/page'"
+      :addApi="'/api/search/plan/page'"
+      :maxLen="20"
       method="post"
     />
 
@@ -77,7 +78,8 @@
 
     <ContentList
       :list="detailSearchData.spotList"
-      :addApi="'/search/spot/page'"
+      :addApi="'/api/search/spot/page'"
+      :maxLen="20"
       method="post"
     />
   </main>
@@ -115,7 +117,9 @@ export default {
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
-    this.$zido.getDetailSearchData(this.$route.query).then((res) => this.detailSearchData = res)
+    this.$zido
+      .getDetailSearchData(this.$route.query)
+      .then((res) => (this.detailSearchData = res));
   },
 };
 </script>

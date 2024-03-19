@@ -124,9 +124,7 @@
         </tr>
         <tr>
           <td colspan="2">
-            <textarea id="content" name="content" rows="5" cols="50">{{
-              planData.review
-            }}</textarea>
+            <textarea id="content" name="content" rows="5" cols="50" v-model="planData.review" />
           </td>
         </tr>
       </table>
@@ -146,9 +144,8 @@
           <td>
             <div class="select-wrapper" id="security">
               <select class="local-select" v-model="planData.isPublic">
-                <option value="" selected>공개 설정</option>
-                <option value="1">공개</option>
-                <option value="2">비공개</option>
+                <option value=true selected>공개</option>
+                <option value=false>비공개</option>
               </select>
             </div>
           </td>
@@ -216,8 +213,8 @@ export default {
         members: [{}],
         locCategory: "",
         review: "",
-        spotPlans: null,
-        isPublic: "",
+        spots: [],
+        isPublic: true,
       },
 
       popUpOptions:
@@ -271,7 +268,7 @@ export default {
       this.calendarEvent = clickInfo;
 
       const id = clickInfo.event._def.publicId;
-      this.spotData = this.planData.spotPlans[id];
+      this.spotData = this.planData.spots.find((spot) => spot.id = id);
     },
 
     addMember() {
@@ -314,44 +311,47 @@ export default {
     addSpot(calendarEvent, spotData) {
       const calendarApi = calendarEvent.view.calendar;
       calendarApi.addEvent({
-        id: ++this.spotId,
+        id: this.spotId,
         title: spotData.title,
         start: calendarEvent.startStr,
         end: calendarEvent.endStr,
       });
       const newSpot = JSON.parse(JSON.stringify(spotData));
       newSpot.id = this.spotId;
-      newSpot.start = calendarEvent.startStr;
-      newSpot.end = calendarEvent.endStr;
-      this.planData.spotList[this.spotId] = newSpot;
+      newSpot.startDate = new Date(calendarEvent.startStr);
+      newSpot.endDate = new Date(calendarEvent.endStr);
+      this.planData.spots.push(newSpot);
+      this.spotId++;
     },
 
     editSpotDetail(calendarEvent, spotData) {
       calendarEvent.event.setProp("title", spotData.title);
       const id = calendarEvent.event._def.publicId;
       const newSpot = JSON.parse(JSON.stringify(spotData));
-      this.planData.spotPlans[id].photos = newSpot.photos;
-      this.planData.spotPlans[id].title = newSpot.title;
-      this.planData.spotPlans[id].category = newSpot.category;
-      this.planData.spotPlans[id].address = newSpot.address;
-      this.planData.spotPlans[id].address2 = newSpot.address2;
-      this.planData.spotPlans[id].rate = newSpot.rate;
-      this.planData.spotPlans[id].review = newSpot.review;
+      const spot = this.planData.spots.find((spot) => spot.id = id)
+      spot.photos = newSpot.photos;
+      spot.title = newSpot.title;
+      spot.category = newSpot.category;
+      spot.address = newSpot.address;
+      spot.address2 = newSpot.address2;
+      spot.rate = newSpot.rate;
+      spot.review = newSpot.review;
     },
 
     deleteSpot(calendarEvent) {
       calendarEvent.event.remove();
       const id = calendarEvent.event._def.publicId;
-      delete this.planData.spotPlans[id];
-    },
-
-    setPlanData() {
-      this.planData = this.$zido.getPlanData(this.$route.params.id);
+      delete this.planData.spots[id];
     },
     setInitialEvent() {
       const calendarApi = this.$refs.FullCalendar.getApi();
-      for (let spot of this.planData.spotList) {
-        calendarApi.addEvent(spot);
+      for (let spot of this.planData.spots) {
+        calendarApi.addEvent({
+          id: spot.id,
+          title: spot.title,
+          start: spot.startDate,
+          end: spot.endDate
+        });
       }
       console.log(calendarApi.getEvents());
     },
@@ -364,10 +364,11 @@ export default {
       this.$router.push('/member-page')
     },
   },
-  mounted() {
+  async mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
     if (this.mode != "add") {
-      this.setPlanData();
+      this.planData = await this.$zido.getPlanData(this.$route.params.id);
+      console.log(this.planData)
       this.setCalendarByDate();
       this.setInitialEvent();
     }

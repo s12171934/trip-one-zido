@@ -10,9 +10,7 @@ public class ResponseSpotDetail {
     long id;
     String category;
     LocalDateTime startDate;
-    LocalDateTime startTime;
     LocalDateTime endDate;
-    LocalDateTime endTime;
     String locCategory;
     String address;
     String review;
