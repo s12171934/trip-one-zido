@@ -303,8 +303,7 @@ export default {
   //DELETE -- api/member -> 비밀번호, 비밀번호 확인 추가 전송
   async checkResign(password, passwordCheck) {
     try {
-      const response = await axios.delete("/api/member/", {
-        loginId: loginId,
+      const response = await axios.delete(`/api/member/?password=${password}&passwordCheck=${passwordCheck}`, {
         password: password,
         passwordCheck: passwordCheck,
       });
@@ -324,9 +323,7 @@ export default {
   async getUserInfo() {
     // return data.userInfo;
     try {
-      const response = await axios.get("/api/member/", {
-        loginId: loginId,
-      });
+      const response = await axios.get(`/api/member/`);
       // 서버로부터 응답을 받으면 처리
       // 예를 들어, 응답이 성공인 경우 처리
       console.log(response.data); // 서버 응답 데이터 출력
@@ -343,7 +340,7 @@ export default {
   async getSecurityQuestions() {
     // return data.securityQuestions;
     try {
-      const response = await axios.get("/api/member/signup");
+      const response = await axios.get(`/api/member/signup`);
       // 서버로부터 응답을 받으면 처리
       // 예를 들어, 응답이 성공인 경우 처리
       console.log(response.data); // 서버 응답 데이터 출력
@@ -390,7 +387,7 @@ export default {
   async getProfileImg() {
     // return data.userProfiles[1].imgSrc;
     try {
-      const response = await axios.get("/api/member/profile");
+      const response = await axios.get(`/api/member/profile`);
       console.log('checkPro')
       console.log(response.data);
       return response.data.profile;
@@ -403,8 +400,7 @@ export default {
   //설정 페이지 조회
   // ★미구현 GET -- api/member/config
   getConfigData() {
-    return axios.get('/api/member/config', {
-    })
+    return axios.get(`/api/member/config`)
     .then(response => {
       console.log(response.data);
       return response.data;
@@ -420,7 +416,7 @@ export default {
   async signUp(form) {
     // return true;
     try {
-      const response = await axios.post("/api/member/signup", form);
+      const response = await axios.post(`/member/signup`, form);
       console.log(response.data);
       return true;
     } catch (error) {
@@ -565,13 +561,13 @@ export default {
 
   //비밀번호 변경
   //PUT -- api/member/password
-  async changePassword(prevPassword, newPassword, newPasswordCheck) {
+  async changePassword(nowPassword, changePassword, changePasswordCheck) {
     // return true;
     return axios
-      .put("/api/member/password", {
-        prevPassword: prevPassword,
-        newPassword: newPassword,
-        newPasswordCheck: newPasswordCheck,
+      .put(`/api/member/password`, {
+        nowPassword: nowPassword,
+        changePassword: changePassword,
+        changePasswordCheck: changePasswordCheck,
       })
       .then((response) => {
         console.log(response.data);
@@ -585,13 +581,13 @@ export default {
 
   //★비밀번호 재설정
   //PUT -- api/member/password/id
-  async resetPassword(id, newPassword, newPasswordCheck) {
+  async resetPassword(id, changePassword, changePasswordCheck) {
     // return true;
     return axios
-      .put("/api/member/password/id", {
+      .put(`/api/member/password/{id}`, {
         id: id,
-        newPassword: newPassword,
-        newPasswordCheck: newPasswordCheck,
+        changePassword: changePassword,
+        changePasswordCheck: changePasswordCheck,
       })
       .then((response) => {
         console.log(response.data);
@@ -608,7 +604,7 @@ export default {
   async updateUserInfo(userInfo) {
     // alert(userInfo.name);
     return axios
-      .put("/api/member", userInfo)
+      .put("/api/member/", userInfo)
       .then((response) => {
         console.log(response.data);
         return response.data;

@@ -155,7 +155,7 @@
             FROM
                 owner
             WHERE
-                member_id = #{myMemberId}
+                member_id = #{targetId}
             )
         LIMIT
             #{page}, 6

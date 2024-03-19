@@ -180,7 +180,7 @@ public class MemberApiController {
     }
     @DeleteMapping("/")
     @Operation(summary = "회원 탈퇴")
-    public void removeMember(
+    public boolean removeMember(
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 정보")
             Long id,
@@ -193,7 +193,7 @@ public class MemberApiController {
             @Parameter(description = "비밀번호확인")
             String passwordCheck
     ){
-        memberService.deleteMember(id, password, passwordCheck);
+        return memberService.deleteMember(id, password, passwordCheck);
     }
     @GetMapping("/config")
     @Operation(summary = "설정 페이지 조회")
