@@ -32,7 +32,7 @@ export default {
     },
     findLoginIdSuccess: {
       url: "/login",
-      // message: `당신의 아이디는<br />${zido.findId}<br />입니다.`,
+      message: "",
       buttonMessage: "로그인 하러 가기",
     },
     findLoginIdFail: {
@@ -81,8 +81,8 @@ export default {
       buttonMessage: "확인",
     },
     signUpFail: {
-      url: "/login",
-      message: "회원가입에<br />성공했습니다.",
+      url: "/sign-up",
+      message: "회원가입에<br />실패했습니다.",
       buttonMessage: "확인",
     },
     withSuccess: {
