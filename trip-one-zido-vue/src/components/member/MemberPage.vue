@@ -26,6 +26,7 @@
         }}
       </button>
       <hr />
+      <div class="summary">
       <NumberSummary
         @follower="followType = 'follower'; getFollowList()"
         @following="followType = 'following'; getFollowList()"
@@ -34,6 +35,7 @@
         :followingCount="memberPageData.followingCount"
         :bookmarkCount="memberPageData.bookmarkCount"
       />
+      </div>
       <KakaoMapForMemberPage />
     </div>
     <div class="d-flex flex-column justify-content-between" id="rightSide">
@@ -51,11 +53,13 @@
           <option>장소 게시글</option>
         </select>
       </div>
-
+      
+      <div id="title">
       <ListTitle
         title="일정 게시글"
         @option="(option) => (planSortOption = option)"
       />
+      </div>
 
       <ContentList
         :list="memberPageData.planLists"
@@ -63,18 +67,20 @@
         :addApi="`/page/${memberPageData.id}/plan/`"
       />
 
+      <div id="title">
       <ListTitle
         title="장소 게시글"
         @option="(option) => (spotSortOption = option)"
         class="mt-5"
       />
+      </div>
 
       <ContentList
         :list="memberPageData.spotLists"
         :sortOption="spotSortOption"
         :addApi="`/page/${memberPageData.id}/spot/`"
       />
-    </div>
+      </div>
   </main>
 
   <FollowModal :type="followType" :followList="followList" />
@@ -189,5 +195,14 @@ img {
 #edit-profile:hover {
   background-color: grey;
 }
+
+@media (max-width: 1100px) {
+  .summary, #title {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+}
+
 </style>
 ../util/KakaoMapForMemberPage.vue
