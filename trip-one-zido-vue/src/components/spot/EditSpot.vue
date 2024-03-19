@@ -156,7 +156,7 @@
         <tr>
           <td>
             <div class="select-wrapper" id="security">
-              <select class="local-select" v-model="spotData.isPublic">
+              <select class="local-select" v-model="spotData.visibility">
                 <option value=true>공개</option>
                 <option value=false>비공개</option>
               </select>
@@ -202,7 +202,7 @@ export default {
         address: "",
         address2: "",
         review: "",
-        isPublic: true,
+        visibility: true,
       },
     };
   },
@@ -252,7 +252,7 @@ export default {
         address: responseSpotData.address,
         address2: responseSpotData.address,
         review: responseSpotData.review,
-        isPublic: responseSpotData.isPublic,
+        visibility: responseSpotData.visibility,
       };
       for(let photo in this.spotData.photos){
 

@@ -143,7 +143,7 @@
         <tr>
           <td>
             <div class="select-wrapper" id="security">
-              <select class="local-select" v-model="planData.isPublic">
+              <select class="local-select" v-model="planData.visibility">
                 <option value=true selected>공개</option>
                 <option value=false>비공개</option>
               </select>
@@ -214,7 +214,7 @@ export default {
         locCategory: "",
         review: "",
         spots: [],
-        isPublic: true,
+        visibility: true,
       },
 
       popUpOptions:

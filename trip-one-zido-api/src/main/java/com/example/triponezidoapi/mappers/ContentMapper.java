@@ -25,7 +25,7 @@ public interface ContentMapper {
     boolean isMine(RequestContentMember requestContentMember);
 
     //update
-    void updateIsPublic(RequestIsPublic requestIsPublic);
+    void updateVisibility(RequestVisibility requestVisibility);
     void updateTitle(RequestTitle requestTitle);
 
     //delete

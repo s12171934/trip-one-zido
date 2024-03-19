@@ -119,14 +119,17 @@ export default {
 
   //커뮤니티 참여 취소
   //DELETE -- api/community/member/id
-  joinCancleCommunity(targetId) {
+  joinCancleCommunity(id) {
     axios
-      .delete(`/api/community/${targetId}`)
+      .delete(`/api/community/member/${id}`, {
+        id: id,
+      })
       .then((response) => {
         console.log(response.data);
+        return response.data;
       })
       .catch((error) => {
-        console.error("커뮤니티 참여/취소 요청 오류", error);
+        console.error("커뮤니티 참여 취소 요청 오류", error);
         throw error;
       });
   },
@@ -161,9 +164,11 @@ export default {
 
   //커뮤니티 참여
   //POST -- api/community/member/id
-  joinCommunity(targetId) {
+  joinCommunity(id) {
     axios
-      .post(`/api/community/member/${targetId}`)
+      .post(`/api/community/member/${id}`, {
+        id: id,
+      })
       .then((response) => {
         console.log(response.data);
         return response.data;
@@ -178,7 +183,7 @@ export default {
   //POST -- api/community
   addCommunity(communityData) {
     axios
-      .post(`/api/community`, communityData)
+      .post(`/api/community/`, communityData)
       .then((response) => {
         console.log(response.data);
         return response.data;
@@ -191,9 +196,9 @@ export default {
 
   //커뮤니티 수정
   //PUT -- api/community/id
-  updateCommunity(targetId, communityData) {
+  updateCommunity(id, communityData) {
     axios
-      .put(`/api/community/{targetId}`, communityData)
+      .put(`/api/community/${id}`, communityData)
       .then((response) => {
         console.log(response.data);
         return response.data;

@@ -20,7 +20,7 @@ public class ResponsePlanDetail {
     int bookmarkCount;
     int myBookmark;
     String title;
-    boolean isPublic;
+    boolean visibility;
     LocalDateTime createdAt;
     List<ResponseSpotPlan> spots;
     List<ResponseMember> members;

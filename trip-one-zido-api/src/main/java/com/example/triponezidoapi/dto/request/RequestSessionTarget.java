@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class RequestSessionTarget {
     long page;
-    long targetId;
-    long myMemberId;
+    Long targetId;
+    Long myMemberId;
 }

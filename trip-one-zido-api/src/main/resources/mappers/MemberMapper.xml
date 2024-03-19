@@ -81,7 +81,15 @@
     SELECT
       id,
       login_id,
-      profile
+      profile,
+      (
+        SELECT
+          id
+        FROM
+          member
+        WHERE
+          id = #{myMemberId}
+      ) session_id
     FROM
       member
     WHERE
@@ -92,7 +100,7 @@
       FROM
         follow
       WHERE
-        following = #{myMemberId}
+        following = #{targetId}
       )
   </select>
 
@@ -100,7 +108,15 @@
     SELECT
       id,
       login_id,
-      profile
+      profile,
+      (
+        SELECT
+          id
+        FROM
+          member
+        WHERE
+          id = #{myMemberId}
+      ) session_id
     FROM
       member
     WHERE
@@ -111,7 +127,7 @@
       FROM
         follow
       WHERE
-        follower = #{myMemberId}
+        follower = #{targetId}
       )
   </select>
 

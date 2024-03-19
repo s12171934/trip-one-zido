@@ -7,5 +7,5 @@ public class RequestContent {
     Long id;
     String type;
     String title;
-    boolean isPublic = true;
+    boolean visibility = true;
 }
