@@ -187,4 +187,15 @@ table tbody tr {
 #cursor {
   cursor: pointer;
 }
+
+@media screen and (max-width: 800px) {
+  
+  .table-wrapper, #leftPosition {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+
+  
+}
 </style>
