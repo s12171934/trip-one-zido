@@ -32,7 +32,7 @@
       <tr id="updateArea">
         <td>주소</td>
         <td>
-          <input type="text" id="zipcode" readonly />
+          <input type="text" id="zipcode" v-model="userInfo.postcode" readonly />
         </td>
         <td>
           <div class="d-flex">
@@ -63,7 +63,7 @@
               v-model="userInfo.question"
             >
               <option
-                v-for="securityQuestion in $zido.getSecurityQuestions()"
+                v-for="securityQuestion in securityQuestions"
                 :value="securityQuestion.id"
                 :selected="securityQuestion.id == userInfo.question"
               >
@@ -76,7 +76,7 @@
       <tr id="updateArea">
         <td>보안질문답</td>
         <td>
-          <input type="text" v-model="userInfo.securityAnswer" />
+          <input type="text" v-model="userInfo.answer" />
         </td>
       </tr>
       <tr id="updateArea">
@@ -86,7 +86,7 @@
       <tr id="updateArea">
         <td>성별</td>
         <td>
-          {{ userInfo.gender == 0 ? "남자" : "여자" }}
+          {{ userInfo.gender != 0 ? "남자" : "여자" }}
         </td>
       </tr>
       <tr id="updateArea">
@@ -130,11 +130,23 @@ export default {
     AlertModal,
   },
   data() {
-    return {
-      modal: "updateMemberInfoFail",
-      userInfo: this.$zido.getUserInfo(),
-    };
-  },
+  return {
+    modal: "updateMemberInfoFail",
+    userInfo: null,
+    securityQuestions: null,
+  };
+},
+async created() {
+  try {
+    const userInfo = await this.$zido.getUserInfo();
+    this.userInfo = userInfo;
+    this.securityQuestions = await this.$zido.getSecurityQuestions();
+
+  } catch (error) {
+    console.error("회원정보 가져오기 오류:", error);
+    // 에러 처리 로직 추가
+  }
+},
   methods: {
     searchAddress() {
       new daum.Postcode({
@@ -145,7 +157,7 @@ export default {
       }).open();
     },
     updateMemberInfo() {
-      this.userInfo.zipcode = document.getElementById("zipcode").value;
+      this.userInfo.postcode = document.getElementById("zipcode").value;
       this.userInfo.address = document.getElementById("address").value;
       console.log(this.userInfo);
       this.$zido.updateUserInfo(this.userInfo);

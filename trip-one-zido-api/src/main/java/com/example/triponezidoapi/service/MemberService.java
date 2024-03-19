@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
 
@@ -32,7 +33,8 @@ public class MemberService {
 
     public boolean isUsingMemberId(String memberId){
        if(memberMapper.getLoginFormByLoginId(memberId) != null){
-           throw new IllegalArgumentException("이미 존재하는 아이디 입니다.");
+//           throw new IllegalArgumentException("이미 존재하는 아이디 입니다.");
+           return false;
        }
        return true;
     }
@@ -125,16 +127,16 @@ public class MemberService {
         memberMapper.updateProfile(profile);
     }
 
-    public void deleteMember(Long id, String password, String passwordCheck){
+    public boolean deleteMember(Long id, String password, String passwordCheck){
         // 입력된 비밀번호와 비밀번호 확인이 일치하는지 확인
-        if (password.equals(passwordCheck)) {
+        if (password.equals(passwordCheck) && memberMapper.getPasswordById(id).equals(password)) {
             // 회원을 삭제하는 데 필요한 비밀번호 확인이 완료되었으므로, 회원 삭제 메서드 호출
             memberMapper.deleteMember(id, password);
-        } else {
-            // 비밀번호 확인이 일치하지 않을 경우 예외 처리 또는 오류 메시지 출력
-            throw new IllegalArgumentException("비밀번호 확인이 일치하지 않습니다.");
+            return true;
         }
-//        memberMapper.deleteMember(id, password, passwordCheck);
+        // 비밀번호 확인이 일치하지 않을 경우 예외 처리 또는 오류 메시지 출력
+        // throw new IllegalArgumentException("비밀번호 확인이 일치하지 않습니다.");
+        return false;
     }
 
     public ResponseConfigPage getConfig(Long id) {

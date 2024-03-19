@@ -6,21 +6,21 @@
       <tr v-if="$route.params.id == ''">
         <td>현재 비밀번호 입력</td>
         <td>
-          <input type="password" v-model="prevPassword" />
+          <input type="password" v-model="nowPassword" />
         </td>
       </tr>
 
       <tr>
         <td width="200">재설정 비밀번호 입력</td>
         <td width="400">
-          <input type="password" v-model="newPassword" />
+          <input type="password" v-model="changePassword" />
         </td>
       </tr>
 
       <tr>
         <td width="200">재설정 비밀번호 확인</td>
         <td width="400">
-          <input type="password" v-model="newPasswordCheck" />
+          <input type="password" v-model="changePasswordCheck" />
         </td>
       </tr>
     </table>
@@ -49,25 +49,29 @@ export default {
   data() {
     return {
       modal: "",
-      prevPassword: "",
-      newPassword: "",
-      newPasswordCheck: "",
+      nowPassword: "",
+      changePassword: "",
+      changePasswordCheck: "",
     };
   },
   methods: {
     passwordCheck() {
-      if (this.checkPassword()) {
-        this.modal = "resetPasswordSuccess";
+      this.checkPassword().then(result => {
+        if(result){
+          this.modal = "resetPasswordSuccess";
       } else {
-        this.modal = "resetPasswordFail";
-      }
-    },
+          this.modal = "resetPasswordFail";
+      }  
+    }).catch(error => {
+      console.log("비밀번호가 틀립니다.");
+    });
+  },
     checkPassword(){
       if(this.$route.params.id){
-        return this.$zido.resetPassword(this.$route.params.id, this.newPassword, this.newPasswordCheck);
+        return this.$zido.resetPassword(this.$route.params.id, this.changePassword, this.changePasswordCheck);
       }
       else{
-        return this.$zido.changePassword(this.prevPassword, this.newPassword, this.newPasswordCheck);
+        return this.$zido.changePassword(this.nowPassword, this.changePassword, this.changePasswordCheck);
       }
     }
   },

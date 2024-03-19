@@ -298,8 +298,7 @@ export default {
   //DELETE -- api/member -> 비밀번호, 비밀번호 확인 추가 전송
   async checkResign(password, passwordCheck) {
     try {
-      const response = await axios.delete("/api/member/", {
-        loginId: loginId,
+      const response = await axios.delete(`/api/member/?password=${password}&passwordCheck=${passwordCheck}`, {
         password: password,
         passwordCheck: passwordCheck,
       });
@@ -319,9 +318,7 @@ export default {
   async getUserInfo() {
     // return data.userInfo;
     try {
-      const response = await axios.get("/api/member/", {
-        loginId: loginId,
-      });
+      const response = await axios.get(`/api/member/`);
       // 서버로부터 응답을 받으면 처리
       // 예를 들어, 응답이 성공인 경우 처리
       console.log(response.data); // 서버 응답 데이터 출력
@@ -338,10 +335,7 @@ export default {
   async getSecurityQuestions() {
     // return data.securityQuestions;
     try {
-      const response = await axios.get("/api/member/signup", {
-        loginId: loginId,
-        password: password,
-      });
+      const response = await axios.get(`/api/member/signup`);
       // 서버로부터 응답을 받으면 처리
       // 예를 들어, 응답이 성공인 경우 처리
       console.log(response.data); // 서버 응답 데이터 출력
@@ -358,7 +352,7 @@ export default {
   async getSecurityQuestion(id) {
     // return "질문지도하기";
     try {
-      const response = await axios.get(`'/api/member/check/${id}'`, {
+      const response = await axios.get(`/api/member/check/${id}`, {
         id: id,
       });
       console.log(response.data);
@@ -418,12 +412,12 @@ export default {
   async signUp(form) {
     // return true;
     try {
-      const response = await axios.post("/member/signup", form);
+      const response = await axios.post(`/member/signup`, form);
       console.log(response.data);
-      return response.data;
+      return true;
     } catch (error) {
       console.error("회원가입 오류:", error);
-      throw error;
+      return false;
     }
   },
 
@@ -431,24 +425,22 @@ export default {
   //POST -- api/member/signup/loginId
   async checkLoginId(loginId) {
     // return true;
+    if(loginId !== ''){
     return axios
-      .post("/member/signup/loginId", {
+      .post(`/api/member/signup/${loginId}`, {
         loginId: loginId,
       })
       .then((response) => {
         console.log(response.data);
-
-        if (response.data.exists) {
-          return false;
-        } else {
-          return true;
-        }
-        // return response.data;
+        return response.data;
       })
       .catch((error) => {
         console.error("아이디 중복확인 오류:", error);
         throw error;
       });
+    } else {
+      return false;
+    }
   },
 
   //로그인
@@ -480,11 +472,12 @@ export default {
 
   //비밀번호 찾기 보안답변 전송
   //POST -- api/member/check -> id를 requestBody로 편입해 중복 방지
-  async checkSecurityAnswer(securityAnswer) {
+  async checkSecurityAnswer(securityId,securityAnswer) {
     // return true;
     return axios
       .post("/api/member/check", {
-        securityAnswer: securityAnswer,
+        id : securityId,
+        answer: securityAnswer
       })
       .then((response) => {
         console.log(response.data);
@@ -499,9 +492,10 @@ export default {
   //비밀번호 찾기 회원번호 조회
   //POST -- api/member/check/pw
   async findPassword(name, email, loginId) {
+    if(name !== '' && email !== '' && loginId !== ''){
     // return 1;
     return axios
-      .post("/api/member/profile", {
+      .post("/api/member/check/pw", {
         name: name,
         email: email,
         loginId: loginId,
@@ -514,14 +508,18 @@ export default {
         console.error("비밀번호 찾기 회원번호 조회 오류:", error);
         throw error;
       });
+    } else {
+      return null;
+    }
   },
 
   //아이디 찾기
   //POST -- api/member/check/id
   async findId(name, email) {
     // return null;
+    if(name !== '' && email !== ''){
     return axios
-      .post(`'/api/member/check/${id}'`, {
+      .post(`/api/member/check/id`, {
         name: name,
         email: email,
       })
@@ -530,9 +528,11 @@ export default {
         return response.data;
       })
       .catch((error) => {
-        console.error("아이디 찾기 오류", error);
         throw error;
-      });
+      })
+    } else {
+      return null
+    };
   },
 
   //프로필 사진 변경
@@ -557,13 +557,13 @@ export default {
 
   //비밀번호 변경
   //PUT -- api/member/password
-  async changePassword(prevPassword, newPassword, newPasswordCheck) {
+  async changePassword(nowPassword, changePassword, changePasswordCheck) {
     // return true;
     return axios
-      .put("/api/member/password", {
-        prevPassword: prevPassword,
-        newPassword: newPassword,
-        newPasswordCheck: newPasswordCheck,
+      .put(`/api/member/password`, {
+        nowPassword: nowPassword,
+        changePassword: changePassword,
+        changePasswordCheck: changePasswordCheck,
       })
       .then((response) => {
         console.log(response.data);
@@ -577,13 +577,13 @@ export default {
 
   //★비밀번호 재설정
   //PUT -- api/member/password/id
-  async resetPassword(id, newPassword, newPasswordCheck) {
+  async resetPassword(id, changePassword, changePasswordCheck) {
     // return true;
     return axios
-      .put("/api/member/password/id", {
+      .put(`/api/member/password/{id}`, {
         id: id,
-        newPassword: newPassword,
-        newPasswordCheck: newPasswordCheck,
+        changePassword: changePassword,
+        changePasswordCheck: changePasswordCheck,
       })
       .then((response) => {
         console.log(response.data);
@@ -600,7 +600,7 @@ export default {
   async updateUserInfo(userInfo) {
     // alert(userInfo.name);
     return axios
-      .put("/api/member", userInfo)
+      .put("/api/member/", userInfo)
       .then((response) => {
         console.log(response.data);
         return response.data;
