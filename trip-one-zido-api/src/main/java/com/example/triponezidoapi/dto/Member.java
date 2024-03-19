@@ -19,9 +19,7 @@ public class Member {
     @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{8,16}$")
     String password;
     String passwordCheck;
-    long questionId;
-
-
+    long question;
     @NotEmpty
     @Size(min = 1, max = 100, message = "최소 1자 이상의 답변이 필요합니다")
     String answer;
@@ -32,9 +30,14 @@ public class Member {
     @NotEmpty
     @Size(max = 20)
     String phoneNumber;
+    String zipcode;
+    @NotEmpty
+    String postcode;
     @NotEmpty
     @Size(max = 200)
     String address;
+    @Size(max = 200)
+    String address2;
     @Past
     LocalDateTime birth;
     @NotEmpty

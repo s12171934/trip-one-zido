@@ -11,6 +11,7 @@ public class ResponseComment {
     String comment;
     ResponseMember member;
     Long contentId;
+    Long memberId;
     String type;
     LocalDateTime createdAt;
     List<ResponseComment> comments;

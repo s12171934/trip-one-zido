@@ -15,7 +15,7 @@ public class CommentApiController {
     @Autowired
     CommentService commentService;
 
-    @PostMapping("/")
+    @PostMapping("")
     @Operation(summary = "댓글 등록")
     public void postComment(
             @SessionAttribute(name = "id")

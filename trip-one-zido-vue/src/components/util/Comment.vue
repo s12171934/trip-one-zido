@@ -3,7 +3,7 @@
     <div class="flex-shrink-0">
       <img
         class="rounded-circle"
-        :src="data.member.profile"
+        :src="`data:image/jpeg;base64,${data.member.profile}`"
         alt="..."
         id="commentProfilePic"
       />
@@ -13,7 +13,7 @@
         <span class="fw-bold">{{ data.member.loginId }}</span>
         <div v-if="true && !editComment" class="d-flex gap-2 edit-comment">
           <span @click="editComment = !editComment" class="fw-bold">수정</span>
-          <span @click="$zido.deleteComment(data.id)" class="fw-bold">삭제</span>
+          <span @click="$zido.deleteComment(data.id); $emit('reload')" class="fw-bold">삭제</span>
         </div>
       </div>
       <form
@@ -38,7 +38,7 @@
         >
       </div>
       <form
-        @submit.prevent="$zido.addComment(data.id, comment)"
+        @submit.prevent="$zido.addComment(data.id, comment); $emit('reload')"
         v-if="addNestedComment"
         class="border-bottom mb-3"
       >
@@ -55,6 +55,7 @@
         v-for="comment in data.comments"
         :first="false"
         :data="comment"
+        @reload="$emit('reload')"
       />
     </div>
   </div>
@@ -75,7 +76,7 @@ export default {
   },
   methods: {
     edit(){
-      this.$zido.editComment(this.data.id, this.comment);
+      this.$zido.editComment(this.data.id, this.data.comment);
       this.editComment = false;
     }
   }

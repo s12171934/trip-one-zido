@@ -32,7 +32,11 @@
       </h3>
     </div>
 
-    <MemberList :list="searchData.memberList" :plus="true" />
+    <MemberList
+      :list="searchData.memberList"
+      :addApi="`/api/search/${keyword}/member/`"
+      :maxLen="20"
+    />
 
     <div class="d-flex flex-row mb-6" id="subTitle">
       <h3>
@@ -42,7 +46,8 @@
 
     <ContentList
       :list="searchData.planList"
-      :addApi="`/search/${keyword}/plan/`"
+      :addApi="`/api/search/${keyword}/plan/`"
+      :maxLen="20"
     />
 
     <div class="d-flex flex-row mb-6" id="subTitle">
@@ -53,7 +58,8 @@
 
     <ContentList
       :list="searchData.spotList"
-      :addApi="`/search/${keyword}/spot/`"
+      :addApi="`/api/search/${keyword}/spot/`"
+      :maxLen="20"
     />
   </main>
 </template>
@@ -70,20 +76,32 @@ export default {
   data() {
     return {
       searchData: {
-        memberList,
-        memberCount,
-        planList,
-        planCount,
-        spotList,
-        spotCount,
+        memberList: [],
+        memberCount: null,
+        planList: [],
+        planCount: null,
+        spotList: [],
+        spotCount: null,
       },
+      keyword: null,
     };
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    this.keyword = this.$route.params.keyword;
     this.$zido
       .getSearchData(this.$route.params.keyword)
       .then((res) => (this.searchData = res));
+  },
+  watch: {
+    $route(to, from) {
+      if (to.params.keyword != from.params.keyword) {
+        this.keyword = to.params.keyword;
+        this.$zido
+          .getSearchData(to.params.keyword)
+          .then((res) => (this.searchData = res));
+      }
+    },
   },
 };
 </script>
