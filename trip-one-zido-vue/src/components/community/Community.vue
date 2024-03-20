@@ -63,12 +63,12 @@
       </table>
     </div>
 
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end" id="button-add">
       <a @click="add" class="button small rounded-3">등록</a>
     </div>
 
     <nav v-show="!searchStatus" aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
+      <ul class="pagination justify-content-center" id="pagination">
         <li :class="hasPrevPage() ? 'page-item' : 'page-item disabled'">
           <a class="page-link" @click="moveToPrevPage">Previous</a>
         </li>
@@ -348,7 +348,7 @@ table tbody tr {
   }
 
   .button.small {
-    font-size: 6px !important;
+    font-size: 6px;
     padding: 4px 6px !important;
   }
   #searchBar select,
@@ -376,14 +376,22 @@ table tbody tr {
   }
 
   .button.small {
-    font-size: 12px !important;
-    padding: 8px 10px !important;
+    font-size: 10px;
+    padding: 8px 10px;
   }
   #searchBar select,
   #searchBar input[type="text"],
   #searchBar button {
     font-size: 10px !important;
     padding: 8px !important;
+  }
+  #button-add {
+    font-size: 3%;
+    width: 20%;
+    margin-left: auto;
+    padding: 0%;
+    margin-top: 3%;
+    margin-bottom: 10%;
   }
 }
 </style>

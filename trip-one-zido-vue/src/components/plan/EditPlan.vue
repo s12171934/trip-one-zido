@@ -1,7 +1,7 @@
 <template>
   <main class="wrapper d-flex">
     <div class="p-2 d-flex flex-column border-end" id="leftSide">
-      <div class="d-flex justify-content-between me-5">
+      <div class="d-flex justify-content-between ">
         <h1 @click="console.log(status)" class="title">
           일정 {{ mode === "add" ? "등록" : "수정" }}
         </h1>
@@ -36,7 +36,7 @@
             <h4 class="title-col">기간</h4>
           </td>
           <td>
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center" id="date-time ">
               <div class="date-time">
                 <input
                   @change="checkOtherDate('start')"
@@ -60,7 +60,7 @@
         <tr>
           <td><h4 class="title-col">동행인</h4></td>
           <td>
-            <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center" id="with-css">
               <div class="member-container d-flex">
                 <input
                   @contextmenu.prevent="delMember(idx)"
@@ -113,7 +113,7 @@
             <h4 class="title-col">여행한 후기</h4>
           </td>
           <td>
-            <Grade
+            <Grade id="grade"
               @grade="(grade) => (planData.grade = grade)"
               :grade="planData.grade"
             />
@@ -153,7 +153,7 @@
             </div>
           </td>
           <td>
-            <div class="m-0 d-flex justify-content-end gap-2">
+            <div class="m-0 d-flex justify-content-end gap-2" id="add-cancle">
               <input
                 @click="submitButton(mode)"
                 id="input"
@@ -397,7 +397,7 @@ h4 {
 }
 
 td {
-  min-width: 170px;
+  /* min-width: 170px; */
 }
 
 .member-container {
@@ -442,24 +442,64 @@ textarea {
   width: 70%
 }
 
-@media screen and (max-width: 1650px) {
-  .wrapper {
-    display: flex;
-    flex-wrap: wrap; /* 작은 화면에서 넘치는 요소들을 아래로 이동 */
-  }
 
+@media (max-width: 1650px) {
+  .wrapper {
+    flex-direction: column; /* 아이템을 세로로 배치 */
+  }
   .p-2 {
-    flex: 1; /* 아이템이 동일한 너비를 가지도록 함 */
-    padding: 20px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  } 
+    width: 100%; 
+    border: none;
+  }
+  .title-col {
+    white-space: nowrap; 
+    text-overflow: ellipsis; 
+  }
+  #leftSide {
+    border-inline: none !important; /* border -end 제거*/ 
+  }
+  #with-css {
+    width: 100%;
+  }
 }
 
-  /* 작은 화면에서 아이템을 세로로 배치하기 위해 추가된 스타일 */
-  @media (max-width: 768px) {
-     .wrapper{
-      flex-direction: column;
-    }
+
+/* 작은 화면에서 아이템을 세로로 배치하기 위해 추가된 스타일 */
+@media (max-width: 768px) {
+  #security {
+    width: 50%;
   }
+  .title-col {
+    font-size: 100%;
+    display: block; /* 제목을 블록 레벨 요소로 변경하여 다음 줄에 표시 */
+  }
+  .p-2 {
+    width: 100%; /* 왼쪽과 오른쪽 사이드 모두 화면 전체를 차지하도록 설정 */
+    border: none; /* border 효과 제거 */
+  }
+  #add-cancle {
+    margin-left: auto;
+  }
+  #security {
+      width: 40% !important;
+  }
+  table {
+    width: 100%;
+  }
+  table tr td:first-child,
+  table tr td:last-child {
+    width: 100%;
+    display: block;
+  }
+  td {
+  width: 90% !important;
+  }
+}
+
+@media (max-width: 600px) {
+  td {
+    display: block;
+    width: 70% !important;
+    }
+}
 </style>

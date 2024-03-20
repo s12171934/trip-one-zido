@@ -1,7 +1,7 @@
 <template>
   <main class="wrapper">
     <div class="d-flex p-2">
-      <span class="title">이런 곳 어때요?</span>
+      <span class="title" id="title">이런 곳 어때요?</span>
       <select
         @change="changeLoc"
         class="button alt"
@@ -9,7 +9,7 @@
         name="location"
         v-model="loc"
       >
-        <option v-for="location in selectLocations" :value="location">
+        <option id="locSelectDetail" v-for="location in selectLocations" :value="location">
           {{ location }}
         </option>
       </select>
@@ -113,6 +113,14 @@ span {
     body{
     width:100%;
     overflow-x:hidden;
+    }
+
+    #title {
+      font-size: 150%;
+    }
+
+    #locSelect, #locSelectDetail {
+      font-size: 100%;
     }
 }
 
