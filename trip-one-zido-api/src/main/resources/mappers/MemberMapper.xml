@@ -265,6 +265,24 @@
       id = #{id}
   </select>
 
+  <select id="isConnectedWithSns" parameterType="com.example.triponezidoapi.dto.request.RequestSocialConnect" resultType="int">
+    SELECT
+        COUNT(*)
+    FROM
+        member
+    WHERE
+        ${SocialType} = #{SocialId}
+  </select>
+
+  <select id="getIdBySnsId" parameterType="com.example.triponezidoapi.dto.request.RequestSocialConnect" resultType="long">
+    SELECT
+        id
+    FROM
+        member
+    WHERE
+        ${SocialType} = #{SocialId}
+  </select>
+
   <update id="updateMember" parameterType="com.example.triponezidoapi.dto.Member">
     UPDATE
       member

@@ -1,7 +1,7 @@
 <template>
-  <Header :isLogin="isLogin" :key="key" :path="path" />
-  <router-view @meta="meta" :id="id"/>
-  <Footer />
+  <Header v-if="!$route.meta.noHF" :isLogin="isLogin" :key="key" :path="path" />
+  <router-view @meta="meta" :id="id" />
+  <Footer v-if="!$route.meta.noHF" />
 </template>
 
 <script>
@@ -34,8 +34,12 @@ export default {
     $route(to, from) {
       if (to.path != from.path) {
         this.forceRender;
-        this.path = to.fullPath
-        this.id = to.params.id
+        this.path = to.fullPath;
+        this.id = to.params.id;
+      }
+      const path = to.path.split("/")[1];
+      if (path === "spot" || path === "plan") {
+        this.$zido.addRecentView(to.params.id);
       }
     },
   },
@@ -77,7 +81,6 @@ main {
 h1 {
   color: #ff928e !important;
 }
-
 
 h3 {
   color: rgb(80, 80, 80) !important;

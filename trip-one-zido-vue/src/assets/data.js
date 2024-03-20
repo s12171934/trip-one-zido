@@ -22,7 +22,20 @@ export default {
 
   selectCategories: ["음식점", "관광지"],
 
-  sortMenu: ["조회순", "최신순", "가나다순", "사용자 정의순"],
+  sortMenu: [
+    {
+      value: 'created_at',
+      view: '최신순',
+    },
+    {
+      value: 'bookmark_count DESC',
+      view: '찜갯수순',
+    },
+    {
+      value: 'title',
+      view: '사전순',
+    },
+  ],
 
   modalDatas: {
     "": {

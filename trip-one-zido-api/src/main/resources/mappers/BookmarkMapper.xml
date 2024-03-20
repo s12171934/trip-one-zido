@@ -84,6 +84,7 @@
         FROM
             content c
         WHERE
+            type = 'tour' AND
             id IN
             (
             SELECT

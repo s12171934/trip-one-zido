@@ -7,4 +7,5 @@ public class RequestSessionTarget {
     long page;
     Long targetId;
     Long myMemberId;
+    String sort;
 }
