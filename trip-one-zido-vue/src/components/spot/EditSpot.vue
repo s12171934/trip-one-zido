@@ -290,7 +290,7 @@ main > div {
   background-color: #dee1e3;
   overflow: scroll;
   overflow-y: hidden;
-  height: 100%;
+  height: 90%;
   margin: 1%;
 }
 
@@ -325,7 +325,7 @@ td {
 
 .date-time {
   display: flex;
-  padding: 2% 4%;
+  padding: 2%;
   box-shadow: 0 0 0 1px #dee1e3 inset;
   border-radius: 0.5rem;
  
@@ -363,17 +363,33 @@ textarea {
   color: black;
 }
 
-@media (max-width: 1000px) { /* 원하는 크기로 설정 */
-  #photo-container {
-    height: 90%;
-    /* padding: 0.5rem 1rem; */
-    /* display: flex;
-    flex-wrap: wrap; */
+@media (max-width: 1460px) { /* 원하는 크기로 설정 */
+  .wrapper {
+    flex-direction: column; /* 화면이 작아지면 컨텐츠를 세로로 배치 */
   }
 
-  #font-vertical {
-    white-space: nowrap; 
-    text-overflow: ellipsis; 
+  #leftSide, #rightSide {
+    width: 100%; /* 각 요소를 꽉 차게 설정 */
   }
+
+  #rightSide {
+    order: 1; /* 오른쪽 요소를 아래로 이동 */
+  }
+  #leftSide {
+    border-inline: none !important; /* border-end 제거 */
+  }
+  #photo-container {
+  height: 500px;
+  }
+}
+
+@media (max-width: 835px) {
+  #photo-container {
+  height: 500px;
+  }
+  #rightSide {
+    width:100%;
+  }
+
 }
 </style>

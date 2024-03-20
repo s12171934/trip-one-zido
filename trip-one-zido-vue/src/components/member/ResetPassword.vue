@@ -94,4 +94,42 @@ h1 {
 .button {
   border-radius: 10px !important;
 }
+
+@media (max-width: 1000px) {
+ main {
+  margin-left: 10%;
+  margin-right: 10%;
+ }
+ .button {
+  margin-bottom: 5%;
+ }
+}
+
+@media (max-width: 720px) {
+  td {
+    font-size: 13px;
+  }
+  main {
+  margin-left: 5%;
+  margin-right: 5%;
+ }
+} 
+
+@media (max-width: 475px) {
+  td {
+    font-size: 10px;
+  }
+  .button {
+    font-size: 13px;
+  }
+} 
+
+@media (max-width: 365px) {
+  td {
+    font-size: 8px;
+  }
+  .button {
+    font-size: 10px;
+  }
+}
 </style>

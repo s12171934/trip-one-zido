@@ -264,4 +264,22 @@ table tbody tr {
 #content {
   resize: none;
 }
+/* 작은 화면에서 테이블의 열이 쌓이도록 설정 */
+@media (max-width: 768px) {
+  td {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  tr {
+    display: block !important;
+    margin-bottom: 10px !important;
+  }
+
+  .d-grid {
+    font-size: 12px !important;
+    padding: 5px !important;
+  }
+}
+
 </style>

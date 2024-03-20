@@ -453,43 +453,23 @@ textarea {
 }
 
 @media screen and (max-width: 1650px) {
-  main > div {
-    width: 110%; /* 모든 div 요소의 너비를 100%로 설정하여 화면에 꽉 차도록 합니다. */
-    padding: 10px; /* 패딩을 줄여서 여백을 줄입니다. */
+  .wrapper {
+    display: flex;
+    flex-wrap: wrap; /* 작은 화면에서 넘치는 요소들을 아래로 이동 */
   }
 
-  .date-time {
-    padding: 1% ;/* 날짜 입력 영역의 패딩을 줄입니다. */
-  }
-
-  .map {
-    overflow-x: auto; /* 지도 부분이 가로로 넓어질 때 스크롤이 생기도록 합니다. */
-  }
-
-  .local-select {
-    width: 100%; /* 여행 장소 카테고리 드롭다운의 너비를 100%로 설정하여 줄입니다. */
-  }
-
-  #rightSide {
-    width: 100%; /* 오른쪽 영역의 너비를 100%로 설정하여 줄입니다. */
-  }
-
-  #security {
-    width: 70%; /* 보안 설정 드롭다운의 너비를 조금 줄입니다. */
-  }
-
-  .title-col {
-  white-space: nowrap; 
-  /* overflow: hidden; 텍스트가 요소를 넘어갈 경우 숨김 처리합니다. */
-  text-overflow: ellipsis; 
-  }
-
-  .input {
-      width: 90%;
-      box-sizing: border-box;
-  }
-  .select-wrapper {
-    width: 70%
-  }
+  .p-2 {
+    flex: 1; /* 아이템이 동일한 너비를 가지도록 함 */
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  } 
 }
+
+  /* 작은 화면에서 아이템을 세로로 배치하기 위해 추가된 스타일 */
+  @media (max-width: 768px) {
+     .wrapper{
+      flex-direction: column;
+    }
+  }
 </style>
