@@ -213,13 +213,23 @@ table tbody tr {
 textarea {
   resize: none;
 }
+/* 작은 화면에서 테이블의 열이 쌓이도록 설정 */
+@media (max-width: 768px) {
+  td {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  tr {
+    display: block !important;
+    margin-bottom: 10px !important;
+  }
+}
 
 @media screen and (max-width: 1300px) {
   
-  .border {
-    white-space: nowrap; 
-    overflow: hidden;
-    text-overflow: ellipsis; 
+  .inner {
+    max-width: 100% !important;
   }
 }
 </style>

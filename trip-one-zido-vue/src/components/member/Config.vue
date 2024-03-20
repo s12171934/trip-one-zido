@@ -133,8 +133,26 @@ button {
 @media (max-width: 1200px) {
   .w-50, .p-2 {
     white-space: nowrap; 
-    overflow: hidden;
-    /* text-overflow: ellipsis;  */
+  }
+}
+
+@media (max-width: 786px) {
+  .d-flex {
+    display: flex;
+    flex-wrap: wrap; /* 작은 화면에서 넘치는 요소들을 아래로 이동 */
+  }
+
+  .w-50 {
+    flex: 1; /* 아이템이 동일한 너비를 가지도록 함 */
+    width: 90% !important;
+    margin-bottom: 10%;
+  }
+
+  /* 작은 화면에서 아이템을 세로로 배치하기 위해 추가된 스타일 */
+  @media (max-width: 768px) {
+    .d-flex{
+      flex-direction: column;
+    }
   }
 }
 

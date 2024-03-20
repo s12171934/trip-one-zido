@@ -337,14 +337,53 @@ table tbody tr {
   cursor: pointer;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 580px) {
+  /* 전체적인 요소들의 크기와 글꼴 크기를 작게 조정 */
+  #leftPosition h1 {
+    font-size: 12px !important;
+  }
+
+  .table-wrapper table {
+    font-size: 6px !important;
+  }
+
+  .button.small {
+    font-size: 6px !important;
+    padding: 4px 6px !important;
+  }
+  #searchBar select,
+  #searchBar input[type="text"],
+  #searchBar button {
+    font-size: 4px !important;
+    padding: 4px !important;
+  }
   
   .table-wrapper, #leftPosition {
     white-space: nowrap; 
-    overflow: hidden;
+    /* overflow: hidden; */
     text-overflow: ellipsis; 
   }
+}
 
-  
+@media (max-width: 768px) {
+  /* 전체적인 요소들의 크기와 글꼴 크기를 작게 조정 */
+  #leftPosition h1 {
+    font-size: 20px !important;
+  }
+
+  .table-wrapper table {
+    font-size: 10px !important;
+  }
+
+  .button.small {
+    font-size: 12px !important;
+    padding: 8px 10px !important;
+  }
+  #searchBar select,
+  #searchBar input[type="text"],
+  #searchBar button {
+    font-size: 10px !important;
+    padding: 8px !important;
+  }
 }
 </style>
