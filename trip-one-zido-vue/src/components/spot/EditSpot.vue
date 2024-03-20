@@ -1,5 +1,5 @@
 <template>
-  <main class="wrapper d-flex">
+  <main class="wrapper d-flex" id="wrapper">
     <!-- ★왼쪽 -->
     <div class="p-2 d-flex flex-column border-end" id="leftSide">
       <h1 class="title">장소 {{ mode == "add" ? "등록" : "수정" }}</h1>
@@ -363,17 +363,58 @@ textarea {
   color: black;
 }
 
-@media (max-width: 1000px) { /* 원하는 크기로 설정 */
-  #photo-container {
-    height: 90%;
-    /* padding: 0.5rem 1rem; */
-    /* display: flex;
-    flex-wrap: wrap; */
+/* #photo-container {
+    display: flex;
+} */
+.date-time {
+    overflow: hidden; /* 내부 컨텐츠가 넘치지 않도록 설정 */
+    white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
+}
+
+td {
+    display: block;
+    width: 100%;
+}
+
+tr {
+    display: block;
+    margin-bottom: 10px;
+}
+
+
+@media (max-width: 1120px) { /* 원하는 크기로 설정 */
+  
+
+  .wrapper {
+    display: block;
+    flex-direction: column;
   }
 
-  #font-vertical {
-    white-space: nowrap; 
-    text-overflow: ellipsis; 
-  }
+  .member-container {
+  overflow: scroll;
+  overflow-y: hidden;
+  width: 970px;
 }
+/* 나머지 CSS는 이전에 작성된 것을 그대로 사용합니다. */
+}
+
+@media (max-width: 767px) {
+  /* 화면 크기가 767px 이하일 때의 스타일 */
+  /* 추가적인 스타일 조정이 필요한 경우 여기에 작성합니다. */
+  td {
+    display: block;
+    width: 30%;
+  }
+
+  tr {
+    display: block;
+    margin-bottom: 10px;
+}
+
+  #rightSide {
+    flex-grow: 1; /* rightSide가 가능한 최대 너비를 차지하도록 설정 */
+  }
+
+}
+
 </style>
