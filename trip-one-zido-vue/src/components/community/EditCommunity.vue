@@ -6,7 +6,7 @@
       <form>
         <!-- 테이블 -->
         <table id="table" class="border">
-          <tr>
+          <tr class="border-bottom">
             <td id="tdTitle">지역</td>
             <td id="tdSelect">
               <div class="select-wrapper" id="table-select">
@@ -25,7 +25,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr class="border-bottom">
             <td>모집 인원</td>
             <td>
               <div class="select-wrapper" id="table-select">
@@ -41,7 +41,7 @@
             <td><input type="date" v-model="communityData.deadLine" /></td>
           </tr>
 
-          <tr>
+          <tr class="border-bottom">
             <td>제목</td>
             <td colspan="3">
               <input
@@ -66,7 +66,7 @@
           </tr>
         </table>
 
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <div class="d-grid gap-2 d-flex justify-content-end">
           <a
             @click="submitButton($route.params.mode)"
             class="button small rounded-3"
@@ -206,5 +206,14 @@ table tbody tr {
 
 textarea {
   resize: none;
+}
+
+@media screen and (max-width: 1300px) {
+  
+  .border {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
 }
 </style>

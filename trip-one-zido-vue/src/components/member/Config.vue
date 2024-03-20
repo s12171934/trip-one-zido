@@ -118,7 +118,7 @@ export default {
 
 <style scoped>
 img {
-  width: 260px;
+  width: 100%;
   height: 260px;
 }
 
@@ -127,6 +127,15 @@ li {
 }
 
 button {
-  width: 260px;
+  width: 100%;
 }
+
+@media (max-width: 1200px) {
+  .w-50, .p-2 {
+    white-space: nowrap; 
+    overflow: hidden;
+    /* text-overflow: ellipsis;  */
+  }
+}
+
 </style>

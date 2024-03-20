@@ -1,7 +1,7 @@
 <template>
   <main class="wrapper">
     <div class="d-flex p-2">
-      <span>이런 곳 어때요?</span>
+      <span class="title">이런 곳 어때요?</span>
       <select
         @change="changeLoc"
         class="button alt"
@@ -87,4 +87,11 @@ span {
 #locSelect:hover {
   background-color: #fff;
 }
+
+@media (max-width: 1200px) {
+  .title {
+    white-space: nowrap; 
+  }
+}
+
 </style>

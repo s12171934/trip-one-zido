@@ -6,8 +6,8 @@
     </div>
 
     <div class="table-wrapper" id="centerPosition">
-      <table>
-        <thead>
+      <table class="table">
+        <thead class="table-light">
           <tr>
             <td>No.</td>
             <td>제목</td>
@@ -25,7 +25,7 @@
               {{ list.title }}
             </td>
             <td>{{ list.writer }}</td>
-            <td>{{ list.deadLine }}</td>
+            <td>{{ list.deadline }}</td>
             <td>{{ list.viewPoint }}</td>
             <td>{{ list.withCount }} / {{ list.total }}</td>
             <td>{{ list.status }}</td>
@@ -34,7 +34,7 @@
       </table>
     </div>
 
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <div class="d-grid gap-2 justify-content-end">
       <a @click="add" class="button small rounded-3">등록</a>
     </div>
 
@@ -84,7 +84,7 @@ export default {
         id: 0,
         title: null,
         writer: null,
-        deadLine: null,
+        deadline: null,
         viewPoint: null,
         total: null,
         withCount: null,
@@ -186,5 +186,16 @@ table tbody tr {
 }
 #cursor {
   cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+  
+  .table-wrapper, #leftPosition {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+
+  
 }
 </style>
