@@ -11,7 +11,9 @@ public class ResponseMemberPage {
     String loginId;
     boolean isFollow;
     List<ResponseContentList> planLists;
+    int planListsCount;
     List<ResponseContentList> spotLists;
+    int spotListsCount;
     ResponseMember responseMember;
     int postCount;
     int bookmarkCount;

@@ -22,6 +22,7 @@ public interface ContentMapper {
     List<ResponseMember> getOwner(Long id);
     ResponseMember getWriter(Long id);
     List<ResponseContentList> getRecentView(RequestSessionTarget requestSessionTarget);
+    int getRecentViewCount(Long memberId);
     int isGood(RequestGood requestGood);
     boolean myGood(RequestGood requestGood);
     boolean isMine(RequestContentMember requestContentMember);

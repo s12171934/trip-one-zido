@@ -101,6 +101,21 @@
             #{page}, 6
     </select>
 
+    <select id="getTourListCount" parameterType="com.example.triponezidoapi.dto.request.RequestTourList" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            content c
+        WHERE
+            type = "tour" AND
+            id IN
+            (
+                SELECT id
+                FROM tour
+                WHERE loc_category = #{loc}
+            )
+    </select>
+
     <select id="getNextId" parameterType="Long" resultType="Long">
         <![CDATA[
         SELECT

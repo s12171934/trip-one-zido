@@ -195,6 +195,17 @@
           AND member_id = #{memberId}
     </select>
 
+    <select id="getRecentViewCount" parameterType="Long" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            content c,
+            open_content o
+        WHERE
+            o.content_id = c.id and
+            o.member_id = #{memberId}
+    </select>
+
     <select id="myGood" parameterType="com.example.triponezidoapi.dto.request.RequestGood" resultType="boolean">
         SELECT
             good

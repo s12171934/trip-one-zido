@@ -8,4 +8,5 @@ import java.util.List;
 public class ResponseRecentView {
     List<ResponseContentList> recentList;
     ResponseMember member;
+    int recentViewCount;
 }

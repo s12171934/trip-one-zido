@@ -80,7 +80,7 @@ public class SearchApiController {
     @PostMapping("")
     @Operation(summary = "상세 검색")
     public ResponseSearch searchDetail(
-//            @SessionAttribute(name="id")
+            @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 번호")
             Long sessionId,
 
@@ -93,7 +93,7 @@ public class SearchApiController {
     @PostMapping("/spot/{page}")
     @Operation(summary = "상세 검색")
     public List<ResponseContentList> searchMoreSpotDetail(
-//            @SessionAttribute(name="id")
+            @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 번호")
             Long sessionId,
 
@@ -110,7 +110,7 @@ public class SearchApiController {
     @PostMapping("/plan/{page}")
     @Operation(summary = "상세 검색")
     public List<ResponseContentList> searchMorePlanDetail(
-//            @SessionAttribute(name="id")
+            @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 번호")
             Long sessionId,
 

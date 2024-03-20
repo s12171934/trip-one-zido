@@ -31,6 +31,7 @@ export default {
       RecentViewData: {
         recentList: [{}],
         member: [{}],
+        recentViewCount: 0,
       },
     };
   },

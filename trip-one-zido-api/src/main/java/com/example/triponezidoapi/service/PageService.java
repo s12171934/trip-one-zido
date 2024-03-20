@@ -45,8 +45,10 @@ public class PageService {
 
         //planLists
         memberPage.setPlanLists(planMapper.getPlanList(requestSessionTarget));
+        memberPage.setPlanListsCount(planMapper.getPlanListCount(sessionId));
         //spotLists
         memberPage.setSpotLists(spotMapper.getSpotList(requestSessionTarget));
+        memberPage.setSpotListsCount(spotMapper.getSpotListCount(sessionId));
 
         //member
         ResponseMember member = new ResponseMember();

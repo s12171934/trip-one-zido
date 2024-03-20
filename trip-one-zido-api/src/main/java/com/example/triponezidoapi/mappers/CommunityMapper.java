@@ -18,6 +18,9 @@ public interface CommunityMapper {
     Long getNextId(Long id);
     Long getPrevId(Long id);
 
+    Long getCommunityCount();
+    Long getCommunitySearchCount(RequestCommunitySearch requestCommunitySearch);
+
     //update
     void updateCommunity(RequestCommunity requestCommunity);
     void updateStatus(RequestCommunity requestCommunity);
