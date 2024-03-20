@@ -55,11 +55,11 @@ public class PlanService {
         // addContent
         RequestContent requestContent = new RequestContent();
         requestContent.setType("plan");
-        requestContent.setPublic(requestPlan.isPublic());
+        requestContent.setVisibility(requestPlan.isVisibility());
         requestContent.setTitle(requestPlan.getTitle());
         contentMapper.addContent(requestContent);
         //Content 테이블에 추가한 이후에 생성된 id를 가져옴
-        long generatedId = requestContent.getId();
+        Long generatedId = requestContent.getId();
 
         // addPlan
         requestPlan.setId(generatedId);
@@ -70,7 +70,7 @@ public class PlanService {
         for (int i = 0; i < requestPlan.getSpots().size(); i++) {
             requestContent = new RequestContent();
             requestContent.setType("spot");
-            requestContent.setPublic(requestPlan.isPublic());
+            requestContent.setVisibility(requestPlan.isVisibility());
             requestContent.setTitle(requestPlan.getTitle());
             contentMapper.addContent(requestContent);
             Long generatedSpotId = requestContent.getId();
@@ -86,7 +86,7 @@ public class PlanService {
             requestPlan.getSpots().get(i).setId(generatedSpotId);
             requestPlan.getSpots().get(i).setLocCategory("서울");
             requestPlan.getSpots().get(i).setMembers(requestPlan.getMembers());
-            requestPlan.getSpots().get(i).setPublic(true);
+            requestPlan.getSpots().get(i).setVisibility(true);
             spotMapper.addSpot(requestPlan.getSpots().get(i));
 
             //addPhoto
@@ -122,11 +122,11 @@ public class PlanService {
         requestPlan.setId(id);
         planMapper.updatePlan(requestPlan);
 
-        //updateIsPublic
-        RequestIsPublic requestIsPublic = new RequestIsPublic();
-        requestIsPublic.setId(id);
-        requestIsPublic.setPublic(!requestPlan.isPublic());
-        contentMapper.updateIsPublic(requestIsPublic);
+        //updateVisibility
+        RequestVisibility requestVisibility = new RequestVisibility();
+        requestVisibility.setId(id);
+        requestVisibility.setVisibility(!requestPlan.isVisibility());
+        contentMapper.updateVisibility(requestVisibility);
 
         //updateTitle
         RequestTitle requestTitle = new RequestTitle();

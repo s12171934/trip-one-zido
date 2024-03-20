@@ -102,7 +102,8 @@ public class PageService {
         }
 
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(id);
+        requestSessionTarget.setMyMemberId(sessionId);
+        requestSessionTarget.setTargetId(id);
 
         List<ResponseMember> followingList = memberMapper.followingList(requestSessionTarget);
         // 팔로잉 여부 확인
@@ -123,7 +124,8 @@ public class PageService {
         }
 
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(id);
+        requestSessionTarget.setMyMemberId(sessionId);
+        requestSessionTarget.setTargetId(id);
 
         List<ResponseMember> followerList = memberMapper.followerList(requestSessionTarget);
         // 팔로잉 여부 확인

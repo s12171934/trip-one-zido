@@ -161,7 +161,7 @@ export default {
         bookmarkCount: null,
         myBookmark: null,
         title: null,
-        isPublic: null,
+        visibility: null,
         photos: null,
         members: [{}],
         comments: null,

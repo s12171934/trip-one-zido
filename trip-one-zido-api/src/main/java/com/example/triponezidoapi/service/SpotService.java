@@ -6,8 +6,6 @@ import com.example.triponezidoapi.mappers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class SpotService {
     @Autowired
@@ -57,7 +55,7 @@ public class SpotService {
         //addContent
         RequestContent requestContent = new RequestContent();
         requestContent.setType("spot");
-        requestContent.setPublic(requestSpot.isPublic());
+        requestContent.setVisibility(requestSpot.isVisibility());
         requestContent.setTitle(requestSpot.getTitle());
         contentMapper.addContent(requestContent);
         //Content 테이블에 추가한 이후에 생성된 id를 가져옴
@@ -114,10 +112,10 @@ public class SpotService {
         spotMapper.updateSpot(requestSpot);
 
         //updatePublic
-        RequestIsPublic requestIsPublic = new RequestIsPublic();
-        requestIsPublic.setId(id);
-        requestIsPublic.setPublic(requestSpot.isPublic());
-        contentMapper.updateIsPublic(requestIsPublic);
+        RequestVisibility requestVisibility = new RequestVisibility();
+        requestVisibility.setId(id);
+        requestVisibility.setVisibility(requestSpot.isVisibility());
+        contentMapper.updateVisibility(requestVisibility);
 
         //updateTitle
         RequestTitle requestTitle = new RequestTitle();

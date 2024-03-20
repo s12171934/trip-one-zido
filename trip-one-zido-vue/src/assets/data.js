@@ -99,12 +99,12 @@ export default {
       buttonMessage: "확인",
     },
     withSuccess: {
-      url: "/community/id",
+      url: '',
       message: "참여 신청이<br />완료되었습니다.",
       buttonMessage: "확인",
     },
     withFail: {
-      url: "/community/id",
+      url: '',
       message: "참여 신청이<br />취소되었습니다.",
       buttonMessage: "확인",
     },

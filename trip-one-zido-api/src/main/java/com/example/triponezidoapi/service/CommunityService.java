@@ -17,6 +17,8 @@ public class CommunityService {
     CommunityMapper communityMapper;
     @Autowired
     ContentMapper contentMapper;
+    @Autowired
+    MemberMapper memberMapper;
 
     public List<ResponseCommunity> getCommunityList(long page){
         //페이지 카운트 처리
@@ -49,6 +51,15 @@ public class CommunityService {
             responseCommunityDetail.setNextId(communityMapper.getNextId(id));
         }
 
+        responseCommunityDetail.setLoginId(memberMapper.getLoginId(sessionId));
+
+        if (responseCommunityDetail.getTotal() > responseCommunityDetail.getMembers().size()){
+            RequestCommunity requestCommunity = new RequestCommunity();
+            requestCommunity.setId(id);
+            requestCommunity.setStatus("모집중");
+            communityMapper.updateStatus(requestCommunity);
+            responseCommunityDetail.setStatus("모집중");
+        }
         return responseCommunityDetail;
     }
 
@@ -59,7 +70,7 @@ public class CommunityService {
         requestContent.setTitle(requestCommunity.getTitle());
         contentMapper.addContent(requestContent);
         //Content 테이블에 추가한 이후에 생성된 id를 가져옴
-        long generatedId = requestContent.getId();
+        Long generatedId = requestContent.getId();
 
         //addCommunity
         requestCommunity.setId(generatedId);
@@ -114,6 +125,14 @@ public class CommunityService {
         requestOwner.setContentId(id);
         requestOwner.setMemberId(sessionId);
         contentMapper.addOwner(requestOwner);
+
+        ResponseCommunityDetail responseCommunityDetail = getCommunity(id, sessionId);
+        if (responseCommunityDetail.getTotal() == responseCommunityDetail.getMembers().size()){
+            RequestCommunity requestCommunity = new RequestCommunity();
+            requestCommunity.setId(id);
+            requestCommunity.setStatus("마감");
+            communityMapper.updateStatus(requestCommunity);
+        }
     }
 
     public void deleteOwner(Long id, Long sessionId){

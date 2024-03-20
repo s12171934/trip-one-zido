@@ -22,7 +22,7 @@
             <td id="tdTitle">제목 :</td>
             <td id="black">{{ detail.title }}</td>
             <td id="tdTitle" class="border-start">작성자 :</td>
-            <td id="black">{{ detail.writer }}</td>
+            <td id="black">{{ detail.members[0].loginId }}</td>
           </tr>
 
           <tr class="border-bottom">
@@ -76,7 +76,7 @@
         </table>
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-          <div v-if="detail.mine">
+          <div v-if="loginId == detail.members[0].loginId">
             <a @click="update" class="button alt small rounded-3"> 수정</a>
             <a
               @click="del"
@@ -88,7 +88,7 @@
             >
             <AlertModal :modal="modal" />
           </div>
-          <div v-else>
+          <div v-else-if="detail.members.length < detail.total">
             <a
               @click="participateOrCancel"
               class="button small rounded-3"
@@ -154,7 +154,10 @@ export default {
     this.id = this.$route.params.id;
     this.$zido
       .getCommunityDetail(this.$route.params.id)
-      .then((res) => (this.detail = res));
+      .then((res) => {
+        this.detail = res;
+        this.loginId = res.loginId;
+      });
   },
 
   methods: {
@@ -180,12 +183,17 @@ export default {
 
     async participateOrCancel() {
       // 타인 자신이 참여/참여취소 버튼 누르면
-      if (this.showSuccessModal) {
+      if (!(this.detail.members.find(member => member.loginId === this.loginId))) {
         await this.$zido.joinCommunity(this.$route.params.id);
+        this.showSuccessModal = true;
+        console.log(this.showSuccessModal);
+        this.detail.members.push({ loginId: this.loginId });
       } else {
         await this.$zido.joinCancleCommunity(this.$route.params.id);
+        this.showSuccessModal = false;
+        console.log(this.showSuccessModal);
+        this.detail.members.pop(this.loginId);
       }
-      this.showSuccessModal = !this.showSuccessModal;
     },
   },
 };

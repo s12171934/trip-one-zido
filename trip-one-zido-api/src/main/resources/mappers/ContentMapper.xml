@@ -5,13 +5,13 @@
         INSERT INTO content
             (
             type,
-            is_public,
+            visibility,
             title
             )
         VALUE
             (
             #{type},
-            #{isPublic},
+            #{visibility},
             #{title}
             )
         <selectKey keyProperty="id" resultType="long">
@@ -227,10 +227,10 @@
         WHERE id = #{id}
     </select>
 
-    <update id="updateIsPublic" parameterType="com.example.triponezidoapi.dto.request.RequestIsPublic">
+    <update id="updateVisibility" parameterType="com.example.triponezidoapi.dto.request.RequestVisibility">
         UPDATE content
         SET
-            is_public = #{isPublic}
+            visibility = #{visibility}
         WHERE
             id = #{id}
     </update>

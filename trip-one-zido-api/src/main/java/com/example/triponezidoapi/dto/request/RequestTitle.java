@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class RequestTitle {
-    long id;
+    Long id;
     String title;
 }

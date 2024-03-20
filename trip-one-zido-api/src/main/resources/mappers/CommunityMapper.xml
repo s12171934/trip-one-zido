@@ -181,4 +181,12 @@
         WHERE
             id = #{id}
     </update>
+
+    <update id="updateStatus" parameterType="com.example.triponezidoapi.dto.request.RequestCommunity">
+        UPDATE community
+        SET
+            status = #{status}
+        WHERE
+            id = #{id}
+    </update>
 </mapper>

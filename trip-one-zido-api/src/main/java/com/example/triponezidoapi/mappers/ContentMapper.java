@@ -28,7 +28,7 @@ public interface ContentMapper {
     String getAddress(Long id);
 
     //update
-    void updateIsPublic(RequestIsPublic requestIsPublic);
+    void updateVisibility(RequestVisibility requestVisibility);
     void updateTitle(RequestTitle requestTitle);
     void updateGood(RequestGood requestGood);
 
