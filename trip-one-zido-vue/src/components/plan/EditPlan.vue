@@ -274,7 +274,8 @@ export default {
       this.calendarEvent = clickInfo;
 
       const id = clickInfo.event._def.publicId;
-      this.spotData = this.planData.spots.find((spot) => (spot.id = id));
+      this.spotData = this.planData.spots.find((spot) => (spot.id == id));
+      console.log(this.spotData)
     },
 
     addMember() {
@@ -338,19 +339,21 @@ export default {
       calendarEvent.event.setProp("title", spotData.title);
       const id = calendarEvent.event._def.publicId;
       const newSpot = JSON.parse(JSON.stringify(spotData));
-      const spot = this.planData.spots.find((spot) => (spot.id = id));
+      const spot = this.planData.spots.find((spot) => (spot.id == id));
       spot.photos = newSpot.photos;
       spot.title = newSpot.title;
       spot.category = newSpot.category;
       spot.address = newSpot.address;
       spot.address2 = newSpot.address2;
-      spot.rate = newSpot.rate;
+      spot.grade = newSpot.grade;
       spot.review = newSpot.review;
     },
 
     deleteSpot(calendarEvent) {
       calendarEvent.event.remove();
       const id = calendarEvent.event._def.publicId;
+      console.log(id)
+      this.$zido.deleteSpot(id);
       delete this.planData.spots[id];
     },
     setInitialEvent() {
@@ -378,7 +381,6 @@ export default {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
     if (this.mode != "add") {
       this.planData = await this.$zido.getPlanData(this.$route.params.id);
-      console.log(this.planData);
       this.setCalendarByDate();
       this.setInitialEvent();
     }

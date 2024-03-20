@@ -3,6 +3,7 @@ package com.example.triponezidoapi.dto.response;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Data
@@ -12,7 +13,7 @@ public class ResponseSpotPlan {
     LocalDateTime startDate;
     LocalDateTime endDate;
     //vue와 맞추기 위한 추가
-    byte[] photos;
+    List<ResponsePhoto> photos;
     String category;
     String address;
     String address2;
