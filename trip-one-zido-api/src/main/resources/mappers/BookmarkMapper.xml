@@ -47,7 +47,7 @@
         WHERE
             b.content_id = c.id AND
             c.type != 'tour' AND
-            c.is_public = 1 AND
+            c.visibility = 1 AND
             b.member_id = #{memberId}
     </select>
 

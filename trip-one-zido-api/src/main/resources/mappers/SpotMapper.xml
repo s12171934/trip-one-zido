@@ -49,7 +49,7 @@
         SELECT
             s.*,
             c.title,
-            c.is_public,
+            c.visibility,
             (
             SELECT
                 COUNT(*)
