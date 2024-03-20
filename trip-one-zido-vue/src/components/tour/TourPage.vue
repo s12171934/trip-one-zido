@@ -16,7 +16,7 @@
     </div>
 
     <ContentList
-      :list="tourList"
+      :list="tourLists"
       :addApi="`/api/tour/list/${defaultLoc()}/`"
       :maxLen="20"
     />
@@ -35,7 +35,7 @@ export default {
     return {
       selectLocations: data.selectLocations,
       loc: this.defaultLoc(),
-      tourList: [
+      tourLists: [
         {
           id: null,
           title: null,
@@ -45,6 +45,7 @@ export default {
           type: null,
         },
       ],
+      tourListCount: 0,
     };
   },
   methods: {
@@ -58,7 +59,8 @@ export default {
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
     this.$zido.getTourList(this.defaultLoc()).then((res) => {
-      this.tourList = res;
+      this.tourLists = res.tourLists;
+      this.tourListCount = res.tourListCount
     });
   },
 };

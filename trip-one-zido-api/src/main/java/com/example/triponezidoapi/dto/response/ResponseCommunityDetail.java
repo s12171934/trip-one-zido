@@ -8,6 +8,7 @@ import java.util.List;
 @Data
 public class ResponseCommunityDetail {
     Long id;
+    String loginId;
     LocalDateTime startDate;
     LocalDateTime endDate;
     String locCategory;

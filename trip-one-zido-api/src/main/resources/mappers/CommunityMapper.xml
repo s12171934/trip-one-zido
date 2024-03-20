@@ -169,6 +169,36 @@
         ]]>
     </select>
 
+    <select id="getCommunityCount" resultType="Long">
+        SELECT
+            COUNT(*)
+        FROM
+            community
+    </select>
+
+    <select id="getCommunitySearchCount" parameterType="com.example.triponezidoapi.dto.request.RequestCommunitySearch" resultType="Long">
+        SELECT
+            COUNT(*)
+        FROM
+            community,
+            content
+        <where>
+            community.id = content.id
+            <if test="type == 'title'">AND content.title LIKE CONCAT('%', #{keyword},'%') </if>
+            <if test="type != 'title'">AND (
+                SELECT
+                login_id
+                FROM
+                member m,
+                owner o
+                WHERE
+                m.id = o.member_id AND
+                o.own = 'writer' AND
+                o.content_id = content.id
+                ) LIKE CONCAT('%', #{keyword}, '%')</if>
+        </where>
+    </select>
+
     <update id="updateCommunity" parameterType="com.example.triponezidoapi.dto.request.RequestCommunity">
         UPDATE community
         SET
@@ -178,6 +208,14 @@
             notice = #{notice},
             total = #{total},
             deadline = #{deadline}
+        WHERE
+            id = #{id}
+    </update>
+
+    <update id="updateStatus" parameterType="com.example.triponezidoapi.dto.request.RequestCommunity">
+        UPDATE community
+        SET
+            status = #{status}
         WHERE
             id = #{id}
     </update>

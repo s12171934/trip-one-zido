@@ -5,13 +5,13 @@
         INSERT INTO content
             (
             type,
-            is_public,
+            visibility,
             title
             )
         VALUE
             (
             #{type},
-            #{isPublic},
+            #{visibility},
             #{title}
             )
         <selectKey keyProperty="id" resultType="long">
@@ -60,6 +60,19 @@
             #{memberId},
             #{contentId}
             )
+    </insert>
+
+    <insert id="addRecentView" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
+        INSERT INTO open_content
+        (
+            member_id,
+            content_id
+        )
+            VALUE
+            (
+             #{memberId},
+             #{contentId}
+                )
     </insert>
 
     <!-- 사용자의 ID를 기반으로 핀의 갯수를 가져오는 쿼리 -->
@@ -141,7 +154,8 @@
                     good
                 WHERE
                     content_id = c.id
-            ) good_count
+            ) good_count,
+            c.type
         FROM
             content c,
             (
@@ -167,9 +181,32 @@
             o.member_id = #{myMemberId}
         ORDER BY
             opened_at DESC
+        LIMIT
+            #{page}, 6
     </select>
 
-    <select id="isGood" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember" resultType="boolean">
+    <select id="isGood" parameterType="com.example.triponezidoapi.dto.request.RequestGood" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            good
+        WHERE
+            content_id = #{contentId}
+          AND member_id = #{memberId}
+    </select>
+
+    <select id="getRecentViewCount" parameterType="Long" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            content c,
+            open_content o
+        WHERE
+            o.content_id = c.id and
+            o.member_id = #{memberId}
+    </select>
+
+    <select id="myGood" parameterType="com.example.triponezidoapi.dto.request.RequestGood" resultType="boolean">
         SELECT
             good
         FROM
@@ -191,10 +228,20 @@
             member_id = #{memberId}
     </select>
 
-    <update id="updateIsPublic" parameterType="com.example.triponezidoapi.dto.request.RequestIsPublic">
+    <select id="getAddress" parameterType="long" resultType="string">
+        SELECT address
+        FROM tour
+        WHERE id = #{id}
+        UNION
+        SELECT address
+        FROM spot
+        WHERE id = #{id}
+    </select>
+
+    <update id="updateVisibility" parameterType="com.example.triponezidoapi.dto.request.RequestVisibility">
         UPDATE content
         SET
-            is_public = #{isPublic}
+            visibility = #{visibility}
         WHERE
             id = #{id}
     </update>
@@ -205,6 +252,15 @@
             title = #{title}
         WHERE
             id = #{id}
+    </update>
+
+    <update id="updateGood" parameterType="com.example.triponezidoapi.dto.request.RequestGood">
+        UPDATE good
+        SET
+            good = #{good}
+        WHERE
+            member_id = #{memberId} AND
+            content_id = #{contentId}
     </update>
 
     <delete id="deleteContent" parameterType="Long">
@@ -228,6 +284,13 @@
 
     <delete id="deletePin" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
         DELETE FROM pin
+        WHERE
+            member_id = #{memberId} AND
+            content_id = #{contentId}
+    </delete>
+
+    <delete id="changeRecentView" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
+        DELETE FROM open_content
         WHERE
             member_id = #{memberId} AND
             content_id = #{contentId}

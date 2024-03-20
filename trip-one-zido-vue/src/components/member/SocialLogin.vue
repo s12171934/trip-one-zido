@@ -1,7 +1,9 @@
 <template>
   <main class="wrapper d-flex flex-row justify-content-center">
     <div id="box" class="flex-column">
-      <h1 :style="{'color': (sns === 'naver' ? '#2DB400' : '	#FEE500')}">{{ sns === "naver" ? "네이버" : "카카오" }}와 연동하기</h1>
+      <h1 :style="{ color: sns === 'naver' ? '#2DB400' : '	#FEE500' }">
+        {{ sns === "naver" ? "네이버" : "카카오" }}와 연동하기
+      </h1>
       <form @submit.prevent class="d-flex flex-column border border-5 gap-4">
         <input type="text" v-model="loginId" placeholder="아이디" />
         <input type="password" v-model="password" placeholder="비밀번호" />
@@ -57,23 +59,24 @@ export default {
   },
   methods: {
     login() {
-      if (this.$zido.login()) {
-        this.$cookies.set("login", 1, 0);
-        this.$zido.updateSocialLogin(
-          this.$route.params.sns,
-          this.$route.params.id,
-          this.loginId
-        )
-
-
-        if (this.autoLogin) {
-          this.$cookies.set("autoLogin", this.loginId);
+      this.$zido.login(this.loginId, this.password).then((res) => {
+        console.log(res)
+        if (res) {
+          this.$cookies.set("login", 1, 0);      
+          if (this.autoLogin) {
+            this.$cookies.set("autoLogin", this.loginId);
+          } else {
+            this.$cookies.remove("autoLogin");
+          }
+          this.$zido.updateSocialLogin(
+            this.$route.params.sns,
+            this.$route.params.id,
+            this.loginId
+          );
+          location.href = "/"
         } else {
-          this.$cookies.remove("autoLogin");
         }
-        location.href = "/";
-      } else {
-      }
+      });
     },
   },
   mounted() {

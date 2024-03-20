@@ -21,11 +21,13 @@
             multiple
           />
         </div>
-        <div class="d-flex align-items-center" id="photo-container">
+        <div class="d-flex align-items-center p-3" id="photo-container">
           <img
             @contextmenu.prevent="delPhoto(idx)"
+            @click="spotData.profile = idx"
             v-for="(photo, idx) in spotData.photos"
             class="rounded"
+            :class="spotData.profile == idx ? 'shadow-lg bg-light' : ''"
             id="selectedPic"
             :src="photo.photo"
             alt=""
@@ -104,7 +106,8 @@
                 <option value="" selected>카테고리</option>
                 <option
                   v-for="category in selectCategories"
-                  :aria-colcount="category" :value="category"
+                  :aria-colcount="category"
+                  :value="category"
                 >
                   {{ category }}
                 </option>
@@ -139,24 +142,27 @@
             <h4>여행한 후기</h4>
           </td>
           <td>
-            <div class="rating">
-              <span>☆</span>
-              <span>☆</span>
-              <span>☆</span>
-              <span>☆</span>
-              <span>☆</span>
-            </div>
+            <Grade
+              @grade="(grade) => (spotData.grade = grade)"
+              :grade="spotData.grade"
+            />
           </td>
         </tr>
         <tr>
           <td colspan="2">
-            <textarea v-model="spotData.review" id="content" name="content" rows="5" cols="50" />
+            <textarea
+              v-model="spotData.review"
+              id="content"
+              name="content"
+              rows="5"
+              cols="50"
+            />
           </td>
         </tr>
         <tr>
           <td>
             <div class="select-wrapper" id="security">
-              <select class="local-select" v-model="spotData.isPublic">
+              <select class="local-select" v-model="spotData.visibility">
                 <option value=true>공개</option>
                 <option value=false>비공개</option>
               </select>
@@ -187,8 +193,12 @@
 
 <script>
 import data from "@/assets/data";
+import Grade from "@/components/util/Grade.vue";
 
 export default {
+  components: {
+    Grade,
+  },
   data() {
     return {
       selectCategories: data.selectCategories,
@@ -201,8 +211,10 @@ export default {
         category: "",
         address: "",
         address2: "",
+        grade: 0,
         review: "",
-        isPublic: true,
+        visibility: true,
+        profile: 0,
       },
     };
   },
@@ -218,7 +230,7 @@ export default {
         let fileReader = new FileReader();
         fileReader.onload = (e) => {
           resolve(e.target.result);
-          this.spotData.photos.push({photo: e.target.result});
+          this.spotData.photos.push({ photo: e.target.result });
           console.log(this.spotData.photos);
         };
         fileReader.readAsDataURL(file);
@@ -241,7 +253,9 @@ export default {
       }).open();
     },
     async setSpotData() {
-      const responseSpotData = await this.$zido.getSpotData(this.$route.params.id);
+      const responseSpotData = await this.$zido.getSpotData(
+        this.$route.params.id
+      );
       this.spotData = {
         photos: responseSpotData.photos,
         title: responseSpotData.title,
@@ -251,14 +265,16 @@ export default {
         category: responseSpotData.category,
         address: responseSpotData.address,
         address2: responseSpotData.address,
+        grade: responseSpotData.grade,
         review: responseSpotData.review,
-        isPublic: responseSpotData.isPublic,
+        visibility: responseSpotData.visibility,
       };
-      for(let photo in this.spotData.photos){
-
-        this.spotData.photos[photo].photo = `data:image/jpeg;base64,${this.spotData.photos[photo].photo}`
+      for (let photo in this.spotData.photos) {
+        this.spotData.photos[
+          photo
+        ].photo = `data:image/jpeg;base64,${this.spotData.photos[photo].photo}`;
       }
-      console.log(this.spotData)
+      console.log(this.spotData);
       document.querySelector("#address").value = this.spotData.address;
     },
     submitButton(mode) {
@@ -266,7 +282,7 @@ export default {
       if (mode == "add") {
         this.$zido.addSpot(this.spotData);
       } else {
-        this.$zido.updateSpot(this.$route.params.id,this.spotData);
+        this.$zido.updateSpot(this.$route.params.id, this.spotData);
       }
       this.$router.push("/member-page");
     },
@@ -290,7 +306,7 @@ main > div {
   background-color: #dee1e3;
   overflow: scroll;
   overflow-y: hidden;
-  height: 100%;
+  height: 90%;
   margin: 1%;
 }
 
@@ -325,7 +341,7 @@ td {
 
 .date-time {
   display: flex;
-  padding: 2% 4%;
+  padding: 2%;
   box-shadow: 0 0 0 1px #dee1e3 inset;
   border-radius: 0.5rem;
  
@@ -333,26 +349,6 @@ td {
 
 #plusMember {
   margin: 2%;
-}
-
-.rating {
-  unicode-bidi: bidi-override;
-  direction: rtl;
-  text-align: left;
-  padding-left: 1rem;
-  color: #ff928e;
-}
-
-.rating > span {
-  display: inline-block;
-  position: relative;
-  width: 1.1em;
-}
-
-.rating > span:hover:before,
-.rating > span:hover ~ span:before {
-  content: "\2605";
-  position: absolute;
 }
 
 textarea {
@@ -363,6 +359,7 @@ textarea {
   color: black;
 }
 
+
 /* #photo-container {
     display: flex;
 } */
@@ -370,12 +367,10 @@ textarea {
     overflow: hidden; /* 내부 컨텐츠가 넘치지 않도록 설정 */
     white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
 }
-
 td {
     display: block;
     width: 100%;
 }
-
 tr {
     display: block;
     margin-bottom: 10px;
@@ -383,13 +378,11 @@ tr {
 
 
 @media (max-width: 1120px) { /* 원하는 크기로 설정 */
-  
-
   .wrapper {
     display: block;
     flex-direction: column;
   }
-
+}
   .member-container {
   overflow: scroll;
   overflow-y: hidden;

@@ -38,7 +38,7 @@
               </div>
             </td>
             <td class="border-start">모집 마감일</td>
-            <td><input type="date" v-model="communityData.deadLine" /></td>
+            <td><input type="date" v-model="communityData.deadline" /></td>
           </tr>
 
           <tr class="border-bottom">
@@ -106,7 +106,7 @@ export default {
 				startDate: "",
 				endDate: "",
 				total: "",
-				deadLine: "",
+				deadline: "",
 				title: "",
 				notice: "",
 			}
@@ -115,10 +115,16 @@ export default {
 	methods: {
 		submitButton(mode){
 			if(mode === 'add'){
+        this.communityData.startDate = new Date(this.communityData.startDate);
+        this.communityData.endDate = new Date(this.communityData.endDate);
+        this.communityData.deadline = new Date(this.communityData.deadline);
 				this.$zido.addCommunity(this.communityData)
 			}
 			else{
-				this.$zido.updateCommunity(this.communityData)
+        this.communityData.startDate = new Date(this.communityData.startDate);
+        this.communityData.endDate = new Date(this.communityData.endDate);
+        this.communityData.deadline = new Date(this.communityData.deadline);
+				this.$zido.updateCommunity(this.$route.params.id, this.communityData)
 			}
 			this.$router.push('/community')
 		},
@@ -207,13 +213,23 @@ table tbody tr {
 textarea {
   resize: none;
 }
+/* 작은 화면에서 테이블의 열이 쌓이도록 설정 */
+@media (max-width: 768px) {
+  td {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  tr {
+    display: block !important;
+    margin-bottom: 10px !important;
+  }
+}
 
 @media screen and (max-width: 1300px) {
   
-  .border {
-    white-space: nowrap; 
-    overflow: hidden;
-    text-overflow: ellipsis; 
+  .inner {
+    max-width: 100% !important;
   }
 }
 </style>

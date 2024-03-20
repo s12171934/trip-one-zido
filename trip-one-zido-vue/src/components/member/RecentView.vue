@@ -31,6 +31,7 @@ export default {
       RecentViewData: {
         recentList: [{}],
         member: [{}],
+        recentViewCount: 0,
       },
     };
   },
@@ -50,5 +51,14 @@ img {
   vertical-align: top;
   width: 260px;
   height: 260px;
+}
+@media (max-width: 768px) {
+  .d-flex.mb-5 {
+    flex-direction: column;
+  }
+
+  .d-flex.mb-5 img {
+    margin-bottom: 10px; /* 이미지와 텍스트 사이 여백 조정 */
+  }
 }
 </style>

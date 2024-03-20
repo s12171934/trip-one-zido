@@ -33,6 +33,8 @@ public interface MemberMapper {
     List<ResponseQuestions> getSecurityQuestionList();
     Member getMemberById(Long id);
     ResponseMember getMemberProfile(Long id);
+    int isConnectedWithSns(RequestSocialConnect requestSocialConnect);
+    long getIdBySnsId(RequestSocialConnect requestSocialConnect);
 
     //update
     void updateMember(Member member);

@@ -17,11 +17,11 @@ public class ResponseSpotDetail {
     int grade;
     int viewCount;
     int goodCount;
-    int myGood;
+    Boolean myGood;
     int bookmarkCount;
     int myBookmark;
     String title;
-    boolean isPublic;
+    boolean visibility;
     LocalDateTime createdAt;
     List<ResponsePhoto> photos;
     List<ResponseMember> members;

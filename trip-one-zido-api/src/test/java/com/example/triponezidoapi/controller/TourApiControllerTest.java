@@ -54,9 +54,9 @@ class TourApiControllerTest {
         tours.add(tours1);
 
         //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
-        given(tourService.getTourList(9L, "서울특별시", 0L)).willReturn(
-                tours
-        );
+//        given(tourService.getTourList(9L, "서울특별시", 0L)).willReturn(
+//                tours
+//        );
 
         //andExcept : 기대하는 값이 나왔는지 체크해볼 수 있는 메소드
         //jsonPath : body에 값들이 존재하는지?

@@ -19,7 +19,7 @@ public class CommunityApiController {
 
     @GetMapping("/list/{page}")
     @Operation(summary = "커뮤니티 목록 조회")
-    public List<ResponseCommunity> showCommunityAll(
+    public ResponseCommunityList showCommunityAll(
             @PathVariable
             @Parameter(description = "페이지 번호")
             long page
@@ -76,7 +76,7 @@ public class CommunityApiController {
     }
     @PostMapping("/search/{page}")
     @Operation(summary = "검색한 커뮤니티 게시물 목록")
-    public List<ResponseCommunity> searchCommunity(
+    public ResponseCommunityList searchCommunity(
             @RequestBody
             @Parameter(description = "검색 정보")
             RequestCommunitySearch requestCommunitySearch,

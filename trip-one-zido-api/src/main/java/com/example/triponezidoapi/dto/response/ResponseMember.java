@@ -9,4 +9,5 @@ public class ResponseMember {
     String own;
     byte[] profile;
     boolean isFollow;
+    Long sessionId;
 }

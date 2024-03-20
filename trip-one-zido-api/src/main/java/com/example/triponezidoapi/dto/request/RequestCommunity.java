@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class RequestCommunity {
-    long id;
+    Long id;
 
     @Size(max = 200, message = "제목은 최대 200자 이하이어야 합니다.")
     String title;

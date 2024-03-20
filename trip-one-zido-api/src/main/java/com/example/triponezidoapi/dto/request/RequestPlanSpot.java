@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class RequestPlanSpot {
-    long planId;
-    long spotId;
+    Long planId;
+    Long spotId;
 }

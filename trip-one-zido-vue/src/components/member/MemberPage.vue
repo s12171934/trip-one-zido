@@ -1,7 +1,8 @@
 <template>
   <main class="wrapper d-flex">
     <div class="d-flex flex-column fill me-5" id="leftSide">
-      <div class="d-flex align-items-center mb-5">
+      <!-- <div class="d-flex align-items-center mb-5"> -->
+      <div class="align-items-center mb-5">
         <img
           :src="`data:image/jpeg;base64,${memberPageData.responseMember.profile}`"
           class="rounded-circle"
@@ -18,7 +19,7 @@
         {{
           isMyPage()
             ? "프로필 편집"
-            : memberPageData.isFollow
+            : memberPageData.responseMember.follow
             ? hover
               ? "언 팔로우"
               : "팔로잉 중"
@@ -63,32 +64,32 @@
       <div id="title">
       <ListTitle
         title="일정 게시글"
-        @option="(option) => (planSortOption = option)"
+        @option="(option) => (planSort = option)"
       />
       </div>
 
       <ContentList
         :list="memberPageData.planLists"
-        :sortOption="planSortOption"
         :addApi="`/api/page/${memberPageData.id}/plan/`"
         :maxLen="20"
+        :option="`sort=${planSort}`"
       />
 
       <div id="title">
       <ListTitle
         title="장소 게시글"
-        @option="(option) => (spotSortOption = option)"
+        @option="(option) => (spotSort = option)"
         class="mt-5"
       />
       </div>
 
       <ContentList
         :list="memberPageData.spotLists"
-        :sortOption="spotSortOption"
         :addApi="`/api/page/${memberPageData.id}/spot/`"
         :maxLen="20"
+        :option="`sort=${spotSort}`"
       />
-      </div>
+    </div>
   </main>
 
   <FollowModal :type="followType" :followList="followList" />
@@ -122,9 +123,10 @@ export default {
         id: null,
         sessionId: null,
         loginId: null,
-        isFollow: null,
         planLists: [],
+        planListsCount: 0,
         spotLists: [],
+        spotListsCount: 0,
         responseMember: {},
         postCount: null,
         bookmarkCount: null,
@@ -132,6 +134,8 @@ export default {
         followingCount: null,
         isMine: null,
       },
+      planSort: 'created_at',
+      spotSort: 'created_at'
     };
   },
   methods: {
@@ -142,7 +146,7 @@ export default {
       if (this.isMyPage()) {
         this.$router.push("/config");
       } else {
-        this.memberPageData.isFollow = !this.memberPageData.isFollow;
+        this.$zido.toggleFollow(this.memberPageData.responseMember);
       }
     },
     addSpotPlan() {
@@ -205,13 +209,46 @@ img {
   background-color: grey;
 }
 
-@media (max-width: 1100px) {
-  .summary, #title {
+@media (max-width: 1250px) {
+  .summary, #title, .w-25 {
     white-space: nowrap; 
-    overflow: hidden;
     text-overflow: ellipsis; 
   }
 }
 
+@media (max-width: 1023px) {
+.wrapper {
+    display: flex;
+    flex-wrap: wrap; /* 작은 화면에서 넘치는 요소들을 아래로 이동 */
+  }
+
+  .d-flex {
+    flex: 1; /* 아이템이 동일한 너비를 가지도록 함 */
+    box-sizing: border-box;
+  }
+  #add{
+    margin-bottom: -25%;
+    margin-top: 5%;
+  }
+  #rightSide {
+    margin-right: 10%;
+  }
+  #contentList{
+    padding-bottom: 80px;
+  }
+}
+
+@media (max-width: 600px) {
+  .w-25 {
+    font-size: 10px;
+  }
+  #leftSide {
+    margin-right: 0 !important; /* 화면의 너비가 600px 이하일 때 me-5 클래스 제거 */
+  }
+  #add{
+    margin-bottom: -60%;
+    margin-top: 5%;
+  }
+}
 </style>
 ../util/KakaoMapForMemberPage.vue

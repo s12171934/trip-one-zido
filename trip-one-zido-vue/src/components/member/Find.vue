@@ -136,4 +136,36 @@ h1 {
   color: #ff928e !important;
   text-align: center;
 }
+
+/* 작은 화면에서 아이템을 세로로 배치하기 위해 추가된 스타일 */
+@media (max-width: 768px) {
+  #mainbox {
+    flex-direction: column;
+  }
+  #box {
+    width: 90% !important;
+  }
+  h1 {
+    font-size: 35px !important;
+  }
+  #boxin {
+    border: none !important; /* 작은 화면에서 border 제거 */
+  }
+}
+
+@media (max-width: 1045px) {
+  h1 {
+    font-size: 30px;
+  }
+}
+@media (max-width: 900px) {
+  h1 {
+    font-size: 23px;
+  }
+}
+@media (max-width: 480px) {
+  h1{
+    font-size: 21px !important;
+  }
+}
 </style>

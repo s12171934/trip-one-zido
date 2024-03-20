@@ -41,17 +41,24 @@ public class PageService {
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(sessionId);
         requestSessionTarget.setTargetId(id);
+        requestSessionTarget.setSort("created_at");
 
         //planLists
         memberPage.setPlanLists(planMapper.getPlanList(requestSessionTarget));
+        memberPage.setPlanListsCount(planMapper.getPlanListCount(sessionId));
         //spotLists
         memberPage.setSpotLists(spotMapper.getSpotList(requestSessionTarget));
+        memberPage.setSpotListsCount(spotMapper.getSpotListCount(sessionId));
 
         //member
         ResponseMember member = new ResponseMember();
         member.setId(id);
         member.setLoginId(memberMapper.getMemberProfile(id).getLoginId());
         member.setProfile(memberMapper.getMemberProfile(id).getProfile());
+        RequestFollow requestFollow = new RequestFollow();
+        requestFollow.setFollower(sessionId);
+        requestFollow.setFollowing(id);
+        member.setFollow(memberMapper.isFollow(requestFollow));
         memberPage.setResponseMember(member);
 
         //post count
@@ -68,25 +75,24 @@ public class PageService {
         return memberPage;
     }
 
-    public List<ResponseContentList> getPlanListByPage(Long id, Long sessionId, long page){
+    public List<ResponseContentList> getPlanListByPage(Long id, Long sessionId, long page, String sort){
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(sessionId);
         requestSessionTarget.setTargetId(id);
-        requestSessionTarget.setPage(page);
+        requestSessionTarget.setPage(page * 6);
+        requestSessionTarget.setSort(sort == null ? "created_at" : sort);
+
 
         return planMapper.getPlanList(requestSessionTarget);
     }
 
-    public List<ResponseContentList> getSpotListByPage(Long id, Long sessionId, long page) {
+    public List<ResponseContentList> getSpotListByPage(Long id, Long sessionId, long page, String sort) {
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(sessionId);
         requestSessionTarget.setTargetId(id);
-        //페이지 카운트 처리
-        if(page == 0){
-            requestSessionTarget.setPage(0);
-        } else {
-            requestSessionTarget.setPage(page * 6);
-        }
+        requestSessionTarget.setPage(page * 6);
+        requestSessionTarget.setSort(sort == null ? "created_at" : sort);
+
 
         return spotMapper.getSpotList(requestSessionTarget);
     }
@@ -98,7 +104,8 @@ public class PageService {
         }
 
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(id);
+        requestSessionTarget.setMyMemberId(sessionId);
+        requestSessionTarget.setTargetId(id);
 
         List<ResponseMember> followingList = memberMapper.followingList(requestSessionTarget);
         // 팔로잉 여부 확인
@@ -119,7 +126,8 @@ public class PageService {
         }
 
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(id);
+        requestSessionTarget.setMyMemberId(sessionId);
+        requestSessionTarget.setTargetId(id);
 
         List<ResponseMember> followerList = memberMapper.followerList(requestSessionTarget);
         // 팔로잉 여부 확인
