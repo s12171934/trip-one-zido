@@ -18,7 +18,7 @@
         {{
           isMyPage()
             ? "프로필 편집"
-            : memberPageData.isFollow
+            : memberPageData.responseMember.follow
             ? hover
               ? "언 팔로우"
               : "팔로잉 중"
@@ -63,30 +63,30 @@
       <div id="title">
       <ListTitle
         title="일정 게시글"
-        @option="(option) => (planSortOption = option)"
+        @option="(option) => (planSort = option)"
       />
       </div>
 
       <ContentList
         :list="memberPageData.planLists"
-        :sortOption="planSortOption"
         :addApi="`/api/page/${memberPageData.id}/plan/`"
         :maxLen="20"
+        :option="`sort=${planSort}`"
       />
 
       <div id="title">
       <ListTitle
         title="장소 게시글"
-        @option="(option) => (spotSortOption = option)"
+        @option="(option) => (spotSort = option)"
         class="mt-5"
       />
       </div>
 
       <ContentList
         :list="memberPageData.spotLists"
-        :sortOption="spotSortOption"
         :addApi="`/api/page/${memberPageData.id}/spot/`"
         :maxLen="20"
+        :option="`sort=${spotSort}`"
       />
       </div>
   </main>
@@ -122,7 +122,6 @@ export default {
         id: null,
         sessionId: null,
         loginId: null,
-        isFollow: null,
         planLists: [],
         spotLists: [],
         responseMember: {},
@@ -132,6 +131,8 @@ export default {
         followingCount: null,
         isMine: null,
       },
+      planSort: 'created_at',
+      spotSort: 'created_at'
     };
   },
   methods: {
@@ -142,7 +143,7 @@ export default {
       if (this.isMyPage()) {
         this.$router.push("/config");
       } else {
-        this.memberPageData.isFollow = !this.memberPageData.isFollow;
+        this.$zido.toggleFollow(this.memberPageData.responseMember);
       }
     },
     addSpotPlan() {

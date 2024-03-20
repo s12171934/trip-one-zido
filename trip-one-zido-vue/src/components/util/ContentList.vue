@@ -19,10 +19,10 @@ import ContentCard from "./ContentCard.vue";
 export default {
   props: {
     list: Array,
-    sortOption: String,
     addApi: String,
     method: String,
     maxLen: Number,
+    option: String,
   },
   components: {
     ContentCard,
@@ -43,11 +43,21 @@ export default {
       const addContents = await this.$zido.newContents(
         this.addApi,
         ++this.page,
-        this.method
+        this.method,
+        this.option
       );
       this.list.push(...addContents);
     },
   },
+  watch: {
+    async option(){
+      console.log('change option')
+      const newContents = await this.$zido.newContents(this.addApi, 0, false, this.option)
+      this.list.length = 0
+      this.list.push(...newContents)
+      this.page = 0;
+    }
+  }
 };
 </script>
 

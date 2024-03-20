@@ -17,7 +17,7 @@ public class ResponseSpotDetail {
     int grade;
     int viewCount;
     int goodCount;
-    int myGood;
+    Boolean myGood;
     int bookmarkCount;
     int myBookmark;
     String title;
