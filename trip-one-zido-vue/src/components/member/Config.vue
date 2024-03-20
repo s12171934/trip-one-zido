@@ -6,7 +6,7 @@
     <div class="d-flex justify-content-between">
       <div class="w-50">
         <div class="d-flex align-items-center">
-          <div class="d-flex flex-column gap-2">
+          <div class="d-flex flex-column gap-2" id="left-section">
             <img
               :src="`data:image/jpeg;base64,${configData.memberProfile.profile}`"
               alt=""
@@ -153,6 +153,22 @@ button {
     .d-flex{
       flex-direction: column;
     }
+  }
+}
+
+@media (max-width: 1023px) {
+  .w-50, .p-2 {
+    white-space: nowrap; 
+    overflow: hidden;
+    /* text-overflow: ellipsis;  */
+  }
+
+  main > div {
+    width: 100%;
+  }
+  
+  .wrapper {
+    flex-direction: column;
   }
 }
 

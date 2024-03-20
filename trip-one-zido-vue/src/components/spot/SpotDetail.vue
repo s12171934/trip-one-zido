@@ -14,12 +14,12 @@
           <button @click="openSpotMap()" class="rounded-5">약도보기</button>
         </div>
       </div>
-      <h6>
+      <h6 class="left-css">
         {{
           `${spotData.startDate} : ${spotData.startTime} ~ ${spotData.endDate} : ${spotData.endTime}`
         }}
       </h6>
-      <h6>
+      <h6 class="left-css">
         <span v-for="member in spotData.members">{{ member.loginId }}</span>
       </h6>
 
@@ -192,8 +192,8 @@ export default {
 
 <style scoped>
 main > div {
-  width: 50%;
-  padding: 20px;
+  width: 100%;
+  /* padding: 20px; */
 }
 
 .comm {
@@ -215,7 +215,7 @@ main > div {
   overflow: scroll;
   overflow-y: hidden;
   height: 100%;
-  margin: 1%;
+  /* margin: 1%;*/
 }
 
 #selectedPic {
@@ -303,23 +303,70 @@ textarea {
 } */
 
 
-@media (max-width: 800px) {
-  /* 원하는 크기로 설정 */
-  #left-category button {
-    font-size: 0.4rem; 
-    /* padding: 0.5rem 1rem; */
-    /* display: flex;
-    flex-wrap: wrap; */
+@media (max-width: 1450px) { /* 원하는 크기로 설정 */
+  
+  .title  {
+      white-space: nowrap; 
+      text-overflow: ellipsis; 
+    }
+  .button {
+    width: 100%;
   }
-  .title, .p-2 {
-    white-space: nowrap; 
-    overflow: hidden;
-    /* text-overflow: ellipsis;  */
+  .d-flex {
+    width: 90%;
   }
 }
 
+
+@media (max-width: 1023px) { /* 원하는 크기로 설정 */
+  
+#font-vertical {
+    white-space: nowrap; 
+    text-overflow: ellipsis; 
+  }
+  #rightSide {
+    border: 1px;
+    box-sizing: border-box;
+  }
+  .button {
+    width: 100%;
+  }
+  main > div {
+    width: 100%;
+  }
+  .wrapper {
+    flex-direction: column;
+  }
+  #address {
+    width: 350%;
+  }
+  #leftSide {
+    flex-shrink: 0; /* leftSide가 작아질 때 줄어들지 않도록 설정 */
+  }
+  .border-end {
+
+    border-right: none !important;
+  }
+}
 #spot-data { 
   cursor: default;
 }
 
+@media (max-width: 767px) { /* 767이하일 때 아래코드 적용 */
+ button {
+  font-size: small;
+ } 
+}
+
+@media (max-width: 638px) {
+ button {
+  font-size:x-small;
+ } 
+}
+
+@media (max-width: 555px) {
+ button {
+  font-size:xx-small;
+ } 
+}
 </style>
