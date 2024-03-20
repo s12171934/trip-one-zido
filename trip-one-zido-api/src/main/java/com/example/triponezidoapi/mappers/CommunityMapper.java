@@ -23,4 +23,5 @@ public interface CommunityMapper {
 
     //update
     void updateCommunity(RequestCommunity requestCommunity);
+    void updateStatus(RequestCommunity requestCommunity);
 }

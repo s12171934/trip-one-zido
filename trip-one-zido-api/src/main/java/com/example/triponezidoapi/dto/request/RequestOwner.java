@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class RequestOwner {
     String own;
-    long memberId;
-    long contentId;
+    Long memberId;
+    Long contentId;
 }

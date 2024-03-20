@@ -6,7 +6,7 @@
       <form>
         <!-- 테이블 -->
         <table id="table" class="border">
-          <tr>
+          <tr class="border-bottom">
             <td id="tdTitle">지역</td>
             <td id="tdSelect">
               <div class="select-wrapper" id="table-select">
@@ -25,7 +25,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr class="border-bottom">
             <td>모집 인원</td>
             <td>
               <div class="select-wrapper" id="table-select">
@@ -38,10 +38,10 @@
               </div>
             </td>
             <td class="border-start">모집 마감일</td>
-            <td><input type="date" v-model="communityData.deadLine" /></td>
+            <td><input type="date" v-model="communityData.deadline" /></td>
           </tr>
 
-          <tr>
+          <tr class="border-bottom">
             <td>제목</td>
             <td colspan="3">
               <input
@@ -66,7 +66,7 @@
           </tr>
         </table>
 
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <div class="d-grid gap-2 d-flex justify-content-end">
           <a
             @click="submitButton($route.params.mode)"
             class="button small rounded-3"
@@ -106,7 +106,7 @@ export default {
 				startDate: "",
 				endDate: "",
 				total: "",
-				deadLine: "",
+				deadline: "",
 				title: "",
 				notice: "",
 			}
@@ -115,10 +115,16 @@ export default {
 	methods: {
 		submitButton(mode){
 			if(mode === 'add'){
+        this.communityData.startDate = new Date(this.communityData.startDate);
+        this.communityData.endDate = new Date(this.communityData.endDate);
+        this.communityData.deadline = new Date(this.communityData.deadline);
 				this.$zido.addCommunity(this.communityData)
 			}
 			else{
-				this.$zido.updateCommunity(this.communityData)
+        this.communityData.startDate = new Date(this.communityData.startDate);
+        this.communityData.endDate = new Date(this.communityData.endDate);
+        this.communityData.deadline = new Date(this.communityData.deadline);
+				this.$zido.updateCommunity(this.$route.params.id, this.communityData)
 			}
 			this.$router.push('/community')
 		},
@@ -206,5 +212,14 @@ table tbody tr {
 
 textarea {
   resize: none;
+}
+
+@media screen and (max-width: 1300px) {
+  
+  .border {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
 }
 </style>

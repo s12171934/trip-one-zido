@@ -115,7 +115,7 @@ export default {
   border-radius: 40px;
   background-color: white;
   margin: 5%;
-  width: 50% !important;
+  width: 40% !important;
   display: flex;
   justify-content: center;
   align-content: center;

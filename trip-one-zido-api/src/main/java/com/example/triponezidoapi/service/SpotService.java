@@ -6,8 +6,6 @@ import com.example.triponezidoapi.mappers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class SpotService {
     @Autowired
@@ -37,6 +35,13 @@ public class SpotService {
         //getOwner
         responseSpotDetail.setMembers(contentMapper.getOwner(id));
 
+        RequestGood requestGood = new RequestGood();
+        requestGood.setMemberId(sessionId);
+        requestGood.setContentId(id);
+        if(contentMapper.isGood(requestGood) != 0){
+            responseSpotDetail.setMyGood(contentMapper.myGood(requestGood));
+        }
+
         //isMine
         RequestContentMember requestContentMember = new RequestContentMember();
         requestContentMember.setMemberId(sessionId);
@@ -50,27 +55,30 @@ public class SpotService {
         //addContent
         RequestContent requestContent = new RequestContent();
         requestContent.setType("spot");
-        requestContent.setPublic(requestSpot.isPublic());
+        requestContent.setVisibility(requestSpot.isVisibility());
         requestContent.setTitle(requestSpot.getTitle());
         contentMapper.addContent(requestContent);
         //Content 테이블에 추가한 이후에 생성된 id를 가져옴
         long generatedId = requestContent.getId();
 
-        //addSpot
-        requestSpot.setId(generatedId);
-        requestSpot.setProfile(sessionId);
-        requestSpot.setLocCategory("서울특별시");
-        requestSpot.setProfile(1);
-        requestSpot.setGrade(2);
-        spotMapper.addSpot(requestSpot);
-
+        long profileId = 0;
         //addPhoto
         for (int i = 0; i < requestSpot.getPhotos().size(); i++) {
             RequestPhoto requestPhoto = new RequestPhoto();
             requestPhoto.setPhoto(requestSpot.getPhotos().get(i).getPhoto());
             requestPhoto.setContentId(generatedId);
+            if(requestSpot.getProfile() == i){
+                profileId = requestPhoto.getId();
+            }
             spotMapper.addPhoto(requestPhoto);
         }
+
+        //addSpot
+        requestSpot.setId(generatedId);
+        requestSpot.setProfile(sessionId);
+        requestSpot.setLocCategory("서울특별시");
+        requestSpot.setProfile(profileId);
+        spotMapper.addSpot(requestSpot);
 
         //addOwner
         for (int i = 0; i < requestSpot.getMembers().size(); i++) {
@@ -83,16 +91,31 @@ public class SpotService {
     }
 
     public void updateSpot(Long id, RequestSpot requestSpot, Long sessionId){
+        //deletePhoto
+        spotMapper.deletePhoto(id);
+
+        long profileId = 0;
+        //addPhoto
+        for (int i = 0; i < requestSpot.getPhotos().size(); i++) {
+            RequestPhoto requestPhoto = new RequestPhoto();
+            requestPhoto.setPhoto(requestSpot.getPhotos().get(i).getPhoto());
+            requestPhoto.setContentId(id);
+            spotMapper.addPhoto(requestPhoto);
+            if(requestSpot.getProfile() == i){
+                profileId = requestPhoto.getId();
+            }
+        }
         //updateSpot
         requestSpot.setId(id);
         requestSpot.setLocCategory("서울특별시");
+        requestSpot.setProfile(profileId);
         spotMapper.updateSpot(requestSpot);
 
         //updatePublic
-        RequestIsPublic requestIsPublic = new RequestIsPublic();
-        requestIsPublic.setId(id);
-        requestIsPublic.setPublic(requestSpot.isPublic());
-        contentMapper.updateIsPublic(requestIsPublic);
+        RequestVisibility requestVisibility = new RequestVisibility();
+        requestVisibility.setId(id);
+        requestVisibility.setVisibility(requestSpot.isVisibility());
+        contentMapper.updateVisibility(requestVisibility);
 
         //updateTitle
         RequestTitle requestTitle = new RequestTitle();
@@ -113,17 +136,6 @@ public class SpotService {
             requestOwner.setMemberId(memberMapper.getIdByLoginId(requestSpot.getMembers().get(i).getLoginId()));
             requestOwner.setContentId(id);
             contentMapper.addOwner(requestOwner);
-        }
-
-        //deletePhoto
-        spotMapper.deletePhoto(id);
-
-        //addPhoto
-        for (int i = 0; i < requestSpot.getPhotos().size(); i++) {
-            RequestPhoto requestPhoto = new RequestPhoto();
-            requestPhoto.setPhoto(requestSpot.getPhotos().get(i).getPhoto());
-            requestPhoto.setContentId(id);
-            spotMapper.addPhoto(requestPhoto);
         }
     }
 

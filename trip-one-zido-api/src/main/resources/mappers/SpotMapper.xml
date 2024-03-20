@@ -40,12 +40,16 @@
             #{photo},
             #{contentId}
             )
+        <selectKey keyProperty="id" resultType="long">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
     </insert>
 
     <select id="getSpot" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseSpotDetail">
         SELECT
             s.*,
             c.title,
+            c.visibility,
             (
             SELECT
                 COUNT(*)
@@ -106,7 +110,7 @@
             FROM
                 photo
             WHERE
-                content_id = c.id
+                id = s.profile_id
             ) photo,
             (
             SELECT
@@ -131,7 +135,8 @@
             FROM
                 good
             WHERE
-                content_id = c.id
+                content_id = c.id AND
+                good = 1
             ) good_count,
             (
                 SELECT
@@ -157,6 +162,8 @@
             WHERE
                 member_id = #{targetId}
             )
+        ORDER BY
+            ${sort}
         LIMIT
             #{page}, 6
     </select>
@@ -198,7 +205,8 @@
             loc_category = #{locCategory},
             address = #{address},
             review = #{review},
-            grade = #{grade}
+            grade = #{grade},
+            profile_id = #{profile}
         WHERE
             id = #{id};
     </update>

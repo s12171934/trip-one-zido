@@ -49,17 +49,6 @@ class ContentApiControllerTest {
     }
 
     @Test
-    @DisplayName("좋아요 여부 조회")
-    void getGood() throws Exception {
-        mockMvc.perform(get("/api/content/good/{id}", 9L)
-                        .sessionAttr("id", 9L)
-                )
-                .andExpect(status().isOk())
-                .andDo(print());
-        verify(contentService).isGood(9L, 9L);
-    }
-
-    @Test
     @DisplayName("좋아요 등록/수정/취소")
     void postGood() throws Exception {
         RequestGood requestGood = new RequestGood();
@@ -80,7 +69,7 @@ class ContentApiControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andDo(print());
-        verify(contentService).addGood(9L, 9L, requestGood);
+        verify(contentService).toggleGood(9L, 9L, requestGood);
     }
 
     @Test
@@ -91,6 +80,6 @@ class ContentApiControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andDo(print());
-        verify(contentService).getRecentView(9L);
+        verify(contentService).getRecentView(9L,0);
     }
 }

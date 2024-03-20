@@ -18,7 +18,7 @@
         {{
           isMyPage()
             ? "프로필 편집"
-            : memberPageData.isFollow
+            : memberPageData.responseMember.follow
             ? hover
               ? "언 팔로우"
               : "팔로잉 중"
@@ -26,6 +26,7 @@
         }}
       </button>
       <hr />
+      <div class="summary">
       <NumberSummary
         @follower="
           followType = 'follower';
@@ -40,6 +41,7 @@
         :followingCount="memberPageData.followingCount"
         :bookmarkCount="memberPageData.bookmarkCount"
       />
+      </div>
       <KakaoMapForMemberPage />
     </div>
     <div class="d-flex flex-column justify-content-between" id="rightSide">
@@ -57,32 +59,36 @@
           <option>장소 게시글</option>
         </select>
       </div>
-
+      
+      <div id="title">
       <ListTitle
         title="일정 게시글"
-        @option="(option) => (planSortOption = option)"
+        @option="(option) => (planSort = option)"
       />
+      </div>
 
       <ContentList
         :list="memberPageData.planLists"
-        :sortOption="planSortOption"
         :addApi="`/api/page/${memberPageData.id}/plan/`"
         :maxLen="20"
+        :option="`sort=${planSort}`"
       />
 
+      <div id="title">
       <ListTitle
         title="장소 게시글"
-        @option="(option) => (spotSortOption = option)"
+        @option="(option) => (spotSort = option)"
         class="mt-5"
       />
+      </div>
 
       <ContentList
         :list="memberPageData.spotLists"
-        :sortOption="spotSortOption"
         :addApi="`/api/page/${memberPageData.id}/spot/`"
         :maxLen="20"
+        :option="`sort=${spotSort}`"
       />
-    </div>
+      </div>
   </main>
 
   <FollowModal :type="followType" :followList="followList" />
@@ -116,7 +122,6 @@ export default {
         id: null,
         sessionId: null,
         loginId: null,
-        isFollow: null,
         planLists: [],
         planListsCount: 0,
         spotLists: [],
@@ -128,6 +133,8 @@ export default {
         followingCount: null,
         isMine: null,
       },
+      planSort: 'created_at',
+      spotSort: 'created_at'
     };
   },
   methods: {
@@ -138,7 +145,7 @@ export default {
       if (this.isMyPage()) {
         this.$router.push("/config");
       } else {
-        this.memberPageData.isFollow = !this.memberPageData.isFollow;
+        this.$zido.toggleFollow(this.memberPageData.responseMember);
       }
     },
     addSpotPlan() {
@@ -189,15 +196,25 @@ export default {
 span {
   font-size: 30px;
   margin-left: 30px;
+  color: rgb(80, 80, 80);
 }
 
 img {
-  width: 260px;
-  height: 260px;
+  width: 50%;
+  height: 100%;
 }
 
 #edit-profile:hover {
   background-color: grey;
 }
+
+@media (max-width: 1100px) {
+  .summary, #title {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+}
+
 </style>
 ../util/KakaoMapForMemberPage.vue

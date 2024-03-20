@@ -25,7 +25,7 @@
               {{ list.title }}
             </td>
             <td>{{ list.writer }}</td>
-            <td>{{ list.deadLine }}</td>
+            <td>{{ list.deadline }}</td>
             <td>{{ list.viewPoint }}</td>
             <td>{{ list.withCount }} / {{ list.total }}</td>
             <td>{{ list.status }}</td>
@@ -134,7 +134,7 @@ export default {
         id: 0,
         title: null,
         writer: null,
-        deadLine: null,
+        deadline: null,
         viewPoint: null,
         total: null,
         withCount: null,
@@ -335,5 +335,16 @@ table tbody tr {
 }
 #cursor {
   cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+  
+  .table-wrapper, #leftPosition {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+  }
+
+  
 }
 </style>

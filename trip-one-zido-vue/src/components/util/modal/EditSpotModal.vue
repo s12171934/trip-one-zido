@@ -120,13 +120,10 @@
                   <h4>여행한 후기</h4>
                 </td>
                 <td>
-                  <div class="rating">
-                    <span>☆</span>
-                    <span>☆</span>
-                    <span>☆</span>
-                    <span>☆</span>
-                    <span>☆</span>
-                  </div>
+                  <Grade
+                    @grade="(grade) => (responseSpotData.grade = grade)"
+                    :grade="responseSpotData.grade"
+                  />
                 </td>
               </tr>
               <tr>
@@ -179,7 +176,12 @@
 </template>
 
 <script>
+import Grade from "@/components/util/Grade.vue";
+
 export default {
+  components: {
+    Grade,
+  },
   props: {
     mode: String,
     event: Object,
@@ -211,7 +213,7 @@ export default {
         let fileReader = new FileReader();
         fileReader.onload = (e) => {
           resolve(e.target.result);
-          this.responseSpotData.photos.push({photo: e.target.result});
+          this.responseSpotData.photos.push({ photo: e.target.result });
           console.log(this.responseSpotData.photos);
         };
         fileReader.readAsDataURL(file);
@@ -228,10 +230,14 @@ export default {
       }).open();
       this.responseSpotData.address = document.querySelector("#address").value;
     },
-    submitButton(mode){
+    submitButton(mode) {
       this.responseSpotData.address = document.querySelector("#address").value;
-      this.$emit(mode === 'add' ? 'add' : 'edit', this.event, this.responseSpotData)
-    }
+      this.$emit(
+        mode === "add" ? "add" : "edit",
+        this.event,
+        this.responseSpotData
+      );
+    },
   },
   watch: {
     editData() {
@@ -290,26 +296,6 @@ td {
 
 #plusMember {
   margin: 2%;
-}
-
-.rating {
-  unicode-bidi: bidi-override;
-  direction: rtl;
-  text-align: left;
-  padding-left: 1rem;
-  color: #ff928e;
-}
-
-.rating > span {
-  display: inline-block;
-  position: relative;
-  width: 1.1em;
-}
-
-.rating > span:hover:before,
-.rating > span:hover ~ span:before {
-  content: "\2605";
-  position: absolute;
 }
 
 textarea {

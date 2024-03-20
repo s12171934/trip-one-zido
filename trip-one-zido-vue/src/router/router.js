@@ -19,6 +19,7 @@ import PlanDetail from "../components/plan/PlanDetail.vue";
 import DetailSearch from "../components/search/DetailSearch.vue";
 import Search from "../components/search/Search.vue";
 import EditSpot from "../components/spot/EditSpot.vue";
+import Map from "../components/spot/Map.vue"
 import SpotDetail from "../components/spot/SpotDetail.vue";
 import TourDetail from "../components/tour/TourDetail.vue";
 import TourPage from "../components/tour/TourPage.vue";
@@ -135,6 +136,11 @@ const routes = [
     path: "/:mode/spot/:id?",
     component: EditSpot,
     meta: { isLogin: true }
+  },
+  {
+    path: "/map/:id",
+    component: Map,
+    meta: { isLogin: true, noHF: true }
   },
   {
     path: "/spot/:id",

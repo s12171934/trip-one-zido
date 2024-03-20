@@ -10,8 +10,8 @@
           >
         </h1>
         <div class="d-flex gap-2" id="left-category">
-          <button class="rounded-5">{{ spotData.category }}</button>
-          <button class="rounded-5">약도보기</button>
+          <button class="rounded-5" id="spot-data">{{ spotData.category }}</button>
+          <button @click="openSpotMap()" class="rounded-5">약도보기</button>
         </div>
       </div>
       <h6>
@@ -61,9 +61,7 @@
                   src="/images/like.png"
                 />{{ spotData.goodCount }}</span
               >
-              <span
-                class="comm"
-                :class="spotData.myGood == false ? 'like' : ''"
+              <span class="comm" :class="spotData.myGood == false ? 'like' : ''"
                 ><img
                   @click="$zido.toggleLike(spotData, false)"
                   id="unLike"
@@ -84,7 +82,10 @@
                 value="수정"
               />
               <input
-                @click="$zido.deleteSpot($route.params.id); $router.push('/member-page')"
+                @click="
+                  $zido.deleteSpot($route.params.id);
+                  $router.push('/member-page');
+                "
                 class="button alt small"
                 type="button"
                 value="삭제"
@@ -96,7 +97,7 @@
 
       <h4 class="p-2">여행한 후기</h4>
 
-      <textarea class="p-2" id="content" name="content" rows="5" cols="50">
+      <textarea class="p-2" id="content" name="content" rows="5" cols="50" readonly>
         {{ spotData.review }}
       </textarea>
 
@@ -104,7 +105,10 @@
         <div class="card bg-light">
           <div class="card-body">
             <form
-              @submit.prevent="$zido.addComment(spotData.id, comment); reloadComment()"
+              @submit.prevent="
+                $zido.addComment(spotData.id, comment);
+                reloadComment();
+              "
               class="border-bottom mb-3"
             >
               <input
@@ -122,7 +126,7 @@
               v-for="comment in spotData.comments"
               :first="true"
               :data="comment"
-              @reload = "reloadComment"
+              @reload="reloadComment"
             />
           </div>
         </div>
@@ -157,7 +161,7 @@ export default {
         bookmarkCount: null,
         myBookmark: null,
         title: null,
-        isPublic: null,
+        visibility: null,
         photos: null,
         members: [{}],
         comments: null,
@@ -167,9 +171,16 @@ export default {
     };
   },
   methods: {
-    async reloadComment(){
+    async reloadComment() {
       this.spotData = await this.$zido.getSpotData(this.$route.params.id);
-    }
+    },
+    openSpotMap() {
+      window.open(
+        `/map/${this.$route.params.id}`,
+        "",
+        "toolbar=no,scrollbars=no,resizable=no,top=100,left=300,width=1000,height=800"
+      );
+    },
   },
   async mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
@@ -287,15 +298,28 @@ textarea {
   height: 100%;
 }
 
-#left-category {
+/* #left-category {
   margin-right: left;
-}
+} */
+
 
 @media (max-width: 800px) {
   /* 원하는 크기로 설정 */
   #left-category button {
-    font-size: 0.5rem; /* 작은 폰트 크기 설정 */
-    padding: 0.5rem 1rem; /* 작은 버튼 크기 설정 */
+    font-size: 0.4rem; 
+    /* padding: 0.5rem 1rem; */
+    /* display: flex;
+    flex-wrap: wrap; */
+  }
+  .title, .p-2 {
+    white-space: nowrap; 
+    overflow: hidden;
+    /* text-overflow: ellipsis;  */
   }
 }
+
+#spot-data { 
+  cursor: default;
+}
+
 </style>

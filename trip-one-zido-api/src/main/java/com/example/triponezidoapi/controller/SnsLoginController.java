@@ -4,6 +4,8 @@ import com.example.triponezidoapi.dto.request.*;
 import com.example.triponezidoapi.service.SnsLoginService;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,15 +19,33 @@ public class SnsLoginController {
     @Autowired
     SnsLoginService snsLoginService;
     @GetMapping("/naver_login")
-    void naverLogin(@Parameter String code, @Parameter String state, HttpServletResponse response) throws IOException {
+    void naverLogin(@Parameter String code, @Parameter String state, HttpServletResponse response, HttpServletRequest request) throws IOException {
         String id = snsLoginService.naverLogin(code,state);
-        response.sendRedirect("http://localhost:3000/social/naver/" + id);
+        if(snsLoginService.isConnected("naver_id", id, request)){
+            Cookie loginCookie = new Cookie("login","1");
+            loginCookie.setPath("/");
+            response.addCookie(loginCookie);
+            response.sendRedirect("http://localhost:3000/");
+        }
+        else{
+            response.sendRedirect("http://localhost:3000/social/naver/" + id);
+        }
+
     }
 
     @GetMapping("/kakao_login")
-    void kakoLogin(@Parameter String code, HttpServletResponse response) throws IOException {
+    void kakoLogin(@Parameter String code, HttpServletResponse response,  HttpServletRequest request) throws IOException {
         String id = snsLoginService.kakaoLogin(code);
-        response.sendRedirect("http://localhost:3000/social/kakao/" + id);
+        if(snsLoginService.isConnected("kakao_id", id, request)){
+            Cookie loginCookie = new Cookie("login","1");
+            loginCookie.setPath("/");
+            response.addCookie(loginCookie);
+            response.sendRedirect("http://localhost:3000/");
+        }
+        else{
+            response.sendRedirect("http://localhost:3000/social/kakao/" + id);
+        }
+
     }
 
     @PutMapping("")

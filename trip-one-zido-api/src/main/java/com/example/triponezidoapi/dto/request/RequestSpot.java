@@ -14,7 +14,7 @@ public class RequestSpot {
     @Size(max = 200, message = "제목은 200자 이하로 작성해주세요")
     String title;
 
-    boolean isPublic;
+    boolean visibility;
 
     LocalDateTime startDate;
     LocalDateTime endDate;

@@ -22,7 +22,7 @@
             content c
         WHERE
             b.content_id = c.id AND
-            c.is_public = 1 AND
+            c.visibility = 1 AND
             b.member_id = #{memberId}
     </select>
 
@@ -47,7 +47,7 @@
         WHERE
             b.content_id = c.id AND
             c.type != 'tour' AND
-            c.is_public = 1 AND
+            c.visibility = 1 AND
             b.member_id = #{memberId}
     </select>
 
@@ -84,6 +84,7 @@
         FROM
             content c
         WHERE
+            type = 'tour' AND
             id IN
             (
             SELECT

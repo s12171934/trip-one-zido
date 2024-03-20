@@ -3,7 +3,7 @@
     <div class="inner">
       <h1>게시글 상세</h1>
       <br />
-      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <div class="d-grid gap-2 d-flex justify-content-end">
         <span class="button small rounded-3" id="mouseHover">{{
           detail.status
         }}</span>
@@ -18,14 +18,14 @@
       <form method="get" action="#">
         <!-- 테이블 -->
         <table id="table" class="border">
-          <tr>
+          <tr class="border-bottom">
             <td id="tdTitle">제목 :</td>
             <td id="black">{{ detail.title }}</td>
             <td id="tdTitle" class="border-start">작성자 :</td>
-            <td id="black">{{ detail.writer }}</td>
+            <td id="black">{{ detail.members[0].loginId }}</td>
           </tr>
 
-          <tr>
+          <tr class="border-bottom">
             <td>지역 :</td>
             <td>
               <option value="1" id="black">{{ detail.locCategory }}</option>
@@ -36,7 +36,7 @@
             </td>
           </tr>
 
-          <tr>
+          <tr class="border-bottom">
             <td>참여 인원 :</td>
             <td colspan="3" id="black">
               <span v-for="withMember in detail.members" class="me-2">{{
@@ -45,14 +45,14 @@
             </td>
           </tr>
 
-          <tr>
+          <tr class="border-bottom">
             <td>일정 :</td>
             <td id="black">{{ detail.startDate }} ~ {{ detail.endDate }}</td>
             <td class="border-start">모집 마감일 :</td>
-            <td id="black">{{ detail.deadLine }}</td>
+            <td id="black">{{ detail.deadline }}</td>
           </tr>
 
-          <tr>
+          <tr class="border-bottom">
             <td>작성일 :</td>
             <td id="black">{{ detail.createdAt }}</td>
             <td class="border-start">조회수 :</td>
@@ -76,7 +76,7 @@
         </table>
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-          <div v-if="detail.mine">
+          <div v-if="loginId == detail.members[0].loginId">
             <a @click="update" class="button alt small rounded-3"> 수정</a>
             <a
               @click="del"
@@ -88,7 +88,7 @@
             >
             <AlertModal :modal="modal" />
           </div>
-          <div v-else>
+          <div v-else-if="detail.members.length < detail.total">
             <a
               @click="participateOrCancel"
               class="button small rounded-3"
@@ -154,7 +154,10 @@ export default {
     this.id = this.$route.params.id;
     this.$zido
       .getCommunityDetail(this.$route.params.id)
-      .then((res) => (this.detail = res));
+      .then((res) => {
+        this.detail = res;
+        this.loginId = res.loginId;
+      });
   },
 
   methods: {
@@ -180,12 +183,17 @@ export default {
 
     async participateOrCancel() {
       // 타인 자신이 참여/참여취소 버튼 누르면
-      if (this.showSuccessModal) {
+      if (!(this.detail.members.find(member => member.loginId === this.loginId))) {
         await this.$zido.joinCommunity(this.$route.params.id);
+        this.showSuccessModal = true;
+        console.log(this.showSuccessModal);
+        this.detail.members.push({ loginId: this.loginId });
       } else {
         await this.$zido.joinCancleCommunity(this.$route.params.id);
+        this.showSuccessModal = false;
+        console.log(this.showSuccessModal);
+        this.detail.members.pop(this.loginId);
       }
-      this.showSuccessModal = !this.showSuccessModal;
     },
   },
 };
