@@ -1,5 +1,5 @@
 <template>
-  <main class="wrapper d-flex" id="wrapper">
+  <main class="wrapper d-flex">
     <!-- ★왼쪽 -->
     <div class="p-2 d-flex flex-column border-end" id="leftSide">
       <h1 class="title">장소 {{ mode == "add" ? "등록" : "수정" }}</h1>
@@ -53,7 +53,7 @@
             <h4>시간</h4>
           </td>
           <td>
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center" id="date-time">
               <div class="date-time">
                 <input
                   class="border-0"
@@ -159,10 +159,10 @@
             />
           </td>
         </tr>
-        <tr>
+        <tr id="rowbutton">
           <td>
-            <div class="select-wrapper" id="security">
-              <select class="local-select" v-model="spotData.visibility">
+            <div class="select-wrapper">
+              <select class="local-select" v-model="spotData.visibility" id="security">
                 <option value=true>공개</option>
                 <option value=false>비공개</option>
               </select>
@@ -358,56 +358,155 @@ textarea {
 .border-0 {
   color: black;
 }
-
-
-/* #photo-container {
-    display: flex;
-} */
-.date-time {
-    overflow: hidden; /* 내부 컨텐츠가 넘치지 않도록 설정 */
-    white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
-}
-td {
-    display: block;
-    width: 100%;
-}
-tr {
-    display: block;
-    margin-bottom: 10px;
+button, .button, select, input, textarea {
+  border-radius: 10px !important;
 }
 
 
-@media (max-width: 1120px) { /* 원하는 크기로 설정 */
+@media (max-width: 1460px) { /* 원하는 크기로 설정 */
   .wrapper {
+    flex-direction: column; /* 화면이 작아지면 컨텐츠를 세로로 배치 */
+  }
+  #leftSide, #rightSide {
+    width: 100%; /*각 요소를 꽉차게 설정 */
+  }
+  #rightSide {
+    order: 1; /*오른쪽 요소를 아래로 이동 */
+  }
+  #leftSide {
+    border-inline: none !important; /* border -end 제거*/ 
+  }
+  #photo-container {
+    height: 500px;
+  }
+  table {
+    width: 100%;
+  }
+}
+
+@media (max-width: 835px) {
+  table {
+    width: 100%;
+  }
+  table tr td:first-child,
+  table tr td:last-child {
+    width: 100%;
     display: block;
+  }
+  table tr td:last-child {
+    width: calc(100% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  table tr td h4 {
+    margin-bottom: 5px; /* 텍스트 입력 필드와의 간격 조절 */
+  }
+  #security {
+    width: 98%;
+  }
+}
+
+@media (max-width: 660px) {
+  table {
+    width: 100%;
+  }
+  table tr td:first-child,
+  table tr td:last-child {
+    width: 100%;
+    display: block;
+  }
+  table tr td:last-child {
+    width: calc(100% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  table tr td h4 {
+    margin-bottom: 5px; /* 텍스트 입력 필드와의 간격 조절 */
+  }
+  #date-time {
     flex-direction: column;
   }
-}
-  .member-container {
-  overflow: scroll;
-  overflow-y: hidden;
-  width: 970px;
-}
-/* 나머지 CSS는 이전에 작성된 것을 그대로 사용합니다. */
-}
-
-@media (max-width: 767px) {
-  /* 화면 크기가 767px 이하일 때의 스타일 */
-  /* 추가적인 스타일 조정이 필요한 경우 여기에 작성합니다. */
-  td {
-    display: block;
-    width: 30%;
+  .date-time, .date-time input {
+    width: 100%; /* 입력 필드의 너비를 100%로 설정하여 컬럼으로 변경 */
   }
-
-  tr {
-    display: block;
-    margin-bottom: 10px;
-}
-
-  #rightSide {
-    flex-grow: 1; /* rightSide가 가능한 최대 너비를 차지하도록 설정 */
+  #security {
+    width: 98%;
   }
-
 }
 
+@media (max-width: 635px) {
+  table tr td:last-child {
+    width: calc(95% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  #rowbutton .select-wrapper {
+    margin-right: 30px; /* select 요소 간의 간격 조절 */
+  }
+}
+
+@media (max-width: 600px) {
+  table tr td:last-child {
+    width: calc(90% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  #rowbutton .select-wrapper {
+    margin-right: 55px; /* select 요소 간의 간격 조절 */
+  }
+}
+
+@media (max-width: 570px) {
+  table tr td:last-child {
+    width: calc(85% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  #rowbutton .select-wrapper {
+    margin-right: 80px; /* select 요소 간의 간격 조절 */
+  }
+}
+
+@media (max-width: 540px) {
+  table tr td:last-child {
+    width: calc(80% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  #rowbutton .select-wrapper {
+    margin-right: 110px; /* select 요소 간의 간격 조절 */
+  }
+}
+
+@media (max-width: 500px) {
+  table tr td:last-child {
+    width: calc(75% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  #rowbutton .select-wrapper {
+    margin-right: 140px; /* select 요소 간의 간격 조절 */
+  }
+}
+
+@media (max-width: 450px) {
+  table tr td:last-child {
+    width: calc(70% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  #rowbutton .select-wrapper {
+    margin-right: 170px; /* select 요소 간의 간격 조절 */
+  }
+}
+
+@media (max-width: 430px) {
+  table tr td:last-child {
+    width: calc(65% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  #rowbutton .select-wrapper {
+    margin-right: 195px; /* select 요소 간의 간격 조절 */
+  }
+}
+@media (max-width: 400px) {
+  table tr td:last-child {
+    width: calc(60% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  #rowbutton .select-wrapper {
+    margin-right: 220px; /* select 요소 간의 간격 조절 */
+  }
+}
+
+@media (max-width: 370px) {
+  table tr td:last-child {
+    width: calc(55% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  #rowbutton .select-wrapper {
+    margin-right: 250px; /* select 요소 간의 간격 조절 */
+  }
+}
 </style>

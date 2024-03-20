@@ -120,4 +120,16 @@ span {
 #subTitle {
   margin-top: 5%;
 }
+
+@media (max-width: 700px) {
+  .button.alt, input {
+    font-size: 0.9rem; /* 작은 화면에서 버튼 텍스트 크기를 줄입니다. */
+  }
+}
+
+@media (max-width: 545px) {
+  .button.alt, input {
+    font-size: 0.8rem; /* 작은 화면에서 버튼 텍스트 크기를 줄입니다. */
+  }
+}
 </style>

@@ -22,23 +22,23 @@
             <td id="tdTitle">제목 :</td>
             <td id="black">{{ detail.title }}</td>
             <td id="tdTitle" class="border-start">작성자 :</td>
-            <td id="black">{{ detail.members[0].loginId }}</td>
+            <td >{{ detail.members[0].loginId }}</td>
           </tr>
 
           <tr class="border-bottom">
             <td>지역 :</td>
-            <td>
-              <option value="1" id="black">{{ detail.locCategory }}</option>
+            <td id="black">
+              <option value="1">{{ detail.locCategory }}</option>
             </td>
             <td class="border-start">모집 인원 :</td>
-            <td id="black">
+            <td >
               {{ detail.members.length }}/{{ detail.total }} 명
             </td>
           </tr>
 
           <tr class="border-bottom">
             <td>참여 인원 :</td>
-            <td colspan="3" id="black">
+            <td colspan="3">
               <span v-for="withMember in detail.members" class="me-2">{{
                 withMember.loginId
               }}</span>
@@ -49,14 +49,14 @@
             <td>일정 :</td>
             <td id="black">{{ detail.startDate }} ~ {{ detail.endDate }}</td>
             <td class="border-start">모집 마감일 :</td>
-            <td id="black">{{ detail.deadline }}</td>
+            <td>{{ detail.deadline }}</td>
           </tr>
 
           <tr class="border-bottom">
             <td>작성일 :</td>
             <td id="black">{{ detail.createdAt }}</td>
             <td class="border-start">조회수 :</td>
-            <td id="black">{{ detail.viewPoint }}</td>
+            <td>{{ detail.viewPoint }}</td>
           </tr>
 
           <tr>
@@ -287,6 +287,13 @@ table tbody tr {
   .d-grid {
     font-size: 12px !important;
     padding: 5px !important;
+  }
+
+  #black {
+    border-bottom: 1px solid #ddd;
+  }
+  td.border-start {
+    border-inline: none !important;
   }
 }
 
