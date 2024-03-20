@@ -14,7 +14,7 @@
     <ContentList
       :list="RecentViewData.recentList"
       :addApi="`/api/content/recent-view/`"
-      :maxLen="20"
+      :maxLen="RecentViewData.recentViewCount"
     />
   </main>
 </template>

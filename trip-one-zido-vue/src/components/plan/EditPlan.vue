@@ -104,7 +104,7 @@
         </tr>
         <tr>
           <td colspan="2" class="map">
-            <KakaoMapForEditPlan />
+            <KakaoMapForEditPlan :spots="planData.spots" />
           </td>
         </tr>
 
@@ -465,3 +465,4 @@ textarea {
     }
   }
 </style>
+../util/KakaoMapForPlanDetail.vue

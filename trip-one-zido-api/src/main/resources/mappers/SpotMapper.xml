@@ -193,7 +193,7 @@
                 FROM
                     owner
                 WHERE
-                    member_id = 9
+                    member_id = #{id}
             )
     </select>
 

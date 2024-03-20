@@ -14,4 +14,8 @@ public interface SearchMapper {
     List<ResponseContentList> searchPlan(RequestSearch requestSearch);
     List<ResponseContentList> detailSearchSpot(RequestDetailSearch requestDetailSearch);
     List<ResponseContentList> detailSearchPlan(RequestDetailSearch requestDetailSearch);
+
+    int countMember(String keyword);
+    int countSpot(String keyword);
+    int countPlan(String keyword);
 }
