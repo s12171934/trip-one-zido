@@ -375,6 +375,7 @@ textarea {
   }
   #photo-conteainer {
     height: 500px !important;
+
   }
 }
 

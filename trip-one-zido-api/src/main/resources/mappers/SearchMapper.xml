@@ -20,12 +20,12 @@
             c.title,
             s.grade,
             (
-            SELECT
-                photo
-            FROM
-                photo
-            WHERE
-                content_id = c.id
+                SELECT
+                    photo
+                FROM
+                    photo
+                WHERE
+                    id = s.profile_id
             ) photo,
             (
             SELECT
@@ -51,13 +51,32 @@
                 good
             WHERE
                 content_id = c.id
-            ) good_count
+            ) good_count,
+            c.type
         FROM
             content c,
             spot s
         WHERE
             c.id = s.id AND
-            c.title LIKE CONCAT('%', #{keyword}, '%')
+            c.title LIKE CONCAT('%', #{keyword}, '%') AND
+            (
+                (
+                SELECT visibility
+                FROM content
+                WHERE id = (
+                    SELECT plan_id
+                    FROM plan_spot
+                    WHERE spot_id = c.id
+                )
+                ) = 1 OR
+                visibility = 1 AND
+                NOT EXISTS (
+                    SELECT 1
+                    FROM plan_spot
+                    WHERE spot_id = c.id
+                ) OR
+                c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+            )
         LIMIT
             #{page}, 6
     </select>
@@ -99,13 +118,18 @@
                     good
                 WHERE
                     content_id = c.id
-            ) good_count
+            ) good_count,
+            c.type
         FROM
             content c,
             plan p
         WHERE
             c.id = p.id AND
-            c.title LIKE CONCAT('%', #{keyword}, '%')
+            c.title LIKE CONCAT('%', #{keyword}, '%') AND
+            (
+                visibility = 1 OR
+                c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+            )
         LIMIT
             #{page}, 6
     </select>
@@ -121,7 +145,7 @@
         FROM
         photo
         WHERE
-        content_id = c.id
+        id = s.profile_id
         ) photo,
         (
         SELECT
@@ -147,7 +171,8 @@
         good
         WHERE
         content_id = c.id
-        ) good_count
+        ) good_count,
+        c.type
         FROM
         content c,
         spot s
@@ -208,7 +233,8 @@
                     good
                 WHERE
                     content_id = c.id
-            ) good_count
+            ) good_count,
+            c.type
         FROM
             content c,
             plan p
@@ -229,5 +255,32 @@
         </if>
         LIMIT
             #{page}, 6
+    </select>
+
+    <select id="countMember" resultType="int" parameterType="string">
+        SELECT
+            COUNT(*)
+        FROM
+            member
+        WHERE
+            login_id LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+
+    <select id="countPlan" resultType="int" parameterType="string">
+        SELECT
+            COUNT(*)
+        FROM
+            content
+        WHERE
+            title LIKE CONCAT('%', #{keyword}, '%') AND type = 'plan'
+    </select>
+
+    <select id="countSpot" resultType="int" parameterType="string">
+        SELECT
+            COUNT(*)
+        FROM
+            content
+        WHERE
+            title LIKE CONCAT('%', #{keyword}, '%') AND type = 'spot'
     </select>
 </mapper>

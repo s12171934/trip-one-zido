@@ -128,7 +128,8 @@
                 FROM
                     photo
                 WHERE
-                    content_id = c.id
+                    content_id = c.id AND
+                    (profile_id is null OR profile_id = photo.id)
             ) photo,
             (
                 SELECT
@@ -161,24 +162,46 @@
             (
                 SELECT
                     id,
-                    grade
+                    grade,
+                    profile_id
                 FROM spot
                 UNION
                 SELECT
                     id,
-                    grade
+                    grade,
+                    null
                 FROM plan
                 UNION
                 SELECT
                     id,
-                    0 COMN
+                    0 COMN,
+                    null
                 FROM tour
             ) sp,
             open_content o
         WHERE
             c.id = sp.id and
             o.content_id = c.id and
-            o.member_id = #{myMemberId}
+            o.member_id = #{myMemberId} AND
+            (
+             visibility = 1 AND
+             (
+                 SELECT visibility
+                 FROM content
+                 WHERE id = (
+                     SELECT plan_id
+                     FROM plan_spot
+                     WHERE spot_id = c.id
+                 )
+             ) = 1 OR
+             visibility = 1 AND
+             NOT EXISTS (
+                 SELECT 1
+                 FROM plan_spot
+                 WHERE spot_id = c.id
+             ) OR
+             c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+            )
         ORDER BY
             opened_at DESC
         LIMIT
