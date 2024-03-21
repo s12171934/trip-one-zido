@@ -112,8 +112,8 @@ class SearchApiControllerTest {
         RequestDetailSearch requestDetailSearch = new RequestDetailSearch();
         requestDetailSearch.setMyMemberId(9L);
         requestDetailSearch.setKeyword("spring에 있는 값이 세팅 될거에여");
-        requestDetailSearch.setLocCategory("경기도");
-        requestDetailSearch.setCategory("일정");
+        requestDetailSearch.setLocCategory(31);
+        requestDetailSearch.setCategory(1);
         requestDetailSearch.setSeason("spring");
         requestDetailSearch.setStartMonth(3);
         requestDetailSearch.setEndMonth(5);
