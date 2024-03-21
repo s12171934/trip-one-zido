@@ -64,7 +64,7 @@
     </div>
 
     <div class="d-grid gap-2 justify-content-md-end">
-      <a @click="add" class="button small rounded-3">등록</a>
+      <a @click="add" class="button small rounded-3" id="button-add">등록</a>
     </div>
 
     <nav v-show="!searchStatus" aria-label="Page navigation example">
@@ -348,14 +348,12 @@ table tbody tr {
   }
 
   .button.small {
-    font-size: 6px;
-    padding: 4px 6px !important;
+    font-size: 10px;
   }
   #searchBar select,
   #searchBar input[type="text"],
   #searchBar button {
     font-size: 4px !important;
-    padding: 4px !important;
   }
   
   .table-wrapper, #leftPosition {
@@ -366,13 +364,16 @@ table tbody tr {
 
     /* 페이지네이션 요소들의 크기를 작게 조정 */
     .pagination .page-item .page-link {
-    font-size: 6px !important;
+    font-size: 10px !important;
     padding: 2px 4px !important;
   }
 }
 @media (max-width: 768px) {
-  .d-grid {
-    display: initial !important;
+  #button-add {
+    width: 15%;
+    margin-left: auto;
+    padding: 0;
+    margin-bottom: 5%;
   }
 }
 
@@ -387,8 +388,9 @@ table tbody tr {
   }
 
   .button.small {
-    font-size: 12px !important;
+    margin-top: 2% !important;
   }
+
   #searchBar select,
   #searchBar input[type="text"],
   #searchBar button {
@@ -413,12 +415,13 @@ thead tr {
     font-size: small; /* 원하는 폰트 사이즈 변경 가능 */
   }
   #button-add {
-    font-size: 3%;
-    width: 20%;
     margin-left: auto;
     padding: 0%;
-    margin-top: 3%;
-    margin-bottom: 10%;
   }
+
+  .select-wrapper {
+    width: 27%;
+  }
+
 }
 </style>

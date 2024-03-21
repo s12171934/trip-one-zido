@@ -21,7 +21,7 @@
           />
         </div>
       </div>
-      <table>
+      <table class="leftTable">
         <tr>
           <td scope="col">
             <h4 class="title-col">일정 제목</h4>
@@ -504,5 +504,6 @@ textarea {
     width: 70% !important;
     }
 }
+
 </style>
 ../util/KakaoMapForPlanDetail.vue

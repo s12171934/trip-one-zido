@@ -313,6 +313,5 @@ select {
   .button {
     font-size: 10px;  /* 버튼의 너비 조정 */
   }
-  
 } 
 </style>

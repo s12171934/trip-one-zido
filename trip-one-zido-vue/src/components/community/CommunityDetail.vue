@@ -7,11 +7,11 @@
         <span class="button small rounded-3" id="mouseHover">{{
           detail.status
         }}</span>
-        <a href="/community" class="button alt small rounded-3">목록</a>
+        <a href="/community" class="button alt small rounded-3" id="button-high">목록</a>
         <!-- 현재 id-1 : 이전글 / 현재 id+1 : 다음글   -->
         <!-- <a href="/html-css/community/detail/detail.html" id="button2" class="button small rounded-3">이전글</a> -->
-        <a @click="goToPreviousPost" class="button small rounded-3">이전글</a>
-        <a @click="goToNextPost" class="button small rounded-3">다음글</a>
+        <a @click="goToPreviousPost" class="button small rounded-3" id="button-high">이전글</a>
+        <a @click="goToNextPost" class="button small rounded-3" id="button-high">다음글</a>
       </div>
       <br />
 
@@ -297,4 +297,12 @@ table tbody tr {
   }
 }
 
+
+@media (max-width: 500px) {
+  #button-high, #mouse-hover {
+    display: block;
+    width: 20%;
+    padding: 0;
+  }
+}
 </style>

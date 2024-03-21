@@ -239,4 +239,11 @@ textarea {
     max-width: 100% !important;
   }
 }
+
+@media screen and (max-width: 400px) {
+  .button {
+    width: 30%;
+    padding: 0;
+  }
+}
 </style>

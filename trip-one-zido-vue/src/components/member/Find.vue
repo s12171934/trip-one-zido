@@ -167,5 +167,8 @@ h1 {
   h1{
     font-size: 21px !important;
   }
+  .button {
+    padding: 0;
+  }
 }
 </style>

@@ -46,4 +46,10 @@ export default {
 h3 {
   color: rgb(80, 80, 80) !important;
 }
+
+@media (max-width: 380px) {
+  #p-2 {
+    font-size: 10%;
+  }
+}
 </style>
