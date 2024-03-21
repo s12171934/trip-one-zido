@@ -356,6 +356,10 @@ textarea {
  button {
   font-size: small;
  } 
+ .title-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 @media (max-width: 638px) {

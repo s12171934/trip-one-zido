@@ -72,6 +72,7 @@
             class="button small rounded-3"
             data-bs-toggle="modal"
             data-bs-target="#alertModal"
+            id="button-css"
           >
             {{ $route.params.mode == 'add' ? '등록' : '수정' }}</a
           >
@@ -79,6 +80,7 @@
             @click="$router.push('/community')"
             class="button alt small rounded-3"
             type="button"
+            id="button-css"
             value="취소"
           />
         </div>
@@ -223,6 +225,9 @@ textarea {
   tr {
     display: block !important;
     margin-bottom: 10px !important;
+  }
+  #button-css {
+    width: 20%;
   }
 }
 

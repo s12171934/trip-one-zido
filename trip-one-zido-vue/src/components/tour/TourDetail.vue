@@ -39,7 +39,7 @@
           />
           <h5 class="ms-2">{{ tour.bookmarkCount }}</h5>
         </div>
-        <div class="fs-5 mb-5">
+        <div class="fs-5 mb-5 mt-2" id="text-css">
           <span>・관광지 한줄 설명</span>
           <p id="explanation">
             {{ tour.info }}
@@ -101,5 +101,34 @@ img {
   vertical-align: top;
   width: 100%;
   height: 100%;
+}
+
+@media (max-width: 767px) { /* 원하는 크기로 설정 */
+  
+  .actions {
+    display: flex; /* 버튼을 가로로 나열하기 위해 flex로 설정 */
+    padding: none;
+    width: 100%;
+    justify-content: space-between; /* 버튼 사이의 간격을 조절 */
+    margin-right: 10px; /* 버튼 사이 간격 추가 */
+  }
+
+  .display-5 {
+    margin-top: 5%;
+    margin-left: 3%;
+  }
+
+  #explanation {
+    margin-left: 6%;
+  }
+
+ 
+}
+@media screen and (max-width: 480px) { /* 원하는 크기로 설정 */
+  
+  ul.actions li > * {
+    width: 90%;
+    margin: 0 !important;
+  }
 }
 </style>
