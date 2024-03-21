@@ -19,7 +19,7 @@
               </div>
             </td>
             <td id="tdTitle" class="border-start">여행 일정</td>
-            <td id="tdSelect">
+            <td>
               <input type="date" v-model="communityData.startDate" /> ~
               <input type="date" v-model="communityData.endDate" />
             </td>
@@ -27,7 +27,7 @@
 
           <tr class="border-bottom">
             <td>모집 인원</td>
-            <td>
+            <td id="tdSelect">
               <div class="select-wrapper" id="table-select">
                 <select class="local-select" v-model="communityData.total">
                   <option value="" selected>인원 선택</option>
@@ -221,18 +221,20 @@ textarea {
     display: block !important;
     width: 100% !important;
   }
-
   tr {
     display: block !important;
     margin-bottom: 10px !important;
   }
-  #button-css {
-    width: 20%;
+
+  #tdSelect {
+    border-bottom: 1px solid #ddd;
+  }
+  td.border-start {
+    border-inline: none !important;
   }
 }
 
 @media screen and (max-width: 1300px) {
-  
   .inner {
     max-width: 100% !important;
   }

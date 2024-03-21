@@ -404,5 +404,19 @@ colgroup col {
 .fc-scrollgrid-shrink-cushion {
   margin-right: 3%;
 }
+@media (max-width: 1460px) { /* 원하는 크기로 설정 */
+  .wrapper {
+    flex-direction: column; /* 화면이 작아지면 컨텐츠를 세로로 배치 */
+  }
+  #leftSide, #rightSide {
+    width: 100%; /*각 요소를 꽉차게 설정 */
+  }
+  #rightSide {
+    order: 1; /*오른쪽 요소를 아래로 이동 */
+  }
+  #leftSide {
+    border-inline: none !important; /* border -end 제거*/ 
+  }
+}
 </style>
 ../util/modal/EditSpotModal.vue../util/KakaoMapForPlanDetail.vue

@@ -201,8 +201,8 @@ span {
 }
 
 img {
-  width: 50%;
-  height: 100%;
+  width: 250px;
+  height: 250px;
 }
 
 #edit-profile:hover {
@@ -248,6 +248,12 @@ img {
   #add{
     margin-bottom: -60%;
     margin-top: 5%;
+  }
+}
+
+@media (max-width: 1460px) {
+  .wrapper {
+    flex-direction: initial !important; 
   }
 }
 </style>

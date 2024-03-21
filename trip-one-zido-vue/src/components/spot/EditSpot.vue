@@ -53,7 +53,7 @@
             <h4>시간</h4>
           </td>
           <td>
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center" id="date-time">
               <div class="date-time">
                 <input
                   class="border-0"
@@ -159,10 +159,10 @@
             />
           </td>
         </tr>
-        <tr>
+        <tr id="rowbutton">
           <td>
-            <div class="select-wrapper" id="security">
-              <select class="local-select" v-model="spotData.visibility">
+            <div class="select-wrapper">
+              <select class="local-select" v-model="spotData.visibility" id="security">
                 <option value=true>공개</option>
                 <option value=false>비공개</option>
               </select>
@@ -358,6 +358,9 @@ textarea {
 .border-0 {
   color: black;
 }
+button, .button, select, input, textarea {
+  border-radius: 10px !important;
+}
 
 
 @media (max-width: 1460px) { /* 원하는 크기로 설정 */
@@ -373,19 +376,137 @@ textarea {
   #leftSide {
     border-inline: none !important; /* border -end 제거*/ 
   }
-  #photo-conteainer {
-    height: 500px !important;
-
+  #photo-container {
+    height: 500px;
   }
-}
-
-@media (max-width: 835px) {
-  #photo-conteainer {
-    height: 500px !important;
-  }
-  #rightSide {
+  table {
     width: 100%;
   }
 }
 
+@media (max-width: 835px) {
+  table {
+    width: 100%;
+  }
+  table tr td:first-child,
+  table tr td:last-child {
+    width: 100%;
+    display: block;
+  }
+  table tr td:last-child {
+    width: calc(100% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  table tr td h4 {
+    margin-bottom: 5px; /* 텍스트 입력 필드와의 간격 조절 */
+  }
+  #security {
+    width: 98%;
+  }
+}
+
+@media (max-width: 660px) {
+  table {
+    width: 100%;
+  }
+  table tr td:first-child,
+  table tr td:last-child {
+    width: 100%;
+    display: block;
+  }
+  table tr td:last-child {
+    width: calc(100% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  table tr td h4 {
+    margin-bottom: 5px; /* 텍스트 입력 필드와의 간격 조절 */
+  }
+  #date-time {
+    flex-direction: column;
+  }
+  .date-time, .date-time input {
+    width: 100%; /* 입력 필드의 너비를 100%로 설정하여 컬럼으로 변경 */
+  }
+  #security {
+    width: 98%;
+  }
+}
+
+@media (max-width: 635px) {
+  table tr td:last-child {
+    width: calc(95% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  #rowbutton .select-wrapper {
+    margin-right: 30px; /* select 요소 간의 간격 조절 */
+  }
+}
+
+@media (max-width: 600px) {
+  table tr td:last-child {
+    width: calc(90% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  #rowbutton .select-wrapper {
+    margin-right: 55px; /* select 요소 간의 간격 조절 */
+  }
+}
+
+@media (max-width: 570px) {
+  table tr td:last-child {
+    width: calc(85% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  #rowbutton .select-wrapper {
+    margin-right: 80px; /* select 요소 간의 간격 조절 */
+  }
+}
+
+@media (max-width: 540px) {
+  table tr td:last-child {
+    width: calc(80% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  #rowbutton .select-wrapper {
+    margin-right: 110px; /* select 요소 간의 간격 조절 */
+  }
+}
+
+@media (max-width: 500px) {
+  table tr td:last-child {
+    width: calc(75% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  #rowbutton .select-wrapper {
+    margin-right: 140px; /* select 요소 간의 간격 조절 */
+  }
+}
+
+@media (max-width: 450px) {
+  table tr td:last-child {
+    width: calc(70% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  #rowbutton .select-wrapper {
+    margin-right: 170px; /* select 요소 간의 간격 조절 */
+  }
+}
+
+@media (max-width: 430px) {
+  table tr td:last-child {
+    width: calc(65% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  #rowbutton .select-wrapper {
+    margin-right: 195px; /* select 요소 간의 간격 조절 */
+  }
+}
+@media (max-width: 400px) {
+  table tr td:last-child {
+    width: calc(60% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  #rowbutton .select-wrapper {
+    margin-right: 220px; /* select 요소 간의 간격 조절 */
+  }
+}
+
+@media (max-width: 370px) {
+  table tr td:last-child {
+    width: calc(55% - 10px); /* 텍스트 입력 필드의 너비 조정 */
+  }
+  #rowbutton .select-wrapper {
+    margin-right: 250px; /* select 요소 간의 간격 조절 */
+  }
+}
 </style>

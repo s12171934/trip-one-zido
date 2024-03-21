@@ -118,7 +118,7 @@ export default {
 
 <style scoped>
 img {
-  width: 100%;
+  width: 260px;
   height: 260px;
 }
 
@@ -155,5 +155,4 @@ button {
     }
   }
 }
-
 </style>

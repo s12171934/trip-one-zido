@@ -63,7 +63,7 @@
       </table>
     </div>
 
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end" id="button-add">
+    <div class="d-grid gap-2 justify-content-md-end">
       <a @click="add" class="button small rounded-3">등록</a>
     </div>
 
@@ -363,9 +363,20 @@ table tbody tr {
     /* overflow: hidden; */
     text-overflow: ellipsis; 
   }
+
+    /* 페이지네이션 요소들의 크기를 작게 조정 */
+    .pagination .page-item .page-link {
+    font-size: 6px !important;
+    padding: 2px 4px !important;
+  }
+}
+@media (max-width: 768px) {
+  .d-grid {
+    display: initial !important;
+  }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 840px) {
   /* 전체적인 요소들의 크기와 글꼴 크기를 작게 조정 */
   #leftPosition h1 {
     font-size: 20px !important;
@@ -376,14 +387,30 @@ table tbody tr {
   }
 
   .button.small {
-    font-size: 10px;
-    padding: 8px 10px;
+    font-size: 12px !important;
   }
   #searchBar select,
   #searchBar input[type="text"],
   #searchBar button {
     font-size: 10px !important;
-    padding: 8px !important;
+  }
+}
+
+/* 테이블 머리글 설정 */
+thead tr {
+  font-size: large; /* 원하는 폰트 사이즈 변경 가능 */
+}
+
+@media (max-width: 860px) {
+    /* 테이블 머리글 설정 */
+    thead tr {
+    font-size: medium; /* 원하는 폰트 사이즈 변경 가능 */
+  }
+}
+@media (max-width: 610px) {
+    /* 테이블 머리글 설정 */
+    thead tr {
+    font-size: small; /* 원하는 폰트 사이즈 변경 가능 */
   }
   #button-add {
     font-size: 3%;
