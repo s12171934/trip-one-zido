@@ -28,7 +28,7 @@
             <td>{{ list.deadline }}</td>
             <td>{{ list.viewPoint }}</td>
             <td>{{ list.withCount }} / {{ list.total }}</td>
-            <td>{{ list.status }}</td>
+            <td>{{ list.status == 0 ? "모집중" : "마감" }}</td>
           </tr>
         </tbody>
       </table>
