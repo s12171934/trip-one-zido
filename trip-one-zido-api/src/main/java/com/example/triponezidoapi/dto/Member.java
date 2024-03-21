@@ -39,6 +39,6 @@ public class Member {
     String address2;
     @Past
     LocalDateTime birth;
-    @NotEmpty
+    @NotNull
     int gender;
 }

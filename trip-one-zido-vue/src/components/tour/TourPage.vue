@@ -10,7 +10,7 @@
         v-model="loc"
       >
         <option v-for="location in selectLocations" :value="location">
-          {{ location }}
+          {{ location.value }}
         </option>
       </select>
     </div>
