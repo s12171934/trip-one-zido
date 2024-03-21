@@ -55,7 +55,7 @@ class BookmarkApiControllerTest {
         contentList.setBookmarkCount(1);
         contentList.setGoodCount(1);
         contentList.setGrade(1);
-        contentList.setMyBookmark(1);
+        contentList.setMyBookmark(true);
         contentList.setPin(1);
         contentLists.add(contentList);
 
@@ -99,7 +99,7 @@ class BookmarkApiControllerTest {
         contentList.setBookmarkCount(1);
         contentList.setGoodCount(1);
         contentList.setGrade(1);
-        contentList.setMyBookmark(1);
+        contentList.setMyBookmark(true);
         contentList.setPin(1);
         contentLists.add(contentList);
 

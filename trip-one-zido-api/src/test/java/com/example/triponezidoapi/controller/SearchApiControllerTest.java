@@ -55,7 +55,7 @@ class SearchApiControllerTest {
         planList1.setTitle("일정 검색 테스트용");
         planList1.setPhoto(null);
         planList1.setGrade(9);
-        planList1.setMyBookmark(1);
+        planList1.setMyBookmark(true);
         planList1.setGoodCount(2);
         planList1.setBookmarkCount(5);
         planList1.setPin(5);
@@ -68,7 +68,7 @@ class SearchApiControllerTest {
         spotList1.setPhoto(null);
         spotList1.setBookmarkCount(100);
         spotList1.setGoodCount(50);
-        spotList1.setMyBookmark(9);
+        spotList1.setMyBookmark(true);
         spotList1.setGrade(85);
         spotList1.setPin(9);
         spotList.add(spotList1);
@@ -76,7 +76,7 @@ class SearchApiControllerTest {
         responseSearch.setMemberList(memberList);
         responseSearch.setPlanList(planList);
         responseSearch.setSpotList(spotList);
-        responseSearch.setUserCount(memberList.size());
+        responseSearch.setMemberCount(memberList.size());
         responseSearch.setPlanCount(planList.size());
         responseSearch.setSpotCount(spotList.size());
         responseSearch.setKeyword("검색테스트");
@@ -126,7 +126,7 @@ class SearchApiControllerTest {
         planList1.setTitle("일정 검색 테스트용");
         planList1.setPhoto(null);
         planList1.setGrade(9);
-        planList1.setMyBookmark(1);
+        planList1.setMyBookmark(true);
         planList1.setGoodCount(2);
         planList1.setBookmarkCount(5);
         planList1.setPin(5);
@@ -139,7 +139,7 @@ class SearchApiControllerTest {
         spotList1.setPhoto(null);
         spotList1.setBookmarkCount(100);
         spotList1.setGoodCount(50);
-        spotList1.setMyBookmark(9);
+        spotList1.setMyBookmark(true);
         spotList1.setGrade(85);
         spotList1.setPin(9);
         spotList.add(spotList1);

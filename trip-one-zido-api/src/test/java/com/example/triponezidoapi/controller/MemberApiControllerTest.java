@@ -357,7 +357,7 @@ class MemberApiControllerTest {
     void putProfile() throws Exception {
         //생성자 작성시, 실제 service 코드에서 빨간줄
         RequestPhoto requestPhoto = new RequestPhoto();
-        requestPhoto.setContentId(125);
+        requestPhoto.setContentId(125L);
         requestPhoto.setPhoto(null);
 
         // ObjectMapper 객체 생성

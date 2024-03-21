@@ -41,7 +41,7 @@ public class PageService {
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(sessionId);
         requestSessionTarget.setTargetId(id);
-        requestSessionTarget.setSort("created_at");
+        requestSessionTarget.setSort("created_at DESC");
 
         //planLists
         memberPage.setPlanLists(planMapper.getPlanList(requestSessionTarget));
@@ -80,7 +80,7 @@ public class PageService {
         requestSessionTarget.setMyMemberId(sessionId);
         requestSessionTarget.setTargetId(id);
         requestSessionTarget.setPage(page * 6);
-        requestSessionTarget.setSort(sort == null ? "created_at" : sort);
+        requestSessionTarget.setSort(sort == null ? "created_at DESC" : sort);
 
 
         return planMapper.getPlanList(requestSessionTarget);
@@ -91,7 +91,7 @@ public class PageService {
         requestSessionTarget.setMyMemberId(sessionId);
         requestSessionTarget.setTargetId(id);
         requestSessionTarget.setPage(page * 6);
-        requestSessionTarget.setSort(sort == null ? "created_at" : sort);
+        requestSessionTarget.setSort(sort == null ? "created_at DESC" : sort);
 
 
         return spotMapper.getSpotList(requestSessionTarget);

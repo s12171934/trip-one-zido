@@ -181,8 +181,8 @@
                 ) OR
                 c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
             )
---          ORDER BY
---              ${sort}
+        ORDER BY
+            ${sort}
         LIMIT
             #{page}, 6
     </select>
