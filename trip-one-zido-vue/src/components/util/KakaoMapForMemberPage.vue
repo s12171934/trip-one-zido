@@ -82,7 +82,7 @@ export default {
               strokeColor: "#ff928e",
               strokeOpacity: 1,
               strokeStyle: "solid",
-              fillColor: locmap.color,
+              fillColor: data.locFrequencyColor[Math.floor(locmap.count / 5)],
               fillOpacity: 1,
             });
 

@@ -242,6 +242,7 @@ export default {
   watch: {
     editData() {
       this.responseSpotData = this.editData;
+      document.getElementById('address').value = this.editData.address;
     },
   },
 };

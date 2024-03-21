@@ -6,6 +6,8 @@ import com.example.triponezidoapi.mappers.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PlanService {
     @Autowired
@@ -27,7 +29,13 @@ public class PlanService {
         responsePlanDetail = planMapper.getPlan(requestSessionTarget);
 
         // getSpot
-        responsePlanDetail.setSpots(planMapper.getSpot(id));
+        //List<ResponseSpotPlan> spots; 여기에 플랜에 붙은 스팟게시글을 불러와야함
+        //ResponseSpotPlan 안에 사진 배열이 존재함
+        List<ResponseSpotPlan> responseSpotPlan = planMapper.getSpot(id);
+        for(int i =0; i < responseSpotPlan.size(); i++){
+            responseSpotPlan.get(i).setPhotos(spotMapper.getPhoto(responseSpotPlan.get(i).getId()));
+        }
+        responsePlanDetail.setSpots(responseSpotPlan);
 
         // getOwner
         responsePlanDetail.setMembers(contentMapper.getOwner(id));
@@ -64,7 +72,6 @@ public class PlanService {
         // addPlan
         requestPlan.setId(generatedId);
         planMapper.addPlan(requestPlan);
-
 
         // addSpot - 장소게시글 번호만 plan_spot에 등록
         for (int i = 0; i < requestPlan.getSpots().size(); i++) {
@@ -134,7 +141,6 @@ public class PlanService {
         requestTitle.setTitle(requestPlan.getTitle());
         contentMapper.updateTitle(requestTitle);
 
-
         // deleteOwner - 이전에 등록된 동행인(해당 게시글의 동행인 조회) 삭제
         for (int i = 0; i < requestPlan.getMembers().size(); i++) {
             RequestContentMember requestContentMember = new RequestContentMember();
@@ -150,6 +156,67 @@ public class PlanService {
             requestOwner.setContentId(id);
             requestOwner.setMemberId(requestPlan.getMembers().get(i).getId());
             contentMapper.addOwner(requestOwner);
+        }
+        //spotUpdate
+        for(int i =0; i < requestPlan.getSpots().size(); i++){
+            RequestSpot requestSpot = new RequestSpot();
+            if(requestPlan.getSpots().get(i).getId() == 0){
+                //일정 게시글 수정 클릭후 장소를 신규등록 할 경우
+                //Content테이블에 우선 등록
+                RequestContent requestContent = new RequestContent();
+                requestContent.setType("spot");
+                requestContent.setVisibility(requestPlan.isVisibility());
+                requestContent.setTitle(requestPlan.getSpots().get(i).getTitle());
+                contentMapper.addContent(requestContent);
+                Long generatedId = requestContent.getId();
+
+                requestSpot = requestPlan.getSpots().get(i);
+                requestSpot.setLocCategory(requestPlan.getLocCategory());
+                requestSpot.setId(generatedId);
+                requestSpot.setStartDate(
+                        requestSpot.getStartDate().plusSeconds(60 * 60 * 9)
+                );
+
+                requestSpot.setEndDate(
+                        requestSpot.getEndDate().plusSeconds(60 * 60 * 9)
+                );
+                spotMapper.addSpot(requestSpot);
+
+                //plan_spot에 등록
+                RequestPlanSpot requestPlanSpot = new RequestPlanSpot();
+                requestPlanSpot.setPlanId(id);
+                requestPlanSpot.setSpotId(generatedId);
+                planMapper.addSpot(requestPlanSpot);
+            } else {
+                //기존에 있는 장소게시글 수정일 경우
+                requestSpot.setId(requestPlan.getSpots().get(i).getId());
+                requestSpot.setCategory(requestPlan.getSpots().get(i).getCategory());
+                requestSpot.setLocCategory(requestPlan.getLocCategory());
+                requestSpot.setStartDate(requestPlan.getSpots().get(i).getStartDate());
+                requestSpot.setEndDate(requestPlan.getSpots().get(i).getEndDate());
+                requestSpot.setAddress(requestPlan.getSpots().get(i).getAddress());
+                requestSpot.setAddress2(requestPlan.getSpots().get(i).getAddress2());
+                requestSpot.setGrade(requestPlan.getSpots().get(i).getGrade());
+                requestSpot.setProfile(requestPlan.getSpots().get(i).getProfile());
+                requestSpot.setReview(requestPlan.getSpots().get(i).getReview());
+                spotMapper.updateSpot(requestSpot);
+
+                //장소 제목 변경
+                RequestTitle requestSpotTitle = new RequestTitle();
+                requestSpotTitle.setId(requestSpot.getId());
+                requestSpotTitle.setTitle(requestPlan.getSpots().get(i).getTitle());
+                contentMapper.updateTitle(requestSpotTitle);
+
+                //deletePhoto
+                spotMapper.deletePhoto(requestSpot.getId());
+            }
+            //addPhoto
+            for (int j = 0; j < requestPlan.getSpots().get(i).getPhotos().size(); j++) {
+                RequestPhoto requestPhoto = new RequestPhoto();
+                requestPhoto.setPhoto(requestPlan.getSpots().get(i).getPhotos().get(j).getPhoto());
+                requestPhoto.setContentId(requestPlan.getSpots().get(i).getId());
+                spotMapper.addPhoto(requestPhoto);
+            }
         }
     }
 

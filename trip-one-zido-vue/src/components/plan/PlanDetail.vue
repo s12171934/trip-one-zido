@@ -63,7 +63,7 @@
         </tr>
         <tr>
           <td>
-            <KakaoMapForEditPlan style="height: 40vh" />
+            <KakaoMapForPlanDetail style="height: 40vh" />
           </td>
         </tr>
 
@@ -155,14 +155,14 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import koLocale from "@fullcalendar/core/locales/ko";
 import data from "/src/assets/data.js";
-import KakaoMapForEditPlan from "../util/KakaoMapForEditPlan.vue";
+import KakaoMapForPlanDetail from "../util/KakaoMapForPlanDetail.vue";
 import MemberList from "../util/MemberList.vue";
 import Comment from "../util/Comment.vue";
 
 export default {
   components: {
     FullCalendar,
-    KakaoMapForEditPlan,
+    KakaoMapForPlanDetail,
     MemberList,
     Comment,
   },
@@ -419,4 +419,4 @@ colgroup col {
   }
 }
 </style>
-../util/modal/EditSpotModal.vue
+../util/modal/EditSpotModal.vue../util/KakaoMapForPlanDetail.vue

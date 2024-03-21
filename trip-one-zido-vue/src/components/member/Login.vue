@@ -202,11 +202,9 @@ a {
     flex-direction: column;
     align-items: center; 
   }
-
   h3 {
     font-size: 16px; /* 작은 화면에서 폰트 크기를 작게 조정 */
   }
-
   form {
     border: none !important; /* 작은 화면에서 border 제거 */
   }

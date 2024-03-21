@@ -35,7 +35,7 @@
     <MemberList
       :list="searchData.memberList"
       :addApi="`/api/search/${keyword}/member/`"
-      :maxLen="20"
+      :maxLen="searchData.memberList"
     />
 
     <div class="d-flex flex-row mb-6" id="subTitle">
@@ -47,7 +47,7 @@
     <ContentList
       :list="searchData.planList"
       :addApi="`/api/search/${keyword}/plan/`"
-      :maxLen="20"
+      :maxLen="searchData.planCount"
     />
 
     <div class="d-flex flex-row mb-6" id="subTitle">
@@ -59,7 +59,7 @@
     <ContentList
       :list="searchData.spotList"
       :addApi="`/api/search/${keyword}/spot/`"
-      :maxLen="20"
+      :maxLen="searchData.spotCount"
     />
   </main>
 </template>

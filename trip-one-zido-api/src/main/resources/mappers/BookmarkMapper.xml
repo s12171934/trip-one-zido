@@ -47,7 +47,25 @@
         WHERE
             b.content_id = c.id AND
             c.type != 'tour' AND
-            c.visibility = 1 AND
+            visibility = 1 AND
+            (
+                (
+                SELECT visibility
+                FROM content
+                WHERE id = (
+                    SELECT plan_id
+                    FROM plan_spot
+                    WHERE spot_id = c.id
+                )
+            ) = 1 OR
+            visibility = 1 AND
+            NOT EXISTS (
+                SELECT 1
+                FROM plan_spot
+                WHERE spot_id = c.id
+            ) OR
+            c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+            ) AND
             b.member_id = #{memberId}
     </select>
 
@@ -109,7 +127,8 @@
                 FROM
                     photo
                 WHERE
-                    content_id = c.id
+                    content_id = c.id AND
+                    (profile_id is null OR profile_id = photo.id)
             ) photo,
             (
                 SELECT
@@ -142,12 +161,14 @@
             (
             SELECT
                 id,
-                grade
+                grade,
+                profile_id
             FROM spot
             UNION
             SELECT
                 id,
-                grade
+                grade,
+                null
             FROM plan
             ) sp
         WHERE
@@ -160,6 +181,25 @@
                 bookmark
             WHERE
                 member_id = #{targetId}
+            ) AND
+            (
+            visibility = 1 AND
+            (
+                SELECT visibility
+                FROM content
+                WHERE id = (
+                    SELECT plan_id
+                    FROM plan_spot
+                    WHERE spot_id = c.id
+                )
+            ) = 1 OR
+            visibility = 1 AND
+            NOT EXISTS (
+                SELECT 1
+                FROM plan_spot
+                WHERE spot_id = c.id
+            ) OR
+             c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
             )
         LIMIT
             #{page} , 6

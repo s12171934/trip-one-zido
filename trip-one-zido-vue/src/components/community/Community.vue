@@ -68,7 +68,7 @@
     </div>
 
     <nav v-show="!searchStatus" aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
+      <ul class="pagination justify-content-center" id="pagination">
         <li :class="hasPrevPage() ? 'page-item' : 'page-item disabled'">
           <a class="page-link" @click="moveToPrevPage">Previous</a>
         </li>
@@ -348,7 +348,7 @@ table tbody tr {
   }
 
   .button.small {
-    font-size: 6px !important;
+    font-size: 6px;
     padding: 4px 6px !important;
   }
   #searchBar select,
@@ -411,6 +411,14 @@ thead tr {
     /* 테이블 머리글 설정 */
     thead tr {
     font-size: small; /* 원하는 폰트 사이즈 변경 가능 */
+  }
+  #button-add {
+    font-size: 3%;
+    width: 20%;
+    margin-left: auto;
+    padding: 0%;
+    margin-top: 3%;
+    margin-bottom: 10%;
   }
 }
 </style>

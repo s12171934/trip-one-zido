@@ -50,14 +50,22 @@ export default {
     },
   },
   watch: {
-    async option(){
-      console.log('change option')
-      const newContents = await this.$zido.newContents(this.addApi, 0, false, this.option)
-      this.list.length = 0
-      this.list.push(...newContents)
-      this.page = 0;
-    }
-  }
+    option: {
+      async handler() {
+        console.log("change option");
+        const newContents = await this.$zido.newContents(
+          this.addApi,
+          0,
+          false,
+          this.option
+        );
+        this.list.length = 0;
+        this.list.push(...newContents);
+        this.page = 0;
+        console.log(this.list)
+      },
+    },
+  },
 };
 </script>
 
