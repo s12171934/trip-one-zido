@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       sortMenu: data.sortMenu,
-      option: "created_at",
+      option: "created_at DESC",
     };
   },
 };
