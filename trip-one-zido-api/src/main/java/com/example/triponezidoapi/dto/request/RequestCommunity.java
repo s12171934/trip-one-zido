@@ -19,7 +19,7 @@ public class RequestCommunity {
     @Future(message = "여행종료일은 미래의 날짜여야 합니다.")
     LocalDateTime endDate;
 
-    @NotEmpty(message = "지역분류는 필수 입니다.")
+    @NotNull(message = "지역분류는 필수 입니다.")
     int locCategory;
 
     @NotEmpty(message = "내용은 필수 입니다.")

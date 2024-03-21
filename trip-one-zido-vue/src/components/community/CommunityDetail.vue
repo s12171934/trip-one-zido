@@ -110,6 +110,7 @@
 
 <script>
 import AlertModal from "../util/modal/AlertModal.vue";
+import data from "/src/assets/data.js";
 
 export default {
   components: {
@@ -123,7 +124,7 @@ export default {
         id: null,
         startDate: null,
         endDate: null,
-        locCategory: null,
+        locCategory: "",
         notice: null,
         total: null,
         deadLine: null,
@@ -157,6 +158,7 @@ export default {
       .then((res) => {
         this.detail = res;
         this.loginId = res.loginId;
+        this.locCategory = data.selectLocations.find(location => location.locCategory == res.locCategory)?.value;
       });
   },
 
