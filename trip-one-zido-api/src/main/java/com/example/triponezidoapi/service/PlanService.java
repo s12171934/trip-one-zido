@@ -91,7 +91,7 @@ public class PlanService {
             );
 
             requestPlan.getSpots().get(i).setId(generatedSpotId);
-            requestPlan.getSpots().get(i).setLocCategory("서울");
+            requestPlan.getSpots().get(i).setLocCategory(requestPlan.getLocCategory());
             requestPlan.getSpots().get(i).setMembers(requestPlan.getMembers());
             requestPlan.getSpots().get(i).setVisibility(true);
             spotMapper.addSpot(requestPlan.getSpots().get(i));

@@ -20,10 +20,10 @@ public class RequestSpot {
     LocalDateTime endDate;
 
     @NotBlank(message = "카테고리를 선택해주세요")
-    String category;
+    int category;
 
     @NotBlank(message = "지역을 선택해주세요")
-    String locCategory;
+    int locCategory;
 
     @NotEmpty(message = "주소를 입력하세요")
     String address;

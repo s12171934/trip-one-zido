@@ -19,7 +19,7 @@ public class TourService {
     @Autowired
     SpotMapper spotMapper;
 
-    public ResponseTourList getTourList(Long sessionId, String loc, Long page){
+    public ResponseTourList getTourList(Long sessionId, int loc, Long page){
         if(page != 0 ){
             page = page * 6;
         }
@@ -32,7 +32,7 @@ public class TourService {
 
         return responseTourList;
     }
-    public List<ResponseTour> getTourListPage(Long sessionId, String loc, Long page){
+    public List<ResponseTour> getTourListPage(Long sessionId, int loc, Long page){
         if(page != 0 ){
             page = page * 6;
         }

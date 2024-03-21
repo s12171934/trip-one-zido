@@ -53,7 +53,7 @@ export default {
       location.href = `/tour/loc/${this.loc}`;
     },
     defaultLoc() {
-      return this.$route.params.loc ? this.$route.params.loc : "서울특별시";
+      return this.$route.params.loc ? this.$route.params.loc : 11;
     },
   },
   mounted() {

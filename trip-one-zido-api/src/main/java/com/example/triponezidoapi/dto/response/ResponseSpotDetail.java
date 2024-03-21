@@ -8,10 +8,10 @@ import java.util.List;
 @Data
 public class ResponseSpotDetail {
     long id;
-    String category;
+    int category;
     LocalDateTime startDate;
     LocalDateTime endDate;
-    String locCategory;
+    int locCategory;
     String address;
     String review;
     int grade;

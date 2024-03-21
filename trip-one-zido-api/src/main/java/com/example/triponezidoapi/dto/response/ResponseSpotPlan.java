@@ -14,7 +14,7 @@ public class ResponseSpotPlan {
     LocalDateTime endDate;
     //vue와 맞추기 위한 추가
     List<ResponsePhoto> photos;
-    String category;
+    int category;
     String address;
     String address2;
     String rate;
