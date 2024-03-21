@@ -10,6 +10,7 @@
             end_date,
             loc_category,
             address,
+            address2,
             review,
             grade,
             profile_id
@@ -22,6 +23,7 @@
             #{endDate},
             #{locCategory},
             #{address},
+            #{address2},
             #{review},
             #{grade},
             #{profile}
@@ -224,6 +226,7 @@
             end_date = #{endDate},
             loc_category = #{locCategory},
             address = #{address},
+            address2 = #{address2},
             review = #{review},
             grade = #{grade},
             profile_id = #{profile}
