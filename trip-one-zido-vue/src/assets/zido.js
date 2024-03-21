@@ -611,7 +611,7 @@ export default {
   async resetPassword(id, changePassword, changePasswordCheck) {
     // return true;
     return axios
-      .put(`/api/member/password/{id}`, {
+      .put(`/api/member/passwd/${id}`, {
         id: id,
         changePassword: changePassword,
         changePasswordCheck: changePasswordCheck,

@@ -86,7 +86,7 @@
       <tr id="updateArea">
         <td>성별</td>
         <td>
-          {{ userInfo.gender != 0 ? "남자" : "여자" }}
+          {{ userInfo.gender == 0 ? "남자" : "여자" }}
         </td>
       </tr>
       <tr id="updateArea">

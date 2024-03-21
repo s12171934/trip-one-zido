@@ -74,7 +74,7 @@ export default {
       buttonMessage: "확인",
     },
     resetPasswordFail: {
-      url: "/reset-pw",
+      url: "",
       message: "비밀번호와<br />비밀번호 확인이<br />다릅니다.",
       buttonMessage: "비밀번호 재설정 하기",
     },
