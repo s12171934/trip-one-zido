@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 public class RequestSpot {
-    long id;
+    Long id;
 
     @Size(max = 200, message = "제목은 200자 이하로 작성해주세요")
     String title;
