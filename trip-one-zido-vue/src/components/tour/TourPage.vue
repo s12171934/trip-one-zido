@@ -18,7 +18,7 @@
     <ContentList
       :list="tourLists"
       :addApi="`/api/tour/list/${defaultLoc()}/`"
-      :maxLen="20"
+      :maxLen="tourListCount"
     />
   </main>
 </template>

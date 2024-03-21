@@ -71,7 +71,7 @@
       <ContentList
         :list="memberPageData.planLists"
         :addApi="`/api/page/${memberPageData.id}/plan/`"
-        :maxLen="20"
+        :maxLen="memberPageData.planListsCount"
         :option="`sort=${planSort}`"
       />
 
@@ -86,7 +86,7 @@
       <ContentList
         :list="memberPageData.spotLists"
         :addApi="`/api/page/${memberPageData.id}/spot/`"
-        :maxLen="20"
+        :maxLen="memberPageData.spotListsCount"
         :option="`sort=${spotSort}`"
       />
     </div>
