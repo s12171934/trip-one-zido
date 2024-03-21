@@ -11,12 +11,12 @@ public class ResponseCommunityDetail {
     String loginId;
     LocalDateTime startDate;
     LocalDateTime endDate;
-    String locCategory;
+    int locCategory;
     String notice;
     int total;
     LocalDateTime deadline;
     int viewPoint;
-    String status;
+    int status;
     String title;
     LocalDateTime createdAt;
     LocalDateTime modifiedAt;

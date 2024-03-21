@@ -40,5 +40,5 @@ public class Member {
     @Past
     LocalDateTime birth;
     @NotEmpty
-    String gender;
+    int gender;
 }

@@ -20,7 +20,7 @@ public class RequestCommunity {
     LocalDateTime endDate;
 
     @NotEmpty(message = "지역분류는 필수 입니다.")
-    String locCategory;
+    int locCategory;
 
     @NotEmpty(message = "내용은 필수 입니다.")
     @Size(max = 500, message = "내용은 최대 500자 이하이어야 합니다.")
@@ -34,5 +34,5 @@ public class RequestCommunity {
     @Future(message = "모집마감일은 미래의 날짜여야 합니다.")
     LocalDateTime deadline;
 
-    String status;
+    int status;
 }

@@ -50,13 +50,13 @@ class CommunityApiControllerTest {
         communityList1.setViewPoint(5);
         communityList1.setTotal(2);
         communityList1.setWithCount(2);
-        communityList1.setStatus("어");
+        communityList1.setStatus(0);
 
         List<ResponseCommunity> communityList = new ArrayList<>();
         communityList.add(communityList1);
 
         ResponseCommunityList responseCommunityList = new ResponseCommunityList();
-        responseCommunityList.setCommunitys(communityList);
+        responseCommunityList.setCommunityList(communityList);
         responseCommunityList.setTotalCount(1L);
 
         //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
@@ -100,12 +100,12 @@ class CommunityApiControllerTest {
         responseCommunityDetail.setId(1L);
         responseCommunityDetail.setStartDate(LocalDateTime.of(2024,3,16,0,0,0));
         responseCommunityDetail.setEndDate(LocalDateTime.of(2024,3,20,0,0,0));
-        responseCommunityDetail.setLocCategory("서울특별시");
+        responseCommunityDetail.setLocCategory(11);
         responseCommunityDetail.setNotice("야미야미");
         responseCommunityDetail.setTotal(2);
         responseCommunityDetail.setDeadline(LocalDateTime.of(2024,3,15,0,0,0));
         responseCommunityDetail.setViewPoint(1);
-        responseCommunityDetail.setStatus("모집중");
+        responseCommunityDetail.setStatus(0);
         responseCommunityDetail.setTitle("얌얌");
         responseCommunityDetail.setCreatedAt(LocalDateTime.of(2024,3,14,10,0,0));
         responseCommunityDetail.setModifiedAt(LocalDateTime.of(2024,3,14,10,0,0));
@@ -162,9 +162,9 @@ class CommunityApiControllerTest {
         requestCommunity.setEndDate(LocalDateTime.of(2024,3,14,10,0,0));
         requestCommunity.setNotice("테스트");
         requestCommunity.setTotal(2);
-        requestCommunity.setLocCategory("서울특별시");
+        requestCommunity.setLocCategory(11);
         requestCommunity.setDeadline(LocalDateTime.of(2024,3,14,10,0,0));
-        requestCommunity.setStatus("모집중");
+        requestCommunity.setStatus(0);
 
         // ObjectMapper 객체 생성
         ObjectMapper objectMapper = objectMapper();
