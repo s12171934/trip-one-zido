@@ -11,7 +11,10 @@
             ><img id="star" src="/images/star.png" />{{ planData.grade }}</span
           >
         </h1>
-        <button class="rounded-5">{{ planData.status }}</button>
+        <button class="rounded-5" > 
+          {{  planData.status === 0 ? "여행할" : 
+              (planData.status === 1 ? "여행중" : "여행한")  
+          }} </button>
       </div>
       <table>
         <tr>

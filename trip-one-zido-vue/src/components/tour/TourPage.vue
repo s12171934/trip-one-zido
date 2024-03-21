@@ -9,7 +9,7 @@
         name="location"
         v-model="loc"
       >
-        <option v-for="location in selectLocations" :value="location">
+        <option v-for="location in selectLocations" :value="location.locCategory">
           {{ location.value }}
         </option>
       </select>

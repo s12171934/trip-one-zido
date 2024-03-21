@@ -107,9 +107,9 @@
                 <option
                   v-for="category in selectCategories"
                   :aria-colcount="category"
-                  :value="category"
+                  :value="category.category"
                 >
-                  {{ category }}
+                  {{ category.value }}
                 </option>
               </select>
             </div>
