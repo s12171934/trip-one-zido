@@ -91,7 +91,11 @@
             s.id,
             c.title,
             s.start_date,
-            s.end_date
+            s.end_date,
+            s.category,
+            s.address,
+            s.grade,
+            s.review
         FROM
             spot s,
             content c

@@ -170,7 +170,8 @@
 
     <select id="getPhoto" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponsePhoto">
         SELECT
-            photo
+            photo,
+            content_id
         FROM
             photo
         WHERE

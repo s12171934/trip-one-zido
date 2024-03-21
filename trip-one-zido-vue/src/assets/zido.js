@@ -694,6 +694,12 @@ export default {
   //GET -- api/plan/id
   async getPlanData(id) {
     const res = await axios.get(`/api/plan/${id}`);
+    console.log(res.data)
+    for(let spot of res.data.spots){
+      for(let photo of spot.photos){
+      photo.photo = `data:image/jpeg;base64,${photo.photo}`
+      }
+    }
     return res.data;
   },
 
