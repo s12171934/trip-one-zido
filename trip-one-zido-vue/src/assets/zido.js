@@ -746,6 +746,13 @@ export default {
     return res.data;
   },
 
+  //인기검색어
+  //Top Ten
+  async getTopTen(){
+    const res = await axios.get("/api/search/top10");
+    return res.data
+  },
+
   //SNS Connect
 
   //소셜로그인 연동
