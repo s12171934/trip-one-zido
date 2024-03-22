@@ -4,9 +4,9 @@
       <h1>게시글 상세</h1>
       <br />
       <div class="d-grid gap-2 d-flex justify-content-end">
-        <span class="button small rounded-3" id="mouseHover">{{
-          detail.status
-        }}</span>
+        <span class="button small rounded-3" id="mouseHover">
+          {{ detail.status == 0 ? "모집중" : "마감" }}
+        </span>
         <a href="/community" class="button alt small rounded-3">목록</a>
         <!-- 현재 id-1 : 이전글 / 현재 id+1 : 다음글   -->
         <!-- <a href="/html-css/community/detail/detail.html" id="button2" class="button small rounded-3">이전글</a> -->
@@ -28,7 +28,9 @@
           <tr class="border-bottom">
             <td>지역 :</td>
             <td>
-              <option value="1" id="black">{{ detail.locCategory }}</option>
+              <option value="1" id="black">
+                {{ selectedCategory }}
+            </option>
             </td>
             <td class="border-start">모집 인원 :</td>
             <td id="black">
@@ -110,6 +112,7 @@
 
 <script>
 import AlertModal from "../util/modal/AlertModal.vue";
+import data from "/src/assets/data.js";
 
 export default {
   components: {
@@ -143,6 +146,7 @@ export default {
       loginId: "",
       id: "",
       showSuccessModal: false,
+      locations: data.selectLocations,
 
       title: "", // 추가: 게시글 제목
       content: "", // 추가: 게시글 내용
@@ -158,6 +162,13 @@ export default {
         this.detail = res;
         this.loginId = res.loginId;
       });
+  },
+
+  computed: {
+    selectedCategory() {
+      const foundCategory = this.locations.find(item => item.locCategory === this.detail.locCategory);
+      return foundCategory ? foundCategory.value : this.detail.locCategory; 
+    }
   },
 
   methods: {
