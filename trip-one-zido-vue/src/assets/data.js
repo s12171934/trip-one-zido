@@ -26,7 +26,7 @@ export default {
     {locCategory : 26, value: "울산광역시",},
     {locCategory : 25, value: "대전광역시",},
     {locCategory : 24, value: "광주광역시",},
-    {locCategory : 25, value: "부산광역시",},
+    {locCategory : 21, value: "부산광역시",},
     {locCategory : 31, value: "경기도",},
     {locCategory : 32, value: "강원도",},
     {locCategory : 33, value: "충청북도",},
@@ -38,7 +38,13 @@ export default {
     {locCategory : 39, value: "제주특별자치도",},
   ],
 
-  selectCategories: ["음식점", "관광지"],
+  selectCategories: [
+    {category : 1 , value : "음식점"},
+    {category : 2 , value : "여가(관람/체험/스포츠)"},
+    {category : 3 , value : "관광지(산/바다/계곡/해변)"},
+    {category : 4 , value : "테마파크"},
+    {category : 5 , value : "기타"},
+  ],
 
   sortMenu: [
     {
