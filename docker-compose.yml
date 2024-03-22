@@ -1,0 +1,36 @@
+version: "1.0.0"
+
+networks:
+  service-networks: {}
+
+services:
+  frontEnd:
+    image: trip-one-zido-front
+    ports:
+      - '3000:3000'
+    networks:
+      - service-networks
+
+  backEnd:
+    image: trip-one-zido-back
+    ports:
+      - '8080:8080'
+    networks:
+      - service-networks
+  
+  mySQL:
+    image: mysql:8.0.36
+    ports:
+      - '3307:3306'
+    networks:
+      - service-networks
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Asia/Seoul
+
+  redis:
+    image: redis
+    ports:
+      - '6379:6379'
+    networks:
+      - service-networks

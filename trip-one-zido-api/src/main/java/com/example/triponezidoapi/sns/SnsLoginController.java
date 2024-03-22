@@ -38,10 +38,10 @@ public class SnsLoginController {
             Cookie loginCookie = new Cookie("login","1");
             loginCookie.setPath("/");
             response.addCookie(loginCookie);
-            response.sendRedirect("http://localhost:3000/");
+            response.sendRedirect("http://13.60.3.28/");
         }
         else{
-            response.sendRedirect("http://localhost:3000/social/naver/" + id);
+            response.sendRedirect("http://13.60.3.28/social/naver/" + id);
         }
     }
 
@@ -62,10 +62,10 @@ public class SnsLoginController {
             Cookie loginCookie = new Cookie("login","1");
             loginCookie.setPath("/");
             response.addCookie(loginCookie);
-            response.sendRedirect("http://localhost:3000/");
+            response.sendRedirect("http://13.60.3.28/");
         }
         else{
-            response.sendRedirect("http://localhost:3000/social/kakao/" + id);
+            response.sendRedirect("http://13.60.3.28/social/kakao/" + id);
         }
     }
 
