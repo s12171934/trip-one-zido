@@ -4,7 +4,7 @@
       <h1>설정페이지</h1>
     </div>
     <div class="d-flex justify-content-between">
-      <div class="w-50">
+      <div >
         <div class="d-flex align-items-center">
           <div class="d-flex flex-column gap-2">
             <img
@@ -129,6 +129,7 @@ li {
 button {
   width: 100%;
 }
+
 
 @media (max-width: 1200px) {
   .w-50, .p-2 {

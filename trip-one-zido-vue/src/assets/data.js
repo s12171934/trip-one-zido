@@ -1,4 +1,4 @@
-count: 1,export default {
+export default {
   selectLocations: [
     "서울특별시",
     "인천광역시",
