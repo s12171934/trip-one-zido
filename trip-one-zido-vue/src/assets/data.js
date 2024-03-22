@@ -46,6 +46,12 @@ export default {
     {category : 5 , value : "기타"},
   ],
 
+  planStatus: [
+    {status : 0 , value : "여행할"},
+    {status : 1 , value : "여행중"},
+    {status : 2 , value : "여행한"},
+  ],
+
   sortMenu: [
     {
       value: 'created_at',

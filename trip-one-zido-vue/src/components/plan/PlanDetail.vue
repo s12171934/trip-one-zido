@@ -11,10 +11,7 @@
             ><img id="star" src="/images/star.png" />{{ planData.grade }}</span
           >
         </h1>
-        <button class="rounded-5" > 
-          {{  planData.status === 0 ? "여행할" : 
-              (planData.status === 1 ? "여행중" : "여행한")  
-          }} </button>
+        <button class="rounded-5" > {{ selectedStatus  }}</button>
       </div>
       <table>
         <tr>
@@ -186,6 +183,7 @@ export default {
         comments: null,
       },
       selectLocations: data.selectLocations,
+      selectStatus: data.planStatus,
       status: 0,
       members: [""],
       startDate: "",
@@ -224,7 +222,12 @@ export default {
       },
     };
   },
-
+  computed: {
+    selectedStatus() {
+      const foundStatus = this.selectStatus.find(item => item.status === this.planData.status);
+      return foundStatus ? foundStatus.value : "여행할"; 
+    }
+  },
   methods: {
     handleEventClick(clickInfo) {
       window.open(
