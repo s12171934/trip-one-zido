@@ -98,6 +98,7 @@
             s.end_date,
             s.category,
             s.address,
+            s.address2,
             s.grade,
             s.review
         FROM

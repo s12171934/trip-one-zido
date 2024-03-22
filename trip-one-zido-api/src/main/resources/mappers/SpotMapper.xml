@@ -10,6 +10,7 @@
             end_date,
             loc_category,
             address,
+            address2,
             review,
             grade,
             profile_id
@@ -22,6 +23,7 @@
             #{endDate},
             #{locCategory},
             #{address},
+            #{address2},
             #{review},
             #{grade},
             #{profile}
@@ -181,8 +183,8 @@
                 ) OR
                 c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
             )
---          ORDER BY
---              ${sort}
+        ORDER BY
+            ${sort}
         LIMIT
             #{page}, 6
     </select>
@@ -212,7 +214,7 @@
                 FROM
                     owner
                 WHERE
-                    member_id = 9
+                    member_id = #{id}
             )
     </select>
 
@@ -224,6 +226,7 @@
             end_date = #{endDate},
             loc_category = #{locCategory},
             address = #{address},
+            address2 = #{address2},
             review = #{review},
             grade = #{grade},
             profile_id = #{profile}

@@ -136,7 +136,7 @@ input {
   }
 
   .buttons {
-    width: 80%; /* 버튼 그룹 너비 조정 */
+    width: 60%; /* 버튼 그룹 너비 조정 */
     display: flex;
     flex-direction: column; /* 버튼들을 세로로 나열 */
     align-items: center; /* 버튼들을 가운데 정렬 */

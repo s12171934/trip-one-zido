@@ -12,6 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,21 +73,20 @@ class PlanApiControllerTest {
 
         ResponsePlanDetail planDetail = new ResponsePlanDetail();
         planDetail.setId(1L);
-        planDetail.setStartDate(LocalDateTime.of(2024, 3, 14, 0, 0));
-        planDetail.setEndDate(LocalDateTime.of(2024, 3, 14, 23, 59));
+        planDetail.setStartDate(LocalDate.of(2024, 3, 14));
+        planDetail.setEndDate(LocalDate.of(2024, 3, 14));
         planDetail.setLocCategory("서울");
         planDetail.setStatus("여행중");
         planDetail.setReview("후기");
         planDetail.setGrade(1);
         planDetail.setViewCount(2);
         planDetail.setGoodCount(1);
-        planDetail.setMyGood(1);
+        planDetail.setMyGood(true);
         planDetail.setBookmarkCount(1);
         planDetail.setMyBookmark(1);
         planDetail.setTitle("서울여행");
-        planDetail.setPublic(true);
+        planDetail.setVisibility(true);
         planDetail.setCreatedAt(LocalDateTime.of(2024, 3, 14, 0, 0));
-        planDetail.setSpotPlans(SpotPlans);
         planDetail.setMembers(members);
         planDetail.setComments(comments);
         planDetail.setMine(true);
@@ -134,16 +134,14 @@ class PlanApiControllerTest {
         RequestPlan requestPlan = new RequestPlan();
         requestPlan.setId(1L);
         requestPlan.setTitle("제목");
-        requestPlan.setPublic(true);
-        requestPlan.setStartDate(LocalDateTime.of(2024, 3, 14, 0, 0));
-        requestPlan.setEndDate(LocalDateTime.of(2024, 3, 14, 23, 59));
+        requestPlan.setVisibility(true);
+        requestPlan.setStartDate(LocalDate.of(2024, 3, 14));
+        requestPlan.setEndDate(LocalDate.of(2024, 3, 14));
         requestPlan.setLocCategory("서울특별시");
-        requestPlan.setStatus("계획");
+        requestPlan.setStatus(0);
         requestPlan.setReview("후기");
         requestPlan.setGrade(5);
         requestPlan.setProfile(new byte[]{0, 0});
-        requestPlan.setSpots(new ArrayList<>(){{add(1L); add(2L);}});
-        requestPlan.setMembers(new ArrayList<>(){{add(1L); add(2L);}});
 
         // ObjectMapper 객체 생성
         ObjectMapper objectMapper = objectMapper();
@@ -168,16 +166,16 @@ class PlanApiControllerTest {
         RequestPlan requestPlan = new RequestPlan();
         requestPlan.setId(1L);
         requestPlan.setTitle("제목");
-        requestPlan.setPublic(true);
-        requestPlan.setStartDate(LocalDateTime.of(2024, 3, 14, 0, 0));
-        requestPlan.setEndDate(LocalDateTime.of(2024, 3, 14, 23, 59));
+        requestPlan.setVisibility(true);
+        requestPlan.setStartDate(LocalDate.of(2024, 3, 14));
+        requestPlan.setEndDate(LocalDate.of(2024, 3, 14));
         requestPlan.setLocCategory("서울특별시");
-        requestPlan.setStatus("계획");
+        requestPlan.setStatus(0);
         requestPlan.setReview("후기");
         requestPlan.setGrade(5);
         requestPlan.setProfile(new byte[]{0, 0});
-        requestPlan.setSpots(new ArrayList<>(){{add(1L); add(2L);}});
-        requestPlan.setMembers(new ArrayList<>(){{add(1L); add(2L);}});
+//        requestPlan.setSpots(new ArrayList<>(){{add(1L); add(2L);}});
+//        requestPlan.setMembers(new ArrayList<>(){{add(1L); add(2L);}});
 
         // ObjectMapper 객체 생성
         ObjectMapper objectMapper = objectMapper();

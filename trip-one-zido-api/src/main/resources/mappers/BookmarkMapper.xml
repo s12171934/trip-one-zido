@@ -127,7 +127,8 @@
                 FROM
                     photo
                 WHERE
-                    content_id = c.id
+                    content_id = c.id AND
+                    (profile_id is null OR profile_id = photo.id)
             ) photo,
             (
                 SELECT
@@ -160,12 +161,14 @@
             (
             SELECT
                 id,
-                grade
+                grade,
+                profile_id
             FROM spot
             UNION
             SELECT
                 id,
-                grade
+                grade,
+                null
             FROM plan
             ) sp
         WHERE

@@ -17,6 +17,6 @@ public class ResponseSpotPlan {
     int category;
     String address;
     String address2;
-    String rate;
+    int grade;
     String review;
 }

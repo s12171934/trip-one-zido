@@ -71,7 +71,7 @@
       <ContentList
         :list="memberPageData.planLists"
         :addApi="`/api/page/${memberPageData.id}/plan/`"
-        :maxLen="20"
+        :maxLen="memberPageData.planListsCount"
         :option="`sort=${planSort}`"
       />
 
@@ -86,7 +86,7 @@
       <ContentList
         :list="memberPageData.spotLists"
         :addApi="`/api/page/${memberPageData.id}/spot/`"
-        :maxLen="20"
+        :maxLen="memberPageData.spotListsCount"
         :option="`sort=${spotSort}`"
       />
     </div>
@@ -201,8 +201,8 @@ span {
 }
 
 img {
-  width: 50%;
-  height: 100%;
+  width: 250px;
+  height: 250px;
 }
 
 #edit-profile:hover {
@@ -248,6 +248,12 @@ img {
   #add{
     margin-bottom: -60%;
     margin-top: 5%;
+  }
+}
+
+@media (max-width: 1460px) {
+  .wrapper {
+    flex-direction: initial !important; 
   }
 }
 </style>

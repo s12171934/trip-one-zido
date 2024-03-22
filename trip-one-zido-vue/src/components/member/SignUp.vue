@@ -7,8 +7,7 @@
       <h1>회원가입</h1>
       <form
         @submit.prevent
-        class="d-flex flex-column gap-3 border border-5 p-5"
-      >
+        class="d-flex flex-column gap-3 border border-5 p-5">
         <div class="d-flex gap-3">
           <input
             type="text"
@@ -19,7 +18,7 @@
             @click="checkLoginId"
             data-bs-toggle="modal"
             data-bs-target="#alertModal"
-            class="button w-25"
+            class="button"
           >
             아이디중복체크
           </button>
@@ -34,11 +33,9 @@
           placeholder="비밀번호 확인"
         />
         <div class="select-wrapper">
-          <select name="category" id="security" v-model="form.question" placeholder="보안질문">
-            <option
-              v-for="securityQuestion in securityQuestions"
-              :value="securityQuestion.id"
-            >
+          <select name="category" id="security" v-model="form.question">
+            <option value="" disabled selected>보안질문을 선택하세요</option>
+            <option v-for="securityQuestion in securityQuestions" :value="securityQuestion.id">
               {{ securityQuestion.question }}
             </option>
           </select>
@@ -72,13 +69,13 @@
             id="address"
             placeholder="주소"
           />
-          <button class="button w-25 icon fa-search" @click="searchAddress">
+          <button class="button icon fa-search" @click="searchAddress">
             주소 검색
           </button>
         </div>
         <input type="text" id="address2" v-model="form.address2" placeholder="상세한 주소" />
 
-        <div class="d-flex flex-fill gap-3 justify-content-start">
+        <div class="d-flex flex-fill gap-3 justify-content-start" id="birth-gender">
           <div class="birth-gender">
             생년월일:
             <input
@@ -111,7 +108,7 @@
       </form>
       <button
         @click="signUp"
-        class="button p-2"
+        class="button"
         data-bs-toggle="modal"
         data-bs-target="#alertModal"
       >
@@ -235,12 +232,13 @@ form {
 }
 
 .button {
-  height: 70px;
+  height: auto;
+  width: 20%;
   padding: 0;
-  color: aliceblue;
+  color: rgb(255, 255, 255);
   background-color: #ff928e;
   border-radius: 10px;
-  font-size: 15px !important;
+  /* font-size: 15px !important; */
 }
 
 a {
@@ -271,4 +269,50 @@ select {
 .icon {
   padding: 0 !important;
 }
+
+@media (max-width: 1250px) {
+  #box {
+    white-space: nowrap; 
+    text-overflow: ellipsis; 
+  }
+  .wrapper {
+    margin-inline: 10% !important;
+  }
+}
+
+@media (max-width: 1050px) {
+  form {
+    border: none !important;
+    width: 100%;
+  }
+  #birth-gender {
+    flex-direction: column
+  }
+}
+
+
+@media (max-width: 768px) {
+  .flex-column-on-small-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+  }
+  h3 {
+    font-size: 16px; /* 작은 화면에서 폰트 크기를 작게 조정 */
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  #security,
+  #birth-gender,
+  #birthday  {
+    font-size: 80%; /* 화면이 작아질 때 입력란의 너비를 조금씩 줄입니다. */
+  }
+
+  .button {
+    font-size: 10px;  /* 버튼의 너비 조정 */
+  }
+  
+} 
 </style>

@@ -202,4 +202,59 @@ label {
 .button {
   border-radius: 10px !important;
 }
+
+@media (max-width: 700px) {
+    /* 화면이 작아질 때 텍스트 크기를 작게 설정합니다. */
+    table, table tr, table td, table th {
+      font-size: 0.9rem;
+    }
+    .button, .button.alt {
+      font-size: 0.9rem;
+    }
+  }
+@media (max-width: 650px) {
+  /* 화면이 작아질 때 텍스트 크기를 작게 설정합니다. */
+  table, table tr, table td, table th {
+    font-size: 0.8rem;
+  }
+  .button, .button.alt {
+    font-size: 0.8rem;
+  }
+}
+@media (max-width: 590px) {
+  /* 화면이 작아질 때 텍스트 크기를 작게 설정합니다. */
+  table, table tr, table td, table th {
+    font-size: 0.7rem;
+  }
+  .button, .button.alt {
+    font-size: 0.7rem;
+  }
+}
+@media (max-width: 530px) {
+  /* 화면이 작아질 때 텍스트 크기를 작게 설정합니다. */
+  table, table tr, table td, table th {
+    font-size: 0.6rem;
+  }
+  .button, .button.alt {
+    font-size: 0.6rem;
+  }
+}
+@media (max-width: 380px) {
+  /* 화면이 작아질 때 텍스트 크기를 작게 설정합니다. */
+  table, table tr, table td, table th {
+    font-size: 0.5rem;
+  }
+  .button, .button.alt {
+    font-size: 0.5rem;
+  }
+}
+@media (max-width: 330px) {
+  /* 화면이 작아질 때 텍스트 크기를 작게 설정합니다. */
+  table, table tr, table td, table th {
+    font-size: 0.4rem;
+  }
+  .button, .button.alt {
+    font-size: 0.4rem;
+  }
+}
 </style>

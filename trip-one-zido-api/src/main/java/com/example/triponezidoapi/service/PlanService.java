@@ -195,10 +195,17 @@ public class PlanService {
                 requestSpot.setStartDate(requestPlan.getSpots().get(i).getStartDate());
                 requestSpot.setEndDate(requestPlan.getSpots().get(i).getEndDate());
                 requestSpot.setAddress(requestPlan.getSpots().get(i).getAddress());
+                requestSpot.setAddress2(requestPlan.getSpots().get(i).getAddress2());
                 requestSpot.setGrade(requestPlan.getSpots().get(i).getGrade());
                 requestSpot.setProfile(requestPlan.getSpots().get(i).getProfile());
                 requestSpot.setReview(requestPlan.getSpots().get(i).getReview());
                 spotMapper.updateSpot(requestSpot);
+
+                //장소 제목 변경
+                RequestTitle requestSpotTitle = new RequestTitle();
+                requestSpotTitle.setId(requestSpot.getId());
+                requestSpotTitle.setTitle(requestPlan.getSpots().get(i).getTitle());
+                contentMapper.updateTitle(requestSpotTitle);
 
                 //deletePhoto
                 spotMapper.deletePhoto(requestSpot.getId());
