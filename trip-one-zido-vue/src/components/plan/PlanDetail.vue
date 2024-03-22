@@ -90,6 +90,7 @@
           <td>
             <div class="m-0 d-flex justify-content-end gap-2">
               <input
+                v-show="planData.mine"
                 @click="$router.push(`/edit/plan/${$route.params.id}`)"
                 id="input"
                 class="button small"
@@ -97,6 +98,7 @@
                 value="수정"
               />
               <input
+                v-show="planData.mine"
                 @click="
                   $zido.deletePlan($route.params.id);
                   $router.push('/member-page');
@@ -181,6 +183,7 @@ export default {
         members: [{}],
         review: null,
         comments: null,
+        mine: null,
       },
       selectLocations: data.selectLocations,
       selectStatus: data.planStatus,

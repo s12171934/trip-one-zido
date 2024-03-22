@@ -140,15 +140,6 @@
                 content_id = c.id AND
                 good = 1
             ) good_count,
-            (
-                SELECT
-                    COUNT(*)
-                FROM
-                    pin
-                WHERE
-                    member_id = #{myMemberId}
-                  AND content_id = #{targetId}
-            ) pin,
             c.type
         FROM
             content c,
