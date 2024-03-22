@@ -443,7 +443,7 @@ export default {
   async signUp(form) {
     // return true;
     try {
-      const response = await axios.post(`/member/signup`, form);
+      const response = await axios.post(`/api/member/signup`, form);
       console.log(response.data);
       return true;
     } catch (error) {
@@ -611,7 +611,7 @@ export default {
   async resetPassword(id, changePassword, changePasswordCheck) {
     // return true;
     return axios
-      .put(`/api/member/password/{id}`, {
+      .put(`/api/member/passwd/${id}`, {
         id: id,
         changePassword: changePassword,
         changePasswordCheck: changePasswordCheck,

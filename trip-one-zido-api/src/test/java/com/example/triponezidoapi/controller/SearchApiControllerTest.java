@@ -80,8 +80,8 @@ class SearchApiControllerTest {
         responseSearch.setPlanCount(planList.size());
         responseSearch.setSpotCount(spotList.size());
         responseSearch.setKeyword("검색테스트");
-        responseSearch.setCategory("기본");
-        responseSearch.setLocCategory("서울특별시");
+        responseSearch.setCategory(1);
+        responseSearch.setLocCategory(11);
 
         //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
         given(searchService.searchByKeyword(9L,"검색테스트",0)).willReturn(
@@ -112,8 +112,8 @@ class SearchApiControllerTest {
         RequestDetailSearch requestDetailSearch = new RequestDetailSearch();
         requestDetailSearch.setMyMemberId(9L);
         requestDetailSearch.setKeyword("spring에 있는 값이 세팅 될거에여");
-        requestDetailSearch.setLocCategory("경기도");
-        requestDetailSearch.setCategory("일정");
+        requestDetailSearch.setLocCategory(31);
+        requestDetailSearch.setCategory(1);
         requestDetailSearch.setSeason("spring");
         requestDetailSearch.setStartMonth(3);
         requestDetailSearch.setEndMonth(5);
@@ -147,8 +147,8 @@ class SearchApiControllerTest {
         responseSearch.setPlanList(planList);
         responseSearch.setSpotList(spotList);
         responseSearch.setKeyword("검색테스트");
-        responseSearch.setCategory("기본");
-        responseSearch.setLocCategory("서울특별시");
+        responseSearch.setCategory(1);
+        responseSearch.setLocCategory(11);
 
         // ObjectMapper 객체 생성
         ObjectMapper objectMapper = new ObjectMapper();

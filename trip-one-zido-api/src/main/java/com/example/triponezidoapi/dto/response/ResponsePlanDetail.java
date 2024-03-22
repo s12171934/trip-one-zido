@@ -11,8 +11,8 @@ public class ResponsePlanDetail {
     Long id;
     LocalDate startDate;
     LocalDate endDate;
-    String locCategory;
-    String status;
+    int locCategory;
+    int status;
     String review;
     int grade;
     int viewCount;

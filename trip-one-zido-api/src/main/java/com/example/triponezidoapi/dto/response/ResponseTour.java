@@ -7,7 +7,7 @@ public class ResponseTour {
     Long id;
     String title;
     String address;
-    String locCategory;
+    int locCategory;
     String info;
     byte[] photo;
     int bookmarkCount;

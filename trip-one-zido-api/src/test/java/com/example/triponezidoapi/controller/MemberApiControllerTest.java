@@ -90,7 +90,7 @@ class MemberApiControllerTest {
         member.setPhoneNumber("010-1111-1111");
         member.setAddress("테스트용주소");
         member.setBirth(LocalDateTime.of(1991,1,12,8,24));
-        member.setGender("남");
+        member.setGender(0);
 
         // ObjectMapper 객체 생성
         ObjectMapper objectMapper = objectMapper();
@@ -291,7 +291,7 @@ class MemberApiControllerTest {
         member.setPhoneNumber("010-1111-1111");
         member.setAddress("테스트용주소");
         member.setBirth(LocalDateTime.of(1991,1,12,8,24));
-        member.setGender("남");
+        member.setGender(0);
 
         given(memberService.getMember(9L)).willReturn(
                 member
@@ -334,7 +334,7 @@ class MemberApiControllerTest {
         member.setPhoneNumber("010-1111-1111");
         member.setAddress("테스트용주소");
         member.setBirth(LocalDateTime.of(1991,1,12,8,24));
-        member.setGender("남");
+        member.setGender(0);
 
         // ObjectMapper 객체 생성
         ObjectMapper objectMapper = objectMapper();

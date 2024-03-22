@@ -10,7 +10,7 @@
           >
         </h1>
         <div class="d-flex gap-2" id="left-category">
-          <button class="rounded-5" id="spot-data">{{ spotData.category }}</button>
+          <button class="rounded-5" id="spot-data">{{ selectedCategory  }}</button>
           <button @click="openSpotMap()" class="rounded-5">약도보기</button>
         </div>
       </div>
@@ -137,6 +137,7 @@
 
 <script>
 import Comment from "../util/Comment.vue";
+import data from "@/assets/data";
 
 export default {
   components: {
@@ -167,8 +168,15 @@ export default {
         comments: null,
         mine: null,
       },
+      spotCategory: data.selectCategories,
       comment: "",
     };
+  },
+  computed: {
+    selectedCategory() {
+      const foundCategory = this.spotCategory.find(item => item.category === this.spotData.category);
+      return foundCategory ? foundCategory.value : "카테고리"; 
+    }
   },
   methods: {
     async reloadComment() {
