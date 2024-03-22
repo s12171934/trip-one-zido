@@ -4,7 +4,7 @@
       <h1>설정페이지</h1>
     </div>
     <div class="d-flex justify-content-between">
-      <div class="w-50">
+      <div>
         <div class="d-flex align-items-center">
           <div class="d-flex flex-column gap-2">
             <img
@@ -23,6 +23,7 @@
           <h1>{{ configData.memberProfile.loginId }}</h1>
         </div>
 
+        <div class="summary-css">
         <hr />
         <NumberSummary
           @follower="
@@ -33,11 +34,13 @@
             followType = 'following';
             getFollowList();
           "
+          
           :totalBoard="configData.postCount"
           :followerCount="configData.followerCount"
           :followingCount="configData.followingCount"
           :bookmarkCount="configData.bookmarkCount"
         />
+      </div>
       </div>
       <div
         class="w-50 d-flex justify-content-end align-items-end"
@@ -147,6 +150,15 @@ button {
     flex: 1; /* 아이템이 동일한 너비를 가지도록 함 */
     width: 90% !important;
     margin-bottom: 10%;
+  }
+}
+
+@media (max-width: 400px) {
+  h1 {
+    margin-top: 6%;
+  }
+  button {
+    margin-top: 3%;
   }
 }
 </style>

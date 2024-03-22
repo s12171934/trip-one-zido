@@ -5,7 +5,7 @@
         <h1 @click="console.log(status)" class="title">
           일정 {{ mode === "add" ? "등록" : "수정" }}
         </h1>
-        <div class="w-50">
+        <div class="status-css">
           <div class="d-flex justify-content-between">
             <span>여행할</span>
             <span>여행중</span>
@@ -21,7 +21,8 @@
           />
         </div>
       </div>
-      <table class="leftTable">
+      <div class="leftTable">
+      <table>
         <tr>
           <td scope="col">
             <h4 class="title-col">일정 제목</h4>
@@ -36,7 +37,7 @@
             <h4 class="title-col">기간</h4>
           </td>
           <td>
-            <div class="d-flex justify-content-between align-items-center" id="date-time ">
+            <div class="d-flex justify-content-between align-items-center" id="date-time">
               <div class="date-time">
                 <input
                   @change="checkOtherDate('start')"
@@ -131,6 +132,7 @@
           </td>
         </tr>
       </table>
+      </div>
     </div>
 
     <!-- ★오른쪽 -->
@@ -153,7 +155,7 @@
             </div>
           </td>
           <td>
-            <div class="m-0 d-flex justify-content-end gap-2" id="add-cancle">
+            <div class="d-flex" id="add-canlce">
               <input
                 @click="submitButton(mode)"
                 id="input"
@@ -163,6 +165,7 @@
               />
               <input
                 @click="$router.push('/member-page')"
+                id="cancle"
                 class="button alt small"
                 type="button"
                 value="취소"
@@ -398,10 +401,6 @@ h4 {
   margin: 0;
 }
 
-td {
-  /* min-width: 170px; */
-}
-
 .member-container {
   overflow: scroll;
   overflow-y: hidden;
@@ -440,70 +439,93 @@ textarea {
   background: #ff928e;
 }
 
+.button {
+    margin-left: auto;
+}
+#cancle {
+  margin-left:2%;
+}
 #security {
   width: 70%
 }
 
+.p-2 {
+  width: 100%;
+}
 
+h4 {
+      white-space: nowrap; 
+      text-overflow: ellipsis; 
+  }
+
+.status-css {
+  width: 50%;
+  white-space: nowrap; 
+  text-overflow: ellipsis; 
+}
 @media (max-width: 1650px) {
   .wrapper {
     flex-direction: column; /* 아이템을 세로로 배치 */
   }
   .p-2 {
-    width: 100%; 
     border: none;
-  }
-  .title-col {
-    white-space: nowrap; 
-    text-overflow: ellipsis; 
   }
   #leftSide {
     border-inline: none !important; /* border -end 제거*/ 
   }
-  #with-css {
-    width: 100%;
-  }
 }
 
-
 /* 작은 화면에서 아이템을 세로로 배치하기 위해 추가된 스타일 */
-@media (max-width: 768px) {
-  #security {
-    width: 50%;
-  }
+@media (max-width: 880px) {
+
   .title-col {
     font-size: 100%;
     display: block; /* 제목을 블록 레벨 요소로 변경하여 다음 줄에 표시 */
   }
-  .p-2 {
-    width: 100%; /* 왼쪽과 오른쪽 사이드 모두 화면 전체를 차지하도록 설정 */
-    border: none; /* border 효과 제거 */
-  }
-  #add-cancle {
-    margin-left: auto;
-  }
-  #security {
-      width: 40% !important;
-  }
-  table {
-    width: 100%;
-  }
+
   table tr td:first-child,
   table tr td:last-child {
+    
+    display: block;
+  }
+  td {
+    width: 90%
+  }
+  #security {
+    width: 20%;
+  }
+}
+
+
+@media (max-width: 550px) {
+  .status-css {
+    display: block;
+  }
+  td {
+    width: 450px;
+  }
+  #date-time {
+    display: flex; /* Flex 레이아웃으로 변경 */
+    flex-direction: column; /* 세로 방향으로 정렬 */
+  }
+  .date-time {
     width: 100%;
-    display: block;
-  }
-  td {
-  width: 90% !important;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   td {
-    display: block;
-    width: 70% !important;
-    }
+    width: 70%;
+  }
+  #security {
+    width: 60%;
+  }
 }
 
+@media (max-width: 400px) {
+  td {
+    width: 60%;
+  }
+}
 </style>
 ../util/KakaoMapForPlanDetail.vue

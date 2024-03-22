@@ -64,7 +64,7 @@
 
       <h3>아직 회원이 아니시라면?</h3>
       <div class="d-flex justify-content-center">
-        <a @click="$router.push('sign-up')" class="button small">회원가입</a>
+        <a @click="$router.push('sign-up')" class="button small" id="button">회원가입</a>
       </div>
     </div>
   </main>
@@ -175,7 +175,7 @@ form {
 }
 
 .button {
-  color: aliceblue;
+  color: rgb(252, 252, 252);
   background-color: #ff928e;
   border-radius: 10px;
   font-size: 15px !important;
@@ -208,5 +208,16 @@ a {
   form {
     border: none !important; /* 작은 화면에서 border 제거 */
   }
+}
+
+@media (max-width: 400px) {
+  img {
+      width: 50px;
+      height: 50px;
+  }
+  button, #button {
+    width: 50%;
+    padding: 0;
+  }    
 }
 </style>

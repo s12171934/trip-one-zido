@@ -109,4 +109,9 @@ form {
   width: 75px;
   height: 75px;
 }
+
+span {
+  font-weight: normal !important;
+}
+
 </style>
