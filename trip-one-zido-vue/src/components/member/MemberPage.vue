@@ -43,7 +43,7 @@
         :bookmarkCount="memberPageData.bookmarkCount"
       />
       </div>
-      <KakaoMapForMemberPage />
+      <KakaoMapForMemberPage v-if="isDataLoaded" :locMap="locMap"/>
     </div>
     <div class="d-flex flex-column justify-content-between" id="rightSide">
       <div class="select-wrapper d-flex justify-content-end" id="add">
@@ -134,8 +134,13 @@ export default {
         followingCount: null,
         isMine: null,
       },
+      locMap: [{
+          code: null, 
+          count: null,
+      }],
       planSort: 'created_at',
-      spotSort: 'created_at'
+      spotSort: 'created_at',
+      isDataLoaded: false,
     };
   },
   methods: {
@@ -171,13 +176,24 @@ export default {
         )
         .then((res) => (this.followList = res));
     },
-  },
+    getLocMap(id){
+      this.$zido
+      .getLocMap(id)
+      .then((res) => (this.locMap = res));
+    },
+},
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
     this.$zido
       .getMemberPageData(this.$route.params.id)
-      .then((res) => (this.memberPageData = res));
-  },
+      .then((res) => {
+        this.memberPageData = res;
+        this.getLocMap(this.memberPageData.id);
+        this.$nextTick(() => {
+          this.isDataLoaded = true; // 데이터 로드 상태를 true로 설정
+        });
+      });
+    },
 };
 </script>
 

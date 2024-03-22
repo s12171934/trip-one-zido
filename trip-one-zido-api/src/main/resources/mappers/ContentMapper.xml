@@ -49,19 +49,6 @@
             )
     </insert>
 
-    <insert id="addPin" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
-        INSERT INTO pin
-            (
-            member_id,
-            content_id
-            )
-        VALUE
-            (
-            #{memberId},
-            #{contentId}
-            )
-    </insert>
-
     <insert id="addRecentView" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
         INSERT INTO open_content
         (
@@ -74,11 +61,6 @@
              #{contentId}
                 )
     </insert>
-
-    <!-- 사용자의 ID를 기반으로 핀의 갯수를 가져오는 쿼리 -->
-    <select id="getPinCountByMemberId" parameterType="Long" resultType="int">
-        SELECT COUNT(*) FROM pin WHERE member_id = #{sessionId};
-    </select>
 
     <select id="getOwner" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
         SELECT
@@ -300,13 +282,6 @@
 
     <delete id="deleteOwner" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
         DELETE FROM owner
-        WHERE
-            member_id = #{memberId} AND
-            content_id = #{contentId}
-    </delete>
-
-    <delete id="deletePin" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
-        DELETE FROM pin
         WHERE
             member_id = #{memberId} AND
             content_id = #{contentId}

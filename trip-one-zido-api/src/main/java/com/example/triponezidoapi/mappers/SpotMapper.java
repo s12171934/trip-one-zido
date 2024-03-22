@@ -17,6 +17,7 @@ public interface SpotMapper {
     List<ResponseContentList> getSpotList(RequestSessionTarget requestSessionTarget);
     List<ResponsePhoto> getPhoto(Long id);
     int getSpotListCount(Long memberId);
+    List<ResponseLocMap> getLocMap(Long memberId);
 
     //update
     void updateSpot(RequestSpot requestSpot);

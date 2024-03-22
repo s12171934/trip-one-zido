@@ -82,7 +82,6 @@ public class PageService {
         requestSessionTarget.setPage(page * 6);
         requestSessionTarget.setSort(sort == null ? "created_at DESC" : sort);
 
-
         return planMapper.getPlanList(requestSessionTarget);
     }
 
@@ -95,6 +94,10 @@ public class PageService {
 
 
         return spotMapper.getSpotList(requestSessionTarget);
+    }
+
+    public List<ResponseLocMap> getLocMap(Long memberId){
+        return spotMapper.getLocMap(memberId);
     }
 
     public List<ResponseMember> getFollowingList(Long id, Long sessionId){
@@ -137,7 +140,6 @@ public class PageService {
             requestFollow.setFollowing(followerList.get(i).getId());
             followerList.get(i).setFollow(memberMapper.isFollow(requestFollow));
         }
-
         return followerList;
     }
 

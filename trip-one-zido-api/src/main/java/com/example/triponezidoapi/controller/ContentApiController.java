@@ -18,35 +18,6 @@ public class ContentApiController {
     @Autowired
     ContentService contentService;
 
-    @PostMapping("/pin/{id}")
-    @Tag(name = "Pin", description = "Pin API")
-    @Operation(summary = "게시물 고정하기")
-    public void postPin(
-            @PathVariable
-            @Parameter(description = "고정 게시물 번호")
-            Long id,
-
-            @SessionAttribute(name = "id")
-            @Parameter(description = "로그인 회원 번호")
-            Long sessionId
-    ){
-        contentService.addPin(id, sessionId);
-    }
-    @DeleteMapping("/pin/{id}")
-    @Tag(name = "Pin")
-    @Operation(summary = "게시물 고정 취소하기")
-    public void deletePin(
-            @PathVariable
-            @Parameter(description = "고정 게시물 번호")
-            Long id,
-
-            @SessionAttribute(name = "id")
-            @Parameter(description = "로그인 회원 번호")
-            Long sessionId
-    ){
-        contentService.deletePin(id, sessionId);
-    }
-
     @PostMapping("/good/{id}")
     @Tag(name = "Good")
     @Operation(summary = "좋아요 등록/수정/취소")

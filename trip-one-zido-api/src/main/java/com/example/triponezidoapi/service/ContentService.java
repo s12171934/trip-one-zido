@@ -18,29 +18,6 @@ public class ContentService {
     @Autowired
     MemberMapper memberMapper;
 
-    // 핀의 최대 갯수
-    private static final int MAX_PIN_COUNT = 50;
-    public void addPin(Long id, Long sessionId) {
-        // 사용자가 추가한 핀의 갯수 확인
-        int pinCount = contentMapper.getPinCountByMemberId(sessionId);
-
-        // 핀의 최대 갯수에 도달한 경우 추가 거부
-        if (pinCount >= MAX_PIN_COUNT) {
-            throw new RuntimeException("핀의 갯수 제한에 도달했습니다.");
-        }
-
-        RequestContentMember requestContentMember = new RequestContentMember();
-        requestContentMember.setContentId(id);
-        requestContentMember.setMemberId(sessionId);
-        contentMapper.addPin(requestContentMember);
-    }
-    public void deletePin(Long id, Long sessionId) {
-        RequestContentMember requestContentMember = new RequestContentMember();
-        requestContentMember.setContentId(id);
-        requestContentMember.setMemberId(sessionId);
-        contentMapper.deletePin(requestContentMember);
-    }
-
     public void toggleGood(Long id, Long sessionId, RequestGood requestGood) {
         requestGood.setMemberId(sessionId);
         requestGood.setContentId(id);

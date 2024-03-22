@@ -43,7 +43,7 @@
             #{contentId}
             )
         <selectKey keyProperty="id" resultType="long">
-            SELECT LAST_INSERT_ID();
+            SELECT LAST_INSERT_ID()
         </selectKey>
     </insert>
 
@@ -140,15 +140,6 @@
                 content_id = c.id AND
                 good = 1
             ) good_count,
-            (
-                SELECT
-                    COUNT(*)
-                FROM
-                    pin
-                WHERE
-                    member_id = #{myMemberId}
-                  AND content_id = #{targetId}
-            ) pin,
             c.type
         FROM
             content c,
@@ -218,6 +209,18 @@
             )
     </select>
 
+    <select id="getLocMap" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseLocMap">
+        SELECT
+            loc_category code, count(*) count
+        FROM
+            spot s, owner o
+        WHERE
+            s.id = o.content_id AND
+            o.member_id = #{memberId}
+        GROUP BY
+            loc_category
+    </select>
+
     <update id="updateSpot" parameterType="com.example.triponezidoapi.dto.request.RequestSpot">
         UPDATE spot
         SET
@@ -231,7 +234,7 @@
             grade = #{grade},
             profile_id = #{profile}
         WHERE
-            id = #{id};
+            id = #{id}
     </update>
 
     <delete id="deletePhoto" parameterType="Long">
