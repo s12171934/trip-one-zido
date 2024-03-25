@@ -94,6 +94,12 @@ h3 {
   width: 30%;
 }
 
+@media (max-width: 1023px) {
+  .inner {
+    width: 50%;
+  }
+} 
+
 @media (max-width: 515px) {
   .inner {
     width: 100%;
@@ -102,6 +108,12 @@ h3 {
   .d-flex {
     font-size: 12px; /* 버튼 폰트 크기 조정 */
     padding: 8px 12px; /* 버튼 내부 여백 조정 */
+  }
+} 
+
+@media (max-width: 400px) {
+  .d-flex {
+    font-size: 10px; /* 버튼 폰트 크기 조정 */
   }
 } 
 </style>

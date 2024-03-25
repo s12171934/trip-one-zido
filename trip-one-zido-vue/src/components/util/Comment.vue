@@ -109,4 +109,41 @@ form {
   width: 75px;
   height: 75px;
 }
+
+span {
+  font-weight: normal !important;
+}
+
+
+@media (max-width: 465px) {
+  span {
+    font-size: small;
+  }
+}
+@media (max-width: 440px) {
+  img {
+    width: 50px !important;
+    height: 50px !important;
+  }
+}
+
+@media (max-width: 385px) {
+  span {
+    font-size: x-small;
+  }
+}
+
+@media (max-width: 365px) {
+  img {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
+
+@media (max-width: 340px) {
+  img {
+    width: 30px !important;
+    height: 30px !important;
+  }
+}
 </style>

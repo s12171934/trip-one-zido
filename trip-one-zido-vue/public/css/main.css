@@ -2551,18 +2551,6 @@
          opacity: 0.25;
       }
 
-      @media screen and (max-width: 480px) {
-
-         input[type="submit"],
-         input[type="reset"],
-         input[type="button"],
-         button,
-         .button {
-            padding: 0;
-         }
-
-      }
-
 /* Flex */
 
    .flex {

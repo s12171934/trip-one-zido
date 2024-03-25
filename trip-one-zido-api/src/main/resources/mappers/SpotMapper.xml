@@ -156,23 +156,8 @@
                 member_id = #{targetId}
             ) AND
             (
-                visibility = 1 AND
-                (
-                    SELECT visibility
-                    FROM content
-                    WHERE id = (
-                        SELECT plan_id
-                        FROM plan_spot
-                        WHERE spot_id = c.id
-                    )
-                ) = 1 OR
-                visibility = 1 AND
-                NOT EXISTS (
-                    SELECT 1
-                    FROM plan_spot
-                    WHERE spot_id = c.id
-                ) OR
-                c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+            visibility = 1 OR
+            c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
             )
         ORDER BY
             ${sort}
@@ -190,7 +175,7 @@
             content_id = #{id}
     </select>
 
-    <select id="getSpotListCount" parameterType="Long" resultType="int">
+    <select id="getSpotListCount" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="int">
         SELECT
             count(*)
         FROM
@@ -205,7 +190,11 @@
                 FROM
                     owner
                 WHERE
-                    member_id = #{id}
+                    member_id = #{targetId}
+            )AND
+            (
+            visibility = 1 OR
+            c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
             )
     </select>
 

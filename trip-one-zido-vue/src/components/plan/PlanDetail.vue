@@ -3,20 +3,23 @@
     <div class="p-2 d-flex flex-column border-end" id="leftSide">
       <div class="d-flex justify-content-between me-5 w-100">
         <h1 @click="console.log(status)" class="title">
-          {{ planData.title
-          }}<span class="date"
+          {{ planData.title}}
+          
+          <span class="date"
             >{{ planData.startDate }}~{{ planData.endDate }}</span
           >
-          <span class="comm"
-            ><img id="star" src="/images/star.png" />{{ planData.grade }}</span
-          >
+
+        
         </h1>
         <button class="rounded-5" > {{ selectedStatus  }}</button>
       </div>
       <table>
         <tr>
-          <td>
+          <td class="title-css">
             <h1 class="p-2">
+              <span class="comm"
+                ><img id="star" src="/images/star.png" />{{ planData.grade }}</span
+              >
               <span class="comm"
                 ><img
                   @click="$zido.toggleBookmark(planData)"
@@ -113,6 +116,7 @@
       </table>
       <FullCalendar
         class="h-100"
+        id="calendar"
         ref="FullCalendar"
         :options="calendarOptions"
       />
@@ -321,10 +325,6 @@ h4 {
   margin: 0;
 }
 
-td {
-  min-width: 170px;
-}
-
 .member-container {
   overflow: scroll;
   overflow-y: hidden;
@@ -399,9 +399,6 @@ textarea {
   border-radius: 1.5rem;
   padding: 2%;
 }
-</style>
-
-<style>
 .fc-day-today {
   background-color: inherit !important;
 }
@@ -415,6 +412,19 @@ colgroup col {
 .fc-scrollgrid-shrink-cushion {
   margin-right: 3%;
 }
+#status-css {
+  cursor:default;
+}
+.date {
+  margin: 0.2rem
+}
+
+@media (max-width: 1705px) { 
+  .date {
+    display: inline-block;
+  }
+}
+
 @media (max-width: 1460px) { /* 원하는 크기로 설정 */
   .wrapper {
     flex-direction: column; /* 화면이 작아지면 컨텐츠를 세로로 배치 */
@@ -427,6 +437,38 @@ colgroup col {
   }
   #leftSide {
     border-inline: none !important; /* border -end 제거*/ 
+  }
+  .date {
+    /* display: inline-block; */
+  }
+}
+
+@media (max-width: 1023px) {
+  #bookmark[data-v-3aaf8480],
+  #unLike[data-v-3aaf8480], 
+  #like[data-v-3aaf8480], 
+  #star[data-v-3aaf8480] {
+    width: 30px;
+    height: 30px;
+    margin: 0.5rem;
+  }
+
+  .title-css {
+    padding: 0
+  }
+}
+
+@media (max-width: 500px) {
+  #comment {
+    width: 30%;
+    padding: 0;
+  }
+  .title {
+    font-size: calc(1.0rem + 1.5vw);
+  }
+  .button {
+    width: 30%;
+    padding:0;
   }
 }
 </style>

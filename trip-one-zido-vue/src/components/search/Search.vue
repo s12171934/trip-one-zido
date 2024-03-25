@@ -14,8 +14,9 @@
       <button class="button alt" type="submit" id="more">검색</button>
       <button
         class="button alt"
+        id="detail"
         type="button"
-        @click="this.$router.push('/search-detail')"
+        @click="this.$router.push(`/search-detail?keyword=${$route.params.keyword}`)"
       >
         일정 & 장소 상세검색으로
       </button>
@@ -130,6 +131,9 @@ span {
 @media (max-width: 545px) {
   .button.alt, input {
     font-size: 0.8rem; /* 작은 화면에서 버튼 텍스트 크기를 줄입니다. */
+  }
+  #detail {
+    width: 100%;
   }
 }
 </style>

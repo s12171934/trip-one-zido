@@ -57,21 +57,23 @@
         <div class="d-flex gap-3">
           <input
             type="text"
-            class="w-25"
             readonly
             id="zipcode"
             placeholder="우편번호"
           />
-          <input
-            type="text"
-            readonly
-            class="w-50"
-            id="address"
-            placeholder="주소"
-          />
+
           <button class="button icon fa-search" @click="searchAddress">
             주소 검색
           </button>
+
+        </div>
+        <div class="d-flex gap-3">
+          <input
+            type="text"
+            readonly
+            id="address"
+            placeholder="주소"
+          />
         </div>
         <input type="text" id="address2" v-model="form.address2" placeholder="상세한 주소" />
 
@@ -233,7 +235,7 @@ form {
 
 .button {
   height: auto;
-  width: 20%;
+  width: 30%;
   padding: 0;
   color: rgb(255, 255, 255);
   background-color: #ff928e;
@@ -259,15 +261,31 @@ a {
   gap: 1.5rem;
   border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
   border-radius: var(--bs-border-radius-sm) !important;
-  padding: 0.5rem;
+  padding: 1.0rem;
+  color: rgb(118, 125, 133);
 }
 
 select {
   font-size: 20px;
+  color: rgb(118, 125, 133);
 }
 
 .icon {
   padding: 0 !important;
+}
+
+@media (max-width: 1610px) {
+  .birth-gender {
+    white-space: nowrap; 
+    text-overflow: ellipsis; 
+  }
+  form {
+    border: none !important;
+    width: 100%;
+  }
+  #birth-gender {
+    flex-direction: column
+  }
 }
 
 @media (max-width: 1250px) {
@@ -282,7 +300,6 @@ select {
 
 @media (max-width: 1050px) {
   form {
-    border: none !important;
     width: 100%;
   }
   #birth-gender {
@@ -307,12 +324,31 @@ select {
   #security,
   #birth-gender,
   #birthday  {
-    font-size: 80%; /* 화면이 작아질 때 입력란의 너비를 조금씩 줄입니다. */
+    font-size: 70%; /* 화면이 작아질 때 입력란의 너비를 조금씩 줄입니다. */
   }
 
   .button {
     font-size: 10px;  /* 버튼의 너비 조정 */
+    width: 40%;
   }
   
+  form {
+    margin-bottom: 0%;
+  }
 } 
+
+@media (max-width: 550px) {
+  form {
+    width: 120%;
+  }
+}
+
+@media (max-width: 380px) {
+  form {
+    width: 140%;
+  }
+  #birthday {
+    font-size: 10px !important;
+  }
+}
 </style>

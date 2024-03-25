@@ -17,7 +17,7 @@ public interface PlanMapper {
 
     List<ResponseSpotPlan> getSpot(long contentId);
     List<ResponseContentList> getPlanList(RequestSessionTarget requestSessionTarget);
-    int getPlanListCount(Long memberId);
+    int getPlanListCount(RequestSessionTarget requestSessionTarget);
     //update
     void updatePlan(RequestPlan requestPlan);
 }

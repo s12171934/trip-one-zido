@@ -12,6 +12,7 @@ public class ResponseSearch {
     String keyword;
     int locCategory;
     int category;
+    String season;
 
     int memberCount;
     int planCount;
