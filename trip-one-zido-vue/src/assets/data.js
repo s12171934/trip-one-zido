@@ -1,6 +1,3 @@
-
-import zido from "@/assets/zido";
-
 export default {
   selectLocations: [
     {locCategory : 11, value: "서울특별시",},

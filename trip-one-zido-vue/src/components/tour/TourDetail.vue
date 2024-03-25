@@ -2,7 +2,7 @@
   <main class="wrapper">
     <div class="d-flex justify-content-end">
       <ul class="actions">
-        <li>
+        <li id="button-list">
           <a
             @click="$router.push(`/tour/loc/${tour.locCategory}`)"
             class="button alt small"
@@ -129,6 +129,13 @@ img {
   ul.actions li > * {
     width: 90%;
     margin: 0 !important;
+  }
+  #button-list {
+    padding: 16px 0px 0px;
+  }
+  #map {
+    height: 350px;
+    margin-bottom: 10%;
   }
 }
 </style>

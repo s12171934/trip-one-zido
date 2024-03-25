@@ -109,16 +109,17 @@ form {
   width: 75px;
   height: 75px;
 }
+
 span {
   font-weight: normal !important;
 }
+
 
 @media (max-width: 465px) {
   span {
     font-size: small;
   }
 }
-
 @media (max-width: 440px) {
   img {
     width: 50px !important;
