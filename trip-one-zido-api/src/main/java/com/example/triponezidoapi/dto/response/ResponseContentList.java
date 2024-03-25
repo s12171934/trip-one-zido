@@ -5,11 +5,12 @@ import lombok.Data;
 @Data
 public class ResponseContentList {
     Long id;
+    String loginId;
     String title;
     byte[] photo;
     int bookmarkCount;
     int goodCount;
     int grade;
-    int myBookmark;
-    int pin;
+    boolean myBookmark;
+    String type;
 }

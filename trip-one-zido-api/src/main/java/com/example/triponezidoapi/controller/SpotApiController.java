@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/spot")
-@Tag(name = "Content")
+@Tag(name = "Spot", description = "Spot API")
 public class SpotApiController {
     @Autowired
     SpotService spotService;
@@ -30,7 +30,7 @@ public class SpotApiController {
     ){
         return spotService.spotDetail(id, sessionId);
     }
-    @PostMapping("/")
+    @PostMapping("")
     @Operation(summary = "장소 게시물 등록")
     public void postSpot(
             @RequestBody

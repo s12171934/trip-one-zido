@@ -2,13 +2,13 @@
   <div class="d-flex flex-row mb-6" id="searchUser">
     <div
       @click="$router.push(`/member-page/${profile.id}`)"
-      v-for="profile in memberList"
+      v-for="profile in list"
       class="p-2"
     >
-      <img :src="profile.imgSrc" />
+      <img :src="`data:image/jpeg;base64,${profile.profile}`" />
       <p>{{ profile.loginId }}</p>
     </div>
-    <div @click="" v-if="plus" class="p-2">
+    <div @click="addMember" v-if="this.list.length < this.maxLen" class="p-2">
       <img src="/images/plusbutton.png" />
       <p>더보기</p>
     </div>
@@ -18,9 +18,20 @@
 <script>
 export default {
   props: {
+    list: Object,
     addApi: String,
-    memberList: Object,
-    plus: Boolean,
+    maxLen: Boolean,
+  },
+  data() {
+    return {
+      page: 0,
+    };
+  },
+  methods: {
+    async addMember() {
+      const addMember = await this.$zido.newMembers(this.addApi, ++this.page);
+      this.list.push(...addMember);
+    },
   },
 };
 </script>

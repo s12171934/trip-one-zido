@@ -7,8 +7,7 @@
       <h1>회원가입</h1>
       <form
         @submit.prevent
-        class="d-flex flex-column gap-3 border border-5 p-5"
-      >
+        class="d-flex flex-column gap-3 border border-5 p-5">
         <div class="d-flex gap-3">
           <input
             type="text"
@@ -19,7 +18,7 @@
             @click="checkLoginId"
             data-bs-toggle="modal"
             data-bs-target="#alertModal"
-            class="button w-25"
+            class="button"
           >
             아이디중복체크
           </button>
@@ -34,11 +33,9 @@
           placeholder="비밀번호 확인"
         />
         <div class="select-wrapper">
-          <select name="category" id="security" v-model="form.securityQuestion">
-            <option
-              v-for="securityQuestion in $zido.getSecurityQuestions()"
-              :value="securityQuestion.id"
-            >
+          <select name="category" id="security" v-model="form.question">
+            <option value="" disabled selected>보안질문을 선택하세요</option>
+            <option v-for="securityQuestion in securityQuestions" :value="securityQuestion.id">
               {{ securityQuestion.question }}
             </option>
           </select>
@@ -46,7 +43,7 @@
 
         <input
           type="text"
-          v-model="form.securityAnswer"
+          v-model="form.answer"
           placeholder="보안질문 답"
         />
 
@@ -60,25 +57,27 @@
         <div class="d-flex gap-3">
           <input
             type="text"
-            class="w-25"
             readonly
             id="zipcode"
             placeholder="우편번호"
           />
+
+          <button class="button icon fa-search" @click="searchAddress">
+            주소 검색
+          </button>
+
+        </div>
+        <div class="d-flex gap-3">
           <input
             type="text"
             readonly
-            class="w-50"
             id="address"
             placeholder="주소"
           />
-          <button class="button w-25 icon fa-search" @click="searchAddress">
-            주소 검색
-          </button>
         </div>
-        <input type="text" v-model="form.address2" placeholder="상세한 주소" />
+        <input type="text" id="address2" v-model="form.address2" placeholder="상세한 주소" />
 
-        <div class="d-flex flex-fill gap-3 justify-content-start">
+        <div class="d-flex flex-fill gap-3 justify-content-start" id="birth-gender">
           <div class="birth-gender">
             생년월일:
             <input
@@ -95,7 +94,7 @@
               id="male"
               name="gender"
               v-model="form.gender"
-              value="0"
+              value=0
             />
             <label for="male" id="gender" class="m-0">남성</label>
             <input
@@ -103,7 +102,7 @@
               id="female"
               name="gender"
               v-model="form.gender"
-              value="1"
+              value=1
             />
             <label for="female" id="gender" class="m-0">여성</label>
           </div>
@@ -111,7 +110,7 @@
       </form>
       <button
         @click="signUp"
-        class="button p-2"
+        class="button"
         data-bs-toggle="modal"
         data-bs-target="#alertModal"
       >
@@ -138,33 +137,46 @@ export default {
         name: "",
         password: "",
         passwordCheck: "",
-        securityQuestion: "",
-        securityAnswer: "",
+        question: "",
+        answer: "",
         email: "",
         phoneNumber: "",
+        zipcode: "",
+        address: "",
         address2: "",
         birth: "",
-        gender: "",
+        gender: 0,
       },
+      securityQuestions: [],
+      securityQuestion: {
+        id: "",
+        question: "",
+      }
     };
   },
   methods: {
     checkLoginId() {
-      if (this.$zido.checkLoginId(this.loginId)) {
-        this.modal = "checkDuplicationLoginIdSuccess";
-      } else {
-        this.modal = "checkDuplicationLoginIdFail";
-        this.loginId = "";
-      }
+      this.$zido.checkLoginId(this.form.loginId).then(result => {
+        if(result){
+          this.modal = "checkDuplicationLoginIdSuccess";
+        } else {
+          this.modal = "checkDuplicationLoginIdFail";
+          this.form.loginId = "";
+        }
+      })
     },
     signUp() {
       this.form.zipcode = document.querySelector("#zipcode").value;
       this.form.address = document.querySelector("#address").value;
-      if (this.$zido.signUp(this.form)) {
-        this.modal = "signUpSuccess";
-      } else {
-        this.modal = "signUpFail";
-      }
+      this.form.address2 = document.querySelector("#address2").value;
+      this.form.birth = new Date(this.form.birth);
+      this.$zido.signUp(this.form).then(result =>{
+        if(result){
+          this.modal = "signUpSuccess";
+        } else {
+          this.modal = "signUpFail";
+        }
+      })
     },
     searchAddress() {
       new daum.Postcode({
@@ -178,6 +190,9 @@ export default {
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
   },
+  async created(){
+    this.securityQuestions  = await this.$zido.getSecurityQuestions()
+  }
 };
 </script>
 
@@ -219,12 +234,13 @@ form {
 }
 
 .button {
-  height: 70px;
+  height: auto;
+  width: 30%;
   padding: 0;
-  color: aliceblue;
+  color: rgb(255, 255, 255);
   background-color: #ff928e;
   border-radius: 10px;
-  font-size: 15px !important;
+  /* font-size: 15px !important; */
 }
 
 a {
@@ -245,14 +261,94 @@ a {
   gap: 1.5rem;
   border: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
   border-radius: var(--bs-border-radius-sm) !important;
-  padding: 0.5rem;
+  padding: 1.0rem;
+  color: rgb(118, 125, 133);
 }
 
 select {
   font-size: 20px;
+  color: rgb(118, 125, 133);
 }
 
 .icon {
   padding: 0 !important;
+}
+
+@media (max-width: 1610px) {
+  .birth-gender {
+    white-space: nowrap; 
+    text-overflow: ellipsis; 
+  }
+  form {
+    border: none !important;
+    width: 100%;
+  }
+  #birth-gender {
+    flex-direction: column
+  }
+}
+
+@media (max-width: 1250px) {
+  #box {
+    white-space: nowrap; 
+    text-overflow: ellipsis; 
+  }
+  .wrapper {
+    margin-inline: 10% !important;
+  }
+}
+
+@media (max-width: 1050px) {
+  form {
+    width: 100%;
+  }
+  #birth-gender {
+    flex-direction: column
+  }
+}
+
+
+@media (max-width: 768px) {
+  .flex-column-on-small-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+  }
+  h3 {
+    font-size: 16px; /* 작은 화면에서 폰트 크기를 작게 조정 */
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  #security,
+  #birth-gender,
+  #birthday  {
+    font-size: 70%; /* 화면이 작아질 때 입력란의 너비를 조금씩 줄입니다. */
+  }
+
+  .button {
+    font-size: 10px;  /* 버튼의 너비 조정 */
+    width: 40%;
+  }
+  
+  form {
+    margin-bottom: 0%;
+  }
+} 
+
+@media (max-width: 550px) {
+  form {
+    width: 120%;
+  }
+}
+
+@media (max-width: 380px) {
+  form {
+    width: 140%;
+  }
+  #birthday {
+    font-size: 10px !important;
+  }
 }
 </style>

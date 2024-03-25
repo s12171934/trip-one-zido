@@ -7,18 +7,18 @@
     <img
       class="rounded-circle"
       id="followPic"
-      :src="userProfile.imgSrc"
+      :src="`data:image/jpeg;base64,${userProfile.profile}`"
       alt="..."
     />
 
-    <div class="d-flex justify-content-between w-100 align-items-center">
+    <div class="d-flex justify-content-between w-100 align-items-center" >
       <h4>{{ userProfile.loginId }}</h4>
-      <button
+        <button v-if="userProfile.id != userProfile.sessionId"
         @click.stop="$emit('followToggle', userProfile)"
         @mouseover="hover = true"
         @mouseleave="hover = false"
         v-html="
-          userProfile.isFollow ? (hover ? '언 팔로우' : '팔로잉 중') : '팔로우'
+          userProfile.follow ? (hover ? '언 팔로우' : '팔로잉 중') : '팔로우'
         "
         class="button"
       />

@@ -27,20 +27,40 @@ public class PageService {
             id = sessionId;
         }
         ResponseMemberPage memberPage = new ResponseMemberPage();
+
+        memberPage.setId(id);
+        memberPage.setSessionId(sessionId);
+        memberPage.setLoginId(memberMapper.getLoginId(sessionId));
+
+        //isFollow
+        RequestFollow follow = new RequestFollow();
+        follow.setFollower(sessionId);
+        follow.setFollowing(id);
+        memberPage.setFollow(memberMapper.isFollow(follow));
+
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(sessionId);
         requestSessionTarget.setTargetId(id);
+        requestSessionTarget.setSort("created_at DESC");
 
         //planLists
         memberPage.setPlanLists(planMapper.getPlanList(requestSessionTarget));
+        memberPage.setPlanListsCount(planMapper.getPlanListCount(requestSessionTarget));
         //spotLists
         memberPage.setSpotLists(spotMapper.getSpotList(requestSessionTarget));
+        memberPage.setSpotListsCount(spotMapper.getSpotListCount(requestSessionTarget));
+
         //member
         ResponseMember member = new ResponseMember();
         member.setId(id);
         member.setLoginId(memberMapper.getMemberProfile(id).getLoginId());
         member.setProfile(memberMapper.getMemberProfile(id).getProfile());
+        RequestFollow requestFollow = new RequestFollow();
+        requestFollow.setFollower(sessionId);
+        requestFollow.setFollowing(id);
+        member.setFollow(memberMapper.isFollow(requestFollow));
         memberPage.setResponseMember(member);
+
         //post count
         memberPage.setPostCount(memberMapper.postCount(id));
         //bookmark count
@@ -48,43 +68,47 @@ public class PageService {
         //follower, following count
         memberPage.setFollowerCount(memberMapper.followerCount(id));
         memberPage.setFollowingCount(memberMapper.followingCount(id));
+
         //나의 페이지라면 true를, 아니라면 false를 반환
         memberPage.setMine(id.equals(sessionId));
+
         return memberPage;
     }
 
-    public List<ResponseContentList> getPlanListByPage(Long id, Long sessionId, long page){
+    public List<ResponseContentList> getPlanListByPage(Long id, Long sessionId, long page, String sort){
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(sessionId);
         requestSessionTarget.setTargetId(id);
-        requestSessionTarget.setPage(page);
+        requestSessionTarget.setPage(page * 6);
+        requestSessionTarget.setSort(sort == null ? "created_at DESC" : sort);
 
         return planMapper.getPlanList(requestSessionTarget);
     }
 
-    public List<ResponseContentList> getSpotListByPage(Long id, Long sessionId, long page) {
+    public List<ResponseContentList> getSpotListByPage(Long id, Long sessionId, long page, String sort) {
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
         requestSessionTarget.setMyMemberId(sessionId);
         requestSessionTarget.setTargetId(id);
-        //페이지 카운트 처리
-        if(page == 0){
-            requestSessionTarget.setPage(0);
-        } else {
-            requestSessionTarget.setPage(page * 6);
-        }
+        requestSessionTarget.setPage(page * 6);
+        requestSessionTarget.setSort(sort == null ? "created_at DESC" : sort);
+
 
         return spotMapper.getSpotList(requestSessionTarget);
     }
 
-    public List<ResponseMember> getFollowingList(Long id, Long sessionId, long page){
+    public List<ResponseLocMap> getLocMap(Long memberId){
+        return spotMapper.getLocMap(memberId);
+    }
+
+    public List<ResponseMember> getFollowingList(Long id, Long sessionId){
         //id가 null일때 세션정보를 이용한다
         if(id == null){
             id = sessionId;
         }
 
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(id);
-        requestSessionTarget.setPage(page);
+        requestSessionTarget.setMyMemberId(sessionId);
+        requestSessionTarget.setTargetId(id);
 
         List<ResponseMember> followingList = memberMapper.followingList(requestSessionTarget);
         // 팔로잉 여부 확인
@@ -98,15 +122,15 @@ public class PageService {
         return followingList;
     }
 
-    public List<ResponseMember> getFollowerList(Long id, Long sessionId, long page){
+    public List<ResponseMember> getFollowerList(Long id, Long sessionId){
         //id가 null일때 세션정보를 이용한다
         if(id == null){
             id = sessionId;
         }
 
         RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(id);
-        requestSessionTarget.setPage(page);
+        requestSessionTarget.setMyMemberId(sessionId);
+        requestSessionTarget.setTargetId(id);
 
         List<ResponseMember> followerList = memberMapper.followerList(requestSessionTarget);
         // 팔로잉 여부 확인
@@ -116,7 +140,6 @@ public class PageService {
             requestFollow.setFollowing(followerList.get(i).getId());
             followerList.get(i).setFollow(memberMapper.isFollow(requestFollow));
         }
-
         return followerList;
     }
 

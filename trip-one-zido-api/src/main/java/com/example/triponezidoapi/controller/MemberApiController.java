@@ -58,6 +58,16 @@ public class MemberApiController {
 
         return memberService.login(login, request);
     }
+
+    @PostMapping("/autoLogin")
+    public void autoLogin(
+            @RequestBody
+            Login login,
+            HttpServletRequest request
+    ){
+        memberService.autoLogin(login, request);
+    }
+
     @PostMapping("/check/id")
     @Operation(summary = "아이디 찾기")
     public String checkId(
@@ -86,18 +96,14 @@ public class MemberApiController {
     ){
         return memberService.getQuestion(id);
     }
-    @PostMapping("/check/{id}")
+    @PostMapping("/check")
     @Operation(summary = "비밀번호 찾기 - 보안 답변 전송")
     public boolean answerQuestion(
-            @PathVariable
-            @Parameter(description = "회원 번호")
-            Long id,
-
-            @RequestParam
+            @RequestBody
             @Parameter(description = "보안 답변")
-            String answer
+            RequestAnswer requestAnswer
     ){
-        return memberService.checkAnswer(id, answer);
+        return memberService.checkAnswer(requestAnswer.getId(), requestAnswer.getAnswer());
     }
     @PutMapping("/passwd/{id}")
     @Operation(summary = "비밀번호 찾기 - 비밀번호 재설정")
@@ -117,9 +123,9 @@ public class MemberApiController {
     public Member showMemberInfo(
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 번호")
-            Long SessionId
+            Long sessionId
     ){
-        return memberService.getMember(SessionId);
+        return memberService.getMember(sessionId);
     }
     @PutMapping("/")
     @Operation(summary = "회원 정보 수정")
@@ -134,6 +140,17 @@ public class MemberApiController {
     ){
         memberService.updateMember(sessionId, member);
     }
+
+    @GetMapping("/profile")
+    @Operation(summary = "프로필 사진 가져오기")
+    public ResponseMember showPofile(
+            @SessionAttribute(name="id")
+            @Parameter(description = "로그인 회원 번호")
+            Long sessionId
+    ){
+        return memberService.getMemberProfile(sessionId);
+    }
+
     @PutMapping("/profile")
     @Operation(summary = "프로필 사진 변경")
     public void PutProfile(
@@ -163,15 +180,28 @@ public class MemberApiController {
     }
     @DeleteMapping("/")
     @Operation(summary = "회원 탈퇴")
-    public void removeMember(
+    public boolean removeMember(
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 정보")
-            Long id
-    ){
-        memberService.deleteMember(id);
-    }
-/*    @PostMapping("/pairing")
-    public void pairingSignup(@RequestBody ){
+            Long id,
 
-    }*/
+            @RequestParam
+            @Parameter(description = "비밀번호")
+            String password,
+
+            @RequestParam
+            @Parameter(description = "비밀번호확인")
+            String passwordCheck
+    ){
+        return memberService.deleteMember(id, password, passwordCheck);
+    }
+    @GetMapping("/config")
+    @Operation(summary = "설정 페이지 조회")
+    public ResponseConfigPage showConfig(
+            @SessionAttribute(name="id")
+            @Parameter(description = "로그인 회원 번호")
+            Long SessionId
+    ){
+        return memberService.getConfig(SessionId);
+    }
 }

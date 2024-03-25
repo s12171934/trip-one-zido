@@ -5,13 +5,13 @@
         INSERT INTO content
             (
             type,
-            is_public,
+            visibility,
             title
             )
         VALUE
             (
             #{type},
-            #{isPublic},
+            #{visibility},
             #{title}
             )
         <selectKey keyProperty="id" resultType="long">
@@ -49,23 +49,18 @@
             )
     </insert>
 
-    <insert id="addPin" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
-        INSERT INTO pin
-            (
+    <insert id="addRecentView" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
+        INSERT INTO open_content
+        (
             member_id,
             content_id
-            )
-        VALUE
+        )
+            VALUE
             (
-            #{memberId},
-            #{contentId}
-            )
+             #{memberId},
+             #{contentId}
+                )
     </insert>
-
-    <!-- 사용자의 ID를 기반으로 핀의 갯수를 가져오는 쿼리 -->
-    <select id="getPinCountByMemberId" resultType="int">
-        SELECT COUNT(*) FROM pin_table WHERE member_id = #{memberId};
-    </select>
 
     <select id="getOwner" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
         SELECT
@@ -96,6 +91,21 @@
             o.own = 'writer'
     </select>
 
+    <select id="getWith" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+        SELECT
+            m.id,
+            m.login_id,
+            m.profile,
+            o.own
+        FROM
+            member m,
+            owner o
+        WHERE
+            m.id = o.member_id AND
+            o.own = 'with' AND
+            o.content_id = #{id}
+    </select>
+
     <select id="getRecentView" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
         SELECT
             c.id,
@@ -103,11 +113,20 @@
             sp.grade,
             (
                 SELECT
+                    login_id
+                FROM
+                    member
+                WHERE
+                    id = #{myMemberId}
+            ) login_id,
+            (
+                SELECT
                     photo
                 FROM
                     photo
                 WHERE
-                    content_id = c.id
+                    content_id = c.id AND
+                    (profile_id is null OR profile_id = photo.id)
             ) photo,
             (
                 SELECT
@@ -133,37 +152,68 @@
                     good
                 WHERE
                     content_id = c.id
-            ) good_count
+            ) good_count,
+            c.type
         FROM
             content c,
             (
                 SELECT
                     id,
-                    grade
+                    grade,
+                    profile_id
                 FROM spot
                 UNION
                 SELECT
                     id,
-                    grade
+                    grade,
+                    null
                 FROM plan
                 UNION
                 SELECT
                     id,
-                    0 COMN
+                    0 COMN,
+                    null
                 FROM tour
             ) sp,
             open_content o
         WHERE
             c.id = sp.id and
             o.content_id = c.id and
-            o.member_id = #{myMemberId}
+            o.member_id = #{myMemberId} AND
+            (visibility = 1 OR
+            c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+            )
         ORDER BY
             opened_at DESC
-            LIMIT
+        LIMIT
             #{page}, 6
     </select>
 
-    <select id="isGood" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember" resultType="boolean">
+    <select id="isGood" parameterType="com.example.triponezidoapi.dto.request.RequestGood" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            good
+        WHERE
+            content_id = #{contentId}
+          AND member_id = #{memberId}
+    </select>
+
+    <select id="getRecentViewCount" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            content c,
+            open_content o
+        WHERE
+            o.content_id = c.id and
+            o.member_id = #{memberId} and
+            (visibility = 1 OR
+            c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+            )
+    </select>
+
+    <select id="myGood" parameterType="com.example.triponezidoapi.dto.request.RequestGood" resultType="boolean">
         SELECT
             good
         FROM
@@ -185,10 +235,20 @@
             member_id = #{memberId}
     </select>
 
-    <update id="updateIsPublic" parameterType="com.example.triponezidoapi.dto.request.RequestIsPublic">
+    <select id="getAddress" parameterType="long" resultType="string">
+        SELECT address
+        FROM tour
+        WHERE id = #{id}
+        UNION
+        SELECT address
+        FROM spot
+        WHERE id = #{id}
+    </select>
+
+    <update id="updateVisibility" parameterType="com.example.triponezidoapi.dto.request.RequestVisibility">
         UPDATE content
         SET
-            is_public = #{isPublic}
+            visibility = #{visibility}
         WHERE
             id = #{id}
     </update>
@@ -199,6 +259,15 @@
             title = #{title}
         WHERE
             id = #{id}
+    </update>
+
+    <update id="updateGood" parameterType="com.example.triponezidoapi.dto.request.RequestGood">
+        UPDATE good
+        SET
+            good = #{good}
+        WHERE
+            member_id = #{memberId} AND
+            content_id = #{contentId}
     </update>
 
     <delete id="deleteContent" parameterType="Long">
@@ -220,8 +289,14 @@
             content_id = #{contentId}
     </delete>
 
-    <delete id="deletePin" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
-        DELETE FROM pin
+    <delete id="deletePlanSpotOwner" parameterType="Long">
+        DELETE FROM owner
+        WHERE
+            content_id = #{contentId} AND own != 'writer'
+    </delete>
+
+    <delete id="changeRecentView" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
+        DELETE FROM open_content
         WHERE
             member_id = #{memberId} AND
             content_id = #{contentId}

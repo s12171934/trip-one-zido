@@ -7,11 +7,12 @@ public class ResponseTour {
     Long id;
     String title;
     String address;
-    String locCategory;
+    int locCategory;
     String info;
     byte[] photo;
     int bookmarkCount;
     int myBookmark;
     long nextId;
     long prevId;
+    String type;
 }

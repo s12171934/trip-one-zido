@@ -22,7 +22,9 @@
             content c
         WHERE
             b.content_id = c.id AND
-            c.is_public = 1 AND
+            (visibility = 1 OR
+            c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+            ) AND
             b.member_id = #{memberId}
     </select>
 
@@ -38,7 +40,7 @@
             b.member_id = #{memberId}
     </select>
 
-    <select id="planSpotBookmarkCount" parameterType="Long" resultType="int">
+    <select id="planSpotBookmarkCount" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="int">
         SELECT
             COUNT(*)
         FROM
@@ -47,8 +49,10 @@
         WHERE
             b.content_id = c.id AND
             c.type != 'tour' AND
-            c.is_public = 1 AND
-            b.member_id = #{memberId}
+            b.member_id = #{targetId} AND
+            (visibility = 1 OR
+            c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+            )
     </select>
 
     <select id="getTourBookmark" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseTour">
@@ -79,10 +83,12 @@
             WHERE
                 content_id = c.id AND
                 member_id = #{myMemberId}
-            ) my_bookmark
+            ) my_bookmark,
+            type
         FROM
             content c
         WHERE
+            type = 'tour' AND
             id IN
             (
             SELECT
@@ -107,7 +113,8 @@
                 FROM
                     photo
                 WHERE
-                    content_id = c.id
+                    content_id = c.id AND
+                    (profile_id is null OR profile_id = photo.id)
             ) photo,
             (
                 SELECT
@@ -133,18 +140,21 @@
                     good
                 WHERE
                     content_id = c.id
-            ) good_count
+            ) good_count,
+            type
         FROM
             content c,
             (
             SELECT
                 id,
-                grade
+                grade,
+                profile_id
             FROM spot
             UNION
             SELECT
                 id,
-                grade
+                grade,
+                null
             FROM plan
             ) sp
         WHERE
@@ -157,6 +167,10 @@
                 bookmark
             WHERE
                 member_id = #{targetId}
+            ) AND
+            (
+            visibility = 1  OR
+            c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
             )
         LIMIT
             #{page} , 6

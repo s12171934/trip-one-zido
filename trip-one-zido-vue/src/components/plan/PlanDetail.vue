@@ -3,18 +3,23 @@
     <div class="p-2 d-flex flex-column border-end" id="leftSide">
       <div class="d-flex justify-content-between me-5 w-100">
         <h1 @click="console.log(status)" class="title">
-          {{ planData.title
-          }}<span class="date">{{ planData.start }}~{{ planData.end }}</span>
-          <span class="comm"
-            ><img id="star" src="/images/star.png" />{{ planData.grade }}</span
+          {{ planData.title}}
+          
+          <span class="date"
+            >{{ planData.startDate }}~{{ planData.endDate }}</span
           >
+
+        
         </h1>
-        <button class="rounded-5">{{ planData.status }}</button>
+        <button class="rounded-5" > {{ selectedStatus  }}</button>
       </div>
       <table>
         <tr>
-          <td>
+          <td class="title-css">
             <h1 class="p-2">
+              <span class="comm"
+                ><img id="star" src="/images/star.png" />{{ planData.grade }}</span
+              >
               <span class="comm"
                 ><img
                   @click="$zido.toggleBookmark(planData)"
@@ -26,16 +31,16 @@
                   "
                 />{{ planData.bookmarkCount }}</span
               >
-              <span class="comm" :class="planData.myLike === true ? 'like' : ''"
+              <span class="comm" :class="planData.myGood === true ? 'like' : ''"
                 ><img
                   @click="$zido.toggleLike(planData, true)"
                   id="like"
                   src="/images/like.png"
-                />{{ planData.likeCount }}</span
+                />{{ planData.goodCount }}</span
               >
               <span
                 class="comm"
-                :class="planData.myLike === false ? 'like' : ''"
+                :class="planData.myGood === false ? 'like' : ''"
                 ><img
                   @click="$zido.toggleLike(planData, false)"
                   id="unLike"
@@ -51,7 +56,7 @@
         </tr>
         <tr>
           <td>
-            <MemberList :memberList="planData.members" />
+            <MemberList :list="planData.members" />
           </td>
         </tr>
         <tr>
@@ -61,7 +66,7 @@
         </tr>
         <tr>
           <td>
-            <KakaoMapForEditPlan style="height: 40vh" />
+            <KakaoMapForPlanDetail style="height: 40vh" />
           </td>
         </tr>
 
@@ -72,7 +77,7 @@
         </tr>
         <tr>
           <td>
-            <textarea id="content" name="content" rows="5" cols="50">{{
+            <textarea id="content" name="content" rows="5" cols="50" readonly>{{
               planData.review
             }}</textarea>
           </td>
@@ -82,23 +87,13 @@
 
     <!-- ★오른쪽 -->
     <div class="p-2 d-flex flex-column" id="rightSide">
-      <table v-if="$route.params.id == 1">
+      <table>
         <tr>
-          <td>
-            <div class="select-wrapper" id="security">
-              <select
-                @change="$zido.togglePublic($route.params.id)"
-                class="local-select"
-                name="category"
-              >
-                <option value="1">공개</option>
-                <option value="2">비공개</option>
-              </select>
-            </div>
-          </td>
+          <td></td>
           <td>
             <div class="m-0 d-flex justify-content-end gap-2">
               <input
+                v-show="planData.mine"
                 @click="$router.push(`/edit/plan/${$route.params.id}`)"
                 id="input"
                 class="button small"
@@ -106,7 +101,11 @@
                 value="수정"
               />
               <input
-                @click="$zido.deletePlan($route.params.id)"
+                v-show="planData.mine"
+                @click="
+                  $zido.deletePlan($route.params.id);
+                  $router.push('/member-page');
+                "
                 class="button alt small"
                 type="button"
                 value="삭제"
@@ -117,6 +116,7 @@
       </table>
       <FullCalendar
         class="h-100"
+        id="calendar"
         ref="FullCalendar"
         :options="calendarOptions"
       />
@@ -125,7 +125,10 @@
         <div class="card bg-light">
           <div class="card-body">
             <form
-              @submit.prevent="$zido.addComment(planData.id, comment)"
+              @submit.prevent="
+                $zido.addComment(planData.id, comment);
+                reloadComment();
+              "
               class="border-bottom mb-3"
             >
               <input
@@ -140,9 +143,10 @@
             </form>
 
             <Comment
-              v-for="comment in planData.commentList"
+              v-for="comment in planData.comments"
               :first="true"
               :data="comment"
+              @reload="reloadComment"
             />
           </div>
         </div>
@@ -152,28 +156,42 @@
 </template>
 
 <script>
-import EditSpotModal from "./EditSpotModal.vue";
 import FullCalendar from "@fullcalendar/vue3";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import koLocale from "@fullcalendar/core/locales/ko";
 import data from "/src/assets/data.js";
-import KakaoMapForEditPlan from "../util/KakaoMapForEditPlan.vue";
+import KakaoMapForPlanDetail from "../util/KakaoMapForPlanDetail.vue";
 import MemberList from "../util/MemberList.vue";
 import Comment from "../util/Comment.vue";
 
 export default {
   components: {
     FullCalendar,
-    EditSpotModal,
-    KakaoMapForEditPlan,
+    KakaoMapForPlanDetail,
     MemberList,
     Comment,
   },
   data() {
     return {
-      planData: this.$zido.getPlanData(this.$route.params.id),
+      planData: {
+        title: null,
+        startDate: null,
+        endDate: null,
+        grade: 0,
+        status: 0,
+        myBookmark: null,
+        bookmarkCount: null,
+        myGood: null,
+        goodCount: null,
+        writer: [],
+        members: [{}],
+        review: null,
+        comments: null,
+        mine: null,
+      },
       selectLocations: data.selectLocations,
+      selectStatus: data.planStatus,
       status: 0,
       members: [""],
       startDate: "",
@@ -202,7 +220,6 @@ export default {
           day: "numeric",
           omitCommas: true,
         },
-        initialEvents: this.$zido.getPlanData(this.$route.params.id).spotList,
         locale: koLocale,
         headerToolbar: false,
         allDaySlot: false,
@@ -213,7 +230,12 @@ export default {
       },
     };
   },
-
+  computed: {
+    selectedStatus() {
+      const foundStatus = this.selectStatus.find(item => item.status === this.planData.status);
+      return foundStatus ? foundStatus.value : "여행할"; 
+    }
+  },
   methods: {
     handleEventClick(clickInfo) {
       window.open(
@@ -234,20 +256,41 @@ export default {
       content.myBookmark = !content.myBookmark;
     },
     setCalendarByDate() {
-      const start = new Date(this.planData.start);
-      const end = new Date(this.planData.end);
+      const start = new Date(this.planData.startDate);
+      const end = new Date(this.planData.endDate);
+      console.log(this.planData.startDate);
+      console.log(end);
       let days = end.getTime() - start.getTime();
       days = Math.ceil(days / (1000 * 60 * 60 * 24)) + 1;
 
       const calendarApi = this.$refs.FullCalendar.getApi();
       this.calendarOptions.views.timeGridDay.duration.days = days;
       this.calendarOptions.firstDay = start.getDay();
-      calendarApi.gotoDate(this.planData.start);
+      calendarApi.gotoDate(this.planData.startDate);
+    },
+    setInitialEvent() {
+      const calendarApi = this.$refs.FullCalendar.getApi();
+      for (let spot of this.planData.spots) {
+        calendarApi.addEvent({
+          id: spot.id,
+          title: spot.title,
+          start: spot.startDate,
+          end: spot.endDate,
+        });
+      }
+      console.log(calendarApi.getEvents());
+    },
+    async reloadComment() {
+      this.planData = await this.$zido.getPlanData(this.$route.params.id);
     },
   },
-  mounted() {
+  async mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    this.planData = await this.$zido.getPlanData(this.$route.params.id);
+    console.log(this.planData);
     this.setCalendarByDate();
+    this.setInitialEvent();
+    this.planData.members.push(this.planData.writer)
   },
 };
 </script>
@@ -280,10 +323,6 @@ main > div {
 
 h4 {
   margin: 0;
-}
-
-td {
-  min-width: 170px;
 }
 
 .member-container {
@@ -360,9 +399,6 @@ textarea {
   border-radius: 1.5rem;
   padding: 2%;
 }
-</style>
-
-<style>
 .fc-day-today {
   background-color: inherit !important;
 }
@@ -376,4 +412,64 @@ colgroup col {
 .fc-scrollgrid-shrink-cushion {
   margin-right: 3%;
 }
+#status-css {
+  cursor:default;
+}
+.date {
+  margin: 0.2rem
+}
+
+@media (max-width: 1705px) { 
+  .date {
+    display: inline-block;
+  }
+}
+
+@media (max-width: 1460px) { /* 원하는 크기로 설정 */
+  .wrapper {
+    flex-direction: column; /* 화면이 작아지면 컨텐츠를 세로로 배치 */
+  }
+  #leftSide, #rightSide {
+    width: 100%; /*각 요소를 꽉차게 설정 */
+  }
+  #rightSide {
+    order: 1; /*오른쪽 요소를 아래로 이동 */
+  }
+  #leftSide {
+    border-inline: none !important; /* border -end 제거*/ 
+  }
+  .date {
+    /* display: inline-block; */
+  }
+}
+
+@media (max-width: 1023px) {
+  #bookmark[data-v-3aaf8480],
+  #unLike[data-v-3aaf8480], 
+  #like[data-v-3aaf8480], 
+  #star[data-v-3aaf8480] {
+    width: 30px;
+    height: 30px;
+    margin: 0.5rem;
+  }
+
+  .title-css {
+    padding: 0
+  }
+}
+
+@media (max-width: 500px) {
+  #comment {
+    width: 30%;
+    padding: 0;
+  }
+  .title {
+    font-size: calc(1.0rem + 1.5vw);
+  }
+  .button {
+    width: 30%;
+    padding:0;
+  }
+}
 </style>
+../util/modal/EditSpotModal.vue../util/KakaoMapForPlanDetail.vue

@@ -19,18 +19,25 @@ public class TourService {
     @Autowired
     SpotMapper spotMapper;
 
-    public List<ResponseTour> getTourList(Long sessionId, long page){
-        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-
-        //페이지 카운트 처리
-        if(page == 0){
-            requestSessionTarget.setPage(0);
-        } else {
-            requestSessionTarget.setPage(page * 6);
+    public ResponseTourList getTourList(Long sessionId, int loc, Long page){
+        if(page != 0 ){
+            page = page * 6;
         }
+        //응답객체
+        ResponseTourList responseTourList = new ResponseTourList();
+        //요청
+        RequestTourList requestTourList = new RequestTourList(page,loc,sessionId);
+        responseTourList.setTourLists(tourMapper.getTourList(requestTourList));
+        responseTourList.setTourListCount((tourMapper.getTourListCount(requestTourList)));
 
-        requestSessionTarget.setMyMemberId(sessionId);
-        return tourMapper.getTourList(requestSessionTarget);
+        return responseTourList;
+    }
+    public List<ResponseTour> getTourListPage(Long sessionId, int loc, Long page){
+        if(page != 0 ){
+            page = page * 6;
+        }
+        RequestTourList requestTourList = new RequestTourList(page,loc,sessionId);
+        return tourMapper.getTourList(requestTourList);
     }
 
     public ResponseTour getTour(Long sessionId, Long id){
@@ -62,7 +69,7 @@ public class TourService {
         requestContent.setTitle(requestTour.getTitle());
         contentMapper.addContent(requestContent);
         //Content 테이블에 추가한 이후에 생성된 id를 가져옴
-        long generatedId = requestContent.getId();
+        Long generatedId = requestContent.getId();
 
         //addPhoto
         RequestPhoto requestPhoto = new RequestPhoto();

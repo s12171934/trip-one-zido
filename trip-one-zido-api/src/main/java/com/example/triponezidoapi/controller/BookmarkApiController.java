@@ -13,13 +13,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/bookmark")
-@Tag(name = "Bookmark", description = "Bookmark API")
 public class BookmarkApiController {
     @Autowired
     BookmarkService bookmarkService;
 
-    @GetMapping("/{id}")
+    @GetMapping(value = {"/{id}" , "/"})
     @Operation(summary = "찜 목록 전체 조회")
+    @Tag(name = "Bookmark", description = "Bookmark API")
     public ResponseBookmark showBookmarkAll(
             @PathVariable(required = false)
             @Schema(nullable = true)
@@ -33,7 +33,7 @@ public class BookmarkApiController {
         return bookmarkService.getAllBookmark(id,sessionId);
     }
     @GetMapping("/{id}/SpotPlan/{page}")
-    @Tag(name = "Plan")
+    @Tag(name = "More", description = "More API")
     @Operation(summary = "찜목록 일정 장소 더보기 조회")
     public List<ResponseContentList> showSpotPlanListByPage(
             @PathVariable
@@ -52,7 +52,7 @@ public class BookmarkApiController {
         return bookmarkService.getPlanSpotBookmark(id,sessionId, page);
     }
     @GetMapping("/{id}/tour/{page}")
-    @Tag(name = "Plan")
+    @Tag(name = "More")
     @Operation(summary = "찜목록 관광지 더보기 조회")
     public List<ResponseTour> showTourListByPage(
             @PathVariable
@@ -71,6 +71,7 @@ public class BookmarkApiController {
     }
     @PostMapping("/{id}")
     @Operation(summary = "찜 등록")
+    @Tag(name = "Bookmark")
     public void postBookmark(
             @PathVariable
             @Parameter(description = "찜 등록할 게시물 번호")
@@ -84,6 +85,7 @@ public class BookmarkApiController {
     }
     @DeleteMapping("/{id}")
     @Operation(summary = "찜 삭제")
+    @Tag(name = "Bookmark")
     public void deleteBookmark(
             @PathVariable
             @Parameter(description = "찜 삭제할 게시물 번호")

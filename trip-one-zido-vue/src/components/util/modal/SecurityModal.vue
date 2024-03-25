@@ -24,9 +24,9 @@
         >
           <input
             type="text"
-            name="answer"
-            id="answer"
-            :value="$zido.getSecurityQuestion(securityId)"
+            name="question"
+            id="question"
+            :value="SecurityQuestion"
             readonly
           />
           <input
@@ -75,6 +75,7 @@ import AlertModal from "./AlertModal.vue";
 export default {
   props: {
     securityId: Number,
+    SecurityQuestion: String,
   },
   components: {
     AlertModal,
@@ -86,14 +87,15 @@ export default {
   },
   methods: {
     checkSecurity() {
-      if (this.$zido.checkSecurityAnswer()) {
-        location.href = `/reset-pw/${this.securityId}`
-      }
-      else{
-        this.$emit('securityFail')
-      }
+      this.$zido.checkSecurityAnswer(this.securityId, this.answer).then(result =>{
+        if(result) {
+          location.href = `/reset-pw/${this.securityId}`
+        } else {
+          this.$emit('securityFail')
+        }
+      })
     },
-  },
+  }
 };
 </script>
 

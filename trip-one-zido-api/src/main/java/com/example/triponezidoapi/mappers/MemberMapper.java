@@ -20,9 +20,11 @@ public interface MemberMapper {
     List<ResponseMember> followerList(RequestSessionTarget requestSessionTarget);
     List<ResponseMember> followingList(RequestSessionTarget requestSessionTarget);
     int postCount(long id);
-
+    long getIdByLoginId(String loginId);
     long getId(RequestFind requestFind);
     ResponseMember getLogin(Login login);
+    ResponseMember getAutoLogin(Login login);
+    String getLoginId(Long id);
     Login getLoginFormByLoginId(String loginId);
     String getLoginIdByFind(RequestFindId requestFindid);
     String getSecurityAnswer(Long id);
@@ -31,13 +33,17 @@ public interface MemberMapper {
     List<ResponseQuestions> getSecurityQuestionList();
     Member getMemberById(Long id);
     ResponseMember getMemberProfile(Long id);
+    int isConnectedWithSns(RequestSocialConnect requestSocialConnect);
+    long getIdBySnsId(RequestSocialConnect requestSocialConnect);
 
     //update
     void updateMember(Member member);
     void updatePassword(RequestPassword requestPassword);
     void updateProfile(RequestPhoto requestPhoto);
+    void updateNaverId(RequestSocialConnect requestSocialConnect);
+    void updateKakaoId(RequestSocialConnect requestSocialConnect);
 
     //delete
-    void deleteMember(Long id);
+    void deleteMember(Long id, String password);
     void unFollow(RequestFollow requestFollow);
 }

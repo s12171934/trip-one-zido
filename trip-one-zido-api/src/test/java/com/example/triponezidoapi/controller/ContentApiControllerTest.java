@@ -25,41 +25,6 @@ class ContentApiControllerTest {
     private ContentService contentService;
 
     @Test
-    @DisplayName("게시글 고정 등록")
-    void postPin() throws Exception {
-        mockMvc.perform(post("/api/content/pin/{id}", 9L)
-                        .sessionAttr("id", 9L)
-                )
-                .andExpect(status().isOk())
-                .andDo(print());
-
-        verify(contentService).addPin(9L, 9L);
-    }
-
-    @Test
-    @DisplayName("게시글 고정 취소")
-    void deletePin() throws Exception {
-        mockMvc.perform(delete("/api/content/pin/{id}", 9L)
-                        .sessionAttr("id", 9L)
-                )
-                .andExpect(status().isOk())
-                .andDo(print());
-
-        verify(contentService).deletePin(9L, 9L);
-    }
-
-    @Test
-    @DisplayName("좋아요 여부 조회")
-    void getGood() throws Exception {
-        mockMvc.perform(get("/api/content/good/{id}", 9L)
-                        .sessionAttr("id", 9L)
-                )
-                .andExpect(status().isOk())
-                .andDo(print());
-        verify(contentService).isGood(9L, 9L);
-    }
-
-    @Test
     @DisplayName("좋아요 등록/수정/취소")
     void postGood() throws Exception {
         RequestGood requestGood = new RequestGood();
@@ -80,17 +45,17 @@ class ContentApiControllerTest {
                 )
                 .andExpect(status().isOk())
                 .andDo(print());
-        verify(contentService).addGood(9L, 9L, requestGood);
+        verify(contentService).toggleGood(9L, 9L, requestGood);
     }
 
     @Test
     @DisplayName("최근 본 게시물 조회")
     void showRecentView() throws Exception {
-        mockMvc.perform(get("/api/content/recent-view/{page}", 0)
+        mockMvc.perform(get("/api/content/recent-view")
                         .sessionAttr("id", 9L)
                 )
                 .andExpect(status().isOk())
                 .andDo(print());
-        verify(contentService).getRecentView(9L, 0);
+        verify(contentService).getRecentView(9L,0);
     }
 }

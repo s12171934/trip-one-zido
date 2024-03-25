@@ -42,8 +42,7 @@ class PageApiControllerTest {
         planContent .setBookmarkCount(0);
         planContent .setGoodCount(0);
         planContent .setGrade(0);
-        planContent .setMyBookmark(0);
-        planContent .setPin(0);
+        planContent .setMyBookmark(false);
 
         List<ResponseContentList> planList = new ArrayList<>();
         planList.add(planContent);
@@ -55,8 +54,7 @@ class PageApiControllerTest {
         spotContent.setBookmarkCount(0);
         spotContent.setGoodCount(0);
         spotContent.setGrade(0);
-        spotContent.setMyBookmark(0);
-        spotContent.setPin(0);
+        spotContent.setMyBookmark(false);
 
         List<ResponseContentList> spotLists = new ArrayList<>();
         spotLists.add(spotContent);
@@ -112,15 +110,14 @@ class PageApiControllerTest {
         planContent .setBookmarkCount(0);
         planContent .setGoodCount(0);
         planContent .setGrade(0);
-        planContent .setMyBookmark(0);
-        planContent .setPin(0);
+        planContent .setMyBookmark(false);
 
         List<ResponseContentList> planList = new ArrayList<>();
         planList.add(planContent);
 
 
         //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
-        given(pageService.getPlanListByPage(1L, 1L, 0L)).willReturn(
+        given(pageService.getPlanListByPage(1L, 1L, 0L, null)).willReturn(
                 planList
         );
 
@@ -136,7 +133,7 @@ class PageApiControllerTest {
                 // andDo -> 메소드가 어떻게 실행이 됐는지
                 .andDo(print());
 
-        verify(pageService).getPlanListByPage(1L, 1L, 0L);
+        verify(pageService).getPlanListByPage(1L, 1L, 0L, null);
     }
 
     @Test
@@ -149,14 +146,13 @@ class PageApiControllerTest {
         spotContent.setBookmarkCount(0);
         spotContent.setGoodCount(0);
         spotContent.setGrade(0);
-        spotContent.setMyBookmark(0);
-        spotContent.setPin(0);
+        spotContent.setMyBookmark(true);
 
         List<ResponseContentList> spotLists = new ArrayList<>();
         spotLists.add(spotContent);
 
         //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
-        given(pageService.getSpotListByPage(1L, 1L, 0L)).willReturn(
+        given(pageService.getSpotListByPage(1L, 1L, 0L, null)).willReturn(
                 spotLists
         );
 
@@ -172,7 +168,7 @@ class PageApiControllerTest {
                 // andDo -> 메소드가 어떻게 실행이 됐는지
                 .andDo(print());
 
-        verify(pageService).getSpotListByPage(1L, 1L, 0L);
+        verify(pageService).getSpotListByPage(1L, 1L, 0L, null);
     }
 
     @Test
@@ -189,7 +185,7 @@ class PageApiControllerTest {
         members.add(responseMember);
 
         //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
-        given(pageService.getFollowingList(1L, 1L, 0L)).willReturn(
+        given(pageService.getFollowingList(1L, 1L)).willReturn(
                 members
         );
 
@@ -202,7 +198,7 @@ class PageApiControllerTest {
                 // andDo -> 메소드가 어떻게 실행이 됐는지
                 .andDo(print());
 
-        verify(pageService).getFollowingList(1L, 1L, 0L);
+        verify(pageService).getFollowingList(1L, 1L);
     }
 
     @Test
@@ -219,7 +215,7 @@ class PageApiControllerTest {
         members.add(responseMember);
 
         //given : Mock 객체가 특정 상황에서 해야하는 행위를 정의하는 메소드
-        given(pageService.getFollowerList(1L, 1L, 0L)).willReturn(
+        given(pageService.getFollowerList(1L, 1L)).willReturn(
                 members
         );
 
@@ -232,7 +228,7 @@ class PageApiControllerTest {
                 // andDo -> 메소드가 어떻게 실행이 됐는지
                 .andDo(print());
 
-        verify(pageService).getFollowerList(1L, 1L, 0L);
+        verify(pageService).getFollowerList(1L, 1L);
     }
 
     @Test

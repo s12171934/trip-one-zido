@@ -6,23 +6,28 @@
         <input type="text" v-model="loginId" placeholder="아이디" />
         <input type="password" v-model="password" placeholder="비밀번호" />
 
-        <div class="d-flex justify-content-between">
-          <input
+        <div class="d-flex justify-content-between flex-column-on-small-screen">
+          <div>
+            <input
             type="checkbox"
             id="idsave"
             name="idsave"
             v-model="saveLoginId"
           />
           <label for="idsave">아이디 저장</label>
-          <input
+          </div>
+
+          <div>
+            <input
             type="checkbox"
             id="autologin"
             name="autologin"
             v-model="autoLogin"
           />
           <label for="autologin">자동 로그인</label>
+          </div>
 
-          <a @click="$router.push('/find')">아이디 / 비밀번호 찾기</a>
+          <a @click="$router.push('/find')" style="color: #767d85;">아이디 / 비밀번호 찾기</a>
         </div>
 
         <div class="d-flex justify-content-center">
@@ -59,7 +64,7 @@
 
       <h3>아직 회원이 아니시라면?</h3>
       <div class="d-flex justify-content-center">
-        <a @click="$router.push('sign-up')" class="button small">회원가입</a>
+        <a @click="$router.push('sign-up')" class="button small" id="button">회원가입</a>
       </div>
     </div>
   </main>
@@ -85,8 +90,8 @@ export default {
     };
   },
   methods: {
-    login() {
-      if (this.$zido.login()) {
+    async login() {
+      if (await this.$zido.login(this.loginId,this.password)) {
         this.$cookies.set("login", 1, 0);
         if (this.saveLoginId) {
           this.$cookies.set("saveLoginId", this.loginId);
@@ -107,7 +112,7 @@ export default {
         "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=" +
         "TGQMEJAd_Qx6raHI9ZZk" +
         "&redirect_uri=" +
-        "http://localhost:8080/api/social/naver_callback" +
+        "http://localhost:8080/api/social/naver_login" +
         "&state=1234";
       location.href = url;
     },
@@ -150,6 +155,10 @@ input {
   background-color: #ff928e;
 }
 
+input[type="checkbox"] {
+  margin-right: 0 !important;
+}
+
 #box {
   background-color: white;
   border-radius: 50px;
@@ -166,7 +175,7 @@ form {
 }
 
 .button {
-  color: aliceblue;
+  color: rgb(252, 252, 252);
   background-color: #ff928e;
   border-radius: 10px;
   font-size: 15px !important;
@@ -175,5 +184,40 @@ form {
 a {
   text-decoration: none;
   color: #ff928e;
+}
+
+@media (max-width: 1250px) {
+  #box {
+    white-space: nowrap; 
+    text-overflow: ellipsis; 
+  }
+  .wrapper {
+    margin-inline: 10% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .flex-column-on-small-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+  }
+  h3 {
+    font-size: 16px; /* 작은 화면에서 폰트 크기를 작게 조정 */
+  }
+  form {
+    border: none !important; /* 작은 화면에서 border 제거 */
+  }
+}
+
+@media (max-width: 400px) {
+  img {
+      width: 50px;
+      height: 50px;
+  }
+  button, #button {
+    width: 50%;
+    padding: 0;
+  }    
 }
 </style>

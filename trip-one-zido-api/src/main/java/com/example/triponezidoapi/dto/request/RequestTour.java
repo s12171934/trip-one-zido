@@ -4,10 +4,10 @@ import lombok.Data;
 
 @Data
 public class RequestTour {
-    long id;
+    Long id;
     String title;
     String address;
-    String locCategory;
+    int locCategory;
     String info;
     byte[] photo;
 }

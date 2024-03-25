@@ -4,6 +4,9 @@ import lombok.Data;
 
 @Data
 public class RequestPhoto {
-    long contentId;
+    Long id;
+    Long contentId;
     byte[] photo;
+    String img;
 }
+

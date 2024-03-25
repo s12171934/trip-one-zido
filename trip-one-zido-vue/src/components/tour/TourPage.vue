@@ -1,7 +1,7 @@
 <template>
   <main class="wrapper">
     <div class="d-flex p-2">
-      <span>이런 곳 어때요?</span>
+      <span class="title" id="title">이런 곳 어때요?</span>
       <select
         @change="changeLoc"
         class="button alt"
@@ -9,13 +9,17 @@
         name="location"
         v-model="loc"
       >
-        <option v-for="location in selectLocations" :value="location">
-          {{ location }}
+        <option v-for="location in selectLocations" :value="location.locCategory">
+          {{ location.value }}
         </option>
       </select>
     </div>
 
-    <ContentList :list="tourList" />
+    <ContentList
+      :list="tourLists"
+      :addApi="`/api/tour/list/${defaultLoc()}/`"
+      :maxLen="tourListCount"
+    />
   </main>
 </template>
 
@@ -31,7 +35,17 @@ export default {
     return {
       selectLocations: data.selectLocations,
       loc: this.defaultLoc(),
-      tourList: this.$zido.getTourList(this.defaultLoc()),
+      tourLists: [
+        {
+          id: null,
+          title: null,
+          photo: null,
+          bookmarkCount: null,
+          myBookmark: null,
+          type: null,
+        },
+      ],
+      tourListCount: 0,
     };
   },
   methods: {
@@ -39,11 +53,15 @@ export default {
       location.href = `/tour/loc/${this.loc}`;
     },
     defaultLoc() {
-      return this.$route.params.loc ? this.$route.params.loc : "서울특별시";
+      return this.$route.params.loc ? this.$route.params.loc : 11;
     },
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    this.$zido.getTourList(this.defaultLoc()).then((res) => {
+      this.tourLists = res.tourLists;
+      this.tourListCount = res.tourListCount
+    });
   },
 };
 </script>
@@ -71,4 +89,40 @@ span {
 #locSelect:hover {
   background-color: #fff;
 }
+
+@media (max-width: 1200px) {
+  .title {
+    white-space: nowrap; 
+  }
+}
+
+@media (max-width: 1023px) { /* 원하는 크기로 설정 */
+  
+  #font-vertical {
+      white-space: nowrap; 
+      text-overflow: ellipsis; 
+    }
+}
+
+@media (max-width: 767px) { /* 원하는 크기로 설정 */
+  
+  #font-vertical {
+      white-space: nowrap; 
+      text-overflow: ellipsis; 
+    }
+    body{
+    width:100%;
+    overflow-x:hidden;
+    }
+
+    #title {
+      font-size: 150%;
+    }
+
+    #locSelect, #locSelectDetail {
+      font-size: 100%;
+    }
+}
+
+
 </style>

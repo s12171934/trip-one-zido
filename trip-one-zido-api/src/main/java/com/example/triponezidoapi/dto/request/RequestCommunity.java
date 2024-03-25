@@ -3,24 +3,25 @@ package com.example.triponezidoapi.dto.request;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
 public class RequestCommunity {
-    long id;
+    Long id;
 
     @Size(max = 200, message = "제목은 최대 200자 이하이어야 합니다.")
     String title;
 
     @NotNull(message = "여행시작일은 필수 입니다.")
     @Future(message = "여행시작일은 미래의 날짜여야 합니다.")
-    LocalDateTime startDate;
+    LocalDate startDate;
     @NotNull(message = "여행종료일은 필수 입니다.")
     @Future(message = "여행종료일은 미래의 날짜여야 합니다.")
-    LocalDateTime endDate;
+    LocalDate endDate;
 
-    @NotEmpty(message = "지역분류는 필수 입니다.")
-    String locCategory;
+    @NotNull(message = "지역분류는 필수 입니다.")
+    int locCategory;
 
     @NotEmpty(message = "내용은 필수 입니다.")
     @Size(max = 500, message = "내용은 최대 500자 이하이어야 합니다.")
@@ -32,8 +33,7 @@ public class RequestCommunity {
 
     @NotNull(message = "모집마감일은 필수 입니다.")
     @Future(message = "모집마감일은 미래의 날짜여야 합니다.")
-    LocalDateTime deadline;
+    LocalDate deadline;
 
-    @NotEmpty(message = "상태설정은 필수 입니다.")
-    String status;
+    int status;
 }

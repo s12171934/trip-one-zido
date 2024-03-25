@@ -24,7 +24,9 @@
       answer,
       email,
       phone_number,
+      zipcode,
       address,
+      address2,
       birth,
       gender
       )
@@ -37,7 +39,9 @@
       #{answer},
       #{email},
       #{phoneNumber},
+      #{zipcode},
       #{address},
+      #{address2},
       #{birth},
       #{gender}
       )
@@ -77,7 +81,15 @@
     SELECT
       id,
       login_id,
-      profile
+      profile,
+      (
+        SELECT
+          id
+        FROM
+          member
+        WHERE
+          id = #{myMemberId}
+      ) session_id
     FROM
       member
     WHERE
@@ -88,17 +100,23 @@
       FROM
         follow
       WHERE
-        following = #{myMemberId}
+        following = #{targetId}
       )
-    LIMIT
-      #{page}, 6
   </select>
 
   <select id="followingList" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
     SELECT
       id,
       login_id,
-      profile
+      profile,
+      (
+        SELECT
+          id
+        FROM
+          member
+        WHERE
+          id = #{myMemberId}
+      ) session_id
     FROM
       member
     WHERE
@@ -109,10 +127,8 @@
       FROM
         follow
       WHERE
-        follower = #{myMemberId}
+        follower = #{targetId}
       )
-    LIMIT
-      #{page}, 6
   </select>
 
   <select id="postCount" parameterType="Long" resultType="int">
@@ -122,6 +138,15 @@
       owner
     where
       member_id = #{id}
+  </select>
+
+  <select id="getIdByLoginId" parameterType="string" resultType="long">
+    SELECT
+      id
+    FROM
+      member
+    WHERE
+      login_id = #{loginId}
   </select>
 
   <select id="getId" parameterType="com.example.triponezidoapi.dto.request.RequestFind" resultType="long">
@@ -145,6 +170,26 @@
     WHERE
       login_id = #{loginId} AND
       password = #{password}
+  </select>
+
+  <select id="getAutoLogin" parameterType="com.example.triponezidoapi.dto.Login" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+    SELECT
+      id,
+      login_id,
+      profile
+    FROM
+      member
+    WHERE
+      login_id = #{loginId}
+  </select>
+
+  <select id="getLoginId" parameterType="Long" resultType="String">
+    SELECT
+      login_id
+    FROM
+      member
+    WHERE
+      id = #{id}
   </select>
 
   <select id="getLoginFormByLoginId" parameterType="string" resultType="com.example.triponezidoapi.dto.Login">
@@ -220,6 +265,24 @@
       id = #{id}
   </select>
 
+  <select id="isConnectedWithSns" parameterType="com.example.triponezidoapi.dto.request.RequestSocialConnect" resultType="int">
+    SELECT
+        COUNT(*)
+    FROM
+        member
+    WHERE
+        ${SocialType} = #{SocialId}
+  </select>
+
+  <select id="getIdBySnsId" parameterType="com.example.triponezidoapi.dto.request.RequestSocialConnect" resultType="long">
+    SELECT
+        id
+    FROM
+        member
+    WHERE
+        ${SocialType} = #{SocialId}
+  </select>
+
   <update id="updateMember" parameterType="com.example.triponezidoapi.dto.Member">
     UPDATE
       member
@@ -229,7 +292,9 @@
       answer = #{answer},
       email = #{email},
       phone_number = #{phoneNumber},
+      zipcode = #{zipcode},
       address = #{address},
+      address2 = #{address2},
       gender = #{gender}
     WHERE
       id = #{id}
@@ -253,7 +318,27 @@
       id = #{contentId}
   </update>
 
-  <delete id="deleteMember" parameterType="long">
+  <update id="updateNaverId" parameterType="com.example.triponezidoapi.dto.request.RequestSocialConnect">
+    UPDATE
+      member
+    SET
+      naver_pairing = 1,
+      naver_id = #{SocialId}
+    WHERE
+      login_id = #{loginId}
+  </update>
+
+  <update id="updateKakaoId" parameterType="com.example.triponezidoapi.dto.request.RequestSocialConnect">
+    UPDATE
+      member
+    SET
+      kakao_pairing = 1,
+      kakao_id = #{SocialId}
+    WHERE
+      login_id = #{loginId}
+  </update>
+
+  <delete id="deleteMember" parameterType="Long">
     DELETE FROM
       member
     WHERE

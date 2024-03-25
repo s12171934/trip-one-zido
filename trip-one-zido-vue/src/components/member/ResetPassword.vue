@@ -6,21 +6,21 @@
       <tr v-if="$route.params.id == ''">
         <td>현재 비밀번호 입력</td>
         <td>
-          <input type="password" v-model="prevPw" />
+          <input type="password" v-model="nowPassword" />
         </td>
       </tr>
 
       <tr>
         <td width="200">재설정 비밀번호 입력</td>
         <td width="400">
-          <input type="password" v-model="resetPw" />
+          <input type="password" v-model="changePassword" />
         </td>
       </tr>
 
       <tr>
         <td width="200">재설정 비밀번호 확인</td>
         <td width="400">
-          <input type="password" v-model="resetPwCheck" />
+          <input type="password" v-model="changePasswordCheck" />
         </td>
       </tr>
     </table>
@@ -49,19 +49,31 @@ export default {
   data() {
     return {
       modal: "",
-      prevPw: "",
-      resetPw: "",
-      resetPwCheck: "",
+      nowPassword: "",
+      changePassword: "",
+      changePasswordCheck: "",
     };
   },
   methods: {
     passwordCheck() {
-      if (this.$zido.resetPassword) {
-        this.modal = "resetPasswordSuccess";
+      this.checkPassword().then(result => {
+        if(result){
+          this.modal = "resetPasswordSuccess";
       } else {
-        this.modal = "resetPasswordFail";
+          this.modal = "resetPasswordFail";
+      }  
+    }).catch(error => {
+      console.log("비밀번호가 틀립니다.");
+    });
+  },
+    checkPassword(){
+      if(this.$route.params.id){
+        return this.$zido.resetPassword(this.$route.params.id, this.changePassword, this.changePasswordCheck);
       }
-    },
+      else{
+        return this.$zido.changePassword(this.nowPassword, this.changePassword, this.changePasswordCheck);
+      }
+    }
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
@@ -81,5 +93,43 @@ h1 {
 
 .button {
   border-radius: 10px !important;
+}
+
+@media (max-width: 1000px) {
+ main {
+  margin-left: 10%;
+  margin-right: 10%;
+ }
+ .button {
+  margin-bottom: 5%;
+ }
+}
+
+@media (max-width: 720px) {
+  td {
+    font-size: 13px;
+  }
+  main {
+  margin-left: 5%;
+  margin-right: 5%;
+ }
+} 
+
+@media (max-width: 475px) {
+  td {
+    font-size: 10px;
+  }
+  .button {
+    font-size: 13px;
+  }
+} 
+
+@media (max-width: 365px) {
+  td {
+    font-size: 8px;
+  }
+  .button {
+    font-size: 10px;
+  }
 }
 </style>

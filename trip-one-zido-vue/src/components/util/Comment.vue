@@ -3,17 +3,17 @@
     <div class="flex-shrink-0">
       <img
         class="rounded-circle"
-        :src="data.imgSrc"
+        :src="`data:image/jpeg;base64,${data.member.profile}`"
         alt="..."
         id="commentProfilePic"
       />
     </div>
     <div class="ms-3 w-100">
       <div class="d-flex gap-5">
-        <span class="fw-bold">{{ data.loginId }}</span>
+        <span class="fw-bold">{{ data.member.loginId }}</span>
         <div v-if="true && !editComment" class="d-flex gap-2 edit-comment">
           <span @click="editComment = !editComment" class="fw-bold">수정</span>
-          <span @click="$zido.deleteComment(data.id)" class="fw-bold">삭제</span>
+          <span @click="$zido.deleteComment(data.id); $emit('reload')" class="fw-bold">삭제</span>
         </div>
       </div>
       <form
@@ -38,7 +38,7 @@
         >
       </div>
       <form
-        @submit.prevent="$zido.addComment(data.id, comment)"
+        @submit.prevent="$zido.addComment(data.id, comment); $emit('reload')"
         v-if="addNestedComment"
         class="border-bottom mb-3"
       >
@@ -51,10 +51,11 @@
         <button class="button alt" type="submit" id="comment">등록</button>
       </form>
       <Comment
-        v-if="data.commentList"
-        v-for="comment in data.commentList"
+        v-if="data.comments"
+        v-for="comment in data.comments"
         :first="false"
         :data="comment"
+        @reload="$emit('reload')"
       />
     </div>
   </div>
@@ -75,7 +76,7 @@ export default {
   },
   methods: {
     edit(){
-      this.$zido.editComment(this.data.id, this.comment);
+      this.$zido.editComment(this.data.id, this.data.comment);
       this.editComment = false;
     }
   }
@@ -107,5 +108,42 @@ form {
 #commentProfilePic {
   width: 75px;
   height: 75px;
+}
+
+span {
+  font-weight: normal !important;
+}
+
+
+@media (max-width: 465px) {
+  span {
+    font-size: small;
+  }
+}
+@media (max-width: 440px) {
+  img {
+    width: 50px !important;
+    height: 50px !important;
+  }
+}
+
+@media (max-width: 385px) {
+  span {
+    font-size: x-small;
+  }
+}
+
+@media (max-width: 365px) {
+  img {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
+
+@media (max-width: 340px) {
+  img {
+    width: 30px !important;
+    height: 30px !important;
+  }
 }
 </style>

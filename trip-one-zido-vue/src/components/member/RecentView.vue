@@ -1,13 +1,21 @@
 <template>
   <main class="wrapper">
     <div class="d-flex align-items-center mb-5">
-      <img :src="userData.imgSrc" alt="" class="rounded-circle" />
-      <h1>{{ userData.loginId }}</h1>
+      <img
+        :src="`data:image/jpeg;base64,${RecentViewData.member.profile}`"
+        alt=""
+        class="rounded-circle"
+      />
+      <h1>{{ RecentViewData.member.loginId }}</h1>
     </div>
     <div>
       <h1>조회한 게시글(기록)</h1>
     </div>
-    <ContentList />
+    <ContentList
+      :list="RecentViewData.recentList"
+      :addApi="`/api/content/recent-view/`"
+      :maxLen="RecentViewData.recentViewCount"
+    />
   </main>
 </template>
 
@@ -20,16 +28,16 @@ export default {
   },
   data() {
     return {
-      userData: {
-        imgSrc: "/images/남자.png",
-        loginId: "남자",
+      RecentViewData: {
+        recentList: [{}],
+        member: [{}],
+        recentViewCount: 0,
       },
-      editProfile: false,
-      followType: "",
     };
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    this.$zido.getRecentView().then((res) => (this.RecentViewData = res));
   },
 };
 </script>
@@ -43,5 +51,14 @@ img {
   vertical-align: top;
   width: 260px;
   height: 260px;
+}
+@media (max-width: 768px) {
+  .d-flex.mb-5 {
+    flex-direction: column;
+  }
+
+  .d-flex.mb-5 img {
+    margin-bottom: 10px; /* 이미지와 텍스트 사이 여백 조정 */
+  }
 }
 </style>

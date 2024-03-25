@@ -6,42 +6,42 @@
       <form>
         <!-- 테이블 -->
         <table id="table" class="border">
-          <tr>
+          <tr class="border-bottom">
             <td id="tdTitle">지역</td>
             <td id="tdSelect">
               <div class="select-wrapper" id="table-select">
                 <select class="form-control" v-model="communityData.locCategory">
                   <option value="" selected>지역 선택</option>
-                  <option v-for="location in selectLocations" :value="location">
-                    {{ location }}
+                  <option v-for="location in selectLocations" :value="location.locCategory">
+                    {{ location.value }}
                   </option>
                 </select>
               </div>
             </td>
             <td id="tdTitle" class="border-start">여행 일정</td>
-            <td id="tdSelect">
-              <input type="date" v-model="communityData.start" /> ~
-              <input type="date" v-model="communityData.end" />
+            <td>
+              <input type="date" v-model="communityData.startDate" /> ~
+              <input type="date" v-model="communityData.endDate" />
             </td>
           </tr>
 
-          <tr>
+          <tr class="border-bottom">
             <td>모집 인원</td>
-            <td>
+            <td id="tdSelect">
               <div class="select-wrapper" id="table-select">
                 <select class="local-select" v-model="communityData.total">
                   <option value="" selected>인원 선택</option>
-                  <option v-for="snop in selectNumberOfPeople" :value="snop">
+                  <option v-for="snop in 20" :value="snop">
                     {{ snop }}&nbsp;명
                   </option>
                 </select>
               </div>
             </td>
             <td class="border-start">모집 마감일</td>
-            <td><input type="date" v-model="communityData.deadLine" /></td>
+            <td><input type="date" v-model="communityData.deadline" /></td>
           </tr>
 
-          <tr>
+          <tr class="border-bottom">
             <td>제목</td>
             <td colspan="3">
               <input
@@ -59,19 +59,20 @@
                 rows="13"
                 class="form-control"
                 id="content"
-                v-model="communityData.content"
+                v-model="communityData.notice"
                 placeholder="내용을 입력하세요"
               ></textarea>
             </td>
           </tr>
         </table>
 
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <div class="d-grid gap-2 d-flex justify-content-end">
           <a
             @click="submitButton($route.params.mode)"
             class="button small rounded-3"
             data-bs-toggle="modal"
             data-bs-target="#alertModal"
+            id="button-css"
           >
             {{ $route.params.mode == 'add' ? '등록' : '수정' }}</a
           >
@@ -79,6 +80,7 @@
             @click="$router.push('/community')"
             class="button alt small rounded-3"
             type="button"
+            id="button-css"
             value="취소"
           />
         </div>
@@ -102,29 +104,35 @@ export default {
       communityDetail: data.communityDetail,
 
       communityData: {
-				locCategory: "",
-				start: "",
-				end: "",
+				locCategory: 0,
+				startDate: "",
+				endDate: "",
 				total: "",
-				deadLine: "",
+				deadline: "",
 				title: "",
-				content: "",
+				notice: "",
 			}
     };
   },
 	methods: {
 		submitButton(mode){
 			if(mode === 'add'){
+        this.communityData.startDate = new Date(this.communityData.startDate);
+        this.communityData.endDate = new Date(this.communityData.endDate);
+        this.communityData.deadline = new Date(this.communityData.deadline);
 				this.$zido.addCommunity(this.communityData)
 			}
 			else{
-				this.$zido.updateCommunity(this.communityData)
+        this.communityData.startDate = new Date(this.communityData.startDate);
+        this.communityData.endDate = new Date(this.communityData.endDate);
+        this.communityData.deadline = new Date(this.communityData.deadline);
+				this.$zido.updateCommunity(this.$route.params.id, this.communityData)
 			}
 			this.$router.push('/community')
 		},
 		setCommunityData(){
 			if(this.$route.params.mode != 'add'){
-				this.communityData = this.$zido.getCommunityDetail(this.$route.params.id)
+				this.$zido.getCommunityDetail(this.$route.params.id).then((res) => this.communityData = res)
 			}
 		}
 	},
@@ -206,5 +214,36 @@ table tbody tr {
 
 textarea {
   resize: none;
+}
+/* 작은 화면에서 테이블의 열이 쌓이도록 설정 */
+@media (max-width: 768px) {
+  td {
+    display: block !important;
+    width: 100% !important;
+  }
+  tr {
+    display: block !important;
+    margin-bottom: 10px !important;
+  }
+
+  #tdSelect {
+    border-bottom: 1px solid #ddd;
+  }
+  td.border-start {
+    border-inline: none !important;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .inner {
+    max-width: 100% !important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .button {
+    width: 30%;
+    padding: 0;
+  }
 }
 </style>

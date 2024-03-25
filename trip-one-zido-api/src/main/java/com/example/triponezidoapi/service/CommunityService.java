@@ -17,13 +17,19 @@ public class CommunityService {
     CommunityMapper communityMapper;
     @Autowired
     ContentMapper contentMapper;
+    @Autowired
+    MemberMapper memberMapper;
 
-    public List<ResponseCommunity> getCommunityList(long page){
+    public ResponseCommunityList getCommunityList(long page){
         //페이지 카운트 처리
         if(page != 0){
             page = page * 6;
         }
-        return communityMapper.getCommunityList(page);
+        ResponseCommunityList responseCommunityList = new ResponseCommunityList();
+        responseCommunityList.setCommunityList(communityMapper.getCommunityList(page));
+        responseCommunityList.setTotalCount(communityMapper.getCommunityCount());
+
+        return responseCommunityList;
     }
     public ResponseCommunityDetail getCommunity(Long id, Long sessionId){
         //getCommunity 기본
@@ -49,6 +55,15 @@ public class CommunityService {
             responseCommunityDetail.setNextId(communityMapper.getNextId(id));
         }
 
+        responseCommunityDetail.setLoginId(memberMapper.getLoginId(sessionId));
+
+        if (responseCommunityDetail.getTotal() > responseCommunityDetail.getMembers().size()){
+            RequestCommunity requestCommunity = new RequestCommunity();
+            requestCommunity.setId(id);
+            requestCommunity.setStatus(0);
+            communityMapper.updateStatus(requestCommunity);
+            responseCommunityDetail.setStatus(0);
+        }
         return responseCommunityDetail;
     }
 
@@ -59,11 +74,11 @@ public class CommunityService {
         requestContent.setTitle(requestCommunity.getTitle());
         contentMapper.addContent(requestContent);
         //Content 테이블에 추가한 이후에 생성된 id를 가져옴
-        long generatedId = requestContent.getId();
+        Long generatedId = requestContent.getId();
 
         //addCommunity
         requestCommunity.setId(generatedId);
-        requestCommunity.setStatus("모집중");
+        requestCommunity.setStatus(0);
         // 여행종료일이 여행시작일보다 과거인지 확인
         if (requestCommunity.getEndDate().isBefore(requestCommunity.getStartDate())) {
             throw new IllegalArgumentException("여행종료일은 여행시작일보다 미래의 날짜여야 합니다.");
@@ -98,14 +113,20 @@ public class CommunityService {
         contentMapper.deleteContent(id);
     }
 
-    public List<ResponseCommunity> getCommunityListWithSearch(RequestCommunitySearch requestCommunitySearch,long page){
+    public ResponseCommunityList getCommunityListWithSearch(RequestCommunitySearch requestCommunitySearch,long page){
         //페이지 카운트 처리
         if(page != 0){
             page = page * 6;
         }
         requestCommunitySearch.setPage(page);
         //타입이 'title' 또는 'writer'에 따라 쿼리가 동적이 되게끔 수정
-        return communityMapper.getCommunityListWithSearch(requestCommunitySearch);
+        if(requestCommunitySearch.getType().equals("1")){
+            requestCommunitySearch.setType("title");
+        }
+        ResponseCommunityList responseCommunityList = new ResponseCommunityList();
+        responseCommunityList.setCommunityList(communityMapper.getCommunityListWithSearch(requestCommunitySearch));
+        responseCommunityList.setTotalCount(communityMapper.getCommunitySearchCount(requestCommunitySearch));
+        return responseCommunityList;
     }
 
     public void addOwner(Long id, Long sessionId){
@@ -114,6 +135,14 @@ public class CommunityService {
         requestOwner.setContentId(id);
         requestOwner.setMemberId(sessionId);
         contentMapper.addOwner(requestOwner);
+
+        ResponseCommunityDetail responseCommunityDetail = getCommunity(id, sessionId);
+        if (responseCommunityDetail.getTotal() == responseCommunityDetail.getMembers().size()){
+            RequestCommunity requestCommunity = new RequestCommunity();
+            requestCommunity.setId(id);
+            requestCommunity.setStatus(1);
+            communityMapper.updateStatus(requestCommunity);
+        }
     }
 
     public void deleteOwner(Long id, Long sessionId){

@@ -12,25 +12,28 @@ public interface ContentMapper {
     void addContent(RequestContent requestContent);
     void addGood(RequestGood requestGood);
     void addOwner(RequestOwner requestOwner);
-    void addPin(RequestContentMember requestContentMember);
-
-    // 사용자의 ID를 기반으로 핀의 갯수를 가져오는 메서드
-    int getPinCountByMemberId(Long memberId);
+    void addRecentView(RequestContentMember requestContentMember);
 
     //select
     List<ResponseMember> getOwner(Long id);
     ResponseMember getWriter(Long id);
+    List<ResponseMember> getWith(Long id);
     List<ResponseContentList> getRecentView(RequestSessionTarget requestSessionTarget);
-    boolean isGood(RequestContentMember requestContentMember);
+    int getRecentViewCount(Long memberId);
+    int isGood(RequestGood requestGood);
+    boolean myGood(RequestGood requestGood);
     boolean isMine(RequestContentMember requestContentMember);
+    String getAddress(Long id);
 
     //update
-    void updateIsPublic(RequestIsPublic requestIsPublic);
+    void updateVisibility(RequestVisibility requestVisibility);
     void updateTitle(RequestTitle requestTitle);
+    void updateGood(RequestGood requestGood);
 
     //delete
     void deleteContent(Long id);
-    void deleteGood(RequestContentMember requestContentMember);
+    void deleteGood(RequestGood requestGood);
     void deleteOwner(RequestContentMember requestContentMember);
-    void deletePin(RequestContentMember requestContentMember);
+    void deletePlanSpotOwner(Long contentId);
+    void changeRecentView(RequestContentMember requestContentMember);
 }

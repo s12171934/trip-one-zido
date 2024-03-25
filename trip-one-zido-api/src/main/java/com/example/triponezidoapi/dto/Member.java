@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class Member {
-    long id;
+    Long id;
     @NotEmpty
     @Size(min = 2, max = 100)
     String name;
@@ -20,8 +20,6 @@ public class Member {
     String password;
     String passwordCheck;
     long question;
-
-
     @NotEmpty
     @Size(min = 1, max = 100, message = "최소 1자 이상의 답변이 필요합니다")
     String answer;
@@ -33,10 +31,14 @@ public class Member {
     @Size(max = 20)
     String phoneNumber;
     @NotEmpty
+    String zipcode;
+    @NotEmpty
     @Size(max = 200)
     String address;
+    @Size(max = 200)
+    String address2;
     @Past
     LocalDateTime birth;
-    @NotEmpty
-    String gender;
+    @NotNull
+    int gender;
 }

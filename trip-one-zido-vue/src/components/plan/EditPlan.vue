@@ -1,11 +1,11 @@
 <template>
   <main class="wrapper d-flex">
     <div class="p-2 d-flex flex-column border-end" id="leftSide">
-      <div class="d-flex justify-content-between me-5">
+      <div class="d-flex justify-content-between ">
         <h1 @click="console.log(status)" class="title">
-          일정 {{ mode === 'add' ? '등록' : '수정' }}
+          일정 {{ mode === "add" ? "등록" : "수정" }}
         </h1>
-        <div class="w-50">
+        <div class="status-css">
           <div class="d-flex justify-content-between">
             <span>여행할</span>
             <span>여행중</span>
@@ -17,32 +17,33 @@
             min="0"
             max="2"
             step="1"
-            v-model="status"
+            v-model="planData.status"
           />
         </div>
       </div>
+      <div class="leftTable">
       <table>
         <tr>
           <td scope="col">
-            <h4>일정 제목</h4>
+            <h4 class="title-col">일정 제목</h4>
           </td>
           <td scope="col-2">
-            <input type="text" v-model="title" />
+            <input type="text" class="input" v-model="planData.title" />
           </td>
         </tr>
 
         <tr>
           <td>
-            <h4>기간</h4>
+            <h4 class="title-col">기간</h4>
           </td>
           <td>
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center" id="date-time">
               <div class="date-time">
                 <input
                   @change="checkOtherDate('start')"
                   class="border-0"
                   type="date"
-                  v-model="startDate"
+                  v-model="planData.startDate"
                 />
               </div>
               <h4>~</h4>
@@ -51,22 +52,22 @@
                   @change="checkOtherDate('end')"
                   class="border-0"
                   type="date"
-                  v-model="endDate"
+                  v-model="planData.endDate"
                 />
               </div>
             </div>
           </td>
         </tr>
         <tr>
-          <td><h4>동행인</h4></td>
+          <td><h4 class="title-col">동행인</h4></td>
           <td>
-            <div class="d-flex align-items-center">
+            <div class="d-flex align-items-center" id="with-css">
               <div class="member-container d-flex">
                 <input
                   @contextmenu.prevent="delMember(idx)"
-                  v-for="(_, idx) in members"
+                  v-for="(_, idx) in planData.members"
                   type="text"
-                  v-model="members[idx]"
+                  v-model="planData.members[idx].loginId"
                   class="member m-1"
                 />
               </div>
@@ -83,14 +84,14 @@
 
         <tr>
           <td>
-            <h4>여행 장소 카테고리</h4>
+            <h4 class="title-col">여행 장소 카테고리</h4>
           </td>
           <td>
             <div class="select-wrapper">
-              <select class="local-select" name="category">
+              <select class="local-select" v-model="planData.locCategory">
                 <option value="" selected>지역 선택</option>
-                <option v-for="location in selectLocations" :value="location">
-                  {{ location }}
+                <option v-for="location in selectLocations" :value="location.locCategory">
+                  {{ location.value }}
                 </option>
               </select>
             </div>
@@ -99,35 +100,39 @@
 
         <tr>
           <td colspan="2">
-            <h4>지도</h4>
+            <h4 class="title-col">지도</h4>
           </td>
         </tr>
         <tr>
-          <td colspan="2">
-            <KakaoMapForEditPlan />
+          <td colspan="2" class="map">
+            <KakaoMapForEditPlan :spots="planData.spots" />
           </td>
         </tr>
 
         <tr>
           <td>
-            <h4>여행한 후기</h4>
+            <h4 class="title-col">여행한 후기</h4>
           </td>
           <td>
-            <div class="rating">
-              <span>☆</span>
-              <span>☆</span>
-              <span>☆</span>
-              <span>☆</span>
-              <span>☆</span>
-            </div>
+            <Grade id="grade"
+              @grade="(grade) => (planData.grade = grade)"
+              :grade="planData.grade"
+            />
           </td>
         </tr>
         <tr>
           <td colspan="2">
-            <textarea id="content" name="content" rows="5" cols="50" />
+            <textarea
+              id="content"
+              name="content"
+              rows="5"
+              cols="50"
+              v-model="planData.review"
+            />
           </td>
         </tr>
       </table>
+      </div>
     </div>
 
     <!-- ★오른쪽 -->
@@ -143,17 +148,16 @@
         <tr>
           <td>
             <div class="select-wrapper" id="security">
-              <select class="local-select" name="category">
-                <option value="" selected>공개 설정</option>
-                <option value="1">공개</option>
-                <option value="2">비공개</option>
+              <select class="local-select" v-model="planData.visibility">
+                <option value=true selected>공개</option>
+                <option value=false>비공개</option>
               </select>
             </div>
           </td>
           <td>
-            <div class="m-0 d-flex justify-content-end gap-2">
+            <div class="d-flex" id="add-canlce">
               <input
-                @click="$router.push('/member-page')"
+                @click="submitButton(mode)"
                 id="input"
                 class="button small"
                 type="submit"
@@ -161,6 +165,7 @@
               />
               <input
                 @click="$router.push('/member-page')"
+                id="cancle"
                 class="button alt small"
                 type="button"
                 value="취소"
@@ -182,34 +187,45 @@
 </template>
 
 <script>
-import EditSpotModal from "./EditSpotModal.vue";
+import EditSpotModal from "../util/modal/EditSpotModal.vue";
 import FullCalendar from "@fullcalendar/vue3";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import koLocale from "@fullcalendar/core/locales/ko";
 import data from "/src/assets/data.js";
 import KakaoMapForEditPlan from "../util/KakaoMapForEditPlan.vue";
+import Grade from "@/components/util/Grade.vue";
 
 export default {
   components: {
     FullCalendar,
     EditSpotModal,
     KakaoMapForEditPlan,
+    Grade,
   },
   data() {
     return {
       mode: this.$route.params.mode,
       selectLocations: data.selectLocations,
-      status: 0,
-      members: [""],
-      startDate: "",
-      endDate: "",
       editSpotMode: "",
       spotId: 0,
       refresh: 0,
-      spots: {},
       calendarEvent: null,
       spotData: null,
+
+      planData: {
+        status: 0,
+        title: "",
+        startDate: "",
+        endDate: "",
+        members: [{}],
+        locCategory: "",
+        review: "",
+        spots: [],
+        visibility: true,
+        grade: 0,
+      },
+
       popUpOptions:
         "toolbar=no,resizable=yes,status=no,width=800,height=1000,top=0,left=0",
 
@@ -251,7 +267,7 @@ export default {
         category: "",
         address: "",
         address2: "",
-        rate: 0,
+        grade: 0,
         review: "",
       };
     },
@@ -261,22 +277,21 @@ export default {
       this.calendarEvent = clickInfo;
 
       const id = clickInfo.event._def.publicId;
-      this.spotData = this.spots[id];
+      this.spotData = this.planData.spots.find((spot) => (spot.id == id));
+      console.log(this.spotData)
     },
 
     addMember() {
-      this.members.push("");
-    },
-    delMember(idx) {
-      this.members.splice(idx, 1);
+     this.planData.members.push({loginId: ""});
     },
 
-    toggle(content) {
-      content.myBookmark = !content.myBookmark;
+    delMember(idx) {
+      this.planData.members.splice(idx, 1);
     },
+
     setCalendarByDate() {
-      const start = new Date(this.startDate);
-      const end = new Date(this.endDate);
+      const start = new Date(this.planData.startDate);
+      const end = new Date(this.planData.endDate);
       let days = end.getTime() - start.getTime();
       console.log(days);
       days = Math.ceil(days / (1000 * 60 * 60 * 24)) + 1;
@@ -284,61 +299,112 @@ export default {
       const calendarApi = this.$refs.FullCalendar.getApi();
       this.calendarOptions.views.timeGridDay.duration.days = days;
       this.calendarOptions.firstDay = start.getDay();
-      calendarApi.gotoDate(this.startDate);
+      calendarApi.gotoDate(this.planData.startDate);
     },
+
     checkOtherDate(type) {
-      const start = new Date(this.startDate);
-      const end = new Date(this.endDate);
+      const start = new Date(this.planData.startDate);
+      const end = new Date(this.planData.endDate);
       let days = end.getTime() - start.getTime();
       console.log(days);
 
       if (days < 0 || !days) {
         if (type === "start") {
-          this.endDate = this.startDate;
+          this.planData.endDate = this.planData.startDate;
         } else {
-          this.startDate = this.endDate;
+          this.planData.startDate = this.planData.endDate;
         }
       }
       this.setCalendarByDate();
     },
+
     addSpot(calendarEvent, spotData) {
       const calendarApi = calendarEvent.view.calendar;
       calendarApi.addEvent({
-        id: ++this.spotId,
+        id: this.spotId,
         title: spotData.title,
         start: calendarEvent.startStr,
         end: calendarEvent.endStr,
       });
       const newSpot = JSON.parse(JSON.stringify(spotData));
       newSpot.id = this.spotId;
-      newSpot.start = calendarEvent.startStr;
-      newSpot.end = calendarEvent.endStr;
-      this.spots[this.spotId] = newSpot;
+      newSpot.startDate = new Date(calendarEvent.startStr);
+      console.log(calendarEvent.startStr)
+      console.log(newSpot.startDate)
+      newSpot.endDate = new Date(calendarEvent.endStr);
+      console.log(calendarEvent.endStr)
+      console.log(newSpot.endDate)
+      this.planData.spots.push(newSpot);
+      this.spotId++;
     },
+
     editSpotDetail(calendarEvent, spotData) {
       calendarEvent.event.setProp("title", spotData.title);
       const id = calendarEvent.event._def.publicId;
       const newSpot = JSON.parse(JSON.stringify(spotData));
-      this.spots[id].photos = newSpot.photos;
-      this.spots[id].title = newSpot.title;
-      this.spots[id].category = newSpot.category;
-      this.spots[id].address = newSpot.address;
-      this.spots[id].address2 = newSpot.address2;
-      this.spots[id].rate = newSpot.rate;
-      this.spots[id].review = newSpot.review;
-
-      console.log(this.spots);
+      const spot = this.planData.spots.find((spot) => (spot.id == id));
+      spot.photos = newSpot.photos;
+      spot.title = newSpot.title;
+      spot.category = newSpot.category;
+      spot.address = newSpot.address;
+      spot.address2 = newSpot.address2;
+      spot.grade = newSpot.grade;
+      spot.review = newSpot.review;
     },
+
     deleteSpot(calendarEvent) {
       calendarEvent.event.remove();
       const id = calendarEvent.event._def.publicId;
-      delete this.spots[id];
-
-      console.log(this.spots);
+      console.log(id)
+      this.$zido.deleteSpot(id);
+      delete this.planData.spots[id];
+    },
+    setInitialEvent() {
+      const calendarApi = this.$refs.FullCalendar.getApi();
+      for (let spot of this.planData.spots) {
+        calendarApi.addEvent({
+          id: spot.id,
+          title: spot.title,
+          start: spot.startDate,
+          end: spot.endDate,
+        });
+      }
+      console.log(calendarApi.getEvents());
+    },
+    removeDuplicateLoginIds(members) {
+      const loginIdsSet = new Set(); // 중복된 loginId를 저장하기 위한 Set
+      const uniqueMembers = [];
+      for (const member of members) {
+        if (!loginIdsSet.has(member.loginId)) {
+          loginIdsSet.add(member.loginId);
+          uniqueMembers.push(member);
+        }
+      }
+      // 원본 배열을 중복이 없는 배열로 변경
+      members.length = 0;
+      uniqueMembers.forEach(member => {
+        members.push(member);
+      });
+      return members; // 중복이 제거된 배열 반환
+    },
+    submitButton(mode) {
+      //제출 전 중복 확인
+      this.removeDuplicateLoginIds(this.planData.members);
+      if (mode == "add") {
+        this.$zido.addPlan(this.planData);
+      } else {
+        this.$zido.updatePlan(this.$route.params.id,this.planData);
+      }
+      location.href = "/member-page";
     },
   },
-  mounted() {
+  async mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    if (this.mode != "add") {
+      this.planData = await this.$zido.getPlanData(this.$route.params.id);
+      this.setCalendarByDate();
+      this.setInitialEvent();
+    }
   },
 };
 </script>
@@ -351,10 +417,6 @@ main > div {
 
 h4 {
   margin: 0;
-}
-
-td {
-  min-width: 170px;
 }
 
 .member-container {
@@ -379,26 +441,6 @@ td {
   margin: 2%;
 }
 
-.rating {
-  unicode-bidi: bidi-override;
-  direction: rtl;
-  text-align: left;
-  padding-left: 1rem;
-  color: #ff928e;
-}
-
-.rating > span {
-  display: inline-block;
-  position: relative;
-  width: 1.1em;
-}
-
-.rating > span:hover:before,
-.rating > span:hover ~ span:before {
-  content: "\2605";
-  position: absolute;
-}
-
 textarea {
   resize: none;
 }
@@ -414,20 +456,94 @@ textarea {
 .custom-range::-ms-thumb {
   background: #ff928e;
 }
-</style>
 
-<style>
-.fc-day-today {
-  background-color: inherit !important;
+.button {
+    margin-left: auto;
 }
-.fc-col-header-cell-cushion {
-  text-decoration: none;
-  color: #ff928e;
+#cancle {
+  margin-left:2%;
 }
-colgroup col {
-  width: 100px !important;
+#security {
+  width: 70%
 }
-.fc-scrollgrid-shrink-cushion {
-  margin-right: 3%;
+
+.p-2 {
+  width: 100%;
+}
+
+h4 {
+      white-space: nowrap; 
+      text-overflow: ellipsis; 
+  }
+
+.status-css {
+  width: 50%;
+  white-space: nowrap; 
+  text-overflow: ellipsis; 
+}
+@media (max-width: 1650px) {
+  .wrapper {
+    flex-direction: column; /* 아이템을 세로로 배치 */
+  }
+  .p-2 {
+    border: none;
+  }
+  #leftSide {
+    border-inline: none !important; /* border -end 제거*/ 
+  }
+}
+
+/* 작은 화면에서 아이템을 세로로 배치하기 위해 추가된 스타일 */
+@media (max-width: 880px) {
+
+  .title-col {
+    font-size: 100%;
+    display: block; /* 제목을 블록 레벨 요소로 변경하여 다음 줄에 표시 */
+  }
+
+  table tr td:first-child,
+  table tr td:last-child {
+    
+    display: block;
+  }
+  td {
+    width: 90%
+  }
+  #security {
+    width: 20%;
+  }
+}
+
+
+@media (max-width: 550px) {
+  .status-css {
+    display: block;
+  }
+  td {
+    width: 450px;
+  }
+  #date-time {
+    display: flex; /* Flex 레이아웃으로 변경 */
+    flex-direction: column; /* 세로 방향으로 정렬 */
+  }
+  .date-time {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  td {
+    width: 70%;
+  }
+  #security {
+    width: 60%;
+  }
+}
+
+@media (max-width: 400px) {
+  td {
+    width: 60%;
+  }
 }
 </style>
+../util/KakaoMapForPlanDetail.vue

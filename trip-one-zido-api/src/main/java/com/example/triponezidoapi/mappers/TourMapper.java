@@ -13,7 +13,8 @@ public interface TourMapper {
 
     //select
     ResponseTour getTour(RequestSessionTarget requestSessionTarget);
-    List<ResponseTour> getTourList(RequestSessionTarget requestSessionTarget);
+    List<ResponseTour> getTourList(RequestTourList requestTourList);
+    int getTourListCount(RequestTourList requestTourList);
     Long getNextId(Long id);
     Long getPrevId(Long id);
 }

@@ -41,6 +41,8 @@
     <select id="getPlan" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponsePlanDetail">
         SELECT
             p.*,
+            DATE(p.start_date) start_date,
+            DATE(p.end_date) end_date,
             c.title,
             (
             SELECT
@@ -65,7 +67,8 @@
             FROM
                 good
             WHERE
-                content_id = c.id
+                content_id = c.id AND
+                good = 1
             ) good_count,
             (
                 SELECT
@@ -80,7 +83,11 @@
             content c
         WHERE
             p.id = c.id AND
-            p.id = #{targetId}
+            p.id = #{targetId} AND
+            (
+            visibility = 1 OR
+            c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+            )
     </select>
 
     <select id="getSpot" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseSpotPlan">
@@ -88,7 +95,12 @@
             s.id,
             c.title,
             s.start_date,
-            s.end_date
+            s.end_date,
+            s.category,
+            s.address,
+            s.address2,
+            s.grade,
+            s.review
         FROM
             spot s,
             content c
@@ -101,6 +113,17 @@
                 plan_spot
             WHERE
                 plan_id = #{contentId}
+        ) AND
+        (
+            (
+                SELECT
+                    visibility
+                FROM
+                    content
+                WHERE
+                    id = #{contentId}
+            ) = 1 OR
+        c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
         )
     </select>
 
@@ -142,15 +165,7 @@
             WHERE
                 content_id = c.id
             ) good_count,
-            (
-                SELECT
-                    COUNT(*)
-                FROM
-                    pin
-                WHERE
-                    member_id = #{myMemberId}
-                  AND content_id = #{targetId}
-            ) pin
+            c.type
         FROM
             content c,
             plan p
@@ -164,9 +179,38 @@
                 owner
             WHERE
                 member_id = #{targetId}
+            ) AND
+            (
+            visibility = 1 OR
+            c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
             )
+        ORDER BY
+            ${sort}
         LIMIT
             #{page}, 6
+    </select>
+
+    <select id="getPlanListCount" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="int">
+        SELECT
+            count(*)
+        FROM
+            content c,
+            plan p
+        WHERE
+            c.id = p.id AND
+            c.id IN
+            (
+                SELECT
+                    content_id
+                FROM
+                    owner
+                WHERE
+                    member_id = #{targetId}
+            )AND
+            (
+            visibility = 1 OR
+            c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+            )
     </select>
 
     <update id="updatePlan" parameterType="com.example.triponezidoapi.dto.request.RequestPlan">
