@@ -124,10 +124,12 @@ public class SpotService {
         contentMapper.updateTitle(requestTitle);
 
         //deleteOwner
-        RequestContentMember requestContentMember = new RequestContentMember();
-        requestContentMember.setMemberId(sessionId);
-        requestContentMember.setContentId(id);
-        contentMapper.deleteOwner(requestContentMember);
+        for (int i = 0; i < requestSpot.getMembers().size(); i++) {
+            RequestContentMember requestContentMember = new RequestContentMember();
+            requestContentMember.setMemberId(sessionId);
+            requestContentMember.setContentId(id);
+            contentMapper.deleteOwner(requestContentMember);
+        }
 
         //addOwner
         for (int i = 0; i < requestSpot.getMembers().size(); i++) {

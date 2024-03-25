@@ -25,30 +25,6 @@ class ContentApiControllerTest {
     private ContentService contentService;
 
     @Test
-    @DisplayName("게시글 고정 등록")
-    void postPin() throws Exception {
-        mockMvc.perform(post("/api/content/pin/{id}", 9L)
-                        .sessionAttr("id", 9L)
-                )
-                .andExpect(status().isOk())
-                .andDo(print());
-
-        verify(contentService).addPin(9L, 9L);
-    }
-
-    @Test
-    @DisplayName("게시글 고정 취소")
-    void deletePin() throws Exception {
-        mockMvc.perform(delete("/api/content/pin/{id}", 9L)
-                        .sessionAttr("id", 9L)
-                )
-                .andExpect(status().isOk())
-                .andDo(print());
-
-        verify(contentService).deletePin(9L, 9L);
-    }
-
-    @Test
     @DisplayName("좋아요 등록/수정/취소")
     void postGood() throws Exception {
         RequestGood requestGood = new RequestGood();

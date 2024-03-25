@@ -408,12 +408,25 @@ export default {
     }
   },
 
+  //방문 지역 횟수 지도에 표시
+  //GET -- api/page/locMap/{id}
+  async getLocMap(id) {
+    try {
+      const response = await axios.get(`/api/page/locMap/${id}`);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error("방문 지역 횟수 조회 요청 오류", error);
+      throw error;
+    }
+  },
+
   //프로필 사진 가져오기
   //미구현 GET -- api/member/profile -> header와 프로필 사진 편집시 필요
   async getProfileImg() {
     // return data.userProfiles[1].imgSrc;
     try {
-      const response = await axios.get("/api/member/profile");
+      const response = await axios.get(`/api/member/profile`);
       console.log("checkPro");
       console.log(response.data);
       return response.data.profile;
@@ -427,7 +440,7 @@ export default {
   // ★미구현 GET -- api/member/config
   getConfigData() {
     return axios
-      .get("/api/member/config", {})
+      .get(`/api/member/config`, {})
       .then((response) => {
         console.log(response.data);
         return response.data;
@@ -479,7 +492,7 @@ export default {
   async login(loginId, password) {
     // return true;
     return axios
-      .post("/api/member/login", {
+      .post(`/api/member/login`, {
         loginId: loginId,
         password: password,
       })
@@ -496,7 +509,7 @@ export default {
   //자동 로그인
   //POST -- api/member/autoLogin
   async autoLogin(loginId) {
-    await axios.post("/api/member/autoLogin", {
+    await axios.post(`/api/member/autoLogin`, {
       loginId: loginId,
     });
   },
@@ -506,7 +519,7 @@ export default {
   async checkSecurityAnswer(securityId,securityAnswer) {
     // return true;
     return axios
-      .post("/api/member/check", {
+      .post(`/api/member/check`, {
         id : securityId,
         answer: securityAnswer
       })
@@ -526,7 +539,7 @@ export default {
     if(name !== '' && email !== '' && loginId !== ''){
     // return 1;
     return axios
-      .post("/api/member/check/pw", {
+      .post(`/api/member/check/pw`, {
         name: name,
         email: email,
         loginId: loginId,
@@ -573,7 +586,7 @@ export default {
     console.log(binaryString);
 
     return axios
-      .put("/api/member/profile", {
+      .put(`/api/member/profile`, {
         img: binaryString,
       })
       .then((response) => {
@@ -631,7 +644,7 @@ export default {
   async updateUserInfo(userInfo) {
     // alert(userInfo.name);
     return axios
-      .put("/api/member/", userInfo)
+      .put(`/api/member/`, userInfo)
       .then((response) => {
         console.log(response.data);
         return response.data;
@@ -714,7 +727,7 @@ export default {
     }
 
     console.log(planData);
-    await axios.post("/api/plan", planData);
+    await axios.post(`/api/plan`, planData);
   },
 
   //일정 수정
@@ -742,8 +755,15 @@ export default {
   //상세 검색 정보 조회
   //POST -- api/search
   async getDetailSearchData(searchOptions) {
-    const res = await axios.post("/api/search", searchOptions);
+    const res = await axios.post(`/api/search`, searchOptions);
     return res.data;
+  },
+
+  //인기검색어
+  //Top Ten
+  async getTopTen(){
+    const res = await axios.get(`/search/top10`);
+    return res.data
   },
 
   //SNS Connect
@@ -752,7 +772,7 @@ export default {
   //PUT -- api/social
   async updateSocialLogin(socialType, socialId, loginId) {
     console.log(123)
-    await axios.put("/api/social", {
+    await axios.put(`/api/social`, {
       socialType: socialType,
       socialId: socialId,
       loginId: loginId,
@@ -764,35 +784,55 @@ export default {
   //장소 삭제
   //DELETE -- api/spot/id
   async deleteSpot(targetId) {
-    await axios.delete(`/api/spot/${targetId}`);
+    try{
+      await axios.delete(`/api/spot/${targetId}`);
+    } catch (error) {
+      console.error("장소 삭제 요청 오류", error);
+      throw error;
+    }
   },
 
   //장소 상세 조회
   //GET -- api/spot/id
   async getSpotData(id) {
-    const res = await axios.get(`/api/spot/${id}`);
-    console.log(res.data)
-    return res.data;
+    try{
+      const res = await axios.get(`/api/spot/${id}`);
+      console.log(res.data)
+      return res.data;
+    } catch (error) {
+      console.error("장소 상세 조회 요청 오류", error);
+      throw error;
+    }
   },
 
   //장소 등록
   //POST -- api/spot
   async addSpot(spotData) {
-    for (let photo in spotData.photos) {
-      console.log(spotData.photos[photo]);
-      spotData.photos[photo].photo = spotData.photos[photo].photo.split(",")[1];
+    try{
+      for (let photo in spotData.photos) {
+        console.log(spotData.photos[photo]);
+        spotData.photos[photo].photo = spotData.photos[photo].photo.split(",")[1];
+      }
+      console.log(spotData);
+      await axios.post(`/api/spot`, spotData);
+    } catch (error) {
+      console.error("장소 등록 요청 오류", error);
+      throw error;
     }
-    console.log(spotData);
-    await axios.post("/api/spot", spotData);
   },
 
   //장소 수정
   //PUT -- api/spot/id
   async updateSpot(id, spotData) {
-    for (let photo in spotData.photos) {
-      spotData.photos[photo].photo = spotData.photos[photo].photo.split(",")[1];
-    }
-    await axios.put(`/api/spot/${id}`, spotData);
+    try{
+      for (let photo in spotData.photos) {
+        spotData.photos[photo].photo = spotData.photos[photo].photo.split(",")[1];
+      }
+      await axios.put(`/api/spot/${id}`, spotData);
+    } catch (error) {
+      console.error("장소 수정 요청 오류", error);
+      throw error;
+    } 
   },
 
   //Tour

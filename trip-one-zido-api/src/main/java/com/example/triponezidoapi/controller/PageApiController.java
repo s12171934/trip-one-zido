@@ -74,6 +74,17 @@ public class PageApiController {
     ){
         return pageService.getSpotListByPage(id, sessionId, page, sort);
     }
+    @GetMapping("/locMap/{id}")
+    @Tag(name = "locMap", description = "locMap API")
+    @Operation(summary = "방문한 지역 횟수")
+    public List<ResponseLocMap> locMap(
+            @PathVariable(required = false)
+            @Schema(nullable = true)
+            @Parameter(description = "대상 회원 번호")
+            Long id
+    ){
+        return pageService.getLocMap(id);
+    }
     @GetMapping("/following/{id}")
     @Tag(name = "Follow", description = "Follow API")
     @Operation(summary = "팔로잉 명단")

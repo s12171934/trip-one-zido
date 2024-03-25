@@ -43,7 +43,6 @@ class PageApiControllerTest {
         planContent .setGoodCount(0);
         planContent .setGrade(0);
         planContent .setMyBookmark(false);
-        planContent .setPin(0);
 
         List<ResponseContentList> planList = new ArrayList<>();
         planList.add(planContent);
@@ -56,7 +55,6 @@ class PageApiControllerTest {
         spotContent.setGoodCount(0);
         spotContent.setGrade(0);
         spotContent.setMyBookmark(false);
-        spotContent.setPin(0);
 
         List<ResponseContentList> spotLists = new ArrayList<>();
         spotLists.add(spotContent);
@@ -113,7 +111,6 @@ class PageApiControllerTest {
         planContent .setGoodCount(0);
         planContent .setGrade(0);
         planContent .setMyBookmark(false);
-        planContent .setPin(0);
 
         List<ResponseContentList> planList = new ArrayList<>();
         planList.add(planContent);
@@ -150,7 +147,6 @@ class PageApiControllerTest {
         spotContent.setGoodCount(0);
         spotContent.setGrade(0);
         spotContent.setMyBookmark(true);
-        spotContent.setPin(0);
 
         List<ResponseContentList> spotLists = new ArrayList<>();
         spotLists.add(spotContent);

@@ -58,7 +58,6 @@ class SearchApiControllerTest {
         planList1.setMyBookmark(true);
         planList1.setGoodCount(2);
         planList1.setBookmarkCount(5);
-        planList1.setPin(5);
         planList.add(planList1);
 
         List<ResponseContentList> spotList = new ArrayList<>();
@@ -70,7 +69,6 @@ class SearchApiControllerTest {
         spotList1.setGoodCount(50);
         spotList1.setMyBookmark(true);
         spotList1.setGrade(85);
-        spotList1.setPin(9);
         spotList.add(spotList1);
 
         responseSearch.setMemberList(memberList);
@@ -129,7 +127,6 @@ class SearchApiControllerTest {
         planList1.setMyBookmark(true);
         planList1.setGoodCount(2);
         planList1.setBookmarkCount(5);
-        planList1.setPin(5);
         planList.add(planList1);
 
         List<ResponseContentList> spotList = new ArrayList<>();
@@ -141,7 +138,6 @@ class SearchApiControllerTest {
         spotList1.setGoodCount(50);
         spotList1.setMyBookmark(true);
         spotList1.setGrade(85);
-        spotList1.setPin(9);
         spotList.add(spotList1);
 
         responseSearch.setPlanList(planList);

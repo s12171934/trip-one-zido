@@ -6,6 +6,9 @@
 import data from "@/assets/data.js";
 
 export default {
+  props: {
+    locMap: Array,
+  },
   data() {
     return {
       map: null,
@@ -14,12 +17,10 @@ export default {
   },
   mounted() {
     this.loadMap();
-    for (let locmap of data.locMap) {
-      this.getPolygon(locmap);
-    }
-  },
+  },  
   methods: {
-    loadMap() {
+    async loadMap() {
+      await this.getAccessToken();
       const container = document.getElementById("map");
       const options = {
         center: new window.kakao.maps.LatLng(36, 128),
@@ -30,6 +31,10 @@ export default {
       this.map.setDraggable(false);
       this.map.setZoomable(false);
       this.map.setMinLevel(13);
+
+      for (let locmap of this.locMap) {
+        this.getPolygon(locmap);
+      };
     },
 
     async getAccessToken() {
@@ -52,6 +57,10 @@ export default {
             `&adm_cd=${locmap.code}`
         )
         .then(async (res) => {
+          if (!res.data.features || !res.data.features[0]) {
+            console.warn("데이터가 없습니다:", locmap);
+            return;
+          }
           var coordinates = res.data.features[0].geometry.coordinates;
           const polygonPaths = [];
           for (let paths of coordinates) {
@@ -75,6 +84,7 @@ export default {
           return polygonPaths;
         })
         .then((polygonPaths) => {
+          if (!polygonPaths) return; // 데이터가 없으면 처리 중단
           for (let polygonPath of polygonPaths) {
             const polygon = new kakao.maps.Polygon({
               path: polygonPath,
@@ -82,7 +92,7 @@ export default {
               strokeColor: "#ff928e",
               strokeOpacity: 1,
               strokeStyle: "solid",
-              fillColor: data.locFrequencyColor[Math.floor(locmap.count / 5)],
+              fillColor: data.locFrequencyColor[Math.floor(locmap.count)],
               fillOpacity: 1,
             });
 
