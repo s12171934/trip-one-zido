@@ -139,6 +139,19 @@ public class PlanService {
         requestOwner.setMemberId(sessionId);
         requestOwner.setContentId(requestPlan.getId());
         contentMapper.addOwner(requestOwner);
+
+        //getWriterOwner - 동행인 등록전 writer가 누군지 저장
+        ResponseMember responseMember =  contentMapper.getWriter(generatedId);
+        for (int i = 0; i < requestPlan.getMembers().size(); i++) {
+            //writer의 loginId와 동행인의 LoginId 비교하여 다를 경우 동행인으로 저장
+            if(!responseMember.getLoginId().equals(requestPlan.getMembers().get(i).getLoginId())){
+                RequestOwner requestWithOwner = new RequestOwner();
+                requestWithOwner.setOwn("with");
+                requestWithOwner.setMemberId(memberMapper.getIdByLoginId(requestPlan.getMembers().get(i).getLoginId()));
+                requestWithOwner.setContentId(requestContent.getId());
+                contentMapper.addOwner(requestWithOwner);
+            }
+        }
     }
 
     public void updatePlan(Long id, RequestPlan requestPlan) {
