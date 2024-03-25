@@ -15,7 +15,7 @@
       <button
         class="button alt"
         type="button"
-        @click="this.$router.push('/search-detail')"
+        @click="this.$router.push(`/search-detail?keyword=${$route.params.keyword}`)"
       >
         일정 & 장소 상세검색으로
       </button>

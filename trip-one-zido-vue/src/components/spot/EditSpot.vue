@@ -240,7 +240,7 @@ export default {
       this.spotData.photos.splice(idx, 1);
     },
     addMember() {
-      this.spotData.members.push("");
+      this.spotData.members.push({loginId: ""});
     },
     delMember(idx) {
       this.spotData.members.splice(idx, 1);
