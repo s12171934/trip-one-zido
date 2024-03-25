@@ -72,6 +72,8 @@
             content
         WHERE
             community.id = content.id
+        ORDER BY
+            created_at DESC
         LIMIT
             #{page}, 6
     </select>

@@ -32,7 +32,7 @@ export default {
       this.map.setZoomable(false);
       this.map.setMinLevel(13);
 
-      for (let locmap of this.locMap) {
+      for (let locmap of data.locCode) {
         this.getPolygon(locmap);
       };
     },
@@ -54,7 +54,7 @@ export default {
           "https://sgisapi.kostat.go.kr/OpenAPI3/boundary/hadmarea.geojson" +
             `?accessToken=${this.accessToken}` +
             "&year=2023&low_search=0" +
-            `&adm_cd=${locmap.code}`
+            `&adm_cd=${locmap}`
         )
         .then(async (res) => {
           if (!res.data.features || !res.data.features[0]) {
@@ -65,7 +65,7 @@ export default {
           const polygonPaths = [];
           for (let paths of coordinates) {
             const polygonPath = [];
-            if(coordinates.length != 1 && locmap.code != 31){
+            if(coordinates.length != 1 && locmap != 31){
               paths = paths[0]
             }
             for (let path of paths) {
@@ -85,6 +85,12 @@ export default {
         })
         .then((polygonPaths) => {
           if (!polygonPaths) return; // 데이터가 없으면 처리 중단
+          let count = 0;
+          for(let loc of this.locMap){
+            if(loc.code == locmap){
+              count = loc.count;
+            }
+          }
           for (let polygonPath of polygonPaths) {
             const polygon = new kakao.maps.Polygon({
               path: polygonPath,
@@ -92,7 +98,7 @@ export default {
               strokeColor: "#ff928e",
               strokeOpacity: 1,
               strokeStyle: "solid",
-              fillColor: data.locFrequencyColor[Math.floor(locmap.count)],
+              fillColor: data.locFrequencyColor[Math.floor(count)],
               fillOpacity: 1,
             });
 

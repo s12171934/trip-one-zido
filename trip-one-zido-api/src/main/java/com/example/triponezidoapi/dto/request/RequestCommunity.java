@@ -3,6 +3,7 @@ package com.example.triponezidoapi.dto.request;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -14,10 +15,10 @@ public class RequestCommunity {
 
     @NotNull(message = "여행시작일은 필수 입니다.")
     @Future(message = "여행시작일은 미래의 날짜여야 합니다.")
-    LocalDateTime startDate;
+    LocalDate startDate;
     @NotNull(message = "여행종료일은 필수 입니다.")
     @Future(message = "여행종료일은 미래의 날짜여야 합니다.")
-    LocalDateTime endDate;
+    LocalDate endDate;
 
     @NotNull(message = "지역분류는 필수 입니다.")
     int locCategory;
@@ -32,7 +33,7 @@ public class RequestCommunity {
 
     @NotNull(message = "모집마감일은 필수 입니다.")
     @Future(message = "모집마감일은 미래의 날짜여야 합니다.")
-    LocalDateTime deadline;
+    LocalDate deadline;
 
     int status;
 }

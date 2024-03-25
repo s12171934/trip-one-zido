@@ -3,6 +3,7 @@ package com.example.triponezidoapi.service;
 import com.example.triponezidoapi.dto.request.*;
 import com.example.triponezidoapi.dto.response.*;
 import com.example.triponezidoapi.mappers.*;
+import com.example.triponezidoapi.util.LocationCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -93,7 +94,7 @@ public class PlanService {
             );
 
             requestPlan.getSpots().get(i).setId(generatedSpotId);
-            requestPlan.getSpots().get(i).setLocCategory(requestPlan.getLocCategory());
+            requestPlan.getSpots().get(i).setLocCategory(LocationCode.getCode(requestPlan.getSpots().get(i).getAddress()));
             requestPlan.getSpots().get(i).setMembers(requestPlan.getMembers());
             requestPlan.getSpots().get(i).setVisibility(true);
             spotMapper.addSpot(requestPlan.getSpots().get(i));
@@ -188,7 +189,7 @@ public class PlanService {
                 Long generatedId = requestContent.getId();
 
                 requestSpot = requestPlan.getSpots().get(i);
-                requestSpot.setLocCategory(requestPlan.getLocCategory());
+                requestSpot.setLocCategory(LocationCode.getCode(requestSpot.getAddress()));
                 requestSpot.setId(generatedId);
                 requestSpot.setStartDate(
                         requestSpot.getStartDate().plusSeconds(60 * 60 * 9)

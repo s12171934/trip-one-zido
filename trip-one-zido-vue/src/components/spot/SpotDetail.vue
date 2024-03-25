@@ -16,7 +16,7 @@
       </div>
       <h6 class="left-css">
         {{
-          `${spotData.startDate} : ${spotData.startTime} ~ ${spotData.endDate} : ${spotData.endTime}`
+          `${spotData.startDate} ~ ${spotData.endDate}`
         }}
       </h6>
       <h6 class="left-css">

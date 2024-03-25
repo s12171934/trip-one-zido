@@ -2,6 +2,7 @@ package com.example.triponezidoapi.dto.response;
 
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -9,12 +10,12 @@ import java.util.List;
 public class ResponseCommunityDetail {
     Long id;
     String loginId;
-    LocalDateTime startDate;
-    LocalDateTime endDate;
+    LocalDate startDate;
+    LocalDate endDate;
     int locCategory;
     String notice;
     int total;
-    LocalDateTime deadline;
+    LocalDate deadline;
     int viewPoint;
     int status;
     String title;
