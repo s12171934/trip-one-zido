@@ -26,6 +26,13 @@ export default {
     { category: 5, value: "기타" },
   ],
 
+  selectSeason: [
+    {season : "spring", value : "봄"},
+    {season : "summer", value : "여름"},
+    {season : "fall", value : "가을"},
+    {season : "winter", value : "겨울"}
+  ],
+
   planStatus: [
     { status: 0, value: "여행할" },
     { status: 1, value: "여행중" },

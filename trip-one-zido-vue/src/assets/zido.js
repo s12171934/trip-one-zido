@@ -239,8 +239,12 @@ export default {
 
   //최근 본 게시물 등록
   //POST --api/content/recent-view
-  addRecentView(id) {
-    axios.post(`/api/content/recent-view/${id}`);
+  async addRecentView(id) {
+    const res = axios.post(`/api/content/recent-view/${id}`).catch((error) => {
+      console.log("최근 본 게시물 등록 오류");
+      throw error;
+    });
+    console.log(res.data);
   },
 
   //주소 가져오기
@@ -680,10 +684,10 @@ export default {
   async newContents(addApi, page, method, Options) {
     let res = null;
     if (method) {
-      res = await axios.post(addApi + page, Options);
+      res = await axios.post(addApi + '/' + page, Options);
     } else {
-      res = await axios.get(addApi + page + "?" + Options);
-      console.log(addApi + page + "?" + Options);
+      res = await axios.get(addApi + '/' + page + '?' + Options);
+      console.log(addApi + '/' + page + '?' + Options)
     }
     return res.data;
   },
@@ -775,7 +779,6 @@ export default {
   },
 
   //SNS Connect
-
   //소셜로그인 연동
   //PUT -- api/social
   async updateSocialLogin(socialType, socialId, loginId) {
@@ -850,15 +853,25 @@ export default {
   //관광지 상세 조회
   //GET -- api/tour/id
   async getTourData(id) {
-    const res = await axios.get(`/api/tour/${id}`);
-    return res.data;
+    try{
+      const res = await axios.get(`/api/tour/${id}`);
+      return res.data;
+    }catch (error) {
+      console.error("관광지 상세 조회 요청 오류", error);
+      throw error;
+    }
   },
 
   //관광지 목록 조회
   //GET -- api/tour/list/loc
   async getTourList(loc) {
-    const res = await axios.get(`/api/tour/list/${loc}`);
-    console.log(res.data);
-    return res.data;
+    try{
+      const res = await axios.get(`/api/tour/list/${loc}`);
+      console.log(res.data)
+      return res.data;
+    }catch (error) {
+      console.error("관광지 목록 조회 요청 오류", error);
+      throw error;
+    }
   },
 };

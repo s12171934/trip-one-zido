@@ -18,4 +18,7 @@ public interface SearchMapper {
     int countMember(String keyword);
     int countSpot(String keyword);
     int countPlan(String keyword);
+
+    int countDetailSpot(RequestDetailSearch requestDetailSearch);
+    int countDetailPlan(RequestDetailSearch requestDetailSearch);
 }

@@ -4,14 +4,15 @@
 
     <div class="row mb-3">
       <div class="col-md-3 mb-3">
-        <h5>일정 시작일</h5>
-        <input type="date" class="form-control" v-model="start" />
-        <br />
-      </div>
-
-      <div class="col-md-3 mb-3">
-        <h5>일정 종료일</h5>
-        <input type="date" class="form-control" v-model="end" />
+        <h5>계절</h5>
+        <div class="select-wrapper">
+          <select class="form-control" name="category" v-model="detailSearchData.season">
+            <option value="" selected>계절 선택</option>
+            <option v-for="season in selectSeason" :value="season.season">
+              {{ season.value }}
+            </option>
+          </select>
+        </div>
         <br />
       </div>
 
@@ -97,17 +98,20 @@ export default {
     return {
       selectLocations: data.selectLocations,
       selectCategories: data.selectCategories,
+      selectSeason: data.selectSeason,
       detailSearchData: {
         planList: [],
         planCount: 0,
         spotList: [],
         spotCount: 0,
-        category: 0,
-        locCategory: 0,
+        season: "",
+        category: "",
+        locCategory: "",
         keyword: "",
       },
       start: "",
       end: "",
+      season: "",
       category: 0,
       locCategory: 0,
       keyword: "",
@@ -115,7 +119,7 @@ export default {
   },
   methods: {
     detailSearch() {
-      location.href = `/search-detail?keyword=${this.keyword}&startMonth=${this.start}&endMonth=${this.end}&category=${this.detailSearchData.category}&locCategory=${this.detailSearchData.locCategory}`;
+      location.href = `/search-detail?keyword=${this.keyword}&season=${this.detailSearchData.season}&category=${this.detailSearchData.category}&locCategory=${this.detailSearchData.locCategory}`;
     },
   },
   mounted() {
