@@ -4,7 +4,7 @@
       <h1>설정페이지</h1>
     </div>
     <div class="d-flex justify-content-between">
-      <div class="w-50">
+      <div >
         <div class="d-flex align-items-center">
           <div class="d-flex flex-column gap-2">
             <img
@@ -23,6 +23,7 @@
           <h1>{{ configData.memberProfile.loginId }}</h1>
         </div>
 
+        <div class="summary-css">
         <hr />
         <NumberSummary
           @follower="
@@ -33,11 +34,13 @@
             followType = 'following';
             getFollowList();
           "
+          
           :totalBoard="configData.postCount"
           :followerCount="configData.followerCount"
           :followingCount="configData.followingCount"
           :bookmarkCount="configData.bookmarkCount"
         />
+      </div>
       </div>
       <div
         class="w-50 d-flex justify-content-end align-items-end"
@@ -130,6 +133,7 @@ button {
   width: 100%;
 }
 
+
 @media (max-width: 1200px) {
   .w-50, .p-2 {
     white-space: nowrap; 
@@ -140,6 +144,7 @@ button {
   .d-flex {
     display: flex;
     flex-wrap: wrap; /* 작은 화면에서 넘치는 요소들을 아래로 이동 */
+    flex-direction: column;
   }
 
   .w-50 {
@@ -147,12 +152,14 @@ button {
     width: 90% !important;
     margin-bottom: 10%;
   }
+}
 
-  /* 작은 화면에서 아이템을 세로로 배치하기 위해 추가된 스타일 */
-  @media (max-width: 768px) {
-    .d-flex{
-      flex-direction: column;
-    }
+@media (max-width: 400px) {
+  h1 {
+    margin-top: 6%;
+  }
+  button {
+    margin-top: 3%;
   }
 }
 </style>

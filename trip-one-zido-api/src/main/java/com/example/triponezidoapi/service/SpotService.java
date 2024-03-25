@@ -3,6 +3,7 @@ package com.example.triponezidoapi.service;
 import com.example.triponezidoapi.dto.request.*;
 import com.example.triponezidoapi.dto.response.*;
 import com.example.triponezidoapi.mappers.*;
+import com.example.triponezidoapi.util.LocationCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,16 +68,16 @@ public class SpotService {
             RequestPhoto requestPhoto = new RequestPhoto();
             requestPhoto.setPhoto(requestSpot.getPhotos().get(i).getPhoto());
             requestPhoto.setContentId(generatedId);
+            spotMapper.addPhoto(requestPhoto);
             if(requestSpot.getProfile() == i){
                 profileId = requestPhoto.getId();
             }
-            spotMapper.addPhoto(requestPhoto);
         }
 
         //addSpot
         requestSpot.setId(generatedId);
         requestSpot.setProfile(sessionId);
-        requestSpot.setLocCategory(11);
+        requestSpot.setLocCategory(LocationCode.getCode(requestSpot.getAddress()));
         requestSpot.setProfile(profileId);
         spotMapper.addSpot(requestSpot);
 
@@ -107,7 +108,7 @@ public class SpotService {
         }
         //updateSpot
         requestSpot.setId(id);
-        requestSpot.setLocCategory(11);
+        requestSpot.setLocCategory(LocationCode.getCode(requestSpot.getAddress()));
         requestSpot.setProfile(profileId);
         spotMapper.updateSpot(requestSpot);
 
