@@ -41,7 +41,8 @@ public class PlanService {
         responsePlanDetail.setSpots(responseSpotPlan);
 
         // getOwner
-        responsePlanDetail.setMembers(contentMapper.getOwner(id));
+        responsePlanDetail.setWriter(contentMapper.getWriter(id));
+        responsePlanDetail.setMembers(contentMapper.getWith(id));
 
         // getComment
         responsePlanDetail.setComments(commentService.getComments(id));
@@ -117,6 +118,19 @@ public class PlanService {
             requestOwner.setMemberId(sessionId);
             requestOwner.setContentId(generatedSpotId);
             contentMapper.addOwner(requestOwner);
+
+//            getWriterOwner - 동행인 등록전 writer가 누군지 저장
+            ResponseMember responseMember =  contentMapper.getWriter(generatedSpotId);
+            for (int j = 0; j < requestPlan.getMembers().size(); j++) {
+                //writer의 loginId와 동행인의 LoginId 비교하여 다를 경우 동행인으로 저장
+                    if(!responseMember.getLoginId().equals(requestPlan.getMembers().get(j).getLoginId())){
+                        RequestOwner requestWithOwner = new RequestOwner();
+                        requestWithOwner.setOwn("with");
+                        requestWithOwner.setMemberId(memberMapper.getIdByLoginId(requestPlan.getMembers().get(j).getLoginId()));
+                        requestWithOwner.setContentId(generatedSpotId);
+                        contentMapper.addOwner(requestWithOwner);
+                    }
+            }
         }
 
         // addOwner
@@ -125,19 +139,6 @@ public class PlanService {
         requestOwner.setMemberId(sessionId);
         requestOwner.setContentId(requestPlan.getId());
         contentMapper.addOwner(requestOwner);
-
-        //getWriterOwner - 동행인 등록전 writer가 누군지 저장
-        ResponseMember responseMember =  contentMapper.getWriter(generatedId);
-        for (int i = 0; i < requestPlan.getMembers().size(); i++) {
-            //writer의 loginId와 동행인의 LoginId 비교하여 다를 경우 동행인으로 저장
-            if(!responseMember.getLoginId().equals(requestPlan.getMembers().get(i).getLoginId())){
-                RequestOwner requestWithOwner = new RequestOwner();
-                requestWithOwner.setOwn("with");
-                requestWithOwner.setMemberId(memberMapper.getIdByLoginId(requestPlan.getMembers().get(i).getLoginId()));
-                requestWithOwner.setContentId(requestPlan.getId());
-                contentMapper.addOwner(requestWithOwner);
-            }
-        }
     }
 
     public void updatePlan(Long id, RequestPlan requestPlan) {
@@ -157,23 +158,19 @@ public class PlanService {
         requestTitle.setTitle(requestPlan.getTitle());
         contentMapper.updateTitle(requestTitle);
 
-        //getWriterOwner - Owner 삭제전 writer가 누군지 저장
-        ResponseMember responseMember =  contentMapper.getWriter(id);
-
-        // deleteOwner - 게시글에 등록되어있던 동행인 전부 삭제
+        // deletePlanSpotOwner - 게시글에 등록되어있던 writer 제외, 동행인 전부 삭제
         contentMapper.deletePlanSpotOwner(id);
 
         //addOwner
         for (int i = 0; i < requestPlan.getMembers().size(); i++) {
-            RequestOwner requestOwner = new RequestOwner();
-            if(responseMember.getLoginId().equals(requestPlan.getMembers().get(i).getLoginId())){
-                requestOwner.setOwn("writer");
-            } else {
+            ResponseMember responseMember = contentMapper.getWriter(id);
+            if(!responseMember.getLoginId().equals(requestPlan.getMembers().get(i).getLoginId())) {
+                RequestOwner requestOwner = new RequestOwner();
                 requestOwner.setOwn("with");
+                requestOwner.setContentId(id);
+                requestOwner.setMemberId(memberMapper.getIdByLoginId(requestPlan.getMembers().get(i).getLoginId()));
+                contentMapper.addOwner(requestOwner);
             }
-            requestOwner.setContentId(id);
-            requestOwner.setMemberId(memberMapper.getIdByLoginId(requestPlan.getMembers().get(i).getLoginId()));
-            contentMapper.addOwner(requestOwner);
         }
         //spotUpdate
         for(int i =0; i < requestPlan.getSpots().size(); i++){
@@ -186,11 +183,13 @@ public class PlanService {
                 requestContent.setVisibility(requestPlan.isVisibility());
                 requestContent.setTitle(requestPlan.getSpots().get(i).getTitle());
                 contentMapper.addContent(requestContent);
-                Long generatedId = requestContent.getId();
+                Long generatedSpotId = requestContent.getId();
 
                 requestSpot = requestPlan.getSpots().get(i);
+
                 requestSpot.setLocCategory(LocationCode.getCode(requestSpot.getAddress()));
-                requestSpot.setId(generatedId);
+                requestSpot.setId(generatedSpotId);
+
                 requestSpot.setStartDate(
                         requestSpot.getStartDate().plusSeconds(60 * 60 * 9)
                 );
@@ -203,8 +202,26 @@ public class PlanService {
                 //plan_spot에 등록
                 RequestPlanSpot requestPlanSpot = new RequestPlanSpot();
                 requestPlanSpot.setPlanId(id);
-                requestPlanSpot.setSpotId(generatedId);
+                requestPlanSpot.setSpotId(generatedSpotId);
                 planMapper.addSpot(requestPlanSpot);
+
+                //getWriterOwner - 동행인 등록전 writer가 누군지 저장
+                ResponseMember responseMember =  contentMapper.getWriter(requestPlan.getId());
+
+                RequestOwner requestOwner = new RequestOwner();
+                requestOwner.setOwn("writer");
+                requestOwner.setMemberId(responseMember.getId());
+                requestOwner.setContentId(generatedSpotId);
+                contentMapper.addOwner(requestOwner);
+
+                for (int j = 0; j < requestPlan.getMembers().size(); j++) {
+                    //writer의 loginId와 동행인의 LoginId 비교하여 다를 경우 동행인으로 저장
+                            RequestOwner requestWithOwner = new RequestOwner();
+                            requestWithOwner.setOwn("with");
+                            requestWithOwner.setMemberId(memberMapper.getIdByLoginId(requestPlan.getMembers().get(j).getLoginId()));
+                            requestWithOwner.setContentId(generatedSpotId);
+                            contentMapper.addOwner(requestWithOwner);
+                }
             } else {
                 //기존에 있는 장소게시글 수정일 경우
                 requestSpot.setId(requestPlan.getSpots().get(i).getId());

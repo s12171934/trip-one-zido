@@ -24,6 +24,7 @@ public class ResponsePlanDetail {
     boolean visibility;
     LocalDateTime createdAt;
     List<ResponseSpotPlan> spots;
+    ResponseMember writer;
     List<ResponseMember> members;
     List<ResponseComment> comments;
     boolean isMine;

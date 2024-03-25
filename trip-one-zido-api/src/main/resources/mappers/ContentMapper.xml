@@ -91,6 +91,21 @@
             o.own = 'writer'
     </select>
 
+    <select id="getWith" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+        SELECT
+            m.id,
+            m.login_id,
+            m.profile,
+            o.own
+        FROM
+            member m,
+            owner o
+        WHERE
+            m.id = o.member_id AND
+            o.own = 'with' AND
+            o.content_id = #{id}
+    </select>
+
     <select id="getRecentView" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
         SELECT
             c.id,
@@ -277,7 +292,7 @@
     <delete id="deletePlanSpotOwner" parameterType="Long">
         DELETE FROM owner
         WHERE
-            content_id = #{contentId}
+            content_id = #{contentId} AND own != 'writer'
     </delete>
 
     <delete id="changeRecentView" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">

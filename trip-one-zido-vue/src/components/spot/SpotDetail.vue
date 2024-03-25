@@ -164,6 +164,7 @@ export default {
         title: null,
         visibility: null,
         photos: null,
+        writer: [],
         members: [{}],
         comments: null,
         mine: null,
@@ -193,6 +194,7 @@ export default {
   async mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
     this.spotData = await this.$zido.getSpotData(this.$route.params.id);
+    this.spotData.members.push(this.spotData.writer)
     console.log(this.spotData);
   },
 };
