@@ -33,5 +33,6 @@ public interface ContentMapper {
     void deleteContent(Long id);
     void deleteGood(RequestGood requestGood);
     void deleteOwner(RequestContentMember requestContentMember);
+    void deletePlanSpotOwner(Long contentId);
     void changeRecentView(RequestContentMember requestContentMember);
 }

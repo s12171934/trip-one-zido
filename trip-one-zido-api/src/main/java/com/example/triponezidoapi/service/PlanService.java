@@ -18,6 +18,8 @@ public class PlanService {
     CommentService commentService;
     @Autowired
     SpotMapper spotMapper;
+    @Autowired
+    MemberMapper memberMapper;
 
     public ResponsePlanDetail getPlan(Long id, Long sessionId) {
         ResponsePlanDetail responsePlanDetail;
@@ -122,9 +124,22 @@ public class PlanService {
         requestOwner.setMemberId(sessionId);
         requestOwner.setContentId(requestPlan.getId());
         contentMapper.addOwner(requestOwner);
+
+        //getWriterOwner - 동행인 등록전 writer가 누군지 저장
+        ResponseMember responseMember =  contentMapper.getWriter(generatedId);
+        for (int i = 0; i < requestPlan.getMembers().size(); i++) {
+            //writer의 loginId와 동행인의 LoginId 비교하여 다를 경우 동행인으로 저장
+            if(!responseMember.getLoginId().equals(requestPlan.getMembers().get(i).getLoginId())){
+                RequestOwner requestWithOwner = new RequestOwner();
+                requestWithOwner.setOwn("with");
+                requestWithOwner.setMemberId(memberMapper.getIdByLoginId(requestPlan.getMembers().get(i).getLoginId()));
+                requestWithOwner.setContentId(requestPlan.getId());
+                contentMapper.addOwner(requestWithOwner);
+            }
+        }
     }
 
-    public void updatePlan(long id, RequestPlan requestPlan) {
+    public void updatePlan(Long id, RequestPlan requestPlan) {
         // updatePlan
         requestPlan.setId(id);
         planMapper.updatePlan(requestPlan);
@@ -141,20 +156,22 @@ public class PlanService {
         requestTitle.setTitle(requestPlan.getTitle());
         contentMapper.updateTitle(requestTitle);
 
-        // deleteOwner - 이전에 등록된 동행인(해당 게시글의 동행인 조회) 삭제
-        for (int i = 0; i < requestPlan.getMembers().size(); i++) {
-            RequestContentMember requestContentMember = new RequestContentMember();
-            requestContentMember.setMemberId(requestPlan.getMembers().get(i).getId());
-            requestContentMember.setContentId(id);
-            contentMapper.deleteOwner(requestContentMember);
-        }
+        //getWriterOwner - Owner 삭제전 writer가 누군지 저장
+        ResponseMember responseMember =  contentMapper.getWriter(id);
+
+        // deleteOwner - 게시글에 등록되어있던 동행인 전부 삭제
+        contentMapper.deletePlanSpotOwner(id);
 
         //addOwner
         for (int i = 0; i < requestPlan.getMembers().size(); i++) {
             RequestOwner requestOwner = new RequestOwner();
-            requestOwner.setOwn("with");
+            if(responseMember.getLoginId().equals(requestPlan.getMembers().get(i).getLoginId())){
+                requestOwner.setOwn("writer");
+            } else {
+                requestOwner.setOwn("with");
+            }
             requestOwner.setContentId(id);
-            requestOwner.setMemberId(requestPlan.getMembers().get(i).getId());
+            requestOwner.setMemberId(memberMapper.getIdByLoginId(requestPlan.getMembers().get(i).getLoginId()));
             contentMapper.addOwner(requestOwner);
         }
         //spotUpdate

@@ -287,6 +287,12 @@
             content_id = #{contentId}
     </delete>
 
+    <delete id="deletePlanSpotOwner" parameterType="Long">
+        DELETE FROM owner
+        WHERE
+            content_id = #{contentId}
+    </delete>
+
     <delete id="changeRecentView" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
         DELETE FROM open_content
         WHERE

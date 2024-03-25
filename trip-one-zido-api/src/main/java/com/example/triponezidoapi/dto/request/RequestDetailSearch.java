@@ -11,7 +11,7 @@ public class RequestDetailSearch {
     int locCategory;
     int category;
     String season;
-    int startMonth;
-    int endMonth;
+    String startMonth;
+    String endMonth;
     long page;
 }
