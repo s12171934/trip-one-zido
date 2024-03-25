@@ -9,8 +9,8 @@
         name="location"
         v-model="loc"
       >
-        <option id="locSelectDetail" v-for="location in selectLocations" :value="location">
-          {{ location }}
+        <option v-for="location in selectLocations" :value="location.locCategory">
+          {{ location.value }}
         </option>
       </select>
     </div>
@@ -53,7 +53,7 @@ export default {
       location.href = `/tour/loc/${this.loc}`;
     },
     defaultLoc() {
-      return this.$route.params.loc ? this.$route.params.loc : "서울특별시";
+      return this.$route.params.loc ? this.$route.params.loc : 11;
     },
   },
   mounted() {

@@ -89,8 +89,8 @@
             <div class="select-wrapper">
               <select class="local-select" v-model="planData.locCategory">
                 <option value="" selected>지역 선택</option>
-                <option v-for="location in selectLocations" :value="location">
-                  {{ location }}
+                <option v-for="location in selectLocations" :value="location.locCategory">
+                  {{ location.value }}
                 </option>
               </select>
             </div>

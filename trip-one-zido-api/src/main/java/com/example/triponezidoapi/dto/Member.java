@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class Member {
-    long id;
+    Long id;
     @NotEmpty
     @Size(min = 2, max = 100)
     String name;
@@ -30,9 +30,8 @@ public class Member {
     @NotEmpty
     @Size(max = 20)
     String phoneNumber;
-    String zipcode;
     @NotEmpty
-    String postcode;
+    String zipcode;
     @NotEmpty
     @Size(max = 200)
     String address;
@@ -40,6 +39,6 @@ public class Member {
     String address2;
     @Past
     LocalDateTime birth;
-    @NotEmpty
-    String gender;
+    @NotNull
+    int gender;
 }

@@ -60,9 +60,9 @@ public class CommunityService {
         if (responseCommunityDetail.getTotal() > responseCommunityDetail.getMembers().size()){
             RequestCommunity requestCommunity = new RequestCommunity();
             requestCommunity.setId(id);
-            requestCommunity.setStatus("모집중");
+            requestCommunity.setStatus(0);
             communityMapper.updateStatus(requestCommunity);
-            responseCommunityDetail.setStatus("모집중");
+            responseCommunityDetail.setStatus(0);
         }
         return responseCommunityDetail;
     }
@@ -78,7 +78,7 @@ public class CommunityService {
 
         //addCommunity
         requestCommunity.setId(generatedId);
-        requestCommunity.setStatus("모집중");
+        requestCommunity.setStatus(0);
         // 여행종료일이 여행시작일보다 과거인지 확인
         if (requestCommunity.getEndDate().isBefore(requestCommunity.getStartDate())) {
             throw new IllegalArgumentException("여행종료일은 여행시작일보다 미래의 날짜여야 합니다.");
@@ -140,7 +140,7 @@ public class CommunityService {
         if (responseCommunityDetail.getTotal() == responseCommunityDetail.getMembers().size()){
             RequestCommunity requestCommunity = new RequestCommunity();
             requestCommunity.setId(id);
-            requestCommunity.setStatus("마감");
+            requestCommunity.setStatus(1);
             communityMapper.updateStatus(requestCommunity);
         }
     }

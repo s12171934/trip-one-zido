@@ -1,24 +1,39 @@
+
+import zido from "@/assets/zido";
+
 export default {
   selectLocations: [
-    "서울특별시",
-    "인천광역시",
-    "대구광역시",
-    "울산광역시",
-    "대전광역시",
-    "광주광역시",
-    "부산광역시",
-    "경기도",
-    "강원도",
-    "충청북도",
-    "충청남도",
-    "경상북도",
-    "경상남도",
-    "전라북도",
-    "전라남도",
-    "제주특별자치도",
+    {locCategory : 11, value: "서울특별시",},
+    {locCategory : 23, value: "인천광역시",},
+    {locCategory : 22, value: "대구광역시",},
+    {locCategory : 26, value: "울산광역시",},
+    {locCategory : 25, value: "대전광역시",},
+    {locCategory : 24, value: "광주광역시",},
+    {locCategory : 21, value: "부산광역시",},
+    {locCategory : 31, value: "경기도",},
+    {locCategory : 32, value: "강원도",},
+    {locCategory : 33, value: "충청북도",},
+    {locCategory : 34, value: "충청남도",},
+    {locCategory : 37, value: "경상북도",},
+    {locCategory : 38, value: "경상남도",},
+    {locCategory : 35, value: "전라북도",},
+    {locCategory : 36, value: "전라남도",},
+    {locCategory : 39, value: "제주특별자치도",},
   ],
 
-  selectCategories: ["음식점", "관광지"],
+  selectCategories: [
+    {category : 1 , value : "음식점"},
+    {category : 2 , value : "여가(관람/체험/스포츠)"},
+    {category : 3 , value : "관광지(산/바다/계곡/해변)"},
+    {category : 4 , value : "테마파크"},
+    {category : 5 , value : "기타"},
+  ],
+
+  planStatus: [
+    {status : 0 , value : "여행할"},
+    {status : 1 , value : "여행중"},
+    {status : 2 , value : "여행한"},
+  ],
 
   sortMenu: [
     {
@@ -72,7 +87,7 @@ export default {
       buttonMessage: "확인",
     },
     resetPasswordFail: {
-      url: "/reset-pw",
+      url: "",
       message: "비밀번호와<br />비밀번호 확인이<br />다릅니다.",
       buttonMessage: "비밀번호 재설정 하기",
     },

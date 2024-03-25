@@ -7,6 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class RequestTourList {
     long page;
-    String loc;
+    int loc;
     long myMemberId;
 }

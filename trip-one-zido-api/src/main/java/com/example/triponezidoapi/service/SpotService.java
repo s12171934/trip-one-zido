@@ -76,7 +76,7 @@ public class SpotService {
         //addSpot
         requestSpot.setId(generatedId);
         requestSpot.setProfile(sessionId);
-        requestSpot.setLocCategory("서울특별시");
+        requestSpot.setLocCategory(11);
         requestSpot.setProfile(profileId);
         spotMapper.addSpot(requestSpot);
 
@@ -107,7 +107,7 @@ public class SpotService {
         }
         //updateSpot
         requestSpot.setId(id);
-        requestSpot.setLocCategory("서울특별시");
+        requestSpot.setLocCategory(11);
         requestSpot.setProfile(profileId);
         spotMapper.updateSpot(requestSpot);
 

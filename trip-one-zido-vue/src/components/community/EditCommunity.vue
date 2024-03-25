@@ -12,8 +12,8 @@
               <div class="select-wrapper" id="table-select">
                 <select class="form-control" v-model="communityData.locCategory">
                   <option value="" selected>지역 선택</option>
-                  <option v-for="location in selectLocations" :value="location">
-                    {{ location }}
+                  <option v-for="location in selectLocations" :value="location.locCategory">
+                    {{ location.value }}
                   </option>
                 </select>
               </div>
@@ -104,7 +104,7 @@ export default {
       communityDetail: data.communityDetail,
 
       communityData: {
-				locCategory: "",
+				locCategory: 0,
 				startDate: "",
 				endDate: "",
 				total: "",

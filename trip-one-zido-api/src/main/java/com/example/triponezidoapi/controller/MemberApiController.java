@@ -123,9 +123,9 @@ public class MemberApiController {
     public Member showMemberInfo(
             @SessionAttribute(name="id")
             @Parameter(description = "로그인 회원 번호")
-            Long SessionId
+            Long sessionId
     ){
-        return memberService.getMember(SessionId);
+        return memberService.getMember(sessionId);
     }
     @PutMapping("/")
     @Operation(summary = "회원 정보 수정")
