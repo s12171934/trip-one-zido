@@ -1,7 +1,7 @@
 <template>
   <main class="wrapper d-flex">
     <!-- ★왼쪽 -->
-    <div class="p-2 d-flex flex-column border-end" id="leftSide">
+    <div class="d-flex flex-column border-end" id="leftSide">
       <div class="d-flex justify-content-between pe-2 w-100">
         <h1 class="title">
           {{ spotData.title }}
@@ -42,7 +42,7 @@
       <table>
         <tr>
           <td>
-            <h1 class="p-2">
+            <h1>
               <span class="comm"
                 ><img
                   @click="$zido.toggleBookmark(spotData)"
@@ -97,7 +97,7 @@
 
       <h4 class="p-2">여행한 후기</h4>
 
-      <textarea class="p-2" id="content" name="content" rows="5" cols="50" readonly>
+      <textarea class="p-2" id="content" name="content" rows="5" cols="100" readonly>
         {{ spotData.review }}
       </textarea>
 
@@ -306,38 +306,14 @@ textarea {
   height: 100%;
 }
 
-/* #left-category {
-  margin-right: left;
-} */
-
-
-@media (max-width: 1450px) { /* 원하는 크기로 설정 */
-  
-  .title  {
-      white-space: nowrap; 
-      text-overflow: ellipsis; 
-    }
-  .button {
-    width: 100%;
-  }
-  .d-flex {
-    width: 90%;
-  }
-}
-
-
-@media (max-width: 1023px) { /* 원하는 크기로 설정 */
-  
-#font-vertical {
+@media (max-width: 1023px) { 
+  #font-vertical {
     white-space: nowrap; 
     text-overflow: ellipsis; 
   }
   #rightSide {
     border: 1px;
     box-sizing: border-box;
-  }
-  .button {
-    width: 100%;
   }
   main > div {
     width: 100%;
@@ -361,7 +337,7 @@ textarea {
 }
 
 @media (max-width: 767px) { /* 767이하일 때 아래코드 적용 */
- button {
+ .rounded-5 {
   font-size: small;
  } 
  .title-section {
@@ -370,15 +346,101 @@ textarea {
   }
 }
 
+@media (max-width: 650px) {
+  #bookmark[data-v-595cf560],
+  #unLike[data-v-595cf560], 
+  #like[data-v-595cf560], 
+  #star[data-v-595cf560] {
+    width: 30px !important;
+    height: 30px !important;
+    margin: 0.5rem;
+  }
+} 
+
 @media (max-width: 638px) {
- button {
+ .rounded-5 {
   font-size:x-small;
  } 
 }
 
+@media (max-width: 610px) {
+  #bookmark[data-v-595cf560],
+  #unLike[data-v-595cf560], 
+  #like[data-v-595cf560], 
+  #star[data-v-595cf560] {
+    width: 25px !important;
+    height: 25px !important;
+    margin: 0.1rem;
+  }
+} 
+
 @media (max-width: 555px) {
- button {
+ .rounded-5 {
   font-size:xx-small;
- } 
+ }
+ #bookmark[data-v-595cf560],
+  #unLike[data-v-595cf560], 
+  #like[data-v-595cf560], 
+  #star[data-v-595cf560] {
+    width: 20px !important;
+    height: 20px !important;
+    margin: 0.1rem;
+  }
+}
+
+@media (max-width: 495px) {
+  table {
+    width: 100%;
+    border-collapse: collapse; /* 테이블 테두리가 겹치지 않도록 설정합니다. */
+  }
+
+  td, th {
+    display: block;
+    width: 100%;
+    text-align: left; /* 텍스트를 왼쪽 정렬합니다. */
+  }
+}
+
+@media (max-width: 425px) {
+  .title {
+    font-size: 23px;
+  }
+}
+
+
+@media (max-width: 400px) {
+  form, input {
+    font-size: small;
+  }
+  .title {
+    font-size: 21px;
+  }
+}
+
+@media (max-width: 380px) {
+  textarea {
+    padding: 0.75em 1em;
+  }
+  .title {
+    font-size: 20px;
+  }
+  .rounded-5 {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+}
+
+@media (max-width: 350px) {
+  .rounded-5 {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+}
+
+
+@media (max-width: 340px) {
+  form, input {
+    font-size: x-small;
+  }
 }
 </style>
