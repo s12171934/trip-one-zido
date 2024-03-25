@@ -18,10 +18,10 @@
       <div class="col-md-3 mb-3">
         <h5>카테고리</h5>
         <div class="select-wrapper">
-          <select class="form-control" name="category" v-model="category">
+          <select class="form-control" name="category" v-model="detailSearchData.category">
             <option value="" selected>카테고리 선택</option>
-            <option v-for="category in selectCategories" :value="category">
-              {{ category }}
+            <option v-for="category in selectCategories" :value="category.category">
+              {{ category.value }}
             </option>
           </select>
         </div>
@@ -31,10 +31,10 @@
       <div class="col-md-3 mb-3">
         <h5>지역</h5>
         <div class="select-wrapper">
-          <select class="form-control" name="category" v-model="location">
+          <select class="form-control" name="category" v-model="detailSearchData.locCategory">
             <option value="" selected>지역 선택</option>
-            <option v-for="location in selectLocations" :value="location">
-              {{ location }}
+            <option v-for="location in selectLocations" :value="location.locCategory">
+              {{ location.value }}
             </option>
           </select>
         </div>
@@ -102,17 +102,20 @@ export default {
         planCount: 0,
         spotList: [],
         spotCount: 0,
+        category: 0,
+        locCategory: 0,
+        keyword: "",
       },
       start: "",
       end: "",
-      category: "",
-      location: "",
+      category: 0,
+      locCategory: 0,
       keyword: "",
     };
   },
   methods: {
     detailSearch() {
-      location.href = `/search-detail?keyword=${this.keyword}&startMonth=${this.start}&endMonth=${this.end}&category=${this.category}&locCategory=${this.locCategory}`;
+      location.href = `/search-detail?keyword=${this.keyword}&startMonth=${this.start}&endMonth=${this.end}&category=${this.detailSearchData.category}&locCategory=${this.detailSearchData.locCategory}`;
     },
   },
   mounted() {

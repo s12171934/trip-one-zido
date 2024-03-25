@@ -12,13 +12,25 @@ export default {
   },
   async mounted() {
     const planData = await this.$zido.getPlanData(this.$route.params.id);
-    planData.spots.sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
-    for (let spot of planData.spots) {
-      const coordinate = await this.getCoordinate(spot.address);
-      this.coordinates.push(coordinate);
+
+    if(planData.spots.length != 0){
+      //일정 게시글에 딸린 장소가 있을 경우
+      planData.spots.sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
+      for (let spot of planData.spots) {
+        const coordinate = await this.getCoordinate(spot.address);
+        this.coordinates.push(coordinate);
+      }
+      this.loadMap(this.coordinates);
+      this.drawLine(this.coordinates);
+    } else {
+      //일정 게시글에 딸린 장소가 없을 경우 고정 좌표 표시
+      const container = document.getElementById("map");
+      const options = {
+        center: new window.kakao.maps.LatLng(36, 128),
+        level: 13,
+      };
+      this.map = new window.kakao.maps.Map(container, options);
     }
-    this.loadMap(this.coordinates);
-    this.drawLine(this.coordinates);
   },
   methods: {
     loadMap(coordinates) {
@@ -30,7 +42,6 @@ export default {
           coordinates[0].x
         ),
       };
-
       this.map = new window.kakao.maps.Map(container, options);
     },
 

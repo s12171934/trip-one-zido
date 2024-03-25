@@ -71,54 +71,87 @@ public class SearchService {
         //detailSearchPlan 및 detailSearchSpot 에 필요한 MyMemberId 값 추가
         detailSearch.setMyMemberId(id);
         detailSearch.setPage(page);
-        // 기간검색
-        switch (detailSearch.getSeason()){
-            // 봄 3~5
-            case "spring":
-                detailSearch.setStartMonth(3);
-                detailSearch.setEndMonth(5);
-                break;
-            // 여름 6~8
-            case "summer":
-                detailSearch.setStartMonth(6);
-                detailSearch.setEndMonth(8);
-                break;
+        int checkStart = Integer.parseInt(detailSearch.getStartMonth().substring(5, 7));
+        int checkEnd = Integer.parseInt(detailSearch.getEndMonth().substring(5,7));
 
-            // 가을 9~11
-            case "fall":
-                detailSearch.setStartMonth(9);
-                detailSearch.setEndMonth(11);
-                break;
-            // 겨울 12~2
-            case "winter":
-                detailSearch.setStartMonth(1);
-                detailSearch.setEndMonth(2);
-                break;
+        // 기간 검색 날짜로 데이터가 오는 경우
+        if(checkStart >= 3 && checkEnd <= 5){
+            detailSearch.setStartMonth("3");
+            detailSearch.setEndMonth("5");
+        } else if(checkStart >= 6 && checkEnd <= 7){
+            detailSearch.setStartMonth("6");
+            detailSearch.setEndMonth("8");
+        } else if(checkStart >= 9 && checkEnd <= 11){
+            detailSearch.setStartMonth("9");
+            detailSearch.setEndMonth("11");
+        } else {
+            detailSearch.setStartMonth("1");
+            detailSearch.setEndMonth("2");
         }
+
+        // 기간검색 시즌이라는 정해진 category로 오는 경우
+//        switch (detailSearch.getSeason()){
+//            // 봄 3~5
+//            case "spring":
+//                detailSearch.setStartMonth("3");
+//                detailSearch.setEndMonth("5");
+//                break;
+//            // 여름 6~8
+//            case "summer":
+//                detailSearch.setStartMonth("6");
+//                detailSearch.setEndMonth("8");
+//                break;
+//            // 가을 9~11
+//            case "fall":
+//                detailSearch.setStartMonth("9");
+//                detailSearch.setEndMonth("11");
+//                break;
+//            // 겨울 12~2
+//            case "winter":
+//                detailSearch.setStartMonth("1");
+//                detailSearch.setEndMonth("2");
+//                break;
+//        }
 
         return detailSearch;
     }
 
     public ResponseSearch searchByDetail(Long id, RequestDetailSearch detailSearch, long page){
-
-        detailSearch = setDetailSearch(id,detailSearch,page);
-
         ResponseSearch responseSearch = new ResponseSearch();
+        //기본검색 페이지에서 상세검색 버튼 누르는 경우 (값이 전부 비어있음)
+        if(detailSearch.getKeyword() == null && detailSearch.getSeason() == null && detailSearch.getPage() ==0 ){
+            detailSearch.setMyMemberId(id);
+            detailSearch.setPage(page);
+            detailSearch.setSeason("winter");
+            detailSearch.setCategory(1);
+            detailSearch.setLocCategory(11);
 
-        //detailSearchPlan
-        responseSearch.setPlanList(searchMapper.detailSearchPlan(detailSearch));
-        //detailSearchSpot
-        responseSearch.setSpotList(searchMapper.detailSearchSpot(detailSearch));
+            responseSearch.setPlanList(searchMapper.detailSearchPlan(detailSearch));
+            responseSearch.setSpotList(searchMapper.detailSearchSpot(detailSearch));
 
-        responseSearch.setKeyword(detailSearch.getKeyword());
+            responseSearch.setPlanCount(searchMapper.countPlan(detailSearch.getKeyword()));
+            responseSearch.setSpotCount(searchMapper.countSpot(detailSearch.getKeyword()));
 
-        responseSearch.setLocCategory(detailSearch.getLocCategory());
-        responseSearch.setCategory(detailSearch.getCategory());
+            responseSearch.setCategory(1);
+            responseSearch.setLocCategory(11);
+        } else {
+            detailSearch = setDetailSearch(id, detailSearch, page);
 
-        //검색 결과의 카운트 처리
-        responseSearch.setPlanCount(searchMapper.countPlan(detailSearch.getKeyword()));
-        responseSearch.setSpotCount(searchMapper.countSpot(detailSearch.getKeyword()));
+            //detailSearchPlan
+            responseSearch.setPlanList(searchMapper.detailSearchPlan(detailSearch));
+            //detailSearchSpot
+            responseSearch.setSpotList(searchMapper.detailSearchSpot(detailSearch));
 
+            responseSearch.setKeyword(detailSearch.getKeyword());
+
+            responseSearch.setLocCategory(detailSearch.getLocCategory());
+            responseSearch.setCategory(detailSearch.getCategory());
+
+            //검색 결과의 카운트 처리
+            responseSearch.setPlanCount(searchMapper.countPlan(detailSearch.getKeyword()));
+            responseSearch.setSpotCount(searchMapper.countSpot(detailSearch.getKeyword()));
+
+        }
         return responseSearch;
     }
 

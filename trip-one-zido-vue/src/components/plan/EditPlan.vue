@@ -282,7 +282,7 @@ export default {
     },
 
     addMember() {
-      this.planData.members.push("");
+     this.planData.members.push({loginId: ""});
     },
 
     delMember(idx) {
@@ -371,7 +371,25 @@ export default {
       }
       console.log(calendarApi.getEvents());
     },
+    removeDuplicateLoginIds(members) {
+      const loginIdsSet = new Set(); // 중복된 loginId를 저장하기 위한 Set
+      const uniqueMembers = [];
+      for (const member of members) {
+        if (!loginIdsSet.has(member.loginId)) {
+          loginIdsSet.add(member.loginId);
+          uniqueMembers.push(member);
+        }
+      }
+      // 원본 배열을 중복이 없는 배열로 변경
+      members.length = 0;
+      uniqueMembers.forEach(member => {
+        members.push(member);
+      });
+      return members; // 중복이 제거된 배열 반환
+    },
     submitButton(mode) {
+      //제출 전 중복 확인
+      this.removeDuplicateLoginIds(this.planData.members);
       if (mode == "add") {
         this.$zido.addPlan(this.planData);
       } else {

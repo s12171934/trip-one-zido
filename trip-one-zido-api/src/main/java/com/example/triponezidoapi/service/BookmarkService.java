@@ -19,15 +19,17 @@ public class BookmarkService {
     // planSpotBookmarkCount,
     public ResponseBookmark getAllBookmark(Long id, Long sessionId){
         //id가 null일때 세션정보를 이용한다
-
         if(id == null){
             id = sessionId;
         }
+        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
+        requestSessionTarget.setTargetId(id);
+        requestSessionTarget.setMyMemberId(sessionId);
         ResponseBookmark responseBookmark = new ResponseBookmark();
         responseBookmark.setId(id);
         responseBookmark.setLoginId(memberMapper.getLoginId(id));
         responseBookmark.setTourBookmarkCount(bookmarkMapper.tourBookmarkCount(id));
-        responseBookmark.setPlanSpotBookMarkCount(bookmarkMapper.planSpotBookmarkCount(id));
+        responseBookmark.setPlanSpotBookMarkCount(bookmarkMapper.planSpotBookmarkCount(requestSessionTarget));
         responseBookmark.setTourList(getTourBookmark(id,sessionId,0));
         responseBookmark.setContentList(getPlanSpotBookmark(id,sessionId,0));
         

@@ -14,7 +14,7 @@ public interface BookmarkMapper {
     //select
     int bookmarkCount(Long id);
     int tourBookmarkCount(Long id);
-    int planSpotBookmarkCount(Long id);
+    int planSpotBookmarkCount(RequestSessionTarget requestSessionTarget);
     List<ResponseTour> getTourBookmark(RequestSessionTarget requestSessionTarget);
     List<ResponseContentList> getPlanSpotBookmark(RequestSessionTarget requestSessionTarget);
 

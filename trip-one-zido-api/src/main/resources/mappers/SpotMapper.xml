@@ -43,7 +43,7 @@
             #{contentId}
             )
         <selectKey keyProperty="id" resultType="long">
-            SELECT LAST_INSERT_ID();
+            SELECT LAST_INSERT_ID()
         </selectKey>
     </insert>
 
@@ -140,15 +140,6 @@
                 content_id = c.id AND
                 good = 1
             ) good_count,
-            (
-                SELECT
-                    COUNT(*)
-                FROM
-                    pin
-                WHERE
-                    member_id = #{myMemberId}
-                  AND content_id = #{targetId}
-            ) pin,
             c.type
         FROM
             content c,
@@ -165,23 +156,8 @@
                 member_id = #{targetId}
             ) AND
             (
-                visibility = 1 AND
-                (
-                    SELECT visibility
-                    FROM content
-                    WHERE id = (
-                        SELECT plan_id
-                        FROM plan_spot
-                        WHERE spot_id = c.id
-                    )
-                ) = 1 OR
-                visibility = 1 AND
-                NOT EXISTS (
-                    SELECT 1
-                    FROM plan_spot
-                    WHERE spot_id = c.id
-                ) OR
-                c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+            visibility = 1 OR
+            c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
             )
         ORDER BY
             ${sort}
@@ -199,7 +175,7 @@
             content_id = #{id}
     </select>
 
-    <select id="getSpotListCount" parameterType="Long" resultType="int">
+    <select id="getSpotListCount" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="int">
         SELECT
             count(*)
         FROM
@@ -214,8 +190,24 @@
                 FROM
                     owner
                 WHERE
-                    member_id = #{id}
+                    member_id = #{targetId}
+            )AND
+            (
+            visibility = 1 OR
+            c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
             )
+    </select>
+
+    <select id="getLocMap" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseLocMap">
+        SELECT
+            loc_category code, count(*) count
+        FROM
+            spot s, owner o
+        WHERE
+            s.id = o.content_id AND
+            o.member_id = #{memberId}
+        GROUP BY
+            loc_category
     </select>
 
     <update id="updateSpot" parameterType="com.example.triponezidoapi.dto.request.RequestSpot">
@@ -231,7 +223,7 @@
             grade = #{grade},
             profile_id = #{profile}
         WHERE
-            id = #{id};
+            id = #{id}
     </update>
 
     <delete id="deletePhoto" parameterType="Long">

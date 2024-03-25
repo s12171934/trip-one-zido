@@ -28,22 +28,22 @@
       </button>
       <hr />
       <div class="summary">
-      <NumberSummary
-        @follower="
-          followType = 'follower';
-          getFollowList();
-        "
-        @following="
-          followType = 'following';
-          getFollowList();
-        "
-        :totalBoard="memberPageData.postCount"
-        :followerCount="memberPageData.followerCount"
-        :followingCount="memberPageData.followingCount"
-        :bookmarkCount="memberPageData.bookmarkCount"
-      />
+        <NumberSummary
+          @follower="
+            followType = 'follower';
+            getFollowList();
+          "
+          @following="
+            followType = 'following';
+            getFollowList();
+          "
+          :totalBoard="memberPageData.postCount"
+          :followerCount="memberPageData.followerCount"
+          :followingCount="memberPageData.followingCount"
+          :bookmarkCount="memberPageData.bookmarkCount"
+        />
       </div>
-      <KakaoMapForMemberPage />
+      <KakaoMapForMemberPage v-if="isDataLoaded" :locMap="locMap" />
     </div>
     <div class="d-flex flex-column justify-content-between" id="rightSide">
       <div class="select-wrapper d-flex justify-content-end" id="add">
@@ -60,12 +60,12 @@
           <option>장소 게시글</option>
         </select>
       </div>
-      
+
       <div id="title">
-      <ListTitle
-        title="일정 게시글"
-        @option="(option) => (planSort = option)"
-      />
+        <ListTitle
+          title="일정 게시글"
+          @option="(option) => (planSort = option)"
+        />
       </div>
 
       <ContentList
@@ -76,11 +76,11 @@
       />
 
       <div id="title">
-      <ListTitle
-        title="장소 게시글"
-        @option="(option) => (spotSort = option)"
-        class="mt-5"
-      />
+        <ListTitle
+          title="장소 게시글"
+          @option="(option) => (spotSort = option)"
+          class="mt-5"
+        />
       </div>
 
       <ContentList
@@ -134,8 +134,15 @@ export default {
         followingCount: null,
         isMine: null,
       },
-      planSort: 'created_at',
-      spotSort: 'created_at'
+      locMap: [
+        {
+          code: null,
+          count: null,
+        },
+      ],
+      planSort: "created_at",
+      spotSort: "created_at",
+      isDataLoaded: false,
     };
   },
   methods: {
@@ -146,7 +153,7 @@ export default {
       if (this.isMyPage()) {
         this.$router.push("/config");
       } else {
-        this.$zido.toggleFollow(this.memberPageData.responseMember);
+        this.$zido.toggleFollow(this.memberPageData);
       }
     },
     addSpotPlan() {
@@ -171,12 +178,19 @@ export default {
         )
         .then((res) => (this.followList = res));
     },
+    getLocMap(id) {
+      this.$zido.getLocMap(id).then((res) => (this.locMap = res));
+    },
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
-    this.$zido
-      .getMemberPageData(this.$route.params.id)
-      .then((res) => (this.memberPageData = res));
+    this.$zido.getMemberPageData(this.$route.params.id).then((res) => {
+      this.memberPageData = res;
+      this.getLocMap(this.memberPageData.id);
+      this.$nextTick(() => {
+        this.isDataLoaded = true; // 데이터 로드 상태를 true로 설정
+      });
+    });
   },
 };
 </script>
@@ -210,14 +224,16 @@ img {
 }
 
 @media (max-width: 1250px) {
-  .summary, #title, .w-25 {
-    white-space: nowrap; 
-    text-overflow: ellipsis; 
+  .summary,
+  #title,
+  .w-25 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 }
 
 @media (max-width: 1023px) {
-.wrapper {
+  .wrapper {
     display: flex;
     flex-wrap: wrap; /* 작은 화면에서 넘치는 요소들을 아래로 이동 */
   }
@@ -226,14 +242,14 @@ img {
     flex: 1; /* 아이템이 동일한 너비를 가지도록 함 */
     box-sizing: border-box;
   }
-  #add{
+  #add {
     margin-bottom: -25%;
     margin-top: 5%;
   }
   #rightSide {
     margin-right: 10%;
   }
-  #contentList{
+  #contentList {
     padding-bottom: 80px;
   }
 }
@@ -245,7 +261,7 @@ img {
   #leftSide {
     margin-right: 0 !important; /* 화면의 너비가 600px 이하일 때 me-5 클래스 제거 */
   }
-  #add{
+  #add {
     margin-bottom: -60%;
     margin-top: 5%;
   }
@@ -253,7 +269,7 @@ img {
 
 @media (max-width: 1460px) {
   .wrapper {
-    flex-direction: initial !important; 
+    flex-direction: initial !important;
   }
 }
 </style>

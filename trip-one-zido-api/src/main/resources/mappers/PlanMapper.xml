@@ -165,15 +165,6 @@
             WHERE
                 content_id = c.id
             ) good_count,
-            (
-                SELECT
-                    COUNT(*)
-                FROM
-                    pin
-                WHERE
-                    member_id = #{myMemberId}
-                  AND content_id = #{targetId}
-            ) pin,
             c.type
         FROM
             content c,
@@ -199,7 +190,7 @@
             #{page}, 6
     </select>
 
-    <select id="getPlanListCount" parameterType="Long" resultType="int">
+    <select id="getPlanListCount" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="int">
         SELECT
             count(*)
         FROM
@@ -214,7 +205,11 @@
                 FROM
                     owner
                 WHERE
-                     member_id = #{memberId}
+                    member_id = #{targetId}
+            )AND
+            (
+            visibility = 1 OR
+            c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
             )
     </select>
 

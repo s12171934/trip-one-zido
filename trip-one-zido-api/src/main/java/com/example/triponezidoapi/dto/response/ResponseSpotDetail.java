@@ -24,6 +24,7 @@ public class ResponseSpotDetail {
     boolean visibility;
     LocalDateTime createdAt;
     List<ResponsePhoto> photos;
+    ResponseMember writers;
     List<ResponseMember> members;
     List<ResponseComment> comments;
     boolean isMine;

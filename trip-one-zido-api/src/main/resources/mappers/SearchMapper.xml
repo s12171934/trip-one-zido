@@ -257,7 +257,7 @@
             #{page}, 6
     </select>
 
-    <select id="countMember" resultType="int" parameterType="string">
+    <select id="countMember" parameterType="string" resultType="int">
         SELECT
             COUNT(*)
         FROM
@@ -266,7 +266,7 @@
             login_id LIKE CONCAT('%', #{keyword}, '%')
     </select>
 
-    <select id="countPlan" resultType="int" parameterType="string">
+    <select id="countPlan" parameterType="string" resultType="int">
         SELECT
             COUNT(*)
         FROM
@@ -275,7 +275,7 @@
             title LIKE CONCAT('%', #{keyword}, '%') AND type = 'plan'
     </select>
 
-    <select id="countSpot" resultType="int" parameterType="string">
+    <select id="countSpot" parameterType="string" resultType="int">
         SELECT
             COUNT(*)
         FROM

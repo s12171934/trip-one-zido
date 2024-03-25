@@ -152,26 +152,28 @@ export default {
   //GET -- api/community/search/page -> query를 통해 GET전송이 어떤가?
   //POST -- 커뮤니티 목록 조회와 검색한 커뮤니티 목록 결합
   // async getCommunityList(options) {
-  async getCommunityList(page){
-      try {
-        const response = await axios.get(`/api/community/list/${page}`);
-        console.log(response.data);
-        return response.data;
-      } catch (error) {
-        console.error("커뮤니티 목록 조회 요청 오류", error);
-        throw error;
+  async getCommunityList(page) {
+    try {
+      const response = await axios.get(`/api/community/list/${page}`);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error("커뮤니티 목록 조회 요청 오류", error);
+      throw error;
     }
   },
 
-  async searchCommunity(form,page){
-    if(page === undefined){page = 0}
-    try{
-      const response = await axios.post(`/api/community/search/${page}`, form)
-      console.log(response.data)
+  async searchCommunity(form, page) {
+    if (page === undefined) {
+      page = 0;
+    }
+    try {
+      const response = await axios.post(`/api/community/search/${page}`, form);
+      console.log(response.data);
       return response.data;
     } catch (error) {
       console.error("커뮤니티 목록 검색 요청 오류", error);
-        throw error;
+      throw error;
     }
   },
 
@@ -238,14 +240,14 @@ export default {
   //최근 본 게시물 등록
   //POST --api/content/recent-view
   addRecentView(id) {
-    axios.post(`/api/content/recent-view/${id}`)
+    axios.post(`/api/content/recent-view/${id}`);
   },
 
   //주소 가져오기
   //GET -- api/content/address/id
   async getAddress(id) {
-    const res = await axios.get(`/api/content/address/${id}`)
-    return res.data
+    const res = await axios.get(`/api/content/address/${id}`);
+    return res.data;
   },
 
   //Follow
@@ -253,16 +255,19 @@ export default {
   //팔로우 및 언팔로우
   //DELETE -- api/page/follow/id
   //POST -- api/page/follow/id
-  async toggleFollow(userProfile) {
+  async toggleFollow(memberPageData) {
+    const userProfile = memberPageData.responseMember;
     console.log(userProfile.follow);
     //팔로잉으로 변경한다면 POST요청
     if (userProfile.follow == false) {
       console.log("post");
       await axios.post(`/api/page/follow/${userProfile.id}`);
+      memberPageData.followerCount++;
       //팔로잉을 해제한다면 delete요청
     } else {
       console.log("delete");
       await axios.delete(`/api/page/follow/${userProfile.id}`);
+      memberPageData.followerCount--;
     }
     userProfile.follow = !userProfile.follow;
   },
@@ -302,7 +307,7 @@ export default {
   toggleLike(content, good) {
     if (content.myGood) {
       content.goodCount--;
-    } else if(good){
+    } else if (good) {
       content.goodCount++;
     }
 
@@ -329,10 +334,13 @@ export default {
   //DELETE -- api/member -> 비밀번호, 비밀번호 확인 추가 전송
   async checkResign(password, passwordCheck) {
     try {
-      const response = await axios.delete(`/api/member/?password=${password}&passwordCheck=${passwordCheck}`, {
-        password: password,
-        passwordCheck: passwordCheck,
-      });
+      const response = await axios.delete(
+        `/api/member/?password=${password}&passwordCheck=${passwordCheck}`,
+        {
+          password: password,
+          passwordCheck: passwordCheck,
+        }
+      );
       // 서버로부터 응답을 받으면 처리
       // 예를 들어, 응답이 성공인 경우 처리
       console.log(response.data); // 서버 응답 데이터 출력
@@ -408,12 +416,25 @@ export default {
     }
   },
 
+  //방문 지역 횟수 지도에 표시
+  //GET -- api/page/locMap/{id}
+  async getLocMap(id) {
+    try {
+      const response = await axios.get(`/api/page/locMap/${id}`);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error("방문 지역 횟수 조회 요청 오류", error);
+      throw error;
+    }
+  },
+
   //프로필 사진 가져오기
   //미구현 GET -- api/member/profile -> header와 프로필 사진 편집시 필요
   async getProfileImg() {
     // return data.userProfiles[1].imgSrc;
     try {
-      const response = await axios.get("/api/member/profile");
+      const response = await axios.get(`/api/member/profile`);
       console.log("checkPro");
       console.log(response.data);
       return response.data.profile;
@@ -427,7 +448,7 @@ export default {
   // ★미구현 GET -- api/member/config
   getConfigData() {
     return axios
-      .get("/api/member/config", {})
+      .get(`/api/member/config`, {})
       .then((response) => {
         console.log(response.data);
         return response.data;
@@ -456,19 +477,19 @@ export default {
   //POST -- api/member/signup/loginId
   async checkLoginId(loginId) {
     // return true;
-    if(loginId !== ''){
-    return axios
-      .post(`/api/member/signup/${loginId}`, {
-        loginId: loginId,
-      })
-      .then((response) => {
-        console.log(response.data);
-        return response.data;
-      })
-      .catch((error) => {
-        console.error("아이디 중복확인 오류:", error);
-        throw error;
-      });
+    if (loginId !== "") {
+      return axios
+        .post(`/api/member/signup/${loginId}`, {
+          loginId: loginId,
+        })
+        .then((response) => {
+          console.log(response.data);
+          return response.data;
+        })
+        .catch((error) => {
+          console.error("아이디 중복확인 오류:", error);
+          throw error;
+        });
     } else {
       return false;
     }
@@ -479,7 +500,7 @@ export default {
   async login(loginId, password) {
     // return true;
     return axios
-      .post("/api/member/login", {
+      .post(`/api/member/login`, {
         loginId: loginId,
         password: password,
       })
@@ -496,19 +517,19 @@ export default {
   //자동 로그인
   //POST -- api/member/autoLogin
   async autoLogin(loginId) {
-    await axios.post("/api/member/autoLogin", {
+    await axios.post(`/api/member/autoLogin`, {
       loginId: loginId,
     });
   },
 
   //비밀번호 찾기 보안답변 전송
   //POST -- api/member/check -> id를 requestBody로 편입해 중복 방지
-  async checkSecurityAnswer(securityId,securityAnswer) {
+  async checkSecurityAnswer(securityId, securityAnswer) {
     // return true;
     return axios
-      .post("/api/member/check", {
-        id : securityId,
-        answer: securityAnswer
+      .post(`/api/member/check`, {
+        id: securityId,
+        answer: securityAnswer,
       })
       .then((response) => {
         console.log(response.data);
@@ -523,22 +544,22 @@ export default {
   //비밀번호 찾기 회원번호 조회
   //POST -- api/member/check/pw
   async findPassword(name, email, loginId) {
-    if(name !== '' && email !== '' && loginId !== ''){
-    // return 1;
-    return axios
-      .post("/api/member/check/pw", {
-        name: name,
-        email: email,
-        loginId: loginId,
-      })
-      .then((response) => {
-        console.log(response.data);
-        return response.data;
-      })
-      .catch((error) => {
-        console.error("비밀번호 찾기 회원번호 조회 오류:", error);
-        throw error;
-      });
+    if (name !== "" && email !== "" && loginId !== "") {
+      // return 1;
+      return axios
+        .post(`/api/member/check/pw`, {
+          name: name,
+          email: email,
+          loginId: loginId,
+        })
+        .then((response) => {
+          console.log(response.data);
+          return response.data;
+        })
+        .catch((error) => {
+          console.error("비밀번호 찾기 회원번호 조회 오류:", error);
+          throw error;
+        });
     } else {
       return null;
     }
@@ -548,22 +569,22 @@ export default {
   //POST -- api/member/check/id
   async findId(name, email) {
     // return null;
-    if(name !== '' && email !== ''){
-    return axios
-      .post(`/api/member/check/id`, {
-        name: name,
-        email: email,
-      })
-      .then((response) => {
-        console.log(response.data);
-        return response.data;
-      })
-      .catch((error) => {
-        throw error;
-      })
+    if (name !== "" && email !== "") {
+      return axios
+        .post(`/api/member/check/id`, {
+          name: name,
+          email: email,
+        })
+        .then((response) => {
+          console.log(response.data);
+          return response.data;
+        })
+        .catch((error) => {
+          throw error;
+        });
     } else {
-      return null
-    };
+      return null;
+    }
   },
 
   //프로필 사진 변경
@@ -573,7 +594,7 @@ export default {
     console.log(binaryString);
 
     return axios
-      .put("/api/member/profile", {
+      .put(`/api/member/profile`, {
         img: binaryString,
       })
       .then((response) => {
@@ -631,7 +652,7 @@ export default {
   async updateUserInfo(userInfo) {
     // alert(userInfo.name);
     return axios
-      .put("/api/member/", userInfo)
+      .put(`/api/member/`, userInfo)
       .then((response) => {
         console.log(response.data);
         return response.data;
@@ -661,8 +682,8 @@ export default {
     if (method) {
       res = await axios.post(addApi + page, Options);
     } else {
-      res = await axios.get(addApi + page + '?' + Options);
-      console.log(addApi + page + '?' + Options)
+      res = await axios.get(addApi + page + "?" + Options);
+      console.log(addApi + page + "?" + Options);
     }
     return res.data;
   },
@@ -694,10 +715,10 @@ export default {
   //GET -- api/plan/id
   async getPlanData(id) {
     const res = await axios.get(`/api/plan/${id}`);
-    console.log(res.data)
-    for(let spot of res.data.spots){
-      for(let photo of spot.photos){
-      photo.photo = `data:image/jpeg;base64,${photo.photo}`
+    console.log(res.data);
+    for (let spot of res.data.spots) {
+      for (let photo of spot.photos) {
+        photo.photo = `data:image/jpeg;base64,${photo.photo}`;
       }
     }
     return res.data;
@@ -714,12 +735,12 @@ export default {
     }
 
     console.log(planData);
-    await axios.post("/api/plan", planData);
+    await axios.post(`/api/plan`, planData);
   },
 
   //일정 수정
   //PUT -- api/plan/id
-  async updatePlan(id,planData) {
+  async updatePlan(id, planData) {
     for (let spot of planData.spots) {
       for (let photo in spot.photos) {
         console.log(spot.photos[photo]);
@@ -742,15 +763,15 @@ export default {
   //상세 검색 정보 조회
   //POST -- api/search
   async getDetailSearchData(searchOptions) {
-    const res = await axios.post("/api/search", searchOptions);
+    const res = await axios.post(`/api/search`, searchOptions);
     return res.data;
   },
 
   //인기검색어
   //Top Ten
-  async getTopTen(){
-    const res = await axios.get("/api/search/top10");
-    return res.data
+  async getTopTen() {
+    const res = await axios.get(`/api/search/top10`);
+    return res.data;
   },
 
   //SNS Connect
@@ -758,8 +779,8 @@ export default {
   //소셜로그인 연동
   //PUT -- api/social
   async updateSocialLogin(socialType, socialId, loginId) {
-    console.log(123)
-    await axios.put("/api/social", {
+    console.log(123);
+    await axios.put(`/api/social`, {
       socialType: socialType,
       socialId: socialId,
       loginId: loginId,
@@ -771,35 +792,57 @@ export default {
   //장소 삭제
   //DELETE -- api/spot/id
   async deleteSpot(targetId) {
-    await axios.delete(`/api/spot/${targetId}`);
+    try {
+      await axios.delete(`/api/spot/${targetId}`);
+    } catch (error) {
+      console.error("장소 삭제 요청 오류", error);
+      throw error;
+    }
   },
 
   //장소 상세 조회
   //GET -- api/spot/id
   async getSpotData(id) {
-    const res = await axios.get(`/api/spot/${id}`);
-    console.log(res.data)
-    return res.data;
+    try {
+      const res = await axios.get(`/api/spot/${id}`);
+      console.log(res.data);
+      return res.data;
+    } catch (error) {
+      console.error("장소 상세 조회 요청 오류", error);
+      throw error;
+    }
   },
 
   //장소 등록
   //POST -- api/spot
   async addSpot(spotData) {
-    for (let photo in spotData.photos) {
-      console.log(spotData.photos[photo]);
-      spotData.photos[photo].photo = spotData.photos[photo].photo.split(",")[1];
+    try {
+      for (let photo in spotData.photos) {
+        console.log(spotData.photos[photo]);
+        spotData.photos[photo].photo =
+          spotData.photos[photo].photo.split(",")[1];
+      }
+      console.log(spotData);
+      await axios.post(`/api/spot`, spotData);
+    } catch (error) {
+      console.error("장소 등록 요청 오류", error);
+      throw error;
     }
-    console.log(spotData);
-    await axios.post("/api/spot", spotData);
   },
 
   //장소 수정
   //PUT -- api/spot/id
   async updateSpot(id, spotData) {
-    for (let photo in spotData.photos) {
-      spotData.photos[photo].photo = spotData.photos[photo].photo.split(",")[1];
+    try {
+      for (let photo in spotData.photos) {
+        spotData.photos[photo].photo =
+          spotData.photos[photo].photo.split(",")[1];
+      }
+      await axios.put(`/api/spot/${id}`, spotData);
+    } catch (error) {
+      console.error("장소 수정 요청 오류", error);
+      throw error;
     }
-    await axios.put(`/api/spot/${id}`, spotData);
   },
 
   //Tour
@@ -815,7 +858,7 @@ export default {
   //GET -- api/tour/list/loc
   async getTourList(loc) {
     const res = await axios.get(`/api/tour/list/${loc}`);
-    console.log(res.data)
+    console.log(res.data);
     return res.data;
   },
 };

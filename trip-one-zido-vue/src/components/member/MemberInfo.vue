@@ -138,7 +138,21 @@ export default {
   data() {
   return {
     modal: "updateMemberInfoFail",
-    userInfo: null,
+    userInfo: {
+      address: null,
+      address2: null,
+      answer: null,
+      birth: null,
+      email: null,
+      gender: null,
+      id: null,
+      loginId: null,
+      name: null,
+      password: null,
+      phoneNumber: null,
+      question: null,
+      zipcode: null,
+    },
     securityQuestions: null,
   };
 },
@@ -146,6 +160,7 @@ async created() {
   try {
     const userInfo = await this.$zido.getUserInfo();
     this.userInfo = userInfo;
+    console.log(this.userInfo)
     this.securityQuestions = await this.$zido.getSecurityQuestions();
 
   } catch (error) {
