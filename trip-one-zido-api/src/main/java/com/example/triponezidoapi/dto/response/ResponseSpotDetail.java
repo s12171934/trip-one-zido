@@ -13,6 +13,7 @@ public class ResponseSpotDetail {
     LocalDateTime endDate;
     int locCategory;
     String address;
+    String address2;
     String review;
     int grade;
     int viewCount;
@@ -24,6 +25,7 @@ public class ResponseSpotDetail {
     boolean visibility;
     LocalDateTime createdAt;
     List<ResponsePhoto> photos;
+    ResponseMember writer;
     List<ResponseMember> members;
     List<ResponseComment> comments;
     boolean isMine;

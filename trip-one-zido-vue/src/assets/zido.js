@@ -755,7 +755,7 @@ export default {
   //상세 검색 정보 조회
   //POST -- api/search
   async getDetailSearchData(searchOptions) {
-    const res = await axios.post(`/api/search`, searchOptions);
+    const res = await axios.post("/api/search", searchOptions);
     return res.data;
   },
 

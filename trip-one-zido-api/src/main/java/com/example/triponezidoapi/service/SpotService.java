@@ -33,7 +33,8 @@ public class SpotService {
         responseSpotDetail.setComments(commentService.getComments(id));
 
         //getOwner
-        responseSpotDetail.setMembers(contentMapper.getOwner(id));
+        responseSpotDetail.setWriter(contentMapper.getWriter(id));
+        responseSpotDetail.setMembers(contentMapper.getWith(id));
 
         RequestGood requestGood = new RequestGood();
         requestGood.setMemberId(sessionId);
@@ -48,7 +49,7 @@ public class SpotService {
         requestContentMember.setContentId(id);
         responseSpotDetail.setMine(contentMapper.isMine(requestContentMember));
 
-            return responseSpotDetail;
+        return responseSpotDetail;
     }
 
     public void addSpot(RequestSpot requestSpot, Long sessionId){
@@ -67,10 +68,10 @@ public class SpotService {
             RequestPhoto requestPhoto = new RequestPhoto();
             requestPhoto.setPhoto(requestSpot.getPhotos().get(i).getPhoto());
             requestPhoto.setContentId(generatedId);
+            spotMapper.addPhoto(requestPhoto);
             if(requestSpot.getProfile() == i){
                 profileId = requestPhoto.getId();
             }
-            spotMapper.addPhoto(requestPhoto);
         }
 
         //addSpot
@@ -81,12 +82,23 @@ public class SpotService {
         spotMapper.addSpot(requestSpot);
 
         //addOwner
+        RequestOwner requestOwner = new RequestOwner();
+        requestOwner.setOwn("writer");
+        requestOwner.setMemberId(sessionId);
+        requestOwner.setContentId(generatedId);
+        contentMapper.addOwner(requestOwner);
+
+        //getWriterOwner - 동행인 등록전 writer가 누군지 저장
+        ResponseMember responseMember =  contentMapper.getWriter(generatedId);
         for (int i = 0; i < requestSpot.getMembers().size(); i++) {
-            RequestOwner requestOwner = new RequestOwner();
-            requestOwner.setOwn("writer");
-            requestOwner.setMemberId(sessionId);
-            requestOwner.setContentId(generatedId);
-            contentMapper.addOwner(requestOwner);
+            //writer의 loginId와 동행인의 LoginId 비교하여 다를 경우 동행인으로 저장
+            if(!responseMember.getLoginId().equals(requestSpot.getMembers().get(i).getLoginId())){
+                RequestOwner requestWithOwner = new RequestOwner();
+                requestWithOwner.setOwn("with");
+                requestWithOwner.setMemberId(memberMapper.getIdByLoginId(requestSpot.getMembers().get(i).getLoginId()));
+                requestWithOwner.setContentId(requestSpot.getId());
+                contentMapper.addOwner(requestWithOwner);
+            }
         }
     }
 
@@ -123,21 +135,19 @@ public class SpotService {
         requestTitle.setTitle(requestSpot.getTitle());
         contentMapper.updateTitle(requestTitle);
 
-        //deleteOwner
-        for (int i = 0; i < requestSpot.getMembers().size(); i++) {
-            RequestContentMember requestContentMember = new RequestContentMember();
-            requestContentMember.setMemberId(sessionId);
-            requestContentMember.setContentId(id);
-            contentMapper.deleteOwner(requestContentMember);
-        }
+        //deletePlanSpotOwner - 게시글에 등록되어있던 writer 제외, 동행인 전부 삭제
+        contentMapper.deletePlanSpotOwner(id);
 
         //addOwner
         for (int i = 0; i < requestSpot.getMembers().size(); i++) {
-            RequestOwner requestOwner = new RequestOwner();
-            requestOwner.setOwn("with");
-            requestOwner.setMemberId(memberMapper.getIdByLoginId(requestSpot.getMembers().get(i).getLoginId()));
-            requestOwner.setContentId(id);
-            contentMapper.addOwner(requestOwner);
+            ResponseMember responseMember = contentMapper.getWriter(id);
+            if(!responseMember.getLoginId().equals(requestSpot.getMembers().get(i).getLoginId())) {
+                RequestOwner requestOwner = new RequestOwner();
+                requestOwner.setOwn("with");
+                requestOwner.setMemberId(memberMapper.getIdByLoginId(requestSpot.getMembers().get(i).getLoginId()));
+                requestOwner.setContentId(id);
+                contentMapper.addOwner(requestOwner);
+            }
         }
     }
 

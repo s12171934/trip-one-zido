@@ -180,6 +180,7 @@ export default {
         bookmarkCount: null,
         myGood: null,
         goodCount: null,
+        writer: [],
         members: [{}],
         review: null,
         comments: null,
@@ -285,6 +286,7 @@ export default {
     console.log(this.planData);
     this.setCalendarByDate();
     this.setInitialEvent();
+    this.planData.members.push(this.planData.writer)
   },
 };
 </script>

@@ -240,7 +240,7 @@ export default {
       this.spotData.photos.splice(idx, 1);
     },
     addMember() {
-      this.spotData.members.push("");
+      this.spotData.members.push({loginId: ""});
     },
     delMember(idx) {
       this.spotData.members.splice(idx, 1);
@@ -264,10 +264,10 @@ export default {
         members: responseSpotData.members,
         category: responseSpotData.category,
         address: responseSpotData.address,
-        address2: responseSpotData.address,
+        address2: responseSpotData.address2,
         grade: responseSpotData.grade,
         review: responseSpotData.review,
-        visibility: responseSpotData.visibility,
+        visibility: responseSpotData.visibility
       };
       for (let photo in this.spotData.photos) {
         this.spotData.photos[
@@ -277,8 +277,25 @@ export default {
       console.log(this.spotData);
       document.querySelector("#address").value = this.spotData.address;
     },
+    removeDuplicateLoginIds(members) {
+      const loginIdsSet = new Set(); // 중복된 loginId를 저장하기 위한 Set
+      const uniqueMembers = [];
+      for (const member of members) {
+        if (!loginIdsSet.has(member.loginId)) {
+          loginIdsSet.add(member.loginId);
+          uniqueMembers.push(member);
+        }
+      }
+      // 원본 배열을 중복이 없는 배열로 변경
+      members.length = 0;
+      uniqueMembers.forEach(member => {
+        members.push(member);
+      });
+      return members; // 중복이 제거된 배열 반환
+    },
     submitButton(mode) {
       this.spotData.address = document.querySelector("#address").value;
+      this.removeDuplicateLoginIds(this.spotData.members);
       if (mode == "add") {
         this.$zido.addSpot(this.spotData);
       } else {

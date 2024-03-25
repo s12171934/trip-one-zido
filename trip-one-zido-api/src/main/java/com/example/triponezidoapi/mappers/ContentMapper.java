@@ -17,6 +17,7 @@ public interface ContentMapper {
     //select
     List<ResponseMember> getOwner(Long id);
     ResponseMember getWriter(Long id);
+    List<ResponseMember> getWith(Long id);
     List<ResponseContentList> getRecentView(RequestSessionTarget requestSessionTarget);
     int getRecentViewCount(Long memberId);
     int isGood(RequestGood requestGood);
