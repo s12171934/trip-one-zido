@@ -2,6 +2,7 @@ package com.example.triponezidoapi.controller;
 
 import com.example.triponezidoapi.dto.request.*;
 import com.example.triponezidoapi.dto.response.*;
+import com.example.triponezidoapi.service.RedisService;
 import com.example.triponezidoapi.service.SearchService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -17,6 +18,8 @@ import java.util.List;
 public class SearchApiController {
     @Autowired
     SearchService searchService;
+    @Autowired
+    RedisService redisService;
 
     @GetMapping("/{keyword}")
     @Operation(summary = "기본 검색")
@@ -27,6 +30,7 @@ public class SearchApiController {
             @PathVariable
             @Parameter(description = "검색어")
             String keyword){
+        redisService.setValues(keyword);
         return searchService.searchByKeyword(sessionId, keyword, 0);
     }
 
@@ -87,6 +91,7 @@ public class SearchApiController {
             @RequestBody
             @Parameter(description = "상세 검색 조건")
             RequestDetailSearch detailSearch){
+        redisService.setValues(detailSearch.getKeyword());
         return searchService.searchByDetail(sessionId,detailSearch, 0);
     }
 
@@ -122,5 +127,10 @@ public class SearchApiController {
             @Parameter(description = "페이지 번호")
             Long page){
         return searchService.morePlanByDetail(sessionId,detailSearch, page);
+    }
+
+    @GetMapping("/top10")
+    public List<Object> topTenList(){
+        return redisService.getValues();
     }
 }

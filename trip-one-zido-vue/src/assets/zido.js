@@ -443,7 +443,7 @@ export default {
   async signUp(form) {
     // return true;
     try {
-      const response = await axios.post(`/member/signup`, form);
+      const response = await axios.post(`/api/member/signup`, form);
       console.log(response.data);
       return true;
     } catch (error) {
@@ -611,7 +611,7 @@ export default {
   async resetPassword(id, changePassword, changePasswordCheck) {
     // return true;
     return axios
-      .put(`/api/member/password/{id}`, {
+      .put(`/api/member/passwd/${id}`, {
         id: id,
         changePassword: changePassword,
         changePasswordCheck: changePasswordCheck,
@@ -744,6 +744,13 @@ export default {
   async getDetailSearchData(searchOptions) {
     const res = await axios.post("/api/search", searchOptions);
     return res.data;
+  },
+
+  //인기검색어
+  //Top Ten
+  async getTopTen(){
+    const res = await axios.get("/api/search/top10");
+    return res.data
   },
 
   //SNS Connect

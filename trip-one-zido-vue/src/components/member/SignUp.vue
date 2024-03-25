@@ -94,7 +94,7 @@
               id="male"
               name="gender"
               v-model="form.gender"
-              value="남"
+              value=0
             />
             <label for="male" id="gender" class="m-0">남성</label>
             <input
@@ -102,7 +102,7 @@
               id="female"
               name="gender"
               v-model="form.gender"
-              value="여"
+              value=1
             />
             <label for="female" id="gender" class="m-0">여성</label>
           </div>
@@ -145,7 +145,7 @@ export default {
         address: "",
         address2: "",
         birth: "",
-        gender: "",
+        gender: 0,
       },
       securityQuestions: [],
       securityQuestion: {

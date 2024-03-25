@@ -12,5 +12,5 @@ public class ResponseCommunity {
     int viewPoint;
     int total;
     int withCount;
-    String status;
+    int status;
 }

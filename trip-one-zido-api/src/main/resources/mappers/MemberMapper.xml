@@ -24,7 +24,7 @@
       answer,
       email,
       phone_number,
-      postcode,
+      zipcode,
       address,
       address2,
       birth,
@@ -292,7 +292,7 @@
       answer = #{answer},
       email = #{email},
       phone_number = #{phoneNumber},
-      postcode = #{postcode},
+      zipcode = #{zipcode},
       address = #{address},
       address2 = #{address2},
       gender = #{gender}

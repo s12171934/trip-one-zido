@@ -29,7 +29,7 @@ public class TourApiController {
             Long sessionId,
             @PathVariable("loc")
             @Parameter(description = "장소 카테고리")
-            String loc
+            int loc
     ){
         return tourService.getTourList(sessionId, loc , 0L);
     }
@@ -42,7 +42,7 @@ public class TourApiController {
             Long sessionId,
             @PathVariable("loc")
             @Parameter(description = "장소 카테고리")
-            String loc,
+            int loc,
             @PathVariable("page")
             @Parameter(description = "페이지 번호")
             Long page

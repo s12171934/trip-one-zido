@@ -32,7 +32,10 @@
       </tr>
       <tr id="updateArea">
         <td>주소</td>
-        <td colspan="2" >
+        <td>
+          <input type="text" id="zipcode" v-model="userInfo.zipcode" readonly />
+        </td>
+        <td>
           <div class="d-flex">
             <input type="text" id="zipcode" v-model="userInfo.postcode" readonly />
             <button
@@ -88,8 +91,8 @@
       </tr>
       <tr id="updateArea">
         <td>성별</td>
-        <td colspan="2">
-          {{ userInfo.gender != 0 ? "남자" : "여자" }}
+        <td>
+          {{ userInfo.gender == 0 ? "남자" : "여자" }}
         </td>
       </tr>
       <tr id="updateArea">
@@ -160,7 +163,7 @@ async created() {
       }).open();
     },
     updateMemberInfo() {
-      this.userInfo.postcode = document.getElementById("zipcode").value;
+      this.userInfo.zipcode = document.getElementById("zipcode").value;
       this.userInfo.address = document.getElementById("address").value;
       console.log(this.userInfo);
       this.$zido.updateUserInfo(this.userInfo);

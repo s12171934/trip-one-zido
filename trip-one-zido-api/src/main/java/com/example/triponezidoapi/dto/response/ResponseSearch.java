@@ -10,8 +10,8 @@ public class ResponseSearch {
     List<ResponseContentList> spotList;
 
     String keyword;
-    String locCategory;
-    String category;
+    int locCategory;
+    int category;
 
     int memberCount;
     int planCount;

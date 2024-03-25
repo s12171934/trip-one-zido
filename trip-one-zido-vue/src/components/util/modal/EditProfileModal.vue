@@ -94,4 +94,81 @@ img {
   display: none;
 }
 
+.modal-content {
+  width: 400px;
+}
+
+label {
+  font-weight: normal !important;
+  font-size: 16px;
+}
+
+@media (max-width: 415px) {
+  button, label {
+    font-size: 14px;
+  }
+  .modal-footer {
+    width: 374px;
+  }
+}
+
+@media (max-width: 410px) {
+  img {
+  width: 250px;
+  height: 250px;
+  }
+}
+
+@media (max-width: 400px) {
+  img {
+  width: 240px;
+  height: 240px;
+  }
+  .modal-footer {
+    width: 365px;
+  }
+}
+
+@media (max-width: 385px) {
+  img {
+  width: 230px;
+  height: 230px;
+  }
+  .modal-footer {
+    width: 355px;
+  }
+}
+
+@media (max-width: 380px) {
+  img {
+  width: 220px;
+  height: 220px;
+  }
+  button, label {
+    font-size: 12px;
+  }
+  .modal-footer {
+    width: 330px;
+  }
+}
+
+@media (max-width: 360px) {
+  img {
+  width: 200px;
+  height: 200px;
+  }
+  .modal-footer {
+    width: 320px;
+  }
+}
+
+@media (max-width: 340px) {
+  img {
+  width: 180px;
+  height: 180px;
+  }
+  .modal-footer {
+    width: 310px;
+  }
+}
 </style>

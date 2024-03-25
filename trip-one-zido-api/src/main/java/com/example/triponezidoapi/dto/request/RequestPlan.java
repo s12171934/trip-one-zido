@@ -21,7 +21,7 @@ public class RequestPlan {
     LocalDate endDate;
 
     @NotBlank(message = "지역을 선택해주세요")
-    String locCategory;
+    int locCategory;
 
     @NotBlank(message = "계획/여행중/여행완료 중 여행 상태를 선택해주세요")
     int status;
