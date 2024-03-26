@@ -71,23 +71,10 @@ public class SearchService {
         //detailSearchPlan 및 detailSearchSpot 에 필요한 MyMemberId 값 추가
         detailSearch.setMyMemberId(id);
         detailSearch.setPage(page);
-      //  int checkStart = Integer.parseInt(detailSearch.getStartMonth().substring(5, 7));
-      //  int checkEnd = Integer.parseInt(detailSearch.getEndMonth().substring(5,7));
 
-        // 기간 검색 날짜로 데이터가 오는 경우
-//        if(checkStart >= 3 && checkEnd <= 5){
-//            detailSearch.setStartMonth("3");
-//            detailSearch.setEndMonth("5");
-//        } else if(checkStart >= 6 && checkEnd <= 7){
-//            detailSearch.setStartMonth("6");
-//            detailSearch.setEndMonth("8");
-//        } else if(checkStart >= 9 && checkEnd <= 11){
-//            detailSearch.setStartMonth("9");
-//            detailSearch.setEndMonth("11");
-//        } else {
-//            detailSearch.setStartMonth("1");
-//            detailSearch.setEndMonth("2");
-//        }
+        if(detailSearch.getSeason() == null){
+            detailSearch.setSeason("");
+        }
 
         // 기간검색 시즌이라는 정해진 category로 오는 경우
         switch (detailSearch.getSeason()){
@@ -111,6 +98,9 @@ public class SearchService {
                 detailSearch.setStartMonth("1");
                 detailSearch.setEndMonth("2");
                 break;
+            default:
+                detailSearch.setStartMonth("1");
+                detailSearch.setEndMonth("12");
         }
 
         return detailSearch;
@@ -119,42 +109,57 @@ public class SearchService {
     public ResponseSearch searchByDetail(Long id, RequestDetailSearch detailSearch, long page){
         ResponseSearch responseSearch = new ResponseSearch();
         //기본검색 페이지에서 상세검색 버튼 누르는 경우 (값이 전부 비어있음)
-        if(detailSearch.getKeyword() == null && detailSearch.getSeason() == null && detailSearch.getPage() ==0 ){
-            detailSearch.setMyMemberId(id);
-            detailSearch.setPage(page);
-            detailSearch.setSeason("winter");
-            detailSearch.setCategory(1);
-            detailSearch.setLocCategory(11);
+//        if(detailSearch.getSeason() == null && detailSearch.getCategory() == 0 && detailSearch.getLocCategory() ==0 ){
+//            detailSearch.setMyMemberId(id);
+//            detailSearch.setPage(page);
+//            detailSearch.setCategory(1);
+//            detailSearch.setLocCategory(11);
+//
+//            if(detailSearch.getLocCategory() == 0){
+//                detailSearch.setLocCategory(null);
+//            }
+//
+//            if(detailSearch.getCategory() == 0){
+//                detailSearch.setCategory(null);
+//            }
+//
+//
+//            responseSearch.setPlanList(searchMapper.detailSearchPlan(detailSearch));
+//            responseSearch.setSpotList(searchMapper.detailSearchSpot(detailSearch));
+//
+//            responseSearch.setPlanCount(searchMapper.countDetailPlan(detailSearch));
+//            responseSearch.setSpotCount(searchMapper.countDetailSpot(detailSearch));
+//
+//            responseSearch.setCategory(0);
+//            responseSearch.setLocCategory(0);
+//        } else {
+//            if(detailSearch.getSeason() != null){
+        detailSearch = setDetailSearch(id, detailSearch, page);
+//               }
 
-            responseSearch.setPlanList(searchMapper.detailSearchPlan(detailSearch));
-            responseSearch.setSpotList(searchMapper.detailSearchSpot(detailSearch));
+        //detailSearchSpot
+        responseSearch.setSpotList(searchMapper.detailSearchSpot(detailSearch));
+        //detailSearchPlan
+        responseSearch.setPlanList(searchMapper.detailSearchPlan(detailSearch));
 
-            responseSearch.setPlanCount(searchMapper.countDetailPlan(detailSearch));
-            responseSearch.setSpotCount(searchMapper.countDetailSpot(detailSearch));
+        responseSearch.setKeyword(detailSearch.getKeyword());
+//            if(detailSearch.getLocCategory() == null){
+//                responseSearch.setLocCategory(0);
+//            } else {
+//                responseSearch.setLocCategory(detailSearch.getLocCategory());
+//            }
+//
+//            if(detailSearch.getCategory() == null){
+//                responseSearch.setCategory(0);
+//            } else {
+//                responseSearch.setCategory(detailSearch.getCategory());
+//            }
 
-            responseSearch.setCategory(1);
-            responseSearch.setLocCategory(11);
-        } else {
-            if(detailSearch.getSeason() != null){
-                detailSearch = setDetailSearch(id, detailSearch, page);
-            }
+        //검색 결과의 카운트 처리
+        responseSearch.setPlanCount(searchMapper.countDetailPlan(detailSearch));
+        responseSearch.setSpotCount(searchMapper.countDetailSpot(detailSearch));
 
-
-            //detailSearchPlan
-            responseSearch.setPlanList(searchMapper.detailSearchPlan(detailSearch));
-            //detailSearchSpot
-            responseSearch.setSpotList(searchMapper.detailSearchSpot(detailSearch));
-
-            responseSearch.setKeyword(detailSearch.getKeyword());
-
-            responseSearch.setLocCategory(detailSearch.getLocCategory());
-            responseSearch.setCategory(detailSearch.getCategory());
-
-            //검색 결과의 카운트 처리
-            responseSearch.setPlanCount(searchMapper.countDetailPlan(detailSearch));
-            responseSearch.setSpotCount(searchMapper.countDetailSpot(detailSearch));
-
-        }
+//        }
         return responseSearch;
     }
 
