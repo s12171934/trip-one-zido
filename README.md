@@ -15,18 +15,16 @@
 
 :cherry_blossom: 커뮤니티를 통해 :mountain_bicyclist: 지역 :bullettrain_front:, 기간 :calendar:, 목적 :whale: 등 마음이 통한 사람들을 모아 **같이 여행**을 갈 수 있습니다. :cherry_blossom: 
 
-:cherry_blossom: 검색을 통해 :surfer: 유저들의 피드를 구경하고 :heartpulse: 게시글에 좋아요 :+1: 를 누르거나 찜 :pushpin: 관리 할 수 있습니다. :cherry_blossom: 
+:cherry_blossom: 검색을 통해 :surfer: 유저들의 **피드**를 구경하고 :heartpulse: 게시글에 좋아요 :+1: 를 누르거나 찜 :pushpin: 관리 할 수 있습니다. :cherry_blossom: 
 
-:cherry_blossom: 본인 프로필 :bowtie: 에 좋아하는 사진을 등록, 유저들을 :couple_with_heart: 팔로우하고 게시글에 댓글 :speech_balloon: 을 달 수 있습니다. :cherry_blossom: 
-
+:cherry_blossom: 본인 프로필 :bowtie: 에 좋아하는 사진을 등록, 유저들을 :couple_with_heart: 팔로우하고 **게시글**에 댓글 :speech_balloon: 을 달 수 있습니다. :cherry_blossom: 
 
 <br>
 
 ## :sparkles: 팀원 구성 :sparkles:
-| **김동현**  | **김성실** 사진 | **박준혁** 사진 | :crown: **송준형** 사진 | **한민선** 사진 |
+| **김동현** <br/> <img src="https://github.com/s12171934/trip-one-zido/blob/sungs/%EA%B9%80%EB%8F%99%ED%98%84.png" height=120 width=120> | **김성실** <br/> <img src="https://github.com/s12171934/trip-one-zido/blob/sungs/%EA%B9%80%EC%84%B1%EC%8B%A4.jpg" height=120 width=120>| **박준혁** | :crown: **송준형** | **한민선** |
 | :------: |  :------: | :------: | :------: | :------: |
-| ![사진](https://github.com/s12171934/trip-one-zido/blob/sungs/%EA%B9%80%EB%8F%99%ED%98%84.png) | **김성실** 사진 | **박준혁** 사진 | :crown: **송준형** 사진 | **한민선** 사진 |
-| 포부&후기1 | 포부&후기2 | 포부&후기3 | 포부&후기4 | 포부&후기5 |
+| 포부&후기1 | :loudspeaker: 적극적인 의견제시&수렴 과<br/>나날이 성장하고 싶은 개발자입니다 <br/><br/> 많은 것을 보고 배우며<br/>적용하는 시간이었습니다.<br/>마지막까지 '할수있을까?'했지만<br/>여럿이 함께라 할 수 있었습니다.<br/>여러분의 헌신이 있어 체계적이고<br/> 효율적으로 완성되었습니다.<br/>저의 부족함점을 많이 알게되었고<br/> 남은 시간동안 잘 정리하고 준비해서<br/>다같이 목표를 이루길 기원합니다.<br/>그동안 고생했고 즐겁고 행복했습니다. | 포부&후기3 | 포부&후기4 | 포부&후기5 |
 
 
 <br>
@@ -36,8 +34,6 @@
 - Version : Java 17
 - IDE : IntelliJ
 - Framework : SpringBoot 3.2.2
-  
-[★]
 
 <br>
 
@@ -50,23 +46,33 @@
 <br>
 
 ## 3. 프로젝트 아키텍쳐
-[★]
 
 <br>
 
 ## 4. 주요기능
 
-[★]
-- 화면구현 [★]
+- 화면구현
+
+<br>
+
+## 5. Black Box - Client Test Flow
+
+사이트에 처음 방문하는 회원이 사용할 수 있는 기능들에 대해 보는 블랙박스 플로우입니다.
+![Black Box]()
 
 <br>
 
 ## 
 
 :cherry_blossom: [API 명세서](https://onedrive.live.com/edit?id=CA6B890ACA2DAD44!208&resid=CA6B890ACA2DAD44!208&ithint=file%2Cxlsx&authkey=!AE1t-ikdB73t9RY&wdo=2&cid=ca6b890aca2dad44)
+<br><img src="" height=400 width=1000>
 
 :cherry_blossom: [ERD Cloud](https://www.erdcloud.com/d/wukWHFKxRkqZP9sju)
+<br><img src="" height=400 width=1000>
 
-:cherry_blossom: [피그마](https://www.figma.com/file/OUYCIcO6q9UwA0uXuIOrz0/%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4-%ED%9A%8C%EC%9D%98?type=design&node-id=62-2&mode=design&t=qNmJL8K5EQMOxIek-0)
+:cherry_blossom: [Figma](https://www.figma.com/file/OUYCIcO6q9UwA0uXuIOrz0/%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4-%ED%9A%8C%EC%9D%98?type=design&node-id=62-2&mode=design&t=qNmJL8K5EQMOxIek-0)
+<br><img src="" height=400 width=1000>
+<br><img src="" height=400 width=1000>
 
 :cherry_blossom: [Jira Software](https://ssong9520.atlassian.net/jira/software/projects/KAN/boards/1/timeline?selectedIssue=KAN-9)
+<br><img src="" height=400 width=1000>
