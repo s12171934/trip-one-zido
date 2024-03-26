@@ -114,7 +114,9 @@ export default {
     },
   },
   mounted(){
-    this.$zido.getProfileImg().then((res) => this.img = res)
+    if(this.$cookies.get("login") != null){
+      this.$zido.getProfileImg().then((res) => this.img = res)
+    }
   }
 };
 </script>
