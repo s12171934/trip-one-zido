@@ -86,7 +86,7 @@ export default {
         : "",
       saveLoginId: this.$cookies.isKey("saveLoginId"),
       autoLogin: false,
-      modal: "loginFail",
+      modal: "loginTry",
     };
   },
   methods: {
@@ -105,6 +105,7 @@ export default {
         }
         location.href = "/";
       } else {
+        this.modal = "loginFail"
       }
     },
     doNaverLogin() {

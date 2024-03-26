@@ -260,7 +260,8 @@ export default {
   //DELETE -- api/page/follow/id
   //POST -- api/page/follow/id
   async toggleFollow(memberPageData) {
-    const userProfile = memberPageData.responseMember;
+    // const userProfile = memberPageData.responseMember;
+    const userProfile = memberPageData;
     console.log(userProfile.follow);
     //팔로잉으로 변경한다면 POST요청
     if (userProfile.follow == false) {

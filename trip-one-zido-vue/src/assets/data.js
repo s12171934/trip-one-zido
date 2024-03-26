@@ -80,6 +80,10 @@ export default {
       message: "아이디와 비밀번호를<br />확인해주세요.",
       buttonMessage: "다시 로그인 하기",
     },
+    loginTry: {
+      url: "/",
+      message: "로그인을 시도합니다...",
+    },
     updateMemberInfoFail: {
       url: "/config",
       message: "회원정보 수정이<br />완료되었습니다.",
