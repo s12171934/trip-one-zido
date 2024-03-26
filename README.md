@@ -12,8 +12,11 @@
 
 ## :clipboard: 프로젝트 소개
 :cherry_blossom: 나만의 :car: **국내 여행** :bookmark_tabs: 계획을 세우고 여행 사진 :camera: 부터 후기, 리뷰관리 까지 손쉽게 작성하고 정보를 모을 수 있습니다. :cherry_blossom: 
+
 :cherry_blossom: 커뮤니티를 통해 :mountain_bicyclist: 여행하고 싶은 지역 :bullettrain_front:, 기간 :calendar:, 목적 :whale: 등 마음이 통한 사람들을 모아 같이 여행을 갈 수 있습니다. :cherry_blossom: 
+
 :cherry_blossom: 검색을 통해 :surfer: 취향이 비슷한 유저들의 피드를 구경하고 :heartpulse: 게시글에 좋아요 :+1: 를 누르거나 찜 :pushpin: 관리 할 수 있습니다. :cherry_blossom: 
+
 :cherry_blossom: 본인 프로필 :bowtie: 에 좋아하는 사진을 등록하고 다양한 유저들을 :couple_with_heart: 팔로우하고 게시글에 댓글 :speech_balloon: 을 달 수 있습니다. :cherry_blossom: 
 
 <br>
@@ -56,5 +59,10 @@
 
 ## 
 
-- API 명세서 : https://onedrive.live.com/edit?id=CA6B890ACA2DAD44!208&resid=CA6B890ACA2DAD44!208&ithint=file%2Cxlsx&authkey=!AE1t-ikdB73t9RY&wdo=2&cid=ca6b890aca2dad44
-- ERD Cloud : https://www.erdcloud.com/d/wukWHFKxRkqZP9sju
+:cherry_blossom: [API 명세서](https://onedrive.live.com/edit?id=CA6B890ACA2DAD44!208&resid=CA6B890ACA2DAD44!208&ithint=file%2Cxlsx&authkey=!AE1t-ikdB73t9RY&wdo=2&cid=ca6b890aca2dad44)
+
+:cherry_blossom: [ERD Cloud](https://www.erdcloud.com/d/wukWHFKxRkqZP9sju)
+
+:cherry_blossom: [피그마](https://www.figma.com/file/OUYCIcO6q9UwA0uXuIOrz0/%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4-%ED%9A%8C%EC%9D%98?type=design&node-id=62-2&mode=design&t=qNmJL8K5EQMOxIek-0)
+
+:cherry_blossom: [Jira Software](https://ssong9520.atlassian.net/jira/software/projects/KAN/boards/1/timeline?selectedIssue=KAN-9)
