@@ -65,14 +65,14 @@
 ## 
 
 :cherry_blossom: [API 명세서](https://onedrive.live.com/edit?id=CA6B890ACA2DAD44!208&resid=CA6B890ACA2DAD44!208&ithint=file%2Cxlsx&authkey=!AE1t-ikdB73t9RY&wdo=2&cid=ca6b890aca2dad44)
-<br><img src="" height=400 width=1000>
+<br><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/API%20%EB%AA%85%EC%84%B8.png" height=400 width=1000>
 
 :cherry_blossom: [ERD Cloud](https://www.erdcloud.com/d/wukWHFKxRkqZP9sju)
-<br><img src="" height=400 width=1000>
+<br><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/ERD%20Cloud.png" height=400 width=1000>
 
 :cherry_blossom: [Figma](https://www.figma.com/file/OUYCIcO6q9UwA0uXuIOrz0/%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4-%ED%9A%8C%EC%9D%98?type=design&node-id=62-2&mode=design&t=qNmJL8K5EQMOxIek-0)
-<br><img src="" height=400 width=1000>
-<br><img src="" height=400 width=1000>
+<br><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/figma1.png" height=600 width=500>
+<img src="https://github.com/s12171934/trip-one-zido/blob/sungs/figma2.png" height=600 width=500>
 
 :cherry_blossom: [Jira Software](https://ssong9520.atlassian.net/jira/software/projects/KAN/boards/1/timeline?selectedIssue=KAN-9)
-<br><img src="" height=400 width=1000>
+<br><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/Jira%20Software.png" height=400 width=1000>
