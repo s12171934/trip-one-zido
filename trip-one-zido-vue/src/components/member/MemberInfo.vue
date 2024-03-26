@@ -36,22 +36,19 @@
           <input type="text" id="zipcode" v-model="userInfo.zipcode" readonly />
         </td>
         <td>
-          <div class="d-flex">
-            <input type="text" id="zipcode" v-model="userInfo.postcode" readonly />
-            <button
-              type="button"
-              class="button icon fa-search ps-2 pe-2 ms-2"
-              @click="searchAddress"
-            >
-              주소 검색
-            </button>
-          </div>
+          <button
+            type="button"
+            class="address button icon fa-search ps-2 pe-2 ms-2"
+            @click="searchAddress"
+          >
+            주소 검색
+          </button>
         </td>
       </tr>
 
       <tr>
         <td></td>
-        <td colspan="2">          <input type="text" id="address" name="address" size="70" readonly /></td>
+        <td colspan="2"><input type="text" id="address" name="address" size="70" v-model="userInfo.address" readonly /></td>
       </tr>
 
       <tr>
@@ -222,6 +219,10 @@ label {
 
 #id-css {
   width: 200px;
+}
+
+.address {
+  width: 95%;
 }
 
 @media (max-width: 980px) {
