@@ -35,8 +35,8 @@ public class SearchService {
 
         //검색 결과의 카운트 처리
         responseSearch.setMemberCount(searchMapper.countMember(keyword));
-        responseSearch.setPlanCount(searchMapper.countPlan(keyword));
-        responseSearch.setSpotCount(searchMapper.countSpot(keyword));
+        responseSearch.setPlanCount(searchMapper.countPlan(requestSearch));
+        responseSearch.setSpotCount(searchMapper.countSpot(requestSearch));
 
         responseSearch.setKeyword(keyword);
 
