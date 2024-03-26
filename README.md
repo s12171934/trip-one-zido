@@ -17,7 +17,7 @@
 
 :cherry_blossom: 검색을 통해 :surfer: 유저들의 피드를 구경하고 :heartpulse: 게시글에 좋아요 :+1: 를 누르거나 찜 :pushpin: 관리 할 수 있습니다. :cherry_blossom: 
 
-:cherry_blossom: 본인 프로필 :bowtie: 에 좋아하는 사진을 등록하고 다양한 유저들을 :couple_with_heart: 팔로우하고 게시글에 댓글 :speech_balloon: 을 달 수 있습니다. :cherry_blossom: 
+:cherry_blossom: 본인 프로필 :bowtie: 에 좋아하는 사진을 등록, 다양한 유저들을 :couple_with_heart: 팔로우하고 게시글에 댓글 :speech_balloon: 을 달 수 있습니다. :cherry_blossom: 
 
 
 <br>
