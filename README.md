@@ -11,13 +11,14 @@
 <br>
 
 ## :clipboard: 프로젝트 소개
-:cherry_blossom: 나만의 **국내 여행** 계획을 세우고 여행 사진 부터 후기, 리뷰관리 까지 손쉽게 작성하고 정보를 모을 수 있습니다. :cherry_blossom: 
+:cherry_blossom: 나만의 **국내 여행** :bookmark_tabs: 계획을 세우고 사진 :camera: 부터 후기, 리뷰관리 까지 손쉽게 작성하고 정보를 모을 수 있습니다. :cherry_blossom: 
 
-:cherry_blossom: 커뮤니티를 통해 여행하고 싶은 지역, 기간, 목적 등 마음이 통한 사람들을 모아 같이 여행을 갈 수 있습니다. :cherry_blossom: 
+:cherry_blossom: 커뮤니티를 통해 :mountain_bicyclist: 여행하고 싶은 지역 :bullettrain_front:, 기간 :calendar:, 목적 :whale: 등 마음이 통한 사람들을 모아 같이 여행을 갈 수 있습니다. :cherry_blossom: 
 
-:cherry_blossom: 검색을 통해 취향이 비슷한 유저들의 피드를 구경하고 게시글에 좋아요 를 누르거나 찜 관리 할 수 있습니다. :cherry_blossom: 
+:cherry_blossom: 검색을 통해 :surfer: 취향이 비슷한 유저들의 피드를 구경하고 :heartpulse: 게시글에 좋아요 :+1: 를 누르거나 찜 :pushpin: 관리 할 수 있습니다. :cherry_blossom: 
 
-:cherry_blossom: 본인 프로필 에 좋아하는 사진을 등록하고 다양한 유저들을 팔로우하고 게시글에 댓글을 달 수 있습니다. :cherry_blossom: 
+:cherry_blossom: 본인 프로필 :bowtie: 에 좋아하는 사진을 등록하고 다양한 유저들을 :couple_with_heart: 팔로우하고 게시글에 댓글 :speech_balloon: 을 달 수 있습니다. :cherry_blossom: 
+
 
 <br>
 
