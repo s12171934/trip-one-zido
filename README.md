@@ -2,7 +2,7 @@
 
 한국정보기술연구원(KITRI)에서 JAVA 백엔드 웹 개발 교육과정(보안개발 7기)을 듣는 교육생 5명이 모인 Team Project 입니다.
 
-[★메인이미지]
+(https://github.com/s12171934/trip-one-zido/blob/sungs/20240326_102628.jpg)
 
 - 배포 URL : http://13.60.3.28
 - Test ID : sskim
