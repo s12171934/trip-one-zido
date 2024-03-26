@@ -221,4 +221,12 @@
         WHERE
             id = #{id}
     </update>
+
+    <update id="upViewPoint" parameterType="Long">
+        UPDATE community
+        SET
+            view_point = view_point + 1
+        WHERE
+            id = #{id}
+    </update>
 </mapper>
