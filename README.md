@@ -58,7 +58,7 @@
 ## 5. Black Box - Client Test Flow
 
 사이트에 처음 방문하는 회원이 사용할 수 있는 기능들에 대해 보는 블랙박스 플로우입니다.
-![Black Box]()
+<img src="https://github.com/s12171934/trip-one-zido/blob/sungs/Black%20Box.png" height=500 width=800>
 
 <br>
 
