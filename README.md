@@ -13,7 +13,7 @@
 ## :clipboard: 프로젝트 소개
 :cherry_blossom: 나만의 **국내 여행** :bookmark_tabs: 계획을 세우고 사진 :camera:, 후기, 리뷰관리 까지 손쉽게 작성하고 정보를 모을 수 있습니다. :cherry_blossom: 
 
-:cherry_blossom: 커뮤니티를 통해 :mountain_bicyclist: 지역 :bullettrain_front:, 기간 :calendar:, 목적 :whale: 등 마음이 통한 사람들을 모아 같이 여행을 갈 수 있습니다. :cherry_blossom: 
+:cherry_blossom: 커뮤니티를 통해 :mountain_bicyclist: 지역 :bullettrain_front:, 기간 :calendar:, 목적 :whale: 등 마음이 통한 사람들을 모아 **같이 여행**을 갈 수 있습니다. :cherry_blossom: 
 
 :cherry_blossom: 검색을 통해 :surfer: 유저들의 피드를 구경하고 :heartpulse: 게시글에 좋아요 :+1: 를 누르거나 찜 :pushpin: 관리 할 수 있습니다. :cherry_blossom: 
 
@@ -24,7 +24,10 @@
 
 ## :sparkles: 팀원 구성 :sparkles:
 
-[★사진+맡은역할+느낀점]
+| **김동현** ![사진]() | **김성실** 사진 | **박준혁** 사진 | :crown: **송준형** 사진 | **한민선** 사진 |
+| :------: |  :------: | :------: | :------: | :------: |
+| 포부&후기1 | 포부&후기2 | 포부&후기3 | 포부&후기4 | 포부&후기5 |
+
 
 <br>
 
