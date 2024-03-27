@@ -1,9 +1,7 @@
 package com.example.triponezidoapi.content;
 
 import com.example.triponezidoapi.dto.request.*;
-import com.example.triponezidoapi.dto.response.ResponseContentList;
-import com.example.triponezidoapi.dto.response.ResponseRecentView;
-import com.example.triponezidoapi.content.ContentMapper;
+import com.example.triponezidoapi.dto.response.*;
 import com.example.triponezidoapi.member.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,56 +11,53 @@ import java.util.List;
 @Service
 public class ContentService {
     @Autowired
-     ContentMapper contentMapper;
+    ContentMapper contentMapper;
     @Autowired
     MemberMapper memberMapper;
 
-    public void toggleGood(Long id, Long sessionId, RequestGood requestGood) {
-        requestGood.setMemberId(sessionId);
-        requestGood.setContentId(id);
+    //주소 가져오기
+    public String getAddress(Long id){
+        return contentMapper.getAddress(id);
+    }
 
+    //최근본 게시물 조회
+    public ResponseRecentView getRecentViewPage(Long sessionId) {
+        //mapper와 통신에 필요한 dto
+        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
+        requestSessionTarget.setPage(0);
+        requestSessionTarget.setMyMemberId(sessionId);
+
+        return new ResponseRecentView(
+                contentMapper.getRecentView(requestSessionTarget),
+                memberMapper.getMemberProfile(sessionId),
+                contentMapper.getRecentViewCount(sessionId)
+        );
+    }
+
+    //최근 본 게시물 더보기 버튼 클릭시
+    public List<ResponseContentList> getRecentView(RequestSessionTarget requestSessionTarget) {
+        return contentMapper.getRecentView(requestSessionTarget);
+    }
+
+    //최근 본 게시물 등록
+    public void addRecentView(RequestSessionTarget requestSessionTarget){
+        contentMapper.changeRecentView(requestSessionTarget);
+        contentMapper.addRecentView(requestSessionTarget);
+    }
+
+    //좋아요 및 싫어요
+    public void toggleGood(RequestGood requestGood) {
+        //좋아요 및 싫어요를 누르지 않았을 경우
         if(contentMapper.isGood(requestGood) == 0){
             contentMapper.addGood(requestGood);
             return;
         }
-
+        //이미 좋아요 및 싫어요가 선택되어 있을 때, 변경 및 삭제
         if(contentMapper.myGood(requestGood) == requestGood.isGood()){
             contentMapper.deleteGood(requestGood);
         }
         else{
             contentMapper.updateGood(requestGood);
         }
-
-}
-
-    public ResponseRecentView getRecentViewPage(Long sessionId) {
-        ResponseRecentView responseRecentView = new ResponseRecentView();
-
-        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setPage(0);
-        requestSessionTarget.setMyMemberId(sessionId);
-        responseRecentView.setRecentList(contentMapper.getRecentView(requestSessionTarget));
-        responseRecentView.setMember(memberMapper.getMemberProfile(sessionId));
-        responseRecentView.setRecentViewCount(contentMapper.getRecentViewCount(sessionId));
-        return responseRecentView;
-    }
-
-    public List<ResponseContentList> getRecentView(Long sessionId, long page) {
-        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setPage(page * 6);
-        requestSessionTarget.setMyMemberId(sessionId);
-        return contentMapper.getRecentView(requestSessionTarget);
-    }
-
-    public void addRecentView(Long sessionId, long id){
-        RequestContentMember requestContentMember = new RequestContentMember();
-        requestContentMember.setContentId(id);
-        requestContentMember.setMemberId(sessionId);
-        contentMapper.changeRecentView(requestContentMember);
-        contentMapper.addRecentView(requestContentMember);
-    }
-
-    public String getAddress(Long id){
-        return contentMapper.getAddress(id);
     }
 }

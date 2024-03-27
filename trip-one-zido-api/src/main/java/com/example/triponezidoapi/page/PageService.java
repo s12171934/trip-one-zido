@@ -25,139 +25,85 @@ public class PageService {
     @Autowired
     ContentMapper contentMapper;
 
-    public ResponseMemberPage getMemberPage(Long id, Long sessionId){
-        //id가 null일때 세션정보를 이용한다
-        if(id == null){
-            id = sessionId;
-        }
-        ResponseMemberPage memberPage = new ResponseMemberPage();
-
-        memberPage.setId(id);
-        memberPage.setSessionId(sessionId);
-        memberPage.setLoginId(memberMapper.getLoginId(sessionId));
-
-        //isFollow
-        RequestFollow follow = new RequestFollow();
-        follow.setFollower(sessionId);
-        follow.setFollowing(id);
-        memberPage.setFollow(memberMapper.isFollow(follow));
-
-        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(sessionId);
-        requestSessionTarget.setTargetId(id);
-        requestSessionTarget.setSort("created_at DESC");
-
-        //planLists
-        memberPage.setPlanLists(planMapper.getPlanList(requestSessionTarget));
-        memberPage.setPlanListsCount(planMapper.getPlanListCount(requestSessionTarget));
-        //spotLists
-        memberPage.setSpotLists(spotMapper.getSpotList(requestSessionTarget));
-        memberPage.setSpotListsCount(spotMapper.getSpotListCount(requestSessionTarget));
-
-        //member
-        ResponseMember member = new ResponseMember();
-        member.setId(id);
-        member.setLoginId(memberMapper.getMemberProfile(id).getLoginId());
-        member.setProfile(memberMapper.getMemberProfile(id).getProfile());
-        RequestFollow requestFollow = new RequestFollow();
-        requestFollow.setFollower(sessionId);
-        requestFollow.setFollowing(id);
-        member.setFollow(memberMapper.isFollow(requestFollow));
-        memberPage.setResponseMember(member);
-
-        //post count
-        memberPage.setPostCount(memberMapper.postCount(id));
-        //bookmark count
-        memberPage.setBookmarkCount(bookmarkMapper.bookmarkCount(id));
-        //follower, following count
-        memberPage.setFollowerCount(memberMapper.followerCount(id));
-        memberPage.setFollowingCount(memberMapper.followingCount(id));
-
-        //나의 페이지라면 true를, 아니라면 false를 반환
-        memberPage.setMine(id.equals(sessionId));
-
-        return memberPage;
-    }
-
-    public List<ResponseContentList> getPlanListByPage(Long id, Long sessionId, long page, String sort){
-        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(sessionId);
-        requestSessionTarget.setTargetId(id);
-        requestSessionTarget.setPage(page * 6);
-        requestSessionTarget.setSort(sort == null ? "created_at DESC" : sort);
-
-        return planMapper.getPlanList(requestSessionTarget);
-    }
-
-    public List<ResponseContentList> getSpotListByPage(Long id, Long sessionId, long page, String sort) {
-        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(sessionId);
-        requestSessionTarget.setTargetId(id);
-        requestSessionTarget.setPage(page * 6);
-        requestSessionTarget.setSort(sort == null ? "created_at DESC" : sort);
-
-
-        return spotMapper.getSpotList(requestSessionTarget);
-    }
-
-    public List<ResponseLocMap> getLocMap(Long memberId){
-        return spotMapper.getLocMap(memberId);
-    }
-
-    public List<ResponseMember> getFollowingList(Long id, Long sessionId){
-        //id가 null일때 세션정보를 이용한다
-        if(id == null){
-            id = sessionId;
-        }
-
-        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(sessionId);
-        requestSessionTarget.setTargetId(id);
-
+    //팔로잉 목록 조회
+    public List<ResponseMember> getFollowingList(RequestSessionTarget requestSessionTarget){
         List<ResponseMember> followingList = memberMapper.followingList(requestSessionTarget);
-        // 팔로잉 여부 확인
-        for (int i = 0; i < followingList.size(); i++) {
-            RequestFollow requestFollow = new RequestFollow();
-            requestFollow.setFollower(sessionId);
-            requestFollow.setFollowing(followingList.get(i).getId());
-            followingList.get(i).setFollow(memberMapper.isFollow(requestFollow));
-        }
+        setFollow(followingList,requestSessionTarget);
 
         return followingList;
     }
 
-    public List<ResponseMember> getFollowerList(Long id, Long sessionId){
-        //id가 null일때 세션정보를 이용한다
-        if(id == null){
-            id = sessionId;
-        }
-
-        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(sessionId);
-        requestSessionTarget.setTargetId(id);
-
+    //팔로워 목록 조회
+    public List<ResponseMember> getFollowerList(RequestSessionTarget requestSessionTarget){
         List<ResponseMember> followerList = memberMapper.followerList(requestSessionTarget);
-        // 팔로잉 여부 확인
-        for (int i = 0; i < followerList.size(); i++) {
-            RequestFollow requestFollow = new RequestFollow();
-            requestFollow.setFollower(sessionId);
-            requestFollow.setFollowing(followerList.get(i).getId());
-            followerList.get(i).setFollow(memberMapper.isFollow(requestFollow));
-        }
+        setFollow(followerList, requestSessionTarget);
+
         return followerList;
     }
 
-    public void follow(Long id, Long sessionId){
-        RequestFollow requestFollow = new RequestFollow();
-        requestFollow.setFollower(sessionId);
-        requestFollow.setFollowing(id);
+    //팔로잉 여부 확인
+    private void setFollow(List<ResponseMember> responseMembers, RequestSessionTarget requestSessionTarget){
+        for (int i = 0; i < responseMembers.size(); i++) {
+            ResponseMember responseMember = responseMembers.get(i);
+            Long sessionId = requestSessionTarget.getMyMemberId();
+            RequestFollow requestFollow = new RequestFollow(sessionId, responseMember.getId());
+            responseMember.setFollow(memberMapper.isFollow(requestFollow));
+        }
+    }
+
+    //팔로우
+    public void follow(RequestFollow requestFollow){
         memberMapper.follow(requestFollow);
     }
 
-    public void unFollow(Long id, Long sessionId){
-        RequestFollow requestFollow = new RequestFollow();
-        requestFollow.setFollower(sessionId);
-        requestFollow.setFollowing(id);
+    //언팔로우
+    public void unFollow(RequestFollow requestFollow){
         memberMapper.unFollow(requestFollow);
+    }
+
+    //회원페이지 조회
+    public ResponseMemberPage getMemberPage(RequestSessionTarget requestSessionTarget){
+        Long id = requestSessionTarget.getTargetId();
+        Long sessionId = requestSessionTarget.getMyMemberId();
+
+        RequestFollow requestFollow = new RequestFollow(sessionId,id);
+
+        ResponseMember member = new ResponseMember();
+        member.setId(id);
+        member.setLoginId(memberMapper.getMemberProfile(id).getLoginId());
+        member.setProfile(memberMapper.getMemberProfile(id).getProfile());
+        member.setFollow(memberMapper.isFollow(requestFollow));
+
+        return new ResponseMemberPage(
+            id,
+            sessionId,
+            memberMapper.getLoginId(sessionId),
+            memberMapper.isFollow(requestFollow),
+            planMapper.getPlanList(requestSessionTarget),
+            planMapper.getPlanListCount(requestSessionTarget),
+            spotMapper.getSpotList(requestSessionTarget),
+            spotMapper.getSpotListCount(requestSessionTarget),
+            member,
+            memberMapper.postCount(id),
+            bookmarkMapper.bookmarkCount(id),
+            memberMapper.followerCount(id),
+            memberMapper.followingCount(id),
+            id.equals(sessionId)
+        );
+    }
+
+    //일정 게시물 더보기
+    public List<ResponseContentList> getPlanListByPage(RequestSessionTarget requestSessionTarget){
+        return planMapper.getPlanList(requestSessionTarget);
+    }
+
+    //장소 게시물 더보기
+    public List<ResponseContentList> getSpotListByPage(RequestSessionTarget requestSessionTarget) {
+        return spotMapper.getSpotList(requestSessionTarget);
+    }
+
+    //지도 장소 카테고리 빈도 조회
+    public List<ResponseLocMap> getLocMap(Long memberId){
+        return spotMapper.getLocMap(memberId);
     }
 }

@@ -12,7 +12,7 @@ public interface ContentMapper {
     void addContent(RequestContent requestContent);
     void addGood(RequestGood requestGood);
     void addOwner(RequestOwner requestOwner);
-    void addRecentView(RequestContentMember requestContentMember);
+    void addRecentView(RequestSessionTarget requestSessionTarget);
 
     //select
     List<ResponseMember> getOwner(Long id);
@@ -26,6 +26,7 @@ public interface ContentMapper {
     String getAddress(Long id);
 
     //update
+    void updateContent(RequestContent requestContent);
     void updateVisibility(RequestVisibility requestVisibility);
     void updateTitle(RequestTitle requestTitle);
     void updateGood(RequestGood requestGood);
@@ -35,5 +36,5 @@ public interface ContentMapper {
     void deleteGood(RequestGood requestGood);
     void deleteOwner(RequestContentMember requestContentMember);
     void deletePlanSpotOwner(Long contentId);
-    void changeRecentView(RequestContentMember requestContentMember);
+    void changeRecentView(RequestSessionTarget requestSessionTarget);
 }

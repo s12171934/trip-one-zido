@@ -63,10 +63,9 @@ public class SpotService {
 
         return responseSpotDetail;
     }
-
+  
     //POST
-    public Long addSpot(RequestSpot requestSpot, Long sessionId){
-
+    public Long addSpot(RequestSpot requestSpot){
         //addContent
         RequestContent requestContent = new RequestContent();
         requestContent.setType("spot");
@@ -99,7 +98,7 @@ public class SpotService {
         //addOwner
         RequestOwner requestOwner = new RequestOwner();
         requestOwner.setOwn("writer");
-        requestOwner.setMemberId(sessionId);
+        requestOwner.setMemberId(requestSpot.getSessionId());
         requestOwner.setContentId(generatedId);
         contentMapper.addOwner(requestOwner);
 
@@ -121,7 +120,6 @@ public class SpotService {
     //PUT
     public void updateSpot(RequestSpot requestSpot){
         Long id = requestSpot.getId();
-
         //deletePhoto
         spotMapper.deletePhoto(id);
 

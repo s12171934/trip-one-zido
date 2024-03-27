@@ -53,7 +53,8 @@ public class SpotApiController {
         @Parameter(description = "로그인 회원 번호")
         Long sessionId
     ){
-        spotService.addSpot(requestSpot, sessionId);
+        requestSpot.setSessionId(sessionId);
+        spotService.addSpot(requestSpot);
     }
 
     @PutMapping("/{id}")

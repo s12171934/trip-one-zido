@@ -1,5 +1,7 @@
 package com.example.triponezidoapi.page;
 
+import com.example.triponezidoapi.dto.request.RequestFollow;
+import com.example.triponezidoapi.dto.request.RequestSessionTarget;
 import com.example.triponezidoapi.dto.response.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -16,6 +18,87 @@ public class PageApiController {
     @Autowired
     PageService pageService;
 
+    @DeleteMapping("/follow/{id}")
+    @Tag(name = "Follow")
+    @Operation(summary = "언팔로우")
+    public void unfollowMember(
+            @PathVariable(required = false)
+            @Parameter(description = "대상 회원 번호")
+            Long id,
+
+            @SessionAttribute(name="id")
+            @Parameter(description = "로그인 회원 번호")
+            Long sessionId
+    ){
+        RequestFollow requestFollow = new RequestFollow(sessionId, id);
+
+        pageService.unFollow(requestFollow);
+    }
+
+    @GetMapping("/following/{id}")
+    @Tag(name = "Follow", description = "Follow API")
+    @Operation(summary = "팔로잉 명단")
+    public List<ResponseMember> listFollowing(
+            @PathVariable(required = false)
+            @Schema(nullable = true)
+            @Parameter(description = "대상 회원 번호")
+            Long id,
+
+            @SessionAttribute(name="id")
+            @Parameter(description = "로그인 회원 번호")
+            Long sessionId
+    ){
+        if(id == null){
+            id = sessionId;
+        }
+
+        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
+        requestSessionTarget.setMyMemberId(sessionId);
+        requestSessionTarget.setTargetId(id);
+
+        return pageService.getFollowingList(requestSessionTarget);
+    }
+    @GetMapping("/follower/{id}")
+    @Tag(name = "Follow")
+    @Operation(summary = "팔로워 명단")
+    public List<ResponseMember> listFollower(
+            @PathVariable(required = false)
+            @Schema(nullable = true)
+            @Parameter(description = "대상 회원 번호")
+            Long id,
+
+            @SessionAttribute(name="id")
+            @Parameter(description = "로그인 회원 번호")
+            Long sessionId
+    ){
+        if(id == null){
+            id = sessionId;
+        }
+
+        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
+        requestSessionTarget.setMyMemberId(sessionId);
+        requestSessionTarget.setTargetId(id);
+
+        return pageService.getFollowerList(requestSessionTarget);
+    }
+
+    @PostMapping("/follow/{id}")
+    @Tag(name = "Follow")
+    @Operation(summary = "팔로우")
+    public void followingMember(
+            @PathVariable(required = false)
+            @Parameter(description = "대상 회원 번호")
+            Long id,
+
+            @SessionAttribute(name="id")
+            @Parameter(description = "로그인 회원 번호")
+            Long sessionId
+    ){
+        RequestFollow requestFollow = new RequestFollow(sessionId, id);
+
+        pageService.follow(requestFollow);
+    }
+
     @GetMapping(value = {"/{id}" , "/"})
     @Tag(name = "Member")
     @Operation(summary = "회원 페이지 조회")
@@ -29,7 +112,15 @@ public class PageApiController {
             @Parameter(description = "로그인 회원 번호")
             Long sessionId
     ){
-        return pageService.getMemberPage(id, sessionId);
+        if(id == null){
+            id = sessionId;
+        }
+
+        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
+        requestSessionTarget.setMyMemberId(sessionId);
+        requestSessionTarget.setTargetId(id);
+
+        return pageService.getMemberPage(requestSessionTarget);
     }
     @GetMapping("/{id}/plan/{page}")
     @Tag(name = "More")
@@ -50,7 +141,13 @@ public class PageApiController {
             @RequestParam(required = false)
             String sort
     ){
-        return pageService.getPlanListByPage(id, sessionId, page, sort);
+        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
+        requestSessionTarget.setMyMemberId(sessionId);
+        requestSessionTarget.setTargetId(id);
+        requestSessionTarget.setPage(page * 6);
+        requestSessionTarget.setSort(sort == null ? "created_at DESC" : sort);
+
+        return pageService.getPlanListByPage(requestSessionTarget);
     }
     @GetMapping("/{id}/spot/{page}")
     @Tag(name = "More")
@@ -71,7 +168,13 @@ public class PageApiController {
             @RequestParam(required = false)
             String sort
     ){
-        return pageService.getSpotListByPage(id, sessionId, page, sort);
+        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
+        requestSessionTarget.setMyMemberId(sessionId);
+        requestSessionTarget.setTargetId(id);
+        requestSessionTarget.setPage(page * 6);
+        requestSessionTarget.setSort(sort == null ? "created_at DESC" : sort);
+
+        return pageService.getSpotListByPage(requestSessionTarget);
     }
     @GetMapping("/locMap/{id}")
     @Tag(name = "locMap", description = "locMap API")
@@ -83,63 +186,5 @@ public class PageApiController {
             Long id
     ){
         return pageService.getLocMap(id);
-    }
-    @GetMapping("/following/{id}")
-    @Tag(name = "Follow", description = "Follow API")
-    @Operation(summary = "팔로잉 명단")
-    public List<ResponseMember> listFollowing(
-            @PathVariable(required = false)
-            @Schema(nullable = true)
-            @Parameter(description = "대상 회원 번호")
-            Long id,
-
-            @SessionAttribute(name="id")
-            @Parameter(description = "로그인 회원 번호")
-            Long sessionId
-    ){
-        return pageService.getFollowingList(id, sessionId);
-    }
-    @GetMapping("/follower/{id}")
-    @Tag(name = "Follow")
-    @Operation(summary = "팔로워 명단")
-    public List<ResponseMember> listFollower(
-            @PathVariable(required = false)
-            @Schema(nullable = true)
-            @Parameter(description = "대상 회원 번호")
-            Long id,
-
-            @SessionAttribute(name="id")
-            @Parameter(description = "로그인 회원 번호")
-            Long sessionId
-    ){
-        return pageService.getFollowerList(id, sessionId);
-    }
-    @PostMapping("/follow/{id}")
-    @Tag(name = "Follow")
-    @Operation(summary = "팔로우")
-    public void followingMember(
-            @PathVariable(required = false)
-            @Parameter(description = "대상 회원 번호")
-            Long id,
-
-            @SessionAttribute(name="id")
-            @Parameter(description = "로그인 회원 번호")
-            Long sessionId
-    ){
-        pageService.follow(id, sessionId);
-    }
-    @DeleteMapping("/follow/{id}")
-    @Tag(name = "Follow")
-    @Operation(summary = "언팔로우")
-    public void unfollowMember(
-            @PathVariable(required = false)
-            @Parameter(description = "대상 회원 번호")
-            Long id,
-
-            @SessionAttribute(name="id")
-            @Parameter(description = "로그인 회원 번호")
-            Long sessionId
-    ){
-        pageService.unFollow(id, sessionId);
     }
 }
