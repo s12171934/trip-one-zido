@@ -58,6 +58,7 @@ export default {
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    //GET -- /api/tour/list/${loc}
     this.$zido.getTourList(this.defaultLoc()).then((res) => {
       this.tourLists = res.tourLists;
       this.tourListCount = res.tourListCount

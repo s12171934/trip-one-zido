@@ -4,13 +4,15 @@
     <div class="d-flex flex-column border-end" id="leftSide">
       <div class="d-flex justify-content-between pe-2 w-100">
         <h1 class="title">
-          {{ spotData.title }}
-          <span class="comm"
-            ><img id="star" src="/images/star.png" />{{ spotData.grade }}</span
-          >
+            {{ spotData.title }}
+          <span class="comm">
+            <img 
+              id="star" src="/images/star.png" 
+            />{{ spotData.grade }}
+          </span>
         </h1>
         <div class="d-flex gap-2" id="left-category">
-          <button class="rounded-5" id="spot-data">{{ selectedCategory  }}</button>
+          <button class="rounded-5" id="spot-data">{{ selectedCategory }}</button>
           <button @click="openSpotMap()" class="rounded-5">약도보기</button>
         </div>
       </div>
@@ -20,7 +22,9 @@
         }}
       </h6>
       <h6 class="left-css">
-        <span v-for="member in spotData.members">{{ member.loginId }}</span>
+        <span v-for="member in spotData.members">
+          {{ member.loginId }}
+        </span>
       </h6>
 
       <div class="p-2 h-100">
@@ -52,23 +56,25 @@
                       ? '/images/zzim.png'
                       : '/images/unzzim.png'
                   "
-                />{{ spotData.bookmarkCount }}</span
-              >
-              <span class="comm" :class="spotData.myGood == true ? 'like' : ''"
-                ><img
+                /> {{ spotData.bookmarkCount }}
+              </span>
+              <span class="comm" :class="spotData.myGood == true ? 'like' : ''">
+                <img
                   @click="$zido.toggleLike(spotData, true)"
                   id="like"
                   src="/images/like.png"
-                />{{ spotData.goodCount }}</span
-              >
-              <span class="comm" :class="spotData.myGood == false ? 'like' : ''"
-                ><img
+                /> {{ spotData.goodCount }}
+              </span>
+              <span class="comm" :class="spotData.myGood == false ? 'like' : ''">
+                <img
                   @click="$zido.toggleLike(spotData, false)"
                   id="unLike"
                   src="/images/unlike.png"
-              /></span>
+                />
+              </span>
             </h1>
           </td>
+
           <td>
             <div
               v-if="spotData.mine"
@@ -96,7 +102,6 @@
       </table>
 
       <h4 class="p-2">여행한 후기</h4>
-
       <textarea class="p-2" id="content" name="content" rows="5" cols="100" readonly>
         {{ spotData.review }}
       </textarea>
@@ -181,6 +186,7 @@ export default {
   },
   methods: {
     async reloadComment() {
+      //GET -- /api/spot/${id}
       this.spotData = await this.$zido.getSpotData(this.$route.params.id);
     },
     openSpotMap() {
@@ -193,6 +199,7 @@ export default {
   },
   async mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    //GET -- /api/spot/${id}
     this.spotData = await this.$zido.getSpotData(this.$route.params.id);
     this.spotData.members.push(this.spotData.writer)
     console.log(this.spotData);
