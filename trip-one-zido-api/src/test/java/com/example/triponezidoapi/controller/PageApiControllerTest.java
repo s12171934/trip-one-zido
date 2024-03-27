@@ -3,14 +3,13 @@ package com.example.triponezidoapi.controller;
 import com.example.triponezidoapi.dto.response.ResponseContentList;
 import com.example.triponezidoapi.dto.response.ResponseMember;
 import com.example.triponezidoapi.dto.response.ResponseMemberPage;
-import com.example.triponezidoapi.service.PageService;
+import com.example.triponezidoapi.page.PageApiController;
+import com.example.triponezidoapi.page.PageService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;

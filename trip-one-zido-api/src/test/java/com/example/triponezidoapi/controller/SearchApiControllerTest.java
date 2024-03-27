@@ -4,7 +4,8 @@ import com.example.triponezidoapi.dto.request.RequestDetailSearch;
 import com.example.triponezidoapi.dto.response.ResponseContentList;
 import com.example.triponezidoapi.dto.response.ResponseMember;
 import com.example.triponezidoapi.dto.response.ResponseSearch;
-import com.example.triponezidoapi.service.SearchService;
+import com.example.triponezidoapi.search.SearchApiController;
+import com.example.triponezidoapi.search.SearchService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;

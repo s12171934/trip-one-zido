@@ -1,7 +1,8 @@
 package com.example.triponezidoapi.controller;
 
+import com.example.triponezidoapi.content.ContentApiController;
 import com.example.triponezidoapi.dto.request.RequestGood;
-import com.example.triponezidoapi.service.ContentService;
+import com.example.triponezidoapi.content.ContentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
