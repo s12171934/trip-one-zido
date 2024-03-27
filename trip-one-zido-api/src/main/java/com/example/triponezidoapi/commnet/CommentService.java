@@ -20,6 +20,10 @@ public class CommentService {
     @Autowired
     MemberMapper memberMapper;
 
+    public void deleteComment(Long id){
+        contentMapper.deleteContent(id);
+    }
+
     public List<ResponseComment> getComments(Long id){
         List<ResponseComment> responseCommentList = commentMapper.getComment(id);
 
@@ -32,34 +36,27 @@ public class CommentService {
         return responseCommentList;
     }
 
-    public void addComment(Long sessionId, RequestComment requestComment){
+    public void addComment(RequestComment requestComment){
         //addContent
         RequestContent requestContent = new RequestContent();
         requestContent.setType("comment");
-        //댓글은 제목이 없으므로 null
         requestContent.setTitle(null);
         contentMapper.addContent(requestContent);
         Long generatedId = requestContent.getId();
 
         //addComment
         requestComment.setId(generatedId);
-        requestComment.setMemberId(sessionId);
         commentMapper.addComment(requestComment);
 
         //addOwner
         RequestOwner requestOwner = new RequestOwner();
         requestOwner.setOwn("writer");
-        requestOwner.setMemberId(sessionId);
+        requestOwner.setMemberId(requestComment.getMemberId());
         requestOwner.setContentId(requestComment.getId());
         contentMapper.addOwner(requestOwner);
     }
 
-    public void updateComment(Long id, RequestComment requestComment){
-        requestComment.setId(id);
+    public void updateComment(RequestComment requestComment){
         commentMapper.updateComment(requestComment);
-    }
-
-    public void deleteComment(Long id){
-        contentMapper.deleteContent(id);
     }
 }

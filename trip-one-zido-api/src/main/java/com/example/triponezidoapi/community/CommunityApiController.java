@@ -15,14 +15,30 @@ public class CommunityApiController {
     @Autowired
     CommunityService communityService;
 
-    @GetMapping("/list/{page}")
-    @Operation(summary = "커뮤니티 목록 조회")
-    public ResponseCommunityList showCommunityAll(
+    @DeleteMapping("/{id}")
+    @Operation(summary = "커뮤니티 게시물 삭제")
+    public void deleteCommunity(
             @PathVariable
-            @Parameter(description = "페이지 번호")
-            long page
+            @Parameter(description = "커뮤니티 게시물 번호")
+            Long id
     ){
-        return communityService.getCommunityList(page);
+        communityService.deleteCommunity(id);
+    }
+    @DeleteMapping("/member/{id}")
+    @Operation(summary = "커뮤니티 참여 취소하기")
+    public void departureCommunity(
+            @PathVariable
+            @Parameter(description = "커뮤니티 게시물 번호")
+            Long id,
+
+            @SessionAttribute(name = "id")
+            @Parameter(description = "로그인 회원 번호")
+            Long sessionId
+    ){
+        RequestContentMember requestContentMember = new RequestContentMember();
+        requestContentMember.setContentId(id);
+        requestContentMember.setMemberId(sessionId);
+        communityService.deleteOwner(requestContentMember);
     }
     @GetMapping("/{id}")
     @Operation(summary = "커뮤니티 상세 조회")
@@ -35,42 +51,19 @@ public class CommunityApiController {
             @Parameter(description = "로그인 회원 정보")
             Long sessionId
     ){
-        return communityService.getCommunity(id,sessionId);
+        RequestContentMember requestContentMember = new RequestContentMember();
+        requestContentMember.setContentId(id);
+        requestContentMember.setMemberId(sessionId);
+        return communityService.getCommunity(requestContentMember);
     }
-    @PostMapping("/")
-    @Operation(summary = "커뮤니티 게시물 등록")
-    public void postCommunity(
-            @RequestBody
-            @Parameter(description = "커뮤니티 게시물 정보")
-            RequestCommunity requestCommunity,
-
-            @SessionAttribute(name = "id")
-            @Parameter(description = "로그인 회원 정보")
-            Long sessionId
-    ){
-        communityService.addCommunity(requestCommunity,sessionId);
-    }
-    @PutMapping("/{id}")
-    @Operation(summary = "커뮤니티 게시물 수정")
-    public void putCommunity(
-            @RequestBody
-            @Parameter(description = "커뮤니티 게시물 정보")
-            RequestCommunity requestCommunity,
-
+    @GetMapping("/list/{page}")
+    @Operation(summary = "커뮤니티 목록 조회")
+    public ResponseCommunityList showCommunityAll(
             @PathVariable
-            @Parameter(description = "커뮤니티 게시물 번호")
-            Long id
+            @Parameter(description = "페이지 번호")
+            long page
     ){
-        communityService.updateCommunity(requestCommunity,id);
-    }
-    @DeleteMapping("/{id}")
-    @Operation(summary = "커뮤니티 게시물 삭제")
-    public void deleteCommunity(
-            @PathVariable
-            @Parameter(description = "커뮤니티 게시물 번호")
-            Long id
-    ){
-        communityService.deleteCommunity(id);
+        return communityService.getCommunityList(page);
     }
     @PostMapping("/search/{page}")
     @Operation(summary = "검색한 커뮤니티 게시물 목록")
@@ -96,19 +89,36 @@ public class CommunityApiController {
             @Parameter(description = "로그인 회원 번호")
             Long sessionId
     ){
-        communityService.addOwner(id,sessionId);
+        RequestContentMember requestContentMember = new RequestContentMember();
+        requestContentMember.setContentId(id);
+        requestContentMember.setMemberId(sessionId);
+        communityService.addOwner(requestContentMember);
     }
-    @DeleteMapping("/member/{id}")
-    @Operation(summary = "커뮤니티 참여 취소하기")
-    public void departureCommunity(
-            @PathVariable
-            @Parameter(description = "커뮤니티 게시물 번호")
-            Long id,
+    @PostMapping("/")
+    @Operation(summary = "커뮤니티 게시물 등록")
+    public void postCommunity(
+            @RequestBody
+            @Parameter(description = "커뮤니티 게시물 정보")
+            RequestCommunity requestCommunity,
 
             @SessionAttribute(name = "id")
-            @Parameter(description = "로그인 회원 번호")
+            @Parameter(description = "로그인 회원 정보")
             Long sessionId
     ){
-        communityService.deleteOwner(id,sessionId);
+        communityService.addCommunity(requestCommunity,sessionId);
+    }
+    @PutMapping("/{id}")
+    @Operation(summary = "커뮤니티 게시물 수정")
+    public void putCommunity(
+            @RequestBody
+            @Parameter(description = "커뮤니티 게시물 정보")
+            RequestCommunity requestCommunity,
+
+            @PathVariable
+            @Parameter(description = "커뮤니티 게시물 번호")
+            Long id
+    ){
+        requestCommunity.setId(id);
+        communityService.updateCommunity(requestCommunity);
     }
 }

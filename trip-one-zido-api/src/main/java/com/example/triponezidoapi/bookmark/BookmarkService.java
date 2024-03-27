@@ -15,64 +15,31 @@ public class BookmarkService {
     @Autowired
     MemberMapper memberMapper;
 
-    // tourBookmarkCount,
-    // planSpotBookmarkCount,
-    public ResponseBookmark getAllBookmark(Long id, Long sessionId){
-        //id가 null일때 세션정보를 이용한다
-        if(id == null){
-            id = sessionId;
-        }
-        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setTargetId(id);
-        requestSessionTarget.setMyMemberId(sessionId);
+    public void deleteBookmark(RequestContentMember requestContentMember){
+        bookmarkMapper.deleteBookmark(requestContentMember);
+    }
+
+    public ResponseBookmark getAllBookmark(RequestSessionTarget requestSessionTarget){
         ResponseBookmark responseBookmark = new ResponseBookmark();
-        responseBookmark.setId(id);
-        responseBookmark.setLoginId(memberMapper.getLoginId(id));
-        responseBookmark.setTourBookmarkCount(bookmarkMapper.tourBookmarkCount(id));
+        responseBookmark.setId(requestSessionTarget.getTargetId());
+        responseBookmark.setLoginId(memberMapper.getLoginId(requestSessionTarget.getTargetId()));
+        responseBookmark.setTourBookmarkCount(bookmarkMapper.tourBookmarkCount(requestSessionTarget.getTargetId()));
         responseBookmark.setPlanSpotBookMarkCount(bookmarkMapper.planSpotBookmarkCount(requestSessionTarget));
-        responseBookmark.setTourList(getTourBookmark(id,sessionId,0));
-        responseBookmark.setContentList(getPlanSpotBookmark(id,sessionId,0));
-        
+
+        responseBookmark.setTourList(getTourBookmark(requestSessionTarget));
+        responseBookmark.setContentList(getPlanSpotBookmark(requestSessionTarget));
         return responseBookmark;
     }
-    public List<ResponseContentList> getPlanSpotBookmark(Long id, Long sessionId, long page){
-        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(sessionId);
-        requestSessionTarget.setTargetId(id);
-        //페이지 카운트 처리
-        if(page == 0){
-            requestSessionTarget.setPage(0);
-        } else {
-            requestSessionTarget.setPage(page * 6);
-        }
-        List<ResponseContentList> responseContentLists = bookmarkMapper.getPlanSpotBookmark(requestSessionTarget);
-        return responseContentLists;
-    }
-    public List<ResponseTour> getTourBookmark(Long id, Long sessionId, long page){
-        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setMyMemberId(sessionId);
-        requestSessionTarget.setTargetId(id);
-        //페이지 카운트 처리
-        if(page == 0){
-            requestSessionTarget.setPage(0);
-        } else {
-            requestSessionTarget.setPage(page * 6);
-        }
-        List<ResponseTour> responseTours = bookmarkMapper.getTourBookmark(requestSessionTarget);
-        return responseTours;
+
+    public List<ResponseContentList> getPlanSpotBookmark(RequestSessionTarget requestSessionTarget){
+        return bookmarkMapper.getPlanSpotBookmark(requestSessionTarget);
     }
 
-    public void addBookMark(Long id, Long sessionId){
-        RequestContentMember requestContentMember = new RequestContentMember();
-        requestContentMember.setContentId(id);
-        requestContentMember.setMemberId(sessionId);
+    public List<ResponseTour> getTourBookmark(RequestSessionTarget requestSessionTarget){
+        return bookmarkMapper.getTourBookmark(requestSessionTarget);
+    }
+
+    public void addBookMark(RequestContentMember requestContentMember){
         bookmarkMapper.addBookmark(requestContentMember);
-    }
-
-    public void deleteBookmark(Long id, Long sessionId){
-        RequestContentMember requestContentMember = new RequestContentMember();
-        requestContentMember.setContentId(id);
-        requestContentMember.setMemberId(sessionId);
-        bookmarkMapper.deleteBookmark(requestContentMember);
     }
 }

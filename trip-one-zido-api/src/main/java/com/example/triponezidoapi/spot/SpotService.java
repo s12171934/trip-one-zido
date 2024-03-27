@@ -24,11 +24,17 @@ public class SpotService {
     @Autowired
     CommentService commentService;
 
-    public ResponseSpotDetail spotDetail(Long id, Long sessionId){
-        //spotDetail 기본 (getSpot)
-        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setTargetId(id);
-        requestSessionTarget.setMyMemberId(sessionId);
+    //DELETE
+    public void deleteSpot(Long id){
+        contentMapper.deleteContent(id);
+    }
+
+    //GET
+    public ResponseSpotDetail spotDetail(RequestSessionTarget requestSessionTarget){
+        Long id = requestSessionTarget.getTargetId();
+        Long sessionId = requestSessionTarget.getMyMemberId();
+
+        //spotDetail(getSpot)
         ResponseSpotDetail responseSpotDetail = spotMapper.getSpot(requestSessionTarget);
 
         //getPhoto
@@ -41,6 +47,7 @@ public class SpotService {
         responseSpotDetail.setWriter(contentMapper.getWriter(id));
         responseSpotDetail.setMembers(contentMapper.getWith(id));
 
+        //isGood
         RequestGood requestGood = new RequestGood();
         requestGood.setMemberId(sessionId);
         requestGood.setContentId(id);
@@ -56,7 +63,8 @@ public class SpotService {
 
         return responseSpotDetail;
     }
-
+  
+    //POST
     public Long addSpot(RequestSpot requestSpot){
         //addContent
         RequestContent requestContent = new RequestContent();
@@ -64,16 +72,18 @@ public class SpotService {
         requestContent.setVisibility(requestSpot.isVisibility());
         requestContent.setTitle(requestSpot.getTitle());
         contentMapper.addContent(requestContent);
-        //Content 테이블에 추가한 이후에 생성된 id를 가져옴
-        long generatedId = requestContent.getId();
 
+        //Content 테이블에 추가한 이후에 생성된 id를 가져옴
+        Long generatedId = requestContent.getId();
         long profileId = 0;
+
         //addPhoto
         for (int i = 0; i < requestSpot.getPhotos().size(); i++) {
             RequestPhoto requestPhoto = new RequestPhoto();
             requestPhoto.setPhoto(requestSpot.getPhotos().get(i).getPhoto());
             requestPhoto.setContentId(generatedId);
             spotMapper.addPhoto(requestPhoto);
+
             if(requestSpot.getProfile() == i){
                 profileId = requestPhoto.getId();
             }
@@ -81,7 +91,6 @@ public class SpotService {
 
         //addSpot
         requestSpot.setId(generatedId);
-        requestSpot.setProfile(requestSpot.getSessionId());
         requestSpot.setLocCategory(LocationCode.getCode(requestSpot.getAddress()));
         requestSpot.setProfile(profileId);
         spotMapper.addSpot(requestSpot);
@@ -105,16 +114,17 @@ public class SpotService {
                 contentMapper.addOwner(requestWithOwner);
             }
         }
-
         return generatedId;
     }
 
+    //PUT
     public void updateSpot(RequestSpot requestSpot){
         Long id = requestSpot.getId();
         //deletePhoto
         spotMapper.deletePhoto(id);
 
         long profileId = 0;
+
         //addPhoto
         for (int i = 0; i < requestSpot.getPhotos().size(); i++) {
             RequestPhoto requestPhoto = new RequestPhoto();
@@ -126,7 +136,6 @@ public class SpotService {
             }
         }
         //updateSpot
-        requestSpot.setId(id);
         requestSpot.setLocCategory(LocationCode.getCode(requestSpot.getAddress()));
         requestSpot.setProfile(profileId);
         spotMapper.updateSpot(requestSpot);
@@ -159,7 +168,4 @@ public class SpotService {
         }
     }
 
-    public void deleteSpot(Long id){
-        contentMapper.deleteContent(id);
-    }
 }

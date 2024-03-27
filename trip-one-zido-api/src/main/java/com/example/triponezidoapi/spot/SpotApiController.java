@@ -15,48 +15,6 @@ public class SpotApiController {
     @Autowired
     SpotService spotService;
 
-    @GetMapping("/{id}")
-    @Operation(summary = "장소 게시물 조회")
-    public ResponseSpotDetail showSpotDetail(
-            @PathVariable
-            @Parameter(description = "장소 게시물 번호")
-            Long id,
-
-            @SessionAttribute(name = "id")
-            @Parameter(description = "로그인 회원 번호")
-            Long sessionId
-
-    ){
-        return spotService.spotDetail(id, sessionId);
-    }
-    @PostMapping("")
-    @Operation(summary = "장소 게시물 등록")
-    public void postSpot(
-            @RequestBody
-            @Parameter(description = "장소 게시물 정보")
-            RequestSpot requestSpot,
-
-            @SessionAttribute(name = "id")
-            @Parameter(description = "로그인 회원 번호")
-            Long sessionId
-    ){
-        requestSpot.setSessionId(sessionId);
-        spotService.addSpot(requestSpot);
-    }
-    @PutMapping("/{id}")
-    @Operation(summary = "장소 게시물 수정")
-    public void putSpot(
-            @PathVariable
-            @Parameter(description = "장소 게시물 번호")
-            Long id,
-
-            @RequestBody
-            @Parameter(description = "장소 게시물 정보")
-            RequestSpot requestSpot
-    ){
-        requestSpot.setId(id);
-        spotService.updateSpot(requestSpot);
-    }
     @DeleteMapping("/{id}")
     @Operation(summary = "장소 게시물 삭제")
     public void deleteSpot(
@@ -66,4 +24,52 @@ public class SpotApiController {
     ){
         spotService.deleteSpot(id);
     }
+
+    @GetMapping("/{id}")
+    @Operation(summary = "장소 게시물 조회")
+    public ResponseSpotDetail showSpotDetail(
+        @PathVariable
+        @Parameter(description = "장소 게시물 번호")
+        Long id,
+
+        @SessionAttribute(name = "id")
+        @Parameter(description = "로그인 회원 번호")
+        Long sessionId
+    ){
+        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
+        requestSessionTarget.setTargetId(id);
+        requestSessionTarget.setMyMemberId(sessionId);
+        return spotService.spotDetail(requestSessionTarget);
+    }
+
+    @PostMapping("")
+    @Operation(summary = "장소 게시물 등록")
+    public void postSpot(
+        @RequestBody
+        @Parameter(description = "장소 게시물 정보")
+        RequestSpot requestSpot,
+
+        @SessionAttribute(name = "id")
+        @Parameter(description = "로그인 회원 번호")
+        Long sessionId
+    ){
+        requestSpot.setSessionId(sessionId);
+        spotService.addSpot(requestSpot);
+    }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "장소 게시물 수정")
+    public void putSpot(
+        @PathVariable
+        @Parameter(description = "장소 게시물 번호")
+        Long id,
+
+        @RequestBody
+        @Parameter(description = "장소 게시물 정보")
+        RequestSpot requestSpot
+    ){
+        requestSpot.setId(id);
+        spotService.updateSpot(requestSpot);
+    }
+
 }
