@@ -35,9 +35,10 @@ export default {
       },
     };
   },
-  mounted() {
+  async mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
-    this.$zido.getRecentView().then((res) => (this.RecentViewData = res));
+    //GET -- api/content/recent-view
+    this.RecentViewData = await this.$zido.getRecentView();
   },
 };
 </script>

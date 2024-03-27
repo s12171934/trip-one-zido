@@ -6,25 +6,26 @@
           <a
             @click="$router.push(`/tour/loc/${tour.locCategory}`)"
             class="button alt small"
-            >목록</a
-          >
+            > 목록
+          </a>
         </li>
         <li>
           <a
             :href="tour.prevId ? `/tour/${tour.prevId}` : ''"
             class="button alt small"
-            >이전</a
-          >
+            > 이전
+          </a>
         </li>
         <li>
           <a
             :href="tour.nextId ? `/tour/${tour.nextId}` : ''"
             class="button alt small"
-            >다음</a
-          >
+            > 다음
+          </a>
         </li>
       </ul>
     </div>
+
     <div class="row">
       <div class="col-md-6 d-flex">
         <img class="rounded-5" :src="`data:image/jpeg;base64,${tour.photo}`" />
@@ -79,6 +80,7 @@ export default {
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    //GET -- /api/tour/${id}
     this.$zido.getTourData(this.$route.params.id).then((res) => {
       this.tour = res;
     });

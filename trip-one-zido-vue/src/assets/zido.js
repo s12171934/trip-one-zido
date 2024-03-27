@@ -450,7 +450,7 @@ export default {
   },
 
   //설정 페이지 조회
-  // ★미구현 GET -- api/member/config
+  //GET -- api/member/config
   getConfigData() {
     return axios
       .get(`/api/member/config`, {})

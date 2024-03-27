@@ -360,7 +360,7 @@
     SET
       password = #{changePassword}
     WHERE
-      id = #{id}
+      id = #{memberId}
   </update>
 
   <update id="updateProfile"

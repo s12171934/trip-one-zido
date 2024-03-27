@@ -24,7 +24,13 @@
       <h3>{{ followingCount }}</h3>
       <h3>팔로잉</h3>
     </div>
-    <div @click="$router.push(`/bookmark/${$route.params.id ? $route.params.id : ''}`)" class="p-2" id="p-2">
+    <div
+      @click="
+        $router.push(`/bookmark/${$route.params.id ? $route.params.id : ''}`)
+      "
+      class="p-2"
+      id="p-2"
+    >
       <h3>{{ bookmarkCount }}</h3>
       <h3>찜</h3>
     </div>

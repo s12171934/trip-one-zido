@@ -62,7 +62,7 @@ export default {
         this.list.length = 0;
         this.list.push(...newContents);
         this.page = 0;
-        console.log(this.list)
+        console.log(this.list);
       },
     },
   },

@@ -12,7 +12,7 @@ export default {
       map: null,
       coordinates: [],
       polyline: null,
-      marker: null
+      marker: null,
     };
   },
   mounted() {
