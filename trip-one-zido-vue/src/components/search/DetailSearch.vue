@@ -6,7 +6,7 @@
       <div class="col-md-3 mb-3">
         <h5>계절</h5>
         <div class="select-wrapper">
-          <select class="form-control" name="category" v-model="detailSearchData.season">
+          <select class="form-control" name="category" v-model="season">
             <option value="" selected>계절 선택</option>
             <option v-for="season in selectSeason" :value="season.season">
               {{ season.value }}
@@ -19,9 +19,12 @@
       <div class="col-md-3 mb-3">
         <h5>카테고리</h5>
         <div class="select-wrapper">
-          <select class="form-control" name="category" v-model="detailSearchData.category">
+          <select class="form-control" name="category" v-model="category">
             <option value="" selected>카테고리 선택</option>
-            <option v-for="category in selectCategories" :value="category.category">
+            <option
+              v-for="category in selectCategories"
+              :value="category.category"
+            >
               {{ category.value }}
             </option>
           </select>
@@ -32,9 +35,12 @@
       <div class="col-md-3 mb-3">
         <h5>지역</h5>
         <div class="select-wrapper">
-          <select class="form-control" name="category" v-model="detailSearchData.locCategory">
+          <select class="form-control" name="category" v-model="locCategory">
             <option value="" selected>지역 선택</option>
-            <option v-for="location in selectLocations" :value="location.locCategory">
+            <option
+              v-for="location in selectLocations"
+              :value="location.locCategory"
+            >
               {{ location.value }}
             </option>
           </select>
@@ -55,7 +61,7 @@
         </form>
       </div>
     </div>
-    <div>'{{ $route.query.keyword }}' 와 관련된 검색결과</div>
+    <div>'{{ searchOptions() }}' 와 관련된 검색결과</div>
     <hr />
 
     <div class="d-flex flex-row mb-6" id="subTitle">
@@ -104,22 +110,42 @@ export default {
         planCount: 0,
         spotList: [],
         spotCount: 0,
-        season: "",
-        category: "",
-        locCategory: "",
-        keyword: "",
       },
-      start: "",
-      end: "",
-      season: "",
-      category: 0,
-      locCategory: 0,
-      keyword: "",
+      season: this.$route.query.season ? this.$route.query.season : "",
+      category: this.$route.query.category ? this.$route.query.category : "",
+      locCategory: this.$route.query.locCategory
+        ? this.$route.query.locCategory
+        : "",
+      keyword: this.$route.query.keyword,
     };
   },
   methods: {
     detailSearch() {
-      location.href = `/search-detail?keyword=${this.keyword}&season=${this.detailSearchData.season}&category=${this.detailSearchData.category}&locCategory=${this.detailSearchData.locCategory}`;
+      location.href = `/search-detail?keyword=${this.keyword}&season=${this.season}&category=${this.category}&locCategory=${this.locCategory}`;
+    },
+    searchOptions() {
+      let options = "";
+      if (this.$route.query.season) {
+        options += this.selectSeason.find(
+          (list) => list.season == this.$route.query.season
+        ).value;
+        options += ", ";
+      }
+      if (this.$route.query.category) {
+        options += this.selectCategories.find(
+          (list) => list.category == this.$route.query.category
+        ).value;
+        options += ", ";
+      }
+      if (this.$route.query.locCategory) {
+        options += this.selectLocations.find(
+          (list) => list.locCategory == this.$route.query.locCategory
+        ).value;
+        options += ", ";
+      }
+      options += this.keyword;
+
+      return options;
     },
   },
   mounted() {
@@ -127,6 +153,7 @@ export default {
     this.$zido
       .getDetailSearchData(this.$route.query)
       .then((res) => (this.detailSearchData = res));
+    console.log(this.$route.query);
   },
 };
 </script>
