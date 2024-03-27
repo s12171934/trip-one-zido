@@ -40,7 +40,8 @@ public class SpotApiController {
             @Parameter(description = "로그인 회원 번호")
             Long sessionId
     ){
-        spotService.addSpot(requestSpot, sessionId);
+        requestSpot.setSessionId(sessionId);
+        spotService.addSpot(requestSpot);
     }
     @PutMapping("/{id}")
     @Operation(summary = "장소 게시물 수정")
@@ -51,13 +52,10 @@ public class SpotApiController {
 
             @RequestBody
             @Parameter(description = "장소 게시물 정보")
-            RequestSpot requestSpot,
-
-            @SessionAttribute(name = "id")
-            @Parameter(description = "로그인 회원 번호")
-            Long sessionId
+            RequestSpot requestSpot
     ){
-        spotService.updateSpot(id,requestSpot,sessionId);
+        requestSpot.setId(id);
+        spotService.updateSpot(requestSpot);
     }
     @DeleteMapping("/{id}")
     @Operation(summary = "장소 게시물 삭제")

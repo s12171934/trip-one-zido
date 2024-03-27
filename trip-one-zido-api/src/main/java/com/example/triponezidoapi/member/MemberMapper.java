@@ -38,12 +38,12 @@ public interface MemberMapper {
 
     //update
     void updateMember(Member member);
-    void updatePassword(RequestPassword requestPassword);
+    void updatePassword(RequestNewPassword requestNewPassword);
     void updateProfile(RequestPhoto requestPhoto);
     void updateNaverId(RequestSocialConnect requestSocialConnect);
     void updateKakaoId(RequestSocialConnect requestSocialConnect);
 
     //delete
-    void deleteMember(Long id, String password);
+    void deleteMember(Long id);
     void unFollow(RequestFollow requestFollow);
 }

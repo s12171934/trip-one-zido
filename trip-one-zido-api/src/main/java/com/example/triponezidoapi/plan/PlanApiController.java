@@ -15,6 +15,16 @@ public class PlanApiController {
     @Autowired
     PlanService planService;
 
+    @DeleteMapping("/{id}")
+    @Operation(summary = "일정 게시물 삭제")
+    public void deletePlan(
+            @PathVariable
+            @Parameter(description = "일정 게시물 번호")
+            Long id
+    ){
+        planService.deletePlan(id);
+    }
+
     @GetMapping("/{id}")
     @Operation(summary = "일정 게시물 세부 조회")
     public ResponsePlanDetail showPlanDetail(
@@ -26,8 +36,13 @@ public class PlanApiController {
             @Parameter(description = "로그인 회원 정보")
             Long sessionId
     ){
-        return planService.getPlan(id, sessionId);
+        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
+        requestSessionTarget.setTargetId(id);
+        requestSessionTarget.setMyMemberId(sessionId);
+
+        return planService.getPlan(requestSessionTarget);
     }
+
     @PostMapping("")
     @Operation(summary = "일정 게시물 등록")
     public void postPlan(
@@ -39,8 +54,10 @@ public class PlanApiController {
             @Parameter(description = "일정 게시물 정보")
             RequestPlan requestPlan
     ){
-        planService.addPlan(sessionId, requestPlan);
+        requestPlan.setSessionId(sessionId);
+        planService.addPlan(requestPlan);
     }
+
     @PutMapping("/{id}")
     @Operation(summary = "일정 게시물 수정")
     public void putPlan(
@@ -52,15 +69,7 @@ public class PlanApiController {
             @Parameter(description = "일정 게시물 정보")
             RequestPlan requestPlan
     ){
-        planService.updatePlan(id, requestPlan);
-    }
-    @DeleteMapping("/{id}")
-    @Operation(summary = "일정 게시물 삭제")
-    public void deletePlan(
-            @PathVariable
-            @Parameter(description = "일정 게시물 번호")
-            Long id
-    ){
-        planService.deletePlan(id);
+        requestPlan.setId(id);
+        planService.updatePlan(requestPlan);
     }
 }

@@ -7,5 +7,5 @@ public class RequestSessionTarget {
     long page;
     Long targetId;
     Long myMemberId;
-    String sort;
+    String sort = "created_at DESC";
 }

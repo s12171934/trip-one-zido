@@ -57,7 +57,7 @@ public class SpotService {
         return responseSpotDetail;
     }
 
-    public void addSpot(RequestSpot requestSpot, Long sessionId){
+    public Long addSpot(RequestSpot requestSpot){
         //addContent
         RequestContent requestContent = new RequestContent();
         requestContent.setType("spot");
@@ -81,7 +81,7 @@ public class SpotService {
 
         //addSpot
         requestSpot.setId(generatedId);
-        requestSpot.setProfile(sessionId);
+        requestSpot.setProfile(requestSpot.getSessionId());
         requestSpot.setLocCategory(LocationCode.getCode(requestSpot.getAddress()));
         requestSpot.setProfile(profileId);
         spotMapper.addSpot(requestSpot);
@@ -89,7 +89,7 @@ public class SpotService {
         //addOwner
         RequestOwner requestOwner = new RequestOwner();
         requestOwner.setOwn("writer");
-        requestOwner.setMemberId(sessionId);
+        requestOwner.setMemberId(requestSpot.getSessionId());
         requestOwner.setContentId(generatedId);
         contentMapper.addOwner(requestOwner);
 
@@ -105,9 +105,12 @@ public class SpotService {
                 contentMapper.addOwner(requestWithOwner);
             }
         }
+
+        return generatedId;
     }
 
-    public void updateSpot(Long id, RequestSpot requestSpot, Long sessionId){
+    public void updateSpot(RequestSpot requestSpot){
+        Long id = requestSpot.getId();
         //deletePhoto
         spotMapper.deletePhoto(id);
 
