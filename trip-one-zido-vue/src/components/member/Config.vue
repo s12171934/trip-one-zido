@@ -106,8 +106,8 @@ export default {
       this.$zido
         .getFollowList(
           this.followType,
-          this.memberPageData.id,
-          this.memberPageData.sessionId
+          this.configData.memberProfile.id,
+          this.configData.memberProfile.sessionId
         )
         .then((res) => (this.followList = res));
     },
