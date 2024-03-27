@@ -1,7 +1,6 @@
 <template>
   <main class="wrapper">
     <h1 class="title mb-5">상세검색</h1>
-
     <div class="row mb-3">
       <div class="col-md-3 mb-3">
         <h5>계절</h5>
@@ -13,7 +12,7 @@
             </option>
           </select>
         </div>
-        <br />
+        <br/>
       </div>
 
       <div class="col-md-3 mb-3">
@@ -29,7 +28,7 @@
             </option>
           </select>
         </div>
-        <br />
+        <br/>
       </div>
 
       <div class="col-md-3 mb-3">
@@ -62,7 +61,7 @@
       </div>
     </div>
     <div>'{{ searchOptions() }}' 와 관련된 검색결과</div>
-    <hr />
+    <hr/>
 
     <div class="d-flex flex-row mb-6" id="subTitle">
       <h3>
@@ -113,9 +112,7 @@ export default {
       },
       season: this.$route.query.season ? this.$route.query.season : "",
       category: this.$route.query.category ? this.$route.query.category : "",
-      locCategory: this.$route.query.locCategory
-        ? this.$route.query.locCategory
-        : "",
+      locCategory: this.$route.query.locCategory ? this.$route.query.locCategory : "",
       keyword: this.$route.query.keyword,
     };
   },
@@ -150,6 +147,7 @@ export default {
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    //POST -- /api/search
     this.$zido
       .getDetailSearchData(this.$route.query)
       .then((res) => (this.detailSearchData = res));
