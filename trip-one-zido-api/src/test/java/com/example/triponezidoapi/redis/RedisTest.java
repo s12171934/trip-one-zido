@@ -1,19 +1,13 @@
 package com.example.triponezidoapi.redis;
 
-import com.example.triponezidoapi.service.RedisService;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.example.triponezidoapi.search.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.ZSetOperations;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Slf4j
 @SpringBootTest
