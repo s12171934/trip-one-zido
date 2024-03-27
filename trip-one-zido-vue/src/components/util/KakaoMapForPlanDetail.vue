@@ -13,9 +13,11 @@ export default {
   async mounted() {
     const planData = await this.$zido.getPlanData(this.$route.params.id);
 
-    if(planData.spots.length != 0){
+    if (planData.spots.length != 0) {
       //일정 게시글에 딸린 장소가 있을 경우
-      planData.spots.sort((a, b) => new Date(a.startDate) - new Date(b.startDate))
+      planData.spots.sort(
+        (a, b) => new Date(a.startDate) - new Date(b.startDate)
+      );
       for (let spot of planData.spots) {
         const coordinate = await this.getCoordinate(spot.address);
         this.coordinates.push(coordinate);

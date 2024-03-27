@@ -8,6 +8,7 @@
   >
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
+        <!-- modal header -->
         <div class="modal-header border border-0">
           <button
             type="button"
@@ -16,7 +17,7 @@
             aria-label="Close"
           ></button>
         </div>
-
+        <!-- modal body -->
         <div
           v-if="securityId"
           class="m-5 modal-body border rounded-3"
@@ -41,7 +42,7 @@
         <div v-else class="m-5 modal-body border rounded-3" id="modalBox">
           <h3>비밀번호 찾기에<br />실패했습니다.</h3>
         </div>
-
+        <!-- modal footer -->
         <div class="modal-footer border border-0">
           <button
             v-if="securityId"
@@ -54,7 +55,7 @@
             보안답안 제출하기
           </button>
           <button
-          v-else
+            v-else
             @click="$router.push('/find')"
             type="button"
             class="rounded-3"
@@ -62,7 +63,6 @@
           >
             재시도
           </button>
-          <!-- <button type="button" class="rounded-3" style="color: aliceblue; background-color:#ff928e;" data-bs-dismiss="modal">아이디찾기</button> -->
         </div>
       </div>
     </div>
@@ -87,15 +87,17 @@ export default {
   },
   methods: {
     checkSecurity() {
-      this.$zido.checkSecurityAnswer(this.securityId, this.answer).then(result =>{
-        if(result) {
-          location.href = `/reset-pw/${this.securityId}`
-        } else {
-          this.$emit('securityFail')
-        }
-      })
+      this.$zido
+        .checkSecurityAnswer(this.securityId, this.answer)
+        .then((result) => {
+          if (result) {
+            location.href = `/reset-pw/${this.securityId}`;
+          } else {
+            this.$emit("securityFail");
+          }
+        });
     },
-  }
+  },
 };
 </script>
 

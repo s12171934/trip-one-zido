@@ -1,15 +1,19 @@
 <template>
   <main class="wrapper">
     <h1 id="mainTitle">
-      <span>{{ bookmark.loginId }}</span
-      >님이 찜한 게시글
+      <span>
+        {{ bookmark.loginId }}
+      </span>
+      님이 찜한 게시글
     </h1>
 
+    <!-- 일정 장소 게시물 목록 -->
     <div class="d-flex flex-row mb-6" id="subTitle">
       <h3>
-        ・모든 일정 & 장소 게시글<span>{{
-          bookmark.planSpotBookMarkCount
-        }}</span>
+        ・모든 일정 & 장소 게시글
+        <span>
+          {{ bookmark.planSpotBookMarkCount }}
+        </span>
       </h3>
     </div>
 
@@ -19,9 +23,13 @@
       :maxLen="bookmark.planSpotBookMarkCount"
     />
 
+    <!-- 관광지 게시물 목록 -->
     <div class="d-flex flex-row mb-6" id="subTitle">
       <h3>
-        ・모든 관광지<span>{{ bookmark.tourBookmarkCount }}</span>
+        ・모든 관광지
+        <span>
+          {{ bookmark.tourBookmarkCount }}
+        </span>
       </h3>
     </div>
 
@@ -52,15 +60,12 @@ export default {
       },
     };
   },
-  methods: {
-    maxLen(){
-      return this.bookmark.tourBookmarkCount;
-    }
-  },
   async mounted() {
+    //로그인 확인
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    //GET -- api/bookmark/{id}
     this.bookmark = await this.$zido.getBookmarkById(this.$route.params.id);
-    console.log(this.bookmark)
+    console.log(this.bookmark);
   },
 };
 </script>
@@ -80,12 +85,14 @@ span {
   margin-top: 5%;
 }
 
-@media (max-width: 1000px) { /* 원하는 크기로 설정 */
+@media (max-width: 1000px) {
+  /* 원하는 크기로 설정 */
 
-  #wrapper, #subTitle, #mainTitle {
-    white-space: nowrap; 
-    text-overflow: ellipsis; 
+  #wrapper,
+  #subTitle,
+  #mainTitle {
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
-
 }
 </style>
