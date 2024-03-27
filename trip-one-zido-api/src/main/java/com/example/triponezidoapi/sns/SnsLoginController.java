@@ -1,6 +1,7 @@
 package com.example.triponezidoapi.sns;
 
 import com.example.triponezidoapi.dto.request.*;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.Cookie;
@@ -17,10 +18,23 @@ import java.io.IOException;
 public class SnsLoginController {
     @Autowired
     SnsLoginService snsLoginService;
+
     @GetMapping("/naver_login")
-    void naverLogin(@Parameter String code, @Parameter String state, HttpServletResponse response, HttpServletRequest request) throws IOException {
+    @Operation(summary = "네이버 연동 로그인")
+    void naverLogin(
+        @Parameter
+        String code,
+        @Parameter
+        String state,
+        HttpServletResponse response,
+        HttpServletRequest request
+    )   throws IOException {
         String id = snsLoginService.naverLogin(code,state);
-        if(snsLoginService.isConnected("naver_id", id, request)){
+        RequestSocialConnect requestSocialConnect = new RequestSocialConnect();
+        requestSocialConnect.setSocialType("naver_id");
+        requestSocialConnect.setSocialId(id);
+
+        if(snsLoginService.isConnected(requestSocialConnect, request)){
             Cookie loginCookie = new Cookie("login","1");
             loginCookie.setPath("/");
             response.addCookie(loginCookie);
@@ -29,13 +43,22 @@ public class SnsLoginController {
         else{
             response.sendRedirect("http://localhost:3000/social/naver/" + id);
         }
-
     }
 
     @GetMapping("/kakao_login")
-    void kakoLogin(@Parameter String code, HttpServletResponse response,  HttpServletRequest request) throws IOException {
+    @Operation(summary = "카카오 연동 로그인")
+    void kakoLogin(
+        @Parameter
+        String code,
+        HttpServletResponse response,
+        HttpServletRequest request
+    )   throws IOException {
         String id = snsLoginService.kakaoLogin(code);
-        if(snsLoginService.isConnected("kakao_id", id, request)){
+        RequestSocialConnect requestSocialConnect = new RequestSocialConnect();
+        requestSocialConnect.setSocialType("kakao_id");
+        requestSocialConnect.setSocialId(id);
+
+        if(snsLoginService.isConnected(requestSocialConnect, request)){
             Cookie loginCookie = new Cookie("login","1");
             loginCookie.setPath("/");
             response.addCookie(loginCookie);
@@ -44,11 +67,13 @@ public class SnsLoginController {
         else{
             response.sendRedirect("http://localhost:3000/social/kakao/" + id);
         }
-
     }
 
     @PutMapping("")
-    void connectWithMember(@RequestBody RequestSocialConnect requestSocialConnect){
+    @Operation(summary = "로그인 연동")
+    void connectWithMember(
+        @RequestBody RequestSocialConnect requestSocialConnect
+    ){
         snsLoginService.connect(requestSocialConnect);
     }
 }

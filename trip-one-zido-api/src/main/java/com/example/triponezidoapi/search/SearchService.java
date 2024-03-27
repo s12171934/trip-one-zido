@@ -13,18 +13,9 @@ public class SearchService {
     @Autowired
     SearchMapper searchMapper;
 
-    private RequestSearch setRequsetSearch(Long id, String keyword, long page){
-        RequestSearch requestSearch = new RequestSearch();
-        requestSearch.setMyMemberId(id);
-        requestSearch.setKeyword(keyword);
-        requestSearch.setPage(page);
-
-        return requestSearch;
-    }
-
-    public ResponseSearch searchByKeyword(Long id, String keyword, long page){
-        RequestSearch requestSearch = setRequsetSearch(id,keyword,page);
-
+    // GET
+    // 기본 검색
+    public ResponseSearch searchByKeyword(RequestSearch requestSearch){
         ResponseSearch responseSearch = new ResponseSearch();
         //searchMember
         responseSearch.setMemberList(searchMapper.searchMember(requestSearch));
@@ -34,49 +25,47 @@ public class SearchService {
         responseSearch.setSpotList(searchMapper.searchSpot(requestSearch));
 
         //검색 결과의 카운트 처리
-        responseSearch.setMemberCount(searchMapper.countMember(keyword));
+        responseSearch.setMemberCount(searchMapper.countMember(requestSearch.getKeyword()));
         responseSearch.setPlanCount(searchMapper.countPlan(requestSearch));
         responseSearch.setSpotCount(searchMapper.countSpot(requestSearch));
 
-        responseSearch.setKeyword(keyword);
+        responseSearch.setKeyword(requestSearch.getKeyword());
 
         return responseSearch;
     }
-
-    public List<ResponseContentList> moreSpotByKeyword(Long id, String keyword, long page){
+    public List<ResponseContentList> moreSpotByKeyword(RequestSearch requestSearch){
+        long page = requestSearch.getPage();
         if(page != 0){
             page = page * 6;
+            requestSearch.setPage(page);
         }
-        RequestSearch requestSearch = setRequsetSearch(id,keyword,page);
         return searchMapper.searchSpot(requestSearch);
     }
-
-    public List<ResponseContentList> morePlanByKeyword(Long id, String keyword, long page){
+    public List<ResponseContentList> morePlanByKeyword(RequestSearch requestSearch){
+        long page = requestSearch.getPage();
         if(page != 0){
             page = page * 6;
+            requestSearch.setPage(page);
         }
-        RequestSearch requestSearch = setRequsetSearch(id,keyword,page);
         return searchMapper.searchPlan(requestSearch);
     }
-
-    public List<ResponseMember> moreMemberByKeyword(Long id, String keyword, long page){
+    public List<ResponseMember> moreMemberByKeyword(RequestSearch requestSearch){
+        long page = requestSearch.getPage();
         if(page != 0){
             page = page * 6;
+            requestSearch.setPage(page);
         }
-        RequestSearch requestSearch = setRequsetSearch(id,keyword,page);
         return searchMapper.searchMember(requestSearch);
     }
 
-    RequestDetailSearch setDetailSearch(Long id, RequestDetailSearch detailSearch, long page){
-        //detailSearchPlan 및 detailSearchSpot 에 필요한 MyMemberId 값 추가
-        detailSearch.setMyMemberId(id);
-        detailSearch.setPage(page);
-
+    // POST
+    // 상세 검색
+    // 기간 검색(계절별 기간 지정)
+    RequestDetailSearch setSeasonSearch(RequestDetailSearch detailSearch){
         if(detailSearch.getSeason() == null){
             detailSearch.setSeason("");
         }
 
-        // 기간검색 시즌이라는 정해진 category로 오는 경우
         switch (detailSearch.getSeason()){
             // 봄 3~5
             case "spring":
@@ -98,6 +87,7 @@ public class SearchService {
                 detailSearch.setStartMonth("1");
                 detailSearch.setEndMonth("2");
                 break;
+            // 입력이 없을 때 기본 1~12
             default:
                 detailSearch.setStartMonth("1");
                 detailSearch.setEndMonth("12");
@@ -106,76 +96,38 @@ public class SearchService {
         return detailSearch;
     }
 
-    public ResponseSearch searchByDetail(Long id, RequestDetailSearch detailSearch, long page){
+    public ResponseSearch searchByDetail(RequestDetailSearch detailSearch){
         ResponseSearch responseSearch = new ResponseSearch();
-        //기본검색 페이지에서 상세검색 버튼 누르는 경우 (값이 전부 비어있음)
-//        if(detailSearch.getSeason() == null && detailSearch.getCategory() == 0 && detailSearch.getLocCategory() ==0 ){
-//            detailSearch.setMyMemberId(id);
-//            detailSearch.setPage(page);
-//            detailSearch.setCategory(1);
-//            detailSearch.setLocCategory(11);
-//
-//            if(detailSearch.getLocCategory() == 0){
-//                detailSearch.setLocCategory(null);
-//            }
-//
-//            if(detailSearch.getCategory() == 0){
-//                detailSearch.setCategory(null);
-//            }
-//
-//
-//            responseSearch.setPlanList(searchMapper.detailSearchPlan(detailSearch));
-//            responseSearch.setSpotList(searchMapper.detailSearchSpot(detailSearch));
-//
-//            responseSearch.setPlanCount(searchMapper.countDetailPlan(detailSearch));
-//            responseSearch.setSpotCount(searchMapper.countDetailSpot(detailSearch));
-//
-//            responseSearch.setCategory(0);
-//            responseSearch.setLocCategory(0);
-//        } else {
-//            if(detailSearch.getSeason() != null){
-        detailSearch = setDetailSearch(id, detailSearch, page);
-//               }
 
         //detailSearchSpot
-        responseSearch.setSpotList(searchMapper.detailSearchSpot(detailSearch));
+        responseSearch.setSpotList(searchMapper.detailSearchSpot(setSeasonSearch(detailSearch)));
         //detailSearchPlan
-        responseSearch.setPlanList(searchMapper.detailSearchPlan(detailSearch));
+        responseSearch.setPlanList(searchMapper.detailSearchPlan(setSeasonSearch(detailSearch)));
 
         responseSearch.setKeyword(detailSearch.getKeyword());
-//            if(detailSearch.getLocCategory() == null){
-//                responseSearch.setLocCategory(0);
-//            } else {
-//                responseSearch.setLocCategory(detailSearch.getLocCategory());
-//            }
-//
-//            if(detailSearch.getCategory() == null){
-//                responseSearch.setCategory(0);
-//            } else {
-//                responseSearch.setCategory(detailSearch.getCategory());
-//            }
 
         //검색 결과의 카운트 처리
-        responseSearch.setPlanCount(searchMapper.countDetailPlan(detailSearch));
-        responseSearch.setSpotCount(searchMapper.countDetailSpot(detailSearch));
+        responseSearch.setPlanCount(searchMapper.countDetailPlan(setSeasonSearch(detailSearch)));
+        responseSearch.setSpotCount(searchMapper.countDetailSpot(setSeasonSearch(detailSearch)));
 
-//        }
         return responseSearch;
     }
 
-    public List<ResponseContentList> moreSpotByDetail(Long id, RequestDetailSearch detailSearch, long page){
+    public List<ResponseContentList> moreSpotByDetail(RequestDetailSearch detailSearch){
+        long page = detailSearch.getPage();
         if(page != 0){
             page = page * 6;
+            detailSearch.setPage(page);
         }
-        detailSearch = setDetailSearch(id,detailSearch,page);
-        return searchMapper.detailSearchSpot(detailSearch);
+        return searchMapper.detailSearchSpot(setSeasonSearch(detailSearch));
     }
 
-    public List<ResponseContentList> morePlanByDetail(Long id, RequestDetailSearch detailSearch, long page){
+    public List<ResponseContentList> morePlanByDetail(RequestDetailSearch detailSearch){
+        long page = detailSearch.getPage();
         if(page != 0){
             page = page * 6;
+            detailSearch.setPage(page);
         }
-        detailSearch = setDetailSearch(id,detailSearch,page);
-        return searchMapper.detailSearchPlan(detailSearch);
+        return searchMapper.detailSearchPlan(setSeasonSearch(detailSearch));
     }
 }

@@ -22,6 +22,8 @@ import java.util.Map;
 public class SnsLoginService {
     @Autowired
     MemberMapper memberMapper;
+
+    //GET
     public String naverLogin(String code, String state) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -56,13 +58,11 @@ public class SnsLoginService {
                 ,String.class);
 
         map = objectMapper.readValue(naverInfo.getBody(),Map.class);
+
         return (String)((LinkedHashMap)map.get("response")).get("id");
     }
 
-    public boolean isConnected(String snsType, String snsId, HttpServletRequest request) {
-        RequestSocialConnect requestSocialConnect = new RequestSocialConnect();
-        requestSocialConnect.setSocialType(snsType);
-        requestSocialConnect.setSocialId(snsId);
+    public boolean isConnected(RequestSocialConnect requestSocialConnect, HttpServletRequest request) {
         boolean isConnected = memberMapper.isConnectedWithSns(requestSocialConnect) == 1;
         if(isConnected) {
             Long id = memberMapper.getIdBySnsId(requestSocialConnect);
@@ -74,6 +74,7 @@ public class SnsLoginService {
     public String kakaoLogin(String code) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         ObjectMapper objectMapper = new ObjectMapper();
+
         MultiValueMap<String,String> dto = new LinkedMultiValueMap<>();
         dto.add("grant_type","authorization_code");
         dto.add("client_id","9f43f99ff692bc46c266ddd1b0118864");
@@ -103,9 +104,11 @@ public class SnsLoginService {
                 ,String.class);
 
         map = objectMapper.readValue(kakaoInfo.getBody(),Map.class);
+
         return String.valueOf(map.get("id"));
     }
 
+    //PUT
     public void connect(RequestSocialConnect requestSocialConnect){
         if(requestSocialConnect.getSocialType().equals("naver")){
             memberMapper.updateNaverId(requestSocialConnect);

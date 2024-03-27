@@ -285,19 +285,6 @@
             login_id LIKE CONCAT('%', #{keyword}, '%')
     </select>
 
-    <select id="countPlan" parameterType="com.example.triponezidoapi.dto.request.RequestSearch" resultType="int">
-        SELECT
-            COUNT(*)
-        FROM
-            content
-        WHERE
-            title LIKE CONCAT('%', #{keyword}, '%') AND type = 'plan' AND
-            (
-                visibility = 1 OR
-                id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
-            )
-    </select>
-
     <select id="countSpot" parameterType="com.example.triponezidoapi.dto.request.RequestSearch" resultType="int">
         SELECT
             COUNT(*)
@@ -309,6 +296,19 @@
                 visibility = 1 OR
                 id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
             )
+    </select>
+
+    <select id="countPlan" parameterType="com.example.triponezidoapi.dto.request.RequestSearch" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            content
+        WHERE
+            title LIKE CONCAT('%', #{keyword}, '%') AND type = 'plan' AND
+            (
+                        visibility = 1 OR
+                        id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+                )
     </select>
 
     <select id="countDetailSpot" parameterType="com.example.triponezidoapi.dto.request.RequestDetailSearch" resultType="int">

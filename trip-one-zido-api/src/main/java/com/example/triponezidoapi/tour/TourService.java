@@ -19,41 +19,19 @@ public class TourService {
     @Autowired
     SpotMapper spotMapper;
 
-    public ResponseTourList getTourList(Long sessionId, int loc, Long page){
-        if(page != 0 ){
-            page = page * 6;
-        }
-        //응답객체
-        ResponseTourList responseTourList = new ResponseTourList();
-        //요청
-        RequestTourList requestTourList = new RequestTourList(page,loc,sessionId);
-        responseTourList.setTourLists(tourMapper.getTourList(requestTourList));
-        responseTourList.setTourListCount((tourMapper.getTourListCount(requestTourList)));
+    //GET
+    public ResponseTour getTour(RequestSessionTarget requestSessionTarget){
+        Long id = requestSessionTarget.getTargetId();
 
-        return responseTourList;
-    }
-    public List<ResponseTour> getTourListPage(Long sessionId, int loc, Long page){
-        if(page != 0 ){
-            page = page * 6;
-        }
-        RequestTourList requestTourList = new RequestTourList(page,loc,sessionId);
-        return tourMapper.getTourList(requestTourList);
-    }
-
-    public ResponseTour getTour(Long sessionId, Long id){
-        RequestSessionTarget requestSessionTarget = new RequestSessionTarget();
-        requestSessionTarget.setTargetId(id);
-        requestSessionTarget.setMyMemberId(sessionId);
         ResponseTour responseTour = tourMapper.getTour(requestSessionTarget);
 
-        //관광 정보 상세페이지 관광정보 이전/다음페이지 정보 - ParkJhh
-        //만약 앞 관광정보가 존재하지 않는다면
+        //관광 정보 상세페이지 관광정보 이전/다음페이지 정보
         if(tourMapper.getPrevId(id) == null){
             responseTour.setPrevId(0);
         } else {
             responseTour.setPrevId(tourMapper.getPrevId(id));
         }
-        //만약 다음 관광정보가 존재하지 않는다면
+
         if(tourMapper.getNextId(id) == null){
             responseTour.setNextId(0);
         } else {
@@ -62,12 +40,36 @@ public class TourService {
         return responseTour;
     }
 
+    public ResponseTourList getTourList(RequestTourList requestTourList){
+        long page = requestTourList.getPage();
+        if(page != 0 ){
+            page = page * 6;
+            requestTourList.setPage(page);
+        }
+
+        ResponseTourList responseTourList = new ResponseTourList();
+        responseTourList.setTourLists(tourMapper.getTourList(requestTourList));
+        responseTourList.setTourListCount((tourMapper.getTourListCount(requestTourList)));
+        return responseTourList;
+    }
+
+    public List<ResponseTour> getTourListPage(RequestTourList requestTourList){
+        long page = requestTourList.getPage();
+        if(page != 0 ){
+            page = page * 6;
+            requestTourList.setPage(page);
+        }
+        return tourMapper.getTourList(requestTourList);
+    }
+
+    //POST
     public void addTour(RequestTour requestTour) {
         // addContent
         RequestContent requestContent = new RequestContent();
         requestContent.setType("tour");
         requestContent.setTitle(requestTour.getTitle());
         contentMapper.addContent(requestContent);
+
         //Content 테이블에 추가한 이후에 생성된 id를 가져옴
         Long generatedId = requestContent.getId();
 
