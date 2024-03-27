@@ -13,7 +13,15 @@ import org.springframework.web.bind.annotation.*;
 public class CommentApiController {
     @Autowired
     CommentService commentService;
-
+    @DeleteMapping("/{id}")
+    @Operation(summary = "댓글 삭제")
+    public void deleteComment(
+            @PathVariable
+            @Parameter(description = "삭제할 댓글 번호")
+            Long id
+    ){
+        commentService.deleteComment(id);
+    }
     @PostMapping("")
     @Operation(summary = "댓글 등록")
     public void postComment(
@@ -25,7 +33,8 @@ public class CommentApiController {
             @Parameter(description = "댓글 등록 정보")
             RequestComment requestComment
     ){
-        commentService.addComment(sessionId, requestComment);
+        requestComment.setMemberId(sessionId);
+        commentService.addComment(requestComment);
     }
     @PutMapping("/{id}")
     @Operation(summary = "댓글 수정")
@@ -38,15 +47,7 @@ public class CommentApiController {
             @Parameter(description = "수정 내용")
             RequestComment requestComment
     ){
-        commentService.updateComment(id, requestComment);
-    }
-    @DeleteMapping("/{id}")
-    @Operation(summary = "댓글 삭제")
-    public void deleteComment(
-            @PathVariable
-            @Parameter(description = "삭제할 댓글 번호")
-            Long id
-    ){
-        commentService.deleteComment(id);
+        requestComment.setId(id);
+        commentService.updateComment(requestComment);
     }
 }
