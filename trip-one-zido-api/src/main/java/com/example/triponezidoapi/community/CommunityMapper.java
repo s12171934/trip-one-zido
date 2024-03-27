@@ -17,7 +17,6 @@ public interface CommunityMapper {
     List<ResponseCommunity> getCommunityListWithSearch(RequestCommunitySearch requestCommunitySearch);
     Long getNextId(Long id);
     Long getPrevId(Long id);
-
     Long getCommunityCount();
     Long getCommunitySearchCount(RequestCommunitySearch requestCommunitySearch);
 

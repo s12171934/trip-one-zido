@@ -42,19 +42,19 @@ public class LocationCode {
             case "충청" :
                 if(address.charAt(2) == '북'){
                     return 33;
-                } else{
+                } else {
                     return 34;
                 }
             case "전라" :
                 if(address.charAt(2) == '북'){
                     return 35;
-                } else{
+                } else {
                     return 36;
                 }
             case "경상" :
                 if(address.charAt(2) == '북'){
                     return 37;
-                } else{
+                } else {
                     return 38;
                 }
             default:
