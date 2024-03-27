@@ -8,6 +8,7 @@
   >
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
+        <!-- modal header -->
         <div class="modal-header border border-0">
           <button
             type="button"
@@ -16,11 +17,11 @@
             aria-label="Close"
           ></button>
         </div>
-
+        <!-- modal body -->
         <div class="m-5 modal-body border rounded-3" id="picBox">
           <img id="configPicUpdate" :src="img" alt="" />
         </div>
-
+        <!-- modal footer -->
         <div class="modal-footer border border-0">
           <label for="file"
             ><a class="button rounded-3 m-0">사진 찾기</a></label
@@ -52,13 +53,13 @@
 export default {
   data() {
     return {
-      img: '/images/남자.png',
+      img: "/images/남자.png",
     };
   },
   methods: {
     async getFileName(files) {
       this.img = files[0];
-      console.log(this.img)
+      console.log(this.img);
       await this.base64(this.img);
     },
     base64(file) {
@@ -68,19 +69,21 @@ export default {
           resolve(e.target.result);
           this.img = e.target.result;
           console.log(this.img);
-          console.log('check')
+          console.log("check");
         };
         fileReader.readAsDataURL(file);
       });
     },
-    submitButton(){
-      this.$zido.editProfileImg(this.img)
-      location.href = '/config'
-    }
+    submitButton() {
+      this.$zido.editProfileImg(this.img);
+      location.href = "/config";
+    },
   },
-  mounted(){
-    this.$zido.getProfileImg().then((res) => this.img = `data:image/jpeg;base64,${res}`)
-  }
+  mounted() {
+    this.$zido
+      .getProfileImg()
+      .then((res) => (this.img = `data:image/jpeg;base64,${res}`));
+  },
 };
 </script>
 
@@ -104,7 +107,8 @@ label {
 }
 
 @media (max-width: 415px) {
-  button, label {
+  button,
+  label {
     font-size: 14px;
   }
   .modal-footer {
@@ -114,15 +118,15 @@ label {
 
 @media (max-width: 410px) {
   img {
-  width: 250px;
-  height: 250px;
+    width: 250px;
+    height: 250px;
   }
 }
 
 @media (max-width: 400px) {
   img {
-  width: 240px;
-  height: 240px;
+    width: 240px;
+    height: 240px;
   }
   .modal-footer {
     width: 365px;
@@ -131,8 +135,8 @@ label {
 
 @media (max-width: 385px) {
   img {
-  width: 230px;
-  height: 230px;
+    width: 230px;
+    height: 230px;
   }
   .modal-footer {
     width: 355px;
@@ -141,10 +145,11 @@ label {
 
 @media (max-width: 380px) {
   img {
-  width: 220px;
-  height: 220px;
+    width: 220px;
+    height: 220px;
   }
-  button, label {
+  button,
+  label {
     font-size: 12px;
   }
   .modal-footer {
@@ -154,8 +159,8 @@ label {
 
 @media (max-width: 360px) {
   img {
-  width: 200px;
-  height: 200px;
+    width: 200px;
+    height: 200px;
   }
   .modal-footer {
     width: 320px;
@@ -164,8 +169,8 @@ label {
 
 @media (max-width: 340px) {
   img {
-  width: 180px;
-  height: 180px;
+    width: 180px;
+    height: 180px;
   }
   .modal-footer {
     width: 310px;

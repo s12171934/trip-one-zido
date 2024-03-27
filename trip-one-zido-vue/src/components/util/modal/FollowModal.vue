@@ -6,9 +6,9 @@
     aria-labelledby="followModalLabel"
     aria-hidden="true"
   >
-    <!-- Vertically centered scrollable modal -->
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
+        <!-- modal header -->
         <div class="modal-header border border-0">
           <button
             class="btn-close"
@@ -16,6 +16,7 @@
             aria-label="Close"
           />
         </div>
+        <!-- modal body -->
         <div class="m-4 modal-body border rounded-3" id="followType">
           <h4>{{ type === "follower" ? "팔로워" : "팔로잉" }} 목록</h4>
         </div>

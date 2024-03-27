@@ -17,7 +17,7 @@ export default {
   },
   mounted() {
     this.loadMap();
-  },  
+  },
   methods: {
     async loadMap() {
       await this.getAccessToken();
@@ -34,7 +34,7 @@ export default {
 
       for (let locmap of data.locCode) {
         this.getPolygon(locmap);
-      };
+      }
     },
 
     async getAccessToken() {
@@ -65,8 +65,8 @@ export default {
           const polygonPaths = [];
           for (let paths of coordinates) {
             const polygonPath = [];
-            if(coordinates.length != 1 && locmap != 31){
-              paths = paths[0]
+            if (coordinates.length != 1 && locmap != 31) {
+              paths = paths[0];
             }
             for (let path of paths) {
               var proj4 = require("proj4");
@@ -79,21 +79,20 @@ export default {
                 new window.kakao.maps.LatLng(transPath[1], transPath[0])
               );
             }
-            polygonPaths.push(polygonPath)
+            polygonPaths.push(polygonPath);
           }
           return polygonPaths;
         })
         .then((polygonPaths) => {
           if (!polygonPaths) return; // 데이터가 없으면 처리 중단
           let count = 0;
-          for(let loc of this.locMap){
-            if(loc.code == locmap){
+          for (let loc of this.locMap) {
+            if (loc.code == locmap) {
               count = loc.count;
             }
           }
           for (let polygonPath of polygonPaths) {
-            if (count !== 0) {
-              const polygon = new kakao.maps.Polygon({
+            const polygon = new kakao.maps.Polygon({
               path: polygonPath,
               strokeWeight: 2,
               strokeColor: "#ff928e",
@@ -101,9 +100,8 @@ export default {
               strokeStyle: "solid",
               fillColor: data.locFrequencyColor[Math.floor(count)],
               fillOpacity: 1,
-              });
-              polygon.setMap(this.map);
-            }
+            });
+            polygon.setMap(this.map);
           }
         });
     },
