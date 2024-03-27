@@ -20,7 +20,7 @@ public interface MemberMapper {
     List<ResponseMember> followerList(RequestSessionTarget requestSessionTarget);
     List<ResponseMember> followingList(RequestSessionTarget requestSessionTarget);
     int postCount(long id);
-    long getIdByLoginId(String loginId);
+    Long getIdByLoginId(String loginId);
     long getId(RequestFind requestFind);
     ResponseMember getLogin(Login login);
     ResponseMember getAutoLogin(Login login);
