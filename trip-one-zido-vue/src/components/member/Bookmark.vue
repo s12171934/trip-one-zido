@@ -1,15 +1,12 @@
 <template>
   <main class="wrapper">
     <h1 id="mainTitle">
-      <span>{{ bookmark.loginId }}</span
-      >님이 찜한 게시글
+      <span>{{ bookmark.loginId }}</span>님이 찜한 게시글
     </h1>
 
     <div class="d-flex flex-row mb-6" id="subTitle">
       <h3>
-        ・모든 일정 & 장소 게시글<span>{{
-          bookmark.planSpotBookMarkCount
-        }}</span>
+        ・모든 일정 & 장소 게시글<span>{{ bookmark.planSpotBookMarkCount }}</span>
       </h3>
     </div>
 
@@ -59,6 +56,7 @@ export default {
   },
   async mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    //찜페이지 조회 GET -- api/bookmark/id
     this.bookmark = await this.$zido.getBookmarkById(this.$route.params.id);
     console.log(this.bookmark)
   },

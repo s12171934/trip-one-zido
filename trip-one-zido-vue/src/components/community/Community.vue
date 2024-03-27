@@ -5,7 +5,7 @@
       <br />
     </div>
 
-    <div v-show="!searchStatus" class="table-wrapper" id="centerPosition">
+    <div class="table-wrapper" id="centerPosition">
       <table>
         <thead>
           <tr>
@@ -34,40 +34,11 @@
       </table>
     </div>
 
-    <div v-show="searchStatus" class="table-wrapper" id="centerPosition">
-      <table>
-        <thead>
-          <tr>
-            <td>No.</td>
-            <td>제목</td>
-            <td>아이디</td>
-            <td>마감날짜</td>
-            <td>조회</td>
-            <td>모집</td>
-            <td>상태</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="list in searchList" id="tdList">
-            <td>{{ list.id }}</td>
-            <td @click="goToCommunityDetail(list.id)" id="cursor">
-              {{ list.title }}
-            </td>
-            <td>{{ list.writer }}</td>
-            <td>{{ list.deadLine }}</td>
-            <td>{{ list.viewPoint }}</td>
-            <td>{{ list.withCount }} / {{ list.total }}</td>
-            <td>{{ list.status }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
     <div class="d-grid gap-2 justify-content-md-end">
       <a @click="add" class="button small rounded-3" id="button-add">등록</a>
     </div>
-
-    <nav v-show="!searchStatus" aria-label="Page navigation example">
+    
+    <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center" id="pagination">
         <li :class="hasPrevPage() ? 'page-item' : 'page-item disabled'">
           <a class="page-link" @click="moveToPrevPage">Previous</a>
@@ -81,23 +52,8 @@
       </ul>
     </nav>
 
-    <nav v-show="searchStatus" aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
-        <li :class="hasPrevSearchPage() ? 'page-item' : 'page-item disabled'">
-          <a class="page-link" @click="moveToPrevSearchPage">Previous</a>
-        </li>
-        <li v-for="page in paginatedSearchPages" :key="page" :class="{'page-item': true, 'active': page === searchCurrentPage}">
-          <a class="page-link" @click="searchPageMove(page)">{{ page }}</a>
-        </li>
-        <li :class="hasNextSearchPage() ? 'page-item' : 'page-item disabled'">
-          <a class="page-link" @click="moveToNextSearchPage">Next</a>
-        </li>
-      </ul>
-    </nav>
-
     <!-- 검색창 -->
     <div class="col-md-9 mb-3 mt-5" id="searchBar">
-      <!-- <form action="#" method="POST" class="input-group"> -->
         <form @submit.prevent class="input-group">
         <div class="select-wrapper">
           <select class="local-select" v-model="form.type" id="category">
@@ -162,40 +118,32 @@ export default {
     const currentPageGroup = Math.ceil(this.currentPage / this.maxPageOnScreen);
     let startPage = (currentPageGroup - 1) * this.maxPageOnScreen + 1;
     let endPage = Math.min(startPage + this.maxPageOnScreen - 1, totalPages);
-    
     // 현재 페이지 그룹이 마지막 페이지 그룹이 아닌 경우에만 이전 페이지 그룹을 표시함
     if (currentPageGroup > 1) {
-      startPage = (currentPageGroup - 1) * this.maxPageOnScreen + 1;
-    }
+        startPage = (currentPageGroup - 1) * this.maxPageOnScreen + 1;
+      }
       return Array(endPage - startPage + 1).fill().map((_, index) => startPage + index);
-  },
-  paginatedSearchPages() {
-    const searchTotalPages = Math.ceil(this.searchTotalCount / this.maxRecordsPerPage);
-    const searchCurrentPageGroup = Math.ceil(this.searchCurrentPage / this.maxPageOnScreen);
-    let searchStartPage = (searchCurrentPageGroup - 1) * this.maxPageOnScreen + 1;
-    let searchEndPage = Math.min(searchStartPage + this.maxPageOnScreen - 1, searchTotalPages);
-    
-    // 현재 페이지 그룹이 마지막 페이지 그룹이 아닌 경우에만 이전 페이지 그룹을 표시함
-    if (searchCurrentPageGroup > 1) {
-      searchStartPage = (searchCurrentPageGroup - 1) * this.maxPageOnScreen + 1;
-    }
-      return Array(searchEndPage - searchStartPage + 1).fill().map((_, index) => searchStartPage + index);
     },
   },
   methods: {
-    add() { this.$router.push("/add/community"); },
-    goToCommunityDetail(id) { this.$router.push(`/community/${id}`); },
-    //이전 페이지
-    hasPrevPage() { return this.currentPage > 1;},
-    hasPrevSearchPage() { return this.searchCurrentPage > 1;},
-    //다음 페이지
-    hasNextPage() { return this.currentPage < this.totalCount / 6;},
-    hasNextSearchPage() { return this.searchCurrentPage < this.searchTotalCount / 6;},
-    //이전 페이지그룹 이동
-    moveToPrevPage() { if (this.hasPrevPage()) { this.pageMove(this.currentPage - 1)} },
-    moveToPrevSearchPage() { 
-      if (this.hasPrevSearchPage()) { this.searchPageMove(this.searchCurrentPage - 1)} },
-    //다음 페이지그룹 이동
+    add() { 
+      this.$router.push("/add/community"); 
+    },
+    goToCommunityDetail(id) { 
+      this.$router.push(`/community/${id}`); 
+    },
+    hasPrevPage() { 
+      return this.currentPage > 1;
+    },
+    hasNextPage() { 
+      return this.currentPage < this.totalCount / 6;
+    },
+    moveToPrevPage() { 
+      if (this.hasPrevPage()) { 
+        this.pageMove(this.currentPage - 1)
+      } 
+    },
+    //다음 페이지그룹(5개씩 한 그룹) 이동
     moveToNextPage() {
       const totalPages = Math.ceil(this.totalCount / this.maxRecordsPerPage);
       const currentPageGroup = Math.ceil(this.currentPage / this.maxPageOnScreen);
@@ -204,29 +152,20 @@ export default {
         this.pageMove(nextPageGroupStart);
       }
     },
-    moveToNextSearchPage(){
-      const totalPages = Math.ceil(this.searchTotalCount / this.maxRecordsPerPage);
-      const currentPageGroup = Math.ceil(this.currentPage / this.maxPageOnScreen);
-      const nextPageGroupStart = (currentPageGroup * this.maxPageOnScreen) + 1;
-      if (nextPageGroupStart <= totalPages) {
-        this.searchPageMove(nextPageGroupStart);
-      }
-    },
-    //번호로 이동
     pageMove(page) {
       const targetPage = page - 1; // 요청할 페이지 번호 계산
       this.currentPage = page; // 현재 페이지 번호 저장
-      this.$zido.getCommunityList(targetPage).then((res) => {
+      if(this.searchStatus){
+        this.$zido.searchCommunity(this.form,targetPage).then((res) => {
         this.communityList = res.communityList;
-      });
-    },
-    searchPageMove(page){
-      const targetPage = page - 1; // 요청할 페이지 번호 계산
-      this.searchCurrentPage = page;
-      this.$zido.searchCommunity(this.form,targetPage).then((res) => {
-        this.searchList = res.communityList;
-        this.searchTotalCount = res.totalCount;
-      });
+        this.totalCount = res.totalCount;
+        })
+      } else {
+        this.$zido.getCommunityList(targetPage).then((res) => {
+        this.communityList = res.communityList;
+        this.totalCount = res.totalCount;
+        })
+      };
     },
     communitySearch() {
       //카테고리일 경우 전체 검색으로 리셋
@@ -240,10 +179,11 @@ export default {
       //타입있고 키워드도 있는 경우
       if (this.form.type !== "" && this.form.keyword !== "") {
           this.currentPage = 0
+          //커뮤니티 검색 조회 GET -- api/community/search/page
           this.$zido.searchCommunity(this.form, this.currentPage).then((res) => {
-            this.searchList = res.communityList;
-            this.searchTotalCount = res.totalCount
-            this.searchCurrentPage = 1;
+            this.communityList = res.communityList;
+            this.totalCount = res.totalCount;
+            this.currentPage = 1;
             this.searchStatus = true;
         });
       } 
@@ -253,6 +193,7 @@ export default {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
     this.$zido
       // .getCommunityList(this.$route.query)
+      //커뮤니티 목록 조회 GET -- api/community/list/page
       .getCommunityList(0)
       .then((res) => {
         this.communityList = res.communityList;
