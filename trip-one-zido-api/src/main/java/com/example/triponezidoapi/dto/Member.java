@@ -3,7 +3,7 @@ package com.example.triponezidoapi.dto;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 public class Member {
@@ -38,7 +38,7 @@ public class Member {
     @Size(max = 200)
     String address2;
     @Past
-    LocalDateTime birth;
+    LocalDate birth;
     @NotNull
     int gender;
 }

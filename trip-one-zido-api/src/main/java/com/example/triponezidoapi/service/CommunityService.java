@@ -32,6 +32,7 @@ public class CommunityService {
         return responseCommunityList;
     }
     public ResponseCommunityDetail getCommunity(Long id, Long sessionId){
+        communityMapper.upViewPoint(id);
         //getCommunity 기본
         ResponseCommunityDetail responseCommunityDetail = communityMapper.getCommunity(id);
         //members(getOwner)

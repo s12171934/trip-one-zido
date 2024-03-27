@@ -92,7 +92,8 @@ export default {
             }
           }
           for (let polygonPath of polygonPaths) {
-            const polygon = new kakao.maps.Polygon({
+            if (count !== 0) {
+              const polygon = new kakao.maps.Polygon({
               path: polygonPath,
               strokeWeight: 2,
               strokeColor: "#ff928e",
@@ -100,9 +101,9 @@ export default {
               strokeStyle: "solid",
               fillColor: data.locFrequencyColor[Math.floor(count)],
               fillOpacity: 1,
-            });
-
-            polygon.setMap(this.map);
+              });
+              polygon.setMap(this.map);
+            }
           }
         });
     },

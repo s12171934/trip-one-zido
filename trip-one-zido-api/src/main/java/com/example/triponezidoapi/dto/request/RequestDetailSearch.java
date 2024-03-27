@@ -8,8 +8,8 @@ public class RequestDetailSearch {
     Long myMemberId;
     @Size(max = 300)
     String keyword;
-    int locCategory;
-    int category;
+    Integer locCategory;
+    Integer category;
     String season;
     String startMonth;
     String endMonth;
