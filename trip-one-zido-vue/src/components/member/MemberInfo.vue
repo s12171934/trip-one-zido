@@ -39,7 +39,7 @@
       <tr id="updateArea">
         <td>주소</td>
         <td>
-          <input type="text" id="zipcode" v-model="userInfo.zipcode" readonly />
+          <input type="text" id="zipcode" readonly />
         </td>
         <td>
           <!-- 다음 우편번호 주소검색 서비스 -->
@@ -60,7 +60,6 @@
             id="address"
             name="address"
             size="70"
-            v-model="userInfo.address"
             readonly
           />
         </td>
@@ -186,7 +185,7 @@ export default {
       this.$zido.updateUserInfo(this.userInfo);
     },
   },
-  async created() {
+  async mounted() {
     try {
       //GET -- api/member
       //GET -- api/member/signup
@@ -197,8 +196,6 @@ export default {
       console.error("회원정보 가져오기 오류:", error);
       // 에러 처리 로직 추가
     }
-  },
-  mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
     document.getElementById("zipcode").value = this.userInfo.zipcode;
     document.getElementById("address").value = this.userInfo.address;

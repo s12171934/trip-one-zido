@@ -170,7 +170,7 @@ export default {
     //GET -- api/page/follower/id
     //GET -- api/page/following/id
     async getFollowList(type) {
-      followType = type;
+      this.followType = type;
       this.followList = await this.$zido.getFollowList(
         this.followType,
         this.memberPageData.id,

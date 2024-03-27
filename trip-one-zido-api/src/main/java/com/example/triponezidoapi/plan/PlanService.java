@@ -58,7 +58,7 @@ public class PlanService {
         responsePlanDetail.setMembers(contentMapper.getWith(id));
         responsePlanDetail.setComments(commentService.getComments(id));
         responsePlanDetail.setMyGood(myGood);
-        responsePlanDetail.setMine(id.equals(sessionId));
+        responsePlanDetail.setMine(contentMapper.getWriter(id).getId().equals(sessionId));
         return responsePlanDetail;
     }
 

@@ -86,8 +86,8 @@ public class PageService {
             member,
             memberMapper.postCount(id),
             bookmarkMapper.bookmarkCount(id),
-            memberMapper.followerCount(id),
             memberMapper.followingCount(id),
+            memberMapper.followerCount(id),
             id.equals(sessionId)
         );
     }

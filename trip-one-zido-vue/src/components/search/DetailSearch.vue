@@ -71,8 +71,9 @@
 
     <ContentList
       :list="detailSearchData.planList"
-      :addApi="'/api/search/plan/page'"
+      :addApi="'/api/search/plan/'"
       :maxLen="detailSearchData.planCount"
+      :option="$route.query"
       method="post"
     />
 
@@ -84,8 +85,9 @@
 
     <ContentList
       :list="detailSearchData.spotList"
-      :addApi="'/api/search/spot/page'"
+      :addApi="'/api/search/spot/'"
       :maxLen="detailSearchData.spotCount"
+      :option="$route.query"
       method="post"
     />
   </main>
