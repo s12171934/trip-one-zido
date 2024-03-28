@@ -24,7 +24,9 @@
             <td @click="goToCommunityDetail(list.id)" id="cursor">
               {{ list.title }}
             </td>
-            <td>{{ list.writer }}</td>
+            <td>
+              <router-link :to="`/member-page/${list.writerId}`" id="black">{{ list.writer }}</router-link>
+            </td>
             <td>{{ list.deadline }}</td>
             <td>{{ list.viewPoint }}</td>
             <td>{{ list.withCount }} / {{ list.total }}</td>
@@ -89,6 +91,7 @@ export default {
       communityList: [{
         id: 0,
         title: null,
+        writerId: null,
         writer: null,
         deadline: null,
         viewPoint: null,

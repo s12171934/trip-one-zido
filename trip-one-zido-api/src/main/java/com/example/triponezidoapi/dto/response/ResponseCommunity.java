@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public class ResponseCommunity {
     Long id;
     String title;
+    Long writerId;
     String writer;
     LocalDate deadline;
     int viewPoint;
