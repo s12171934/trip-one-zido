@@ -4,8 +4,14 @@
     <div class="d-flex flex-column fill me-5" id="leftSide">
       <!-- 프로필 -->
       <div class="align-items-center mb-5">
-        <img
+        <!-- <img
           :src="`data:image/jpeg;base64,${memberPageData.responseMember.profile}`"
+          class="rounded-circle"
+        /> -->
+        <img
+          :src=" memberPageData.responseMember.profile 
+            ? `data:image/jpeg;base64,${memberPageData.responseMember.profile}`
+            : '/images/nomal.jpeg'"
           class="rounded-circle"
         />
         <span id="userName">{{ memberPageData.responseMember.loginId }}</span>
