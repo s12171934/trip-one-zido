@@ -124,16 +124,23 @@ public class PlanService {
         }
 
         //spotUpdate
-        for(int i =0; i < requestPlan.getSpots().size(); i++){
+        for(int i =0; i < requestPlan.getSpots().size(); i++) {
             RequestSpot requestSpot = requestPlan.getSpots().get(i);
-            if(requestSpot.getId() == 0){
+            if (requestSpot.getId() == 0) {
                 //새로운 장소 등록
+                requestSpot.setSessionId(requestPlan.getSessionId());
                 planSpot(requestSpot, requestPlan);
             } else {
                 //기존 글 수정
                 requestSpot.setVisibility((requestPlan.isVisibility()));
                 requestSpot.setMembers(requestPlan.getMembers());
                 spotService.updateSpot(requestSpot);
+            }
+        }
+        //spotDelete
+        if(requestPlan.getDeleteSpots() != null) {
+            for (int i = 0; i < requestPlan.getDeleteSpots().size(); i++) {
+                spotService.deleteSpot(requestPlan.getDeleteSpots().get(i));
             }
         }
     }
