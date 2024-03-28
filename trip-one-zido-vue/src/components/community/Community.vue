@@ -259,6 +259,7 @@ thead hd {
 }
 #black {
   color: black !important;
+  text-decoration: none;
 }
 table tbody tr {
   background-color: white !important;

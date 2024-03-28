@@ -295,6 +295,7 @@ thead {
 #black {
   width: 35%;
   color: black !important;
+  text-decoration: none;
 }
 table tbody tr {
   background-color: white !important;
