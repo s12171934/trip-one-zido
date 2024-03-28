@@ -22,7 +22,9 @@
         <span class="image round d-flex h-100 align-items-center" box-sha>
           <img
             @click="$router.push('/member-page')"
-            :src="`data:image/jpeg;base64,${img}`"
+            :src="img 
+              ? `data:image/jpeg;base64,${img}` 
+              : '/images/nomal.jpeg'"
             height="75" width="75"
           />
         </span>
@@ -117,6 +119,8 @@ export default {
     if(this.$cookies.get("login") != null){
       //프로필 사진 가져오기 GET -- api/member/profile
       this.$zido.getProfileImg().then((res) => this.img = res)
+      console.log("응답이미지값")
+      console.log(this.img)
     }
   }
 };

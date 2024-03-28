@@ -153,11 +153,14 @@
           parameterType="Long"
           resultType="int">
     SELECT
-      COUNT(*)
+      count(*)
     FROM
-      owner
+      owner o,
+      content c
     where
-      member_id = #{id}
+      o.member_id = #{id} AND
+      o.content_id = c.id AND
+      (c.type = 'plan' OR c.type = 'spot')
   </select>
 
   <select id="getIdByLoginId"
