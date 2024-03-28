@@ -266,12 +266,13 @@ REFERENCES `photo` (
   `id`
 );
 
-ALTER TABLE `photo` ADD CONSTRAINT `FK_spot_TO_photo_1` FOREIGN KEY (
+ALTER TABLE `photo` ADD CONSTRAINT `FK_content_TO_photo_1` FOREIGN KEY (
   `content_id`
 )
-REFERENCES `spot` (
+REFERENCES `content` (
   `id`
 );
+ON DELETE CASCADE;
 
 ALTER TABLE `comment` ADD CONSTRAINT `FK_content_TO_comment_1` FOREIGN KEY (
   `id`
@@ -412,4 +413,16 @@ ALTER TABLE `plan_spot` ADD CONSTRAINT `UK_plan_spot_1` UNIQUE KEY (
 ALTER TABLE `follow` ADD CONSTRAINT `CH_follow_1` CHECK (
   `follower` != `following`
 );
+
+INSERT INTO `security_questions` (`question`) VALUE ('어릴적 살던 고향은?');
+INSERT INTO `security_questions` (`question`) VALUE ('가장 가고 싶은 지역은?');
+INSERT INTO `security_questions` (`question`) VALUE ('다녔던 초등학교의 이름은?');
+INSERT INTO `security_questions` (`question`) VALUE ('가장 기억에 남는 여행 장소는?');
+INSERT INTO `security_questions` (`question`) VALUE ('가장 좋아하는 음식은?');
+INSERT INTO `security_questions` (`question`) VALUE ('가장 좋아하는 음료는?');
+INSERT INTO `security_questions` (`question`) VALUE ('인상깊게 읽었던 책은?');
+INSERT INTO `security_questions` (`question`) VALUE ('내 어릴적 별명은?');
+INSERT INTO `security_questions` (`question`) VALUE ('회원가입할 때 무슨 생각을 했을까?');
+INSERT INTO `security_questions` (`question`) VALUE ('나만의 가위바위보 전략은?');
+
 
