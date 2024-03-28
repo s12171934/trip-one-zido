@@ -11,6 +11,7 @@
       >
         <div class="d-flex gap-3">
           <input
+            @change="loginIdCheck = false"
             type="text"
             v-model="form.loginId"
             placeholder="사용할 아이디"
@@ -20,6 +21,7 @@
             data-bs-toggle="modal"
             data-bs-target="#alertModal"
             class="button"
+            :disabled="loginIdCheck"
           >
             아이디중복체크
           </button>
@@ -149,27 +151,53 @@ export default {
         id: "",
         question: "",
       },
+      loginIdCheck: false,
     };
   },
   methods: {
     //POST -- api/member/signup/loginId
-    checkLoginId() {
-      const res = this.$zido.checkLoginId(this.form.loginId);
+    async checkLoginId() {
+      const res = await this.$zido.checkLoginId(this.form.loginId);
       if (res) {
         this.modal = "checkDuplicationLoginIdSuccess";
+        this.loginIdCheck = true;
       } else {
         this.modal = "checkDuplicationLoginIdFail";
         this.form.loginId = "";
       }
     },
     //POST -- api/member/signup
-    signUp() {
+    async signUp() {
       this.form.zipcode = document.querySelector("#zipcode").value;
       this.form.address = document.querySelector("#address").value;
       this.form.address2 = document.querySelector("#address2").value;
       this.form.birth = new Date(this.form.birth);
 
-      const res = this.$zido.signUp(this.form);
+      if (!this.loginIdCheck) {
+        this.modal = "checkLoginIdFirst";
+        return;
+      }
+      if (
+        !/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{8,16}$/.test(
+          this.form.password
+        )
+      ) {
+        this.modal = "passwordValidFail";
+        return;
+      }
+      if (this.form.password != this.form.passwordCheck) {
+        this.modal = "passwordCheckFail";
+        return;
+      }
+      if (
+        !/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$/.test(
+          this.form.email
+        )
+      ) {
+        this.modal = "emailValidFail";
+        return;
+      }
+      const res = await this.$zido.signUp(this.form);
       if (res) {
         this.modal = "signUpSuccess";
       } else {

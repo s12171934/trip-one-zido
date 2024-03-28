@@ -109,6 +109,26 @@ export default {
       message: "중복된 ID입니다.",
       buttonMessage: "확인",
     },
+    checkLoginIdFirst: {
+      url: "",
+      message: "아이디 중복확인 이후<br />가입이 가능합니다.",
+      buttonMessage: "확인",
+    },
+    passwordValidFail: {
+      url: "",
+      message: "비밀번호 양식을<br />확인해주세요.",
+      buttonMessage: "확인",
+    },
+    passwordCheckFail: {
+      url: "",
+      message: "비밀번호 확인에<br />실패했습니다.",
+      buttonMessage: "확인",
+    },
+    emailValidFail: {
+      url: "",
+      message: "이메일 양식을<br />확인해주세요.",
+      buttonMessage: "확인",
+    },
     signUpSuccess: {
       url: "/login",
       message: "회원가입에<br />성공했습니다.",
