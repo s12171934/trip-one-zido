@@ -30,7 +30,9 @@
             <td id="tdTitle">제목 :</td>
             <td id="black">{{ detail.title }}</td>
             <td id="tdTitle" class="border-start">작성자 :</td>
-            <td >{{ detail.members[0].loginId }}</td>
+            <td>
+              <router-link :to="`/member-page/${detail.members[0].id}`" id="black">{{ detail.members[0].loginId }}</router-link>
+            </td>
           </tr>
 
           <tr class="border-bottom">
@@ -49,9 +51,9 @@
           <tr class="border-bottom">
             <td>참여 인원 :</td>
             <td colspan="3">
-              <span v-for="withMember in detail.members" class="me-2">{{
-                withMember.loginId
-              }}</span>
+              <span v-for="withMember in detail.members" class="me-2">
+                <router-link :to="`/member-page/${withMember.id}`" id="black">{{ withMember.loginId }}</router-link>
+              </span>
             </td>
           </tr>
 
@@ -144,6 +146,7 @@ export default {
         createdAt: null,
         modifiedAt: null,
         members: [{
+          id: null,
           loginId: null,
         }],
         mine: null,
@@ -292,6 +295,7 @@ thead {
 #black {
   width: 35%;
   color: black !important;
+  text-decoration: none;
 }
 table tbody tr {
   background-color: white !important;

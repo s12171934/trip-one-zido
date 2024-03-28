@@ -22,8 +22,8 @@
         }}
       </h6>
       <h6 class="left-css">
-        <span v-for="member in spotData.members">
-          {{ member.loginId }}
+        <span v-for="member in spotData.members" class="me-2">
+          <router-link :to="`/member-page/${member.id}`">{{ member.loginId }}</router-link>
         </span>
       </h6>
 

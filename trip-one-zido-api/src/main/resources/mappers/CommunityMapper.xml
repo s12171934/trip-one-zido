@@ -57,6 +57,17 @@
                 content_id = content.id
             ) with_count,
             (
+                SELECT
+                    m.id
+                FROM
+                    member m,
+                    owner o
+                WHERE
+                    m.id = o.member_id AND
+                    o.own = 'writer' AND
+                    o.content_id = content.id
+            ) writerId,
+            (
             SELECT
                 login_id
             FROM
