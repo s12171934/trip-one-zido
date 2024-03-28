@@ -161,8 +161,8 @@ export default {
       return !this.$route.params.id ||
         this.$route.params.id == this.memberPageData.sessionId
         ? "프로필 편집"
-        : memberPageData.responseMember.follow
-        ? hover
+        : this.memberPageData.responseMember.follow
+        ? this.hover
           ? "언 팔로우"
           : "팔로잉 중"
         : "팔로우";
