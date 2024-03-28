@@ -1,4 +1,5 @@
 import data from "@/assets/data";
+import { options } from "@fullcalendar/core/preact";
 import axios from "axios";
 
 export default {
@@ -450,7 +451,7 @@ export default {
   },
 
   //설정 페이지 조회
-  // ★미구현 GET -- api/member/config
+  //GET -- api/member/config
   getConfigData() {
     return axios
       .get(`/api/member/config`, {})
@@ -682,13 +683,13 @@ export default {
   //api/search/keyword/plan/page
   //POST -- api/search/spot/page
   //POST -- api/search/plan/page
-  async newContents(addApi, page, method, Options) {
+  async newContents(addApi, page, method, options) {
     let res = null;
     if (method) {
-      res = await axios.post(addApi + '/' + page, Options);
+      res = await axios.post(addApi + page, options);
     } else {
-      res = await axios.get(addApi + '/' + page + '?' + Options);
-      console.log(addApi + '/' + page + '?' + Options)
+      res = await axios.get(addApi + page + "?" + options);
+      console.log(addApi + "/" + page + "?" + options);
     }
     return res.data;
   },
@@ -854,10 +855,10 @@ export default {
   //관광지 상세 조회
   //GET -- api/tour/id
   async getTourData(id) {
-    try{
+    try {
       const res = await axios.get(`/api/tour/${id}`);
       return res.data;
-    }catch (error) {
+    } catch (error) {
       console.error("관광지 상세 조회 요청 오류", error);
       throw error;
     }
@@ -866,11 +867,11 @@ export default {
   //관광지 목록 조회
   //GET -- api/tour/list/loc
   async getTourList(loc) {
-    try{
+    try {
       const res = await axios.get(`/api/tour/list/${loc}`);
-      console.log(res.data)
+      console.log(res.data);
       return res.data;
-    }catch (error) {
+    } catch (error) {
       console.error("관광지 목록 조회 요청 오류", error);
       throw error;
     }

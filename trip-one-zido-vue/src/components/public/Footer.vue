@@ -4,7 +4,8 @@
       <h2>여행한 지도</h2>
       <ul class="actions">
         <li>
-          <span class="icon fa-phone"></span> <a href="#">(000) 000-0000</a>
+          <span class="icon fa-phone"></span>
+          <a href="#">(000) 000-0000</a>
         </li>
         <li>
           <span class="icon fa-envelope"></span>

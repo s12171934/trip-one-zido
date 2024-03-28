@@ -170,7 +170,7 @@ public class MemberApiController {
             @Parameter(description = "프로필 사진")
             RequestPhoto profile
     ){
-        profile.setId(sessionId);
+        profile.setContentId(sessionId);
         memberService.updateProfile(profile);
     }
     @PutMapping("/password")

@@ -43,6 +43,19 @@ export default {
       this.$emit("grade", 2 * idx + star);
     },
   },
+  watch: {
+    grade() {
+      for (let i = 0; i < this.grade / 2; i++) {
+        this.stars[i] = "/images/fullStar.png";
+      }
+      for (let i = 4; i >= this.grade / 2; i--) {
+        this.stars[i] = "/images/emptyStar.png";
+      }
+      if(this.grade%2 != 0){
+        this.stars[(this.grade - 1)/2] = "/images/halfStar.png"
+      }
+    },
+  },
 };
 </script>
 

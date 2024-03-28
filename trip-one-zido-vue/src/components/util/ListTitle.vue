@@ -3,12 +3,14 @@
     <h1>{{ title }}</h1>
     <div class="select-wrapper ms-3">
       <select
-        @change="$emit('option',option)"
+        @change="$emit('option', option)"
         class="local-select rounded-4"
         v-model="option"
         id="category"
       >
-        <option v-for="sort in sortMenu" :value="sort.value">{{ sort.view }}</option>
+        <option v-for="sort in sortMenu" :value="sort.value">
+          {{ sort.view }}
+        </option>
       </select>
     </div>
   </div>

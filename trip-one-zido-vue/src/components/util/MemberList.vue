@@ -28,6 +28,7 @@ export default {
     };
   },
   methods: {
+     //GET -- api/search/keyword/member/page
     async addMember() {
       const addMember = await this.$zido.newMembers(this.addApi, ++this.page);
       this.list.push(...addMember);

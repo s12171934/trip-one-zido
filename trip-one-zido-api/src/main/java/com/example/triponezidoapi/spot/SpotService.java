@@ -106,7 +106,9 @@ public class SpotService {
         ResponseMember responseMember =  contentMapper.getWriter(generatedId);
         for (int i = 0; i < requestSpot.getMembers().size(); i++) {
             //writer의 loginId와 동행인의 LoginId 비교하여 다를 경우 동행인으로 저장
-            if(!responseMember.getLoginId().equals(requestSpot.getMembers().get(i).getLoginId())){
+            String withLoginId = requestSpot.getMembers().get(i).getLoginId();
+            Long withMemberId = memberMapper.getIdByLoginId(requestSpot.getMembers().get(i).getLoginId());
+            if(!responseMember.getLoginId().equals(withLoginId) && (withLoginId != null) && (withMemberId != null)) {
                 RequestOwner requestWithOwner = new RequestOwner();
                 requestWithOwner.setOwn("with");
                 requestWithOwner.setMemberId(memberMapper.getIdByLoginId(requestSpot.getMembers().get(i).getLoginId()));
@@ -158,10 +160,12 @@ public class SpotService {
         //addOwner
         for (int i = 0; i < requestSpot.getMembers().size(); i++) {
             ResponseMember responseMember = contentMapper.getWriter(id);
-            if(!responseMember.getLoginId().equals(requestSpot.getMembers().get(i).getLoginId())) {
+            String withLoginId = requestSpot.getMembers().get(i).getLoginId();
+            Long withMemberId = memberMapper.getIdByLoginId(requestSpot.getMembers().get(i).getLoginId());
+            if(!responseMember.getLoginId().equals(withLoginId) && (!withLoginId.isEmpty()) && (withMemberId != null)) {
                 RequestOwner requestOwner = new RequestOwner();
                 requestOwner.setOwn("with");
-                requestOwner.setMemberId(memberMapper.getIdByLoginId(requestSpot.getMembers().get(i).getLoginId()));
+                requestOwner.setMemberId(withMemberId);
                 requestOwner.setContentId(id);
                 contentMapper.addOwner(requestOwner);
             }

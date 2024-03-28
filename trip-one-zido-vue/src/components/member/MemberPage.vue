@@ -1,7 +1,8 @@
 <template>
   <main class="wrapper d-flex">
+    <!-- 왼쪽 프로필 및 지도 -->
     <div class="d-flex flex-column fill me-5" id="leftSide">
-      <!-- <div class="d-flex align-items-center mb-5"> -->
+      <!-- 프로필 -->
       <div class="align-items-center mb-5">
         <img
           :src="`data:image/jpeg;base64,${memberPageData.responseMember.profile}`"
@@ -16,40 +17,30 @@
         class="button rounded-5"
         id="edit-profile"
       >
-        {{
-          isMyPage()
-            ? "프로필 편집"
-            : memberPageData.responseMember.follow
-            ? hover
-              ? "언 팔로우"
-              : "팔로잉 중"
-            : "팔로우"
-        }}
+        {{ buttonText() }}
       </button>
       <hr />
+      <!-- 숫자 통계 -->
       <div class="summary">
         <NumberSummary
-          @follower="
-            followType = 'follower';
-            getFollowList();
-          "
-          @following="
-            followType = 'following';
-            getFollowList();
-          "
+          @follower="getFollowList('follower')"
+          @following="getFollowList('following')"
           :totalBoard="memberPageData.postCount"
           :followerCount="memberPageData.followerCount"
           :followingCount="memberPageData.followingCount"
           :bookmarkCount="memberPageData.bookmarkCount"
         />
       </div>
+      <!-- 지도 -->
       <KakaoMapForMemberPage v-if="isDataLoaded" :locMap="locMap" />
     </div>
+
+    <!-- 오른쪽 일정 장소 목록 -->
     <div class="d-flex flex-column justify-content-between" id="rightSide">
       <div class="select-wrapper d-flex justify-content-end" id="add">
         <select
           @change="addSpotPlan"
-          v-if="isMyPage()"
+          v-if="memberPageData.mine"
           class="local-select rounded-4 w-25"
           name="category"
           id="mySelect"
@@ -92,6 +83,7 @@
     </div>
   </main>
 
+  <!-- 팔로우 팔로잉 모달 -->
   <FollowModal :type="followType" :followList="followList" />
 </template>
 
@@ -132,7 +124,7 @@ export default {
         bookmarkCount: null,
         followerCount: null,
         followingCount: null,
-        isMine: null,
+        mine: null,
       },
       locMap: [
         {
@@ -149,8 +141,10 @@ export default {
     goToBookmark() {
       location.href = `/bookmark/${this.id}`;
     },
+    //DELETE -- api/page/follow/id
+    //POST -- api/page/follow/id
     followOrConfig() {
-      if (this.isMyPage()) {
+      if (this.memberPageData.mine) {
         this.$router.push("/config");
       } else {
         this.$zido.toggleFollow(this.memberPageData);
@@ -163,34 +157,43 @@ export default {
         this.$router.push("/add/spot");
       }
     },
-    isMyPage() {
-      return (
-        !this.$route.params.id ||
+    buttonText() {
+      return !this.$route.params.id ||
         this.$route.params.id == this.memberPageData.sessionId
+        ? "프로필 편집"
+        : memberPageData.responseMember.follow
+        ? hover
+          ? "언 팔로우"
+          : "팔로잉 중"
+        : "팔로우";
+    },
+    //GET -- api/page/follower/id
+    //GET -- api/page/following/id
+    async getFollowList(type) {
+      this.followType = type;
+      this.followList = await this.$zido.getFollowList(
+        this.followType,
+        this.memberPageData.id,
+        this.memberPageData.sessionId
       );
     },
-    getFollowList() {
-      this.$zido
-        .getFollowList(
-          this.followType,
-          this.memberPageData.id,
-          this.memberPageData.sessionId
-        )
-        .then((res) => (this.followList = res));
-    },
-    getLocMap(id) {
-      this.$zido.getLocMap(id).then((res) => (this.locMap = res));
+    //GET -- api/page/locMap/{id}
+    async getLocMap(id) {
+      this.locMap = await this.$zido.getLocMap(id);
     },
   },
-  mounted() {
+  async mounted() {
+    //로그인 확인
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
-    this.$zido.getMemberPageData(this.$route.params.id).then((res) => {
-      this.memberPageData = res;
-      this.getLocMap(this.memberPageData.id);
-      this.$nextTick(() => {
-        this.isDataLoaded = true; // 데이터 로드 상태를 true로 설정
-      });
+    //GET -- api/page/id
+    this.memberPageData = await this.$zido.getMemberPageData(
+      this.$route.params.id
+    );
+    this.getLocMap(this.memberPageData.id);
+    this.$nextTick(() => {
+      this.isDataLoaded = true; // 데이터 로드 상태를 true로 설정
     });
+    console.log(this.memberPageData);
   },
 };
 </script>

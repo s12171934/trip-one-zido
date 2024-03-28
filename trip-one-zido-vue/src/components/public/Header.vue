@@ -65,9 +65,7 @@
         <a @click="goTo('/community')" data-bs-dismiss="offcanvas">커뮤니티</a>
       </li>
       <li>
-        <a @click="goTo('/recent-view')" data-bs-dismiss="offcanvas"
-          >최근기록</a
-        >
+        <a @click="goTo('/recent-view')" data-bs-dismiss="offcanvas">최근기록</a>
       </li>
       <li>
         <a @click="goTo('/bookmark')" data-bs-dismiss="offcanvas">찜목록</a>
@@ -75,7 +73,9 @@
       <li>
         <a @click="goTo('/tour/loc')" data-bs-dismiss="offcanvas">관광정보</a>
       </li>
-      <li><a @click="logout">로그아웃</a></li>
+      <li>
+        <a @click="logout">로그아웃</a>
+      </li>
     </ul>
     <a
       href="#menu"
@@ -115,6 +115,7 @@ export default {
   },
   mounted(){
     if(this.$cookies.get("login") != null){
+      //프로필 사진 가져오기 GET -- api/member/profile
       this.$zido.getProfileImg().then((res) => this.img = res)
     }
   }

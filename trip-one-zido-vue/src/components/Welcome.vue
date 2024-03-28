@@ -11,7 +11,7 @@
       </ul>
     </div>
   </section>
-  <!-- One -->
+
   <section id="one" class="wrapper">
     <div class="inner flex flex-3">
       <div class="flex-item left">
@@ -39,6 +39,7 @@
       </div>
     </div>
   </section>
+
   <section id="three" class="wrapper">
     <div class="inner flex flex-3">
       <div class="flex-item box">
@@ -86,6 +87,7 @@ export default {
     if (this.$cookies.get("autoLogin")) {
       const autoLoginId = this.$cookies.get("autoLogin")
       this.$cookies.set("login", autoLoginId);
+      //자동 로그인 POST -- api/member/autoLogin
       this.$zido.autoLogin(autoLoginId)
       location.href = "/";
     }

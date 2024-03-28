@@ -13,7 +13,14 @@
         <span class="fw-bold">{{ data.member.loginId }}</span>
         <div v-if="true && !editComment" class="d-flex gap-2 edit-comment">
           <span @click="editComment = !editComment" class="fw-bold">수정</span>
-          <span @click="$zido.deleteComment(data.id); $emit('reload')" class="fw-bold">삭제</span>
+          <span
+            @click="
+              $zido.deleteComment(data.id);
+              $emit('reload');
+            "
+            class="fw-bold"
+            >삭제</span
+          >
         </div>
       </div>
       <form
@@ -21,15 +28,11 @@
         v-if="editComment"
         class="border-bottom mb-3"
       >
-        <input
-          v-model="data.comment"
-          type="text"
-          class="form-control me-3"
-        />
+        <input v-model="data.comment" type="text" class="form-control me-3" />
         <button class="button alt" type="submit" id="comment">수정</button>
       </form>
       <span v-else>{{ data.comment }}</span>
-      
+
       <div v-if="first">
         <small
           ><b
@@ -38,7 +41,10 @@
         >
       </div>
       <form
-        @submit.prevent="$zido.addComment(data.id, comment); $emit('reload')"
+        @submit.prevent="
+          $zido.addComment(data.id, comment);
+          $emit('reload');
+        "
         v-if="addNestedComment"
         class="border-bottom mb-3"
       >
@@ -71,15 +77,15 @@ export default {
     return {
       addNestedComment: false,
       editComment: false,
-      comment: ""
+      comment: "",
     };
   },
   methods: {
-    edit(){
+    edit() {
       this.$zido.editComment(this.data.id, this.data.comment);
       this.editComment = false;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -113,7 +119,6 @@ form {
 span {
   font-weight: normal !important;
 }
-
 
 @media (max-width: 465px) {
   span {

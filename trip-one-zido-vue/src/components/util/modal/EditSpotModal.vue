@@ -10,6 +10,7 @@
   >
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
+        <!-- modal header -->
         <div class="modal-header border border-bottom">
           <h1 class="title mt-3">
             장소 {{ mode === "add" ? "등록" : "수정" }}
@@ -21,8 +22,8 @@
             aria-label="Close"
           ></button>
         </div>
+        <!-- modal body -->
         <div class="modal-body">
-          <!-- ★왼쪽 -->
           <div class="p-2 d-flex flex-column w-100 border-bottom" id="leftSide">
             <div class="p-2 h-100">
               <div class="d-flex justify-content-between">
@@ -53,8 +54,6 @@
               </div>
             </div>
           </div>
-
-          <!-- ★오른쪽 -->
           <div class="p-2 d-flex flex-column" id="rightSide">
             <table>
               <tr>
@@ -140,7 +139,7 @@
             </table>
           </div>
         </div>
-
+        <!-- modal footer -->
         <div class="modal-footer border border-0">
           <div class="m-0 d-flex justify-content-end gap-2">
             <input
@@ -242,7 +241,7 @@ export default {
   watch: {
     editData() {
       this.responseSpotData = this.editData;
-      document.getElementById('address').value = this.editData.address;
+      document.getElementById("address").value = this.editData.address;
     },
   },
 };

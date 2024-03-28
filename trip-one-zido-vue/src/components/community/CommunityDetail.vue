@@ -8,10 +8,18 @@
           {{ detail.status == 0 ? "모집중" : "마감" }}
         </span>
         <a href="/community" class="button alt small rounded-3">목록</a>
-        <!-- 현재 id-1 : 이전글 / 현재 id+1 : 다음글   -->
-        <!-- <a href="/html-css/community/detail/detail.html" id="button2" class="button small rounded-3">이전글</a> -->
-        <a @click="goToPreviousPost" class="button small rounded-3" id="button-high">이전글</a>
-        <a @click="goToNextPost" class="button small rounded-3" id="button-high">다음글</a>
+        <a @click="goToPreviousPost"
+          :class="detail.prevId != 0 
+            ? 'button small rounded-3' 
+            : 'button small rounded-3 disabled'"
+          id="button-high">이전글
+        </a>
+        <a @click="goToNextPost"
+          :class="detail.nextId != 0 
+            ? 'button small rounded-3' 
+            : 'button small rounded-3 disabled'"
+          id="button-high">다음글
+        </a>
       </div>
       <br />
 
@@ -30,7 +38,7 @@
             <td>
               <option value="1" id="black">
                 {{ selectedCategory }}
-            </option>
+              </option>
             </td>
             <td class="border-start">모집 인원 :</td>
             <td >
@@ -129,7 +137,7 @@ export default {
         locCategory: null,
         notice: null,
         total: null,
-        deadLine: null,
+        deadline: null,
         viewPoint: null,
         status: null,
         title: null,
@@ -156,6 +164,7 @@ export default {
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
     this.id = this.$route.params.id;
+    //커뮤니티 상세 조회 GET -- api/community/id
     this.$zido
       .getCommunityDetail(this.$route.params.id)
       .then((res) => {
@@ -173,11 +182,15 @@ export default {
 
   methods: {
     goToPreviousPost() {
-      location.href = `/community/${this.detail.prevId}`;
+      if(this.detail.prevId !== 0){
+        location.href = `/community/${this.detail.prevId}`;
+      }
     },
 
     goToNextPost() {
-      location.href = `/community/${this.detail.nextId}`;
+      if(this.detail.nextId !== 0){
+        location.href = `/community/${this.detail.nextId}`;
+      }
     },
 
     update() {
@@ -189,17 +202,20 @@ export default {
 
     async del() {
       this.modal = "deleteCommunity";
+      //커뮤니티 삭제 DELETE -- api/community/id
       await this.$zido.deleteCommunity(this.$route.params.id);
     },
 
     async participateOrCancel() {
       // 타인 자신이 참여/참여취소 버튼 누르면
       if (!(this.detail.members.find(member => member.loginId === this.loginId))) {
+        //커뮤니티 참여 POST -- api/community/member/id
         await this.$zido.joinCommunity(this.$route.params.id);
         this.showSuccessModal = true;
         console.log(this.showSuccessModal);
         this.detail.members.push({ loginId: this.loginId });
       } else {
+        //커뮤니티 참여 취소 DELETE -- api/community/member/id
         await this.$zido.joinCancleCommunity(this.$route.params.id);
         this.showSuccessModal = false;
         console.log(this.showSuccessModal);

@@ -120,18 +120,20 @@ export default {
         this.communityData.startDate = new Date(this.communityData.startDate);
         this.communityData.endDate = new Date(this.communityData.endDate);
         this.communityData.deadline = new Date(this.communityData.deadline);
+        //커뮤니티 등록 POST -- api/community
 				this.$zido.addCommunity(this.communityData)
-			}
-			else{
+			} else {
         this.communityData.startDate = new Date(this.communityData.startDate);
         this.communityData.endDate = new Date(this.communityData.endDate);
         this.communityData.deadline = new Date(this.communityData.deadline);
+        //커뮤니티 수정 PUT -- api/community/id
 				this.$zido.updateCommunity(this.$route.params.id, this.communityData)
 			}
 			this.$router.push('/community')
 		},
 		setCommunityData(){
 			if(this.$route.params.mode != 'add'){
+        //커뮤니티 상세 조회 GET -- api/community/id
 				this.$zido.getCommunityDetail(this.$route.params.id).then((res) => this.communityData = res)
 			}
 		}
