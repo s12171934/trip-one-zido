@@ -165,7 +165,7 @@
         <tr id="rowbutton">
           <td>
             <div class="select-wrapper">
-              <select class="local-select" v-model="spotData.visibility" id="security">
+              <select class="local-select" v-model="spotData.visibility">
                 <option value=true>공개</option>
                 <option value=false>비공개</option>
               </select>
@@ -379,7 +379,6 @@ td {
   padding: 2%;
   box-shadow: 0 0 0 1px #dee1e3 inset;
   border-radius: 0.5rem;
- 
 }
 
 #plusMember {
@@ -393,6 +392,7 @@ textarea {
 .border-0 {
   color: black;
 }
+
 button, .button, select, input, textarea {
   border-radius: 10px !important;
 }
@@ -405,11 +405,8 @@ button, .button, select, input, textarea {
   #leftSide, #rightSide {
     width: 100%; /*각 요소를 꽉차게 설정 */
   }
-  #rightSide {
-    order: 1; /*오른쪽 요소를 아래로 이동 */
-  }
   #leftSide {
-    border-inline: none !important; /* border -end 제거*/ 
+    border-inline: none !important; 
   }
   #photo-container {
     height: 500px;
@@ -433,9 +430,6 @@ button, .button, select, input, textarea {
   }
   table tr td h4 {
     margin-bottom: 5px; /* 텍스트 입력 필드와의 간격 조절 */
-  }
-  #security {
-    width: 98%;
   }
 }
 

@@ -316,7 +316,7 @@ main > div {
 .date {
   font-size: 50%;
   color: grey;
-  margin: 1rem;
+  /* margin: 1rem; */
 }
 
 .comm {
