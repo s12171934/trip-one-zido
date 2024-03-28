@@ -25,42 +25,42 @@ CREATE TABLE `member` (
   `phone_number` VARCHAR(20) NOT NULL,
   `zipcode` VARCHAR(20) NOT NULL,
   `address` VARCHAR(200) NOT NULL,
-  `address2` VARCHAR(200) NOT NULL,
-  `birth` DATE NOT NULL,
-  `gender` VARCHAR(10) NOT NULL,
+  `address2` VARCHAR(200) NULL,
+  `birth` TIMESTAMP NOT NULL,
+  `gender` INT NOT NULL,
   `naver_pairing` TINYINT NOT NULL DEFAULT 0,
   `naver_id` VARCHAR(100) NULL,
   `kakao_pairing` TINYINT NOT NULL DEFAULT 0,
   `kakao_id` VARCHAR(100) NULL,
-  `profile` BLOB NULL
+  `profile` LONGBLOB NULL
 );
 
 CREATE TABLE `community` (
   `id` BIGINT NOT NULL,
-  `start_date` DATE NOT NULL,
-  `end_date` DATE NOT NULL,
-  `loc_category` VARCHAR(50) NOT NULL,
+  `start_date` TIMESTAMP NOT NULL,
+  `end_date` TIMESTAMP NOT NULL,
+  `loc_category` INT NOT NULL,
   `notice` VARCHAR(500) NOT NULL,
   `total` INT NOT NULL,
-  `deadline` DATE NOT NULL,
+  `deadline` TIMESTAMP NOT NULL,
   `view_point` INT NOT NULL DEFAULT 0,
-  `status` VARCHAR(20) NOT NULL
+  `status` INT NOT NULL
 );
 
 CREATE TABLE `tour` (
   `id` BIGINT NOT NULL,
-  `loc_category` VARCHAR(50) NOT NULL,
+  `loc_category` INT NOT NULL,
   `address` VARCHAR(200) NOT NULL,
   `info` VARCHAR(300) NOT NULL
 );
 
 CREATE TABLE `plan` (
   `id` BIGINT NOT NULL,
-  `start_date` DATE NOT NULL,
-  `end_date` DATE NOT NULL,
-  `loc_category` VARCHAR(50) NOT NULL,
+  `start_date` TIMESTAMP NOT NULL,
+  `end_date` TIMESTAMP NOT NULL,
+  `loc_category` INT NOT NULL,
   `review` VARCHAR(500) NOT NULL,
-  `status` VARCHAR(20) NOT NULL,
+  `status` INT NOT NULL,
   `view_point` INT NOT NULL DEFAULT 0,
   `grade` INT NOT NULL
 );
@@ -68,11 +68,11 @@ CREATE TABLE `plan` (
 CREATE TABLE `spot` (
   `id` BIGINT NOT NULL,
   `category` VARCHAR(50) NOT NULL,
-  `start_date` DATE NOT NULL,
-  `end_date` DATE NOT NULL,
-  `loc_category` VARCHAR(50) NOT NULL,
+  `start_date` TIMESTAMP NOT NULL,
+  `end_date` TIMESTAMP NOT NULL,
+  `loc_category` INT NOT NULL,
   `address` VARCHAR(200) NOT NULL,
-  `address2` VARCHAR(200) NOT NULL,
+  `address2` VARCHAR(200) NULL,
   `review` VARCHAR(500) NOT NULL,
   `view_point` INT NOT NULL DEFAULT 0,
   `grade` INT NOT NULL,
