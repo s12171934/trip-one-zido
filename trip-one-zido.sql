@@ -271,7 +271,7 @@ ALTER TABLE `photo` ADD CONSTRAINT `FK_content_TO_photo_1` FOREIGN KEY (
 )
 REFERENCES `content` (
   `id`
-);
+)
 ON DELETE CASCADE;
 
 ALTER TABLE `comment` ADD CONSTRAINT `FK_content_TO_comment_1` FOREIGN KEY (
