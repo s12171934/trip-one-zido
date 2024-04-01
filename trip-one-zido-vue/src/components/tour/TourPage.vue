@@ -97,33 +97,12 @@ span {
   }
 }
 
-@media (max-width: 1023px) { /* 원하는 크기로 설정 */
-  
-  #font-vertical {
-      white-space: nowrap; 
-      text-overflow: ellipsis; 
-    }
-}
-
 @media (max-width: 767px) { /* 원하는 크기로 설정 */
-  
-  #font-vertical {
-      white-space: nowrap; 
-      text-overflow: ellipsis; 
-    }
-    body{
-    width:100%;
-    overflow-x:hidden;
-    }
-
-    #title {
-      font-size: 150%;
-    }
-
-    #locSelect, #locSelectDetail {
-      font-size: 100%;
-    }
+  #title {
+    font-size: 150%;
+  }
+  #locSelect, #locSelectDetail {
+    font-size: 100%;
+  }
 }
-
-
 </style>

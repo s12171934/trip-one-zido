@@ -112,9 +112,4 @@ h3 {
   }
 }
 
-@media (max-width: 400px) {
-  .d-flex {
-    font-size: 10px; /* 버튼 폰트 크기 조정 */
-  }
-}
 </style>
