@@ -20,6 +20,7 @@
         {{
           `${spotData.startDate} ~ ${spotData.endDate}`
         }}
+
       </h6>      
       <tr>
           <td>
@@ -27,8 +28,8 @@
           </td>
         </tr>
       <h6>
-        <span v-for="member in spotData.members">
-          {{ member.loginId }}
+        <span v-for="member in spotData.members" class="me-2">
+          <router-link :to="`/member-page/${member.id}`">{{ member.loginId }}</router-link>
         </span>
       </h6>
 

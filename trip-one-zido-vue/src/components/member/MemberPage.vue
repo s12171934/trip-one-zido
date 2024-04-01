@@ -4,8 +4,14 @@
     <div class="d-flex flex-column fill me-5" id="leftSide">
       <!-- 프로필 -->
       <div class="align-items-center mb-5">
-        <img
+        <!-- <img
           :src="`data:image/jpeg;base64,${memberPageData.responseMember.profile}`"
+          class="rounded-circle"
+        /> -->
+        <img
+          :src=" memberPageData.responseMember.profile 
+            ? `data:image/jpeg;base64,${memberPageData.responseMember.profile}`
+            : '/images/nomal.jpeg'"
           class="rounded-circle"
         />
         <span id="userName">{{ memberPageData.responseMember.loginId }}</span>
@@ -161,8 +167,8 @@ export default {
       return !this.$route.params.id ||
         this.$route.params.id == this.memberPageData.sessionId
         ? "프로필 편집"
-        : memberPageData.responseMember.follow
-        ? hover
+        : this.memberPageData.responseMember.follow
+        ? this.hover
           ? "언 팔로우"
           : "팔로잉 중"
         : "팔로우";
