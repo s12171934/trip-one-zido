@@ -221,6 +221,7 @@ span {
   font-size: 30px;
   margin-left: 30px;
   color: rgb(80, 80, 80);
+  white-space: nowrap; /*아이디에 -들어가도 줄바꿈 안되게하기*/
 }
 
 img {

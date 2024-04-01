@@ -37,8 +37,8 @@
 
           <tr class="border-bottom">
             <td>지역 :</td>
-            <td>
-              <option value="1" id="black">
+            <td id="black">
+              <option value="1">
                 {{ selectedCategory }}
               </option>
             </td>
@@ -230,81 +230,55 @@ export default {
 </script>
 
 <style scoped>
-#leftPosition {
-  text-align: left;
-}
-
-#centerPosition {
-  text-align: center;
-}
-
-#searchBar {
-  margin: auto;
-}
-
+/* 4행 설정 */
 #tdTitle {
   width: 15%;
 }
-
+/* 모집중 왼쪽정렬 */
 #mouseHover {
   margin-right: auto;
   cursor: default;
 }
-
-#footer {
-  font-family: "Jalnan";
-  font-size: 10px;
-}
-h1,
-h2,
-h3,
-h4,
-body,
-.button,
-section {
-  font-family: "Jalnan";
-}
-h1 {
-  color: #ff928e !important;
-}
-#menu {
-  font-family: "Jalnan";
-  font-size: 20px;
-}
-thead {
-  font-size: 15px;
-  color: #929292;
-}
-.wrapper {
-  margin-left: 5% !important;
-  margin-right: 5% !important;
-}
+/* 참여/취소버튼 폰트 크기 */
 #button {
-  color: rgb(255, 255, 255) !important;
-  background-color: #ff928e !important;
   font-size: 15px;
 }
-#button2 {
-  color: rgb(255, 255, 255) !important;
-  background-color: #ff928e !important;
-}
+/* 테이블 폰트 크기 */
 #table {
   font-size: 15px !important;
-  color: black !important;
 }
+/* 테이블 왼쪽 크기 */
 #black {
   width: 35%;
-  color: black !important;
-  text-decoration: none;
 }
-table tbody tr {
-  background-color: white !important;
-}
+/* 내용칸 설정 */
 #content {
   resize: none;
 }
+
+@media (max-width: 990px) {
+  #table {
+  font-size: 12px !important;
+  }
+}
+
+@media (max-width: 950px) {
+  #table {
+  font-size: 10px !important;
+  }
+}
+
+@media (max-width: 800px) {
+  #table {
+  font-size: 9px !important;
+  }
+}
+
 /* 작은 화면에서 테이블의 열이 쌓이도록 설정 */
-@media (max-width: 768px) {
+@media (max-width: 790px) {
+  #table {
+  font-size: 15px !important;
+  }
   td {
     display: block !important;
     width: 100% !important;
@@ -328,12 +302,31 @@ table tbody tr {
   }
 }
 
+@media (max-width: 768px) {
+  #button {
+    display: flex;
+    justify-content: center;
+    margin-left: 30%;
+    margin-right: 30%;
+  }
+}
 
-@media (max-width: 500px) {
+@media (max-width: 550px) {
   #button-high, #mouse-hover {
     display: block;
     width: 20%;
     padding: 0;
   }
+  #button {
+    font-size: 11px;
+  }
 }
+
+@media (max-width: 380px) {
+  .d-grid {
+    font-size: 10px !important;
+    padding: 0px !important;
+  }
+}
+
 </style>

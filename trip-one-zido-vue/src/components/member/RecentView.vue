@@ -46,15 +46,12 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  color: #ff928e !important;
-}
-
 img {
   vertical-align: top;
   width: 260px;
   height: 260px;
 }
+
 @media (max-width: 768px) {
   .d-flex.mb-5 {
     flex-direction: column;

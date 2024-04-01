@@ -146,77 +146,37 @@ export default {
 </script>
 
 <style scoped>
-#leftPosition {
-  text-align: left;
-}
-
-#centerPosition {
-  text-align: center;
-}
-
-#searchBar {
-  margin: auto;
-}
-
+/* 테이블 왼쪽 타이틀 크기 */
 #tdTitle {
   width: 15%;
 }
-
+/* 테이블 왼쪽 입력칸 행 크기 */
 #tdSelect {
   width: 35%;
 }
-
-#footer {
-  font-family: "Jalnan";
-  font-size: 10px;
-}
-h1,
-h2,
-h3,
-h4,
-body,
-.button,
-section {
-  font-family: "Jalnan";
-}
-h1 {
-  color: #ff928e !important;
-}
-#menu {
-  font-family: "Jalnan";
-  font-size: 20px;
-}
-thead {
-  font-size: 15px;
-  color: black;
-}
-.wrapper {
-  margin-left: 5% !important;
-  margin-right: 5% !important;
-}
-#button {
-  color: rgb(255, 255, 255) !important;
-  background-color: #ff928e !important;
-  font-size: 15px;
-}
-#table {
-  font-size: 15px !important;
-  color: black !important;
-}
-input {
-  color: black !important;
-}
-table tbody tr {
-  background-color: white !important;
-}
-
+/* 테이블 왼쪽 입력칸 크기 */
 #table-select {
   width: 80%;
 }
-
+/* 테이블 폰트 사이즈 */
+#table {
+  font-size: 15px !important;
+}
+/* 날짜 컬러 */
+input {
+  color: black !important;
+}
+/* 내용 박스 설정 */
 textarea {
   resize: none;
 }
+
+@media screen and (max-width: 1300px) {
+  .inner {
+    max-width: 100% !important;
+  }
+}
+
 /* 작은 화면에서 테이블의 열이 쌓이도록 설정 */
 @media (max-width: 768px) {
   td {
@@ -234,12 +194,9 @@ textarea {
   td.border-start {
     border-inline: none !important;
   }
+  #table-select {
+  width: 100%;
 }
-
-@media screen and (max-width: 1300px) {
-  .inner {
-    max-width: 100% !important;
-  }
 }
 
 @media screen and (max-width: 400px) {

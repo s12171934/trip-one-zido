@@ -70,7 +70,6 @@ export default {
 
 <style scoped>
 h1 {
-  color: #ff928e !important;
   margin-bottom: 3rem;
 }
 
@@ -81,11 +80,6 @@ h3 {
 
 #alertText {
   color: rgb(235, 12, 12);
-}
-
-#button {
-  color: rgb(255, 255, 255) !important;
-  background-color: #ff928e !important;
 }
 
 .inner {
