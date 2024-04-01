@@ -41,4 +41,6 @@ public class RequestPlan {
 
     @Size(max = 20)
     List<ResponseMember> members;
+
+    List<Long> deleteSpots;
 }

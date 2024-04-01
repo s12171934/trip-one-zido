@@ -228,8 +228,8 @@ export default {
         spots: [],
         visibility: true,
         grade: 0,
+        deleteSpots: null,
       },
-
       popUpOptions:
         "toolbar=no,resizable=yes,status=no,width=800,height=1000,top=0,left=0",
 
@@ -342,7 +342,7 @@ export default {
       console.log(calendarEvent.endStr)
       console.log(newSpot.endDate)
       this.planData.spots.push(newSpot);
-      this.spotId++;
+      // this.spotId++;
     },
 
     editSpotDetail(calendarEvent, spotData) {
@@ -363,9 +363,15 @@ export default {
       calendarEvent.event.remove();
       const id = calendarEvent.event._def.publicId;
       console.log(id)
-      //DELETE -- api/plan/${id}
-      this.$zido.deleteSpot(id);
-      delete this.planData.spots[id];
+      delete this.planData.spots[id]
+      //deleteSpot 요청시 빈배열 생성
+      if (!Array.isArray(this.planData.deleteSpots)) {
+          this.planData.deleteSpots = [];
+        }
+      if(id != 0){
+        this.planData.deleteSpots.push(id)
+      }
+      console.log(this.planData.deleteSpots)
     },
     setInitialEvent() {
       const calendarApi = this.$refs.FullCalendar.getApi();

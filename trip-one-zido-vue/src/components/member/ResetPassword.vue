@@ -85,7 +85,7 @@ export default {
   },
   mounted() {
     //로그인 확인
-    this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    this.$emit("meta", this.$route.matched[0].meta.isLogin || this.$cookies.isKey('login'));
   },
 };
 </script>

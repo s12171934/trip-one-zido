@@ -9,7 +9,9 @@
         <div class="d-flex align-items-center">
           <div class="d-flex flex-column gap-2">
             <img
-              :src="`data:image/jpeg;base64,${configData.memberProfile.profile}`"
+              :src="configData.memberProfile.profile 
+                ? `data:image/jpeg;base64,${configData.memberProfile.profile}`
+                : '/images/nomal.jpeg'"
               alt=""
               class="rounded-circle"
             />

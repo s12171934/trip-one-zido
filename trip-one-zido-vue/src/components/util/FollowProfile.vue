@@ -7,7 +7,9 @@
     <img
       class="rounded-circle"
       id="followPic"
-      :src="`data:image/jpeg;base64,${userProfile.profile}`"
+      :src="userProfile.profile 
+        ? `data:image/jpeg;base64,${userProfile.profile}`
+        : '/images/nomal.jpeg'"
       alt="..."
     />
 

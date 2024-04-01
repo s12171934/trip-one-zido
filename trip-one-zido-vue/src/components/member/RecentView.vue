@@ -2,7 +2,9 @@
   <main class="wrapper">
     <div class="d-flex align-items-center mb-5">
       <img
-        :src="`data:image/jpeg;base64,${RecentViewData.member.profile}`"
+        :src="RecentViewData.member.profile 
+          ? `data:image/jpeg;base64,${RecentViewData.member.profile}`
+          : '/images/nomal.jpeg'"
         alt=""
         class="rounded-circle"
       />
