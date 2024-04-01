@@ -22,7 +22,7 @@
 <br>
 
 ## :sparkles: 팀원 구성 :sparkles:
-| **김동현** <br/><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/%EA%B9%80%EB%8F%99%ED%98%84.png" height=150 width=120> | **김성실** <br/><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/%EA%B9%80%EC%84%B1%EC%8B%A4.jpg" height=150 width=120>| **박준혁** <br/><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/%EB%B0%95%EC%A4%80%ED%98%81.png" height=150 width=120> | 팀장 :crown: **송준형** <br/><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/%EC%86%A1%EC%A4%80%ED%98%95.jpg" height=150 width=120> | **한민선** <br/><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/%ED%95%9C%EB%AF%BC%EC%84%A0.jpg" height=150 width=120> |
+| **김동현** <br/><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/%EA%B9%80%EB%8F%99%ED%98%84.png" height=150 width=120> [donghyunkim95](https://github.com/donghyunkim95) | **김성실** <br/><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/%EA%B9%80%EC%84%B1%EC%8B%A4.jpg" height=150 width=120><br/> [K-Sungsil](https://github.com/K-Sungsil) | **박준혁** <br/><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/%EB%B0%95%EC%A4%80%ED%98%81.png" height=150 width=120> [ParkJhh](https://github.com/ParkJhh) | 팀장 :crown: **송준형** <br/><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/%EC%86%A1%EC%A4%80%ED%98%95.jpg" height=150 width=120> [s12171934](https://github.com/s12171934) | **한민선** <br/><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/%ED%95%9C%EB%AF%BC%EC%84%A0.jpg" height=150 width=120> [hsun0987](https://github.com/hsun0987) |
 | :------: |  :------: | :------: | :------: | :------: |
 
 <br>
