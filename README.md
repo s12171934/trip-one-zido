@@ -2,11 +2,13 @@
 
 한국정보기술연구원(KITRI)에서 JAVA 백엔드 웹 개발 교육과정(보안개발 7기)을 듣는 교육생 5명이 모인 Team Project 입니다.
 
-![메인페이지](https://github.com/s12171934/trip-one-zido/blob/sungs/%EB%A9%94%EC%9D%B8.png)
+![메인페이지](https://github.com/s12171934/trip-one-zido/assets/148848577/639309c6-427a-434b-a761-0d7c54423e91)
 
-- 배포 URL : http://13.60.3.28
-- Test ID : sskim
-- Test PW : sskim123!
+- 배포 URL : http://43.200.46.110/
+- Test ID : trip
+- Test PW : trip123!
+
+(자세한 설명 [Team projects PPT/](https://www.canva.com/design/DAF_2ewFqcc/JiPkxKRTvriGqIDSsEtnpg/edit) [Team projects WIKI](https://github.com/s12171934/trip-one-zido/wiki) )
 
 <br>
 
@@ -22,38 +24,54 @@
 <br>
 
 ## :sparkles: 팀원 구성 :sparkles:
-| **김동현** <br/><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/%EA%B9%80%EB%8F%99%ED%98%84.png" height=150 width=120> [donghyunkim95](https://github.com/donghyunkim95) | **김성실** <br/><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/%EA%B9%80%EC%84%B1%EC%8B%A4.jpg" height=150 width=120><br/> [K-Sungsil](https://github.com/K-Sungsil) | **박준혁** <br/><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/%EB%B0%95%EC%A4%80%ED%98%81.png" height=150 width=120> [ParkJhh](https://github.com/ParkJhh) | 팀장 :crown: **송준형** <br/><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/%EC%86%A1%EC%A4%80%ED%98%95.jpg" height=150 width=120> [s12171934](https://github.com/s12171934) | **한민선** <br/><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/%ED%95%9C%EB%AF%BC%EC%84%A0.jpg" height=150 width=120> [hsun0987](https://github.com/hsun0987) |
+| **김동현** <br/><img src="https://github.com/s12171934/trip-one-zido/assets/148848577/99f77c18-b132-4e64-b875-2d72280ef488" height=120 width=120><br/> [donghyunkim95](https://github.com/donghyunkim95) | **김성실** <br/><img src="https://github.com/s12171934/trip-one-zido/assets/148848577/3b83b812-3d55-446e-b725-489656594a2e" height=120 width=120><br/> [K-Sungsil](https://github.com/K-Sungsil) | **박준혁** <br/><img src="https://github.com/s12171934/trip-one-zido/assets/148848577/712f25dd-57b1-4ce0-9c2f-dca7c2a5618a" height=120 width=120><br/> [ParkJhh](https://github.com/ParkJhh) | 팀장 :crown: **송준형** <br/><img src="https://github.com/s12171934/trip-one-zido/assets/148848577/c225acca-5e12-4edb-a4a9-48e177fa7ecb" height=120 width=120><br/> [s12171934](https://github.com/s12171934) | **한민선** <br/><img src="https://github.com/s12171934/trip-one-zido/assets/148848577/c7974d12-22f8-4bf6-9b37-45c4875751b1" height=120 width=120><br/> [hsun0987](https://github.com/hsun0987) |
 | :------: |  :------: | :------: | :------: | :------: |
 
 <br>
 
 ## 1. 개발 환경&기술 스택
 
-- Version : Java 17
 - IDE : IntelliJ
-- Framework : SpringBoot 3.2.2
-
-| **Back End** | **Data** | **Front End** | **Depolyment** | **Version Control** | **Design** | **Community** |
-| :------: |  :------: | :------: | :------: | :------: | :------: | :------: |
-| ![Java17](https://img.shields.io/badge/java17-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white) ![Spring boot](https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white) |  ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white) ![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?&style=for-the-badge&logo=redis&logoColor=white) ![MyBatis](https://img.shields.io/badge/MyBatis-ffcd00.svg?style=for-the-badge&logo=MyBatis&logoColor=white) | ![HTML5](https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D) ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white) | ![AWS ec2 redhat9](https://img.shields.io/badge/amazonec2redhat9-%232000ED.svg?style=for-the-badge&logo=amazonec2&logoColor=white) ![docker](https://img.shields.io/badge/docker-%232496ED.svg?style=for-the-badge&logo=docker&logoColor=white) | ![Git](https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white) | ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white) | ![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white) ![jirasoftware](https://img.shields.io/badge/jirasoftware-%230052CC.svg?style=for-the-badge&logo=jirasoftware&logoColor=white) |
+- Back End<br>
+![Java17](https://img.shields.io/badge/java17-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white) ![Spring boot](https://img.shields.io/badge/springboot3.2.2-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
+- Data<br>
+![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)  ![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?&style=for-the-badge&logo=redis&logoColor=white)  ![MyBatis](https://img.shields.io/badge/MyBatis-ffcd00.svg?style=for-the-badge&logo=MyBatis&logoColor=white)
+- Front End<br>
+![HTML5](https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D) ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+- Depolyment<br>
+![AWS ec2 redhat9](https://img.shields.io/badge/amazonec2redhat9-%232000ED.svg?style=for-the-badge&logo=amazonec2&logoColor=white) ![docker](https://img.shields.io/badge/docker-%232496ED.svg?style=for-the-badge&logo=docker&logoColor=white)
+- Version Control<br>
+![Git](https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
+- Design<br>
+![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+- Community<br>
+![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white) ![jirasoftware](https://img.shields.io/badge/jirasoftware-%230052CC.svg?style=for-the-badge&logo=jirasoftware&logoColor=white)
 
 <br>
 
 ## 2. 프로젝트 아키텍쳐
-<img src="https://github.com/s12171934/trip-one-zido/blob/sungs/%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98.png">
+<img src="https://github.com/s12171934/trip-one-zido/assets/148848577/8479f6b2-8692-4f89-ade9-4b8d1aeca5d1">
+
+<br>
+
+- 맨 처음 전체적인 디자인과 틀을 잡고자 [Figma](https://www.figma.com/file/OUYCIcO6q9UwA0uXuIOrz0/%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4-%ED%9A%8C%EC%9D%98?type=design&node-id=62-2&mode=design&t=qNmJL8K5EQMOxIek-0) 를 이용했습니다.
+- 체계적이고 효율적인 관리를 위해 [API 명세서](https://1drv.ms/x/c/ca6b890aca2dad44/EUStLcoKiWsggMrQAAAAAAABk-QCHfAURaKBGlcGxpFrag?e=kej05Q) 와 [Jira Software](https://ssong9520.atlassian.net/jira/software/projects/KAN/boards/1/timeline?selectedIssue=KAN-9)를 활용하여 프로젝트의 진행도를 수시로 확인할 수 있었습니다<br>
 
 <br>
 
 ## 3. 주요기능
 
-- 화면구현 ★
+- [화면구현 WIKI](https://github.com/s12171934/trip-one-zido/wiki/2.-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5)
+
+- [ERD Cloud](https://www.erdcloud.com/d/wukWHFKxRkqZP9sju)
+<br><img src="https://github.com/s12171934/trip-one-zido/assets/148848577/602fafe5-f49b-47b4-a51c-975711c02bda">
 
 <br>
 
 ## 4. Black Box - Client Test Flow
 
 사이트에 처음 방문하는 회원이 사용할 수 있는 기능들에 대해 보는 블랙박스 플로우입니다.
-<img src="https://github.com/s12171934/trip-one-zido/blob/sungs/Black%20Box.png" height=500 width=800>
+<img src="https://github.com/s12171934/trip-one-zido/assets/148848577/c3afdfe4-a0db-40c2-ac4f-13266eb232e1" height=500 width=800>
 
 <br>
 
@@ -79,7 +97,7 @@
 
 :computer: 국비 교육을 통한 개발 경험이 전부라, 프로젝트 시작 전부터 잘 할 수 있을까 하는 생각이 많이 들었습니다. 개발을 진행하면서 담당한 부분들의 로직 구현에 있어, 고민하는 시간과 질의응답을 통해 문제를 해결하려 하였고, 그렇게 구현한 로직에서 데이터의 흐름을 파악하려 노력하였습니다. 프로젝트를 하는 동안 전반적인 개발 흐름과 개발과정을 습득한 것과 더불어 기능 구현 과정에서 부족했던 점들을 파악하게 되어 많은 도움이 된 것 같습니다. 부족한 점이 많았으나 도와준 팀원들 덕분에 잘 마무리한 것 같습니다. 고맙습니다.
 
-### :cherry_blossom: 송준형  :crown: 
+### :crown: 송준형 
 
 :loudspeaker: 다양한 경험을 통해 더 높이 성장하고 싶은 개발자입니다.
 
@@ -88,38 +106,9 @@
 
 ### :cherry_blossom: 한민선
 
+:loudspeaker: 지속적인 발전을 꿈꾸며 자기 계발에 전념하는 개발자입니다.
+
 :computer: 초반에는 처음 접한 툴과 기술 스택들도 있어서 적응하느라 많이 헤맸던 것 같습니다. 그러한 과정에서 끝없는 저의 부족함을 발견했지만, 그럼 에도 불구하고 팀에 작더라도 영향이 있는 힘을 기여 하고자 시간과 노력을 들여 저의 허점을 보완하려 애썼던 것 같습니다. 기능 개발이 끝나고도 지속적인 리팩토링을 통해 수많은 오류를 발견하고 수정하는 작업이 프로젝트를 완성하는 데 큰 역할을 한다는 점을 깨달았습니다. '여행한 지도'를 함께 하면서 배운 것도 많고 더 성장할 수 있었던 경험이 되었습니다. 다들 긴 기간 동안 고생하셨습니다!
 
 
 <br>
-
-## 
-
-:cherry_blossom: [API 명세서](https://onedrive.live.com/edit?id=CA6B890ACA2DAD44!208&resid=CA6B890ACA2DAD44!208&ithint=file%2Cxlsx&authkey=!AE1t-ikdB73t9RY&wdo=2&cid=ca6b890aca2dad44)
-<br><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/API%20%EB%AA%85%EC%84%B8.png">
-
-##
-
-:cherry_blossom: [ERD Cloud](https://www.erdcloud.com/d/wukWHFKxRkqZP9sju)
-<br><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/ERD%20Cloud.png">
-
-##
-
-:cherry_blossom: [Figma](https://www.figma.com/file/OUYCIcO6q9UwA0uXuIOrz0/%EC%95%84%EC%9D%B4%EB%94%94%EC%96%B4-%ED%9A%8C%EC%9D%98?type=design&node-id=62-2&mode=design&t=qNmJL8K5EQMOxIek-0)
-<br><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/figma1.png" height=600 width=400>
-<img src="https://github.com/s12171934/trip-one-zido/blob/sungs/figma2.png" height=600 width=400>
-
-##
-
-:cherry_blossom: [Jira Software](https://ssong9520.atlassian.net/jira/software/projects/KAN/boards/1/timeline?selectedIssue=KAN-9)
-<br><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/Jira%20Software.png">
-
-##
-
-:cherry_blossom: [Swagger](http://localhost:8080/swagger-ui/index.html#/)
-<br><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/%EC%8A%A4%EC%9B%A8%EA%B1%B0.png">
-
-##
-
-:cherry_blossom: [Team projects PPT](https://www.canva.com/design/DAF_2ewFqcc/JiPkxKRTvriGqIDSsEtnpg/edit)
-<br><img src="https://github.com/s12171934/trip-one-zido/blob/sungs/%ED%8C%80%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8.png">
