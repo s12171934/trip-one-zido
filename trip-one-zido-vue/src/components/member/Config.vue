@@ -135,6 +135,10 @@ button {
   width: 100%;
 }
 
+h1{
+  white-space: nowrap; /*아이디에 -들어가도 줄바꿈 안되게하기*/
+}
+
 @media (max-width: 1200px) {
   .w-50,
   .p-2 {

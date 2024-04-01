@@ -96,10 +96,6 @@ main {
   margin-right: 20%;
 }
 
-h1 {
-  color: #ff928e !important;
-}
-
 .button {
   border-radius: 10px !important;
 }

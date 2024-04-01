@@ -30,12 +30,14 @@
             />
             <label for="autologin">자동 로그인</label>
           </div>
+        </div>
 
+        <div class="find">
           <a @click="$router.push('/find')" style="color: #767d85"
             >아이디 / 비밀번호 찾기</a
           >
         </div>
-
+        
         <div class="d-flex justify-content-center">
           <button
             data-bs-toggle="modal"
@@ -151,10 +153,10 @@ export default {
 
 <style scoped>
 .wrapper {
-  padding: 5%;
+  padding: 1%;
   background-color: #d9d9d9;
   border-radius: 50px;
-  margin-inline: 20%;
+  margin-inline: 30%;
   margin-top: 3%;
   margin-bottom: 3%;
 }
@@ -202,13 +204,17 @@ a {
   color: #ff928e;
 }
 
+.gap-4 {
+    gap: 0.5rem !important;
+}
+
 @media (max-width: 1250px) {
   #box {
     white-space: nowrap;
     text-overflow: ellipsis;
   }
   .wrapper {
-    margin-inline: 10% !important;
+    margin-inline: 20% !important;
   }
 }
 
@@ -224,9 +230,15 @@ a {
   form {
     border: none !important; /* 작은 화면에서 border 제거 */
   }
+  .find {
+    text-align: center;
+  }
+  .wrapper {
+  padding: 3%;
+  }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 540px) {
   img {
     width: 50px;
     height: 50px;
@@ -235,6 +247,9 @@ a {
   #button {
     width: 50%;
     padding: 0;
+  }
+  .wrapper {
+    margin-inline : 10% !important;
   }
 }
 </style>

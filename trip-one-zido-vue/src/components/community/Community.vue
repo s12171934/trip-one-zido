@@ -204,68 +204,27 @@ export default {
 </script>
 
 <style scoped>
-#leftPosition {
-  text-align: left;
-}
-
+/* 테이블 글꼴 가운데 정렬 */
 #centerPosition {
   text-align: center;
 }
-
-#searchBar {
-  margin: auto;
-}
-
-#footer {
-  font-family: "Jalnan";
-  font-size: 10px;
-}
-h1,
-h2,
-h3,
-h4,
-body,
-.button,
-section {
-  font-family: "Jalnan";
-}
-h1 {
-  color: #ff928e !important;
-}
-#menu {
-  font-family: "Jalnan";
-  font-size: 20px;
-}
-thead,
-thead hd {
-  font-size: 15px;
-  color: black;
-}
-.wrapper {
-  margin-left: 5% !important;
-  margin-right: 5% !important;
-}
-#button {
-  color: rgb(255, 255, 255) !important;
-  background-color: #ff928e !important;
-  font-size: 15px;
-}
-#table {
-  font-size: 15px !important;
-  color: #929292 !important;
-}
-#black {
-  color: black !important;
-}
-table tbody tr {
-  background-color: white !important;
-}
-#more {
-  color: black !important;
-}
+/* 페이지네이션 폰트 색상 */
 .page-link {
   color: black !important;
 }
+/* 테이블 배경 */
+table tbody tr {
+  background-color: white !important;
+}
+/* 테이블 머리글 설정 */
+thead tr {
+  font-size: large;
+}
+/* 검색바 가운데 정렬 */
+#searchBar {
+  margin: auto;
+}
+/* 카테고리 박스 */
 .select-wrapper {
   width: 15%;
   font-size: 15px;
@@ -274,12 +233,64 @@ table tbody tr {
   height: 100%;
   justify-content: right;
 }
+
 #cursor {
   cursor: pointer;
 }
 
-@media screen and (max-width: 580px) {
+@media (max-width: 860px) {
+    /* 테이블 머리글 폰트 사이즈 */
+    thead tr {
+    font-size: medium;
+  }
+}
+
+@media (max-width: 840px) {
   /* 전체적인 요소들의 크기와 글꼴 크기를 작게 조정 */
+  #leftPosition h1 {
+    font-size: 20px !important;
+  }
+
+  .table-wrapper table {
+    font-size: 10px !important;
+  }
+
+  .button.small {
+    margin-top: 2% !important;
+  }
+
+  #searchBar select,
+  #searchBar input[type="text"],
+  #searchBar button {
+    font-size: 10px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  #button-add {
+    width: 15%;
+    margin-left: auto;
+    padding: 0;
+    margin-bottom: 5%;
+  }
+}
+
+@media (max-width: 610px) {
+    /* 테이블 머리글 설정 */
+    thead tr {
+    font-size: small;
+  }
+  #button-add {
+    margin-left: auto;
+    padding: 0%;
+  }
+
+  .select-wrapper {
+    width: 27%;
+  }
+}
+
+@media screen and (max-width: 580px) {
   #leftPosition h1 {
     font-size: 12px !important;
   }
@@ -308,61 +319,5 @@ table tbody tr {
     font-size: 10px !important;
     padding: 2px 4px !important;
   }
-}
-@media (max-width: 768px) {
-  #button-add {
-    width: 15%;
-    margin-left: auto;
-    padding: 0;
-    margin-bottom: 5%;
-  }
-}
-
-@media (max-width: 840px) {
-  /* 전체적인 요소들의 크기와 글꼴 크기를 작게 조정 */
-  #leftPosition h1 {
-    font-size: 20px !important;
-  }
-
-  .table-wrapper table {
-    font-size: 10px !important;
-  }
-
-  .button.small {
-    margin-top: 2% !important;
-  }
-
-  #searchBar select,
-  #searchBar input[type="text"],
-  #searchBar button {
-    font-size: 10px !important;
-  }
-}
-
-/* 테이블 머리글 설정 */
-thead tr {
-  font-size: large; /* 원하는 폰트 사이즈 변경 가능 */
-}
-
-@media (max-width: 860px) {
-    /* 테이블 머리글 설정 */
-    thead tr {
-    font-size: medium; /* 원하는 폰트 사이즈 변경 가능 */
-  }
-}
-@media (max-width: 610px) {
-    /* 테이블 머리글 설정 */
-    thead tr {
-    font-size: small; /* 원하는 폰트 사이즈 변경 가능 */
-  }
-  #button-add {
-    margin-left: auto;
-    padding: 0%;
-  }
-
-  .select-wrapper {
-    width: 27%;
-  }
-
 }
 </style>

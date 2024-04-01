@@ -88,7 +88,6 @@ span {
 
 @media (max-width: 1000px) {
   /* 원하는 크기로 설정 */
-
   #wrapper,
   #subTitle,
   #mainTitle {
@@ -96,4 +95,10 @@ span {
     text-overflow: ellipsis;
   }
 }
+
+@media (max-width: 480px) {
+  h1,h3 {
+    font-size: large;
+  }
+} 
 </style>
