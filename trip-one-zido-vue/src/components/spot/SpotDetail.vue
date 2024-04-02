@@ -53,7 +53,6 @@
         <tr>
           <td>
             <div
-              v-if="spotData.mine"
               class=""
               id="button-css"
             >
@@ -92,24 +91,24 @@
            </h1>
               </div>
 
-              <div class="modify-del">
-              <input
-              id="delete"
-              @click="
+              <div v-if="spotData.mine" class="modify-del">
+                <input
+                id="delete"
+                @click="
                 $zido.deleteSpot($route.params.id);
                 $router.push('/member-page');
-              "
-              class="button alt small"
-              type="button"
-              value="삭제"
-              />
-              <input
+                "
+                class="button alt small"
+                type="button"
+                value="삭제"
+                />
+                <input
                 @click="$router.push(`/edit/spot/${$route.params.id}`)"
                 id="modify"
                 class="button small"
                 type="submit"
                 value="수정"
-              />
+                />
               </div>
             </div>
           </td>

@@ -156,7 +156,7 @@ export default {
       modal: "",
       loginId: "",
       id: "",
-      showSuccessModal: false,
+      showSuccessModal: true,
       locations: data.selectLocations,
 
       title: "", // 추가: 게시글 제목

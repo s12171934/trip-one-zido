@@ -3,7 +3,9 @@
     <div class="flex-shrink-0">
       <img
         class="rounded-circle"
-        :src="`data:image/jpeg;base64,${data.member.profile}`"
+        :src=" data.member.profile
+          ? `data:image/jpeg;base64,${data.member.profile}`
+          : '/images/nomal.jpeg'"
         alt="..."
         id="commentProfilePic"
       />
