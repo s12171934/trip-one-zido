@@ -2,26 +2,32 @@
   <main class="wrapper d-flex">
     <!-- ★왼쪽 -->
     <div class="d-flex flex-column border-end" id="leftSide">
-      <div class="d-flex justify-content-between pe-2 w-100">
-        <h1 class="title">
-            {{ spotData.title }}
-          <span class="comm">
-            <img 
-              id="star" src="/images/star.png" 
-            />{{ spotData.grade }}
-          </span>
-        </h1>
-        <div class="d-flex gap-2" id="left-category">
-          <button class="rounded-5" id="spot-data">{{ selectedCategory }}</button>
-          <button @click="openSpotMap()" class="rounded-5">약도보기</button>
+      <div>
+        <div class="d-flex flex-row">
+          <!-- <div class="d-flex flex-row" id="left-category"> -->
+            <button class="rounded-5 alt" id="spot-data">{{ selectedCategory }}</button>
+            <button @click="openSpotMap()" id="view-map-css"class="rounded-5">약도보기</button>
+          <!-- </div> -->
+        </div>
+        <div>
+          <h1 class="title">
+              {{ spotData.title }}
+          </h1>  
         </div>
       </div>
-      <h6 class="left-css">
+
+      <h6 class="date">
         {{
           `${spotData.startDate} ~ ${spotData.endDate}`
         }}
-      </h6>
-      <h6 class="left-css">
+
+      </h6>      
+      <tr>
+          <td>
+            <h4 class="mt-4 mb-2">참여 인원</h4>
+          </td>
+        </tr>
+      <h6>
         <span v-for="member in spotData.members" class="me-2">
           <router-link :to="`/member-page/${member.id}`">{{ member.loginId }}</router-link>
         </span>
@@ -46,56 +52,65 @@
       <table>
         <tr>
           <td>
-            <h1>
-              <span class="comm"
-                ><img
-                  @click="$zido.toggleBookmark(spotData)"
-                  id="bookmark"
-                  :src="
-                    spotData.myBookmark
-                      ? '/images/zzim.png'
-                      : '/images/unzzim.png'
-                  "
-                /> {{ spotData.bookmarkCount }}
-              </span>
-              <span class="comm" :class="spotData.myGood == true ? 'like' : ''">
-                <img
-                  @click="$zido.toggleLike(spotData, true)"
-                  id="like"
-                  src="/images/like.png"
-                /> {{ spotData.goodCount }}
-              </span>
-              <span class="comm" :class="spotData.myGood == false ? 'like' : ''">
-                <img
-                  @click="$zido.toggleLike(spotData, false)"
-                  id="unLike"
-                  src="/images/unlike.png"
-                />
-              </span>
-            </h1>
-          </td>
-
-          <td>
             <div
               v-if="spotData.mine"
-              class="m-0 d-flex justify-content-end gap-2"
+              class=""
+              id="button-css"
             >
+              <div class="h1">
+            <h1>
+              <span class="comm">
+                <img 
+                  id="star" src="/images/star.png" 
+                />{{ spotData.grade }}
+              </span>
+              <span class="comm">
+                <img
+                    @click="$zido.toggleBookmark(spotData)"
+                    id="bookmark"
+                    :src="
+                      spotData.myBookmark
+                        ? '/images/zzim.png'
+                        : '/images/unzzim.png'
+                    "
+                  /> {{ spotData.bookmarkCount }}
+                </span>
+                <span class="comm" :class="spotData.myGood == true ? 'like' : ''">
+                  <img
+                    @click="$zido.toggleLike(spotData, true)"
+                    id="like"
+                    src="/images/like.png"
+                  /> {{ spotData.goodCount }}
+                </span>
+                <span class="comm" :class="spotData.myGood == false ? 'like' : ''">
+                  <img
+                    @click="$zido.toggleLike(spotData, false)"
+                    id="unLike"
+                    src="/images/unlike.png"
+                  />
+                </span>
+           </h1>
+              </div>
+
+              <div class="modify-del">
+              <input
+              id="delete"
+              @click="
+                $zido.deleteSpot($route.params.id);
+                $router.push('/member-page');
+              "
+              class="button alt small"
+              type="button"
+              value="삭제"
+              />
               <input
                 @click="$router.push(`/edit/spot/${$route.params.id}`)"
-                id="input"
+                id="modify"
                 class="button small"
                 type="submit"
                 value="수정"
               />
-              <input
-                @click="
-                  $zido.deleteSpot($route.params.id);
-                  $router.push('/member-page');
-                "
-                class="button alt small"
-                type="button"
-                value="삭제"
-              />
+              </div>
             </div>
           </td>
         </tr>
@@ -210,7 +225,33 @@ export default {
 <style scoped>
 main > div {
   width: 100%;
-  /* padding: 20px; */
+}
+
+.h1 {
+  margin-right: auto;
+}
+
+.modify-del {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+#modify {
+  margin-right: 1%;
+}
+ 
+
+#view-map-css {
+  margin-left: auto;
+  margin-right: 1%;
+}
+
+.title {
+  margin-top: 5%;
+}
+
+.date {
+  color: grey;
 }
 
 .comm {
@@ -232,7 +273,6 @@ main > div {
   overflow: scroll;
   overflow-y: hidden;
   height: 100%;
-  /* margin: 1%;*/
 }
 
 #selectedPic {
@@ -315,11 +355,14 @@ textarea {
   height: 100%;
 }
 
-@media (max-width: 1023px) { 
-  #font-vertical {
+@media (max-width: 1700px) { 
+  .title {
     white-space: nowrap; 
     text-overflow: ellipsis; 
   }
+}
+
+@media (max-width: 1023px) { 
   #rightSide {
     border: 1px;
     box-sizing: border-box;
@@ -337,12 +380,17 @@ textarea {
     flex-shrink: 0; /* leftSide가 작아질 때 줄어들지 않도록 설정 */
   }
   .border-end {
-
     border-right: none !important;
   }
 }
 #spot-data { 
   cursor: default;
+}
+
+@media (max-width: 880px) {
+  #left-category {
+    font-size: small;
+  }
 }
 
 @media (max-width: 767px) { /* 767이하일 때 아래코드 적용 */

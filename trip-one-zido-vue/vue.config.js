@@ -3,7 +3,7 @@ module.exports = {
   devServer: {
     proxy: {
       "/api": {	
-        target: "http://13.60.3.28:8080", // 프록시를 설정할 도메인
+        target: "http://43.200.46.110:8080", // 프록시를 설정할 도메인
         changeOrigin: true,
       }, 
     }

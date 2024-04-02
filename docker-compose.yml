@@ -5,14 +5,14 @@ networks:
 
 services:
   frontEnd:
-    image: trip-one-zido-front
+    image: minsun01/trip-one-zido-front
     ports:
-      - '3000:3000'
+      - '80:3000'
     networks:
       - service-networks
 
   backEnd:
-    image: trip-one-zido-back
+    image: minsun01/trip-one-zido-back
     ports:
       - '8080:8080'
     networks:
@@ -21,7 +21,7 @@ services:
   mySQL:
     image: mysql:8.0.36
     ports:
-      - '3307:3306'
+      - '3306:3306'
     networks:
       - service-networks
     environment:
