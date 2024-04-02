@@ -105,6 +105,11 @@ export default {
     async login() {
       //로그인 중 ...
       this.modal = "loginTry";
+      //패스워드 미입력시
+      if(this.password == null){
+        this.modal = "PasswordTry";
+        return;
+      }
       //로그인 성공시 정보없는 로그인 쿠키 발행
       //아이디 저장 및 자동로그인 선택시 아이디를 값으로 가지는 토큰 발행
       if (await this.$zido.login(this.loginId, this.password)) {

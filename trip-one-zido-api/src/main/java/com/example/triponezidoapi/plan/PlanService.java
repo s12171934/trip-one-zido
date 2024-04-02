@@ -110,6 +110,7 @@ public class PlanService {
         requestContent.setId(requestPlan.getId());
         requestContent.setVisibility(requestPlan.isVisibility());
         requestContent.setTitle(requestPlan.getTitle());
+        contentMapper.updateContent(requestContent);
 
         //owner - with 삭제 후 다시 추가
         contentMapper.deletePlanSpotOwner(id);
