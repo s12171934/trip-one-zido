@@ -28,7 +28,7 @@
 
     <div class="row">
       <div class="col-md-6 d-flex">
-        <img class="rounded-5" :src="`data:image/jpeg;base64,${tour.photo}`" />
+        <img class="rounded-5" :src="tour.photo" />
       </div>
       <div class="col-md-6">
         <div class="d-flex align-items-center">

@@ -6,7 +6,9 @@
           content.photo
             ? content.plus
               ? content.photo
-              : `data:image/jpeg;base64,${content.photo}`
+              : content.type != 'tour'
+              ? `data:image/jpeg;base64,${content.photo}`
+              : content.photo
             : '/images/plan-default.jpg'
         "
         class="img"

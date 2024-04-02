@@ -9,14 +9,16 @@
             id,
             loc_category,
             address,
-            info
+            info,
+            photo
             )
         VALUE
             (
             #{id},
             #{locCategory},
             #{address},
-            #{info}
+            #{info},
+            #{photo}
             )
     </insert>
 
@@ -41,14 +43,7 @@
                 content_id = c.id AND
                 member_id = #{myMemberId}
             ) my_bookmark,
-            (
-                SELECT
-                    photo
-                FROM
-                    photo
-                WHERE
-                    content_id = c.id
-            ) photo
+            photo
         FROM
             tour t,
             content c
@@ -65,9 +60,9 @@
             SELECT
                 photo
             FROM
-                photo
+                tour
             WHERE
-                content_id = c.id
+                id = c.id
             ) photo,
             (
             SELECT

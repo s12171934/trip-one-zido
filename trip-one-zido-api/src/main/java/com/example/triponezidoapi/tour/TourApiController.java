@@ -5,7 +5,9 @@ import com.example.triponezidoapi.dto.request.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -68,13 +70,10 @@ public class TourApiController {
         return tourService.getTourListPage(requestTourList);
     }
 
-    @PostMapping("/")
+    @GetMapping("")
     @Operation(summary = "관광지 등록")
-    public void postTour(
-        @RequestBody
-        @Parameter(description = "관광지 정보")
-        RequestTour requestTour
+    public JSONObject postTour(
     ){
-        tourService.addTour(requestTour);
+        return tourService.getTourFromOpenApi();
     }
 }

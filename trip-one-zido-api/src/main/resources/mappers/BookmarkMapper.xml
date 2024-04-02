@@ -63,9 +63,9 @@
             SELECT
                 photo
             FROM
-                photo
+                tour
             WHERE
-                content_id = c.id
+                id = c.id
             ) photo,
             (
             SELECT
