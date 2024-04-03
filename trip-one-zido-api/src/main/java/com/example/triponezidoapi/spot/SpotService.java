@@ -41,7 +41,7 @@ public class SpotService {
         responseSpotDetail.setPhotos(spotMapper.getPhoto(id));
 
         //getComment
-        responseSpotDetail.setComments(commentService.getComments(id));
+        responseSpotDetail.setComments(commentService.getComments(id,sessionId));
 
         //getOwner
         responseSpotDetail.setWriter(contentMapper.getWriter(id));

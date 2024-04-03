@@ -13,7 +13,7 @@
     <div class="ms-3 w-100">
       <div class="d-flex gap-5">
         <span class="fw-bold">{{ data.member.loginId }}</span>
-        <div v-if="true && !editComment" class="d-flex gap-2 edit-comment">
+        <div v-if="data.sessionId == data.memberId && !editComment" class="d-flex gap-2 edit-comment">
           <span @click="editComment = !editComment" class="fw-bold">수정</span>
           <span
             @click="

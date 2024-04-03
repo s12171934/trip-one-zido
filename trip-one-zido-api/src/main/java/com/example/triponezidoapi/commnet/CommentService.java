@@ -24,13 +24,14 @@ public class CommentService {
         contentMapper.deleteContent(id);
     }
 
-    public List<ResponseComment> getComments(Long id){
+    public List<ResponseComment> getComments(Long id, Long sessionId){
         List<ResponseComment> responseCommentList = commentMapper.getComment(id);
 
         for(ResponseComment responseComment : responseCommentList){
             ResponseMember responseMember = memberMapper.getMemberProfile(responseComment.getMemberId());
             responseComment.setMember(responseMember);
-            responseComment.setComments(getComments(responseComment.getId()));
+            responseComment.setSessionId(sessionId);
+            responseComment.setComments(getComments(responseComment.getId(),sessionId));
         }
 
         return responseCommentList;
