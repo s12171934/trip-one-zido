@@ -10,6 +10,7 @@ public class ResponseComment {
     Long id;
     String comment;
     ResponseMember member;
+    Long sessionId;
     Long contentId;
     Long memberId;
     String type;

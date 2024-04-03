@@ -56,7 +56,7 @@ public class PlanService {
         responsePlanDetail.setSpots(responseSpotPlan);
         responsePlanDetail.setWriter(contentMapper.getWriter(id));
         responsePlanDetail.setMembers(contentMapper.getWith(id));
-        responsePlanDetail.setComments(commentService.getComments(id));
+        responsePlanDetail.setComments(commentService.getComments(id,sessionId));
         responsePlanDetail.setMyGood(myGood);
         responsePlanDetail.setMine(contentMapper.getWriter(id).getId().equals(sessionId));
         return responsePlanDetail;
