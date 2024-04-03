@@ -84,7 +84,7 @@ export default {
       const res = await this.$zido.findId(this.loginIdName, this.loginIdEmail);
       if (res !== null && res !== "") {
         this.modal = "findLoginIdSuccess";
-        data.modalDatas.findLoginIdSuccess.message = `당신의 아이디는<br />${result}<br />입니다.`;
+        data.modalDatas.findLoginIdSuccess.message = `당신의 아이디는<br />${res}<br />입니다.`;
       } else {
         this.modal = "findLoginIdFail";
       }

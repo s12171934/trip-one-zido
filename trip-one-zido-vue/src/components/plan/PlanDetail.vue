@@ -293,6 +293,7 @@ export default {
     async reloadComment() {
       //GET -- api/plan/${id}
       this.planData = await this.$zido.getPlanData(this.$route.params.id);
+      this.comment = "";
     },
   },
   async mounted() {

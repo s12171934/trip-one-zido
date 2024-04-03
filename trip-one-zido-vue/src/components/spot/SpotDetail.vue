@@ -217,6 +217,7 @@ export default {
     async reloadComment() {
       //GET -- /api/spot/${id}
       this.spotData = await this.$zido.getSpotData(this.$route.params.id);
+      this.comment = "";
     },
     openSpotMap() {
       window.open(

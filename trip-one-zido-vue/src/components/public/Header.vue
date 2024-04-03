@@ -21,7 +21,7 @@
         </form>
         <span class="image round d-flex h-100 align-items-center" box-sha>
           <img
-            @click="$router.push('/member-page')"
+            @click="goMypage()"
             :src="img 
               ? `data:image/jpeg;base64,${img}` 
               : '/images/nomal.jpeg'"
@@ -103,6 +103,9 @@ export default {
     };
   },
   methods: {
+    goMypage(){
+      location.href = "/member-page";
+    },
     toggleAddMenu() {
       this.addMenu = !this.addMenu;
     },
