@@ -25,7 +25,9 @@
               {{ list.title }}
             </td>
             <td>
-              <router-link :to="`/member-page/${list.writerId}`" id="black">{{ list.writer }}</router-link>
+              <router-link :to="`/member-page/${list.writerId}`" id="noUnderLine">
+                {{ list.writer }}
+              </router-link>
             </td>
             <td>{{ list.deadline }}</td>
             <td>{{ list.viewPoint }}</td>
@@ -146,15 +148,20 @@ export default {
         this.pageMove(this.currentPage - 1)
       } 
     },
-    //다음 페이지그룹(5개씩 한 그룹) 이동
     moveToNextPage() {
-      const totalPages = Math.ceil(this.totalCount / this.maxRecordsPerPage);
-      const currentPageGroup = Math.ceil(this.currentPage / this.maxPageOnScreen);
-      const nextPageGroupStart = (currentPageGroup * this.maxPageOnScreen) + 1;
-      if (nextPageGroupStart <= totalPages) {
-        this.pageMove(nextPageGroupStart);
+      if(this.hasNextPage()){
+        this.pageMove(this.currentPage + 1)
       }
     },
+    //다음 페이지그룹(5개씩 한 그룹) 이동 (추후에 그룹단위 이동이 필요할 경우를 위해 주석)
+    // moveToNextPage() {
+    //   const totalPages = Math.ceil(this.totalCount / this.maxRecordsPerPage);
+    //   const currentPageGroup = Math.ceil(this.currentPage / this.maxPageOnScreen);
+    //   const nextPageGroupStart = (currentPageGroup * this.maxPageOnScreen) + 1;
+    //   if (nextPageGroupStart <= totalPages) {
+    //     this.pageMove(nextPageGroupStart);
+    //   } 
+    // },
     pageMove(page) {
       const targetPage = page - 1; // 요청할 페이지 번호 계산
       this.currentPage = page; // 현재 페이지 번호 저장
@@ -236,6 +243,11 @@ thead tr {
 .select-wrapper #category {
   height: 100%;
   justify-content: right;
+}
+/* 아이디 밑줄 제거 */
+#noUnderLine {
+  text-decoration: none;
+  color: black;
 }
 
 #cursor {

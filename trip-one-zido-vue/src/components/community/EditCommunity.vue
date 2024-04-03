@@ -31,8 +31,8 @@
               <div class="select-wrapper" id="table-select">
                 <select class="local-select" v-model="communityData.total">
                   <option value="" selected>인원 선택</option>
-                  <option v-for="snop in 20" :value="snop">
-                    {{ snop }}&nbsp;명
+                  <option v-for="snop in 19" :value="snop + 1">
+                    {{ snop + 1 }}&nbsp;명
                   </option>
                 </select>
               </div>

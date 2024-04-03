@@ -31,7 +31,9 @@
             <td id="black">{{ detail.title }}</td>
             <td id="tdTitle" class="border-start">작성자 :</td>
             <td>
-              <router-link :to="`/member-page/${detail.members[0].id}`" id="black">{{ detail.members[0].loginId }}</router-link>
+              <router-link :to="`/member-page/${detail.members[0].id}`" id="noUnderLine">
+                {{ detail.members[0].loginId }}
+              </router-link>
             </td>
           </tr>
 
@@ -52,7 +54,9 @@
             <td>참여 인원 :</td>
             <td colspan="3">
               <span v-for="withMember in detail.members" class="me-2">
-                <router-link :to="`/member-page/${withMember.id}`" id="black">{{ withMember.loginId }}</router-link>
+                <router-link :to="`/member-page/${withMember.id}`" id="noUnderLine">
+                  {{ withMember.loginId }}
+                </router-link>
               </span>
             </td>
           </tr>
@@ -254,6 +258,11 @@ export default {
 /* 내용칸 설정 */
 #content {
   resize: none;
+}
+/* 아이디 밑줄 제거 */
+#noUnderLine {
+  text-decoration: none;
+  color: black;
 }
 
 @media (max-width: 990px) {
