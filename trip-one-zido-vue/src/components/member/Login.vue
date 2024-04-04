@@ -132,7 +132,7 @@ export default {
         "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=" +
         "TGQMEJAd_Qx6raHI9ZZk" +
         "&redirect_uri=" +
-        "http://localhost:8080/api/social/naver_login" +
+        "http://43.200.46.110:8080/api/social/naver_login" +
         "&state=1234";
       location.href = url;
     },
@@ -143,7 +143,7 @@ export default {
         "https://kauth.kakao.com/oauth/authorize?client_id=" +
         "a02aa0f1daf88f640e2509406d97bec1" +
         "&redirect_uri=" +
-        "http://localhost:8080/api/social/kakao_login" +
+        "http://43.200.46.110:8080/api/social/kakao_login" +
         "&response_type=code&" +
         "scope=	profile_nickname";
       location.href = url;
