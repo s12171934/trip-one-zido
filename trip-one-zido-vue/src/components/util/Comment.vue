@@ -45,6 +45,7 @@
       <form
         @submit.prevent="
           $zido.addComment(data.id, comment);
+          comment = null;
           $emit('reload');
         "
         v-if="addNestedComment"
