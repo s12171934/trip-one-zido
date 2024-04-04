@@ -26,7 +26,7 @@
 
       <h3>아직 회원이 아니시라면?</h3>
       <div class="d-flex justify-content-center">
-        <a @click="$router.push('sign-up')" class="button small">회원가입</a>
+        <a @click="$router.push('/sign-up')" class="button small">회원가입</a>
       </div>
     </div>
   </main>
