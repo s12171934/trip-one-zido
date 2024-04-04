@@ -7,13 +7,16 @@
     <img
       class="rounded-circle"
       id="followPic"
-      :src="`data:image/jpeg;base64,${userProfile.profile}`"
+      :src="userProfile.profile 
+        ? `data:image/jpeg;base64,${userProfile.profile}`
+        : '/images/nomal.jpeg'"
       alt="..."
     />
 
-    <div class="d-flex justify-content-between w-100 align-items-center" >
+    <div class="d-flex justify-content-between w-100 align-items-center">
       <h4>{{ userProfile.loginId }}</h4>
-        <button v-if="userProfile.id != userProfile.sessionId"
+      <button
+        v-if="userProfile.id != userProfile.sessionId"
         @click.stop="$emit('followToggle', userProfile)"
         @mouseover="hover = true"
         @mouseleave="hover = false"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.triponezidoapi.mappers.BookmarkMapper">
+<mapper namespace="com.example.triponezidoapi.bookmark.BookmarkMapper">
     <insert id="addBookmark" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
         INSERT INTO bookmark
             (
@@ -63,9 +63,9 @@
             SELECT
                 photo
             FROM
-                photo
+                tour
             WHERE
-                content_id = c.id
+                id = c.id
             ) photo,
             (
             SELECT

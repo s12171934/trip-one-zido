@@ -6,7 +6,6 @@
 
     <form @submit.prevent="$router.push(`/search/${keyword}`)">
       <div class="searchbar-wrap">
-        <!-- <input class="search-input" type="text"/> -->
         <i class="icon fa-search"></i>
         <input
           v-model="keyword"
@@ -27,7 +26,9 @@
       <a @click="$router.push('/tour/loc')" class="button" id="buttons"
         >관광정보</a
       >
-      <a @click="$router.push('/bookmark')" class="button" id="buttons">찜</a>
+      <a @click="$router.push('/bookmark')" class="button" id="buttons"
+        >찜</a
+      >
     </div>
 
     <h3 class="mt-4">
@@ -63,6 +64,7 @@ export default {
   },
   async mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    //인기검색어 GET -- api/search/top10
     this.topTen = await this.$zido.getTopTen();
   },
 };

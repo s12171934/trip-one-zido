@@ -12,6 +12,7 @@
         v-model="keyword"
       />
       <button class="button alt" type="submit" id="more">검색</button>
+      
       <button
         class="button alt"
         id="detail"
@@ -90,6 +91,7 @@ export default {
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
     this.keyword = this.$route.params.keyword;
+    //GET -- /api/search/${keyword}
     this.$zido
       .getSearchData(this.$route.params.keyword)
       .then((res) => (this.searchData = res));
@@ -98,6 +100,7 @@ export default {
     $route(to, from) {
       if (to.params.keyword != from.params.keyword) {
         this.keyword = to.params.keyword;
+        //GET -- /api/search/${keyword}
         this.$zido
           .getSearchData(to.params.keyword)
           .then((res) => (this.searchData = res));

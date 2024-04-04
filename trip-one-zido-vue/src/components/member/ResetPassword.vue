@@ -3,6 +3,7 @@
     <h1>비밀번호 재설정</h1>
     <hr />
     <table>
+      <!-- 설정페이지 -> 비밀번호 변경시에 노출 -->
       <tr v-if="$route.params.id == ''">
         <td>현재 비밀번호 입력</td>
         <td>
@@ -36,6 +37,7 @@
     </div>
   </main>
 
+  <!-- 비밀번호 재설정 성공여부 모달 -->
   <AlertModal :modal="modal" />
 </template>
 
@@ -55,28 +57,35 @@ export default {
     };
   },
   methods: {
-    passwordCheck() {
-      this.checkPassword().then(result => {
-        if(result){
-          this.modal = "resetPasswordSuccess";
+    async passwordCheck() {
+      const res = await this.checkPassword();
+      if (res) {
+        this.modal = "resetPasswordSuccess";
       } else {
-          this.modal = "resetPasswordFail";
-      }  
-    }).catch(error => {
-      console.log("비밀번호가 틀립니다.");
-    });
-  },
-    checkPassword(){
-      if(this.$route.params.id){
-        return this.$zido.resetPassword(this.$route.params.id, this.changePassword, this.changePasswordCheck);
+        this.modal = "resetPasswordFail";
       }
-      else{
-        return this.$zido.changePassword(this.nowPassword, this.changePassword, this.changePasswordCheck);
+    },
+    //PUT -- api/member/password/{id}
+    //PUT -- api/member/password
+    checkPassword() {
+      if (this.$route.params.id) {
+        return this.$zido.resetPassword(
+          this.$route.params.id,
+          this.changePassword,
+          this.changePasswordCheck
+        );
+      } else {
+        return this.$zido.changePassword(
+          this.nowPassword,
+          this.changePassword,
+          this.changePasswordCheck
+        );
       }
-    }
+    },
   },
   mounted() {
-    this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    //로그인 확인
+    this.$emit("meta", this.$route.matched[0].meta.isLogin || this.$cookies.isKey('login'));
   },
 };
 </script>
@@ -87,22 +96,18 @@ main {
   margin-right: 20%;
 }
 
-h1 {
-  color: #ff928e !important;
-}
-
 .button {
   border-radius: 10px !important;
 }
 
 @media (max-width: 1000px) {
- main {
-  margin-left: 10%;
-  margin-right: 10%;
- }
- .button {
-  margin-bottom: 5%;
- }
+  main {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+  .button {
+    margin-bottom: 5%;
+  }
 }
 
 @media (max-width: 720px) {
@@ -110,10 +115,10 @@ h1 {
     font-size: 13px;
   }
   main {
-  margin-left: 5%;
-  margin-right: 5%;
- }
-} 
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+}
 
 @media (max-width: 475px) {
   td {
@@ -122,7 +127,7 @@ h1 {
   .button {
     font-size: 13px;
   }
-} 
+}
 
 @media (max-width: 365px) {
   td {

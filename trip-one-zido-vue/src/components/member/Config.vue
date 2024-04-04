@@ -4,11 +4,14 @@
       <h1>설정페이지</h1>
     </div>
     <div class="d-flex justify-content-between">
-      <div >
+      <!-- 왼쪽 프로필정보 -->
+      <div>
         <div class="d-flex align-items-center">
           <div class="d-flex flex-column gap-2">
             <img
-              :src="`data:image/jpeg;base64,${configData.memberProfile.profile}`"
+              :src="configData.memberProfile.profile 
+                ? `data:image/jpeg;base64,${configData.memberProfile.profile}`
+                : '/images/nomal.jpeg'"
               alt=""
               class="rounded-circle"
             />
@@ -24,24 +27,19 @@
         </div>
 
         <div class="summary-css">
-        <hr />
-        <NumberSummary
-          @follower="
-            followType = 'follower';
-            getFollowList();
-          "
-          @following="
-            followType = 'following';
-            getFollowList();
-          "
-          
-          :totalBoard="configData.postCount"
-          :followerCount="configData.followerCount"
-          :followingCount="configData.followingCount"
-          :bookmarkCount="configData.bookmarkCount"
-        />
+          <hr />
+          <NumberSummary
+            @follower="getFollowList('follower')"
+            @following="getFollowList('following')"
+            :totalBoard="configData.postCount"
+            :followerCount="configData.followerCount"
+            :followingCount="configData.followingCount"
+            :bookmarkCount="configData.bookmarkCount"
+          />
+        </div>
       </div>
-      </div>
+
+      <!-- 오른쪽 네비게이션 -->
       <div
         class="w-50 d-flex justify-content-end align-items-end"
         id="configInfo"
@@ -72,8 +70,10 @@
     </div>
   </main>
 
+  <!-- 프로필사진 편집 모달 -->
   <EditProfileModal />
 
+  <!-- 팔로워 팔로잉 목록 모달 -->
   <FollowModal :type="followType" :followList="followList" />
 </template>
 
@@ -102,19 +102,23 @@ export default {
     };
   },
   methods: {
-    getFollowList() {
-      this.$zido
-        .getFollowList(
-          this.followType,
-          this.memberPageData.id,
-          this.memberPageData.sessionId
-        )
-        .then((res) => (this.followList = res));
+    //팔로워 목록 조회
+    //GET -- api/page/follower/{id}
+    //GET -- api/page/following/{id}
+    async getFollowList(type) {
+      this.followType = type;
+      this.followList = await this.$zido.getFollowList(
+        this.followType,
+        this.configData.memberProfile.id,
+        this.configData.memberProfile.sessionId
+      );
     },
   },
-  mounted() {
+  async mounted() {
+    //로그인 확인
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
-    this.$zido.getConfigData().then((res) => (this.configData = res));
+    //GET -- api/member/config
+    this.configData = await this.$zido.getConfigData();
   },
 };
 </script>
@@ -133,10 +137,14 @@ button {
   width: 100%;
 }
 
+h1{
+  white-space: nowrap; /*아이디에 -들어가도 줄바꿈 안되게하기*/
+}
 
 @media (max-width: 1200px) {
-  .w-50, .p-2 {
-    white-space: nowrap; 
+  .w-50,
+  .p-2 {
+    white-space: nowrap;
   }
 }
 

@@ -1,68 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.triponezidoapi.mappers.ContentMapper">
-    <insert id="addContent" parameterType="com.example.triponezidoapi.dto.request.RequestContent">
+<mapper namespace="com.example.triponezidoapi.content.ContentMapper">
+    <insert id="addContent"
+            parameterType="com.example.triponezidoapi.dto.request.RequestContent">
         INSERT INTO content
             (
-            type,
-            visibility,
-            title
+                type,
+                visibility,
+                title
             )
         VALUE
             (
-            #{type},
-            #{visibility},
-            #{title}
+                #{type},
+                #{visibility},
+                #{title}
             )
         <selectKey keyProperty="id" resultType="long">
             SELECT LAST_INSERT_ID();
         </selectKey>
     </insert>
 
-    <insert id="addGood" parameterType="com.example.triponezidoapi.dto.request.RequestGood">
+    <insert id="addGood"
+            parameterType="com.example.triponezidoapi.dto.request.RequestGood">
         INSERT INTO good
             (
-            good,
-            member_id,
-            content_id
+                good,
+                member_id,
+                content_id
             )
         VALUE
             (
-            #{good},
-            #{memberId},
-            #{contentId}
+                #{good},
+                #{memberId},
+                #{contentId}
             )
     </insert>
 
-    <insert id="addOwner" parameterType="com.example.triponezidoapi.dto.request.RequestOwner">
+    <insert id="addOwner"
+            parameterType="com.example.triponezidoapi.dto.request.RequestOwner">
         INSERT INTO owner
             (
-            own,
-            member_id,
-            content_id
+                own,
+                member_id,
+                content_id
             )
         VALUE
             (
-            #{own},
-            #{memberId},
-            #{contentId}
+                #{own},
+                #{memberId},
+                #{contentId}
             )
     </insert>
 
-    <insert id="addRecentView" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
+    <insert id="addRecentView"
+            parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget">
         INSERT INTO open_content
-        (
-            member_id,
-            content_id
-        )
-            VALUE
             (
-             #{memberId},
-             #{contentId}
-                )
+                member_id,
+                content_id
+            )
+        VALUE
+            (
+                #{myMemberId},
+                #{targetId}
+            )
     </insert>
 
-    <select id="getOwner" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+    <select id="getOwner"
+            parameterType="Long"
+            resultType="com.example.triponezidoapi.dto.response.ResponseMember">
         SELECT
             m.id,
             m.login_id,
@@ -76,7 +82,9 @@
             o.content_id = #{id}
     </select>
 
-    <select id="getWriter" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+    <select id="getWriter"
+            parameterType="Long"
+            resultType="com.example.triponezidoapi.dto.response.ResponseMember">
         SELECT
             m.id,
             m.login_id,
@@ -91,7 +99,9 @@
             o.own = 'writer'
     </select>
 
-    <select id="getWith" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
+    <select id="getWith"
+            parameterType="Long"
+            resultType="com.example.triponezidoapi.dto.response.ResponseMember">
         SELECT
             m.id,
             m.login_id,
@@ -106,7 +116,9 @@
             o.content_id = #{id}
     </select>
 
-    <select id="getRecentView" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
+    <select id="getRecentView"
+            parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget"
+            resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
         SELECT
             c.id,
             c.title,
@@ -126,7 +138,10 @@
                     photo
                 WHERE
                     content_id = c.id AND
-                    (profile_id is null OR profile_id = photo.id)
+                    (
+                        profile_id is null OR
+                        profile_id = photo.id
+                    )
             ) photo,
             (
                 SELECT
@@ -180,8 +195,17 @@
             c.id = sp.id and
             o.content_id = c.id and
             o.member_id = #{myMemberId} AND
-            (visibility = 1 OR
-            c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+            (
+                visibility = 1 OR
+                c.id IN
+                (
+                    SELECT
+                        content_id
+                    FROM
+                        owner
+                    WHERE
+                        member_id = #{myMemberId}
+                )
             )
         ORDER BY
             opened_at DESC
@@ -189,17 +213,21 @@
             #{page}, 6
     </select>
 
-    <select id="isGood" parameterType="com.example.triponezidoapi.dto.request.RequestGood" resultType="int">
+    <select id="isGood"
+            parameterType="com.example.triponezidoapi.dto.request.RequestGood"
+            resultType="int">
         SELECT
             COUNT(*)
         FROM
             good
         WHERE
-            content_id = #{contentId}
-          AND member_id = #{memberId}
+            content_id = #{contentId} AND
+            member_id = #{memberId}
     </select>
 
-    <select id="getRecentViewCount" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="int">
+    <select id="getRecentViewCount"
+            parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget"
+            resultType="int">
         SELECT
             count(*)
         FROM
@@ -208,25 +236,43 @@
         WHERE
             o.content_id = c.id and
             o.member_id = #{memberId} and
-            (visibility = 1 OR
-            c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+            (
+                visibility = 1 OR
+                c.id IN
+                (
+                    SELECT
+                        content_id
+                    FROM
+                        owner
+                    WHERE
+                        member_id = #{myMemberId}
+                )
             )
     </select>
 
-    <select id="myGood" parameterType="com.example.triponezidoapi.dto.request.RequestGood" resultType="boolean">
+    <select id="myGood"
+            parameterType="com.example.triponezidoapi.dto.request.RequestGood"
+            resultType="boolean">
         SELECT
             good
         FROM
             good
         WHERE
-            content_id = #{contentId}
-          AND member_id = #{memberId}
+            content_id = #{contentId} AND
+            member_id = #{memberId}
     </select>
 
-    <select id="isMine" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember" resultType="boolean">
-        SELECT CASE
-            WHEN COUNT(*) > 0 THEN TRUE
-            ELSE FALSE
+    <select id="isMine"
+            parameterType="com.example.triponezidoapi.dto.request.RequestContentMember"
+            resultType="boolean">
+        SELECT
+            CASE
+                WHEN
+                    COUNT(*) > 0
+                THEN
+                    TRUE
+                ELSE
+                    FALSE
             END AS result
         FROM
             owner
@@ -235,34 +281,59 @@
             member_id = #{memberId}
     </select>
 
-    <select id="getAddress" parameterType="long" resultType="string">
-        SELECT address
-        FROM tour
-        WHERE id = #{id}
+    <select id="getAddress"
+            parameterType="long"
+            resultType="string">
+        SELECT
+            address
+        FROM
+            tour
+        WHERE
+            id = #{id}
         UNION
-        SELECT address
-        FROM spot
-        WHERE id = #{id}
+        SELECT
+            address
+        FROM
+            spot
+        WHERE
+            id = #{id}
     </select>
 
-    <update id="updateVisibility" parameterType="com.example.triponezidoapi.dto.request.RequestVisibility">
-        UPDATE content
+    <update id="updateContent"
+            parameterType="com.example.triponezidoapi.dto.request.RequestContent">
+        UPDATE
+            content
+        SET
+            visibility = #{visibility},
+            title = #{title}
+        WHERE
+            id = #{id}
+    </update>
+
+    <update id="updateVisibility"
+            parameterType="com.example.triponezidoapi.dto.request.RequestVisibility">
+        UPDATE
+            content
         SET
             visibility = #{visibility}
         WHERE
             id = #{id}
     </update>
 
-    <update id="updateTitle" parameterType="com.example.triponezidoapi.dto.request.RequestTitle">
-        UPDATE content
+    <update id="updateTitle"
+            parameterType="com.example.triponezidoapi.dto.request.RequestTitle">
+        UPDATE
+            content
         SET
             title = #{title}
         WHERE
             id = #{id}
     </update>
 
-    <update id="updateGood" parameterType="com.example.triponezidoapi.dto.request.RequestGood">
-        UPDATE good
+    <update id="updateGood"
+            parameterType="com.example.triponezidoapi.dto.request.RequestGood">
+        UPDATE
+            good
         SET
             good = #{good}
         WHERE
@@ -270,35 +341,46 @@
             content_id = #{contentId}
     </update>
 
-    <delete id="deleteContent" parameterType="Long">
-        DELETE FROM content
-        WHERE id = #{id}
+    <delete id="deleteContent"
+            parameterType="Long">
+        DELETE FROM
+            content
+        WHERE
+            id = #{id}
     </delete>
 
-    <delete id="deleteGood" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
-        DELETE FROM good
+    <delete id="deleteGood"
+            parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
+        DELETE FROM
+            good
         WHERE
             content_id = #{contentId} AND
             member_id = #{memberId}
     </delete>
 
-    <delete id="deleteOwner" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
-        DELETE FROM owner
+    <delete id="deleteOwner"
+            parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
+        DELETE FROM
+            owner
         WHERE
             member_id = #{memberId} AND
             content_id = #{contentId}
     </delete>
 
-    <delete id="deletePlanSpotOwner" parameterType="Long">
-        DELETE FROM owner
+    <delete id="deletePlanSpotOwner"
+            parameterType="Long">
+        DELETE FROM
+            owner
         WHERE
             content_id = #{contentId} AND own != 'writer'
     </delete>
 
-    <delete id="changeRecentView" parameterType="com.example.triponezidoapi.dto.request.RequestContentMember">
-        DELETE FROM open_content
+    <delete id="changeRecentView"
+            parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget">
+        DELETE FROM
+            open_content
         WHERE
-            member_id = #{memberId} AND
-            content_id = #{contentId}
+            member_id = #{myMemberId} AND
+            content_id = #{targetId}
     </delete>
 </mapper>

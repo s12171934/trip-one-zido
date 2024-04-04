@@ -1,7 +1,7 @@
 <template>
   <main class="wrapper d-flex">
     <div class="p-2 d-flex flex-column border-end" id="leftSide">
-      <div class="d-flex justify-content-between ">
+      <div class="d-flex justify-content-between">
         <h1 @click="console.log(status)" class="title">
           일정 {{ mode === "add" ? "등록" : "수정" }}
         </h1>
@@ -21,6 +21,7 @@
           />
         </div>
       </div>
+
       <div class="leftTable">
       <table>
         <tr>
@@ -58,6 +59,7 @@
             </div>
           </td>
         </tr>
+
         <tr>
           <td><h4 class="title-col">동행인</h4></td>
           <td>
@@ -103,6 +105,7 @@
             <h4 class="title-col">지도</h4>
           </td>
         </tr>
+
         <tr>
           <td colspan="2" class="map">
             <KakaoMapForEditPlan :spots="planData.spots" />
@@ -120,6 +123,7 @@
             />
           </td>
         </tr>
+
         <tr>
           <td colspan="2">
             <textarea
@@ -224,8 +228,8 @@ export default {
         spots: [],
         visibility: true,
         grade: 0,
+        deleteSpots: null,
       },
-
       popUpOptions:
         "toolbar=no,resizable=yes,status=no,width=800,height=1000,top=0,left=0",
 
@@ -282,7 +286,7 @@ export default {
     },
 
     addMember() {
-     this.planData.members.push({loginId: ""});
+      this.planData.members.push({loginId: ""});
     },
 
     delMember(idx) {
@@ -292,6 +296,7 @@ export default {
     setCalendarByDate() {
       const start = new Date(this.planData.startDate);
       const end = new Date(this.planData.endDate);
+
       let days = end.getTime() - start.getTime();
       console.log(days);
       days = Math.ceil(days / (1000 * 60 * 60 * 24)) + 1;
@@ -305,6 +310,7 @@ export default {
     checkOtherDate(type) {
       const start = new Date(this.planData.startDate);
       const end = new Date(this.planData.endDate);
+
       let days = end.getTime() - start.getTime();
       console.log(days);
 
@@ -326,6 +332,7 @@ export default {
         start: calendarEvent.startStr,
         end: calendarEvent.endStr,
       });
+      
       const newSpot = JSON.parse(JSON.stringify(spotData));
       newSpot.id = this.spotId;
       newSpot.startDate = new Date(calendarEvent.startStr);
@@ -335,7 +342,7 @@ export default {
       console.log(calendarEvent.endStr)
       console.log(newSpot.endDate)
       this.planData.spots.push(newSpot);
-      this.spotId++;
+      // this.spotId++;
     },
 
     editSpotDetail(calendarEvent, spotData) {
@@ -356,8 +363,15 @@ export default {
       calendarEvent.event.remove();
       const id = calendarEvent.event._def.publicId;
       console.log(id)
-      this.$zido.deleteSpot(id);
-      delete this.planData.spots[id];
+      delete this.planData.spots[id]
+      //deleteSpot 요청시 빈배열 생성
+      if (!Array.isArray(this.planData.deleteSpots)) {
+          this.planData.deleteSpots = [];
+        }
+      if(id != 0){
+        this.planData.deleteSpots.push(id)
+      }
+      console.log(this.planData.deleteSpots)
     },
     setInitialEvent() {
       const calendarApi = this.$refs.FullCalendar.getApi();
@@ -372,7 +386,8 @@ export default {
       console.log(calendarApi.getEvents());
     },
     removeDuplicateLoginIds(members) {
-      const loginIdsSet = new Set(); // 중복된 loginId를 저장하기 위한 Set
+      // 중복된 loginId를 저장하기 위한 Set
+      const loginIdsSet = new Set(); 
       const uniqueMembers = [];
       for (const member of members) {
         if (!loginIdsSet.has(member.loginId)) {
@@ -385,14 +400,17 @@ export default {
       uniqueMembers.forEach(member => {
         members.push(member);
       });
-      return members; // 중복이 제거된 배열 반환
+      // 중복이 제거된 배열 반환
+      return members; 
     },
     submitButton(mode) {
       //제출 전 중복 확인
       this.removeDuplicateLoginIds(this.planData.members);
       if (mode == "add") {
+        //POST -- /api/plan
         this.$zido.addPlan(this.planData);
       } else {
+        //PUT -- /api/plan/${id}
         this.$zido.updatePlan(this.$route.params.id,this.planData);
       }
       location.href = "/member-page";
@@ -401,6 +419,7 @@ export default {
   async mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
     if (this.mode != "add") {
+       //GET -- /api/plan/${id}
       this.planData = await this.$zido.getPlanData(this.$route.params.id);
       this.setCalendarByDate();
       this.setInitialEvent();

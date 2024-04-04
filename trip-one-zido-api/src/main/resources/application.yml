@@ -1,13 +1,13 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://14.36.28.176:3306/DBtrip?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://43.200.46.110:3306/DBtrip?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: zido
     password: tripones
 
   data:
     redis:
-      host: 192.168.10.175
+      host: 43.200.46.110
       port: 6379
 
 

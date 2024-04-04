@@ -1,7 +1,18 @@
 <template>
   <div :id="content.id" class="container">
     <div @click.stop="this.$emit('plus')" class="image">
-      <img :src="content.photo ? (content.plus ? content.photo : `data:image/jpeg;base64,${content.photo}`) : '/images/plan-default.jpg'" class="img" />
+      <img
+        :src="
+          content.photo
+            ? content.plus
+              ? content.photo
+              : content.type != 'tour'
+              ? `data:image/jpeg;base64,${content.photo}`
+              : content.photo
+            : '/images/plan-default.jpg'
+        "
+        class="img"
+      />
     </div>
     <div
       v-if="content.type != null"
@@ -17,7 +28,9 @@
         ><img id="star" src="/images/star.png" />&nbsp;{{ content.grade }}</span
       >
       <span v-if="content.type != 'tour'"
-        ><img id="like" src="/images/like.png" />&nbsp;{{ content.goodCount }}</span
+        ><img id="like" src="/images/like.png" />&nbsp;{{
+          content.goodCount
+        }}</span
       >
     </div>
     <p>

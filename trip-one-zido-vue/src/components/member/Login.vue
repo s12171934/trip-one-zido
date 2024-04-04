@@ -2,37 +2,44 @@
   <main class="wrapper d-flex flex-row justify-content-center">
     <div id="box" class="flex-column">
       <h1>로그인</h1>
-      <form @submit.prevent class="d-flex flex-column border border-5 gap-4">
+      <!-- 로그인 입력폼 엔터시 로그인 -->
+      <form
+        @submit.prevent="login"
+        class="d-flex flex-column border border-5 gap-4"
+      >
         <input type="text" v-model="loginId" placeholder="아이디" />
         <input type="password" v-model="password" placeholder="비밀번호" />
 
         <div class="d-flex justify-content-between flex-column-on-small-screen">
           <div>
             <input
-            type="checkbox"
-            id="idsave"
-            name="idsave"
-            v-model="saveLoginId"
-          />
-          <label for="idsave">아이디 저장</label>
+              type="checkbox"
+              id="idsave"
+              name="idsave"
+              v-model="saveLoginId"
+            />
+            <label for="idsave">아이디 저장</label>
           </div>
 
           <div>
             <input
-            type="checkbox"
-            id="autologin"
-            name="autologin"
-            v-model="autoLogin"
-          />
-          <label for="autologin">자동 로그인</label>
+              type="checkbox"
+              id="autologin"
+              name="autologin"
+              v-model="autoLogin"
+            />
+            <label for="autologin">자동 로그인</label>
           </div>
-
-          <a @click="$router.push('/find')" style="color: #767d85;">아이디 / 비밀번호 찾기</a>
         </div>
 
+        <div class="find">
+          <a @click="$router.push('/find')" style="color: #767d85"
+            >아이디 / 비밀번호 찾기</a
+          >
+        </div>
+        
         <div class="d-flex justify-content-center">
           <button
-            @click="login"
             data-bs-toggle="modal"
             data-bs-target="#alertModal"
             class="button small"
@@ -64,11 +71,14 @@
 
       <h3>아직 회원이 아니시라면?</h3>
       <div class="d-flex justify-content-center">
-        <a @click="$router.push('sign-up')" class="button small" id="button">회원가입</a>
+        <a @click="$router.push('sign-up')" class="button small" id="button"
+          >회원가입</a
+        >
       </div>
     </div>
   </main>
 
+  <!-- 로그인상태 모달 -->
   <AlertModal :modal="modal" />
 </template>
 
@@ -81,53 +91,66 @@ export default {
   },
   data() {
     return {
+      //아이디 저장 쿠키 유효시 아이디 삽입 및 체크버튼 자동 활성화
       loginId: this.$cookies.isKey("saveLoginId")
         ? this.$cookies.get("saveLoginId")
         : "",
       saveLoginId: this.$cookies.isKey("saveLoginId"),
       autoLogin: false,
-      modal: "loginFail",
+      modal: "",
     };
   },
   methods: {
+    //POST -- api/member/login
     async login() {
-      if (await this.$zido.login(this.loginId,this.password)) {
+      //로그인 중 ...
+      this.modal = "loginTry";
+      //패스워드 미입력시
+      if(this.password == null){
+        this.modal = "PasswordTry";
+        return;
+      }
+      //로그인 성공시 정보없는 로그인 쿠키 발행
+      //아이디 저장 및 자동로그인 선택시 아이디를 값으로 가지는 토큰 발행
+      if (await this.$zido.login(this.loginId, this.password)) {
         this.$cookies.set("login", 1, 0);
-        if (this.saveLoginId) {
-          this.$cookies.set("saveLoginId", this.loginId);
-        } else {
-          this.$cookies.remove("saveLoginId");
-        }
-        if (this.autoLogin) {
-          this.$cookies.set("autoLogin", this.loginId);
-        } else {
-          this.$cookies.remove("autoLogin");
-        }
+        this.saveLoginId
+          ? this.$cookies.set("saveLoginId", this.loginId)
+          : this.$cookies.remove("saveLoginId");
+        this.autoLogin
+          ? this.$cookies.set("autoLogin", this.loginId)
+          : this.$cookies.remove("autoLogin");
         location.href = "/";
       } else {
+        this.modal = "loginFail";
       }
     },
+
+    //네이버로그인 API
     doNaverLogin() {
       const url =
         "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=" +
         "TGQMEJAd_Qx6raHI9ZZk" +
         "&redirect_uri=" +
-        "http://localhost:8080/api/social/naver_login" +
+        "http://43.200.46.110:8080/api/social/naver_login" +
         "&state=1234";
       location.href = url;
     },
+
+    //카카오로그인 API
     doKakaoLogin() {
       const url =
         "https://kauth.kakao.com/oauth/authorize?client_id=" +
         "a02aa0f1daf88f640e2509406d97bec1" +
         "&redirect_uri=" +
-        "http://localhost:8080/api/social/kakao_login" +
+        "http://43.200.46.110:8080/api/social/kakao_login" +
         "&response_type=code&" +
         "scope=	profile_nickname";
-        location.href = url;
+      location.href = url;
     },
   },
   mounted() {
+    //로그인 확인
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
   },
 };
@@ -135,10 +158,10 @@ export default {
 
 <style scoped>
 .wrapper {
-  padding: 5%;
+  padding: 1%;
   background-color: #d9d9d9;
   border-radius: 50px;
-  margin-inline: 20%;
+  margin-inline: 30%;
   margin-top: 3%;
   margin-bottom: 3%;
 }
@@ -186,13 +209,17 @@ a {
   color: #ff928e;
 }
 
+.gap-4 {
+    gap: 0.5rem !important;
+}
+
 @media (max-width: 1250px) {
   #box {
-    white-space: nowrap; 
-    text-overflow: ellipsis; 
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .wrapper {
-    margin-inline: 10% !important;
+    margin-inline: 20% !important;
   }
 }
 
@@ -200,7 +227,7 @@ a {
   .flex-column-on-small-screen {
     display: flex;
     flex-direction: column;
-    align-items: center; 
+    align-items: center;
   }
   h3 {
     font-size: 16px; /* 작은 화면에서 폰트 크기를 작게 조정 */
@@ -208,16 +235,26 @@ a {
   form {
     border: none !important; /* 작은 화면에서 border 제거 */
   }
+  .find {
+    text-align: center;
+  }
+  .wrapper {
+  padding: 3%;
+  }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 540px) {
   img {
-      width: 50px;
-      height: 50px;
+    width: 50px;
+    height: 50px;
   }
-  button, #button {
+  button,
+  #button {
     width: 50%;
     padding: 0;
-  }    
+  }
+  .wrapper {
+    margin-inline : 10% !important;
+  }
 }
 </style>

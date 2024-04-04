@@ -3,17 +3,17 @@
     <!-- ★왼쪽 -->
     <div class="p-2 d-flex flex-column border-end" id="leftSide">
       <h1 class="title">장소 {{ mode == "add" ? "등록" : "수정" }}</h1>
-
       <div class="p-2 h-100">
         <div class="d-flex justify-content-between">
           <h4 id="font-vertical">사진 등록</h4>
-          <label for="addPic"
-            ><img
+          <label for="addPic">
+            <img
               src="/images/plusbutton.png"
               width="25"
               height="25"
               id="plusMember"
-          /></label>
+            />
+          </label>
           <input
             type="file"
             id="addPic"
@@ -21,6 +21,7 @@
             multiple
           />
         </div>
+
         <div class="d-flex align-items-center p-3" id="photo-container">
           <img
             @contextmenu.prevent="delPhoto(idx)"
@@ -148,6 +149,7 @@
             />
           </td>
         </tr>
+
         <tr>
           <td colspan="2">
             <textarea
@@ -159,10 +161,11 @@
             />
           </td>
         </tr>
+
         <tr id="rowbutton">
           <td>
             <div class="select-wrapper">
-              <select class="local-select" v-model="spotData.visibility" id="security">
+              <select class="local-select" v-model="spotData.visibility">
                 <option value=true>공개</option>
                 <option value=false>비공개</option>
               </select>
@@ -225,6 +228,7 @@ export default {
         await this.base64(photo);
       }
     },
+
     base64(file) {
       return new Promise((resolve) => {
         let fileReader = new FileReader();
@@ -236,15 +240,19 @@ export default {
         fileReader.readAsDataURL(file);
       });
     },
+
     delPhoto(idx) {
       this.spotData.photos.splice(idx, 1);
     },
+
     addMember() {
       this.spotData.members.push({loginId: ""});
     },
+
     delMember(idx) {
       this.spotData.members.splice(idx, 1);
     },
+
     searchAddress() {
       new daum.Postcode({
         oncomplete: function (data) {
@@ -252,10 +260,13 @@ export default {
         },
       }).open();
     },
+
     async setSpotData() {
+      //GET -- /api/spot/${id}
       const responseSpotData = await this.$zido.getSpotData(
         this.$route.params.id
       );
+
       this.spotData = {
         photos: responseSpotData.photos,
         title: responseSpotData.title,
@@ -269,14 +280,17 @@ export default {
         review: responseSpotData.review,
         visibility: responseSpotData.visibility
       };
+
       for (let photo in this.spotData.photos) {
         this.spotData.photos[
           photo
         ].photo = `data:image/jpeg;base64,${this.spotData.photos[photo].photo}`;
       }
+
       console.log(this.spotData);
       document.querySelector("#address").value = this.spotData.address;
     },
+
     removeDuplicateLoginIds(members) {
       const loginIdsSet = new Set(); // 중복된 loginId를 저장하기 위한 Set
       const uniqueMembers = [];
@@ -293,17 +307,21 @@ export default {
       });
       return members; // 중복이 제거된 배열 반환
     },
+
     submitButton(mode) {
       this.spotData.address = document.querySelector("#address").value;
       this.removeDuplicateLoginIds(this.spotData.members);
       if (mode == "add") {
+        //POST -- /api/spot
         this.$zido.addSpot(this.spotData);
       } else {
+        //PUT -- /api/spot/${id}
         this.$zido.updateSpot(this.$route.params.id, this.spotData);
       }
       this.$router.push("/member-page");
     },
   },
+
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
     if (this.$route.params.id) {
@@ -361,7 +379,6 @@ td {
   padding: 2%;
   box-shadow: 0 0 0 1px #dee1e3 inset;
   border-radius: 0.5rem;
- 
 }
 
 #plusMember {
@@ -375,6 +392,7 @@ textarea {
 .border-0 {
   color: black;
 }
+
 button, .button, select, input, textarea {
   border-radius: 10px !important;
 }
@@ -387,11 +405,8 @@ button, .button, select, input, textarea {
   #leftSide, #rightSide {
     width: 100%; /*각 요소를 꽉차게 설정 */
   }
-  #rightSide {
-    order: 1; /*오른쪽 요소를 아래로 이동 */
-  }
   #leftSide {
-    border-inline: none !important; /* border -end 제거*/ 
+    border-inline: none !important; 
   }
   #photo-container {
     height: 500px;
@@ -415,9 +430,6 @@ button, .button, select, input, textarea {
   }
   table tr td h4 {
     margin-bottom: 5px; /* 텍스트 입력 필드와의 간격 조절 */
-  }
-  #security {
-    width: 98%;
   }
 }
 

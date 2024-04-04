@@ -80,6 +80,15 @@ export default {
       message: "아이디와 비밀번호를<br />확인해주세요.",
       buttonMessage: "다시 로그인 하기",
     },
+    PasswordTry:{
+      url: "/login",
+      message: "비밀번호를<br />입력해주세요.",
+      buttonMessage: "다시 로그인 하기",
+    },
+    loginTry: {
+      url: "/",
+      message: "로그인을 시도합니다...",
+    },
     updateMemberInfoFail: {
       url: "/config",
       message: "회원정보 수정이<br />완료되었습니다.",
@@ -103,6 +112,26 @@ export default {
     checkDuplicationLoginIdFail: {
       url: "/sign-up",
       message: "중복된 ID입니다.",
+      buttonMessage: "확인",
+    },
+    checkLoginIdFirst: {
+      url: "",
+      message: "아이디 중복확인 이후<br />가입이 가능합니다.",
+      buttonMessage: "확인",
+    },
+    passwordValidFail: {
+      url: "",
+      message: "비밀번호 양식을<br />확인해주세요.",
+      buttonMessage: "확인",
+    },
+    passwordCheckFail: {
+      url: "",
+      message: "비밀번호 확인에<br />실패했습니다.",
+      buttonMessage: "확인",
+    },
+    emailValidFail: {
+      url: "",
+      message: "이메일 양식을<br />확인해주세요.",
       buttonMessage: "확인",
     },
     signUpSuccess: {

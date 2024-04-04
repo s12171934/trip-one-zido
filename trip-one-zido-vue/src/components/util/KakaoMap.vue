@@ -10,11 +10,9 @@ export default {
     };
   },
   mounted() {
-    this.$zido.getAddress(this.$route.params.id)
-    .then((res) => {
-      this.getCoordinate(res)
-      .then((res) => this.loadMap(res))
-    })
+    this.$zido.getAddress(this.$route.params.id).then((res) => {
+      this.getCoordinate(res).then((res) => this.loadMap(res));
+    });
   },
   methods: {
     loadMap(coordinate) {
@@ -22,7 +20,7 @@ export default {
       console.log(coordinate);
       const options = {
         center: new window.kakao.maps.LatLng(coordinate.y, coordinate.x),
-        level: 4
+        level: 4,
       };
 
       this.map = new window.kakao.maps.Map(container, options);
@@ -39,10 +37,10 @@ export default {
           },
         }
       );
-      if(res.data.documents[0].address != null){
-        return res.data.documents[0].address
-      } else{
-        return res.data.documents[0].road_address
+      if (res.data.documents[0].address != null) {
+        return res.data.documents[0].address;
+      } else {
+        return res.data.documents[0].road_address;
       }
     },
   },

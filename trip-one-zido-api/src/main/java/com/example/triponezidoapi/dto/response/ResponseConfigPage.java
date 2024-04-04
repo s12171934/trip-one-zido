@@ -1,8 +1,10 @@
 package com.example.triponezidoapi.dto.response;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class ResponseConfigPage {
 
     ResponseMember memberProfile;

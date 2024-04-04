@@ -9,7 +9,7 @@ public class ResponseTour {
     String address;
     int locCategory;
     String info;
-    byte[] photo;
+    String photo;
     int bookmarkCount;
     int myBookmark;
     long nextId;

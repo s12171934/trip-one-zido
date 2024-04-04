@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.triponezidoapi.mappers.TourMapper">
+<mapper namespace="com.example.triponezidoapi.tour.TourMapper">
 
 
     <insert id="addTour" parameterType="com.example.triponezidoapi.dto.request.RequestTour">
@@ -9,14 +9,16 @@
             id,
             loc_category,
             address,
-            info
+            info,
+            photo
             )
         VALUE
             (
             #{id},
             #{locCategory},
             #{address},
-            #{info}
+            #{info},
+            #{photo}
             )
     </insert>
 
@@ -41,14 +43,7 @@
                 content_id = c.id AND
                 member_id = #{myMemberId}
             ) my_bookmark,
-            (
-                SELECT
-                    photo
-                FROM
-                    photo
-                WHERE
-                    content_id = c.id
-            ) photo
+            photo
         FROM
             tour t,
             content c
@@ -65,9 +60,9 @@
             SELECT
                 photo
             FROM
-                photo
+                tour
             WHERE
-                content_id = c.id
+                id = c.id
             ) photo,
             (
             SELECT
@@ -129,7 +124,15 @@
                 FROM
                     tour
                 WHERE
-                    id > #{id}
+                    id > #{id} AND
+                    loc_category = (
+                        SELECT
+                            loc_category
+                        FROM
+                            tour
+                        WHERE
+                            id = #{id}
+                    )
                 LIMIT
                     1
             )
@@ -149,7 +152,15 @@
                 FROM
                     tour
                 WHERE
-                    id < #{id}
+                    id < #{id} AND
+                    loc_category = (
+                    SELECT
+                        loc_category
+                    FROM
+                        tour
+                    WHERE
+                        id = #{id}
+                    )
                 ORDER BY
                     id DESC
                 LIMIT

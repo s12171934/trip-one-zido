@@ -6,28 +6,29 @@
           <a
             @click="$router.push(`/tour/loc/${tour.locCategory}`)"
             class="button alt small"
-            >목록</a
-          >
+            > 목록
+          </a>
         </li>
         <li>
           <a
             :href="tour.prevId ? `/tour/${tour.prevId}` : ''"
             class="button alt small"
-            >이전</a
-          >
+            > 이전
+          </a>
         </li>
         <li>
           <a
             :href="tour.nextId ? `/tour/${tour.nextId}` : ''"
             class="button alt small"
-            >다음</a
-          >
+            > 다음
+          </a>
         </li>
       </ul>
     </div>
+
     <div class="row">
       <div class="col-md-6 d-flex">
-        <img class="rounded-5" :src="`data:image/jpeg;base64,${tour.photo}`" />
+        <img class="rounded-5" :src="tour.photo" />
       </div>
       <div class="col-md-6">
         <div class="d-flex align-items-center">
@@ -42,7 +43,7 @@
         <div class="fs-5 mb-5 mt-2" id="text-css">
           <span>・관광지 한줄 설명</span>
           <p id="explanation">
-            {{ tour.info }}
+            - {{ tour.info }}
           </p>
         </div>
         <div class="fs-5">
@@ -79,6 +80,7 @@ export default {
   },
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    //GET -- /api/tour/${id}
     this.$zido.getTourData(this.$route.params.id).then((res) => {
       this.tour = res;
     });
@@ -104,7 +106,6 @@ img {
 }
 
 @media (max-width: 767px) { /* 원하는 크기로 설정 */
-  
   .actions {
     display: flex; /* 버튼을 가로로 나열하기 위해 flex로 설정 */
     padding: none;
@@ -112,23 +113,18 @@ img {
     justify-content: space-between; /* 버튼 사이의 간격을 조절 */
     margin-right: 10px; /* 버튼 사이 간격 추가 */
   }
-
   .display-5 {
     margin-top: 5%;
     margin-left: 3%;
   }
-
   #explanation {
     margin-left: 6%;
   }
-
- 
 }
+
 @media screen and (max-width: 480px) { /* 원하는 크기로 설정 */
-  
   ul.actions li > * {
     width: 90%;
-    margin: 0 !important;
   }
   #button-list {
     padding: 16px 0px 0px;
@@ -137,5 +133,9 @@ img {
     height: 350px;
     margin-bottom: 10%;
   }
+  .button {
+    padding: 0;
+  }
 }
+
 </style>

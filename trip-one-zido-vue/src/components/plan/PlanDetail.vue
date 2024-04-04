@@ -3,67 +3,72 @@
     <div class="p-2 d-flex flex-column border-end" id="leftSide">
       <div class="d-flex justify-content-between me-5 w-100">
         <h1 @click="console.log(status)" class="title">
-          {{ planData.title}}
-          
+            {{ planData.title}}
           <span class="date"
-            >{{ planData.startDate }}~{{ planData.endDate }}</span
-          >
-
-        
+            >{{ planData.startDate }}~{{ planData.endDate }}
+          </span>
         </h1>
-        <button class="rounded-5" > {{ selectedStatus  }}</button>
+        <button class="rounded-5"> {{ selectedStatus }}</button>
       </div>
       <table>
         <tr>
           <td class="title-css">
             <h1 class="p-2">
-              <span class="comm"
-                ><img id="star" src="/images/star.png" />{{ planData.grade }}</span
-              >
-              <span class="comm"
-                ><img
-                  @click="$zido.toggleBookmark(planData)"
+              <span class="comm">
+                <img 
+                  id="star" src="/images/star.png"
+                /> {{ planData.grade }}
+              </span>
+              <span class="comm">
+                <img
+                  @click="$zido.toggleBookmark(planData)" 
                   id="bookmark"
                   :src="
                     planData.myBookmark
                       ? '/images/zzim.png'
                       : '/images/unzzim.png'
                   "
-                />{{ planData.bookmarkCount }}</span
-              >
-              <span class="comm" :class="planData.myGood === true ? 'like' : ''"
-                ><img
+                /> {{ planData.bookmarkCount }}
+              </span>
+              <span class="comm" 
+                    :class="planData.myGood === true ? 'like' : ''">
+                <img
                   @click="$zido.toggleLike(planData, true)"
                   id="like"
                   src="/images/like.png"
-                />{{ planData.goodCount }}</span
-              >
+                /> {{ planData.goodCount }}
+              </span>
               <span
                 class="comm"
-                :class="planData.myGood === false ? 'like' : ''"
-                ><img
+                :class="planData.myGood === false ? 'like' : ''">
+                <img
                   @click="$zido.toggleLike(planData, false)"
                   id="unLike"
                   src="/images/unlike.png"
-              /></span>
+                />
+              </span>
             </h1>
           </td>
         </tr>
+
         <tr>
           <td>
             <h4>참여 인원</h4>
           </td>
         </tr>
+
         <tr>
           <td>
             <MemberList :list="planData.members" />
           </td>
         </tr>
+
         <tr>
           <td>
             <h4>지도</h4>
           </td>
         </tr>
+
         <tr>
           <td>
             <KakaoMapForPlanDetail style="height: 40vh" />
@@ -75,11 +80,12 @@
             <h4>여행한 후기</h4>
           </td>
         </tr>
+
         <tr>
           <td>
-            <textarea id="content" name="content" rows="5" cols="50" readonly>{{
-              planData.review
-            }}</textarea>
+            <textarea id="content" name="content" rows="5" cols="50" readonly>
+              {{ planData.review }}
+            </textarea>
           </td>
         </tr>
       </table>
@@ -114,6 +120,7 @@
           </td>
         </tr>
       </table>
+
       <FullCalendar
         class="h-100"
         id="calendar"
@@ -255,6 +262,7 @@ export default {
     toggle(content) {
       content.myBookmark = !content.myBookmark;
     },
+
     setCalendarByDate() {
       const start = new Date(this.planData.startDate);
       const end = new Date(this.planData.endDate);
@@ -268,6 +276,7 @@ export default {
       this.calendarOptions.firstDay = start.getDay();
       calendarApi.gotoDate(this.planData.startDate);
     },
+
     setInitialEvent() {
       const calendarApi = this.$refs.FullCalendar.getApi();
       for (let spot of this.planData.spots) {
@@ -278,14 +287,18 @@ export default {
           end: spot.endDate,
         });
       }
+
       console.log(calendarApi.getEvents());
     },
     async reloadComment() {
+      //GET -- api/plan/${id}
       this.planData = await this.$zido.getPlanData(this.$route.params.id);
+      this.comment = "";
     },
   },
   async mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
+    //GET -- api/plan/${id}
     this.planData = await this.$zido.getPlanData(this.$route.params.id);
     console.log(this.planData);
     this.setCalendarByDate();
@@ -304,7 +317,6 @@ main > div {
 .date {
   font-size: 50%;
   color: grey;
-  margin: 1rem;
 }
 
 .comm {
@@ -437,9 +449,6 @@ colgroup col {
   }
   #leftSide {
     border-inline: none !important; /* border -end 제거*/ 
-  }
-  .date {
-    /* display: inline-block; */
   }
 }
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.triponezidoapi.mappers.SearchMapper">
+<mapper namespace="com.example.triponezidoapi.search.SearchMapper">
     <select id="searchMember" parameterType="com.example.triponezidoapi.dto.request.RequestSearch" resultType="com.example.triponezidoapi.dto.response.ResponseMember">
         SELECT
             id,
@@ -60,21 +60,7 @@
             c.id = s.id AND
             c.title LIKE CONCAT('%', #{keyword}, '%') AND
             (
-                (
-                SELECT visibility
-                FROM content
-                WHERE id = (
-                    SELECT plan_id
-                    FROM plan_spot
-                    WHERE spot_id = c.id
-                )
-                ) = 1 OR
-                visibility = 1 AND
-                NOT EXISTS (
-                    SELECT 1
-                    FROM plan_spot
-                    WHERE spot_id = c.id
-                ) OR
+                visibility = 1 OR
                 c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
             )
         LIMIT
@@ -136,62 +122,82 @@
 
     <select id="detailSearchSpot" parameterType="com.example.triponezidoapi.dto.request.RequestDetailSearch" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
         SELECT
-        c.id,
-        c.title,
-        s.grade,
+            c.id,
+            c.title,
+            s.grade,
         (
-        SELECT
-        photo
-        FROM
-        photo
-        WHERE
-        id = s.profile_id
+            SELECT
+                photo
+            FROM
+                photo
+            WHERE
+                id = s.profile_id
         ) photo,
         (
-        SELECT
-        COUNT(*)
-        FROM
-        bookmark
-        WHERE
-        content_id = c.id
+            SELECT
+                COUNT(*)
+            FROM
+                bookmark
+            WHERE
+                content_id = c.id
         ) bookmark_count,
         (
-        SELECT
-        COUNT(*)
-        FROM
-        bookmark
-        WHERE
-        content_id = c.id AND
-        member_id = #{myMemberId}
+            SELECT
+                COUNT(*)
+            FROM
+                bookmark
+            WHERE
+                content_id = c.id AND
+                member_id = #{myMemberId}
         ) my_bookmark,
         (
-        SELECT
-        COUNT(*)
-        FROM
-        good
-        WHERE
-        content_id = c.id
+            SELECT
+                COUNT(*)
+            FROM
+                good
+            WHERE
+                content_id = c.id
         ) good_count,
         c.type
         FROM
-        content c,
-        spot s
+            content c,
+            spot s
         WHERE
-        c.id = s.id AND
-        c.title LIKE CONCAT('%', #{keyword}, '%') AND
-        s.loc_category = #{locCategory} AND
-        s.category = #{category} AND
-        <if test="startMonth == 1">
-            <![CDATA[
-                ((MONTH(s.start_date) = 12 OR MONTH(s.end_date) = 12) OR
-                (MONTH(s.start_date) <= #{endMonth} AND MONTH(s.end_date) >= #{startMonth}))
-            ]]>
-        </if>
-        <if test="startMonth != 1">
-            <![CDATA[
-                (MONTH(s.start_date) <= #{endMonth} AND MONTH(s.end_date) >= #{startMonth})
-            ]]>
-        </if>
+            c.id = s.id AND
+            (
+             (
+                 c.title LIKE CONCAT('%', #{keyword}, '%')
+             ) AND
+             (
+                 #{locCategory} IS NULL OR
+                 s.loc_category = #{locCategory}
+             ) AND
+             (
+                 #{category} IS NULL OR
+                 s.category = #{category}
+             ) AND
+            (
+                visibility = 1 OR
+                c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+            )AND
+            (
+                <if test="startMonth == 1">
+                    <![CDATA[
+                    (
+                        (MONTH(s.start_date) = 12 OR MONTH(s.end_date) = 12) OR
+                        (MONTH(s.start_date) <= #{endMonth} AND MONTH(s.end_date) >= #{startMonth})
+                    )
+                ]]>
+                </if>
+                <if test="startMonth != 1">
+                    <![CDATA[
+                    (
+                        MONTH(s.start_date) <= #{endMonth} AND MONTH(s.end_date) >= #{startMonth}
+                    )
+                ]]>
+                </if>
+            )
+        )
         LIMIT
             #{page}, 6
     </select>
@@ -240,19 +246,32 @@
             plan p
         WHERE
             c.id = p.id AND
-            c.title LIKE CONCAT('%', #{keyword}, '%') AND
-            p.loc_category = #{locCategory} AND
-        <if test="startMonth == 1">
-            <![CDATA[
-                ((MONTH(p.start_date) = 12 OR MONTH(p.end_date) = 12) OR
-                (MONTH(p.start_date) <= #{endMonth} AND MONTH(p.end_date) >= #{startMonth}))
-            ]]>
-        </if>
-        <if test="startMonth != 1">
-            <![CDATA[
-                (MONTH(p.start_date) <= #{endMonth} AND MONTH(p.end_date) >= #{startMonth})
-            ]]>
-        </if>
+        (
+         (
+                 c.title LIKE CONCAT('%', #{keyword}, '%')
+            ) AND
+            (
+                 #{locCategory} IS NULL OR
+                 p.loc_category = #{locCategory}
+             ) AND
+            (
+                visibility = 1 OR
+                c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+            ) AND
+            (
+                <if test="startMonth == 1">
+                    <![CDATA[
+                        ((MONTH(p.start_date) = 12 OR MONTH(p.end_date) = 12) OR
+                        (MONTH(p.start_date) <= #{endMonth} AND MONTH(p.end_date) >= #{startMonth}))
+                    ]]>
+                </if>
+                <if test="startMonth != 1">
+                    <![CDATA[
+                        (MONTH(p.start_date) <= #{endMonth} AND MONTH(p.end_date) >= #{startMonth})
+                    ]]>
+                </if>
+            )
+        )
         LIMIT
             #{page}, 6
     </select>
@@ -266,22 +285,30 @@
             login_id LIKE CONCAT('%', #{keyword}, '%')
     </select>
 
-    <select id="countPlan" parameterType="string" resultType="int">
+    <select id="countSpot" parameterType="com.example.triponezidoapi.dto.request.RequestSearch" resultType="int">
         SELECT
             COUNT(*)
         FROM
             content
         WHERE
-            title LIKE CONCAT('%', #{keyword}, '%') AND type = 'plan'
+            title LIKE CONCAT('%', #{keyword}, '%') AND type = 'spot' AND
+            (
+                visibility = 1 OR
+                id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+            )
     </select>
 
-    <select id="countSpot" parameterType="string" resultType="int">
+    <select id="countPlan" parameterType="com.example.triponezidoapi.dto.request.RequestSearch" resultType="int">
         SELECT
             COUNT(*)
         FROM
             content
         WHERE
-            title LIKE CONCAT('%', #{keyword}, '%') AND type = 'spot'
+            title LIKE CONCAT('%', #{keyword}, '%') AND type = 'plan' AND
+            (
+                        visibility = 1 OR
+                        id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+                )
     </select>
 
     <select id="countDetailSpot" parameterType="com.example.triponezidoapi.dto.request.RequestDetailSearch" resultType="int">
@@ -292,42 +319,75 @@
             spot s
         WHERE
             c.id = s.id AND
-            c.title LIKE CONCAT('%', #{keyword}, '%') AND
-            s.loc_category = #{locCategory} AND
-            s.category = #{category} AND
-            <if test="startMonth == 1">
-                <![CDATA[
-                    ((MONTH(s.start_date) = 12 OR MONTH(s.end_date) = 12) OR
-                    (MONTH(s.start_date) <= #{endMonth} AND MONTH(s.end_date) >= #{startMonth}))
-                ]]>
-            </if>
-            <if test="startMonth != 1">
-                <![CDATA[
-                    (MONTH(s.start_date) <= #{endMonth} AND MONTH(s.end_date) >= #{startMonth})
-                ]]>
-            </if>
+            (
+                (
+                    c.title LIKE CONCAT('%', #{keyword}, '%')
+                ) AND
+                (
+                    #{locCategory} IS NULL OR
+                    s.loc_category = #{locCategory}
+                ) AND
+                (
+                    #{category} IS NULL OR
+                    s.category = #{category}
+                ) AND
+                (
+                    visibility = 1 OR
+                    c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+                )AND
+                (
+                <if test="startMonth == 1">
+                    <![CDATA[
+                            (
+                                (MONTH(s.start_date) = 12 OR MONTH(s.end_date) = 12) OR
+                                (MONTH(s.start_date) <= #{endMonth} AND MONTH(s.end_date) >= #{startMonth})
+                            )
+                        ]]>
+                </if>
+                <if test="startMonth != 1">
+                    <![CDATA[
+                            (
+                                MONTH(s.start_date) <= #{endMonth} AND MONTH(s.end_date) >= #{startMonth}
+                            )
+                        ]]>
+                </if>
+                )
+            )
     </select>
 
     <select id="countDetailPlan" parameterType="com.example.triponezidoapi.dto.request.RequestDetailSearch" resultType="int">
         SELECT
-        COUNT(*)
+            COUNT(*)
         FROM
-        content c,
-        plan p
+            content c,
+            plan p
         WHERE
-        c.id = p.id AND type = 'plan' AND
-        c.title LIKE CONCAT('%', #{keyword}, '%') AND
-        p.loc_category = #{locCategory} AND
-        <if test="startMonth == 1">
-            <![CDATA[
-                    ((MONTH(p.start_date) = 12 OR MONTH(p.end_date) = 12) OR
-                    (MONTH(p.start_date) <= #{endMonth} AND MONTH(p.end_date) >= #{startMonth}))
-                ]]>
-        </if>
-        <if test="startMonth != 1">
-            <![CDATA[
-                   (MONTH(p.start_date) <= #{endMonth} AND MONTH(p.end_date) >= #{startMonth})
-                ]]>
-        </if>
+            c.id = p.id AND type = 'plan' AND
+            (
+                (
+                    c.title LIKE CONCAT('%', #{keyword}, '%')
+                ) AND
+                (
+                    #{locCategory} IS NULL OR
+                    p.loc_category = #{locCategory}
+                ) AND
+                (
+                    visibility = 1 OR
+                    c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+                ) AND
+                (
+                <if test="startMonth == 1">
+                    <![CDATA[
+                                ((MONTH(p.start_date) = 12 OR MONTH(p.end_date) = 12) OR
+                                (MONTH(p.start_date) <= #{endMonth} AND MONTH(p.end_date) >= #{startMonth}))
+                            ]]>
+                </if>
+                <if test="startMonth != 1">
+                    <![CDATA[
+                                (MONTH(p.start_date) <= #{endMonth} AND MONTH(p.end_date) >= #{startMonth})
+                            ]]>
+                </if>
+                )
+            )
     </select>
 </mapper>

@@ -9,5 +9,5 @@ public class RequestTour {
     String address;
     int locCategory;
     String info;
-    byte[] photo;
+    String photo;
 }

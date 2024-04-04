@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class RequestContentMember {
-    long memberId;
-    long contentId;
+    Long memberId;
+    Long contentId;
 }

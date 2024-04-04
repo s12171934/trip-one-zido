@@ -8,10 +8,18 @@
           {{ detail.status == 0 ? "모집중" : "마감" }}
         </span>
         <a href="/community" class="button alt small rounded-3">목록</a>
-        <!-- 현재 id-1 : 이전글 / 현재 id+1 : 다음글   -->
-        <!-- <a href="/html-css/community/detail/detail.html" id="button2" class="button small rounded-3">이전글</a> -->
-        <a @click="goToPreviousPost" class="button small rounded-3" id="button-high">이전글</a>
-        <a @click="goToNextPost" class="button small rounded-3" id="button-high">다음글</a>
+        <a @click="goToPreviousPost"
+          :class="detail.prevId != 0 
+            ? 'button small rounded-3' 
+            : 'button small rounded-3 disabled'"
+          id="button-high">이전글
+        </a>
+        <a @click="goToNextPost"
+          :class="detail.nextId != 0 
+            ? 'button small rounded-3' 
+            : 'button small rounded-3 disabled'"
+          id="button-high">다음글
+        </a>
       </div>
       <br />
 
@@ -22,15 +30,19 @@
             <td id="tdTitle">제목 :</td>
             <td id="black">{{ detail.title }}</td>
             <td id="tdTitle" class="border-start">작성자 :</td>
-            <td >{{ detail.members[0].loginId }}</td>
+            <td>
+              <router-link :to="`/member-page/${detail.members[0].id}`" id="noUnderLine">
+                {{ detail.members[0].loginId }}
+              </router-link>
+            </td>
           </tr>
 
           <tr class="border-bottom">
             <td>지역 :</td>
-            <td>
-              <option value="1" id="black">
+            <td id="black">
+              <option value="1">
                 {{ selectedCategory }}
-            </option>
+              </option>
             </td>
             <td class="border-start">모집 인원 :</td>
             <td >
@@ -41,9 +53,11 @@
           <tr class="border-bottom">
             <td>참여 인원 :</td>
             <td colspan="3">
-              <span v-for="withMember in detail.members" class="me-2">{{
-                withMember.loginId
-              }}</span>
+              <span v-for="withMember in detail.members" class="me-2">
+                <router-link :to="`/member-page/${withMember.id}`" id="noUnderLine">
+                  {{ withMember.loginId }}
+                </router-link>
+              </span>
             </td>
           </tr>
 
@@ -129,13 +143,14 @@ export default {
         locCategory: null,
         notice: null,
         total: null,
-        deadLine: null,
+        deadline: null,
         viewPoint: null,
         status: null,
         title: null,
         createdAt: null,
         modifiedAt: null,
         members: [{
+          id: null,
           loginId: null,
         }],
         mine: null,
@@ -145,7 +160,7 @@ export default {
       modal: "",
       loginId: "",
       id: "",
-      showSuccessModal: false,
+      showSuccessModal: true,
       locations: data.selectLocations,
 
       title: "", // 추가: 게시글 제목
@@ -156,6 +171,7 @@ export default {
   mounted() {
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
     this.id = this.$route.params.id;
+    //커뮤니티 상세 조회 GET -- api/community/id
     this.$zido
       .getCommunityDetail(this.$route.params.id)
       .then((res) => {
@@ -173,11 +189,15 @@ export default {
 
   methods: {
     goToPreviousPost() {
-      location.href = `/community/${this.detail.prevId}`;
+      if(this.detail.prevId !== 0){
+        location.href = `/community/${this.detail.prevId}`;
+      }
     },
 
     goToNextPost() {
-      location.href = `/community/${this.detail.nextId}`;
+      if(this.detail.nextId !== 0){
+        location.href = `/community/${this.detail.nextId}`;
+      }
     },
 
     update() {
@@ -189,17 +209,20 @@ export default {
 
     async del() {
       this.modal = "deleteCommunity";
+      //커뮤니티 삭제 DELETE -- api/community/id
       await this.$zido.deleteCommunity(this.$route.params.id);
     },
 
     async participateOrCancel() {
       // 타인 자신이 참여/참여취소 버튼 누르면
       if (!(this.detail.members.find(member => member.loginId === this.loginId))) {
+        //커뮤니티 참여 POST -- api/community/member/id
         await this.$zido.joinCommunity(this.$route.params.id);
         this.showSuccessModal = true;
         console.log(this.showSuccessModal);
         this.detail.members.push({ loginId: this.loginId });
       } else {
+        //커뮤니티 참여 취소 DELETE -- api/community/member/id
         await this.$zido.joinCancleCommunity(this.$route.params.id);
         this.showSuccessModal = false;
         console.log(this.showSuccessModal);
@@ -211,80 +234,60 @@ export default {
 </script>
 
 <style scoped>
-#leftPosition {
-  text-align: left;
-}
-
-#centerPosition {
-  text-align: center;
-}
-
-#searchBar {
-  margin: auto;
-}
-
+/* 4행 설정 */
 #tdTitle {
   width: 15%;
 }
-
+/* 모집중 왼쪽정렬 */
 #mouseHover {
   margin-right: auto;
   cursor: default;
 }
-
-#footer {
-  font-family: "Jalnan";
-  font-size: 10px;
-}
-h1,
-h2,
-h3,
-h4,
-body,
-.button,
-section {
-  font-family: "Jalnan";
-}
-h1 {
-  color: #ff928e !important;
-}
-#menu {
-  font-family: "Jalnan";
-  font-size: 20px;
-}
-thead {
-  font-size: 15px;
-  color: #929292;
-}
-.wrapper {
-  margin-left: 5% !important;
-  margin-right: 5% !important;
-}
+/* 참여/취소버튼 폰트 크기 */
 #button {
-  color: rgb(255, 255, 255) !important;
-  background-color: #ff928e !important;
   font-size: 15px;
 }
-#button2 {
-  color: rgb(255, 255, 255) !important;
-  background-color: #ff928e !important;
-}
+/* 테이블 폰트 크기 */
 #table {
   font-size: 15px !important;
-  color: black !important;
 }
+/* 테이블 왼쪽 크기 */
 #black {
   width: 35%;
-  color: black !important;
 }
-table tbody tr {
-  background-color: white !important;
-}
+/* 내용칸 설정 */
 #content {
   resize: none;
 }
+/* 아이디 밑줄 제거 */
+#noUnderLine {
+  text-decoration: none;
+  color: black;
+}
+
+@media (max-width: 990px) {
+  #table {
+  font-size: 12px !important;
+  }
+}
+
+@media (max-width: 950px) {
+  #table {
+  font-size: 10px !important;
+  }
+}
+
+@media (max-width: 800px) {
+  #table {
+  font-size: 9px !important;
+  }
+}
+
 /* 작은 화면에서 테이블의 열이 쌓이도록 설정 */
-@media (max-width: 768px) {
+@media (max-width: 790px) {
+  #table {
+  font-size: 15px !important;
+  }
   td {
     display: block !important;
     width: 100% !important;
@@ -308,12 +311,31 @@ table tbody tr {
   }
 }
 
+@media (max-width: 768px) {
+  #button {
+    display: flex;
+    justify-content: center;
+    margin-left: 30%;
+    margin-right: 30%;
+  }
+}
 
-@media (max-width: 500px) {
+@media (max-width: 550px) {
   #button-high, #mouse-hover {
     display: block;
     width: 20%;
     padding: 0;
   }
+  #button {
+    font-size: 11px;
+  }
 }
+
+@media (max-width: 380px) {
+  .d-grid {
+    font-size: 10px !important;
+    padding: 0px !important;
+  }
+}
+
 </style>

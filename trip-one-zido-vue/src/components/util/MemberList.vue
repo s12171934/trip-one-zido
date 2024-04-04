@@ -5,7 +5,9 @@
       v-for="profile in list"
       class="p-2"
     >
-      <img :src="`data:image/jpeg;base64,${profile.profile}`" />
+      <img :src=" profile.profile 
+        ? `data:image/jpeg;base64,${profile.profile}`
+        : '/images/nomal.jpeg'" />
       <p>{{ profile.loginId }}</p>
     </div>
     <div @click="addMember" v-if="this.list.length < this.maxLen" class="p-2">
@@ -28,6 +30,7 @@ export default {
     };
   },
   methods: {
+     //GET -- api/search/keyword/member/page
     async addMember() {
       const addMember = await this.$zido.newMembers(this.addApi, ++this.page);
       this.list.push(...addMember);

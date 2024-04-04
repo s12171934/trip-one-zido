@@ -1,7 +1,8 @@
 <template>
   <main class="wrapper">
     <div @submit.prevent id="mainbox" class="d-flex">
-      <div id="box" class="flex-column gap-5 p-5">
+      <!-- 아이디 찾기 -->
+      <div id="box1" class="flex-column gap-5 p-5">
         <h1>아이디 찾기</h1>
         <div id="boxin" class="flex-column border border-5 gap-2">
           <input type="text" v-model="loginIdName" placeholder="이름" />
@@ -21,7 +22,9 @@
           아이디 찾기
         </a>
       </div>
-      <div id="box" class="flex-column gap-5 p-5">
+
+      <!-- 비밀번호 찾기 -->
+      <div id="box2" class="flex-column gap-5 p-5">
         <h1>비밀번호 찾기</h1>
         <div id="boxin" class="flex-column border border-5 gap-2">
           <input type="text" v-model="pwLoginId" placeholder="아이디" />
@@ -40,8 +43,15 @@
     </div>
   </main>
 
+  <!-- 아이디 조회 및 비밀번호 찾기 실패 모달 -->
   <AlertModal :modal="modal" />
-  <SecurityModal @securityFail="modal='findPasswordFail'" :securityId="securityId" :SecurityQuestion="SecurityQuestion" />
+
+  <!-- 보안질문 모달 -->
+  <SecurityModal
+    @securityFail="modal = 'findPasswordFail'"
+    :securityId="securityId"
+    :SecurityQuestion="SecurityQuestion"
+  />
 </template>
 
 <script>
@@ -68,103 +78,187 @@ export default {
     };
   },
   methods: {
-    loginIdModal() {
-      this.$zido.findId(this.loginIdName, this.loginIdEmail).then(result => {
-        if (result !== null && result !== '') {
-            this.modal = "findLoginIdSuccess";
-            console.log(result)
-            data.modalDatas.findLoginIdSuccess.message = `당신의 아이디는<br />${result}<br />입니다.`,
-            console.log(document.getElementById("findId"));
-        } else {
-            this.modal = "findLoginIdFail"; 
-        }
-      })
+    //아이디 찾기
+    //POST -- api/member/check/id
+    async loginIdModal() {
+      const res = await this.$zido.findId(this.loginIdName, this.loginIdEmail);
+      if (res !== null && res !== "") {
+        this.modal = "findLoginIdSuccess";
+        data.modalDatas.findLoginIdSuccess.message = `당신의 아이디는<br />${res}<br />입니다.`;
+      } else {
+        this.modal = "findLoginIdFail";
+      }
     },
+
+    //비밀번호 찾기
+    //POST -- api/member/check/pw
+    //GET -- api/member/check/id
     async securityModal() {
       try {
-        const result = await this.$zido.findPassword(this.pwName, this.pwEmail, this.pwLoginId);
-      if (result !== null && result !== '') {
-        this.securityId = result;
-        // SecurityQuestion 값을 가져오기 위해 프로미스를 기다립니다.
-        this.SecurityQuestion = await this.$zido.getSecurityQuestion(this.securityId);
-      } else {
-        this.modal = "findPasswordFail";
-      }
+        const res = await this.$zido.findPassword(
+          this.pwName,
+          this.pwEmail,
+          this.pwLoginId
+        );
+        if (res !== null && res !== "") {
+          this.securityId = res;
+          this.SecurityQuestion = await this.$zido.getSecurityQuestion(
+            this.securityId
+          );
+        } else {
+          this.modal = "findPasswordFail";
+        }
       } catch (error) {
         console.error("비밀번호 찾기 오류:", error);
-        // 에러 처리 로직 추가
       }
     },
   },
   mounted() {
+    //로그인 확인
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
   },
 };
 </script>
 
 <style scoped>
+/* 화면을 반반으로 나누기 */
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+/* 회색 바탕 */
 #mainbox {
   border-radius: 50px;
   background-color: #d9d9d9;
-  margin: 5%;
   display: flex;
   justify-content: center;
   align-content: center;
+  margin-top: -30px;
 }
-#box {
+/* 하얀색 바탕 */
+#box1, #box2 {
   border-radius: 40px;
   background-color: white;
-  margin: 5%;
-  width: 40% !important;
+  margin: 1%;
   display: flex;
   justify-content: center;
   align-content: center;
 }
+/* 입력칸 상자 */
 #boxin {
   border-radius: 30px;
-  padding: 4%;
+  padding: 10%;
   display: flex;
   justify-content: center;
   align-content: center;
 }
-#button {
-  border-radius: 40px;
-  font-size: 17px;
+
+.button {
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
 h1 {
-  color: #ff928e !important;
   text-align: center;
+}
+
+@media (max-width: 1670px) {
+  #mainbox {
+    margin-left: 250px;
+    margin-right: 250px;
+  }
+}
+
+@media (max-width: 1600px) {
+  #box {
+    margin: 2%;
+  }
+  #boxin {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}
+
+@media (max-width: 1530px) {
+  h1 {
+    font-size: 28px;
+  }
+  #mainbox {
+    margin-left: 300px;
+    margin-right: 300px;
+  }
+  #box {
+    margin: 45px;
+    width: 40%;
+  }
+  #boxin {
+    width: 80%;
+    margin-right: 0%;
+  }
+  .button {
+  margin-left: 15%;
+  margin-right: 15%;
+  padding: 0%;
+  }
+}
+
+@media (max-width: 1460px) {
+  #boxin {
+    font-size: small;;
+  }
+  .gap-5 {
+    gap: 2rem !important;
+  }
+  .p-5 {
+    padding: 2rem !important;
+  }
+}
+
+@media (max-width: 1320px) {
+  #boxin {
+    width: 100%;
+    margin-left: 0%;
+  }
+  #mainbox {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .wrapper {
+    padding-top: 90px;
+  }
+}
+
+@media (max-width: 990px) {
+  .wrapper {
+    padding-bottom: 60px;
+  }
 }
 
 /* 작은 화면에서 아이템을 세로로 배치하기 위해 추가된 스타일 */
 @media (max-width: 768px) {
   #mainbox {
     flex-direction: column;
+    padding: 1%;
   }
   #box {
     width: 90% !important;
   }
   h1 {
-    font-size: 35px !important;
+    font-size: 30px !important;
   }
   #boxin {
     border: none !important; /* 작은 화면에서 border 제거 */
   }
+  .gap-5 {
+    gap: 1rem !important;
+  }
+  .p-5 {
+    padding: 1rem !important;
+  }
 }
 
-@media (max-width: 1045px) {
-  h1 {
-    font-size: 30px;
-  }
-}
-@media (max-width: 900px) {
-  h1 {
-    font-size: 23px;
-  }
-}
 @media (max-width: 480px) {
-  h1{
+  h1 {
     font-size: 21px !important;
   }
   .button {

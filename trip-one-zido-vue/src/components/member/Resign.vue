@@ -46,22 +46,23 @@ export default {
     };
   },
   methods: {
-    resign() {
-      this.$zido.checkResign(this.password, this.passwordCheck).then(result =>
-      {
-        if(result){
-          this.$cookies.remove("login");
-          this.$cookies.remove("autoLogin");
-          this.$router.push("/welcome");
-        }else{
-          this.password = "";
-          this.passwordCheck = "";
-          console.log("비밀번호가 틀립니다.");
-        }
-      })
+    async resign() {
+      const res = await this.$zido.checkResign(
+        this.password,
+        this.passwordCheck
+      );
+      if (res) {
+        this.$cookies.remove("login");
+        this.$cookies.remove("autoLogin");
+        this.$router.push("/welcome");
+      } else {
+        this.password = "";
+        this.passwordCheck = "";
+      }
     },
   },
   mounted() {
+    //로그인 확인
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
   },
 };
@@ -69,7 +70,6 @@ export default {
 
 <style scoped>
 h1 {
-  color: #ff928e !important;
   margin-bottom: 3rem;
 }
 
@@ -80,11 +80,6 @@ h3 {
 
 #alertText {
   color: rgb(235, 12, 12);
-}
-
-#button {
-  color: rgb(255, 255, 255) !important;
-  background-color: #ff928e !important;
 }
 
 .inner {
@@ -98,7 +93,7 @@ h3 {
   .inner {
     width: 50%;
   }
-} 
+}
 
 @media (max-width: 515px) {
   .inner {
@@ -109,11 +104,6 @@ h3 {
     font-size: 12px; /* 버튼 폰트 크기 조정 */
     padding: 8px 12px; /* 버튼 내부 여백 조정 */
   }
-} 
+}
 
-@media (max-width: 400px) {
-  .d-flex {
-    font-size: 10px; /* 버튼 폰트 크기 조정 */
-  }
-} 
 </style>

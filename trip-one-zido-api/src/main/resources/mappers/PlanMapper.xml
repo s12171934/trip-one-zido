@@ -1,74 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.triponezidoapi.mappers.PlanMapper">
-    <insert id="addPlan" parameterType="com.example.triponezidoapi.dto.request.RequestPlan">
+<mapper namespace="com.example.triponezidoapi.plan.PlanMapper">
+    <insert id="addPlan"
+            parameterType="com.example.triponezidoapi.dto.request.RequestPlan">
         INSERT INTO plan
             (
-            id,
-            start_date,
-            end_date,
-            loc_category,
-            review,
-            status,
-            grade
+                id,
+                start_date,
+                end_date,
+                loc_category,
+                review,
+                status,
+                grade
             )
         VALUE
             (
-            #{id},
-            #{startDate},
-            #{endDate},
-            #{locCategory},
-            #{review},
-            #{status},
-            #{grade}
+                #{id},
+                #{startDate},
+                #{endDate},
+                #{locCategory},
+                #{review},
+                #{status},
+                #{grade}
             )
     </insert>
 
-    <insert id="addSpot" parameterType="com.example.triponezidoapi.dto.request.RequestPlanSpot">
+    <insert id="addSpot"
+            parameterType="com.example.triponezidoapi.dto.request.RequestPlanSpot">
         INSERT INTO
             plan_spot
             (
-            plan_id,
-            spot_id
+                plan_id,
+                spot_id
             )
         VALUE
             (
-            #{planId},
-            #{spotId}
+                #{planId},
+                #{spotId}
             )
     </insert>
 
-    <select id="getPlan" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponsePlanDetail">
+    <select id="getPlan"
+            parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget"
+            resultType="com.example.triponezidoapi.dto.response.ResponsePlanDetail">
         SELECT
             p.*,
             DATE(p.start_date) start_date,
             DATE(p.end_date) end_date,
+            c.visibility,
             c.title,
             (
-            SELECT
-                COUNT(*)
-            FROM
-                bookmark
-            WHERE
-                content_id = c.id
+                SELECT
+                    COUNT(*)
+                FROM
+                    bookmark
+                WHERE
+                    content_id = c.id
             ) bookmark_count,
             (
-            SELECT
-                COUNT(*)
-            FROM
-                bookmark
-            WHERE
-                content_id = c.id AND
-                member_id = #{myMemberId}
+                SELECT
+                    COUNT(*)
+                FROM
+                    bookmark
+                WHERE
+                    content_id = c.id AND
+                    member_id = #{myMemberId}
             ) my_bookmark,
             (
-            SELECT
-                COUNT(*)
-            FROM
-                good
-            WHERE
-                content_id = c.id AND
-                good = 1
+                SELECT
+                    COUNT(*)
+                FROM
+                    good
+                WHERE
+                    content_id = c.id AND
+                    good = 1
             ) good_count,
             (
                 SELECT
@@ -85,12 +90,21 @@
             p.id = c.id AND
             p.id = #{targetId} AND
             (
-            visibility = 1 OR
-            c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
-            )
+                visibility = 1 OR
+                c.id IN
+                (
+                    SELECT
+                        content_id
+                    FROM
+                        owner
+                    WHERE
+                        member_id = #{myMemberId})
+                )
     </select>
 
-    <select id="getSpot" parameterType="Long" resultType="com.example.triponezidoapi.dto.response.ResponseSpotPlan">
+    <select id="getSpot"
+            parameterType="Long"
+            resultType="com.example.triponezidoapi.dto.response.ResponseSpotPlan">
         SELECT
             s.id,
             c.title,
@@ -105,16 +119,17 @@
             spot s,
             content c
         WHERE
-            s.id = c.id
-          AND c.id in (
-            SELECT
-                spot_id
-            FROM
-                plan_spot
-            WHERE
-                plan_id = #{contentId}
-        ) AND
-        (
+            s.id = c.id AND
+            c.id in
+            (
+                SELECT
+                    spot_id
+                FROM
+                    plan_spot
+                WHERE
+                    plan_id = #{contentId}
+            ) AND
+            (
             (
                 SELECT
                     visibility
@@ -123,47 +138,56 @@
                 WHERE
                     id = #{contentId}
             ) = 1 OR
-        c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
-        )
+            c.id IN
+            (
+                SELECT
+                    content_id
+                FROM
+                    owner
+                WHERE member_id = #{myMemberId}
+            )
+            )
     </select>
 
-    <select id="getPlanList" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
+    <select id="getPlanList"
+            parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget"
+            resultType="com.example.triponezidoapi.dto.response.ResponseContentList">
         SELECT
             c.id,
             c.title,
             p.grade,
             (
-            SELECT
-                photo
-            FROM
-                photo
-            WHERE
-                content_id = c.id
+                SELECT
+                    photo
+                FROM
+                    photo
+                WHERE
+                    content_id = c.id
             ) photo,
             (
-            SELECT
-                COUNT(*)
-            FROM
-                bookmark
-            WHERE
-                content_id = c.id
+                SELECT
+                    COUNT(*)
+                FROM
+                    bookmark
+                WHERE
+                    content_id = c.id
             ) bookmark_count,
             (
-            SELECT
-                COUNT(*)
-            FROM
-                bookmark
-            WHERE
-                content_id = c.id AND
-                member_id = #{myMemberId}
+                SELECT
+                    COUNT(*)
+                FROM
+                    bookmark
+                WHERE
+                    content_id = c.id AND
+                    member_id = #{myMemberId}
             ) my_bookmark,
             (
-            SELECT
-                COUNT(*)
-            FROM
-                good
-            WHERE
-                content_id = c.id
+                SELECT
+                    COUNT(*)
+                FROM
+                    good
+                WHERE
+                    content_id = c.id
             ) good_count,
             c.type
         FROM
@@ -173,16 +197,24 @@
             c.id = p.id AND
             c.id IN
             (
-            SELECT
-                content_id
-            FROM
-                owner
-            WHERE
-                member_id = #{targetId}
+                SELECT
+                    content_id
+                FROM
+                    owner
+                WHERE
+                    member_id = #{targetId}
             ) AND
             (
-            visibility = 1 OR
-            c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+                visibility = 1 OR
+                c.id IN
+                (
+                    SELECT
+                        content_id
+                    FROM
+                        owner
+                    WHERE
+                        member_id = #{myMemberId}
+                )
             )
         ORDER BY
             ${sort}
@@ -190,7 +222,9 @@
             #{page}, 6
     </select>
 
-    <select id="getPlanListCount" parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget" resultType="int">
+    <select id="getPlanListCount"
+            parameterType="com.example.triponezidoapi.dto.request.RequestSessionTarget"
+            resultType="int">
         SELECT
             count(*)
         FROM
@@ -208,13 +242,23 @@
                     member_id = #{targetId}
             )AND
             (
-            visibility = 1 OR
-            c.id IN (SELECT content_id FROM owner WHERE member_id = #{myMemberId})
+                visibility = 1 OR
+                c.id IN
+                (
+                    SELECT
+                        content_id
+                    FROM
+                        owner
+                    WHERE
+                        member_id = #{myMemberId}
+                )
             )
     </select>
 
-    <update id="updatePlan" parameterType="com.example.triponezidoapi.dto.request.RequestPlan">
-        UPDATE plan
+    <update id="updatePlan"
+            parameterType="com.example.triponezidoapi.dto.request.RequestPlan">
+        UPDATE
+            plan
         SET
             start_date = #{startDate},
             end_date = #{endDate},

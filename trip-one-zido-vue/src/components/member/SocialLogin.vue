@@ -9,14 +9,6 @@
         <input type="password" v-model="password" placeholder="비밀번호" />
 
         <div class="d-flex justify-content-center gap-5">
-          <input
-            type="checkbox"
-            id="autologin"
-            name="autologin"
-            v-model="autoLogin"
-          />
-          <label for="autologin">자동 로그인</label>
-
           <a @click="$router.push('/find')">아이디 / 비밀번호 찾기</a>
         </div>
 
@@ -34,11 +26,12 @@
 
       <h3>아직 회원이 아니시라면?</h3>
       <div class="d-flex justify-content-center">
-        <a @click="$router.push('sign-up')" class="button small">회원가입</a>
+        <a @click="$router.push('/sign-up')" class="button small">회원가입</a>
       </div>
     </div>
   </main>
 
+  <!-- 로그인 상태 모달 -->
   <AlertModal :modal="modal" />
 </template>
 
@@ -52,34 +45,32 @@ export default {
   data() {
     return {
       loginId: "",
-      autoLogin: false,
-      modal: "loginFail",
+      modal: "",
       sns: this.$route.params.sns,
     };
   },
   methods: {
+    //로그인 성공시 SNS 연동
+    //POST -- api/member/login
+    //PUT -- api/social
     login() {
-      this.$zido.login(this.loginId, this.password).then((res) => {
-        console.log(res)
-        if (res) {
-          this.$cookies.set("login", 1, 0);      
-          if (this.autoLogin) {
-            this.$cookies.set("autoLogin", this.loginId);
-          } else {
-            this.$cookies.remove("autoLogin");
-          }
-          this.$zido.updateSocialLogin(
-            this.$route.params.sns,
-            this.$route.params.id,
-            this.loginId
-          );
-          location.href = "/"
-        } else {
-        }
-      });
+      this.modal = "loginTry";
+      const res = this.$zido.login(this.loginId, this.password);
+      if (res) {
+        this.$cookies.set("login", 1, 0);
+        this.$zido.updateSocialLogin(
+          this.$route.params.sns,
+          this.$route.params.id,
+          this.loginId
+        );
+        location.href = "/";
+      } else {
+        this.modal = "loginFail";
+      }
     },
   },
   mounted() {
+    //로그인 확인
     this.$emit("meta", this.$route.matched[0].meta.isLogin);
   },
 };

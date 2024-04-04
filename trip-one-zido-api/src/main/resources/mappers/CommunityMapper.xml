@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.triponezidoapi.mappers.CommunityMapper">
+<mapper namespace="com.example.triponezidoapi.community.CommunityMapper">
     <insert id="addCommunity" parameterType="com.example.triponezidoapi.dto.request.RequestCommunity">
         INSERT INTO community
             (
@@ -56,6 +56,17 @@
             WHERE
                 content_id = content.id
             ) with_count,
+            (
+                SELECT
+                    m.id
+                FROM
+                    member m,
+                    owner o
+                WHERE
+                    m.id = o.member_id AND
+                    o.own = 'writer' AND
+                    o.content_id = content.id
+            ) writerId,
             (
             SELECT
                 login_id
@@ -218,6 +229,14 @@
         UPDATE community
         SET
             status = #{status}
+        WHERE
+            id = #{id}
+    </update>
+
+    <update id="upViewPoint" parameterType="Long">
+        UPDATE community
+        SET
+            view_point = view_point + 1
         WHERE
             id = #{id}
     </update>
