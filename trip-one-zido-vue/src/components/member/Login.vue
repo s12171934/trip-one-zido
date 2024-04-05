@@ -128,9 +128,10 @@ export default {
 
     //네이버로그인 API
     doNaverLogin() {
+      const naver_client_id = process.env.VUE_APP_NAVER_CLIENT_ID;
       const url =
         "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=" +
-        "TGQMEJAd_Qx6raHI9ZZk" +
+        naver_client_id +
         "&redirect_uri=" +
         "http://43.200.46.110:8080/api/social/naver_login" +
         "&state=1234";
@@ -139,9 +140,10 @@ export default {
 
     //카카오로그인 API
     doKakaoLogin() {
+      const kakao_client_id = process.env.VUE_APP_KAKAO_CLIENT_ID;
       const url =
         "https://kauth.kakao.com/oauth/authorize?client_id=" +
-        "a02aa0f1daf88f640e2509406d97bec1" +
+        kakao_client_id +
         "&redirect_uri=" +
         "http://43.200.46.110:8080/api/social/kakao_login" +
         "&response_type=code&" +
