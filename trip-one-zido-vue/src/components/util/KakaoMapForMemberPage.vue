@@ -41,8 +41,8 @@ export default {
       await this.axios
         .get(
           "https://sgisapi.kostat.go.kr/OpenAPI3/auth/authentication.json" +
-            "?consumer_key=adbf653c1eab4c0dac2d" +
-            "&consumer_secret=c1081304a9e44f95ac07"
+            "?consumer_key=202e63d1ed36484a9fec" +
+            "&consumer_secret=8d814c5633924f878a0d"
         )
         .then((res) => (this.accessToken = res.data.result.accessToken));
     },

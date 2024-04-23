@@ -51,7 +51,8 @@ CREATE TABLE `tour` (
   `id` BIGINT NOT NULL,
   `loc_category` INT NOT NULL,
   `address` VARCHAR(200) NOT NULL,
-  `info` VARCHAR(300) NOT NULL
+  `info` VARCHAR(2000) NOT NULL,
+  `photo` VARCHAR(300)
 );
 
 CREATE TABLE `plan` (
