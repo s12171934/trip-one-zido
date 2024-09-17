@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -23,6 +24,13 @@ public class SnsLoginService {
     @Autowired
     MemberMapper memberMapper;
 
+    @Value("${NAVER_CLIENT_ID}")
+    private String naver_client_id;
+    @Value("{NAVER_KEY}")
+    private String naver_key;
+    @Value("${KAKAO_CLIENT_ID}")
+    private String kakao_client_id;
+
     //GET
     public String naverLogin(String code, String state) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
@@ -30,8 +38,8 @@ public class SnsLoginService {
 
         MultiValueMap<String,String> dto = new LinkedMultiValueMap<>();
         dto.add("grant_type","authorization_code");
-        dto.add("client_id","TGQMEJAd_Qx6raHI9ZZk");
-        dto.add("client_secret","sJS5Wv2uex");
+        dto.add("client_id",naver_client_id);
+        dto.add("client_secret",naver_key);
         dto.add("code",code);
         dto.add("state",state);
 
@@ -77,7 +85,7 @@ public class SnsLoginService {
 
         MultiValueMap<String,String> dto = new LinkedMultiValueMap<>();
         dto.add("grant_type","authorization_code");
-        dto.add("client_id","9f43f99ff692bc46c266ddd1b0118864");
+        dto.add("client_id",kakao_client_id);
         dto.add("redirect_uri","http://localhost:8080/api/social/kakao_login");
         dto.add("code",code);
 
